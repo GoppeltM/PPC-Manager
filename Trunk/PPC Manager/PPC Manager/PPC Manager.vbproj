@@ -85,12 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Optionen.xaml.vb">
+      <DependentUpon>Optionen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Spieler.vb" />
     <Compile Include="SpielerListe.vb" />
     <Compile Include="SpielPartie.vb" />
-    <Compile Include="Vereine bearbeiten.xaml.vb">
-      <DependentUpon>Vereine bearbeiten.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Vereine.vb" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -104,9 +104,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Vereine bearbeiten.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Optionen.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
