@@ -16,4 +16,8 @@ Class MainWindow
         Dim dialog As New Optionen
         dialog.ShowDialog()
     End Sub
+
+    Private Sub DataGrid1_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.KeyEventArgs) Handles DataGrid1.KeyDown
+        DataGrid1.BeginEdit()
+    End Sub
 End Class

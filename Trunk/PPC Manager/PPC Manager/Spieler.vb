@@ -3,20 +3,19 @@
 Public Class Spieler
     Implements IComparable(Of Spieler)
 
+    Public Property Vorname As String = "Bla"
 
-    Public Property Vorname As String
+    Public Property Nachname As String = ""
 
-    Public Property Nachname As String
+    Public Property Verein As String = ""
 
-    Public Property Verein As String
+    Public Property SpielKlasse As String = ""
 
-    Public Property SpielKlasse As String
+    Public Property Position As Integer = 1
 
-    Public Property Position As Integer
+    Public Property TurnierKlasse As String = ""
 
-    Public Property TurnierKlasse As String
-
-    Public Property StartNummer As Integer
+    Public Property StartNummer As Integer = 0
 
     Public ReadOnly Property Punkte As Integer
         Get
@@ -52,16 +51,7 @@ Public Class Spieler
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
-        Return Me.StartNummer - other.StartNummer
-    End Function
-
-    Public Overrides Function Equals(ByVal obj As Object) As Boolean
-        Dim other = TryCast(obj, Spieler)
-        If other Is Nothing Then Return False
-        Return other.StartNummer = Me.StartNummer
-    End Function
-    Public Overrides Function GetHashCode() As Integer
-        Return StartNummer.GetHashCode
+        Return Me.Vorname & Me.Nachname = other.Vorname & other.Nachname
     End Function
 
 

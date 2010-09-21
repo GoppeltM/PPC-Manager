@@ -10,11 +10,11 @@
     </Window.Resources>
 
     <Grid Margin="20">
-        <DataGrid Grid.Row="0" Grid.Column="0" Margin="12,29,0,0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource myPersonen}}" AlternatingRowBackground="#FFC93131" AlternationCount="2" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <DataGrid Grid.Row="0" Grid.Column="0" Margin="12,29,0,0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource myPersonen}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Vorname}" Header="Vorname" Width="*" />
                 <DataGridTextColumn Binding="{Binding Path=Nachname}" Header="Nachname" Width="*" />
-                <DataGridComboBoxColumn Header="Verein" SelectedItemBinding="{Binding Path=Verein}" Width="*" />
+                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein}" Header="Verein" Width="*" ItemsSource="{Binding Source={StaticResource Settings}, Path=Vereine}" Selector.IsSelected="True" />
                 <DataGridTextColumn Binding="{Binding Path=SpielKlasse}" Header="Spielklasse" Width="0.5*" />
                 <DataGridTextColumn Binding="{Binding Path=Position}" Header="Position" Width="*" />
                 <DataGridTextColumn Binding="{Binding Path=TurnierKlasse}" Header="Turnierklasse" Width="*" />
@@ -26,6 +26,6 @@
                 <MenuItem Header="Vereine..." Name="Vereine" />
                 <MenuItem Header="Beenden..."></MenuItem>
             </MenuItem>
-        </Menu>
+        </Menu>       
     </Grid>
 </Window>
