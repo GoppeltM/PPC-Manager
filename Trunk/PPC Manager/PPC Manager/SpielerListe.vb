@@ -1,6 +1,6 @@
 ﻿Imports System.Collections.ObjectModel
 
 Public Class SpielerListe
-    Inherits Collection(Of Spieler)
+    Inherits ObservableCollection(Of Spieler)
 
 End Class

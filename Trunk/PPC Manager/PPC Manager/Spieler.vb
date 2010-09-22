@@ -1,21 +1,90 @@
 ﻿Imports System.ComponentModel
 
 Public Class Spieler
-    Implements IComparable(Of Spieler)
+    Implements IComparable(Of Spieler), INotifyPropertyChanged
 
-    Public Property Vorname As String = "Bla"
+#Region "Public Properties"
 
-    Public Property Nachname As String = ""
+    Private _Vorname As String
+    Public Property Vorname As String
+        Get
+            Return _Vorname
+        End Get
+        Set(ByVal value As String)
+            _Vorname = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Vorname"))
+        End Set
+    End Property
 
-    Public Property Verein As String = ""
+    Private _Nachname As String
+    Public Property Nachname As String
+        Get
+            Return _Nachname
+        End Get
+        Set(ByVal value As String)
+            _Nachname = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Nachname"))
+        End Set
+    End Property
 
-    Public Property SpielKlasse As String = ""
+    Private _Verein As String
+    Public Property Verein As String
+        Get
+            Return _Verein
+        End Get
+        Set(ByVal value As String)
+            _Verein = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Verein"))
+        End Set
+    End Property
 
-    Public Property Position As Integer = 1
+    Private _SpielKlasse As String = ""
+    Public Property SpielKlasse As String
+        Get
+            Return _SpielKlasse
+        End Get
+        Set(ByVal value As String)
+            _SpielKlasse = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("SpielKlasse"))
+        End Set
+    End Property
 
-    Public Property TurnierKlasse As String = ""
+    
+    Private _Position As Integer
+    Public Property Position() As Integer
+        Get
+            Return _Position
+        End Get
+        Set(ByVal value As Integer)
+            _Position = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Position"))
+        End Set
+    End Property
 
-    Public Property StartNummer As Integer = 0
+
+    Private _turnierKlasse As String
+    Public Property TurnierKlasse() As String
+        Get
+            Return _turnierKlasse
+        End Get
+        Set(ByVal value As String)
+            _turnierKlasse = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("TurnierKlasse"))
+        End Set
+    End Property
+
+
+    Private _StartNummer As Integer
+    Public Property StartNummer() As Integer
+        Get
+            Return _StartNummer
+        End Get
+        Set(ByVal value As Integer)
+            _StartNummer = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("StartNummer"))
+        End Set
+    End Property
+
 
     Public ReadOnly Property Punkte As Integer
         Get
@@ -29,8 +98,12 @@ Public Class Spieler
 
     Public Property FreiLosInRunde As Integer
 
+
+#End Region
+
+
     Private ReadOnly Property SatzDifferenz As Integer
-        Get            
+        Get
 
 
         End Get
@@ -63,5 +136,6 @@ Public Class Spieler
         Return left.Equals(right)
     End Operator
 
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
 End Class

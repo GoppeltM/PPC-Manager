@@ -112,6 +112,7 @@
   <ItemGroup>
     <Import Include="Microsoft.Win32" />
     <Import Include="System.Linq" />
+    <Import Include="System.Text.RegularExpressions" />
     <Import Include="System.Xml.Linq" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
