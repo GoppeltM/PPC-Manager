@@ -1,0 +1,45 @@
+﻿<Window x:Class="Begegnungen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PPC_Manager"
+    Title="Begegnungen" Height="484" Width="666">
+    <Window.Resources>
+        <local:SpielPartien x:Key="SpielPartien"/>
+        <SolidColorBrush x:Key="GewonnenerSatzFarbe">#FF95EDCE</SolidColorBrush>
+        <DataTemplate x:Key="SatzZelle">
+            <Canvas Background="{StaticResource GewonnenerSatzFarbe}">
+                <Label Content="Test"/>
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate x:Key="Namen">
+            <StackPanel>
+                <Label Content="{Binding Path=SpielerLinks}"></Label>
+                <Separator></Separator>
+                <Label Content="{Binding Path=SpielerRechts}"></Label>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="SätzeDisplay">
+            <ItemsControl ItemsSource="{Binding Source={StaticResource SpielPartien}, Path=Sätze}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Label Content="{Binding Path=PunkteLinks}"></Label>
+                            <Label Content="{Binding Path=PunkteRechts}"></Label>
+                        </StackPanel>                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </DataTemplate>        
+    </Window.Resources>    
+    <Grid>
+        <ListView Height="245" HorizontalAlignment="Left" Margin="0,12,0,0" Name="ListView1" VerticalAlignment="Top" Width="432" ItemsSource="{Binding Source={StaticResource SpielPartien}}" ItemTemplate="{StaticResource SätzeDisplay}">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn CellTemplate="{StaticResource Namen}" Width="150" />
+                    <GridViewColumn CellTemplate="{StaticResource SätzeDisplay}" />
+                </GridView>
+            </ListView.View>            
+        </ListView>
+    </Grid>
+</Window>

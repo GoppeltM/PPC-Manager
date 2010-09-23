@@ -9,19 +9,16 @@
 ''' </remarks>
 Public Class SpielPartie
 
+    Public Sub New()
+        Sätze.Add(New Satz)
+    End Sub
 
     Public Property Spieler As New List(Of Spieler)
 
-    Public Property Sätze As New List(Of Dictionary(Of Spieler, Integer))
+    Public Property Sätze As New List(Of Satz)
 
 
     Private Satz As KeyValuePair(Of Integer, Integer)
-
-    Public ReadOnly Property Sätze(ByVal spieler As Spieler) As List(Of Integer)
-        Get
-
-        End Get
-    End Property
 
     Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
         Get            
@@ -29,5 +26,24 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public ReadOnly Property SpielerLinks As Spieler
+        Get
+            Return New Spieler
+        End Get        
+    End Property
+
+    Public ReadOnly Property SpielerRechts As Spieler
+        Get
+            Return New Spieler
+        End Get
+    End Property
+
 End Class
 
+Public Class Satz
+
+    Public Property PunkteLinks As Integer = 3
+
+    Public Property PunkteRechts As Integer = 7
+
+End Class

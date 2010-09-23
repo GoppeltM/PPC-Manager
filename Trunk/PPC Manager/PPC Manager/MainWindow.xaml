@@ -33,6 +33,7 @@
                 <MenuItem Command="ApplicationCommands.Copy" Header="Kopieren" />
                 <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
             </MenuItem>
-        </Menu>       
+        </Menu>
+        <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="269,194,0,0" Name="Button1" VerticalAlignment="Top" Width="75" />
     </Grid>
 </Window>

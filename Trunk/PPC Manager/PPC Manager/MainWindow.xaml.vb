@@ -66,4 +66,9 @@ Class MainWindow
         Dim data As String = e.Data.GetData("CSV")
 
     End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
+        Dim b As New Begegnungen
+        b.ShowDialog()
+    End Sub
 End Class

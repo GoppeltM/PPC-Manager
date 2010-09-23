@@ -16,7 +16,7 @@ Public Class Spieler
         End Set
     End Property
 
-    Private _Nachname As String
+    Private _Nachname As String = "Mustermann"
     Public Property Nachname As String
         Get
             Return _Nachname

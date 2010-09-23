@@ -7,10 +7,6 @@
     <Window.Resources>
         <local:VereinsDaten x:Key="Vereine" />
         <local:MySettings x:Key="Settings" />
-        <DataTemplate x:Key="VereinsText">            
-                <TextBox  Text ="{Binding Path=Vereinsname, Mode=TwoWay}" AcceptsReturn="False" AcceptsTab="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"></TextBox>
-        </DataTemplate>
-        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -24,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Button Content="OK" Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="290,0,0,12" Name="Button2" VerticalAlignment="Bottom" Width="75" IsDefault="False" />
         <Button Content="Abbrechen" Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="371,0,0,12" Name="Button3" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
-        <Expander Header="Vereine" HorizontalAlignment="Left" Margin="12,12,0,2" Name="Expander1" VerticalAlignment="Stretch" Width="202" ExpandDirection="Down" Grid.RowSpan="4">
+        <Expander Header="Vereine" HorizontalAlignment="Left" Margin="12,12,0,2" Name="Expander1" VerticalAlignment="Stretch" Width="202" ExpandDirection="Down">
             <Grid>
                 <DataGrid AutoGenerateColumns="False" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource Vereine}}" HeadersVisibility="None">
                     <DataGrid.Columns>
