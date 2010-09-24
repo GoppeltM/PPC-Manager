@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.ComponentModel
+Imports System.Collections.ObjectModel
 
 ''' <summary>
 ''' 
@@ -8,42 +9,74 @@
 ''' Jedes Ergebnis besteht aus 3 oder 5 Sätzen, und den Punkten die darin angehäuft wurden.
 ''' </remarks>
 Public Class SpielPartie
+    Implements INotifyPropertyChanged
+
 
     Public Sub New()
-        Sätze.Add(New Satz)
+        'For i = 1 To My.Settings.MaxSätze
+        '    Sätze.Add(New Satz)
+        'Next
+        Spieler.Add(New Spieler)
+        Spieler.Add(New Spieler)
     End Sub
 
-    Public Property Spieler As New List(Of Spieler)
+    Public Property Spieler As New ObservableCollection(Of Spieler)
 
-    Public Property Sätze As New List(Of Satz)
+    Public Property Sätze As New ObservableCollection(Of Satz)
 
-
-    Private Satz As KeyValuePair(Of Integer, Integer)
 
     Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
-        Get            
+        Get
 
         End Get
     End Property
 
     Public ReadOnly Property SpielerLinks As Spieler
         Get
-            Return New Spieler
-        End Get        
+            Return Spieler.First
+        End Get
     End Property
 
     Public ReadOnly Property SpielerRechts As Spieler
         Get
-            Return New Spieler
+            Return Spieler.Last
         End Get
     End Property
 
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
 End Class
 
 Public Class Satz
+    Implements INotifyPropertyChanged
 
-    Public Property PunkteLinks As Integer = 3
+    Private _PunkteLinks As Integer = 0
+    Public Property PunkteLinks As Integer
+        Get
+            Return _PunkteLinks
+        End Get
+        Set(ByVal value As Integer)
+            _PunkteLinks = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("PunkteLinks"))
+        End Set
+    End Property
 
-    Public Property PunkteRechts As Integer = 7
+    Private _PunkteRechts As Integer = 0
+    Public Property PunkteRechts As Integer
+        Get
+            Return _PunkteRechts
+        End Get
+        Set(ByVal value As Integer)
+            _PunkteRechts = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("PunkteRechts"))
+        End Set
+    End Property
 
+    Public ReadOnly Property Abgeschlossen As Boolean
+        Get
+            Return Math.Max(PunkteLinks, PunkteRechts) >= My.Settings.GewinnPunkte
+        End Get
+    End Property
+
+
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
 End Class

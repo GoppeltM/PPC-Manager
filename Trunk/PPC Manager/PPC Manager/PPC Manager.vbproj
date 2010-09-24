@@ -88,11 +88,11 @@
     <Compile Include="Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HilfsKlassen.vb" />
     <Compile Include="Optionen.xaml.vb">
       <DependentUpon>Optionen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Spieler.vb" />
-    <Compile Include="SpielerListe.vb" />
     <Compile Include="SpielPartie.vb" />
     <Compile Include="Vereine.vb" />
     <Page Include="Begegnungen.xaml">

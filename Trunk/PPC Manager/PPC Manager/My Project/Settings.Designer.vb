@@ -79,6 +79,30 @@ Partial Friend NotInheritable Class MySettings
             Me("Vereine") = value
         End Set
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("21")>  _
+    Public Property GewinnPunkte() As Integer
+        Get
+            Return CType(Me("GewinnPunkte"),Integer)
+        End Get
+        Set
+            Me("GewinnPunkte") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+    Public Property MaxSätze() As Integer
+        Get
+            Return CType(Me("MaxSätze"),Integer)
+        End Get
+        Set
+            Me("MaxSätze") = value
+        End Set
+    End Property
 End Class
 
 Namespace My
