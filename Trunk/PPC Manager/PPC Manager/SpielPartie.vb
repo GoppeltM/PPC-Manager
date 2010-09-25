@@ -16,30 +16,34 @@ Public Class SpielPartie
         'For i = 1 To My.Settings.MaxSätze
         '    Sätze.Add(New Satz)
         'Next
-        Spieler.Add(New Spieler)
-        Spieler.Add(New Spieler)
+        Spieler = New KeyValuePair(Of Spieler, Spieler)(New Spieler, New Spieler)        
     End Sub
 
-    Public Property Spieler As New ObservableCollection(Of Spieler)
+    Private Property Spieler As KeyValuePair(Of Spieler, Spieler)
 
     Public Property Sätze As New ObservableCollection(Of Satz)
 
 
     Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
         Get
-
+            If Spieler.Key = ich Then
+                Return Spieler.Value
+            Else
+                Return Spieler.Key
+            End If
         End Get
     End Property
 
+
     Public ReadOnly Property SpielerLinks As Spieler
         Get
-            Return Spieler.First
+            Return Spieler.Key
         End Get
     End Property
 
     Public ReadOnly Property SpielerRechts As Spieler
         Get
-            Return Spieler.Last
+            Return Spieler.Value
         End Get
     End Property
 

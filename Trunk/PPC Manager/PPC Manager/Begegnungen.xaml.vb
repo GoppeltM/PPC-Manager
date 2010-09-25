@@ -1,5 +1,4 @@
-﻿Public Class Begegnungen
-
+﻿Class Begegnungen
 
     Private Sub CheckBox1_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles CheckBox1.Checked
         Dim SpielPartien = Resources.Item("SpielPartien")

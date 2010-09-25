@@ -1,11 +1,15 @@
-﻿<Window x:Class="Begegnungen"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:PPC_Manager"
-    Title="Begegnungen" Height="484" Width="666">
-    <Window.Resources>
+﻿<Page x:Class="Begegnungen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:PPC_Manager"
+      mc:Ignorable="d" 
+      d:DesignHeight="368" d:DesignWidth="572"
+      Title="Begegnungen">
+    <Page.Resources>
         <local:SpielPartien x:Key="SpielPartien"/>
-        <local:SatzFarbenPainter x:Key="MyPainter" />       
+        <local:SatzFarbenPainter x:Key="MyPainter" />
         <DataTemplate x:Key="Namen">
             <StackPanel>
                 <Label Content="{Binding Path=SpielerLinks}"></Label>
@@ -25,13 +29,13 @@
                         <StackPanel>
                             <Label Content="{Binding Path=PunkteLinks}" Background="{Binding Path=PunkteLinks,Converter={StaticResource MyPainter}}" ></Label>
                             <Label Content="{Binding Path=PunkteRechts}" Background="{Binding Path=PunkteRechts,Converter={StaticResource MyPainter}}"></Label>
-                        </StackPanel>                        
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </DataTemplate>        
-    </Window.Resources>
-    <Grid >
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150*" />
             <ColumnDefinition Width="4"/>
@@ -43,9 +47,9 @@
                     <GridViewColumn CellTemplate="{StaticResource Namen}" />
                     <GridViewColumn CellTemplate="{StaticResource SätzeDisplay}" />
                 </GridView>
-            </ListView.View>            
+            </ListView.View>
         </ListView>
         <GridSplitter HorizontalAlignment="Stretch" Name="GridSplitter1" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="1" Margin="0,39,0,0" ShowsPreview="True" Background="#FF767474" />
         <CheckBox Content="Nur offene Begegnungen" Height="16" HorizontalAlignment="Left" Margin="12,17,0,0" Name="CheckBox1" VerticalAlignment="Top" />
     </Grid>
-</Window>
+</Page>

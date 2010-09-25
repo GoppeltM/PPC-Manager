@@ -94,6 +94,9 @@
     </Compile>
     <Compile Include="Spieler.vb" />
     <Compile Include="SpielPartie.vb" />
+    <Compile Include="StartListe.xaml.vb">
+      <DependentUpon>StartListe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vereine.vb" />
     <Page Include="Begegnungen.xaml">
       <SubType>Designer</SubType>
@@ -114,6 +117,10 @@
     <Page Include="Optionen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartListe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
