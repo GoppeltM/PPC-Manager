@@ -3,17 +3,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPC_Manager"
     Title="MainWindow" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="432" Width="792">
-    
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
+    </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Left" Name="Menu1" VerticalAlignment="Top" Width="136">
             <MenuItem Header="Projekt">
                 <MenuItem Header="Öffnen..." Name="Öffnen" />
                 <MenuItem Header="Turnier Starten..." Name="TurnierStarten" />
                 <MenuItem Header="Vereine..." Name="Vereine" />
-                <MenuItem Header="Beenden..."></MenuItem>
+                <MenuItem Header="Beenden..." Command="ApplicationCommands.Close"></MenuItem>
             </MenuItem>
             <MenuItem Header="Bearbeiten">
                 <MenuItem Command="ApplicationCommands.Copy" Header="Kopieren" />
+                <MenuItem Command="ApplicationCommands.Cut" Header="Ausschneiden" />
                 <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
             </MenuItem>
         </Menu>
