@@ -10,7 +10,7 @@
     <Page.Resources>
         <local:SpielPartien x:Key="SpielPartien"/>
         <local:SatzFarbenPainter x:Key="MyPainter" />
-        <DataTemplate x:Key="Namen">
+        <DataTemplate x:Key="PunkteDisplay">
             <StackPanel>
                 <Label Content="{Binding Path=SpielerLinks}"></Label>
                 <Separator></Separator>
@@ -18,7 +18,7 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="SätzeDisplay">
-            <ItemsControl ItemsSource="{Binding Path=Sätze}">
+            <ItemsControl ItemsSource="{Binding Path=Sätze}" IsTabStop="False">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>
@@ -33,7 +33,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </DataTemplate>
+        </DataTemplate>       
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -41,15 +41,32 @@
             <ColumnDefinition Width="4"/>
             <ColumnDefinition Width="297*" />
         </Grid.ColumnDefinitions>
-        <ListView HorizontalAlignment="Stretch" Name="ListView1" VerticalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource SpielPartien}}" ItemTemplate="{StaticResource SätzeDisplay}" Margin="12,39,0,0">
+        <ListView HorizontalAlignment="Stretch" Name="ListView1" VerticalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource SpielPartien}}" ItemTemplate="{StaticResource SätzeDisplay}" Margin="0,39,0,0" IsSynchronizedWithCurrentItem="True" SelectedIndex="-1">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridViewColumn CellTemplate="{StaticResource Namen}" />
+                    <GridViewColumn CellTemplate="{StaticResource PunkteDisplay}" />
                     <GridViewColumn CellTemplate="{StaticResource SätzeDisplay}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <GridSplitter HorizontalAlignment="Stretch" Name="GridSplitter1" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="1" Margin="0,39,0,0" ShowsPreview="True" Background="#FF767474" />
         <CheckBox Content="Nur offene Begegnungen" Height="16" HorizontalAlignment="Left" Margin="12,17,0,0" Name="CheckBox1" VerticalAlignment="Top" />
+        <Label Grid.Column="2" Height="28" HorizontalAlignment="Left" Margin="5,17,218,0" Name="Label1" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Center" Content="{Binding Source={StaticResource SpielPartien}, Path=SpielerLinks}" />
+        <Label Content="{Binding Source={StaticResource SpielPartien}, Path=SpielerRechts}" Height="28" Margin="4,127,218,0" Name="Label2" VerticalAlignment="Top" Grid.Column="2" Width="155" HorizontalContentAlignment="Center" HorizontalAlignment="Left" />
+        <ItemsControl Margin="4,49,0,0" Grid.Column="2" ItemsSource="{Binding Source={StaticResource SpielPartien}, Path=Sätze}" Height="72" VerticalAlignment="Top" HorizontalAlignment="Left" Width="155">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBox Text="{Binding Path=PunkteLinks}" Background="{Binding Path=PunkteLinks,Converter={StaticResource MyPainter}}"></TextBox>
+                        <TextBox Text="{Binding Path=PunkteRechts}" Background="{Binding Path=PunkteRechts,Converter={StaticResource MyPainter}}"></TextBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>

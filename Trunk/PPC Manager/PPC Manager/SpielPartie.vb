@@ -12,11 +12,9 @@ Public Class SpielPartie
     Implements INotifyPropertyChanged
 
 
-    Public Sub New()
-        'For i = 1 To My.Settings.MaxSätze
-        '    Sätze.Add(New Satz)
-        'Next
-        Spieler = New KeyValuePair(Of Spieler, Spieler)(New Spieler, New Spieler)        
+    Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, ByVal runde As Integer)                
+        Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
+        _Runde = runde
     End Sub
 
     Private Property Spieler As KeyValuePair(Of Spieler, Spieler)
@@ -24,14 +22,11 @@ Public Class SpielPartie
     Public Property Sätze As New ObservableCollection(Of Satz)
 
 
-    Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
+    Private _Runde As Integer
+    Public ReadOnly Property Runde() As Integer
         Get
-            If Spieler.Key = ich Then
-                Return Spieler.Value
-            Else
-                Return Spieler.Key
-            End If
-        End Get
+            Return _Runde
+        End Get        
     End Property
 
 
@@ -47,7 +42,43 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
+        Get
+            If Spieler.Key = ich Then
+                Return Spieler.Value
+            Else
+                Return Spieler.Key
+            End If
+        End Get
+    End Property
+
+    Public ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
+        Get
+            Dim gewonnenLinks = From x In Sätze Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
+                           Select x
+
+            Dim gewonnenRechts = From x In Sätze Where x.Abgeschlossen AndAlso x.PunkteLinks < x.PunkteRechts
+                           Select x
+
+            If SpielerLinks = ich Then
+                Return gewonnenLinks
+            Else
+                Return gewonnenRechts
+            End If
+        End Get
+    End Property
+
+    
+
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+
+    Function ToXML() As XElement
+        Dim node = <SpielPartie SpielerLinks=<%= SpielerLinks.StartNummer %> SpielerRechts=<%= SpielerRechts.StartNummer %>>
+                       <%= From x In Sätze Let y = x.ToXML() Select y %>
+                   </SpielPartie>
+        Throw New NotImplementedException
+    End Function
+
 End Class
 
 Public Class Satz
@@ -83,4 +114,12 @@ Public Class Satz
 
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+
+    Function ToXML() As XElement
+        Dim node = <Satz PunkteLinks=<%= PunkteLinks %> PunkteRechts=<%= PunkteRechts %>>
+
+                   </Satz>
+        Return node
+    End Function
+
 End Class

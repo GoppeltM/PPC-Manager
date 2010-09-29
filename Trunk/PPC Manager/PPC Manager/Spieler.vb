@@ -1,4 +1,6 @@
 ﻿Imports System.ComponentModel
+Imports System.Collections.ObjectModel
+Imports <xmlns="http://PPCManager/SpeicherStand">
 
 Public Class Spieler
     Implements IComparable(Of Spieler), INotifyPropertyChanged
@@ -49,7 +51,7 @@ Public Class Spieler
         End Set
     End Property
 
-    
+
     Private _Position As Integer
     Public Property Position() As Integer
         Get
@@ -88,26 +90,38 @@ Public Class Spieler
 
     Public ReadOnly Property Punkte As Integer
         Get
+            Dim _punkte = Aggregate x In GespieltePartien
+                          Where x.MeineGewonnenenSätze(Me).Count > x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count
+                          Into Count()
 
+            Return _punkte
         End Get
     End Property
 
-    Public Property BuchholzPunkte As Integer
+    Public ReadOnly Property BuchholzPunkte As Integer
+        Get
+            Dim _punkte = Aggregate x In GespieltePartien Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Return _punkte
+        End Get        
+    End Property
 
-    Public Property GespieltePartien As IList(Of SpielPartie)
+    Public Property GespieltePartien As New ObservableCollection(Of SpielPartie)
 
     Public Property FreiLosInRunde As Integer
 
+    Private ReadOnly Property SatzDifferenz As Integer
+        Get
+            Dim meineGewonnenenSätze = Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(Me).Count)
+            Dim GegnerGewonnenenSätze = Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count)
+
+            Return meineGewonnenenSätze - GegnerGewonnenenSätze
+        End Get
+    End Property
 
 #End Region
 
 
-    Private ReadOnly Property SatzDifferenz As Integer
-        Get
 
-
-        End Get
-    End Property
 
 
     Public Overrides Function ToString() As String
@@ -137,5 +151,34 @@ Public Class Spieler
     End Operator
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
+
+
+    Public Function ToXML() As XElement
+        Dim node = <Spieler Vorname=<%= Vorname %> Nachname=<%= Nachname %>
+                       Verein=<%= Verein %> SpielKlasse=<%= SpielKlasse %>
+                       StartNummer=<%= StartNummer %> FreilosInRunde=<%= FreiLosInRunde %>
+                       Position=<%= Position %> TurnierKlasse=<%= TurnierKlasse %>
+                       >
+                       <%= From x In GespieltePartien Let subNode = x.ToXML() Select subNode %>
+                   </Spieler>
+
+        Return node
+    End Function
+
+    Public Sub InitializeXML(ByVal spielerNode As XElement)
+        Vorname = spielerNode.@Vorname
+        Nachname = spielerNode.@Nachname
+        Verein = spielerNode.@Verein
+        SpielKlasse = spielerNode.@SpielKlasse
+        StartNummer = spielerNode.@StartNummer
+        FreiLosInRunde = spielerNode.@FreilosInRunde
+        Position = spielerNode.@Position
+        TurnierKlasse = spielerNode.@TurnierKlasse
+
+    End Sub
+
+    Public Sub FülleBegegnungen(ByVal spielerNode As XElement, ByVal spielerListe As IList(Of Spieler))
+
+    End Sub
 
 End Class

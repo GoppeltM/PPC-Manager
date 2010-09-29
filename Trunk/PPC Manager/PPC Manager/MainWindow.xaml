@@ -5,13 +5,15 @@
     Title="MainWindow" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="432" Width="792">
     <Window.CommandBindings>
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
+        <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Left" Name="Menu1" VerticalAlignment="Top" Width="136">
             <MenuItem Header="Projekt">
                 <MenuItem Header="Öffnen..." Name="Öffnen" />
+                <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
                 <MenuItem Header="Turnier Starten..." Name="TurnierStarten" />
-                <MenuItem Header="Vereine..." Name="Vereine" />
+                <MenuItem Header="Einstellungen..." Name="Einstellungen" />
                 <MenuItem Header="Beenden..." Command="ApplicationCommands.Close"></MenuItem>
             </MenuItem>
             <MenuItem Header="Bearbeiten">
