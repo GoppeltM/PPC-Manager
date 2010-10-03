@@ -12,7 +12,7 @@
             <MenuItem Header="Projekt">
                 <MenuItem Header="Öffnen..." Name="Öffnen" />
                 <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
-                <MenuItem Header="Turnier Starten..." Name="TurnierStarten" />
+                <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="NavigationCommands.NextPage" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
                 <MenuItem Header="Beenden..." Command="ApplicationCommands.Close"></MenuItem>
             </MenuItem>

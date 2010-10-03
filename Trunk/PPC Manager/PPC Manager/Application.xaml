@@ -7,5 +7,6 @@
     <Application.Resources>
         <local:SpielerListe x:Key="myPersonen" />
         <local:MySettings x:Key="Settings" />
+        <local:SpielPartien x:Key="mySpielPartien" />
     </Application.Resources>
 </Application>

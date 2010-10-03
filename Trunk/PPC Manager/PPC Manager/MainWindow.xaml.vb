@@ -17,10 +17,6 @@ Class MainWindow
         dialog.ShowDialog()
     End Sub
 
-    Private Sub TurnierStarten_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles TurnierStarten.Click
-        Frame1.Navigate(New Uri("pack://application:,,,/Begegnungen.xaml"))
-    End Sub
-
     Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
         e.CanExecute = True
     End Sub
@@ -41,12 +37,23 @@ Class MainWindow
 
         If dialog.ShowDialog() Then
             Dim spielerListe As SpielerListe = FindResource("myPersonen")
+            Dim SpielPartien As SpielPartien = FindResource("mySpielPartien")
 
             Dim doc = New XDocument(<PPCTurnier>
-                                        <%= From x In spielerListe Let y = x.ToXML Select y %>
+                                        <SpielerListe>
+                                            <%= From x In spielerListe Let y = x.ToXML Select y %>
+                                        </SpielerListe>
+                                        <AktuelleBegegnungen>
+                                            <%= From x In SpielPartien Let y = x.ToXML Select y %>
+                                        </AktuelleBegegnungen>
                                     </PPCTurnier>)
 
             doc.Save(dialog.FileName)
         End If
     End Sub
+
+    Private Sub TurnierStarten_Executed(ByVal sender As System.Object, ByVal e As RoutedEventArgs) Handles TurnierStarten.Click
+        Frame1.Navigate(New Uri("pack://application:,,,/Begegnungen.xaml"))
+    End Sub
+
 End Class

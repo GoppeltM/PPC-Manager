@@ -95,7 +95,7 @@
         e.CanExecute = DataGrid1.SelectedCells.Any
     End Sub
 
-    Private Sub CommandBinding_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+    Private Sub Copy_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Dim selectedRows = From x In DataGrid1.SelectedCells Group By x.Item Into Group
 
 
@@ -117,5 +117,11 @@
             CSVContent &= Environment.NewLine
         Next
         Clipboard.SetData(DataFormats.CommaSeparatedValue, CSVContent)
+    End Sub
+
+    Private Sub TurnierStartenExecuted(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+        DataGrid1.CanUserAddRows = False
+        DataGrid1.CanUserDeleteRows = False
+
     End Sub
 End Class

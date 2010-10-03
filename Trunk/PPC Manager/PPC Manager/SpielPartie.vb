@@ -9,24 +9,26 @@ Imports System.Collections.ObjectModel
 ''' Jedes Ergebnis besteht aus 3 oder 5 Sätzen, und den Punkten die darin angehäuft wurden.
 ''' </remarks>
 Public Class SpielPartie
+    Inherits ObservableCollection(Of Satz)
     Implements INotifyPropertyChanged
 
 
-    Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, ByVal runde As Integer)                
+
+    Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, ByVal runde As Integer)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
         _Runde = runde
+        For i = 1 To My.Settings.MaxSätze
+            Me.Add(New Satz)
+        Next
     End Sub
 
     Private Property Spieler As KeyValuePair(Of Spieler, Spieler)
-
-    Public Property Sätze As New ObservableCollection(Of Satz)
-
 
     Private _Runde As Integer
     Public ReadOnly Property Runde() As Integer
         Get
             Return _Runde
-        End Get        
+        End Get
     End Property
 
 
@@ -54,10 +56,10 @@ Public Class SpielPartie
 
     Public ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
         Get
-            Dim gewonnenLinks = From x In Sätze Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
+            Dim gewonnenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
                            Select x
 
-            Dim gewonnenRechts = From x In Sätze Where x.Abgeschlossen AndAlso x.PunkteLinks < x.PunkteRechts
+            Dim gewonnenRechts = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks < x.PunkteRechts
                            Select x
 
             If SpielerLinks = ich Then
@@ -68,13 +70,9 @@ Public Class SpielPartie
         End Get
     End Property
 
-    
-
-    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-
     Function ToXML() As XElement
         Dim node = <SpielPartie SpielerLinks=<%= SpielerLinks.StartNummer %> SpielerRechts=<%= SpielerRechts.StartNummer %>>
-                       <%= From x In Sätze Let y = x.ToXML() Select y %>
+                       <%= From x In Me Let y = x.ToXML() Select y %>
                    </SpielPartie>
         Throw New NotImplementedException
     End Function

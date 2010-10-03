@@ -12,12 +12,18 @@ Public Class SpielPartien
         ' TODO: für Testzwecke
         Dim x As New SpielPartie(New Spieler, New Spieler, 0)
         x.SpielerLinks.Nachname = "Zylka"
-        x.Sätze.Add(New Satz With {.PunkteLinks = 3, .PunkteRechts = 21})
-        x.Sätze.Add(New Satz With {.PunkteLinks = 21, .PunkteRechts = 4})
+
+        With x(0)
+            .PunkteLinks = 3
+            .PunkteRechts = 21
+        End With
+
+        With x(1)
+            .PunkteLinks = 17
+            .PunkteRechts = 4
+        End With
         Add(x)
         x = New SpielPartie(New Spieler, New Spieler, 0)
-        x.Sätze.Add(New Satz With {.PunkteLinks = 3, .PunkteRechts = 21})
-        x.Sätze.Add(New Satz With {.PunkteLinks = 5, .PunkteRechts = 4})
         Add(x)
     End Sub
 

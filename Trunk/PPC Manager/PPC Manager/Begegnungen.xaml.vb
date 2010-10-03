@@ -1,19 +1,19 @@
 ﻿Class Begegnungen
 
-    Private Sub CheckBox1_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles CheckBox1.Checked
-        Dim SpielPartien = Resources.Item("SpielPartien")
-        Dim View = CollectionViewSource.GetDefaultView(SpielPartien)
-        View.Filter = Function(o As Object) As Boolean
-                          Dim partie As SpielPartie = o
+    Private Sub CollectionViewSource1_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
+        If CheckBox1 Is Nothing OrElse Not CheckBox1.IsChecked Then
+            e.Accepted = True
+            Return
+        End If
 
-                          Dim abgeschlossen = Aggregate x In partie.Sätze Into All(x.Abgeschlossen)
-                          Return Not abgeschlossen
-                      End Function
+        Dim spielPartie As SpielPartie = e.Item
+        Dim abgeschlossen = Aggregate x In spielPartie Into All(x.Abgeschlossen)
+        e.Accepted = Not abgeschlossen
     End Sub
 
-    Private Sub CheckBox1_Unchecked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles CheckBox1.Unchecked
-        Dim SpielPartien = Resources.Item("SpielPartien")
-        Dim View = CollectionViewSource.GetDefaultView(SpielPartien)
-        View.Filter = Nothing
+    Private Sub UpdateView(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles CheckBox1.Click
+        Dim c As CollectionViewSource = FindResource("MyView")
+        c.View.Refresh()
     End Sub
+
 End Class

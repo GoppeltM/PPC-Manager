@@ -11,7 +11,8 @@
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
                     <CommandBinding Command="ApplicationCommands.Paste" CanExecute="Paste_CanExecute" Executed="Paste_Executed"/>
-                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="Copy_CanExecute" Executed="CommandBinding_Executed"/>
+                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
+                <CommandBinding Command="NextPage" Executed="TurnierStartenExecuted"/>
             </DataGrid.CommandBindings>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Vorname}" Header="Vorname" Width="*" x:Name="Vorname" />
