@@ -6,13 +6,15 @@
       xmlns:local="clr-namespace:PPC_Manager"
       
       mc:Ignorable="d" Title="StartListe" d:DesignHeight="300" d:DesignWidth="731">    
+    <Page.CommandBindings>
+        <CommandBinding Command="NextPage" Executed="TurnierStartenExecuted"/>
+    </Page.CommandBindings>
         <Grid>
-            <DataGrid Grid.Row="0" Grid.Column="0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource myPersonen}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
+            <DataGrid Grid.Row="0" Grid.Column="0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource AktiveSpieler}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
                     <CommandBinding Command="ApplicationCommands.Paste" CanExecute="Paste_CanExecute" Executed="Paste_Executed"/>
-                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                <CommandBinding Command="NextPage" Executed="TurnierStartenExecuted"/>
+                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>        
             </DataGrid.CommandBindings>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Vorname}" Header="Vorname" Width="*" x:Name="Vorname" />

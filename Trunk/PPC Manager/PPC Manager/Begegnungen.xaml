@@ -71,6 +71,26 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <GridSplitter Grid.Column="3" ResizeDirection="Columns" ShowsPreview="True" HorizontalAlignment="Stretch"></GridSplitter>
-        <ListBox Grid.Column="4" Name="ListBox1" ItemsSource="{Binding Source={StaticResource myPersonen}}" />
+        <ListBox Grid.Column="4" Name="ListBox1">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Disqualifizieren...">
+                        
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <ListBoxItem>
+                <local:Spieler></local:Spieler>
+            </ListBoxItem>
+        </ListBox>
+        <Expander Grid.Column="2" Header="Aus dem Spiel ausgestiegen" Height="100" HorizontalAlignment="Left" Name="Expander1" VerticalAlignment="Bottom" ExpandDirection="Up" Width="185" Margin="5,0,0,12">
+            <ListBox>
+                <ListBoxItem>
+                    <local:Spieler Vorname="Erik" Nachname="Svenson"></local:Spieler>
+                </ListBoxItem>
+            </ListBox>
+        </Expander>
+        <Label Content="Freilos Spieler:" Grid.Column="2" Height="28" HorizontalAlignment="Left" Margin="5,186,0,0" Name="Label3" VerticalAlignment="Top" />
+        <Label Content="XYZ" Height="28" HorizontalAlignment="Left" Margin="104,186,0,0" Name="Label4" VerticalAlignment="Top" Grid.Column="2" Width="111" />
     </Grid>
 </Page>

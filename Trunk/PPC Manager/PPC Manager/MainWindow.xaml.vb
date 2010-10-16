@@ -39,7 +39,7 @@ Class MainWindow
             Dim spielerListe As SpielerListe = FindResource("myPersonen")
             Dim SpielPartien As SpielPartien = FindResource("mySpielPartien")
 
-            Dim doc = New XDocument(<PPCTurnier>
+            Dim doc = New XDocument(<PPCTurnier AktuelleRunde=<%= My.Settings.AktuelleRunde %>>
                                         <SpielerListe>
                                             <%= From x In spielerListe Let y = x.ToXML Select y %>
                                         </SpielerListe>

@@ -5,7 +5,8 @@
              
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:SpielerListe x:Key="myPersonen" />
+        <local:SpielerListe x:Key="AktiveSpieler" />
+        <local:SpielerListe x:Key="DisqualiSpieler" />
         <local:MySettings x:Key="Settings" />
         <local:SpielPartien x:Key="mySpielPartien" />
     </Application.Resources>
