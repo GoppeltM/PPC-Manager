@@ -89,6 +89,11 @@
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="HilfsKlassen.vb" />
+    <Compile Include="Model\MittelPaket.vb" />
+    <Compile Include="Model\PaarungsContainer.vb" />
+    <Compile Include="Model\PaarungsSuche.vb" />
+    <Compile Include="Model\Paket.vb" />
+    <Compile Include="Model\PaketBildung.vb" />
     <Compile Include="Optionen.xaml.vb">
       <DependentUpon>Optionen.xaml</DependentUpon>
     </Compile>
