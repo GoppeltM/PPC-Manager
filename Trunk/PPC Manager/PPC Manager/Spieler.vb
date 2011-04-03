@@ -121,9 +121,6 @@ Public Class Spieler
 #End Region
 
 
-
-
-
     Public Overrides Function ToString() As String
         Return Nachname
     End Function
@@ -180,5 +177,11 @@ Public Class Spieler
     Public Sub FülleBegegnungen(ByVal spielerNode As XElement, ByVal spielerListe As IList(Of Spieler))
 
     End Sub
+
+    Function HatBereitsGespieltGegen(ByVal zuprüfenderSpieler As Spieler) As Boolean
+        Dim meineGegner = From x In GespieltePartien Select x.MeinGegner(Me)
+
+        Return meineGegner.Contains(zuprüfenderSpieler)
+    End Function
 
 End Class

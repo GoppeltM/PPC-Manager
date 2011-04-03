@@ -1,6 +1,7 @@
 ﻿
 Class Paket    
-    Implements IComparable(Of Paket)
+    Implements IComparable(Of Paket), IComparer(Of Spieler)
+
 
 
 
@@ -33,8 +34,10 @@ Class Paket
 
     Property SpielerListe As New List(Of Spieler)
 
-    Private AltSchwimmer As New List(Of Spieler)
-    Private aktuellerSchwimmer As Spieler
+    Public AltSchwimmer As New List(Of Spieler)
+
+    Public Overridable Property aktuellerSchwimmer As Spieler
+
 
 
 
@@ -43,7 +46,7 @@ Class Paket
             SpielerListe.Sort(Function(s1, s2) s1.CompareTo(s2))
         Else
             SpielerListe.Sort(Function(s1, s2) s2.CompareTo(s1))
-        End If        
+        End If
     End Sub
 
     Sub VerschiebeSchwimmer(ByVal paket As Paket)
@@ -72,7 +75,7 @@ Class Paket
         sort()
         Dim container = PaarungsSuche.SuchePaarungen(SpielerListe, Me)
         If container Is Nothing Then
-            aktuellerSchwimmer = container.AktuellerSchwimmer
+            aktuellerSchwimmer = container.aktuellerSchwimmer
             Partien.Clear()
             Partien.AddRange(container.Partien)
             Return True
@@ -85,4 +88,11 @@ Class Paket
     End Function
 
 
+    Public Function Compare(ByVal x As Spieler, ByVal y As Spieler) As Integer Implements System.Collections.Generic.IComparer(Of Spieler).Compare
+        If Absteigend Then
+            Return x.CompareTo(y)
+        Else
+            Return y.CompareTo(x)
+        End If
+    End Function
 End Class
