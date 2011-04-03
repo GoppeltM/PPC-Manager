@@ -54,6 +54,11 @@ Public Class SpielPartien
 
 End Class
 
+Public Class Vereine
+    Inherits Collections.ObjectModel.Collection(Of String)
+
+End Class
+
 
 Public Class SatzFarbenPainter
     Implements IValueConverter
