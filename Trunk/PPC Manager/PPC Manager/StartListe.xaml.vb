@@ -2,7 +2,7 @@
 
     Private Sub DataGrid1_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.KeyEventArgs) Handles DataGrid1.KeyDown
         Dim Cell = DataGrid1.CurrentCell
-        If Cell.Column.Header = "Verein" Then
+        If Cell.Column.Header Is Verein Then
             DataGrid1.BeginEdit()
         End If
 
@@ -14,7 +14,7 @@
     End Sub
 
     Private Sub Paste_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim data As String = Clipboard.GetDataObject.GetData("CSV")
+        Dim data As String = Clipboard.GetDataObject.GetData("CSV").ToString
         Dim ClipboardRows = New List(Of List(Of String))
         Dim Rows = Regex.Split(data, String.Format(Environment.NewLine)).ToList
         Rows.RemoveAt(Rows.Count - 1)
@@ -24,7 +24,7 @@
         Next
 
 
-        Dim liste As SpielerListe = Me.FindResource("myPersonen")
+        Dim liste As SpielerListe = CType(Me.FindResource("myPersonen"), SpielerListe)
 
         Dim selectedRows = From x In DataGrid1.SelectedCells Group By x.Item Into Group
 
@@ -110,7 +110,7 @@
                         CellContents.Add(text.Text)
                     Case GetType(ComboBox)
                         Dim combo = CType(myProperty, ComboBox)
-                        CellContents.Add(combo.SelectedItem)
+                        CellContents.Add(combo.SelectedItem.ToString)
                 End Select
             Next
             CSVContent &= String.Join(";"c, CellContents.ToArray)

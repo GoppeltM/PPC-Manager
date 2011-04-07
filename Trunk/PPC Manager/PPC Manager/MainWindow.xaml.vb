@@ -36,10 +36,10 @@ Class MainWindow
         dialog.Filter = "XML Dateien |*.xml"
 
         If dialog.ShowDialog() Then
-            Dim spielerListe As SpielerListe = FindResource("myPersonen")
-            Dim SpielPartien As SpielPartien = FindResource("mySpielPartien")
+            Dim spielerListe As SpielerListe = CType(FindResource("myPersonen"), SpielerListe)
+            Dim SpielPartien As SpielPartien = CType(FindResource("mySpielPartien"), SpielPartien)
 
-            Dim doc = New XDocument(<PPCTurnier AktuelleRunde=<%= My.Settings.AktuelleRunde %>>
+            Dim doc = New XDocument(<PPCTurnier>
                                         <SpielerListe>
                                             <%= From x In spielerListe Let y = x.ToXML Select y %>
                                         </SpielerListe>

@@ -3,7 +3,27 @@
 Public Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
+    Sub FromXML(ByVal iEnumerable As IEnumerable(Of XElement))
+        Throw New NotImplementedException
+    End Sub
+
 End Class
+
+Friend Class SpielRunden
+    Inherits Stack(Of SpielRunde)
+
+    Sub fromXML(ByVal iEnumerable As IEnumerable(Of XElement))
+        Throw New NotImplementedException
+    End Sub
+
+End Class
+
+
+Friend Class SpielRunde
+    Inherits List(Of SpielPartie)
+
+End Class
+
 
 Public Class SpielPartien
     Inherits ObservableCollection(Of SpielPartie)
@@ -27,7 +47,7 @@ Public Class SpielPartien
         Add(x)
     End Sub
 
-    Private Property AktuelleRunde = 0
+    Private Property AktuelleRunde As Integer = 0
 
     Public Sub PaarungenBerechnen(ByVal spielerListe As SpielerListe)
         Me.Clear()
@@ -69,7 +89,7 @@ Public Class SatzFarbenPainter
             Throw New Exception("Must be a brush!")
         End If
 
-        Dim x As Integer = value
+        Dim x As Integer = CInt(value)
         If x >= My.Settings.GewinnPunkte Then
             Return Brushes.GreenYellow
         Else

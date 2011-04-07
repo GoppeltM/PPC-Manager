@@ -9,14 +9,14 @@
     </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Left" Name="Menu1" VerticalAlignment="Top" Width="136">
-            <MenuItem Header="Projekt">
+            <MenuItem Header="Projekt" IsTabStop="False">
                 <MenuItem Header="Öffnen..." Name="Öffnen" />
                 <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
                 <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="NavigationCommands.NextPage" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
-                <MenuItem Header="Beenden..." Command="ApplicationCommands.Close"></MenuItem>
+                <MenuItem Header="Beenden..." Command="ApplicationCommands.Close" Name="Beenden"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Bearbeiten">
+            <MenuItem Header="Bearbeiten" IsTabStop="False">
                 <MenuItem Command="ApplicationCommands.Copy" Header="Kopieren" />
                 <MenuItem Command="ApplicationCommands.Cut" Header="Ausschneiden" />
                 <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />

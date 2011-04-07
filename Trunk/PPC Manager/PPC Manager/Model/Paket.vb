@@ -61,7 +61,7 @@ Class Paket
         SpielerListe.Add(aktuellerSchwimmer)
     End Sub
 
-    Public ReadOnly Property IstAltSchwimmer(ByVal spieler As Spieler)
+    Public ReadOnly Property IstAltSchwimmer(ByVal spieler As Spieler) As Boolean
         Get
             Return AltSchwimmer.Contains(spieler)
         End Get

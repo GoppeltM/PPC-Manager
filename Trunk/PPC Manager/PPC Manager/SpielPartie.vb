@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
+Imports <xmlns="http://PPCManager/SpeicherStand">
 
 ''' <summary>
 ''' 
@@ -63,9 +64,9 @@ Public Class SpielPartie
                            Select x
 
             If SpielerLinks = ich Then
-                Return gewonnenLinks
+                Return gewonnenLinks.ToList
             Else
-                Return gewonnenRechts
+                Return gewonnenRechts.ToList
             End If
         End Get
     End Property

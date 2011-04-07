@@ -19,7 +19,14 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Vorname}" Header="Vorname" Width="*" x:Name="Vorname" />
                     <DataGridTextColumn Binding="{Binding Path=Nachname}" Header="Nachname" Width="*" x:Name="Nachname" />
-                    <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein}" Header="Verein" Width="*" ItemsSource="{Binding Path=Vereine, Source={StaticResource Settings}}" Selector.IsSelected="True" x:Name="Verein" />
+                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein}" Header="Verein" Width="*" ItemsSource="{Binding Path=Vereine, Source={StaticResource Settings}}" Selector.IsSelected="True" x:Name="Verein">
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="IsEditable" Value="True"/>
+                            <Setter Property="StaysOpenOnEdit" Value="True"/>
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+                </DataGridComboBoxColumn>
                     <DataGridTextColumn Binding="{Binding Path=SpielKlasse}" Header="Spielklasse" Width="0.5*" x:Name="SpielKlasse" />
                     <DataGridTextColumn Binding="{Binding Path=Position}" Header="Position" Width="*" x:Name="Position" />
                     <DataGridTextColumn Binding="{Binding Path=TurnierKlasse}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />

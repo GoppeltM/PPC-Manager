@@ -135,7 +135,7 @@ Public Class Spieler
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
-        Return Me.Vorname & Me.Nachname = other.Vorname & other.Nachname
+        Return (Me.Nachname & Me.Vorname).CompareTo(other.Nachname & other.Vorname)
     End Function
 
 
@@ -156,9 +156,7 @@ Public Class Spieler
                        StartNummer=<%= StartNummer %> FreilosInRunde=<%= FreiLosInRunde %>
                        Position=<%= Position %> TurnierKlasse=<%= TurnierKlasse %>
                        >
-                       <%= From x In GespieltePartien Let subNode = x.ToXML() Select subNode %>
                    </Spieler>
-
         Return node
     End Function
 
@@ -167,9 +165,9 @@ Public Class Spieler
         Nachname = spielerNode.@Nachname
         Verein = spielerNode.@Verein
         SpielKlasse = spielerNode.@SpielKlasse
-        StartNummer = spielerNode.@StartNummer
-        FreiLosInRunde = spielerNode.@FreilosInRunde
-        Position = spielerNode.@Position
+        StartNummer = CInt(spielerNode.@StartNummer)
+        FreiLosInRunde = CInt(spielerNode.@FreilosInRunde)
+        Position = CInt(spielerNode.@Position)
         TurnierKlasse = spielerNode.@TurnierKlasse
 
     End Sub

@@ -106,13 +106,25 @@ Partial Friend NotInheritable Class MySettings
     
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-    Public Property AktuelleRunde() As Integer
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property SpeicherPfad() As String
         Get
-            Return CType(Me("AktuelleRunde"),Integer)
+            Return CType(Me("SpeicherPfad"),String)
         End Get
         Set
-            Me("AktuelleRunde") = value
+            Me("SpeicherPfad") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property AutoSave() As String
+        Get
+            Return CType(Me("AutoSave"),String)
+        End Get
+        Set
+            Me("AutoSave") = value
         End Set
     End Property
 End Class

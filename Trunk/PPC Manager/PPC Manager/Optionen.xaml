@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Expander Header="Vereine" HorizontalAlignment="Left" Margin="12,12,0,2" Name="Expander1" VerticalAlignment="Stretch" Width="190" ExpandDirection="Down">
             <Grid>
-                <DataGrid AutoGenerateColumns="False" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource Vereine}}" HeadersVisibility="None" Margin="0,0,-23,0">
+                <DataGrid AutoGenerateColumns="False" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource Vereine}}" HeadersVisibility="None" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=Vereinsname}" CanUserReorder="False" CanUserResize="False" Width="*" />
                     </DataGrid.Columns>
@@ -41,7 +41,7 @@
             <CheckBox Name="AutoSaveCheck" IsChecked="True" Content="Automatisches Speichern"></CheckBox>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Pfad:" Height="28" Name="Label1" />
-                <TextBox  Height="25" Name="TextBox1" Width="324" IsEnabled="{Binding ElementName=AutoSaveCheck, Path=IsChecked}" IsReadOnly="False" />
+                <TextBox  Height="25" Name="TextBox1" Width="324" IsEnabled="{Binding ElementName=AutoSaveCheck, Path=IsChecked}" IsReadOnly="False" Text="{Binding Source={StaticResource Settings}, Path=AutoSave}" />
                 <Button Content="..." Height="23" Name="Button1" Width="25" IsEnabled="{Binding ElementName=AutoSaveCheck, Path=IsChecked}" />
             </StackPanel>
         </StackPanel>
@@ -50,8 +50,8 @@
             <Label Content="Turniername" Height="28" />
             <TextBox  Height="25"  Width="307" Text="Ping Pong Café"/>
         </StackPanel>
-        <Button Grid.Row="3" Content="Laden..." Height="23" Width="90" Margin="10, 0,0,0" HorizontalAlignment="Left"/>
-        <Button Content="Neu..." Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,0,100,0" Name="Button2"  Width="75" IsDefault="False" />
+        <Button Grid.Row="3" Content="Laden..." Height="23" Width="90" Margin="10, 0,0,0" HorizontalAlignment="Left" Name="Button4" />
+        <Button Content="Neu..." Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,0,100,0" Name="Button2"  Width="75" IsDefault="True"/>
         <Button Content="Beenden" Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,0,10,0" Name="Button3" Width="75" IsCancel="True" />
 
     </Grid>

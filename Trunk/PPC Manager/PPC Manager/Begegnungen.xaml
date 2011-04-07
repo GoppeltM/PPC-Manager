@@ -9,7 +9,7 @@
       Title="Begegnungen">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
-        <CollectionViewSource x:Key="MyView" x:Name="CollectionViewSource1" Filter="CollectionViewSource1_Filter" Source="{Binding Source={StaticResource mySpielPartien}}" />
+        <CollectionViewSource x:Key="MyView" x:Name="CollectionViewSource1" Filter="CollectionViewSource1_Filter" />
         <DataTemplate x:Key="PunkteDisplay">
             <StackPanel>
                 <Label Content="{Binding Path=SpielerLinks}"></Label>

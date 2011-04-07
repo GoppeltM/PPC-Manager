@@ -55,7 +55,9 @@
     End Function
 
     Private Shared Function SucheNächstesPaket(ByVal oberePakete As List(Of Paket), ByVal unterePakete As List(Of Paket), ByVal mittelPaket As Paket, ByVal prioOben As Boolean) As Paket
-        Dim gesamtListe = oberePakete.Concat(mittelPaket).Concat(unterePakete).ToList
+        Dim gesamtListe = oberePakete
+        gesamtListe.Add(mittelPaket)
+        gesamtListe.AddRange(unterePakete)
         gesamtListe.Sort()
 
         Dim indexMittelPaket = gesamtListe.IndexOf(mittelPaket)
