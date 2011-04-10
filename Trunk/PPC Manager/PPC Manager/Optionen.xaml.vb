@@ -20,12 +20,13 @@ Public Class Optionen
         If dialog.ShowDialog Then
             Dim xml = XDocument.Load(dialog.FileName).Root
 
-            Dim AktiveSpieler = CType(FindResource("AktiveSpieler"), SpielerListe)
-            AktiveSpieler.FromXML(xml.<AktiveSpieler>)
-            Dim AusgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
-            AusgeschiedeneSpieler.FromXML(xml.<AusgeschiedeneSpieler>)
             Dim SpielRunden = CType(FindResource("MySpielRunden"), SpielRunden)
-            SpielRunden.fromXML(xml.<SpielRunden>)
+            Dim AktiveSpieler = CType(FindResource("AktiveSpieler"), SpielerListe)
+            AktiveSpieler.FromXML(SpielRunden, xml.<AktiveSpieler>)
+            Dim AusgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
+            AusgeschiedeneSpieler.FromXML(SpielRunden, xml.<AusgeschiedeneSpieler>)
+            SpielRunden.fromXML(AktiveSpieler.Concat(AusgeschiedeneSpieler), xml.<SpielRunden>)
+
 
         End If
 

@@ -1,19 +1,26 @@
 ﻿Imports System.Collections.ObjectModel
+Imports <xmlns="http://PPCManager/SpeicherStand">
 
-Public Class SpielerListe
+Friend Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
-    Sub FromXML(ByVal iEnumerable As IEnumerable(Of XElement))
-        Throw New NotImplementedException
+    Sub FromXML(ByVal spielRunden As SpielRunden, ByVal xSpielerListe As IEnumerable(Of XElement))
+        Clear()
+        For Each xSpieler In xSpielerListe
+            Add(Spieler.FromXML(spielRunden, xSpieler))
+        Next
     End Sub
 
 End Class
 
 Friend Class SpielRunden
     Inherits Stack(Of SpielRunde)
-
-    Sub fromXML(ByVal iEnumerable As IEnumerable(Of XElement))
-        Throw New NotImplementedException
+    
+    Sub fromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
+        Clear()
+        For Each xRunde In From x In runden Order By Integer.Parse(x.@Nummer)
+            Push(SpielRunde.FromXML(spielerListe, xRunde))
+        Next
     End Sub
 
 End Class
@@ -22,6 +29,15 @@ End Class
 Friend Class SpielRunde
     Inherits List(Of SpielPartie)
 
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xRunde As XElement) As SpielRunde
+        Dim runde As New SpielRunde
+        For Each xSpielPartie In xRunde.<SpielRunde>
+            runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
+        Next
+        Return runde
+    End Function
+
+    
 End Class
 
 
@@ -30,7 +46,7 @@ Public Class SpielPartien
 
     Public Sub New()        
         ' TODO: für Testzwecke
-        Dim x As New SpielPartie(New Spieler, New Spieler, 0)
+        Dim x As New SpielPartie(New Spieler, New Spieler)
         x.SpielerLinks.Nachname = "Zylka"
 
         With x(0)
@@ -43,13 +59,13 @@ Public Class SpielPartien
             .PunkteRechts = 4
         End With
         Add(x)
-        x = New SpielPartie(New Spieler, New Spieler, 0)
+        x = New SpielPartie(New Spieler, New Spieler)
         Add(x)
     End Sub
 
     Private Property AktuelleRunde As Integer = 0
 
-    Public Sub PaarungenBerechnen(ByVal spielerListe As SpielerListe)
+    Friend Sub PaarungenBerechnen(ByVal spielerListe As SpielerListe)
         Me.Clear()
         For Each SpielPartie In Berechnen(spielerListe)
             Add(SpielPartie)
@@ -66,7 +82,7 @@ Public Class SpielPartien
     Private Function Berechnen(ByVal spielerListe As SpielerListe) As IList(Of SpielPartie)
         Dim list As New List(Of SpielPartie)
         For i = 0 To spielerListe.Count - 2 Step 2
-            Dim partie As New SpielPartie(spielerListe(i), spielerListe(i + 1), AktuelleRunde)
+            Dim partie As New SpielPartie(spielerListe(i), spielerListe(i + 1))
             list.Add(partie)
         Next
         Return list

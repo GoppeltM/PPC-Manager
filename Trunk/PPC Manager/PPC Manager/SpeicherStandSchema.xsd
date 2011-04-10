@@ -47,6 +47,7 @@
     <xs:sequence>
       <xs:element name="SpielPartie" type="SpielPartieType"/>
     </xs:sequence>
+  <xs:attribute name="Nummer" type="xs:byte"/>
   </xs:complexType>
 
   <xs:complexType name="SpielPartieType">

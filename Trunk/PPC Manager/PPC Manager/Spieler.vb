@@ -87,6 +87,14 @@ Public Class Spieler
         End Set
     End Property
 
+    ''' <summary>
+    ''' Darf nur einmalig gesetzt werden, und darf nur lesenderweise betreten werden!!
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Friend Property SpielRunden As SpielRunden
+
 
     Public ReadOnly Property Punkte As Integer
         Get
@@ -105,7 +113,13 @@ Public Class Spieler
         End Get        
     End Property
 
-    Public Property GespieltePartien As New ObservableCollection(Of SpielPartie)
+    Public ReadOnly Property GespieltePartien As List(Of SpielPartie)
+        Get
+            Dim r = From x In SpielRunden From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
+            Return r.ToList
+        End Get
+    End Property
+
 
     Public Property FreiLosInRunde As Integer
 
@@ -160,21 +174,21 @@ Public Class Spieler
         Return node
     End Function
 
-    Public Sub InitializeXML(ByVal spielerNode As XElement)
-        Vorname = spielerNode.@Vorname
-        Nachname = spielerNode.@Nachname
-        Verein = spielerNode.@Verein
-        SpielKlasse = spielerNode.@SpielKlasse
-        StartNummer = CInt(spielerNode.@StartNummer)
-        FreiLosInRunde = CInt(spielerNode.@FreilosInRunde)
-        Position = CInt(spielerNode.@Position)
-        TurnierKlasse = spielerNode.@TurnierKlasse
-
-    End Sub
-
-    Public Sub FülleBegegnungen(ByVal spielerNode As XElement, ByVal spielerListe As IList(Of Spieler))
-
-    End Sub
+    Friend Shared Function FromXML(ByVal spielRunden As SpielRunden, ByVal spielerNode As XElement) As Spieler
+        Dim spieler As New Spieler
+        spieler.SpielRunden = spielRunden
+        With spieler
+            .Vorname = spielerNode.@Vorname
+            .Nachname = spielerNode.@Nachname
+            .Verein = spielerNode.@Verein
+            .SpielKlasse = spielerNode.@SpielKlasse
+            .StartNummer = CInt(spielerNode.@StartNummer)
+            .FreiLosInRunde = CInt(spielerNode.@FreilosInRunde)
+            .Position = CInt(spielerNode.@Position)
+            .TurnierKlasse = spielerNode.@TurnierKlasse
+        End With
+        Return spieler
+    End Function
 
     Function HatBereitsGespieltGegen(ByVal zuprüfenderSpieler As Spieler) As Boolean
         Dim meineGegner = From x In GespieltePartien Select x.MeinGegner(Me)

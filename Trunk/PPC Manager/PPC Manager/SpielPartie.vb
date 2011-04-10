@@ -15,23 +15,14 @@ Public Class SpielPartie
 
 
 
-    Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, ByVal runde As Integer)
+    Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
-        _Runde = runde
         For i = 1 To My.Settings.MaxSätze
             Me.Add(New Satz)
         Next
     End Sub
 
     Private Property Spieler As KeyValuePair(Of Spieler, Spieler)
-
-    Private _Runde As Integer
-    Public ReadOnly Property Runde() As Integer
-        Get
-            Return _Runde
-        End Get
-    End Property
-
 
     Public ReadOnly Property SpielerLinks As Spieler
         Get
@@ -76,6 +67,15 @@ Public Class SpielPartie
                        <%= From x In Me Let y = x.ToXML() Select y %>
                    </SpielPartie>
         Throw New NotImplementedException
+    End Function
+
+
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie
+        Dim spielerA = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerA) Select x).First
+        Dim spielerB = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerB) Select x).First
+
+        Dim partie As New SpielPartie(spielerA, spielerB)
+        Return partie
     End Function
 
 End Class
