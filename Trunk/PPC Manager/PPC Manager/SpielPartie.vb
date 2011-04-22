@@ -46,7 +46,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
+    Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
         Get
             Dim gewonnenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
                            Select x
@@ -62,11 +62,11 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Function ToXML() As XElement
+    Overridable Function ToXML() As XElement
         Dim node = <SpielPartie SpielerLinks=<%= SpielerLinks.StartNummer %> SpielerRechts=<%= SpielerRechts.StartNummer %>>
                        <%= From x In Me Let y = x.ToXML() Select y %>
                    </SpielPartie>
-        Throw New NotImplementedException
+        Return node
     End Function
 
 
@@ -76,6 +76,32 @@ Public Class SpielPartie
 
         Dim partie As New SpielPartie(spielerA, spielerB)
         Return partie
+    End Function
+
+End Class
+
+Public Class FreiLosSpiel
+    Inherits SpielPartie
+
+    Public Sub New(ByVal freilosSpieler As Spieler)
+        MyBase.New(freilosSpieler, freilosSpieler)
+    End Sub
+
+
+    Public Overrides Function ToXML() As System.Xml.Linq.XElement
+        Dim node = <FreiLosSpiel Spieler=<%= SpielerLinks %>/>
+        Return node
+    End Function
+
+    Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As System.Collections.Generic.IList(Of Satz)
+        Get
+            Return New List(Of Satz) From {New Satz() With {.PunkteLinks = 1}}
+        End Get
+    End Property
+
+    Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement) As FreiLosSpiel
+        Dim spieler = (From x In spielerListe Where x.StartNummer = Integer.Parse(xFreilosSpiel.@Spieler) Select x).First
+        Return New FreiLosSpiel(spieler)
     End Function
 
 End Class

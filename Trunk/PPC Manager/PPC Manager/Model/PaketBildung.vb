@@ -204,7 +204,7 @@
     Private Shared Function freilosRegel(ByVal aktiveListe As List(Of Spieler)) As Spieler
         For i = aktiveListe.Count - 1 To 0 Step -1
             Dim tempSpieler = aktiveListe(i)
-            If tempSpieler.FreiLosInRunde = -1 Then
+            If Not tempSpieler.HatFreilos Then
                 Return tempSpieler
             End If
         Next

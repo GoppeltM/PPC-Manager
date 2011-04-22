@@ -3,11 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPC_Manager"
              
-    StartupUri="Optionen.xaml">
+    StartupUri="StartListe.xaml">
     <Application.Resources>
         <local:SpielerListe x:Key="AktiveSpieler" />
         <local:SpielerListe x:Key="AusgeschiedeneSpieler" />
         <local:MySettings x:Key="Settings"/>
-        <local:SpielRunden x:Key="MySpielRunden" />
+        <local:SpielRunden x:Key="SpielRunden" />
     </Application.Resources>
 </Application>

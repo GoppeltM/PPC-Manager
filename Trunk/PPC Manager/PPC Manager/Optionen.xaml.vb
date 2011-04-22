@@ -25,7 +25,7 @@ Public Class Optionen
             AktiveSpieler.FromXML(SpielRunden, xml.<AktiveSpieler>)
             Dim AusgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
             AusgeschiedeneSpieler.FromXML(SpielRunden, xml.<AusgeschiedeneSpieler>)
-            SpielRunden.fromXML(AktiveSpieler.Concat(AusgeschiedeneSpieler), xml.<SpielRunden>)
+            SpielRunden.FromXML(AktiveSpieler.Concat(AusgeschiedeneSpieler), xml.<SpielRunden>)
 
 
         End If

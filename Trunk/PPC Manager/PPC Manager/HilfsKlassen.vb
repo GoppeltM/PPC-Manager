@@ -16,28 +16,46 @@ End Class
 Friend Class SpielRunden
     Inherits Stack(Of SpielRunde)
     
-    Sub fromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
+    Friend Sub FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
         Clear()
         For Each xRunde In From x In runden Order By Integer.Parse(x.@Nummer)
             Push(SpielRunde.FromXML(spielerListe, xRunde))
         Next
     End Sub
 
+    Friend Function ToXML() As XElement
+
+        Dim xSpielRunden As New List(Of XElement)
+        For i = 1 To Me.Count
+            xSpielRunden.Add(<SpielRunde Nummer=<%= i %>>
+                                 <%= From x In Me(i) Let y = x.ToXML() Select y %>
+                             </SpielRunde>)
+        Next
+
+        Return <SpielRunden>
+                   <%= xSpielRunden %>
+               </SpielRunden>
+    End Function
+
 End Class
 
 
 Friend Class SpielRunde
-    Inherits List(Of SpielPartie)
+    Inherits ObservableCollection(Of SpielPartie)
 
+    
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xRunde As XElement) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In xRunde.<SpielRunde>
             runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
         Next
+        Dim xFreilos = xRunde.<FreiLosSpiel>.SingleOrDefault
+        If xFreilos IsNot Nothing Then
+            runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
+        End If        
         Return runde
     End Function
 
-    
 End Class
 
 

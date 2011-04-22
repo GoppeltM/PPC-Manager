@@ -8,18 +8,23 @@
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
     </Window.CommandBindings>
     <Grid>
-        <Menu Height="23" HorizontalAlignment="Left" Name="Menu1" VerticalAlignment="Top" Width="136">
-            <MenuItem Header="Projekt" IsTabStop="False">
+        <Menu Height="23" HorizontalAlignment="Stretch" Name="Menu1" VerticalAlignment="Top">
+            <MenuItem Header="Datei">
                 <MenuItem Header="Öffnen..." Name="Öffnen" />
                 <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
-                <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="NavigationCommands.NextPage" />
-                <MenuItem Header="Einstellungen..." Name="Einstellungen" />
+                <MenuItem Command="ApplicationCommands.SaveAs" Header="Speichern Unter..." Name="SpeichernUnter" />
                 <MenuItem Header="Beenden..." Command="ApplicationCommands.Close" Name="Beenden"></MenuItem>
             </MenuItem>
             <MenuItem Header="Bearbeiten" IsTabStop="False">
-                <MenuItem Command="ApplicationCommands.Copy" Header="Kopieren" />
                 <MenuItem Command="ApplicationCommands.Cut" Header="Ausschneiden" />
+                <MenuItem Command="ApplicationCommands.Copy" Header="Kopieren" />
                 <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
+            </MenuItem>
+            <MenuItem Header="Projekt" IsTabStop="False">                               
+                <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="NavigationCommands.NextPage" />
+                <MenuItem Header="Vorsortieren" Name="Vorsortieren" />
+                <MenuItem Header="Nächste Runde" Name="NächsteRunde" />
+                <MenuItem Header="Einstellungen..." Name="Einstellungen" />
             </MenuItem>
         </Menu>
         <Frame Margin="12,43,12,12" Name="Frame1" Source="StartListe.xaml" NavigationUIVisibility="Hidden" />

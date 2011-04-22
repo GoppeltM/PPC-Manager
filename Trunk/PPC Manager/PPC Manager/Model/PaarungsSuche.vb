@@ -8,7 +8,7 @@ Class PaarungsSuche
         'nachfolgenden Tests NICHT verändert werden! Deshalb wird in jedem Test eine
         'Kopie dieser beiden Vektoren angelegt.
         Dim tempListe As New List(Of Spieler)(spielerListe)
-        Dim mitte = Toolbox.halfFloor(tempListe.Count)
+        Dim mitte = tempListe.Count \ 2
         Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, paket)
     End Function
 
@@ -115,16 +115,4 @@ Class PaarungsSuche
                 .aktuellerSchwimmer = aktuellerSchwimmer}
     End Function
 
-
-
-
-
-End Class
-
-Public Class Toolbox
-    Public Shared Function halfFloor(ByVal num As Integer) As Integer
-        Dim dbl = Math.Floor(Convert.ToDouble(num))
-        Dim mitte = Convert.ToInt32(dbl)
-        Return mitte
-    End Function
 End Class

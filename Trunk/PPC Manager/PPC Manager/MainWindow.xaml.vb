@@ -36,16 +36,17 @@ Class MainWindow
         dialog.Filter = "XML Dateien |*.xml"
 
         If dialog.ShowDialog() Then
-            Dim spielerListe As SpielerListe = CType(FindResource("myPersonen"), SpielerListe)
-            Dim SpielPartien As SpielPartien = CType(FindResource("mySpielPartien"), SpielPartien)
+            Dim aktiveSpieler = CType(FindResource("AktiveSpieler"), SpielerListe)
+            Dim ausgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
+            Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
 
             Dim doc = New XDocument(<PPCTurnier>
-                                        <SpielerListe>
-                                            <%= From x In spielerListe Let y = x.ToXML Select y %>
-                                        </SpielerListe>
-                                        <AktuelleBegegnungen>
-                                            <%= From x In SpielPartien Let y = x.ToXML Select y %>
-                                        </AktuelleBegegnungen>
+                                        <AktiveSpieler>
+                                            <%= From x In aktiveSpieler Let y = x.ToXML Select y %>
+                                        </AktiveSpieler>
+                                        <SpielRunden>
+                                            <%= SpielRunden.ToXML %>
+                                        </SpielRunden>
                                     </PPCTurnier>)
 
             doc.Save(dialog.FileName)
@@ -56,4 +57,18 @@ Class MainWindow
         Frame1.Navigate(New Uri("pack://application:,,,/Begegnungen.xaml"))
     End Sub
 
+    Private Sub Vorsortieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Vorsortieren.Click
+        Dim spielerListe As SpielerListe = CType(FindResource("myPersonen"), SpielerListe)
+
+
+        Dim sortierteListe = From x In spielerListe
+                             Let spielDiff = My.Settings.SpielKlassen.IndexOf(x.SpielKlasse) * 2 + x.Position
+                             Order By x.Rating Descending, x.Rang Ascending, x.TurnierKlasse Ascending, spielDiff Descending Select x
+
+        spielerListe.Clear()
+        For Each Spieler In sortierteListe
+            spielerListe.Add(Spieler)
+        Next
+
+    End Sub
 End Class

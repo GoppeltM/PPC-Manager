@@ -40,12 +40,15 @@
     <xs:attribute name="StartNummer" type="xs:unsignedByte" use="required" />
     <xs:attribute name="FreilosInRunde" type="xs:unsignedByte" use="required" />
     <xs:attribute name="Position" type="xs:unsignedByte" use="required" />
-    <xs:attribute name="TurnierKlasse" type="xs:string" use="optional" />
+    <xs:attribute name="TurnierKlasse" type="xs:string" use="required" />
+    <xs:attribute name="ttRang" type="xs:integer" use="required" />
+    <xs:attribute name="ttRating" type="xs:integer" use="required" />
   </xs:complexType>
 
   <xs:complexType name="SpielRundeType">
     <xs:sequence>
       <xs:element name="SpielPartie" type="SpielPartieType"/>
+      <xs:element name="FreiLosSpiel" type="FreiLosType" maxOccurs="1"/>
     </xs:sequence>
   <xs:attribute name="Nummer" type="xs:byte"/>
   </xs:complexType>
@@ -55,6 +58,9 @@
     <xs:attribute name="SpielerB" type="xs:int" use="required" />
     <xs:attribute name="ErgebnisA" type="xs:unsignedByte" use="required" />
     <xs:attribute name="ErgebnisB" type="xs:unsignedByte" use="required" />
+  </xs:complexType>
+  <xs:complexType name="FreiLosType">
+    <xs:attribute name="Spieler" type="xs:int" use="required" />
   </xs:complexType>
   
 </xs:schema>

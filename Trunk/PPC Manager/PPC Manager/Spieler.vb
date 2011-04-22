@@ -87,6 +87,30 @@ Public Class Spieler
         End Set
     End Property
 
+    Private _Rating As Integer
+    Public Property Rating() As Integer
+        Get
+            Return _Rating
+        End Get
+        Set(ByVal value As Integer)
+            _Rating = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Rating"))
+        End Set
+    End Property
+
+
+    Private _Rang As Integer
+    Public Property Rang() As Integer
+        Get
+            Return _Rang
+        End Get
+        Set(ByVal value As Integer)
+            _Rang = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Rang"))
+        End Set
+    End Property
+
+
     ''' <summary>
     ''' Darf nur einmalig gesetzt werden, und darf nur lesenderweise betreten werden!!
     ''' </summary>
@@ -120,8 +144,11 @@ Public Class Spieler
         End Get
     End Property
 
-
-    Public Property FreiLosInRunde As Integer
+    Public ReadOnly Property HatFreilos As Boolean
+        Get
+            Return Aggregate x In SpielRunden From y In x.OfType(Of FreiLosSpiel)() Into Any()
+        End Get
+    End Property
 
     Private ReadOnly Property SatzDifferenz As Integer
         Get
@@ -167,8 +194,10 @@ Public Class Spieler
     Public Function ToXML() As XElement
         Dim node = <Spieler Vorname=<%= Vorname %> Nachname=<%= Nachname %>
                        Verein=<%= Verein %> SpielKlasse=<%= SpielKlasse %>
-                       StartNummer=<%= StartNummer %> FreilosInRunde=<%= FreiLosInRunde %>
+                       StartNummer=<%= StartNummer %>
                        Position=<%= Position %> TurnierKlasse=<%= TurnierKlasse %>
+                       ttRang=<%= Rang %>
+                       ttRating=<%= Rating %>
                        >
                    </Spieler>
         Return node
@@ -183,9 +212,10 @@ Public Class Spieler
             .Verein = spielerNode.@Verein
             .SpielKlasse = spielerNode.@SpielKlasse
             .StartNummer = CInt(spielerNode.@StartNummer)
-            .FreiLosInRunde = CInt(spielerNode.@FreilosInRunde)
             .Position = CInt(spielerNode.@Position)
             .TurnierKlasse = spielerNode.@TurnierKlasse
+            .Rating = CInt(spielerNode.@ttRating)
+            .Rang = CInt(spielerNode.@ttRang)
         End With
         Return spieler
     End Function

@@ -1,12 +1,5 @@
 ﻿Class StartListe
 
-    Private Sub DataGrid1_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.KeyEventArgs) Handles DataGrid1.KeyDown
-        Dim Cell = DataGrid1.CurrentCell
-        If Cell.Column.Header Is Verein Then
-            DataGrid1.BeginEdit()
-        End If
-
-    End Sub
 
     Private Sub Paste_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
         Dim HasData = Clipboard.ContainsData("CSV")
@@ -24,7 +17,7 @@
         Next
 
 
-        Dim liste As SpielerListe = CType(Me.FindResource("myPersonen"), SpielerListe)
+        Dim liste As SpielerListe = CType(Me.FindResource("AktiveSpieler"), SpielerListe)
 
         Dim selectedRows = From x In DataGrid1.SelectedCells Group By x.Item Into Group
 
@@ -73,9 +66,8 @@
                     Case GetType(TextBlock)
                         Dim text = CType(myProperty, TextBlock)
                         text.Text = value
-                    Case GetType(ComboBox)
-                        Dim combo = CType(myProperty, ComboBox)
-                        combo.SelectedItem = value
+                    Case Else
+                        CType(currentSpieler, Spieler).Verein = value
                 End Select
             Next
         Next
@@ -100,18 +92,39 @@
 
 
         Dim CSVContent = String.Empty
-        For Each row In selectedRows
+        For Each row In selectedRows            
             Dim CellContents As New List(Of String)
             For Each cell In row.Group
-                Dim myProperty As Object = cell.Column.GetCellContent(row.Item)
-                Select Case myProperty.GetType
-                    Case GetType(TextBlock)
-                        Dim text = CType(myProperty, TextBlock)
-                        CellContents.Add(text.Text)
-                    Case GetType(ComboBox)
-                        Dim combo = CType(myProperty, ComboBox)
-                        CellContents.Add(combo.SelectedItem.ToString)
-                End Select
+                Dim item = CType(cell.Item, Spieler)
+                If cell.Column Is Vorname Then
+                    CellContents.Add(item.Vorname)
+                    Continue For
+                End If
+
+                If cell.Column Is Nachname Then
+                    CellContents.Add(item.Nachname)
+                    Continue For
+                End If
+
+                If cell.Column Is Verein Then
+                    CellContents.Add(item.Verein)
+                    Continue For
+                End If
+
+                If cell.Column Is SpielKlasse Then
+                    CellContents.Add(item.SpielKlasse)
+                    Continue For
+                End If
+
+                If cell.Column Is Position Then
+                    CellContents.Add(item.Position.ToString)
+                    Continue For
+                End If
+
+                If cell.Column Is Turnierklasse Then
+                    CellContents.Add(item.TurnierKlasse)
+                    Continue For
+                End If
             Next
             CSVContent &= String.Join(";"c, CellContents.ToArray)
             CSVContent &= Environment.NewLine
