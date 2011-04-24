@@ -6,11 +6,14 @@
     <Window.CommandBindings>
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
+        <CommandBinding Command="SaveAs" Executed="SaveAs_Executed"/>
+        <CommandBinding Command="Open" Executed="Open_Executed"/>
+        <CommandBinding Command="NextPage" Executed="TurnierStarten_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Stretch" Name="Menu1" VerticalAlignment="Top">
             <MenuItem Header="Datei">
-                <MenuItem Header="Öffnen..." Name="Öffnen" />
+                <MenuItem Header="Öffnen..." Name="Öffnen" Command="ApplicationCommands.Open" />
                 <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
                 <MenuItem Command="ApplicationCommands.SaveAs" Header="Speichern Unter..." Name="SpeichernUnter" />
                 <MenuItem Header="Beenden..." Command="ApplicationCommands.Close" Name="Beenden"></MenuItem>
@@ -27,6 +30,6 @@
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
             </MenuItem>
         </Menu>
-        <Frame Margin="12,43,12,12" Name="Frame1" Source="StartListe.xaml" NavigationUIVisibility="Hidden" />
+        <Frame Margin="12,43,12,12" Name="EditorArea" Source="StartListe.xaml" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

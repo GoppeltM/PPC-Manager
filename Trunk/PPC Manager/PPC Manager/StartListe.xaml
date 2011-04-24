@@ -6,9 +6,6 @@
       xmlns:local="clr-namespace:PPC_Manager"
       
       mc:Ignorable="d" Title="StartListe" d:DesignHeight="300" d:DesignWidth="731">    
-    <Page.CommandBindings>
-        <CommandBinding Command="NextPage" Executed="TurnierStartenExecuted"/>
-    </Page.CommandBindings>
         <Grid>
             <DataGrid Grid.Row="0" Grid.Column="0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource AktiveSpieler}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
                 <DataGrid.CommandBindings>
@@ -27,10 +24,12 @@
                         </Style>
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>
-                    <DataGridTextColumn Binding="{Binding Path=SpielKlasse}" Header="Spielklasse" Width="0.5*" x:Name="SpielKlasse" />
+                    <DataGridTextColumn Binding="{Binding Path=SpielKlasse}" Header="Spielklasse" Width="*" x:Name="SpielKlasse" />
                     <DataGridTextColumn Binding="{Binding Path=Position}" Header="Position" Width="*" x:Name="Position" />
                     <DataGridTextColumn Binding="{Binding Path=TurnierKlasse}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />
-                </DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Rating}" CanUserReorder="False" CanUserSort="False" Header="ttRating" Width="*" />
+                <DataGridTextColumn Binding="{Binding Path=Rang}" CanUserReorder="False" CanUserSort="False" Header="ttRang" Width="*" />
+            </DataGrid.Columns>
             </DataGrid>
             
     </Grid>

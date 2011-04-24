@@ -132,12 +132,6 @@
         Clipboard.SetData(DataFormats.CommaSeparatedValue, CSVContent)
     End Sub
 
-    Private Sub TurnierStartenExecuted(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
-        DataGrid1.CanUserAddRows = False
-        DataGrid1.CanUserDeleteRows = False
-
-    End Sub
-
     Private Sub DataGrid1_InitializingNewItem(ByVal sender As System.Object, ByVal e As System.Windows.Controls.InitializingNewItemEventArgs) Handles DataGrid1.InitializingNewItem
         Dim spieler = CType(e.NewItem, Spieler)
         spieler.SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)

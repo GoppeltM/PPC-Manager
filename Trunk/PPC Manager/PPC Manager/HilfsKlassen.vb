@@ -6,7 +6,7 @@ Friend Class SpielerListe
 
     Sub FromXML(ByVal spielRunden As SpielRunden, ByVal xSpielerListe As IEnumerable(Of XElement))
         Clear()
-        For Each xSpieler In xSpielerListe
+        For Each xSpieler In xSpielerListe.<Spieler>
             Add(Spieler.FromXML(spielRunden, xSpieler))
         Next
     End Sub
@@ -63,22 +63,7 @@ Public Class SpielPartien
     Inherits ObservableCollection(Of SpielPartie)
 
     Public Sub New()        
-        ' TODO: für Testzwecke
-        Dim x As New SpielPartie(New Spieler, New Spieler)
-        x.SpielerLinks.Nachname = "Zylka"
-
-        With x(0)
-            .PunkteLinks = 3
-            .PunkteRechts = 21
-        End With
-
-        With x(1)
-            .PunkteLinks = 17
-            .PunkteRechts = 4
-        End With
-        Add(x)
-        x = New SpielPartie(New Spieler, New Spieler)
-        Add(x)
+        
     End Sub
 
     Private Property AktuelleRunde As Integer = 0

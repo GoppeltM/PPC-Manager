@@ -107,12 +107,12 @@ Partial Friend NotInheritable Class MySettings
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-    Public Property SpeicherPfad() As String
+    Public Property AktuelleSpeicherdatei() As String
         Get
-            Return CType(Me("SpeicherPfad"),String)
+            Return CType(Me("AktuelleSpeicherdatei"),String)
         End Get
         Set
-            Me("SpeicherPfad") = value
+            Me("AktuelleSpeicherdatei") = value
         End Set
     End Property
     

@@ -19,7 +19,7 @@
     <Setting Name="MaxSätze" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="SpeicherPfad" Type="System.String" Scope="User">
+    <Setting Name="AktuelleSpeicherdatei" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AutoSave" Type="System.String" Scope="User">
