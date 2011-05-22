@@ -136,4 +136,11 @@
         Dim spieler = CType(e.NewItem, Spieler)
         spieler.SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
     End Sub
+
+    Private Sub DataGrid1_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataGrid1.CurrentCellChanged
+        If DataGrid1.CurrentColumn.GetType Is GetType(DataGridComboBoxColumn) Then
+            DataGrid1.BeginEdit()
+        End If
+        
+    End Sub
 End Class

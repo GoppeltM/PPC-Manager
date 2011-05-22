@@ -26,7 +26,7 @@
             <MenuItem Header="Projekt" IsTabStop="False">                               
                 <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="NavigationCommands.NextPage" />
                 <MenuItem Header="Vorsortieren" Name="Vorsortieren" />
-                <MenuItem Header="Nächste Runde" Name="NächsteRunde" />
+                <MenuItem Header="Nächste Runde..." Name="NächsteRunde" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
             </MenuItem>
         </Menu>

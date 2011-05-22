@@ -11,11 +11,7 @@ Class MainWindow
         SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         AktiveSpieler = CType(FindResource("AktiveSpieler"), SpielerListe)
         AusgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
-    End Sub
-
-    Private Sub Vereine_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Einstellungen.Click
-        Dim dialog As New Optionen
-        dialog.ShowDialog()
+        Einstellungen_Click(sender, e)
     End Sub
 
     Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -38,7 +34,14 @@ Class MainWindow
             Return
         End If
 
-        Dim doc = New XDocument(<PPCTurnier>
+        Dim doc = getXmlDocument()
+
+        doc.Save(My.Settings.AktuelleSpeicherdatei)
+    End Sub
+
+    Private Function getXmlDocument() As XDocument
+
+        Dim doc = New XDocument(<PPCTurnier TurnierName=<%= My.Settings.TurnierName %> GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= My.Settings.BerücksichtigeSatzDiff %>>
                                     <AktiveSpieler>
                                         <%= From x In AktiveSpieler Let y = x.ToXML Select y %>
                                     </AktiveSpieler>
@@ -48,11 +51,10 @@ Class MainWindow
 
                                     <%= SpielRunden.ToXML %>
                                 </PPCTurnier>)
+        Return doc
+    End Function
 
-        doc.Save(My.Settings.AktuelleSpeicherdatei)
-    End Sub
-
-    Private Sub Open_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+    Friend Sub Open_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Dim dialog = New OpenFileDialog
         With dialog
             .Filter = "XML Dateien |*.xml"
@@ -71,6 +73,9 @@ Class MainWindow
 
                 SpielRunden.FromXML(AktiveSpieler.Concat(AusgeschiedeneSpieler), doc.Root.<SpielRunden>.<SpielRunde>)
 
+                My.Settings.GewinnSätze = Integer.Parse(doc.Root.@GewinnSätze)
+                My.Settings.BerücksichtigeSatzDiff = Boolean.Parse(doc.Root.@SatzDifferenz)
+                My.Settings.TurnierName = doc.Root.@TurnierName
                 If SpielRunden.Any Then
                     EditorArea.Navigate(New Begegnungen)
                 Else
@@ -104,12 +109,45 @@ Class MainWindow
 
     End Sub
 
-    Private Sub NächsteRunde_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NächsteRunde.Click
+    Private Sub Einstellungen_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Einstellungen.Click
+        Dim dialog As New Optionen
+        dialog.ShowDialog()
+        If dialog.LoadTriggered Then
+            Open_Executed(sender, Nothing)
+        End If
+    End Sub
 
+    Private Sub NächsteRunde_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NächsteRunde.Click
+        If MessageBox.Show(Me, "Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
+                           "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
+            RundeBerechnen()
+        End If
     End Sub
 
     Private Sub TurnierStarten_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        EditorArea.Navigate(New Begegnungen)
+        If MessageBox.Show(Me, "Wollen Sie wirklich das Turnier starten? Vergewissern Sie sich, dass alle Spielregeln und die Startreihenfolge richtig ist bevor Sie beginnen.", _
+                           "Turnier Starten?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
+            RundeBerechnen()
+            EditorArea.Navigate(New Begegnungen)
+        End If
+
+    End Sub
+
+    Private Sub RundeBerechnen()
+        Dim begegnungen = PaketBildung.organisierePakete(AktiveSpieler.ToList, SpielRunden.Count)
+
+        Dim spielRunde As New SpielRunde
+        
+        For Each begegnung In begegnungen
+            spielRunde.Add(begegnung)
+        Next
+        SpielRunden.Push(spielRunde)
+
+        If My.Settings.AutoSaveAn Then
+            Dim document = SpielRunden.ToXML
+            document.Save(My.Settings.AutoSavePath)
+        End If
+
     End Sub
 
     Private Sub EditorArea_Navigated(ByVal sender As System.Object, ByVal e As System.Windows.Navigation.NavigationEventArgs) Handles EditorArea.Navigated
@@ -118,10 +156,12 @@ Class MainWindow
                 TurnierStarten.Visibility = Windows.Visibility.Collapsed
                 Vorsortieren.Visibility = Windows.Visibility.Collapsed
                 NächsteRunde.Visibility = Windows.Visibility.Visible
+                Einstellungen.Visibility = Windows.Visibility.Collapsed
             Case GetType(StartListe)
                 TurnierStarten.Visibility = Windows.Visibility.Visible
                 Vorsortieren.Visibility = Windows.Visibility.Visible
                 NächsteRunde.Visibility = Windows.Visibility.Collapsed
+                Einstellungen.Visibility = Windows.Visibility.Visible
             Case Else
                 Throw New Exception("Unbekannter Seitentyp")
         End Select

@@ -10,26 +10,26 @@
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
     '''
-    Public Shared Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As GesamtBegegnungen
+    Public Shared Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
         aktiveListe.Sort()
 
-        Dim freilosSpieler As Spieler = Nothing
+        Dim paarungen As New List(Of SpielPartie)
+
         If aktiveListe.Count Mod 2 = 1 Then
-            freilosSpieler = freilosRegel(aktiveListe)
+            Dim freilosSpieler = freilosRegel(aktiveListe)
+            aktiveListe.Remove(freilosSpieler)
+            paarungen.Add(New FreiLosSpiel(freilosSpieler))
         End If
 
-        Dim tempList As New List(Of Spieler)(aktiveListe)
-        If freilosSpieler IsNot Nothing Then
-            tempList.Remove(freilosSpieler)
-        End If
 
         Dim mittelPaket As New MittelPaket(aktuelleRunde)
-        Dim pakete = makeEvenPointPackets(tempList, aktuelleRunde, mittelPaket)
+        Dim pakete = makeEvenPointPackets(aktiveListe, aktuelleRunde, mittelPaket)
 
         If pakete.Count = 1 Then
             Dim paket = pakete.First
             paket.SuchePaarungen()
-            Return erzeugeGlobalePaarungsListe(pakete, freilosSpieler)
+            paarungen.AddRange(From x In paket.Partien)
+            Return paarungen
         End If
 
         Dim oberePakete = New List(Of Paket)
@@ -51,7 +51,11 @@
         ' Sonderregeln für Mittelpaket durchführen
         mittelPaket.Absteigend = True
         doMittelPaket(oberePakete, unterePakete, mittelPaket)
-        Return erzeugeGlobalePaarungsListe(pakete, freilosSpieler)
+
+        For Each Paket In pakete
+            paarungen.AddRange(Paket.Partien)
+        Next
+        Return paarungen
     End Function
 
     Private Shared Function SucheNächstesPaket(ByVal oberePakete As List(Of Paket), ByVal unterePakete As List(Of Paket), ByVal mittelPaket As Paket, ByVal prioOben As Boolean) As Paket
@@ -211,21 +215,7 @@
         Return Nothing
     End Function
 
-    '''
-    '''liest aus allen Paketen die gebildeten Paarungen, und fügt sie
-    '''in die globale Begegnungenliste ein.
-    '''
-    '''
-    Private Shared Function erzeugeGlobalePaarungsListe(ByVal pakete As List(Of Paket), ByVal freilosSpieler As Spieler) As GesamtBegegnungen
-        Dim alleBegegnungen = New SpielPartien
-        For Each Paket In pakete
-            For Each partie In Paket.Partien
-                alleBegegnungen.Add(partie)
-            Next
-        Next
-        Dim gesamt As New GesamtBegegnungen(alleBegegnungen, freilosSpieler)
-        Return gesamt
-    End Function
+  
 
     '''
     '''erzeugt Pakete mit Spielern mit gleicher Punktzahl.
@@ -266,18 +256,5 @@
         Return pakete
     End Function
 
-
-End Class
-
-Public Class GesamtBegegnungen
-
-    Private _alleBegegnungen As SpielPartien
-    Private _freilosSpieler As Spieler
-
-    Sub New(ByVal alleBegegnungen As SpielPartien, ByVal freilosSpieler As Spieler)
-        ' TODO: Complete member initialization 
-        _alleBegegnungen = alleBegegnungen
-        _freilosSpieler = freilosSpieler
-    End Sub
 
 End Class

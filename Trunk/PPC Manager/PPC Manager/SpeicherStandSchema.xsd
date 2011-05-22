@@ -27,8 +27,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-
       </xs:sequence>
+      <xs:attribute name="GewinnSätze" type="xs:byte" use="required"/>
+      <xs:attribute name="SatzDifferenz" type="xs:boolean" use="required"/>
+      <xs:attribute name="TurnierName" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 
@@ -38,7 +40,6 @@
     <xs:attribute name="Verein" type="xs:string" use="required" />
     <xs:attribute name="SpielKlasse" type="xs:string" use="required" />
     <xs:attribute name="StartNummer" type="xs:unsignedByte" use="required" />
-    <xs:attribute name="FreilosInRunde" type="xs:unsignedByte" use="required" />
     <xs:attribute name="Position" type="xs:unsignedByte" use="required" />
     <xs:attribute name="TurnierKlasse" type="xs:string" use="required" />
     <xs:attribute name="ttRang" type="xs:integer" use="required" />

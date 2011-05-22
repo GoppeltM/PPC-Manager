@@ -40,7 +40,7 @@ Public Class Spieler
         End Set
     End Property
 
-    Private _SpielKlasse As String = ""
+    Private _SpielKlasse As String
     Public Property SpielKlasse As String
         Get
             Return _SpielKlasse

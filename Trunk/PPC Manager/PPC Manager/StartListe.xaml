@@ -6,7 +6,14 @@
       xmlns:local="clr-namespace:PPC_Manager"
       
       mc:Ignorable="d" Title="StartListe" d:DesignHeight="300" d:DesignWidth="731">    
-        <Grid>
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="IsEditable" Value="True"/>
+                <Setter Property="StaysOpenOnEdit" Value="True"/>
+                <Setter Property="Selector.IsSelected" Value="true"/>
+            </Style>
+        </Grid.Resources>
             <DataGrid Grid.Row="0" Grid.Column="0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource AktiveSpieler}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
@@ -16,17 +23,16 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Vorname}" Header="Vorname" Width="*" x:Name="Vorname" />
                     <DataGridTextColumn Binding="{Binding Path=Nachname}" Header="Nachname" Width="*" x:Name="Nachname" />
-                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein}" Header="Verein" Width="*" ItemsSource="{Binding Path=Vereine, Source={StaticResource Settings}}" Selector.IsSelected="True" x:Name="Verein">
-                    <DataGridComboBoxColumn.EditingElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="IsEditable" Value="True"/>
-                            <Setter Property="StaysOpenOnEdit" Value="True"/>
-                        </Style>
-                    </DataGridComboBoxColumn.EditingElementStyle>
-                </DataGridComboBoxColumn>
-                    <DataGridTextColumn Binding="{Binding Path=SpielKlasse}" Header="Spielklasse" Width="*" x:Name="SpielKlasse" />
-                    <DataGridTextColumn Binding="{Binding Path=Position}" Header="Position" Width="*" x:Name="Position" />
-                    <DataGridTextColumn Binding="{Binding Path=TurnierKlasse}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />
+                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein}" Header="Verein" Width="*" 
+                                        ItemsSource="{Binding Path=Vereine, Source={StaticResource Settings}}" 
+                                        x:Name="Verein" EditingElementStyle="{StaticResource ComboBoxStyle}" />
+                    
+                <DataGridComboBoxColumn x:Name="SpielKlasse" Width="*" EditingElementStyle="{StaticResource ComboBoxStyle}" 
+                                        Header="Spielklasse" SelectedItemBinding="{Binding Path=SpielKlasse}" 
+                                        ItemsSource="{Binding Source={StaticResource Settings}, Path=SpielKlassen}" />
+                                    
+                <DataGridTextColumn Binding="{Binding Path=Position}" Header="Position" Width="*" x:Name="Position" />
+                <DataGridTextColumn Binding="{Binding Path=TurnierKlasse}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />
                 <DataGridTextColumn Binding="{Binding Path=Rating}" CanUserReorder="False" CanUserSort="False" Header="ttRating" Width="*" />
                 <DataGridTextColumn Binding="{Binding Path=Rang}" CanUserReorder="False" CanUserSort="False" Header="ttRang" Width="*" />
             </DataGrid.Columns>

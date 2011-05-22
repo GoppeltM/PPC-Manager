@@ -9,28 +9,17 @@ Public Class Optionen
             My.Settings.Vereine.Add(verein.Vereinsname)
         Next
         My.Settings.Save()
+    End Sub
+
+    Private Sub Laden_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Laden.Click
+        LoadTriggered = True
         Me.Close()
     End Sub
 
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button4.Click
-        Dim dialog = New OpenFileDialog
-        dialog.DefaultExt = "xml"
-        dialog.Filter = "XML Dateien|*.xml"
+    Friend Property LoadTriggered As Boolean
 
-        If dialog.ShowDialog Then
-            Dim xml = XDocument.Load(dialog.FileName).Root
-
-            Dim SpielRunden = CType(FindResource("MySpielRunden"), SpielRunden)
-            Dim AktiveSpieler = CType(FindResource("AktiveSpieler"), SpielerListe)
-            AktiveSpieler.FromXML(SpielRunden, xml.<AktiveSpieler>)
-            Dim AusgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
-            AusgeschiedeneSpieler.FromXML(SpielRunden, xml.<AusgeschiedeneSpieler>)
-            SpielRunden.FromXML(AktiveSpieler.Concat(AusgeschiedeneSpieler), xml.<SpielRunden>)
-
-
-        End If
-
-
+    Private Sub Optionen_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+        LoadTriggered = False
     End Sub
 End Class
 
@@ -48,7 +37,7 @@ Friend Class Verein
     Public Property Vereinsname As String
 End Class
 
-Public Class SatzZahlConverter
+Friend Class SatzZahlConverter
     Implements IValueConverter
 
     Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
@@ -60,5 +49,17 @@ Public Class SatzZahlConverter
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
         Throw New NotSupportedException
+    End Function
+End Class
+
+Friend Class FilePathValidationRule
+    Inherits ValidationRule
+
+    Public Overrides Function Validate(ByVal value As Object, ByVal cultureInfo As System.Globalization.CultureInfo) As System.Windows.Controls.ValidationResult
+        Dim path = value.ToString
+        If IO.Path.IsPathRooted(path) AndAlso IO.Path.GetExtension(path) = ".xml" Then
+            Return ValidationResult.ValidResult
+        End If
+        Return New ValidationResult(False, "Bitte einen gültigen Dateipfad angeben!")
     End Function
 End Class

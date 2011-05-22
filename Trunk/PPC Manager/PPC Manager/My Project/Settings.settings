@@ -16,13 +16,13 @@
     <Setting Name="GewinnPunkte" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">21</Value>
     </Setting>
-    <Setting Name="MaxSätze" Type="System.Int32" Scope="User">
+    <Setting Name="GewinnSätze" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="AktuelleSpeicherdatei" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="AutoSave" Type="System.String" Scope="User">
+    <Setting Name="AutoSavePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SpielKlassen" Type="System.Collections.Specialized.StringCollection" Scope="User">
@@ -44,6 +44,12 @@
   &lt;string&gt;Kreisklasse D&lt;/string&gt;
   &lt;string&gt;Keine Angabe&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="AutoSaveAn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TurnierName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ping Pong Café</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -95,12 +95,12 @@ Partial Friend NotInheritable Class MySettings
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
-    Public Property MaxSätze() As Integer
+    Public Property GewinnSätze() As Integer
         Get
-            Return CType(Me("MaxSätze"),Integer)
+            Return CType(Me("GewinnSätze"),Integer)
         End Get
         Set
-            Me("MaxSätze") = value
+            Me("GewinnSätze") = value
         End Set
     End Property
     
@@ -119,12 +119,12 @@ Partial Friend NotInheritable Class MySettings
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-    Public Property AutoSave() As String
+    Public Property AutoSavePath() As String
         Get
-            Return CType(Me("AutoSave"),String)
+            Return CType(Me("AutoSavePath"),String)
         End Get
         Set
-            Me("AutoSave") = value
+            Me("AutoSavePath") = value
         End Set
     End Property
     
@@ -145,6 +145,30 @@ Partial Friend NotInheritable Class MySettings
         End Get
         Set
             Me("SpielKlassen") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+    Public Property AutoSaveAn() As Boolean
+        Get
+            Return CType(Me("AutoSaveAn"),Boolean)
+        End Get
+        Set
+            Me("AutoSaveAn") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Ping Pong Café")>  _
+    Public Property TurnierName() As String
+        Get
+            Return CType(Me("TurnierName"),String)
+        End Get
+        Set
+            Me("TurnierName") = value
         End Set
     End Property
 End Class
