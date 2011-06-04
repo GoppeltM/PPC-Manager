@@ -4,11 +4,8 @@ Public Class Optionen
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button2.Click
-        My.Settings.Vereine.Clear()
-        For Each verein As Verein In CType(Resources.Item("Vereine"), VereinsDaten)
-            My.Settings.Vereine.Add(verein.Vereinsname)
-        Next
         My.Settings.Save()
+        Me.Close()
     End Sub
 
     Private Sub Laden_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Laden.Click
@@ -21,20 +18,14 @@ Public Class Optionen
     Private Sub Optionen_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         LoadTriggered = False
     End Sub
-End Class
 
-Friend Class VereinsDaten
-    Inherits ObjectModel.ObservableCollection(Of Verein)
-
-    Public Sub New()
-        For Each verein As String In My.Settings.Vereine
-            Me.Add(New Verein With {.Vereinsname = verein})
-        Next
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
+        Dim dialog As New SaveFileDialog
+        dialog.Filter = "XML Dateien |*.xml"
+        If dialog.ShowDialog() Then
+            TextBox1.Text = dialog.FileName            
+        End If
     End Sub
-End Class
-
-Friend Class Verein
-    Public Property Vereinsname As String
 End Class
 
 Friend Class SatzZahlConverter

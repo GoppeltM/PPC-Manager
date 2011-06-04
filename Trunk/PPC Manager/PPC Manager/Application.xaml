@@ -7,7 +7,6 @@
     <Application.Resources>
         <local:SpielerListe x:Key="AktiveSpieler" />
         <local:SpielerListe x:Key="AusgeschiedeneSpieler" />
-        <local:MySettings x:Key="Settings"/>
         <local:SpielRunden x:Key="SpielRunden" />
     </Application.Resources>
 </Application>

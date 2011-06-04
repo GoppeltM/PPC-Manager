@@ -4,10 +4,6 @@
     xmlns:local="clr-namespace:PPC_Manager"    
     Title="Optionen" Height="393" Width="480" SnapsToDevicePixels="True">
 
-    <Window.Resources>
-        <local:VereinsDaten x:Key="Vereine" />
-        <local:MySettings x:Key="Settings" />
-    </Window.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="208*"></RowDefinition>
@@ -20,9 +16,9 @@
         </Grid.ColumnDefinitions>
         <Expander Header="Vereine" HorizontalAlignment="Left" Margin="12,12,0,2" Name="Expander1" VerticalAlignment="Stretch" Width="190" ExpandDirection="Down">
             <Grid>
-                <DataGrid AutoGenerateColumns="False" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource Vereine}}" HeadersVisibility="None" >
+                <DataGrid AutoGenerateColumns="False" Name="DataGrid1" ItemsSource="{Binding Source={x:Static local:MySettings.Default}, Path=Vereine}" HeadersVisibility="None" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=Vereinsname}" CanUserReorder="False" CanUserResize="False" Width="*" />
+                        <DataGridTextColumn Binding="{Binding}" CanUserReorder="False" CanUserResize="False" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>            
@@ -32,20 +28,21 @@
                 <Grid.Resources>
                     <local:SatzZahlConverter x:Key="Converter"></local:SatzZahlConverter>
                 </Grid.Resources>
-                <CheckBox Content="Satzdifferenz" Height="26" HorizontalAlignment="Left" Margin="20,6,0,0" Name="SatzDiffCheck" VerticalAlignment="Top" Width="162" IsChecked="{Binding Path=BerücksichtigeSatzDiff, Source={StaticResource Settings}}" />
-                <Slider Height="28" HorizontalAlignment="Left" Margin="20,38,0,0" Name="Slider1" VerticalAlignment="Top" Width="162" Minimum="1" Maximum="5" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                <CheckBox Content="Satzdifferenz" Height="26" HorizontalAlignment="Left" Margin="20,6,0,0" Name="SatzDiffCheck" VerticalAlignment="Top" Width="162" IsChecked="{Binding Path=BerücksichtigeSatzDiff, Source={x:Static local:MySettings.Default}}" />
+                <Slider Height="28" HorizontalAlignment="Left" Margin="20,38,0,0" Name="Slider1" VerticalAlignment="Top" Width="162" Minimum="1" Maximum="5" 
+                        TickPlacement="BottomRight" IsSnapToTickEnabled="True" Value="{Binding Source={x:Static local:MySettings.Default}, Path=GewinnSätze}"/>
+
                 <Label Height="28" HorizontalAlignment="Left" Margin="25,54,0,0" Name="Label2" VerticalAlignment="Top" Width="162" Content="{Binding Path=Value, ElementName=Slider1, Converter={StaticResource Converter}}" />
             </Grid>
         </GroupBox>
         <StackPanel Grid.Row="1" >
-            <CheckBox Name="AutoSaveCheck" IsChecked="{Binding Path=AutoSaveAn, Source={StaticResource Settings}}" Content="Automatisches Speichern"></CheckBox>
+            <CheckBox Name="AutoSaveCheck" IsChecked="{Binding Path=AutoSaveAn, Source={x:Static local:MySettings.Default}}" Content="Automatisches Speichern"></CheckBox>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Pfad:" Height="28" Name="Label1" />
                 <TextBox  Height="25" Name="TextBox1" Width="324" 
-                          IsEnabled="{Binding ElementName=AutoSaveCheck, Path=IsChecked}" 
-                          IsReadOnly="False">
+                          IsEnabled="{Binding ElementName=AutoSaveCheck, Path=IsChecked}">
                     <TextBox.Text>
-                        <Binding Path="AutoSave" Source="{StaticResource Settings}">
+                        <Binding Path="AutoSavePath" Source="{x:Static local:MySettings.Default}">
                             <Binding.ValidationRules>
                                 <local:FilePathValidationRule/>
                             </Binding.ValidationRules>
@@ -58,7 +55,7 @@
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" >
             <Label Content="Turniername" Height="28" />
-            <TextBox  Height="25"  Width="307" Text="{Binding Source={StaticResource Settings}, Path=TurnierName}"/>
+            <TextBox  Height="25"  Width="307" Text="{Binding Source={x:Static local:MySettings.Default}, Path=TurnierName}"/>
         </StackPanel>
         <Button Content="Laden..." Grid.Row="3" Height="23" Width="90" Margin="10, 0,0,0" HorizontalAlignment="Left" Name="Laden" />
         <Button Content="OK" Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,0,100,0" Name="Button2"  Width="75" IsDefault="True" />

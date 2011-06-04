@@ -98,9 +98,9 @@ Class MainWindow
 
     Private Sub Vorsortieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Vorsortieren.Click
        
-        Dim sortierteListe = From x In AktiveSpieler
+        Dim sortierteListe = (From x In AktiveSpieler
                              Let spielDiff = My.Settings.SpielKlassen.IndexOf(x.SpielKlasse) * 2 + x.Position
-                             Order By x.Rating Descending, x.Rang Ascending, x.TurnierKlasse Ascending, spielDiff Descending Select x
+                             Order By x.Rating Descending, x.Rang Ascending, x.TurnierKlasse Ascending, spielDiff Descending Select x).ToList
 
         AktiveSpieler.Clear()
         For Each Spieler In sortierteListe
