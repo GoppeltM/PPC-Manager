@@ -17,7 +17,7 @@
         Next
 
 
-        Dim liste As SpielerListe = CType(Me.FindResource("AktiveSpieler"), SpielerListe)
+        Dim liste As SpielerListe = CType(Me.FindResource("SpielerListe"), SpielerListe)
 
         Dim selectedRows = From x In DataGrid1.SelectedCells Group By x.Item Into Group
 
@@ -88,7 +88,7 @@
     End Sub
 
     Private Sub Copy_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim selectedRows = From x In DataGrid1.SelectedCells Group By x.Item Into Group
+        Dim selectedRows = From x In DataGrid1.SelectedCells Where x.Item.GetType Is GetType(Spieler) Group By x.Item Into Group
 
 
         Dim CSVContent = String.Empty
@@ -138,9 +138,10 @@
     End Sub
 
     Private Sub DataGrid1_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataGrid1.CurrentCellChanged
+        If DataGrid1.CurrentColumn Is Nothing Then Return
         If DataGrid1.CurrentColumn.GetType Is GetType(DataGridComboBoxColumn) Then
             DataGrid1.BeginEdit()
         End If
-        
+
     End Sub
 End Class

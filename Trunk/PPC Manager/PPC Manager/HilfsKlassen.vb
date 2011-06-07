@@ -26,10 +26,11 @@ Friend Class SpielRunden
     Friend Function ToXML() As XElement
 
         Dim xSpielRunden As New List(Of XElement)
-        For i = 1 To Me.Count
-            xSpielRunden.Add(<SpielRunde Nummer=<%= i %>>
-                                 <%= From x In Me(i) Let y = x.ToXML() Select y %>
-                             </SpielRunde>)
+
+        Dim current = 0
+        For Each SpielRunde In Me.Reverse
+            xSpielRunden.Add(SpielRunde.ToXML(current))
+            current += 1
         Next
 
         Return <SpielRunden>
@@ -43,6 +44,7 @@ End Class
 Friend Class SpielRunde
     Inherits ObservableCollection(Of SpielPartie)
 
+    Friend Property AusgeschiedeneSpieler As New ObservableCollection(Of Spieler)
     
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xRunde As XElement) As SpielRunde
         Dim runde As New SpielRunde
@@ -52,8 +54,23 @@ Friend Class SpielRunde
         Dim xFreilos = xRunde.<FreiLosSpiel>.SingleOrDefault
         If xFreilos IsNot Nothing Then
             runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
-        End If        
+        End If
+
+        For Each xSpieler In xRunde.<AusgeschiedenerSpieler>
+            Dim StartNummer = Integer.Parse(xSpieler.Value)
+            runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.StartNummer = StartNummer Select x).First)
+        Next
+
         Return runde
+    End Function
+
+    Friend Function ToXML(ByVal spielRunde As Integer) As XElement
+        Return <SpielRunde Nummer=<%= spielRunde + 1 %>>
+                   <%= From x In Me Let y = x.ToXML() Select y %>
+                   <%= From x In AusgeschiedeneSpieler Select <AusgeschiedenerSpieler>
+                                                                  <%= x.StartNummer %>
+                                                              </AusgeschiedenerSpieler> %>
+               </SpielRunde>
     End Function
 
 End Class

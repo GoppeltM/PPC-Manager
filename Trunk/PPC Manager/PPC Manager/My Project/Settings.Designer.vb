@@ -135,7 +135,7 @@ Partial Friend NotInheritable Class MySettings
     
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+     Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
     Public Property AutoSaveAn() As Boolean
         Get
             Return CType(Me("AutoSaveAn"),Boolean)
@@ -169,6 +169,18 @@ Partial Friend NotInheritable Class MySettings
         End Get
         Set
             Me("Vereine") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+    Public Property BegegnungenAbgeschlossen() As Boolean
+        Get
+            Return CType(Me("BegegnungenAbgeschlossen"),Boolean)
+        End Get
+        Set
+            Me("BegegnungenAbgeschlossen") = value
         End Set
     End Property
 End Class

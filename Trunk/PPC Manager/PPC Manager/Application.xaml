@@ -5,8 +5,7 @@
              
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:SpielerListe x:Key="AktiveSpieler" />
-        <local:SpielerListe x:Key="AusgeschiedeneSpieler" />
+        <local:SpielerListe x:Key="SpielerListe" />
         <local:SpielRunden x:Key="SpielRunden" />
     </Application.Resources>
 </Application>

@@ -4,13 +4,11 @@ Imports <xmlns="http://PPCManager/SpeicherStand">
 Class MainWindow
 
     Friend SpielRunden As SpielRunden
-    Friend AktiveSpieler As SpielerListe
-    Friend AusgeschiedeneSpieler As SpielerListe
+    Friend SpielerListe As SpielerListe
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        AktiveSpieler = CType(FindResource("AktiveSpieler"), SpielerListe)
-        AusgeschiedeneSpieler = CType(FindResource("AusgeschiedeneSpieler"), SpielerListe)
+        SpielerListe = CType(FindResource("SpielerListe"), SpielerListe)
         Einstellungen_Click(sender, e)
     End Sub
 
@@ -28,7 +26,7 @@ Class MainWindow
 
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
 
-        
+
         If My.Settings.AktuelleSpeicherdatei = String.Empty Then
             SaveAs_Executed(sender, e)
             Return
@@ -42,12 +40,9 @@ Class MainWindow
     Private Function getXmlDocument() As XDocument
 
         Dim doc = New XDocument(<PPCTurnier TurnierName=<%= My.Settings.TurnierName %> GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= My.Settings.BerücksichtigeSatzDiff %>>
-                                    <AktiveSpieler>
-                                        <%= From x In AktiveSpieler Let y = x.ToXML Select y %>
-                                    </AktiveSpieler>
-                                    <AusgeschiedeneSpieler>
-                                        <%= From x In AusgeschiedeneSpieler Let y = x.ToXML Select y %>
-                                    </AusgeschiedeneSpieler>
+                                    <SpielerListe>
+                                        <%= From x In SpielerListe Let y = x.ToXML Select y %>
+                                    </SpielerListe>
 
                                     <%= SpielRunden.ToXML %>
                                 </PPCTurnier>)
@@ -68,10 +63,9 @@ Class MainWindow
 
                 Dim doc = XDocument.Load(.FileName)
 
-                aktiveSpieler.FromXML(SpielRunden, doc.Root.<AktiveSpieler>)
-                ausgeschiedeneSpieler.FromXML(SpielRunden, doc.Root.<AusgeschiedeneSpieler>)
-
-                SpielRunden.FromXML(AktiveSpieler.Concat(AusgeschiedeneSpieler), doc.Root.<SpielRunden>.<SpielRunde>)
+                SpielerListe.FromXML(SpielRunden, doc.Root.<SpielerListe>)
+                
+                SpielRunden.FromXML(SpielerListe, doc.Root.<SpielRunden>.<SpielRunde>)
 
                 My.Settings.GewinnSätze = Integer.Parse(doc.Root.@GewinnSätze)
                 My.Settings.BerücksichtigeSatzDiff = Boolean.Parse(doc.Root.@SatzDifferenz)
@@ -97,14 +91,14 @@ Class MainWindow
     End Sub
 
     Private Sub Vorsortieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Vorsortieren.Click
-       
-        Dim sortierteListe = (From x In AktiveSpieler
+
+        Dim sortierteListe = (From x In SpielerListe
                              Let spielDiff = My.Settings.SpielKlassen.IndexOf(x.SpielKlasse) * 2 + x.Position
                              Order By x.Rating Descending, x.Rang Ascending, x.TurnierKlasse Ascending, spielDiff Descending Select x).ToList
 
-        AktiveSpieler.Clear()
+        SpielerListe.Clear()
         For Each Spieler In sortierteListe
-            AktiveSpieler.Add(Spieler)
+            SpielerListe.Add(Spieler)
         Next
 
     End Sub
@@ -134,10 +128,10 @@ Class MainWindow
     End Sub
 
     Private Sub RundeBerechnen()
-        Dim begegnungen = PaketBildung.organisierePakete(AktiveSpieler.ToList, SpielRunden.Count)
+        Dim begegnungen = PaketBildung.organisierePakete(SpielerListe.ToList, SpielRunden.Count)
 
         Dim spielRunde As New SpielRunde
-        
+
         For Each begegnung In begegnungen
             spielRunde.Add(begegnung)
         Next
@@ -157,11 +151,13 @@ Class MainWindow
                 Vorsortieren.Visibility = Windows.Visibility.Collapsed
                 NächsteRunde.Visibility = Windows.Visibility.Visible
                 Einstellungen.Visibility = Windows.Visibility.Collapsed
+                OffeneBegegnungen.Visibility = Windows.Visibility.Visible
             Case GetType(StartListe)
                 TurnierStarten.Visibility = Windows.Visibility.Visible
                 Vorsortieren.Visibility = Windows.Visibility.Visible
                 NächsteRunde.Visibility = Windows.Visibility.Collapsed
                 Einstellungen.Visibility = Windows.Visibility.Visible
+                OffeneBegegnungen.Visibility = Windows.Visibility.Collapsed
             Case Else
                 Throw New Exception("Unbekannter Seitentyp")
         End Select

@@ -90,7 +90,7 @@ Class PaarungsSuche
         End If
 
         Dim listeLinks = kombination.GetRange(0, mitte)
-        Dim listeRechts = kombination.GetRange(mitte, kombination.Count)
+        Dim listeRechts = kombination.GetRange(mitte, kombination.Count - 1)
 
         Dim paarungen As New List(Of SpielPartie)
 

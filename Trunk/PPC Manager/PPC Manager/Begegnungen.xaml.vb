@@ -1,19 +1,24 @@
 ﻿Class Begegnungen
 
-    Private Sub CollectionViewSource1_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
-        If CheckBox1 Is Nothing OrElse Not CheckBox1.IsChecked Then
-            e.Accepted = True
-            Return
-        End If
 
-        Dim spielPartie As SpielPartie = CType(e.Item, SpielPartie)
-        Dim abgeschlossen = Aggregate x In spielPartie Into All(x.Abgeschlossen)
-        e.Accepted = Not abgeschlossen
+    Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
+
+        If Not My.Settings.BegegnungenAbgeschlossen Then Return
+
+        Dim partie As SpielPartie = CType(e.Item, SpielPartie)
+        e.Accepted = Not partie.Abgeschlossen
+
     End Sub
+End Class
 
-    Private Sub UpdateView(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles CheckBox1.Click
-        Dim c = CType(FindResource("MyView"), CollectionViewSource)
-        c.View.Refresh()
-    End Sub
+Class RundenAnzeige
+    Implements IValueConverter
 
+    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
+        Return String.Format("Runde: {0}", value)
+    End Function
+
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
+        Throw New NotSupportedException
+    End Function
 End Class

@@ -14,27 +14,27 @@
                 <Setter Property="Selector.IsSelected" Value="true"/>
             </Style>
         </Grid.Resources>
-            <DataGrid Grid.Row="0" Grid.Column="0" Name="DataGrid1" ItemsSource="{Binding Source={StaticResource AktiveSpieler}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
+            <DataGrid Name="DataGrid1" ItemsSource="{Binding Source={StaticResource SpielerListe}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
                     <CommandBinding Command="ApplicationCommands.Paste" CanExecute="Paste_CanExecute" Executed="Paste_Executed"/>
                     <CommandBinding Command="ApplicationCommands.Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>        
             </DataGrid.CommandBindings>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Vorname}" Header="Vorname" Width="*" x:Name="Vorname" />
-                    <DataGridTextColumn Binding="{Binding Path=Nachname}" Header="Nachname" Width="*" x:Name="Nachname" />
-                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein}" Header="Verein" Width="*" 
+                    <DataGridTextColumn Binding="{Binding Path=Vorname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Vorname" Width="*" x:Name="Vorname" />
+                <DataGridTextColumn Binding="{Binding Path=Nachname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Nachname" Width="*" x:Name="Nachname" />
+                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Verein" Width="*" 
                                         ItemsSource="{Binding Path=Vereine, Source={x:Static local:MySettings.Default}}" 
                                         x:Name="Verein" EditingElementStyle="{StaticResource ComboBoxStyle}" />
                     
                 <DataGridComboBoxColumn x:Name="SpielKlasse" Width="*" EditingElementStyle="{StaticResource ComboBoxStyle}" 
-                                        Header="Spielklasse" SelectedItemBinding="{Binding Path=SpielKlasse}" 
+                                        Header="Spielklasse" SelectedItemBinding="{Binding Path=SpielKlasse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                         ItemsSource="{Binding Source={x:Static local:MySettings.Default}, Path=SpielKlassen}" />
-                                    
-                <DataGridTextColumn Binding="{Binding Path=Position}" Header="Position" Width="*" x:Name="Position" />
-                <DataGridTextColumn Binding="{Binding Path=TurnierKlasse}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />
-                <DataGridTextColumn Binding="{Binding Path=Rating}" CanUserReorder="False" CanUserSort="False" Header="ttRating" Width="*" />
-                <DataGridTextColumn Binding="{Binding Path=Rang}" CanUserReorder="False" CanUserSort="False" Header="ttRang" Width="*" />
+
+                <DataGridTextColumn Binding="{Binding Path=Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Position" Width="*" x:Name="Position" />
+                <DataGridTextColumn Binding="{Binding Path=TurnierKlasse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />
+                <DataGridTextColumn Binding="{Binding Path=Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False" CanUserSort="False" Header="ttRating" Width="*" />
+                <DataGridTextColumn Binding="{Binding Path=Rang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False" CanUserSort="False" Header="ttRang" Width="*" />
             </DataGrid.Columns>
             </DataGrid>
             

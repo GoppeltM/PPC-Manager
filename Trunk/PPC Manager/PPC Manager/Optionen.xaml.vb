@@ -4,6 +4,9 @@ Public Class Optionen
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button2.Click
+        TextBox1.GetBindingExpression(TextBox.TextProperty).UpdateSource()
+        If Validation.GetHasError(TextBox1) Then Return
+
         My.Settings.Save()
         Me.Close()
     End Sub
@@ -25,6 +28,10 @@ Public Class Optionen
         If dialog.ShowDialog() Then
             TextBox1.Text = dialog.FileName            
         End If
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button3.Click
+        My.Settings.Reload()
     End Sub
 End Class
 

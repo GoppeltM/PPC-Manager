@@ -4,93 +4,99 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PPC_Manager"
-      mc:Ignorable="d" 
-      d:DesignHeight="368" d:DesignWidth="572"
-      Title="Begegnungen">
+      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="474" d:DesignWidth="900">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
-        <CollectionViewSource x:Key="MyView" x:Name="CollectionViewSource1" Filter="CollectionViewSource1_Filter" />
-        <DataTemplate x:Key="PunkteDisplay">
-            <StackPanel>
-                <Label Content="{Binding Path=SpielerLinks}"></Label>
-                <Separator></Separator>
-                <Label Content="{Binding Path=SpielerRechts}"></Label>
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="SätzeDisplay">
-            <ItemsControl ItemsSource="{Binding}" IsTabStop="False">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"></StackPanel>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Label Content="{Binding Path=PunkteLinks, Mode=TwoWay}" Background="{Binding Path=PunkteLinks,Converter={StaticResource MyPainter}}" ></Label>
-                            <Label Content="{Binding Path=PunkteRechts, Mode=TwoWay}" Background="{Binding Path=PunkteRechts,Converter={StaticResource MyPainter}}"></Label>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </DataTemplate>       
+        <local:RundenAnzeige x:Key="RundenAnzeige" />
+        <CollectionViewSource x:Key="MyView" x:Name="BegegnungenListView" Filter="BegegnungenListView_Filter" />               
     </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="96" />
+            <RowDefinition Height="378*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="4"/>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="4"/>
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
-        <ListView HorizontalAlignment="Stretch" Name="ListView1" VerticalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource MyView}}" ItemTemplate="{StaticResource SätzeDisplay}" Margin="0,39,0,0" IsSynchronizedWithCurrentItem="True" SelectedIndex="-1">
-            <ListView.View>
-                <GridView AllowsColumnReorder="False">
-                    <GridViewColumn CellTemplate="{StaticResource PunkteDisplay}" />
-                    <GridViewColumn CellTemplate="{StaticResource SätzeDisplay}" />
-                </GridView>
-            </ListView.View>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>        
+            <ListView Name="ListView1" ItemsSource="{Binding Source={StaticResource MyView}}" SelectedIndex="-1" Margin="10" Grid.RowSpan="2">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+
+                    </GridView>                    
+                </ListView.View>
+            <ListView.Items>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+                <ItemsControl>Alpha</ItemsControl>
+            </ListView.Items>
         </ListView>
-        <GridSplitter HorizontalAlignment="Stretch" Name="GridSplitter1" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="1" Margin="0,39,0,0" ShowsPreview="True" Background="#FF767474" />
-        <CheckBox Content="Nur offene Begegnungen" Height="16" HorizontalAlignment="Left" Margin="12,17,0,0" Name="CheckBox1" VerticalAlignment="Top" />
-        <Label Grid.Column="2" Height="28" HorizontalAlignment="Left" Margin="5,17,0,0" Name="Label1" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Center" Content="{Binding Source={StaticResource MyView}, Path=SpielerLinks}" />
-        <Label Content="{Binding Source={StaticResource MyView}, Path=SpielerRechts}" Height="28" Margin="4,127,0,0" Name="Label2" VerticalAlignment="Top" Grid.Column="2" Width="155" HorizontalContentAlignment="Center" HorizontalAlignment="Left" />
-        <ItemsControl Margin="4,49,0,0" Grid.Column="2" ItemsSource="{Binding Source={StaticResource MyView}, Path=/}" Height="72" VerticalAlignment="Top" HorizontalAlignment="Left" Width="155">
-            <ItemsControl.ItemsPanel>
+        <GridSplitter Name="GridSplitter1" ResizeDirection="Columns" Grid.Column="1" ShowsPreview="True" Background="#FF767474" Width="1" Grid.RowSpan="2" />
+        <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource RundenAnzeige}}" Grid.Column="2" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
+        <ListBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24">
+            <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"></StackPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBox Text="{Binding Path=PunkteLinks}" Background="{Binding Path=PunkteLinks,Converter={StaticResource MyPainter}}" Name="textBox1" LostFocus="UpdateView"></TextBox>
-                        <TextBox Text="{Binding Path=PunkteRechts}" Background="{Binding Path=PunkteRechts,Converter={StaticResource MyPainter}}" LostFocus="UpdateView"></TextBox>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <GridSplitter Grid.Column="3" ResizeDirection="Columns" ShowsPreview="True" HorizontalAlignment="Stretch"></GridSplitter>
-        <ListBox Grid.Column="4" Name="ListBox1">
-            <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Disqualifizieren...">
-                        
-                    </MenuItem>
-                </ContextMenu>
-            </ListBox.ContextMenu>
-            <ListBoxItem>
-                <local:Spieler></local:Spieler>
-            </ListBoxItem>
+                    <WrapPanel Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
+                </ItemsPanelTemplate>                
+            </ListBox.ItemsPanel>
+
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
         </ListBox>
-        <Expander Grid.Column="2" Header="Aus dem Spiel ausgestiegen" Height="100" HorizontalAlignment="Left" Name="Expander1" VerticalAlignment="Bottom" ExpandDirection="Up" Width="185" Margin="5,0,0,12">
-            <ListBox>
-                <ListBoxItem>
-                    <local:Spieler Vorname="Erik" Nachname="Svenson"></local:Spieler>
-                </ListBoxItem>
+        <Grid Grid.Column="2" Height="78" HorizontalAlignment="Left" Margin="100,12,0,0" Name="Grid1" VerticalAlignment="Top" Width="415">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="125*" />
+                <ColumnDefinition Width="48" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Test"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Test"/>
+            <ListBox Grid.Column="1" ItemsSource="{Binding Source={x:Static local:MySettings.Default}, Path=Vereine}" >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>                    
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox>Test</TextBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
             </ListBox>
-        </Expander>
-        <Label Content="Freilos Spieler:" Grid.Column="2" Height="28" HorizontalAlignment="Left" Margin="5,186,0,0" Name="Label3" VerticalAlignment="Top" />
-        <Label Content="XYZ" Height="28" HorizontalAlignment="Left" Margin="104,186,0,0" Name="Label4" VerticalAlignment="Top" Grid.Column="2" Width="111" />
+            
+            <Button Grid.RowSpan="2" Grid.Column="2" Margin="5" IsDefault="True">OK</Button>
+            
+            
+        </Grid>
     </Grid>
 </Page>

@@ -5,25 +5,18 @@
            targetNamespace="http://PPCManager/SpeicherStand">
   <xs:element name="PPCTurnier">
     <xs:complexType>      
-      <xs:sequence maxOccurs="unbounded">
-        <xs:element name="AktiveSpieler">
+      <xs:sequence>
+        <xs:element name="SpielerListe" maxOccurs="1">
           <xs:complexType>
             <xs:sequence maxOccurs="unbounded">
-              <xs:element name="Spieler" type="SpielerType"/>
+              <xs:element  ref="Spieler"/>
             </xs:sequence>
           </xs:complexType>
-        </xs:element>
-        <xs:element name="AusgeschiedeneSpieler">
+        </xs:element>        
+        <xs:element name="SpielRunden" maxOccurs="1">
           <xs:complexType>
             <xs:sequence maxOccurs="unbounded">
-              <xs:element name="Spieler" type="SpielerType"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="SpielRunden">
-          <xs:complexType>
-            <xs:sequence maxOccurs="unbounded">
-              <xs:element name="SpielRunde" type="SpielRundeType"/>
+              <xs:element ref="SpielRunde"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -34,34 +27,44 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:complexType name="SpielerType">
-    <xs:attribute name="Vorname" type="xs:string" use="optional" />
-    <xs:attribute name="Nachname" type="xs:string" use="required" />
-    <xs:attribute name="Verein" type="xs:string" use="required" />
-    <xs:attribute name="SpielKlasse" type="xs:string" use="required" />
-    <xs:attribute name="StartNummer" type="xs:unsignedByte" use="required" />
-    <xs:attribute name="Position" type="xs:unsignedByte" use="required" />
-    <xs:attribute name="TurnierKlasse" type="xs:string" use="required" />
-    <xs:attribute name="ttRang" type="xs:integer" use="required" />
-    <xs:attribute name="ttRating" type="xs:integer" use="required" />
-  </xs:complexType>
+  <xs:element name="Spieler">
+    <xs:complexType>
+      <xs:attribute name="Vorname" type="xs:string" use="optional" />
+      <xs:attribute name="Nachname" type="xs:string" use="required" />
+      <xs:attribute name="Verein" type="xs:string" use="required" />
+      <xs:attribute name="SpielKlasse" type="xs:string" use="required" />
+      <xs:attribute name="StartNummer" type="xs:integer" use="required" />
+      <xs:attribute name="Position" type="xs:unsignedByte" use="required" />
+      <xs:attribute name="TurnierKlasse" type="xs:string" use="required" />
+      <xs:attribute name="ttRang" type="xs:integer" use="required" />
+      <xs:attribute name="ttRating" type="xs:integer" use="required" />
+    </xs:complexType>
+  </xs:element>
 
-  <xs:complexType name="SpielRundeType">
-    <xs:sequence>
-      <xs:element name="SpielPartie" type="SpielPartieType"/>
-      <xs:element name="FreiLosSpiel" type="FreiLosType" maxOccurs="1"/>
-    </xs:sequence>
-  <xs:attribute name="Nummer" type="xs:byte"/>
-  </xs:complexType>
+  <xs:element name="SpielRunde">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SpielPartie"/>
+        <xs:element ref="FreiLosSpiel" maxOccurs="1"/>
+        <xs:element name="AusgeschiedenerSpieler" type="xs:integer"/>
+      </xs:sequence>
+      <xs:attribute name="Nummer" type="xs:byte"/>
+    </xs:complexType>
+  </xs:element>
 
-  <xs:complexType name="SpielPartieType">
-    <xs:attribute name="SpielerA" type="xs:int" use="required" />
-    <xs:attribute name="SpielerB" type="xs:int" use="required" />
-    <xs:attribute name="ErgebnisA" type="xs:unsignedByte" use="required" />
-    <xs:attribute name="ErgebnisB" type="xs:unsignedByte" use="required" />
-  </xs:complexType>
-  <xs:complexType name="FreiLosType">
-    <xs:attribute name="Spieler" type="xs:int" use="required" />
-  </xs:complexType>
+  <xs:element name="SpielPartie">
+    <xs:complexType>
+      <xs:attribute name="SpielerA" type="xs:int" use="required" />
+      <xs:attribute name="SpielerB" type="xs:int" use="required" />
+      <xs:attribute name="ErgebnisA" type="xs:unsignedByte" use="required" />
+      <xs:attribute name="ErgebnisB" type="xs:unsignedByte" use="required" />
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:element name="FreiLosSpiel">
+    <xs:complexType>
+      <xs:attribute name="Spieler" type="xs:int" use="required" />
+    </xs:complexType>
+  </xs:element>
   
 </xs:schema>

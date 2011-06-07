@@ -38,7 +38,7 @@
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="AutoSaveAn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="TurnierName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Ping Pong Café</Value>
@@ -50,6 +50,9 @@
   &lt;string&gt;TTC Oberrhein&lt;/string&gt;
   &lt;string&gt;TTC Gumpelhofen&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="BegegnungenAbgeschlossen" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

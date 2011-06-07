@@ -62,6 +62,8 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Property Abgeschlossen As Boolean
+
     Overridable Function ToXML() As XElement
         Dim node = <SpielPartie SpielerLinks=<%= SpielerLinks.StartNummer %> SpielerRechts=<%= SpielerRechts.StartNummer %>>
                        <%= From x In Me Let y = x.ToXML() Select y %>
