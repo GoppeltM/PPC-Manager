@@ -1,5 +1,6 @@
 ﻿Class Begegnungen
 
+    Friend Property BegegnungenView As CollectionViewSource
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
 
@@ -8,6 +9,11 @@
         Dim partie As SpielPartie = CType(e.Item, SpielPartie)
         e.Accepted = Not partie.Abgeschlossen
 
+    End Sub
+
+    Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+        BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
+        BegegnungenView.View.MoveCurrentToLast()
     End Sub
 End Class
 

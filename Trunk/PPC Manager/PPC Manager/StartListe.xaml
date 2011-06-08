@@ -11,10 +11,11 @@
             <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
                 <Setter Property="IsEditable" Value="True"/>
                 <Setter Property="StaysOpenOnEdit" Value="True"/>
-                <Setter Property="Selector.IsSelected" Value="true"/>
+                <Setter Property="Selector.IsSelected" Value="true"/>                
             </Style>
+            <CollectionViewSource x:Key="EditableView" Source="{Binding Source={StaticResource SpielerListe}}" />
         </Grid.Resources>
-            <DataGrid Name="DataGrid1" ItemsSource="{Binding Source={StaticResource SpielerListe}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
+            <DataGrid Name="DataGrid1" ItemsSource="{Binding Source={StaticResource EditableView}}" RowHeaderWidth="20" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AutoGenerateColumns="False" SelectionUnit="CellOrRowHeader" AllowDrop="True">
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
                     <CommandBinding Command="ApplicationCommands.Paste" CanExecute="Paste_CanExecute" Executed="Paste_Executed"/>

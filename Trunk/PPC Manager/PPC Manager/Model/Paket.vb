@@ -74,7 +74,7 @@ Class Paket
     Function SuchePaarungen() As Boolean
         sort()
         Dim container = PaarungsSuche.SuchePaarungen(SpielerListe, Me)
-        If container Is Nothing Then
+        If container IsNot Nothing Then
             aktuellerSchwimmer = container.aktuellerSchwimmer
             Partien.Clear()
             Partien.AddRange(container.Partien)

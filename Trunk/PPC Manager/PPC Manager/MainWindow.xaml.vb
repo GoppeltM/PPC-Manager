@@ -81,13 +81,20 @@ Class MainWindow
     End Sub
 
     Private Sub SaveAs_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim dialog As New SaveFileDialog
-        dialog.Filter = "XML Dateien |*.xml"
-        If dialog.ShowDialog() Then
-            My.Settings.AktuelleSpeicherdatei = dialog.FileName
-            Save_Executed(sender, e)
-        End If
 
+        With New SaveFileDialog
+            .Filter = "XML Dateien |*.xml"
+            If My.Settings.AktuelleSpeicherdatei = String.Empty Then
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            Else
+                .InitialDirectory = IO.Path.GetDirectoryName(My.Settings.AktuelleSpeicherdatei)
+            End If
+            If .ShowDialog() Then
+                My.Settings.AktuelleSpeicherdatei = .FileName
+                Save_Executed(sender, e)
+            End If
+        End With
+        
     End Sub
 
     Private Sub Vorsortieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Vorsortieren.Click
@@ -114,6 +121,8 @@ Class MainWindow
     Private Sub NächsteRunde_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NächsteRunde.Click
         If MessageBox.Show(Me, "Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
                            "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
+            Dim BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
+            BegegnungenView.View.MoveCurrentToLast()
             RundeBerechnen()
         End If
     End Sub
@@ -122,6 +131,7 @@ Class MainWindow
         If MessageBox.Show(Me, "Wollen Sie wirklich das Turnier starten? Vergewissern Sie sich, dass alle Spielregeln und die Startreihenfolge richtig ist bevor Sie beginnen.", _
                            "Turnier Starten?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
             RundeBerechnen()
+
             EditorArea.Navigate(New Begegnungen)
         End If
 

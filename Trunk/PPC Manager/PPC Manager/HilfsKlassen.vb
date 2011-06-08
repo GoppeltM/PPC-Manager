@@ -4,6 +4,12 @@ Imports <xmlns="http://PPCManager/SpeicherStand">
 Friend Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
+    Friend Sub New()
+        ' For debug reasons only
+        Me.Add(New Spieler)
+        Me.Add(New Spieler)
+    End Sub
+
     Sub FromXML(ByVal spielRunden As SpielRunden, ByVal xSpielerListe As IEnumerable(Of XElement))
         Clear()
         For Each xSpieler In xSpielerListe.<Spieler>
@@ -14,14 +20,20 @@ Friend Class SpielerListe
 End Class
 
 Friend Class SpielRunden
-    Inherits Stack(Of SpielRunde)
-    
+    Inherits Stack(Of SpielRunde)    
+
+    Friend Sub New()
+        ' For Debug Reasons only
+        Me.Push(New SpielRunde)
+    End Sub
+
     Friend Sub FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
         Clear()
         For Each xRunde In From x In runden Order By Integer.Parse(x.@Nummer)
             Push(SpielRunde.FromXML(spielerListe, xRunde))
         Next
     End Sub
+
 
     Friend Function ToXML() As XElement
 
@@ -37,7 +49,6 @@ Friend Class SpielRunden
                    <%= xSpielRunden %>
                </SpielRunden>
     End Function
-
 End Class
 
 
@@ -71,6 +82,10 @@ Friend Class SpielRunde
                                                                   <%= x.StartNummer %>
                                                               </AusgeschiedenerSpieler> %>
                </SpielRunde>
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return "SpielRunde"
     End Function
 
 End Class

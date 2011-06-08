@@ -11,9 +11,6 @@ Imports <xmlns="http://PPCManager/SpeicherStand">
 ''' </remarks>
 Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
-    Implements INotifyPropertyChanged
-
-
 
     Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
@@ -78,6 +75,10 @@ Public Class SpielPartie
 
         Dim partie As New SpielPartie(spielerA, spielerB)
         Return partie
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return String.Format("{0} : {1}", SpielerLinks, SpielerRechts)
     End Function
 
 End Class
