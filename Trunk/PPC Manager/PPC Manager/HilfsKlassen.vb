@@ -24,7 +24,9 @@ Friend Class SpielRunden
 
     Friend Sub New()
         ' For Debug Reasons only
-        Me.Push(New SpielRunde)
+        Dim spielRunde As New SpielRunde
+        spielRunde.Add(New SpielPartie(New Spieler, New Spieler))
+        Me.Push(spielRunde)
     End Sub
 
     Friend Sub FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
@@ -131,25 +133,3 @@ Public Class Vereine
 End Class
 
 
-Public Class SatzFarbenPainter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert        
-
-        If Not targetType Is GetType(Brush) Then
-            Throw New Exception("Must be a brush!")
-        End If
-
-        Dim x As Integer = CInt(value)
-        If x >= My.Settings.GewinnPunkte Then
-            Return Brushes.GreenYellow
-        Else
-            Return Brushes.Transparent
-        End If
-
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
