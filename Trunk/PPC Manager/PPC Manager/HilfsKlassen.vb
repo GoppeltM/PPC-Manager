@@ -26,6 +26,7 @@ Friend Class SpielRunden
         ' For Debug Reasons only
         Dim spielRunde As New SpielRunde
         spielRunde.Add(New SpielPartie(New Spieler, New Spieler))
+        spielRunde.Add(New SpielPartie(New Spieler, New Spieler))
         Me.Push(spielRunde)
     End Sub
 

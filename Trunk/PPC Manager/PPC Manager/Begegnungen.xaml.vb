@@ -1,4 +1,6 @@
-﻿Class Begegnungen
+﻿Imports System.Globalization
+
+Class Begegnungen
 
     Friend Property BegegnungenView As CollectionViewSource
 
@@ -32,11 +34,11 @@ End Class
 Class RundenAnzeige
     Implements IValueConverter
 
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
+    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
         Return String.Format("Runde: {0}", value)
     End Function
 
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
         Throw New NotSupportedException
     End Function
 End Class
@@ -44,7 +46,7 @@ End Class
 Public Class SatzFarbenPainter
     Implements IValueConverter
 
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
+    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
 
         If Not targetType Is GetType(Brush) Then
             Throw New Exception("Must be a brush!")
@@ -59,7 +61,21 @@ Public Class SatzFarbenPainter
 
     End Function
 
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
+        Throw New NotSupportedException
+    End Function
+End Class
+
+Public Class MeineGewonnenenSätze
+    Implements IValueConverter
+
+    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
+        Dim points = CType(value, Integer)
+        If points >= My.Settings.GewinnPunkte Then Return Visibility.Visible
+        Return Visibility.Hidden
+    End Function
+
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
         Throw New NotSupportedException
     End Function
 End Class
