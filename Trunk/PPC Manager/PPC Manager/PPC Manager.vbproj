@@ -94,6 +94,9 @@
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="HilfsKlassen.vb" />
+    <Compile Include="LadenNeu.xaml.vb">
+      <DependentUpon>LadenNeu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\MittelPaket.vb" />
     <Compile Include="Model\PaarungsContainer.vb" />
     <Compile Include="Model\PaarungsSuche.vb" />
@@ -108,6 +111,10 @@
       <DependentUpon>StartListe.xaml</DependentUpon>
     </Compile>
     <Page Include="Begegnungen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LadenNeu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

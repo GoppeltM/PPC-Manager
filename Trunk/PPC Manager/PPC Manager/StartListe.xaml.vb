@@ -144,4 +144,9 @@
         End If
 
     End Sub
+
+    Private Sub DataGrid1_LoadingRow(ByVal sender As System.Object, ByVal e As System.Windows.Controls.DataGridRowEventArgs) Handles DataGrid1.LoadingRow
+        e.Row.Header = e.Row.GetIndex + 1
+    End Sub
+
 End Class

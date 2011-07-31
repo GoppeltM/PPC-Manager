@@ -5,11 +5,33 @@ Class MainWindow
 
     Friend SpielRunden As SpielRunden
     Friend SpielerListe As SpielerListe
+    Private DateiPfad As String
+    Private Gewinnsätze As Integer
+    Private SatzDifferenz As Boolean
+    Private AutoSaveAn As Boolean
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         SpielerListe = CType(FindResource("SpielerListe"), SpielerListe)
-        Einstellungen_Click(sender, e)
+
+        With New LadenNeu
+            Dim result = .ShowDialog
+            If .Canceled Then
+                Me.Close()
+                Return
+            End If            
+            If result Then
+                DateiPfad = .SpeicherPfad
+                Save_Executed(sender, Nothing)
+                Einstellungen_Click(sender, e)
+            Else
+                Open_Executed(sender, Nothing)
+                If String.IsNullOrEmpty(DateiPfad) Then
+                    Me.Close()
+                End If
+            End If
+        End With
+        
     End Sub
 
     Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -25,21 +47,14 @@ Class MainWindow
     End Sub
 
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-
-
-        If My.Settings.AktuelleSpeicherdatei = String.Empty Then
-            SaveAs_Executed(sender, e)
-            Return
-        End If
-
         Dim doc = getXmlDocument()
 
-        doc.Save(My.Settings.AktuelleSpeicherdatei)
+        doc.Save(DateiPfad)
     End Sub
 
     Private Function getXmlDocument() As XDocument
 
-        Dim doc = New XDocument(<PPCTurnier TurnierName=<%= My.Settings.TurnierName %> GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= My.Settings.BerücksichtigeSatzDiff %>>
+        Dim doc = New XDocument(<PPCTurnier GewinnSätze=<%= Gewinnsätze %> SatzDifferenz=<%= SatzDifferenz %>>
                                     <SpielerListe>
                                         <%= From x In SpielerListe Let y = x.ToXML Select y %>
                                     </SpielerListe>
@@ -49,48 +64,32 @@ Class MainWindow
         Return doc
     End Function
 
-    Friend Sub Open_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim dialog = New OpenFileDialog
-        With dialog
-            .Filter = "XML Dateien |*.xml"
-            If My.Settings.AktuelleSpeicherdatei = String.Empty Then
-                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+    Friend Sub Open_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+        With LadenNeu.LadenDialog            
+            If Not .ShowDialog(Me) Then Return
+
+            Dim doc = XDocument.Load(.FileName)
+            DateiPfad = .FileName
+            SpielerListe.FromXML(SpielRunden, doc.Root.<SpielerListe>)
+
+            SpielRunden.FromXML(SpielerListe, doc.Root.<SpielRunden>.<SpielRunde>)
+
+            Gewinnsätze = Integer.Parse(doc.Root.@GewinnSätze)
+            SatzDifferenz = Boolean.Parse(doc.Root.@SatzDifferenz)
+            If SpielRunden.Any Then
+                EditorArea.Navigate(New Begegnungen)
             Else
-                .InitialDirectory = IO.Path.GetDirectoryName(My.Settings.AktuelleSpeicherdatei)
+                EditorArea.Navigate(New StartListe)
             End If
 
-            If .ShowDialog(Me) = True Then
-
-                Dim doc = XDocument.Load(.FileName)
-
-                SpielerListe.FromXML(SpielRunden, doc.Root.<SpielerListe>)
-                
-                SpielRunden.FromXML(SpielerListe, doc.Root.<SpielRunden>.<SpielRunde>)
-
-                My.Settings.GewinnSätze = Integer.Parse(doc.Root.@GewinnSätze)
-                My.Settings.BerücksichtigeSatzDiff = Boolean.Parse(doc.Root.@SatzDifferenz)
-                My.Settings.TurnierName = doc.Root.@TurnierName
-                If SpielRunden.Any Then
-                    EditorArea.Navigate(New Begegnungen)
-                Else
-                    EditorArea.Navigate(New StartListe)
-                End If
-
-            End If
         End With
     End Sub
 
     Private Sub SaveAs_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
 
-        With New SaveFileDialog
-            .Filter = "XML Dateien |*.xml"
-            If My.Settings.AktuelleSpeicherdatei = String.Empty Then
-                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-            Else
-                .InitialDirectory = IO.Path.GetDirectoryName(My.Settings.AktuelleSpeicherdatei)
-            End If
+        With LadenNeu.SpeichernDialog
             If .ShowDialog() Then
-                My.Settings.AktuelleSpeicherdatei = .FileName
+                DateiPfad = .FileName
                 Save_Executed(sender, e)
             End If
         End With
@@ -111,11 +110,13 @@ Class MainWindow
     End Sub
 
     Private Sub Einstellungen_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Einstellungen.Click
-        Dim dialog As New Optionen
-        dialog.ShowDialog()
-        If dialog.LoadTriggered Then
-            Open_Executed(sender, Nothing)
-        End If
+
+        With New Optionen
+            If .ShowDialog Then
+
+            End If
+        End With
+        
     End Sub
 
     Private Sub NächsteRunde_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NächsteRunde.Click
@@ -147,9 +148,9 @@ Class MainWindow
         Next
         SpielRunden.Push(spielRunde)
 
-        If My.Settings.AutoSaveAn Then
+        If CBool(FindResource("")) Then
             Dim document = SpielRunden.ToXML
-            document.Save(My.Settings.AutoSavePath)
+            document.Save(DateiPfad)
         End If
 
     End Sub

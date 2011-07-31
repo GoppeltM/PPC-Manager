@@ -14,7 +14,7 @@ Public Class SpielPartie
 
     Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
-        For i = 1 To My.Settings.GewinnSätze
+        For i = 1 To 3
             Me.Add(New Satz)
         Next
     End Sub

@@ -23,7 +23,6 @@
       </xs:sequence>
       <xs:attribute name="GewinnSätze" type="xs:byte" use="required"/>
       <xs:attribute name="SatzDifferenz" type="xs:boolean" use="required"/>
-      <xs:attribute name="TurnierName" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 

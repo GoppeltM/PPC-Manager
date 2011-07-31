@@ -3,9 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPC_Manager"
              
-    StartupUri="MainWindow.xaml">
+    StartupUri="MainWindow.xaml" xmlns:my="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <local:SpielerListe x:Key="SpielerListe" />
         <local:SpielRunden x:Key="SpielRunden" />
-    </Application.Resources>
+        <my:Double x:Key="Gewinnsätze">0</my:Double>
+        <my:Boolean x:Key="AutoSaveAn">True</my:Boolean>
+        <my:Boolean x:Key="SatzDifferenz">False</my:Boolean>
+  </Application.Resources>
 </Application>

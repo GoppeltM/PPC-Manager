@@ -3,35 +3,26 @@
 Public Class Optionen
 
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button2.Click
-        TextBox1.GetBindingExpression(TextBox.TextProperty).UpdateSource()
-        If Validation.GetHasError(TextBox1) Then Return
-
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Neu.Click
         My.Settings.Save()
+        DialogResult = False
         Me.Close()
     End Sub
 
-    Private Sub Laden_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Laden.Click
-        LoadTriggered = True
+    Private Sub Laden_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        DialogResult = True
         Me.Close()
     End Sub
 
-    Friend Property LoadTriggered As Boolean
-
-    Private Sub Optionen_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
-        LoadTriggered = False
-    End Sub
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
-        Dim dialog As New SaveFileDialog
-        dialog.Filter = "XML Dateien |*.xml"
-        If dialog.ShowDialog() Then
-            TextBox1.Text = dialog.FileName            
-        End If
-    End Sub
-
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button3.Click
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Abbrechen.Click
         My.Settings.Reload()
+        DialogResult = Nothing
+    End Sub
+
+
+
+    Private Sub Abbrechen_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Abbrechen.Click
+        Me.DialogResult = False
     End Sub
 End Class
 

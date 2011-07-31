@@ -37,7 +37,12 @@
                 <DataGridTextColumn Binding="{Binding Path=Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False" CanUserSort="False" Header="ttRating" Width="*" />
                 <DataGridTextColumn Binding="{Binding Path=Rang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False" CanUserSort="False" Header="ttRang" Width="*" />
             </DataGrid.Columns>
-            </DataGrid>
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="DataGridRowHeader">
+                    <Setter Property="Content" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}, Path=Header}"/>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+        </DataGrid>
             
     </Grid>
     
