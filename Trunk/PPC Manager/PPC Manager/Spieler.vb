@@ -117,7 +117,7 @@ Public Class Spieler
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend Property SpielRunden As SpielRunden
+    Public Property SpielRunden As SpielRunden
 
 
     Public ReadOnly Property Punkte As Integer

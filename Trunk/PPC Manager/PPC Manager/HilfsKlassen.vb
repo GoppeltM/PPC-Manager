@@ -19,10 +19,10 @@ Friend Class SpielerListe
 
 End Class
 
-Friend Class SpielRunden
-    Inherits Stack(Of SpielRunde)    
+Public Class SpielRunden
+    Inherits Stack(Of SpielRunde)
 
-    Friend Sub New()
+    Public Sub New()
         ' For Debug Reasons only
         Dim spielRunde As New SpielRunde
         spielRunde.Add(New SpielPartie(New Spieler, New Spieler))
@@ -55,11 +55,11 @@ Friend Class SpielRunden
 End Class
 
 
-Friend Class SpielRunde
+Public Class SpielRunde
     Inherits ObservableCollection(Of SpielPartie)
 
     Friend Property AusgeschiedeneSpieler As New ObservableCollection(Of Spieler)
-    
+
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xRunde As XElement) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In xRunde.<SpielRunde>

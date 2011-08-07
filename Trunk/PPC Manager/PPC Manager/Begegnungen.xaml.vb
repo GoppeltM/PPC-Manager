@@ -27,6 +27,24 @@ Class Begegnungen
         x.PunkteRechts = My.Settings.GewinnPunkte
         x.PunkteLinks = 0
     End Sub
+
+    Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+        If ListView1.SelectedIndex <> -1 Then
+            Dim runde = CType(FindResource("SpielRunden"), SpielRunden).Peek
+            Dim Spieler = CType(ListView1.SelectedItem, Spieler)
+            If Not runde.AusgeschiedeneSpieler.Contains(Spieler) Then
+                e.CanExecute = True
+                Return
+            End If
+        End If
+        e.CanExecute = False
+    End Sub
+
+    Private Sub Ausscheiden_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+        Dim runde = CType(FindResource("SpielRunden"), SpielRunden).Peek
+        Dim Spieler = CType(ListView1.SelectedItem, Spieler)
+        runde.AusgeschiedeneSpieler.Add(Spieler)
+    End Sub
 End Class
 
 Class RundenAnzeige

@@ -20,7 +20,17 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>        
-            <ListView Name="ListView1" ItemsSource="{Binding Source={StaticResource SpielerListe}}" SelectedIndex="-1" Margin="10" Grid.RowSpan="2" SelectionMode="Single">  
+            <ListView Name="ListView1" ItemsSource="{Binding Source={StaticResource SpielerListe}}" SelectedIndex="-1" Margin="10" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.CommandBindings>
+                <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
+            </ListView.CommandBindings>
+                <ListView.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.Items>
+                        <MenuItem Header="Spieler ausscheiden" Name="MenuItem1" Command="Delete" />
+                    </ContextMenu.Items>
+                </ContextMenu> 
+            </ListView.ContextMenu>
         </ListView>
         <GridSplitter Name="GridSplitter1" ResizeDirection="Columns" Grid.Column="1" ShowsPreview="True" Background="#FF767474" Width="1" Grid.RowSpan="2" />
         <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource RundenAnzeige}}" Grid.Column="2" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
