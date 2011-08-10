@@ -30,7 +30,7 @@
             Dim selectedCells = LastSelectedRow.Group
 
             For i = selectedRows.Count To ClipboardRows.Count
-                Dim spieler = New Spieler
+                Dim spieler = New Spieler(CType(FindResource("SpielRunden"), SpielRunden))
                 liste.Add(spieler)
                 For Each cellInfo In selectedCells
                     Dim newCell As New DataGridCellInfo(spieler, cellInfo.Column)

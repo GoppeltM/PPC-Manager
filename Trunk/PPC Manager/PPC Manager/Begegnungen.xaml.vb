@@ -43,8 +43,12 @@ Class Begegnungen
     Private Sub Ausscheiden_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Dim runde = CType(FindResource("SpielRunden"), SpielRunden).Peek
         Dim Spieler = CType(ListView1.SelectedItem, Spieler)
-        runde.AusgeschiedeneSpieler.Add(Spieler)
+        If MessageBox.Show(String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!", Spieler.Nachname), _
+                        "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
+            runde.AusgeschiedeneSpieler.Add(Spieler)
+        End If
     End Sub
+
 End Class
 
 Class RundenAnzeige

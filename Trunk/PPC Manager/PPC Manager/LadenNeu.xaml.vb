@@ -10,6 +10,7 @@
         With SpeichernDialog()
             If .ShowDialog Then
                 SpeicherPfad = .FileName
+                DialogResult = True
                 Close()
             End If
         End With
@@ -22,7 +23,12 @@
         Dim dialog As New SaveFileDialog
         With dialog
             .Filter = "XML Dateien |*.xml"
-            .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)            
+            If My.Settings.LetztesVerzeichnis = String.Empty Then
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            Else
+                .InitialDirectory = My.Settings.LetztesVerzeichnis
+            End If
+
         End With
         Return dialog
     End Function
@@ -31,7 +37,12 @@
         Dim dialog = New OpenFileDialog
         With dialog
             .Filter = "XML Dateien |*.xml"
-                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)           
+            If My.Settings.LetztesVerzeichnis = String.Empty Then
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            Else
+                .InitialDirectory = My.Settings.LetztesVerzeichnis
+            End If
+
         End With
         Return dialog
     End Function

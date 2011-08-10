@@ -5,9 +5,6 @@ Friend Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
     Friend Sub New()
-        ' For debug reasons only
-        Me.Add(New Spieler)
-        Me.Add(New Spieler)
     End Sub
 
     Sub FromXML(ByVal spielRunden As SpielRunden, ByVal xSpielerListe As IEnumerable(Of XElement))
@@ -23,11 +20,7 @@ Public Class SpielRunden
     Inherits Stack(Of SpielRunde)
 
     Public Sub New()
-        ' For Debug Reasons only
-        Dim spielRunde As New SpielRunde
-        spielRunde.Add(New SpielPartie(New Spieler, New Spieler))
-        spielRunde.Add(New SpielPartie(New Spieler, New Spieler))
-        Me.Push(spielRunde)
+
     End Sub
 
     Friend Sub FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
@@ -62,7 +55,7 @@ Public Class SpielRunde
 
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xRunde As XElement) As SpielRunde
         Dim runde As New SpielRunde
-        For Each xSpielPartie In xRunde.<SpielRunde>
+        For Each xSpielPartie In xRunde.<SpielPartie>
             runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
         Next
         Dim xFreilos = xRunde.<FreiLosSpiel>.SingleOrDefault
@@ -73,8 +66,7 @@ Public Class SpielRunde
         For Each xSpieler In xRunde.<AusgeschiedenerSpieler>
             Dim StartNummer = Integer.Parse(xSpieler.Value)
             runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.StartNummer = StartNummer Select x).First)
-        Next
-
+        Next        
         Return runde
     End Function
 

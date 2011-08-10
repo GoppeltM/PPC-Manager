@@ -8,6 +8,24 @@ Public Class Spieler
 #Region "Public Properties"
 
     Private _Vorname As String
+
+    Sub New()
+
+    End Sub
+
+    Sub New(ByVal spielRunden As PPC_Manager.SpielRunden)
+        Me.SpielRunden = spielRunden
+    End Sub
+
+
+    ''' <summary>
+    ''' Darf nur einmalig gesetzt werden, und darf nur lesenderweise betreten werden!!
+    ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public SpielRunden As SpielRunden
+
+
     Public Property Vorname As String
         Get
             Return _Vorname
@@ -111,14 +129,6 @@ Public Class Spieler
     End Property
 
 
-    ''' <summary>
-    ''' Darf nur einmalig gesetzt werden, und darf nur lesenderweise betreten werden!!
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Property SpielRunden As SpielRunden
-
 
     Public ReadOnly Property Punkte As Integer
         Get
@@ -159,6 +169,12 @@ Public Class Spieler
         End Get
     End Property
 
+    Public ReadOnly Property Ausgeschieden As Boolean
+        Get
+            Return SpielRunden.Peek.AusgeschiedeneSpieler.Contains(Me)
+        End Get
+    End Property
+
 #End Region
 
 
@@ -173,7 +189,7 @@ Public Class Spieler
         diff = other.BuchholzPunkte - Me.BuchholzPunkte
         If diff <> 0 Then Return diff
 
-        If CBool(Application.Current.FindResource("")) Then
+        If CBool(Application.Current.FindResource("SatzDifferenz")) Then
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
@@ -205,8 +221,7 @@ Public Class Spieler
     End Function
 
     Friend Shared Function FromXML(ByVal spielRunden As SpielRunden, ByVal spielerNode As XElement) As Spieler
-        Dim spieler As New Spieler
-        spieler.SpielRunden = spielRunden
+        Dim spieler As New Spieler(spielRunden)
         With spieler
             .Vorname = spielerNode.@Vorname
             .Nachname = spielerNode.@Nachname

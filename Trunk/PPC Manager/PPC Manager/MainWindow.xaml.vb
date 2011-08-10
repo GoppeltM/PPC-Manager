@@ -13,7 +13,6 @@ Class MainWindow
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         SpielerListe = CType(FindResource("SpielerListe"), SpielerListe)
-
         With New LadenNeu
             Dim result = .ShowDialog
             If .Canceled Then
@@ -22,8 +21,8 @@ Class MainWindow
             End If            
             If result Then
                 DateiPfad = .SpeicherPfad
-                Save_Executed(sender, Nothing)
                 Einstellungen_Click(sender, e)
+                Save_Executed(sender, Nothing)
             Else
                 Open_Executed(sender, Nothing)
                 If String.IsNullOrEmpty(DateiPfad) Then
@@ -68,6 +67,8 @@ Class MainWindow
         With LadenNeu.LadenDialog            
             If Not .ShowDialog(Me) Then Return
 
+            My.Settings.LetztesVerzeichnis = IO.Path.GetDirectoryName(.FileName)
+
             Dim doc = XDocument.Load(.FileName)
             DateiPfad = .FileName
             SpielerListe.FromXML(SpielRunden, doc.Root.<SpielerListe>)
@@ -90,6 +91,7 @@ Class MainWindow
         With LadenNeu.SpeichernDialog
             If .ShowDialog() Then
                 DateiPfad = .FileName
+                My.Settings.LetztesVerzeichnis = IO.Path.GetDirectoryName(.FileName)
                 Save_Executed(sender, e)
             End If
         End With
@@ -148,7 +150,7 @@ Class MainWindow
         Next
         SpielRunden.Push(spielRunde)
 
-        If CBool(FindResource("")) Then
+        If CBool(FindResource("AutoSaveAn")) Then
             Dim document = SpielRunden.ToXML
             document.Save(DateiPfad)
         End If

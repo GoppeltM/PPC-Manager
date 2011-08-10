@@ -77,17 +77,35 @@
                                     </Ellipse>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                        </ItemsControl>                        
+                        </ItemsControl>
+                        <ItemsControl Grid.Row="1" Grid.Column="2" ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteRechts, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="SpringGreen" Offset="0" />
+                                                <GradientStop Color="#FF23654C" Offset="1" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Grid>
                     
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Column="2" Height="78" HorizontalAlignment="Left" Margin="100,12,0,0" Name="Grid1" VerticalAlignment="Top" Width="415" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}">
+        <Grid Grid.Column="2" Height="78" HorizontalAlignment="Left" Margin="0,12,253,0" Name="Grid1" VerticalAlignment="Top" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" MinWidth="500">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="110*" />
-                <ColumnDefinition Width="80*" />
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -126,7 +144,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button Grid.RowSpan="2" Grid.Column="2" Margin="5" IsDefault="True">OK</Button>
         </Grid>
     </Grid>
 </Page>

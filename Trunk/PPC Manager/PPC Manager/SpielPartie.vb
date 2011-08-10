@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
 Imports <xmlns="http://PPCManager/SpeicherStand">
+Imports System.Collections.Specialized
 
 ''' <summary>
 ''' 
@@ -14,9 +15,6 @@ Public Class SpielPartie
 
     Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
-        For i = 1 To 3
-            Me.Add(New Satz)
-        Next
     End Sub
 
     Private Property Spieler As KeyValuePair(Of Spieler, Spieler)
@@ -32,6 +30,8 @@ Public Class SpielPartie
             Return Spieler.Value
         End Get
     End Property
+
+
 
     Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
         Get
@@ -70,10 +70,13 @@ Public Class SpielPartie
 
 
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie
-        Dim spielerA = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerA) Select x).First
-        Dim spielerB = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerB) Select x).First
+        Dim spielerA = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerLinks) Select x).First
+        Dim spielerB = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerRechts) Select x).First
 
         Dim partie As New SpielPartie(spielerA, spielerB)
+        For Each Satz In xSpielPartie.<Satz>
+            partie.Add(New Satz With {.PunkteLinks = Integer.Parse(Satz.@PunkteLinks), .PunkteRechts = Integer.Parse(Satz.@PunkteRechts)})
+        Next
         Return partie
     End Function
 
@@ -81,6 +84,27 @@ Public Class SpielPartie
         Return String.Format("{0} : {1}", SpielerLinks, SpielerRechts)
     End Function
 
+
+    Private Sub SpielPartie_CollectionChanged(ByVal sender As Object, ByVal e As NotifyCollectionChangedEventArgs) Handles Me.CollectionChanged
+        Select Case e.Action
+            Case Specialized.NotifyCollectionChangedAction.Add
+                For Each Satz As Satz In e.NewItems
+                    AddHandler Satz.PropertyChanged, AddressOf SatzUpdated
+                Next
+            Case Specialized.NotifyCollectionChangedAction.Remove
+                For Each Satz As Satz In e.OldItems
+                    RemoveHandler Satz.PropertyChanged, AddressOf SatzUpdated
+                Next
+        End Select
+    End Sub
+
+    Private Sub SatzUpdated(ByVal sender As Object, ByVal e As PropertyChangedEventArgs)
+        Dim gesamtAbgeschlossen = Aggregate x In Me Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
+
+        Dim Gewinnsätze = 3
+        If Me.Count > gesamtAbgeschlossen Then Return
+        If gesamtAbgeschlossen < 3 Then Me.Add(New Satz)
+    End Sub
 End Class
 
 Public Class FreiLosSpiel
@@ -141,7 +165,7 @@ Public Class Satz
     End Property
 
 
-    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
     Function ToXML() As XElement
         Dim node = <Satz PunkteLinks=<%= PunkteLinks %> PunkteRechts=<%= PunkteRechts %>>

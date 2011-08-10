@@ -53,16 +53,24 @@
 
   <xs:element name="SpielPartie">
     <xs:complexType>
-      <xs:attribute name="SpielerA" type="xs:int" use="required" />
-      <xs:attribute name="SpielerB" type="xs:int" use="required" />
-      <xs:attribute name="ErgebnisA" type="xs:unsignedByte" use="required" />
-      <xs:attribute name="ErgebnisB" type="xs:unsignedByte" use="required" />
+      <xs:sequence maxOccurs="unbounded">
+        <xs:element ref="Satz"/>
+      </xs:sequence>
+      <xs:attribute name="SpielerLinks" type="xs:int" use="required" />
+      <xs:attribute name="SpielerRechts" type="xs:int" use="required" />      
     </xs:complexType>  
   </xs:element>
 
   <xs:element name="FreiLosSpiel">
     <xs:complexType>
       <xs:attribute name="Spieler" type="xs:int" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Satz">
+    <xs:complexType>
+      <xs:attribute name="PunkteLinks" type="xs:int"/>
+      <xs:attribute name="PunkteRechts" type="xs:int"/>
     </xs:complexType>
   </xs:element>
   
