@@ -6,8 +6,16 @@ Class Begegnungen
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
 
+        If Not My.Settings.BegegnungenFiltern Then
+            e.Accepted = True
+            Return
+        End If
+        
         Dim partie As SpielPartie = CType(e.Item, SpielPartie)
-        e.Accepted = Not partie.Abgeschlossen
+        Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
+
+        Dim gewinnSätze = CType(FindResource("Gewinnsätze"), Double)
+        e.Accepted = (gesamtAbgeschlossen = gewinnSätze)
 
     End Sub
 
@@ -45,7 +53,7 @@ Class Begegnungen
         Dim Spieler = CType(ListView1.SelectedItem, Spieler)
         If MessageBox.Show(String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!", Spieler.Nachname), _
                         "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
-            runde.AusgeschiedeneSpieler.Add(Spieler)
+            Spieler.AusscheidenLassen()
         End If
     End Sub
 
@@ -82,6 +90,27 @@ Public Class SatzFarbenPainter
     End Function
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
+        Throw New NotSupportedException
+    End Function
+End Class
+
+Public Class AusgeschiedenPainter
+    Implements IValueConverter
+
+    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
+        If Not targetType Is GetType(Brush) Then
+            Throw New Exception("Must be a brush!")
+        End If
+
+        Dim val = CType(value, Boolean)
+        If val Then
+            Return Brushes.Red
+        Else
+            Return Brushes.Transparent
+        End If
+    End Function
+
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
         Throw New NotSupportedException
     End Function
 End Class

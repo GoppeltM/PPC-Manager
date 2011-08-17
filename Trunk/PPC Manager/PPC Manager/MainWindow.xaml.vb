@@ -133,6 +133,12 @@ Class MainWindow
     Private Sub TurnierStarten_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         If MessageBox.Show(Me, "Wollen Sie wirklich das Turnier starten? Vergewissern Sie sich, dass alle Spielregeln und die Startreihenfolge richtig ist bevor Sie beginnen.", _
                            "Turnier Starten?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
+
+            Dim current = 1
+            For Each row As Spieler In SpielerListe
+                row.StartNummer = current
+                current += 1
+            Next
             RundeBerechnen()
 
             EditorArea.Navigate(New Begegnungen)
@@ -150,9 +156,8 @@ Class MainWindow
         Next
         SpielRunden.Push(spielRunde)
 
-        If CBool(FindResource("AutoSaveAn")) Then
-            Dim document = SpielRunden.ToXML
-            document.Save(DateiPfad)
+        If CBool(My.Settings.AutoSaveAn) Then
+            Save_Executed(Me, Nothing)
         End If
 
     End Sub

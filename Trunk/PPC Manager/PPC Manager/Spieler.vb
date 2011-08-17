@@ -175,6 +175,11 @@ Public Class Spieler
         End Get
     End Property
 
+    Public Sub AusscheidenLassen()
+        SpielRunden.Peek.AusgeschiedeneSpieler.Add(Me)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Ausgeschieden"))
+    End Sub
+
 #End Region
 
 
@@ -193,7 +198,7 @@ Public Class Spieler
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
-        Return (Me.Nachname & Me.Vorname).CompareTo(other.Nachname & other.Vorname)
+        Return Me.StartNummer - other.StartNummer
     End Function
 
 

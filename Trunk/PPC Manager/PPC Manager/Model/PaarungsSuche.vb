@@ -96,7 +96,7 @@ Class PaarungsSuche
 
         While listeLinks.Count > 0
             Dim spieler1 = listeLinks.First
-            Dim spieler2 = listeLinks.First
+            Dim spieler2 = listeRechts.First
             If spieler1.HatBereitsGespieltGegen(spieler2) Then Return Nothing
 
             paarungen.Add(New SpielPartie(spieler1, spieler2)) ' TODO: aktuelle Runde hier eintragen

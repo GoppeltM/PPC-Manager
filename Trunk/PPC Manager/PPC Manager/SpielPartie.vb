@@ -15,9 +15,10 @@ Public Class SpielPartie
 
     Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
+        Add(New Satz)
     End Sub
 
-    Private Property Spieler As KeyValuePair(Of Spieler, Spieler)
+    Private ReadOnly Spieler As KeyValuePair(Of Spieler, Spieler)
 
     Public ReadOnly Property SpielerLinks As Spieler
         Get
@@ -59,8 +60,6 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Property Abgeschlossen As Boolean
-
     Overridable Function ToXML() As XElement
         Dim node = <SpielPartie SpielerLinks=<%= SpielerLinks.StartNummer %> SpielerRechts=<%= SpielerRechts.StartNummer %>>
                        <%= From x In Me Let y = x.ToXML() Select y %>
@@ -101,7 +100,6 @@ Public Class SpielPartie
     Private Sub SatzUpdated(ByVal sender As Object, ByVal e As PropertyChangedEventArgs)
         Dim gesamtAbgeschlossen = Aggregate x In Me Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
-        Dim Gewinnsätze = 3
         If Me.Count > gesamtAbgeschlossen Then Return
         If gesamtAbgeschlossen < 3 Then Me.Add(New Satz)
     End Sub

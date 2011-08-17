@@ -28,7 +28,7 @@
                 <MenuItem Header="Vorsortieren" Name="Vorsortieren" />
                 <MenuItem Header="Nächste Runde..." Name="NächsteRunde" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
-                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenAbgeschlossen}" />
+                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" />
             </MenuItem>
         </Menu>
         <Frame Margin="12,43,12,12" Name="EditorArea" Source="StartListe.xaml" NavigationUIVisibility="Hidden" />

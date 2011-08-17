@@ -8,6 +8,7 @@
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:RundenAnzeige x:Key="RundenAnzeige" />
+        <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
         <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter" Source="{Binding Source={StaticResource SpielRunden}, Path=/}" />        
     </Page.Resources>
     <Grid>
@@ -31,6 +32,11 @@
                     </ContextMenu.Items>
                 </ContextMenu> 
             </ListView.ContextMenu>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" Content="{Binding Path=Nachname}" IsHitTestVisible="False" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <GridSplitter Name="GridSplitter1" ResizeDirection="Columns" Grid.Column="1" ShowsPreview="True" Background="#FF767474" Width="1" Grid.RowSpan="2" />
         <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource RundenAnzeige}}" Grid.Column="2" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
@@ -57,7 +63,7 @@
                         </Grid.Resources>
                         <Label Grid.Row="0" Grid.Column="0" Content="{Binding Path=SpielerLinks.StartNummer}"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=SpielerRechts.StartNummer}"/>
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=SpielerLinks}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=SpielerLinks.Nachname}"/>
                         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=SpielerRechts.Nachname}"/>
                         <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}">                            
                             <ItemsControl.ItemsPanel>
