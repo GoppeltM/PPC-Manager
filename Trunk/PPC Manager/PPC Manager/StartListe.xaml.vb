@@ -30,7 +30,7 @@
             Dim selectedCells = LastSelectedRow.Group
 
             For i = selectedRows.Count To ClipboardRows.Count
-                Dim spieler = New Spieler(CType(FindResource("SpielRunden"), SpielRunden))
+                Dim spieler = New Spieler()
                 liste.Add(spieler)
                 For Each cellInfo In selectedCells
                     Dim newCell As New DataGridCellInfo(spieler, cellInfo.Column)
@@ -130,11 +130,6 @@
             CSVContent &= Environment.NewLine
         Next
         Clipboard.SetData(DataFormats.CommaSeparatedValue, CSVContent)
-    End Sub
-
-    Private Sub DataGrid1_InitializingNewItem(ByVal sender As System.Object, ByVal e As System.Windows.Controls.InitializingNewItemEventArgs) Handles DataGrid1.InitializingNewItem
-        Dim spieler = CType(e.NewItem, Spieler)
-        spieler.SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
     End Sub
 
     Private Sub DataGrid1_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataGrid1.CurrentCellChanged

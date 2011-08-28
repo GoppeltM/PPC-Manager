@@ -83,26 +83,6 @@ Public Class SpielPartie
         Return String.Format("{0} : {1}", SpielerLinks, SpielerRechts)
     End Function
 
-
-    Private Sub SpielPartie_CollectionChanged(ByVal sender As Object, ByVal e As NotifyCollectionChangedEventArgs) Handles Me.CollectionChanged
-        Select Case e.Action
-            Case Specialized.NotifyCollectionChangedAction.Add
-                For Each Satz As Satz In e.NewItems
-                    AddHandler Satz.PropertyChanged, AddressOf SatzUpdated
-                Next
-            Case Specialized.NotifyCollectionChangedAction.Remove
-                For Each Satz As Satz In e.OldItems
-                    RemoveHandler Satz.PropertyChanged, AddressOf SatzUpdated
-                Next
-        End Select
-    End Sub
-
-    Private Sub SatzUpdated(ByVal sender As Object, ByVal e As PropertyChangedEventArgs)
-        Dim gesamtAbgeschlossen = Aggregate x In Me Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
-
-        If Me.Count > gesamtAbgeschlossen Then Return
-        If gesamtAbgeschlossen < 3 Then Me.Add(New Satz)
-    End Sub
 End Class
 
 Public Class FreiLosSpiel

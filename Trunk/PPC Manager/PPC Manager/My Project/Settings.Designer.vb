@@ -135,6 +135,30 @@ Partial Friend NotInheritable Class MySettings
             Me("BegegnungenFiltern") = value
         End Set
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+    Public Property GewinnSätze() As Double
+        Get
+            Return CType(Me("GewinnSätze"),Double)
+        End Get
+        Set
+            Me("GewinnSätze") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+    Public Property SatzDifferenz() As Boolean
+        Get
+            Return CType(Me("SatzDifferenz"),Boolean)
+        End Get
+        Set
+            Me("SatzDifferenz") = value
+        End Set
+    End Property
 End Class
 
 Namespace My

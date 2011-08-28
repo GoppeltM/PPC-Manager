@@ -7,10 +7,10 @@ Friend Class SpielerListe
     Friend Sub New()
     End Sub
 
-    Sub FromXML(ByVal spielRunden As SpielRunden, ByVal xSpielerListe As IEnumerable(Of XElement))
+    Sub FromXML(ByVal xSpielerListe As IEnumerable(Of XElement))
         Clear()
         For Each xSpieler In xSpielerListe.<Spieler>
-            Add(Spieler.FromXML(spielRunden, xSpieler))
+            Add(Spieler.FromXML(xSpieler))
         Next
     End Sub
 
@@ -45,6 +45,9 @@ Public Class SpielRunden
                    <%= xSpielRunden %>
                </SpielRunden>
     End Function
+
+    Public Shared ReadOnly Empty As SpielRunden = New SpielRunden
+        
 End Class
 
 
@@ -88,12 +91,6 @@ End Class
 
 Public Class SpielPartien
     Inherits ObservableCollection(Of SpielPartie)
-
-    Public Sub New()        
-        
-    End Sub
-
-    Private Property AktuelleRunde As Integer = 0
 
     Friend Sub PaarungenBerechnen(ByVal spielerListe As SpielerListe)
         Me.Clear()

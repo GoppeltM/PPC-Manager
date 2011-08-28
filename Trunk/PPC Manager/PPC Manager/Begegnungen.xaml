@@ -7,9 +7,11 @@
       mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="474" d:DesignWidth="900">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
-        <local:RundenAnzeige x:Key="RundenAnzeige" />
+        <local:StringFormatter x:Key="StringFormatter" />
         <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
-        <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter" Source="{Binding Source={StaticResource SpielRunden}, Path=/}" />        
+        <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"
+                              d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}"
+                              Source="{Binding Source={StaticResource SpielRunden}, Path=/}" />        
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -21,7 +23,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>        
-            <ListView Name="ListView1" ItemsSource="{Binding Source={StaticResource SpielerListe}}" SelectedIndex="-1" Margin="10" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView Name="ListView1" SelectedIndex="-1" Margin="10" Grid.RowSpan="2" SelectionMode="Single"
+                      d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}"
+                      DataContext="{Binding Source={StaticResource SpielerListe}}" ItemsSource="{Binding}">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
             </ListView.CommandBindings>
@@ -39,8 +43,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <GridSplitter Name="GridSplitter1" ResizeDirection="Columns" Grid.Column="1" ShowsPreview="True" Background="#FF767474" Width="1" Grid.RowSpan="2" />
-        <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource RundenAnzeige}}" Grid.Column="2" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
-        <ListBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" ItemsSource="{Binding Source={StaticResource PartieView}}">
+        <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource StringFormatter}, ConverterParameter=Runde: \{0\}}" Grid.Column="2" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
+        <ListBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" 
+                 ItemsSource="{Binding Source={StaticResource PartieView}}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
@@ -108,7 +113,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Column="2" Height="78" HorizontalAlignment="Left" Margin="0,12,253,0" Name="Grid1" VerticalAlignment="Top" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" MinWidth="500">
+        <Grid Grid.Column="2" Height="78" HorizontalAlignment="Left" Margin="0,12,253,0" Name="DetailGrid" VerticalAlignment="Top" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" MinWidth="500">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />

@@ -93,6 +93,7 @@
     <Compile Include="Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DesignData.vb" />
     <Compile Include="ExcelInterface.vb" />
     <Compile Include="HilfsKlassen.vb" />
     <Compile Include="LadenNeu.xaml.vb">

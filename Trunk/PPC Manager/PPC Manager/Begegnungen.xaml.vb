@@ -2,7 +2,7 @@
 
 Class Begegnungen
 
-    Friend Property BegegnungenView As CollectionViewSource
+    Friend Property BegegnungenView As CollectionViewSource    
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
 
@@ -14,7 +14,7 @@ Class Begegnungen
         Dim partie As SpielPartie = CType(e.Item, SpielPartie)
         Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
-        Dim gewinnSätze = CType(FindResource("Gewinnsätze"), Double)
+        Dim gewinnSätze = My.Settings.GewinnSätze
         e.Accepted = (gesamtAbgeschlossen = gewinnSätze)
 
     End Sub
@@ -28,12 +28,23 @@ Class Begegnungen
         Dim x = CType(CType(sender, Button).DataContext, Satz)
         x.PunkteLinks = My.Settings.GewinnPunkte
         x.PunkteRechts = 0
+        SatzUpdate()
     End Sub
 
     Private Sub SatzRechts_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Dim x = CType(CType(sender, Button).DataContext, Satz)
         x.PunkteRechts = My.Settings.GewinnPunkte
         x.PunkteLinks = 0
+        SatzUpdate()
+    End Sub
+
+    Private Sub SatzUpdate()
+        Dim partie = CType(DetailGrid.DataContext, SpielPartie)
+        Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
+
+        If partie.Count > gesamtAbgeschlossen Then Return
+        Dim gewinnSätze = My.Settings.GewinnSätze
+        If gesamtAbgeschlossen < gewinnSätze Then partie.Add(New Satz)
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -59,11 +70,11 @@ Class Begegnungen
 
 End Class
 
-Class RundenAnzeige
+Class StringFormatter
     Implements IValueConverter
 
     Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
-        Return String.Format("Runde: {0}", value)
+        Return String.Format(parameter.ToString, value)
     End Function
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack

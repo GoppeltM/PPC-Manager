@@ -6,9 +6,6 @@
     StartupUri="MainWindow.xaml" xmlns:my="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <local:SpielerListe x:Key="SpielerListe" />
-        <local:SpielRunden x:Key="SpielRunden" />
-        <my:Double x:Key="Gewinnsätze">0</my:Double>
-        <my:Boolean x:Key="AutoSaveAn">True</my:Boolean>
-        <my:Boolean x:Key="SatzDifferenz">False</my:Boolean>
+        <local:SpielRunden x:Key="SpielRunden" />                
   </Application.Resources>
 </Application>

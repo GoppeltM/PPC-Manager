@@ -9,12 +9,13 @@ Public Class Spieler
 
     Private _Vorname As String
 
-    Sub New()
-
+    Public Sub New()
+        Dim runden = CType(Application.Current.FindResource("SpielRunden"), SpielRunden)
+        Me.SpielRunden = runden
     End Sub
 
-    Sub New(ByVal spielRunden As PPC_Manager.SpielRunden)
-        Me.SpielRunden = spielRunden
+    Protected Sub New(ByVal runden As SpielRunden)
+        Me.SpielRunden = runden
     End Sub
 
 
@@ -23,7 +24,7 @@ Public Class Spieler
     ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
     ''' </summary>
     ''' <remarks></remarks>
-    Public SpielRunden As SpielRunden
+    Protected ReadOnly SpielRunden As SpielRunden
 
 
     Public Property Vorname As String
@@ -225,8 +226,8 @@ Public Class Spieler
         Return node
     End Function
 
-    Friend Shared Function FromXML(ByVal spielRunden As SpielRunden, ByVal spielerNode As XElement) As Spieler
-        Dim spieler As New Spieler(spielRunden)
+    Friend Shared Function FromXML(ByVal spielerNode As XElement) As Spieler
+        Dim spieler As New Spieler()
         With spieler
             .Vorname = spielerNode.@Vorname
             .Nachname = spielerNode.@Nachname

@@ -4,7 +4,7 @@ Public Class Optionen
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Neu.Click
-        My.Settings.Save()
+        My.Settings.Save()        
         DialogResult = False
         Me.Close()
     End Sub

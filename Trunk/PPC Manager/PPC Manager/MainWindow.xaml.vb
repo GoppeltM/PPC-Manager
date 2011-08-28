@@ -6,7 +6,6 @@ Class MainWindow
     Friend SpielRunden As SpielRunden
     Friend SpielerListe As SpielerListe
     Private DateiPfad As String
-    Private Gewinnsätze As Integer
     Private SatzDifferenz As Boolean
     Private AutoSaveAn As Boolean
 
@@ -53,7 +52,7 @@ Class MainWindow
 
     Private Function getXmlDocument() As XDocument
 
-        Dim doc = New XDocument(<PPCTurnier GewinnSätze=<%= Gewinnsätze %> SatzDifferenz=<%= SatzDifferenz %>>
+        Dim doc = New XDocument(<PPCTurnier GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= SatzDifferenz %>>
                                     <SpielerListe>
                                         <%= From x In SpielerListe Let y = x.ToXML Select y %>
                                     </SpielerListe>
@@ -71,11 +70,10 @@ Class MainWindow
 
             Dim doc = XDocument.Load(.FileName)
             DateiPfad = .FileName
-            SpielerListe.FromXML(SpielRunden, doc.Root.<SpielerListe>)
+            SpielerListe.FromXML(doc.Root.<SpielerListe>)
 
             SpielRunden.FromXML(SpielerListe, doc.Root.<SpielRunden>.<SpielRunde>)
-
-            Gewinnsätze = Integer.Parse(doc.Root.@GewinnSätze)
+            My.Settings.GewinnSätze = Integer.Parse(doc.Root.@GewinnSätze)
             SatzDifferenz = Boolean.Parse(doc.Root.@SatzDifferenz)
             If SpielRunden.Any Then
                 EditorArea.Navigate(New Begegnungen)
