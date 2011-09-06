@@ -195,7 +195,7 @@ Public Class Spieler
         diff = other.BuchholzPunkte - Me.BuchholzPunkte
         If diff <> 0 Then Return diff
 
-        If CBool(Application.Current.FindResource("SatzDifferenz")) Then
+        If My.Settings.SatzDifferenz Then
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If

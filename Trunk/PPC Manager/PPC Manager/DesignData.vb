@@ -5,13 +5,10 @@
 
         Dim SpielRunde As New SpielRunde
         Dim spielerListe = New DesignSpielerListe()
-        For i = 1 To spielerListe.Count - 1 Step 2
-            Dim partie = New SpielPartie(spielerListe(i - 1), spielerListe(i))
-            partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
-            partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
-            partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
+
+        For Each partie In New DesignSpielPartien
             SpielRunde.Add(partie)
-        Next
+        Next        
         SpielRunde.AusgeschiedeneSpieler.Add(spielerListe.Last)
         Me.Push(SpielRunde)
     End Sub
@@ -19,6 +16,21 @@
 
 End Class
 
+Public Class DesignSpielPartien
+    Inherits SpielPartien
+
+    Public Sub New()
+        Dim spielerListe = New DesignSpielerListe()
+        For i = 1 To spielerListe.Count - 1 Step 2
+            Dim partie = New SpielPartie(spielerListe(i - 1), spielerListe(i))
+            partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
+            partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
+            partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
+            Me.Add(partie)
+        Next
+    End Sub
+
+End Class
 
 Friend Class DesignSpielerListe
     Inherits SpielerListe

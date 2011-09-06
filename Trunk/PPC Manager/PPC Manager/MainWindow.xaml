@@ -9,6 +9,7 @@
         <CommandBinding Command="SaveAs" Executed="SaveAs_Executed"/>
         <CommandBinding Command="Open" Executed="Open_Executed"/>
         <CommandBinding Command="NextPage" Executed="TurnierStarten_Executed"/>
+        <CommandBinding Command="Print" Executed="Drucken_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Stretch" Name="Menu1" VerticalAlignment="Top">            
@@ -29,6 +30,10 @@
                 <MenuItem Header="Nächste Runde..." Name="NächsteRunde" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
                 <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" />
+            </MenuItem>
+            <MenuItem Header="Drucken" IsTabStop="False">
+                <MenuItem Header="Begegnungszettel..." Command="Print" CommandParameter="Begegnungen"/>
+                <MenuItem Header="Rangliste..." Command="Print" CommandParameter="Rangliste"/>
             </MenuItem>
         </Menu>
         <Frame Margin="12,43,12,12" Name="EditorArea" Source="StartListe.xaml" NavigationUIVisibility="Hidden" />

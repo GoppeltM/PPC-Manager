@@ -178,4 +178,27 @@ Class MainWindow
                 Throw New Exception("Unbekannter Seitentyp")
         End Select
     End Sub
+
+    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+        Select Case e.Parameter.ToString
+            Case "Rangliste"
+                With New PrintDialog
+                    If .ShowDialog Then
+                        Dim paginator As New UserControlPaginator(Of RanglisteSeite)(SpielerListe, _
+                                                                                     New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                        .PrintDocument(paginator, "Spieler Rangliste")
+                    End If
+                End With
+            Case "Begegnungen"
+                With New PrintDialog
+                    If .ShowDialog Then
+                        Dim paginator As New UserControlPaginator(Of SpielergebnisZettel)(SpielerListe, _
+                                                                                     New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                        .PrintDocument(paginator, "Spieler Rangliste")
+                    End If
+                End With
+            Case Else
+                Throw New ArgumentException("Unbekannter Command parameter", e.Parameter.ToString)
+        End Select
+    End Sub
 End Class

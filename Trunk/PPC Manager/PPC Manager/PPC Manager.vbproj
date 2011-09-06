@@ -94,6 +94,13 @@
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="DesignData.vb" />
+    <Compile Include="Drucken\SpielErgebnisZettel.xaml.vb">
+      <DependentUpon>SpielErgebnisZettel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Drucken\RanglisteSeite.xaml.vb">
+      <DependentUpon>RanglisteSeite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Drucken\UserControlPaginator.vb" />
     <Compile Include="ExcelInterface.vb" />
     <Compile Include="HilfsKlassen.vb" />
     <Compile Include="LadenNeu.xaml.vb">
@@ -115,6 +122,14 @@
     <Page Include="Begegnungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Drucken\SpielErgebnisZettel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Drucken\RanglisteSeite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LadenNeu.xaml">
       <SubType>Designer</SubType>
