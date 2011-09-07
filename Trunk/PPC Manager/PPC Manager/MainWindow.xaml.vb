@@ -192,7 +192,7 @@ Class MainWindow
             Case "Begegnungen"
                 With New PrintDialog
                     If .ShowDialog Then
-                        Dim paginator As New UserControlPaginator(Of SpielergebnisZettel)(SpielerListe, _
+                        Dim paginator As New UserControlPaginator(Of SpielErgebnisZettel)(SpielRunden.Peek, _
                                                                                      New Size(.PrintableAreaWidth, .PrintableAreaHeight))
                         .PrintDocument(paginator, "Spieler Rangliste")
                     End If
