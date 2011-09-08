@@ -161,12 +161,21 @@ Public Class Spieler
         End Get
     End Property
 
-    Private ReadOnly Property SatzDifferenz As Integer
+    Public ReadOnly Property SätzeGewonnen As Integer
         Get
-            Dim meineGewonnenenSätze = Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(Me).Count)
-            Dim GegnerGewonnenenSätze = Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count)
+            Return Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(Me).Count)
+        End Get
+    End Property
 
-            Return meineGewonnenenSätze - GegnerGewonnenenSätze
+    Public ReadOnly Property SätzeVerloren As Integer
+        Get
+            Return Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count)
+        End Get
+    End Property
+
+    Private ReadOnly Property SatzDifferenz As Integer
+        Get            
+            Return SätzeGewonnen - SätzeVerloren
         End Get
     End Property
 
@@ -183,6 +192,14 @@ Public Class Spieler
 
 #End Region
 
+    Public Overrides Function Equals(ByVal obj As Object) As Boolean
+        Dim other = CType(obj, Spieler)
+        Return Me.StartNummer = other.StartNummer
+    End Function
+
+    Public Overrides Function GetHashCode() As Integer
+        Return StartNummer.GetHashCode
+    End Function
 
     Public Overrides Function ToString() As String
         Return Nachname

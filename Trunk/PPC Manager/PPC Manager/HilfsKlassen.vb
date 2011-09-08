@@ -4,9 +4,6 @@ Imports <xmlns="http://PPCManager/SpeicherStand">
 Friend Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
-    Friend Sub New()
-    End Sub
-
     Sub FromXML(ByVal xSpielerListe As IEnumerable(Of XElement))
         Clear()
         For Each xSpieler In xSpielerListe.<Spieler>

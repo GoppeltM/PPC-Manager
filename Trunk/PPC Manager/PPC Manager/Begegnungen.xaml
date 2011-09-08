@@ -38,7 +38,34 @@
             </ListView.ContextMenu>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" Content="{Binding Path=Nachname}" IsHitTestVisible="False" />
+                    <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">                        
+                        <Grid Margin="5" Width="180">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>                                
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <local:IndexConverter x:Key="Converter"/>
+                            </Grid.Resources>
+                            <Label Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center" 
+                                   FontSize="16" FontWeight="Bold" Foreground="#FF8D7979" HorizontalContentAlignment="Center"
+                                   Content="{Binding Converter={StaticResource Converter}, ConverterParameter={StaticResource SpielerListe}}"
+                                   />
+                            <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=Vorname}" HorizontalContentAlignment="Center" />
+                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=Nachname}" HorizontalContentAlignment="Center" />
+                            <Label Grid.Column="2" Grid.Row="0" Content="{Binding Path=Punkte}" HorizontalContentAlignment="Center" ToolTip="Punkte" />
+                            <Label Grid.Column="2" Grid.Row="1" Content="{Binding Path=BuchholzPunkte}" HorizontalContentAlignment="Center" ToolTip="Buchholzpunkte" />
+                            <Label Grid.Column="3" Grid.Row="0" Content="{Binding Path=SätzeGewonnen}" HorizontalContentAlignment="Center" ToolTip="Gewonnene Sätze" />
+                            <Line Grid.Column="3" Grid.RowSpan="2" Stroke="Black" StrokeThickness="2" Stretch="Fill" X2="1" Margin="2" ToolTip="Verlorene Sätze" />
+                            <Label Grid.Column="3" Grid.Row="1" Content="{Binding Path=SätzeVerloren}" HorizontalContentAlignment="Center" />
+                        </Grid>
+                    </ListViewItem> 
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
