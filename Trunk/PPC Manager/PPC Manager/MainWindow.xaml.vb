@@ -122,8 +122,6 @@ Class MainWindow
     Private Sub NächsteRunde_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NächsteRunde.Click
         If MessageBox.Show(Me, "Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
                            "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
-            Dim BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
-            BegegnungenView.View.MoveCurrentToLast()
             RundeBerechnen()
         End If
     End Sub
@@ -204,5 +202,18 @@ Class MainWindow
 
     Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
         e.CanExecute = True
+    End Sub
+
+    Private Sub Exportieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Exportieren.Click
+
+        With LadenNeu.SpeichernDialog
+            .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"
+            .FileName = IO.Path.ChangeExtension(DateiPfad, "xlsx")
+            If .ShowDialog Then
+                ExcelInterface.CreateFile(.FileName, SpielerListe, SpielRunden)
+            End If
+
+        End With
+
     End Sub
 End Class

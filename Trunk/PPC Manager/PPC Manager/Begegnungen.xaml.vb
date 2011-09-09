@@ -2,7 +2,7 @@
 
 Class Begegnungen
 
-    Friend Property BegegnungenView As CollectionViewSource    
+    Friend Property BegegnungenView As CollectionViewSource
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
 
@@ -10,7 +10,7 @@ Class Begegnungen
             e.Accepted = True
             Return
         End If
-        
+
         Dim partie As SpielPartie = CType(e.Item, SpielPartie)
         Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
@@ -76,6 +76,9 @@ Class Begegnungen
         BegegnungenView.View.Refresh()
     End Sub
 
+    Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+        BegegnungenView.View.MoveCurrentToLast()
+    End Sub
 End Class
 
 Class StringFormatter

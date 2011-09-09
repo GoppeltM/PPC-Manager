@@ -8,7 +8,7 @@
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
         <CommandBinding Command="SaveAs" Executed="SaveAs_Executed"/>
         <CommandBinding Command="Open" Executed="Open_Executed"/>
-        <CommandBinding Command="NextPage" Executed="TurnierStarten_Executed"/>
+        <CommandBinding Command="New" Executed="TurnierStarten_Executed"/>
         <CommandBinding Command="Print" Executed="Drucken_Executed"/>
         <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
     </Window.CommandBindings>
@@ -18,7 +18,10 @@
                 <MenuItem Header="Öffnen..." Name="Öffnen" Command="ApplicationCommands.Open" />
                 <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
                 <MenuItem Command="ApplicationCommands.SaveAs" Header="Speichern Unter..." Name="SpeichernUnter" />
+                <MenuItem Header="Exportieren..." Name="Exportieren" />
+                <Separator/>
                 <MenuItem Header="Beenden..." Command="ApplicationCommands.Close" Name="Beenden"></MenuItem>
+                
             </MenuItem>
             <MenuItem Header="Bearbeiten" IsTabStop="False">
                 <MenuItem Command="ApplicationCommands.Cut" Header="Ausschneiden" />
@@ -26,9 +29,9 @@
                 <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
             </MenuItem>
             <MenuItem Header="Projekt" IsTabStop="False">                               
-                <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="NavigationCommands.NextPage" />
+                <MenuItem Header="Turnier Starten..." Name="TurnierStarten" Command="New" />
                 <MenuItem Header="Vorsortieren" Name="Vorsortieren" />
-                <MenuItem Header="Nächste Runde..." Name="NächsteRunde" />
+                <MenuItem Header="Nächste Runde..." Name="NächsteRunde" Command="NextPage" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
                 <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" Command="NavigationCommands.Favorites" />
             </MenuItem>
