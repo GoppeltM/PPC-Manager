@@ -15,7 +15,6 @@ Public Class SpielPartie
 
     Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
-        Add(New Satz)
     End Sub
 
     Private ReadOnly Spieler As KeyValuePair(Of Spieler, Spieler)

@@ -15,13 +15,14 @@ Class Begegnungen
         Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
         Dim gewinnSätze = My.Settings.GewinnSätze
-        e.Accepted = (gesamtAbgeschlossen = gewinnSätze)
+        e.Accepted = Not (gesamtAbgeschlossen = gewinnSätze)
 
     End Sub
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         BegegnungenView.View.MoveCurrentToLast()
+        BegegnungenView.View.Refresh()
     End Sub
 
     Private Sub SatzLinks_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -42,9 +43,12 @@ Class Begegnungen
         Dim partie = CType(DetailGrid.DataContext, SpielPartie)
         Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
-        If partie.Count > gesamtAbgeschlossen Then Return
         Dim gewinnSätze = My.Settings.GewinnSätze
-        If gesamtAbgeschlossen < gewinnSätze Then partie.Add(New Satz)
+        If gesamtAbgeschlossen = partie.Count AndAlso gesamtAbgeschlossen < gewinnSätze Then
+            partie.Add(New Satz)
+        End If
+
+        BegegnungenView.View.Refresh()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -66,6 +70,10 @@ Class Begegnungen
                         "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
             Spieler.AusscheidenLassen()
         End If
+    End Sub
+
+    Private Sub BegegnungenFiltern_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+        BegegnungenView.View.Refresh()
     End Sub
 
 End Class

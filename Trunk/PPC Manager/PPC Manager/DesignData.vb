@@ -16,6 +16,7 @@
 
 End Class
 
+
 Public Class DesignSpielPartien
     Inherits SpielPartien
 
@@ -29,6 +30,14 @@ Public Class DesignSpielPartien
             Me.Add(partie)
         Next
     End Sub
+
+    Public Shared ReadOnly Property DesignSpielPartie As SpielPartie
+        Get
+            Dim partien = New DesignSpielPartien
+            Return partien.First
+        End Get
+    End Property
+
 
 End Class
 

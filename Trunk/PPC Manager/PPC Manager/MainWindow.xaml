@@ -10,6 +10,7 @@
         <CommandBinding Command="Open" Executed="Open_Executed"/>
         <CommandBinding Command="NextPage" Executed="TurnierStarten_Executed"/>
         <CommandBinding Command="Print" Executed="Drucken_Executed"/>
+        <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
     </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Stretch" Name="Menu1" VerticalAlignment="Top">            
@@ -29,7 +30,7 @@
                 <MenuItem Header="Vorsortieren" Name="Vorsortieren" />
                 <MenuItem Header="Nächste Runde..." Name="NächsteRunde" />
                 <MenuItem Header="Einstellungen..." Name="Einstellungen" />
-                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" />
+                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" Command="NavigationCommands.Favorites" />
             </MenuItem>
             <MenuItem Header="Drucken" IsTabStop="False">
                 <MenuItem Header="Begegnungszettel..." Command="Print" CommandParameter="Begegnungen"/>

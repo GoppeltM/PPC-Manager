@@ -201,4 +201,8 @@ Class MainWindow
                 Throw New ArgumentException("Unbekannter Command parameter", e.Parameter.ToString)
         End Select
     End Sub
+
+    Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+        e.CanExecute = True
+    End Sub
 End Class

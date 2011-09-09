@@ -13,6 +13,9 @@
                               d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}"
                               Source="{Binding Source={StaticResource SpielRunden}, Path=/}" />        
     </Page.Resources>
+    <Page.CommandBindings>
+        <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
+    </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="96" />
@@ -25,7 +28,8 @@
         </Grid.ColumnDefinitions>        
             <ListView Name="ListView1" SelectedIndex="-1" Margin="10" Grid.RowSpan="2" SelectionMode="Single"
                       d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}"
-                      DataContext="{Binding Source={StaticResource SpielerListe}}" ItemsSource="{Binding}">
+                      DataContext="{Binding Source={StaticResource SpielerListe}}" ItemsSource="{Binding}"
+                      Grid.Column="0">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
             </ListView.CommandBindings>
@@ -80,7 +84,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -140,7 +144,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Column="2" Height="78" HorizontalAlignment="Left" Margin="0,12,253,0" Name="DetailGrid" VerticalAlignment="Top" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" MinWidth="500">
+        <Grid Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Left" Margin="5" 
+              Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" 
+              d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}"
+              MinWidth="500">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
@@ -178,7 +185,9 @@
             <ItemsControl Grid.Row="1" Style="{StaticResource SatzListe}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Name="Button1" Click="SatzRechts_Click" DataContext="{Binding}" Background="{Binding Path=PunkteRechts, Converter={StaticResource MyPainter}}" MinWidth="30" Margin="5" />
+                        <Button Name="Button1" Click="SatzRechts_Click" DataContext="{Binding}" 
+                                Background="{Binding Path=PunkteRechts, Converter={StaticResource MyPainter}}" 
+                                MinWidth="30" Margin="5" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
