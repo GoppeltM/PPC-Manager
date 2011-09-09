@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PPC_Manager"
+      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="474" d:DesignWidth="900">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
@@ -12,9 +13,18 @@
         <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"
                               d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}"
                               Source="{Binding Source={StaticResource SpielRunden}, Path=/}" />        
+        <CollectionViewSource x:Key="SpielerView"
+                              d:DesignSource="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}"
+                      Source="{Binding Source={StaticResource SpielerListe}}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Punkte" Direction="Descending"/>
+                <scm:SortDescription PropertyName="BuchholzPunkte" Direction="Descending"/>
+                <scm:SortDescription PropertyName="SatzDiff" Direction="Descending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </Page.Resources>
     <Page.CommandBindings>
-        <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
+        <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>        
     </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -27,8 +37,7 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>        
             <ListView Name="ListView1" SelectedIndex="-1" Margin="10" Grid.RowSpan="2" SelectionMode="Single"
-                      d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}"
-                      DataContext="{Binding Source={StaticResource SpielerListe}}" ItemsSource="{Binding}"
+                      ItemsSource="{Binding Source={StaticResource SpielerView}}"
                       Grid.Column="0">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
@@ -59,7 +68,7 @@
                             </Grid.Resources>
                             <Label Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center" 
                                    FontSize="16" FontWeight="Bold" Foreground="#FF8D7979" HorizontalContentAlignment="Center"
-                                   Content="{Binding Converter={StaticResource Converter}, ConverterParameter={StaticResource SpielerListe}}"
+                                   Content="1"
                                    />
                             <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=Vorname}" HorizontalContentAlignment="Center" />
                             <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=Nachname}" HorizontalContentAlignment="Center" />

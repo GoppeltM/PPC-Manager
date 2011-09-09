@@ -193,7 +193,8 @@ Public Class Spieler
 #End Region
 
     Public Overrides Function Equals(ByVal obj As Object) As Boolean
-        If Not obj Is GetType(Spieler) Then Return False
+
+        If Not TypeOf obj Is Spieler Then Return False
         Dim other = CType(obj, Spieler)
         Return Me.StartNummer = other.StartNummer
     End Function

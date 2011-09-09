@@ -52,6 +52,9 @@ Friend Class DesignSpielerListe
         Add(New DesignSpieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .StartNummer = 5, .Rang = 406})
         Add(New DesignSpieler() With {.Vorname = "Sarah", .Nachname = "Palin", .StartNummer = 6, .Rang = 19})
         Add(New DesignSpieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .StartNummer = 7, .Rang = 201})
+        Add(New DesignSpieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .StartNummer = 8, .Rang = 69})
+        Add(New DesignSpieler() With {.Vorname = "Adam", .Nachname = "Jensen", .StartNummer = 9, .Rang = 42})
+        Add(New DesignSpieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .StartNummer = 10, .Rang = 59})
     End Sub
 End Class
 

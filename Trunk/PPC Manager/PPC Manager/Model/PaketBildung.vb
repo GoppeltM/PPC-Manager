@@ -41,6 +41,16 @@
             unterePakete.Add(pakete(i))
         Next
 
+        ' Obere und untere Liste bearbeiten
+        For Each Paket In oberePakete
+            Paket.Absteigend = True
+        Next
+
+        mittelPaket.Absteigend = True
+
+
+        doPaarungen(oberePakete, mittelPaket)
+
         For Each Paket In unterePakete
             Paket.Absteigend = False
         Next
@@ -59,7 +69,7 @@
     End Function
 
     Private Shared Function SucheNächstesPaket(ByVal oberePakete As List(Of Paket), ByVal unterePakete As List(Of Paket), ByVal mittelPaket As Paket, ByVal prioOben As Boolean) As Paket
-        Dim gesamtListe = oberePakete
+        Dim gesamtListe = oberePakete.ToList
         gesamtListe.Add(mittelPaket)
         gesamtListe.AddRange(unterePakete)
         gesamtListe.Sort()
@@ -121,7 +131,11 @@
         Dim vorgänger As Paket = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
 
         While vorgänger IsNot Nothing
-            If mittelPaket.SuchePaarungen Then Return
+            If mittelPaket.SuchePaarungen Then
+                vorgänger = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
+                Return
+            End If
+
             mittelPaket.ÜbernimmPaarungen(vorgänger)
             If Not vorgänger.SpielerListe.Any Then
                 oberePakete.Remove(vorgänger)

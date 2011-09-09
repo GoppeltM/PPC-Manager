@@ -50,7 +50,7 @@ Class Paket
     End Sub
 
     Sub VerschiebeSchwimmer(ByVal paket As Paket)
-        If aktuellerSchwimmer Is Nothing Then
+        If aktuellerSchwimmer IsNot Nothing Then
             paket.moveAltSchwimmer(aktuellerSchwimmer)
         End If
         aktuellerSchwimmer = Nothing
