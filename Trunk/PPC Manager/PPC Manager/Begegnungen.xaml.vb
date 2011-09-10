@@ -54,6 +54,7 @@ Class Begegnungen
         If gesamtAbgeschlossen = partie.Count AndAlso gesamtAbgeschlossen < gewinnSätze Then
             partie.Add(New Satz)
         End If
+        BegegnungenView.View.Refresh()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -107,18 +108,10 @@ Class Begegnungen
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
         ' Weiß die Hölle warum das so ist.
         ViewSource.View.MoveCurrentToFirst()
-
+        RundenAnzeige.Content = "Runde " & SpielRunden.Count
         If CBool(My.Settings.AutoSaveAn) Then
             ApplicationCommands.Save.Execute(Nothing, Me)
         End If        
-    End Sub
-
-    Private Sub SpielPartienView_SourceUpdated(ByVal sender As System.Object, ByVal e As System.Windows.Data.DataTransferEventArgs) Handles SpielPartienView.SourceUpdated
-        Dim DefaultView = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        AddHandler DefaultView.View.CollectionChanged, Sub()
-                                                           DefaultView.View.MoveCurrentToFirst()
-                                                       End Sub
-
     End Sub
 End Class
 

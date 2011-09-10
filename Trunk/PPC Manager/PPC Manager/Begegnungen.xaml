@@ -85,9 +85,8 @@
         </ListView>
         <GridSplitter Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="5" />
-        <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource StringFormatter}, ConverterParameter=Runde: \{0\}, NotifyOnSourceUpdated=True, BindsDirectlyToSource=True}" 
-               Grid.Column="1" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" 
-               Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
+        <Label Grid.Column="1" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" 
+               Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" Content="Runde 1" />
         <ListBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" 
                  DataContext="{Binding Source={StaticResource PartieView}}"
                  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"

@@ -99,7 +99,9 @@ Class PaarungsSuche
             Dim spieler2 = listeRechts.First
             If spieler1.HatBereitsGespieltGegen(spieler2) Then Return Nothing
 
-            paarungen.Add(New SpielPartie(spieler1, spieler2)) ' TODO: aktuelle Runde hier eintragen
+            Dim partie = New SpielPartie(spieler1, spieler2)
+            partie.Add(New Satz) ' Damit wenigstens ein Satz gesetzt werden kann
+            paarungen.Add(partie)
             listeLinks.Remove(spieler1)
             listeRechts.Remove(spieler2)
         End While
