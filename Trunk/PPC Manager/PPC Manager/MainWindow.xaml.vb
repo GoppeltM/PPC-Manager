@@ -118,15 +118,7 @@ Class MainWindow
             If .ShowDialog Then
 
             End If
-        End With
-        
-    End Sub
-
-    Private Sub NächsteRunde_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NächsteRunde.Click
-        If MessageBox.Show(Me, "Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
-                           "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
-            RundeBerechnen()
-        End If
+        End With        
     End Sub
 
     Private Sub TurnierStarten_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
@@ -137,30 +129,13 @@ Class MainWindow
             For Each row As Spieler In SpielerListe
                 row.StartNummer = current
                 current += 1
-            Next
-            RundeBerechnen()
-
+            Next            
             EditorArea.Navigate(New Begegnungen)
         End If
 
     End Sub
 
-    Private Sub RundeBerechnen()
-        Dim begegnungen = PaketBildung.organisierePakete(SpielerListe.ToList, SpielRunden.Count)
-
-        Dim spielRunde As New SpielRunde
-
-        For Each begegnung In begegnungen
-            spielRunde.Add(begegnung)
-        Next
-        SpielRunden.Push(spielRunde)
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            Save_Executed(Me, Nothing)
-        End If
-
-    End Sub
-
+    
     Private Sub EditorArea_Navigated(ByVal sender As System.Object, ByVal e As System.Windows.Navigation.NavigationEventArgs) Handles EditorArea.Navigated
         Select Case e.Content.GetType
             Case GetType(Begegnungen)

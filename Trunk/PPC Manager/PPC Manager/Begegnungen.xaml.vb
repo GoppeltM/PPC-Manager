@@ -19,10 +19,14 @@ Class Begegnungen
 
     End Sub
 
-    Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+    Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
+        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
+        Dim Stack = CollectionViewSource.GetDefaultView(SpielRunden)
+        Stack.MoveCurrentToLast()
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
-        BegegnungenView.View.MoveCurrentToLast()
-        BegegnungenView.View.Refresh()
+        If SpielRunden.Count = 0 Then
+            NächsteRunde_Executed(Me, Nothing)
+        End If
     End Sub
 
     Private Sub SatzLinks_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -77,8 +81,37 @@ Class Begegnungen
     End Sub
 
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        BegegnungenView.View.MoveCurrentToLast()
+        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
+                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
+            RundeBerechnen()            
+
+            Dim Stack = CType(FindResource("RundenView"), CollectionViewSource)
+            Stack.View.MoveCurrentToFirst()
+            BegegnungenView.Source = Stack.View.CurrentItem
+            RundenAnzeige.UpdateLayout()
+
+        End If
+
     End Sub
+
+    Private Sub RundeBerechnen()
+        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
+        Dim begegnungen = PaketBildung.organisierePakete(CType(FindResource("SpielerListe"), SpielerListe).ToList, _
+                                                         SpielRunden.Count)
+
+        Dim spielRunde As New SpielRunde
+
+        For Each begegnung In begegnungen
+            spielRunde.Add(begegnung)
+        Next
+        SpielRunden.Push(spielRunde)
+
+        If CBool(My.Settings.AutoSaveAn) Then
+            ApplicationCommands.Save.Execute(Nothing, Me)
+        End If
+
+    End Sub
+
 End Class
 
 Class StringFormatter
