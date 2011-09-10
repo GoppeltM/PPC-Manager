@@ -9,11 +9,11 @@
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />
-        <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
-        <CollectionViewSource x:Key="RundenView" x:Name="RundenView" Source="{Binding Source={StaticResource SpielRunden}}"/>
-        <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"
-                              d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}"
-                              Source="{Binding Source={StaticResource RundenView}, Path=/}" />        
+        <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>        
+        <CollectionViewSource x:Key="SpielRundenView" Source="{Binding Source={StaticResource SpielRunden}, UpdateSourceTrigger=PropertyChanged}"
+           d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}}"/>
+        <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"                              
+                              Source="{Binding Source={StaticResource SpielRundenView}, Path=/, UpdateSourceTrigger=PropertyChanged}" />        
         <CollectionViewSource x:Key="SpielerView"
                               d:DesignSource="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}"
                       Source="{Binding Source={StaticResource SpielerListe}}">
@@ -85,12 +85,13 @@
         </ListView>
         <GridSplitter Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="5" />
-        <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, 
-            Converter={StaticResource StringFormatter}, ConverterParameter=Runde: \{0\}}" 
+        <Label Content="{Binding Source={StaticResource SpielRunden}, Path=Count, Converter={StaticResource StringFormatter}, ConverterParameter=Runde: \{0\}, NotifyOnSourceUpdated=True, BindsDirectlyToSource=True}" 
                Grid.Column="1" Height="54" HorizontalAlignment="Right" Margin="0,10,12,0" 
                Name="RundenAnzeige" VerticalAlignment="Top" Width="141" FontSize="24" HorizontalContentAlignment="Right" />
         <ListBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" 
-                 ItemsSource="{Binding Source={StaticResource PartieView}}">
+                 DataContext="{Binding Source={StaticResource PartieView}}"
+                 ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
+                 d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />

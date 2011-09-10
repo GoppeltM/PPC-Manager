@@ -21,12 +21,15 @@ Class Begegnungen
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        Dim Stack = CollectionViewSource.GetDefaultView(SpielRunden)
-        Stack.MoveCurrentToLast()
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         If SpielRunden.Count = 0 Then
-            NächsteRunde_Executed(Me, Nothing)
+            RundeBerechnen()        
         End If
+        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        ' dass die View aktualisiert wird bevor die Position verschoben wird.
+        ' Weiß die Hölle warum das so ist.
+        ViewSource.View.MoveCurrentToFirst()
     End Sub
 
     Private Sub SatzLinks_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -51,8 +54,6 @@ Class Begegnungen
         If gesamtAbgeschlossen = partie.Count AndAlso gesamtAbgeschlossen < gewinnSätze Then
             partie.Add(New Satz)
         End If
-
-        BegegnungenView.View.Refresh()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -82,36 +83,43 @@ Class Begegnungen
 
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
-                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
-            RundeBerechnen()            
-
-            Dim Stack = CType(FindResource("RundenView"), CollectionViewSource)
-            Stack.View.MoveCurrentToFirst()
-            BegegnungenView.Source = Stack.View.CurrentItem
-            RundenAnzeige.UpdateLayout()
-
+                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then            
+            RundeBerechnen()
         End If
 
     End Sub
 
     Private Sub RundeBerechnen()
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        Dim begegnungen = PaketBildung.organisierePakete(CType(FindResource("SpielerListe"), SpielerListe).ToList, _
+         Dim begegnungen = PaketBildung.organisierePakete(CType(FindResource("SpielerListe"), SpielerListe).ToList, _
                                                          SpielRunden.Count)
 
-        Dim spielRunde As New SpielRunde
 
+        Dim spielRunde As New SpielRunde
+        
         For Each begegnung In begegnungen
             spielRunde.Add(begegnung)
         Next
         SpielRunden.Push(spielRunde)
 
+        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        ' dass die View aktualisiert wird bevor die Position verschoben wird.
+        ' Weiß die Hölle warum das so ist.
+        ViewSource.View.MoveCurrentToFirst()
+
         If CBool(My.Settings.AutoSaveAn) Then
             ApplicationCommands.Save.Execute(Nothing, Me)
-        End If
-
+        End If        
     End Sub
 
+    Private Sub SpielPartienView_SourceUpdated(ByVal sender As System.Object, ByVal e As System.Windows.Data.DataTransferEventArgs) Handles SpielPartienView.SourceUpdated
+        Dim DefaultView = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        AddHandler DefaultView.View.CollectionChanged, Sub()
+                                                           DefaultView.View.MoveCurrentToFirst()
+                                                       End Sub
+
+    End Sub
 End Class
 
 Class StringFormatter
