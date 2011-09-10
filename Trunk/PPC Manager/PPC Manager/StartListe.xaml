@@ -22,13 +22,13 @@
                     <CommandBinding Command="ApplicationCommands.Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>        
             </DataGrid.CommandBindings>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Vorname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Vorname" Width="*" x:Name="Vorname" />
-                <DataGridTextColumn Binding="{Binding Path=Nachname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Nachname" Width="*" x:Name="Nachname" />
-                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Verein" Width="*" 
+                    <DataGridTextColumn Binding="{Binding Path=Vorname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Vorname" Width="2*" x:Name="Vorname" />
+                <DataGridTextColumn Binding="{Binding Path=Nachname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Nachname" Width="2*" x:Name="Nachname" />
+                <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Verein" Width="2*" 
                                         ItemsSource="{Binding Path=Vereine, Source={x:Static local:MySettings.Default}}" 
                                         x:Name="Verein" EditingElementStyle="{StaticResource ComboBoxStyle}" />
                     
-                <DataGridComboBoxColumn x:Name="SpielKlasse" Width="*" EditingElementStyle="{StaticResource ComboBoxStyle}" 
+                <DataGridComboBoxColumn x:Name="SpielKlasse" Width="2*" EditingElementStyle="{StaticResource ComboBoxStyle}" 
                                         Header="Spielklasse" SelectedItemBinding="{Binding Path=SpielKlasse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                         ItemsSource="{Binding Source={x:Static local:MySettings.Default}, Path=SpielKlassen}" />
 

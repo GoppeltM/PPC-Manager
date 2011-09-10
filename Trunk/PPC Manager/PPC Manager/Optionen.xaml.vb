@@ -15,8 +15,7 @@ Public Class Optionen
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Abbrechen.Click
-        My.Settings.Reload()
-        DialogResult = Nothing
+        My.Settings.Reload()        
     End Sub
 
 

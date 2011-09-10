@@ -132,16 +132,23 @@
         Clipboard.SetData(DataFormats.CommaSeparatedValue, CSVContent)
     End Sub
 
-    Private Sub DataGrid1_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataGrid1.CurrentCellChanged
-        If DataGrid1.CurrentColumn Is Nothing Then Return
-        If DataGrid1.CurrentColumn.GetType Is GetType(DataGridComboBoxColumn) Then
-            DataGrid1.BeginEdit()
-        End If
-
-    End Sub
-
     Private Sub DataGrid1_LoadingRow(ByVal sender As System.Object, ByVal e As System.Windows.Controls.DataGridRowEventArgs) Handles DataGrid1.LoadingRow
+        If Not TypeOf e.Row.Item Is Spieler Then Return
         e.Row.Header = e.Row.GetIndex + 1
     End Sub
 
+    Private Sub DataGrid1_InitializingNewItem(ByVal sender As System.Object, ByVal e As System.Windows.Controls.InitializingNewItemEventArgs) Handles DataGrid1.InitializingNewItem
+        Dim Spieler = CType(e.NewItem, Spieler)
+        Spieler.StartNummer = DataGrid1.Items.Count + 1
+    End Sub
+
+    Private Sub DataGrid1_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.KeyEventArgs) Handles DataGrid1.PreviewKeyDown
+        If Not e.Key = Key.Space Then Return
+        If DataGrid1.CurrentColumn Is Nothing Then Return
+        If DataGrid1.CurrentColumn.GetType Is GetType(DataGridComboBoxColumn) Then
+            DataGrid1.BeginEdit()
+            e.Handled = True
+        End If
+
+    End Sub
 End Class

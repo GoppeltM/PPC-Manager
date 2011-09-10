@@ -103,8 +103,11 @@ Class MainWindow
                              Order By x.Rating Descending, x.Rang Ascending, x.TurnierKlasse Ascending, spielDiff Descending Select x).ToList
 
         SpielerListe.Clear()
+        Dim current = 1
         For Each Spieler In sortierteListe
+            Spieler.StartNummer = current
             SpielerListe.Add(Spieler)
+            current += 1
         Next
 
     End Sub
