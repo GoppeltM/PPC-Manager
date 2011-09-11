@@ -182,16 +182,6 @@ Class MainWindow
         e.CanExecute = True
     End Sub
 
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
-        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        If Not SpielRunden.Any Then Return
-        Dim AktuellePartien = SpielRunden.Peek.ToList
-
-        Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Begegnungen.Abgeschlossen(x))
-
-        e.CanExecute = AlleAbgeschlossen
-    End Sub
-
     Private Sub Exportieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Exportieren.Click
 
         With LadenNeu.SpeichernDialog

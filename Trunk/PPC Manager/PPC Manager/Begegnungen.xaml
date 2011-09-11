@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PPC_Manager"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="573" d:DesignWidth="1034">
+      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="573" d:DesignWidth="1034" Name="BegegnungenPage">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />
@@ -29,7 +29,7 @@
     </Page.Resources>
     <Page.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
-        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed"/>
+        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed" CanExecute="NächsteRunde_CanExecute"/>
     </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>

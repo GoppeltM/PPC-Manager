@@ -23,14 +23,14 @@ Class Begegnungen
 
         Dim gesamtAbgeschlossen = Math.Max(SätzeLinks, SätzeRechts)
         Dim gewinnSätze = My.Settings.GewinnSätze
-        Return gesamtAbgeschlossen = gewinnSätze
+        Return gesamtAbgeschlossen >= gewinnSätze
     End Function
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         If SpielRunden.Count = 0 Then
-            RundeBerechnen()        
+            RundeBerechnen()
         End If
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
@@ -92,7 +92,7 @@ Class Begegnungen
 
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
-                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then            
+                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
             RundeBerechnen()
         End If
 
@@ -100,12 +100,12 @@ Class Begegnungen
 
     Private Sub RundeBerechnen()
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-         Dim begegnungen = PaketBildung.organisierePakete(CType(FindResource("SpielerListe"), SpielerListe).ToList, _
-                                                         SpielRunden.Count)
+        Dim begegnungen = PaketBildung.organisierePakete(CType(FindResource("SpielerListe"), SpielerListe).ToList, _
+                                                        SpielRunden.Count)
 
 
         Dim spielRunde As New SpielRunde
-        
+
         For Each begegnung In begegnungen
             spielRunde.Add(begegnung)
         Next
@@ -119,7 +119,17 @@ Class Begegnungen
         RundenAnzeige.Content = "Runde " & SpielRunden.Count
         If CBool(My.Settings.AutoSaveAn) Then
             ApplicationCommands.Save.Execute(Nothing, Me)
-        End If        
+        End If
+    End Sub
+
+    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
+        If Not SpielRunden.Any Then Return
+        Dim AktuellePartien = SpielRunden.Peek.ToList
+
+        Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Abgeschlossen(x))
+
+        e.CanExecute = AlleAbgeschlossen
     End Sub
 
     Private Sub Window_Initialized(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Initialized
