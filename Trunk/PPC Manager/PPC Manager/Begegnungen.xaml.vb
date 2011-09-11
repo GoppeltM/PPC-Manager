@@ -16,9 +16,12 @@ Class Begegnungen
 
     End Sub
 
-    Private Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
+    Friend Shared Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
 
-        Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
+        Dim SätzeLinks = Aggregate x In partie Where x.PunkteLinks = My.Settings.GewinnPunkte Into Count()
+        Dim SätzeRechts = Aggregate x In partie Where x.PunkteRechts = My.Settings.GewinnPunkte Into Count()
+
+        Dim gesamtAbgeschlossen = Math.Max(SätzeLinks, SätzeRechts)
         Dim gewinnSätze = My.Settings.GewinnSätze
         Return gesamtAbgeschlossen = gewinnSätze
     End Function
@@ -52,10 +55,9 @@ Class Begegnungen
 
     Private Sub SatzUpdate()
         Dim partie = CType(DetailGrid.DataContext, SpielPartie)
-        Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
+        Dim AbgeschlosseneSätze = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
-        Dim gewinnSätze = My.Settings.GewinnSätze
-        If gesamtAbgeschlossen = partie.Count AndAlso gesamtAbgeschlossen < gewinnSätze Then
+        If AbgeschlosseneSätze >= partie.Count AndAlso Not Abgeschlossen(partie) Then
             partie.Add(New Satz)
         End If
         BegegnungenView.View.Refresh()

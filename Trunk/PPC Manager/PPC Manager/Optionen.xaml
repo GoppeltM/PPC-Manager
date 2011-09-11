@@ -27,7 +27,7 @@
                           Name="SatzDiffCheck" VerticalAlignment="Top" Width="162" 
                           IsChecked="{Binding Source={x:Static Member=local:MySettings.Default}, Path=SatzDifferenz}" />
                 <Slider Height="28" HorizontalAlignment="Left" Margin="20,38,0,0" Name="Slider1" VerticalAlignment="Top" Width="162" Minimum="1" Maximum="5" 
-                        TickPlacement="BottomRight" IsSnapToTickEnabled="True" Value="{Binding Source={x:Static Member=local:MySettings.Default}, Path=StandardSätze}" />
+                        TickPlacement="BottomRight" IsSnapToTickEnabled="True" Value="{Binding Source={x:Static Member=local:MySettings.Default}, Path=GewinnSätze}" />
 
                 <Label Height="28" HorizontalAlignment="Left" Margin="25,54,0,0" Name="Label2" VerticalAlignment="Top" Width="162" Content="{Binding Path=Value, ElementName=Slider1, Converter={StaticResource Converter}}" />
             </Grid>
