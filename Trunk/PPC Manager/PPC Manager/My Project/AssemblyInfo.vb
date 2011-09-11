@@ -11,11 +11,11 @@ Imports System.Windows
 
 ' Die Werte der Assemblyattribute überprüfen
 
-<Assembly: AssemblyTitle("PPC_Manager")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyTitle("PPC Manager")> 
+<Assembly: AssemblyDescription("Zum Verwalten und Durchführen des Ping Pong Café")> 
 <Assembly: AssemblyCompany("Microsoft")> 
-<Assembly: AssemblyProduct("PPC_Manager")> 
-<Assembly: AssemblyCopyright("Copyright @ Microsoft 2010")> 
+<Assembly: AssemblyProduct("PPC Manager")> 
+<Assembly: AssemblyCopyright("Marius Goppelt 2010")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: ComVisible(false)>
 
