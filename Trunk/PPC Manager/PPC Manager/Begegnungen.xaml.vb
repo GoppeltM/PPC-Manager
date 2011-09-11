@@ -11,13 +11,17 @@ Class Begegnungen
             Return
         End If
 
-        Dim partie As SpielPartie = CType(e.Item, SpielPartie)
-        Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
-
-        Dim gewinnSätze = My.Settings.GewinnSätze
-        e.Accepted = Not (gesamtAbgeschlossen = gewinnSätze)
+        Dim partie As SpielPartie = CType(e.Item, SpielPartie)        
+        e.Accepted = Not Abgeschlossen(partie)
 
     End Sub
+
+    Private Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
+
+        Dim gesamtAbgeschlossen = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
+        Dim gewinnSätze = My.Settings.GewinnSätze
+        Return gesamtAbgeschlossen = gewinnSätze
+    End Function
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
@@ -113,6 +117,22 @@ Class Begegnungen
             ApplicationCommands.Save.Execute(Nothing, Me)
         End If        
     End Sub
+
+    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
+        If Not SpielRunden.Any Then Return
+        Dim AktuellePartien = SpielRunden.Peek.ToList
+
+        Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Abgeschlossen(x))
+
+        e.CanExecute = AlleAbgeschlossen
+    End Sub
+
+    Private Sub Window_Initialized(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Initialized
+        Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)
+        Dim liste = CType(FindResource("SpielerListe"), SpielerListe)
+        res.ObjectInstance = liste
+    End Sub
 End Class
 
 Class StringFormatter
@@ -182,5 +202,23 @@ Public Class MeineGewonnenenSätze
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
         Throw New NotSupportedException
+    End Function
+End Class
+
+Public Class RanglisteIndexConverter
+    Implements IValueConverter
+
+    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
+        Dim provider = CType(parameter, ObjectDataProvider)
+        Dim myList = CType(provider.ObjectInstance, SpielerListe).ToList
+        myList.Sort(Function(x, y) x.CompareTo(y))
+        If myList IsNot Nothing Then
+            Return myList.ToList.IndexOf(CType(value, Spieler)) + 1
+        End If
+        Return Nothing
+    End Function
+
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
+        Return value
     End Function
 End Class

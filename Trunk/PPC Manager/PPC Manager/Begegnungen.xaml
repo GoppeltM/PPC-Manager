@@ -9,7 +9,9 @@
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />
-        <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>        
+        <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
+        <ObjectDataProvider x:Key="RanglisteDataProvider"/>
+        <local:RanglisteIndexConverter x:Key="RanglisteIndexConverter"/>
         <CollectionViewSource x:Key="SpielRundenView" Source="{Binding Source={StaticResource SpielRunden}, UpdateSourceTrigger=PropertyChanged}"
            d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}}"/>
         <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"                              
@@ -21,12 +23,13 @@
                 <scm:SortDescription PropertyName="Punkte" Direction="Descending"/>
                 <scm:SortDescription PropertyName="BuchholzPunkte" Direction="Descending"/>
                 <scm:SortDescription PropertyName="SatzDiff" Direction="Descending"/>
+                <scm:SortDescription PropertyName="StartNummer" Direction="Ascending"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </Page.Resources>
     <Page.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
-        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed"/>
+        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed" CanExecute="NächsteRunde_CanExecute"/>
     </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -63,13 +66,10 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>                                
-                            </Grid.RowDefinitions>
-                            <Grid.Resources>
-                                <local:IndexConverter x:Key="Converter"/>
-                            </Grid.Resources>
+                            </Grid.RowDefinitions>                            
                             <Label Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center" 
                                    FontSize="16" FontWeight="Bold" Foreground="#FF8D7979" HorizontalContentAlignment="Center"
-                                   Content="1"
+                                   Content="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}"
                                    />
                             <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=Vorname}" HorizontalContentAlignment="Center" />
                             <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=Nachname}" HorizontalContentAlignment="Center" />

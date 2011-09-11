@@ -181,6 +181,7 @@ Public Class Spieler
 
     Public ReadOnly Property Ausgeschieden As Boolean
         Get
+            If Not SpielRunden.Any Then Return False
             Return SpielRunden.Peek.AusgeschiedeneSpieler.Contains(Me)
         End Get
     End Property
