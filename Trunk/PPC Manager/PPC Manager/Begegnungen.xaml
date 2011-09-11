@@ -29,7 +29,7 @@
     </Page.Resources>
     <Page.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
-        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed" CanExecute="NächsteRunde_CanExecute"/>
+        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed"/>
     </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>

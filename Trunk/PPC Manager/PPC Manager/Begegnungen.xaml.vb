@@ -122,16 +122,6 @@ Class Begegnungen
         End If        
     End Sub
 
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
-        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        If Not SpielRunden.Any Then Return
-        Dim AktuellePartien = SpielRunden.Peek.ToList
-
-        Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Abgeschlossen(x))
-
-        e.CanExecute = AlleAbgeschlossen
-    End Sub
-
     Private Sub Window_Initialized(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Initialized
         Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)
         Dim liste = CType(FindResource("SpielerListe"), SpielerListe)
