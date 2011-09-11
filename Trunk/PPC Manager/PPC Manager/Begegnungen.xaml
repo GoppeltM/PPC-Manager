@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PPC_Manager"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="474" d:DesignWidth="900">
+      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="573" d:DesignWidth="1034">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />

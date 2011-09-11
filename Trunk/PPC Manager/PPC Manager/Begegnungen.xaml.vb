@@ -212,7 +212,10 @@ Public Class RanglisteIndexConverter
 
     Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
         Dim provider = CType(parameter, ObjectDataProvider)
+        If provider Is Nothing Then Return Nothing
+        If provider.ObjectInstance Is Nothing Then Return Nothing
         Dim myList = CType(provider.ObjectInstance, SpielerListe).ToList
+
         myList.Sort(Function(x, y) x.CompareTo(y))
         If myList IsNot Nothing Then
             Return myList.ToList.IndexOf(CType(value, Spieler)) + 1
