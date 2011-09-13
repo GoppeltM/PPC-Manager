@@ -68,7 +68,11 @@ Class Paket
     End Property
 
     Sub übernimmPaket(ByVal aktuellesPaket As Paket)
-        Throw New NotImplementedException
+        AltSchwimmer.AddRange(aktuellesPaket.SpielerListe)
+        SpielerListe.AddRange(aktuellesPaket.SpielerListe)
+        aktuellesPaket.SpielerListe.Clear()
+        aktuellesPaket.AltSchwimmer.Clear()
+        aktuellesPaket.aktuellerSchwimmer = Nothing
     End Sub
 
     Function SuchePaarungen() As Boolean
