@@ -42,7 +42,7 @@
         </Grid.ColumnDefinitions>        
             <ListView Name="ListView1" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
                       ItemsSource="{Binding Source={StaticResource SpielerView}}"
-                      Grid.Column="0">
+                      Grid.Column="0" FrameworkElement.HorizontalAlignment="Center" TextBlock.FontSize="20">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
             </ListView.CommandBindings>
@@ -67,17 +67,17 @@
                                 <RowDefinition/>
                                 <RowDefinition/>                                
                             </Grid.RowDefinitions>                            
-                            <Label Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center" 
-                                   FontSize="16" FontWeight="Bold" Foreground="#FF8D7979" HorizontalContentAlignment="Center"
-                                   Content="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}"
+                            <TextBlock Grid.Column="0" Grid.RowSpan="2"
+                                   FontSize="16" FontWeight="Bold" Foreground="#FF8D7979"
+                                   Text="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}"
                                    />
-                            <Label Grid.Column="1" Grid.Row="0" Content="{Binding Path=Vorname}" HorizontalContentAlignment="Center" />
-                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Path=Nachname}" HorizontalContentAlignment="Center" />
-                            <Label Grid.Column="2" Grid.Row="0" Content="{Binding Path=Punkte}" HorizontalContentAlignment="Center" ToolTip="Punkte" />
-                            <Label Grid.Column="2" Grid.Row="1" Content="{Binding Path=BuchholzPunkte}" HorizontalContentAlignment="Center" ToolTip="Buchholzpunkte" />
-                            <Label Grid.Column="3" Grid.Row="0" Content="{Binding Path=SätzeGewonnen}" HorizontalContentAlignment="Center" ToolTip="Gewonnene Sätze" />
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Vorname}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Nachname}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Path=Punkte}" HorizontalAlignment="Center" ToolTip="Punkte" />
+                            <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Path=BuchholzPunkte}" HorizontalAlignment="Center" ToolTip="Buchholzpunkte" />
+                            <TextBlock Grid.Column="3" Grid.Row="0" Text="{Binding Path=SätzeGewonnen}" HorizontalAlignment="Center" ToolTip="Gewonnene Sätze" />
                             <Line Grid.Column="3" Grid.RowSpan="2" Stroke="Black" StrokeThickness="2" Stretch="Fill" X2="1" Margin="2" ToolTip="Verlorene Sätze" />
-                            <Label Grid.Column="3" Grid.Row="1" Content="{Binding Path=SätzeVerloren}" HorizontalContentAlignment="Center" />
+                            <TextBlock Grid.Column="3" Grid.Row="1" Text="{Binding Path=SätzeVerloren}" HorizontalAlignment="Center" />
                         </Grid>
                     </ListViewItem> 
                 </DataTemplate>
@@ -98,7 +98,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="5">
+                    <Grid Margin="5" FrameworkElement.HorizontalAlignment="Center" TextBlock.FontSize="30">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -111,11 +111,11 @@
                         <Grid.Resources>
                             <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
                         </Grid.Resources>
-                        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Path=SpielerLinks.StartNummer}"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=SpielerRechts.StartNummer}"/>
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=SpielerLinks.Nachname}"/>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=SpielerRechts.Nachname}"/>
-                        <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}">                            
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" Margin="0,0,10,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}" Margin="0,0,10,0" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" Margin="0,0,10,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" Margin="0,0,10,0" />
+                        <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}" Margin="0,0,10,0">                            
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel Orientation="Horizontal"/>
@@ -187,8 +187,8 @@
                     </Setter>
                 </Style>             
             </Grid.Resources>
-            <Label Grid.Column="0" Grid.Row="0" Content="{Binding Path=SpielerLinks.Nachname}"/>
-            <Label Grid.Column="0" Grid.Row="1" Content="{Binding Path=SpielerRechts.Nachname}"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
             <ItemsControl Grid.Row="0" Style="{StaticResource SatzListe}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

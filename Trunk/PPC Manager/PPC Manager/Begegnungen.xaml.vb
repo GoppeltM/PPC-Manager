@@ -33,7 +33,8 @@ Class Begegnungen
             RundeBerechnen()
         End If
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        ViewSource.View.Refresh()
+        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
         ' Weiß die Hölle warum das so ist.
         ViewSource.View.MoveCurrentToFirst()
@@ -112,9 +113,11 @@ Class Begegnungen
         SpielRunden.Push(spielRunde)
 
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
-        ' Weiß die Hölle warum das so ist.
+        ' Weiß die Hölle warum das so ist
+        ViewSource.View.Refresh()
+
         ViewSource.View.MoveCurrentToFirst()
         RundenAnzeige.Content = "Runde " & SpielRunden.Count
         If CBool(My.Settings.AutoSaveAn) Then

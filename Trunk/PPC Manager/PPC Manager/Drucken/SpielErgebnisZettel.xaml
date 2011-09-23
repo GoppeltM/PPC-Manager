@@ -42,10 +42,10 @@
                                     <Setter Property="Grid.RowSpan" Value="2"/>
                                 </Style>
                             </Grid.Resources>
-                            <Label Grid.Row="0" Grid.Column="0" Content="5"/>
-                            <Label Grid.Row="1" Grid.Column="0" Content="1"/>
-                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=SpielerLinks}"/>
-                            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=SpielerRechts}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="5"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="1"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts}" />
                             <Line Grid.ColumnSpan="8" Style="{StaticResource LineStyle}" X2="1" X1="0" Margin="20,0" />
                             <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="2" Y2="1" StrokeThickness="2" />
                             <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="3" Y2="1" />
