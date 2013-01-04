@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.ObjectModel
-Imports <xmlns="http://PPCManager/SpeicherStand">
 
 Friend Class SpielerListe
     Inherits ObservableCollection(Of Spieler)

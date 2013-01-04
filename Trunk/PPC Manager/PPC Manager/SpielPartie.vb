@@ -1,6 +1,5 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
-Imports <xmlns="http://PPCManager/SpeicherStand">
 Imports System.Collections.Specialized
 
 ''' <summary>

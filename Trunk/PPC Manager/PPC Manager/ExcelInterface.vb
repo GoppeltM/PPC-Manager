@@ -46,13 +46,9 @@ Public Class ExcelInterface
         For Each s In spieler
             CType(sheet.Cells(current, 1), Range).Value2 = s.Vorname
             CType(sheet.Cells(current, 2), Range).Value2 = s.Nachname
-            CType(sheet.Cells(current, 3), Range).Value2 = s.Verein
-            CType(sheet.Cells(current, 4), Range).Value2 = s.SpielKlasse
-            CType(sheet.Cells(current, 5), Range).Value2 = s.Position
-            CType(sheet.Cells(current, 6), Range).Value2 = s.TurnierKlasse
-            CType(sheet.Cells(current, 7), Range).Value2 = s.StartNummer
-            CType(sheet.Cells(current, 8), Range).Value2 = s.Rang
-            CType(sheet.Cells(current, 9), Range).Value2 = s.Rating
+            CType(sheet.Cells(current, 3), Range).Value2 = s.Vereinsname            
+            CType(sheet.Cells(current, 7), Range).Value2 = s.StartNummer            
+            CType(sheet.Cells(current, 9), Range).Value2 = s.TTRating
             CType(sheet.Cells(current, 10), Range).Value2 = s.Punkte
             CType(sheet.Cells(current, 11), Range).Value2 = s.BuchholzPunkte
 

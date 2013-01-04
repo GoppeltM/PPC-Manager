@@ -1,6 +1,5 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
-Imports <xmlns="http://PPCManager/SpeicherStand">
 
 Public Class Spieler
     Implements IComparable(Of Spieler), INotifyPropertyChanged
@@ -26,6 +25,11 @@ Public Class Spieler
     ''' <remarks></remarks>
     Protected ReadOnly SpielRunden As SpielRunden
 
+    Public Property Id As String
+
+    Public Property InterneNummer As String
+
+    Public Property Geburtsjahr As Integer
 
     Public Property Vorname As String
         Get
@@ -49,7 +53,7 @@ Public Class Spieler
     End Property
 
     Private _Verein As String
-    Public Property Verein As String
+    Public Property Vereinsname As String
         Get
             Return _Verein
         End Get
@@ -59,41 +63,11 @@ Public Class Spieler
         End Set
     End Property
 
-    Private _SpielKlasse As String
-    Public Property SpielKlasse As String
-        Get
-            Return _SpielKlasse
-        End Get
-        Set(ByVal value As String)
-            _SpielKlasse = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("SpielKlasse"))
-        End Set
-    End Property
+    Public Property Vereinsnummer As Integer
 
+    Public Property Verbandsspitzname As String
 
-    Private _Position As Integer
-    Public Property Position() As Integer
-        Get
-            Return _Position
-        End Get
-        Set(ByVal value As Integer)
-            _Position = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Position"))
-        End Set
-    End Property
-
-
-    Private _turnierKlasse As String
-    Public Property TurnierKlasse() As String
-        Get
-            Return _turnierKlasse
-        End Get
-        Set(ByVal value As String)
-            _turnierKlasse = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("TurnierKlasse"))
-        End Set
-    End Property
-
+    Public Property Lizenznummer As Integer
 
     Private _StartNummer As Integer
     Public Property StartNummer() As Integer
@@ -107,7 +81,7 @@ Public Class Spieler
     End Property
 
     Private _Rating As Integer
-    Public Property Rating() As Integer
+    Public Property TTRating() As Integer
         Get
             Return _Rating
         End Get
@@ -117,19 +91,9 @@ Public Class Spieler
         End Set
     End Property
 
+    Public Property TTRMatchCount As Integer
 
-    Private _Rang As Integer
-    Public Property Rang() As Integer
-        Get
-            Return _Rang
-        End Get
-        Set(ByVal value As Integer)
-            _Rang = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Rang"))
-        End Set
-    End Property
-
-
+    Public Property Geschlecht As Integer
 
     Public ReadOnly Property Punkte As Integer
         Get
@@ -145,7 +109,7 @@ Public Class Spieler
         Get
             Dim _punkte = Aggregate x In GespieltePartien Let y = x.MeinGegner(Me).Punkte Into Sum(y)
             Return _punkte
-        End Get        
+        End Get
     End Property
 
     Public ReadOnly Property GespieltePartien As List(Of SpielPartie)
@@ -174,7 +138,7 @@ Public Class Spieler
     End Property
 
     Private ReadOnly Property SatzDifferenz As Integer
-        Get            
+        Get
             Return SätzeGewonnen - SätzeVerloren
         End Get
     End Property
@@ -235,29 +199,36 @@ Public Class Spieler
 
 
     Public Function ToXML() As XElement
-        Dim node = <Spieler Vorname=<%= Vorname %> Nachname=<%= Nachname %>
-                       Verein=<%= Verein %> SpielKlasse=<%= SpielKlasse %>
-                       StartNummer=<%= StartNummer %>
-                       Position=<%= Position %> TurnierKlasse=<%= TurnierKlasse %>
-                       ttRang=<%= Rang %>
-                       ttRating=<%= Rating %>
-                       >
-                   </Spieler>
+        Dim node = <player type="single" id=<%= Id %>>
+                       <person
+                           birthyear=<%= Geburtsjahr %>
+                           firstname=<%= Vorname %> club-nr=<%= Vereinsnummer %> internal-nr=<%= InterneNummer %>
+                           lastname=<%= Nachname %>
+                           ttr-match-count=<%= TTRMatchCount %> sex=<%= Geschlecht %>
+                           club-name=<%= Vereinsname %>
+                           club-federation-nickname=<%= StartNummer %>
+                           licence-nr=<%= Lizenznummer %>
+                           ttr=<%= TTRating %>
+                           >
+                       </person>
+                   </player>
         Return node
     End Function
 
     Friend Shared Function FromXML(ByVal spielerNode As XElement) As Spieler
         Dim spieler As New Spieler()
         With spieler
-            .Vorname = spielerNode.@Vorname
-            .Nachname = spielerNode.@Nachname
-            .Verein = spielerNode.@Verein
-            .SpielKlasse = spielerNode.@SpielKlasse
-            .StartNummer = CInt(spielerNode.@StartNummer)
-            .Position = CInt(spielerNode.@Position)
-            .TurnierKlasse = spielerNode.@TurnierKlasse
-            .Rating = CInt(spielerNode.@ttRating)
-            .Rang = CInt(spielerNode.@ttRang)
+            .Geburtsjahr = CInt(spielerNode.@birthyear)
+            .Vorname = spielerNode.@firstname
+            .Vereinsnummer = CInt(spielerNode.Attribute("club-nr").Value)
+            .InterneNummer = spielerNode.Attribute("internal-nr").Value
+            .Nachname = spielerNode.@lastname
+            .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
+            .Geschlecht = CInt(spielerNode.@sex)
+            .Vereinsname = spielerNode.Attribute("club-name").Value
+            .Verbandsspitzname = spielerNode.Attribute("club-federation-nickname").Value
+            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)            
+            .TTRating = CInt(spielerNode.@ttr)
         End With
         Return spieler
     End Function

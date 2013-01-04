@@ -67,7 +67,7 @@
                         Dim text = CType(myProperty, TextBlock)
                         text.Text = value
                     Case Else
-                        CType(currentSpieler, Spieler).Verein = value
+                        CType(currentSpieler, Spieler).Vereinsname = value
                 End Select
             Next
         Next
@@ -78,7 +78,7 @@
         e.CanExecute = DataGrid1.SelectedItems.Count > 0
     End Sub
 
-    Private Sub Cut_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+    Private Sub Cut_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         ApplicationCommands.Copy.Execute(DataGrid1.SelectedCells, DataGrid1)
         ApplicationCommands.Delete.Execute(DataGrid1.SelectedCells, DataGrid1)
     End Sub
@@ -92,7 +92,7 @@
 
 
         Dim CSVContent = String.Empty
-        For Each row In selectedRows            
+        For Each row In selectedRows
             Dim CellContents As New List(Of String)
             For Each cell In row.Group
                 Dim item = CType(cell.Item, Spieler)
@@ -107,22 +107,7 @@
                 End If
 
                 If cell.Column Is Verein Then
-                    CellContents.Add(item.Verein)
-                    Continue For
-                End If
-
-                If cell.Column Is SpielKlasse Then
-                    CellContents.Add(item.SpielKlasse)
-                    Continue For
-                End If
-
-                If cell.Column Is Position Then
-                    CellContents.Add(item.Position.ToString)
-                    Continue For
-                End If
-
-                If cell.Column Is Turnierklasse Then
-                    CellContents.Add(item.TurnierKlasse)
+                    CellContents.Add(item.Vereinsname)
                     Continue For
                 End If
             Next

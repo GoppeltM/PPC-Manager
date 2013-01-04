@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.ObjectModel
-Imports <xmlns="http://PPCManager/SpeicherStand">
 
 Class MainWindow
 
@@ -52,13 +51,14 @@ Class MainWindow
 
     Private Function getXmlDocument() As XDocument
 
-        Dim doc = New XDocument(<PPCTurnier GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= SatzDifferenz %>>
+        Dim doc = New XDocument(New XDocumentType("tournament", Nothing, "http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd", Nothing),
+                                <tournament GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= SatzDifferenz %>>
                                     <SpielerListe>
                                         <%= From x In SpielerListe Let y = x.ToXML Select y %>
                                     </SpielerListe>
 
                                     <%= SpielRunden.ToXML %>
-                                </PPCTurnier>)
+                                </tournament>)
         Return doc
     End Function
 
@@ -99,8 +99,7 @@ Class MainWindow
     Private Sub Vorsortieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Vorsortieren.Click
 
         Dim sortierteListe = (From x In SpielerListe
-                             Let spielDiff = My.Settings.SpielKlassen.IndexOf(x.SpielKlasse) * 2 + x.Position
-                             Order By x.Rating Descending, x.Rang Ascending, x.TurnierKlasse Ascending, spielDiff Descending Select x).ToList
+                             Order By x.TTRating Descending).ToList
 
         SpielerListe.Clear()
         Dim current = 1

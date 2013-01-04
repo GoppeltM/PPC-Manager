@@ -45,16 +45,16 @@ Friend Class DesignSpielerListe
     Inherits SpielerListe
 
     Public Sub New()
-        Add(New DesignSpieler() With {.Vorname = "Marius", .Nachname = "Goppelt", .StartNummer = 1, .Rang = 23})
-        Add(New DesignSpieler() With {.Vorname = "Flo", .Nachname = "Ewald", .StartNummer = 2, .Rang = 64})
-        Add(New DesignSpieler() With {.Vorname = "Hartmut", .Nachname = "Seiter", .StartNummer = 3, .Rang = 7})
-        Add(New DesignSpieler() With {.Vorname = "Max", .Nachname = "Mustermann", .StartNummer = 4, .Rang = 105})
-        Add(New DesignSpieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .StartNummer = 5, .Rang = 406})
-        Add(New DesignSpieler() With {.Vorname = "Sarah", .Nachname = "Palin", .StartNummer = 6, .Rang = 19})
-        Add(New DesignSpieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .StartNummer = 7, .Rang = 201})
-        Add(New DesignSpieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .StartNummer = 8, .Rang = 69})
-        Add(New DesignSpieler() With {.Vorname = "Adam", .Nachname = "Jensen", .StartNummer = 9, .Rang = 42})
-        Add(New DesignSpieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .StartNummer = 10, .Rang = 59})
+        Add(New DesignSpieler() With {.Vorname = "Marius", .Nachname = "Goppelt", .StartNummer = 1})
+        Add(New DesignSpieler() With {.Vorname = "Flo", .Nachname = "Ewald", .StartNummer = 2})
+        Add(New DesignSpieler() With {.Vorname = "Hartmut", .Nachname = "Seiter", .StartNummer = 3})
+        Add(New DesignSpieler() With {.Vorname = "Max", .Nachname = "Mustermann", .StartNummer = 4})
+        Add(New DesignSpieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .StartNummer = 5})
+        Add(New DesignSpieler() With {.Vorname = "Sarah", .Nachname = "Palin", .StartNummer = 6})
+        Add(New DesignSpieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .StartNummer = 7})
+        Add(New DesignSpieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .StartNummer = 8})
+        Add(New DesignSpieler() With {.Vorname = "Adam", .Nachname = "Jensen", .StartNummer = 9})
+        Add(New DesignSpieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .StartNummer = 10})
     End Sub
 End Class
 

@@ -1,5 +1,4 @@
-﻿Imports <xmlns="http://PPCManager/SpeicherStand">
-
+﻿
 Public Class Optionen
 
 
