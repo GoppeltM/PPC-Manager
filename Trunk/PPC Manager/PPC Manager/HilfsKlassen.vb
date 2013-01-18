@@ -1,14 +1,16 @@
 ﻿Imports System.Collections.ObjectModel
 
-Friend Class SpielerListe
+Public Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
-    Sub FromXML(ByVal xSpielerListe As IEnumerable(Of XElement))
-        Clear()
+    Shared Function FromXML(ByVal xSpielerListe As IEnumerable(Of XElement)) As SpielerListe
+        Dim l = New SpielerListe
+
         For Each xSpieler In xSpielerListe.<Spieler>
-            Add(Spieler.FromXML(xSpieler))
+            l.Add(Spieler.FromXML(xSpieler))
         Next
-    End Sub
+        Return l
+    End Function
 
 End Class
 

@@ -39,7 +39,7 @@ Namespace My.Resources
         Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("PPC_Manager.Resources", GetType(Resources).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("PPC_Manager_Tests.Resources", GetType(Resources).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -58,6 +58,25 @@ Namespace My.Resources
             Set
                 resourceCulture = value
             End Set
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        '''&lt;!DOCTYPE tournament SYSTEM &quot;http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd&quot;&gt;
+        '''&lt;tournament end-date=&quot;2012-09-09&quot; start-date=&quot;2012-09-08&quot; name=&quot;15. Turnier nach Schweizer Art &quot; tournament-id=&quot;Fp12HjV93pTyQlVex23%2FfGT919cb58I9&quot;&gt;
+        '''	
+        '''		&lt;competition start-date=&quot;2012-09-08 11:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;Mädchen U 13&quot; type=&quot;Einzel&quot;&gt;
+        '''			&lt;players&gt;
+        '''				
+        '''			&lt;/players&gt;
+        '''		&lt;/competition&gt;
+        '''	
+        '''		&lt;competition start-date=&quot;2012-09-08 11:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;Jungen [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property Turnierteilnehmer() As String
+            Get
+                Return ResourceManager.GetString("Turnierteilnehmer", resourceCulture)
+            End Get
         End Property
     End Module
 End Namespace

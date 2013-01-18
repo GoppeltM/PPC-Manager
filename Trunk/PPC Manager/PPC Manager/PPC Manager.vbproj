@@ -9,7 +9,8 @@
     <RootNamespace>PPC_Manager</RootNamespace>
     <AssemblyName>PPC Manager</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <MyType>Custom</MyType>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>E:\Eigene Dateien - Marius\Desktop\PPC Manager\</PublishUrl>
@@ -31,7 +32,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -114,6 +115,7 @@
     <Compile Include="Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Competition.vb" />
     <Compile Include="DesignData.vb" />
     <Compile Include="Drucken\SpielErgebnisZettel.xaml.vb">
       <DependentUpon>SpielErgebnisZettel.xaml</DependentUpon>

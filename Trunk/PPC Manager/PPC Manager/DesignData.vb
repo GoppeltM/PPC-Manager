@@ -45,26 +45,15 @@ Friend Class DesignSpielerListe
     Inherits SpielerListe
 
     Public Sub New()
-        Add(New DesignSpieler() With {.Vorname = "Marius", .Nachname = "Goppelt", .StartNummer = 1})
-        Add(New DesignSpieler() With {.Vorname = "Flo", .Nachname = "Ewald", .StartNummer = 2})
-        Add(New DesignSpieler() With {.Vorname = "Hartmut", .Nachname = "Seiter", .StartNummer = 3})
-        Add(New DesignSpieler() With {.Vorname = "Max", .Nachname = "Mustermann", .StartNummer = 4})
-        Add(New DesignSpieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .StartNummer = 5})
-        Add(New DesignSpieler() With {.Vorname = "Sarah", .Nachname = "Palin", .StartNummer = 6})
-        Add(New DesignSpieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .StartNummer = 7})
-        Add(New DesignSpieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .StartNummer = 8})
-        Add(New DesignSpieler() With {.Vorname = "Adam", .Nachname = "Jensen", .StartNummer = 9})
-        Add(New DesignSpieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .StartNummer = 10})
+        Add(New Spieler() With {.Vorname = "Marius", .Nachname = "Goppelt", .StartNummer = 1})
+        Add(New Spieler() With {.Vorname = "Flo", .Nachname = "Ewald", .StartNummer = 2})
+        Add(New Spieler() With {.Vorname = "Hartmut", .Nachname = "Seiter", .StartNummer = 3})
+        Add(New Spieler() With {.Vorname = "Max", .Nachname = "Mustermann", .StartNummer = 4})
+        Add(New Spieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .StartNummer = 5})
+        Add(New Spieler() With {.Vorname = "Sarah", .Nachname = "Palin", .StartNummer = 6})
+        Add(New Spieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .StartNummer = 7})
+        Add(New Spieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .StartNummer = 8})
+        Add(New Spieler() With {.Vorname = "Adam", .Nachname = "Jensen", .StartNummer = 9})
+        Add(New Spieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .StartNummer = 10})
     End Sub
-End Class
-
-Friend Class DesignSpieler
-    Inherits Spieler
-
-    Public Shared runden As New SpielRunden
-
-    Public Sub New()
-        MyBase.New(runden)
-    End Sub
-
 End Class

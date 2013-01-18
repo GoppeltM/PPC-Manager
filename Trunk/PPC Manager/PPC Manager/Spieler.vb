@@ -6,30 +6,28 @@ Public Class Spieler
 
 #Region "Public Properties"
 
-    Private _Vorname As String
-
-    Public Sub New()
-        Dim runden = CType(Application.Current.FindResource("SpielRunden"), SpielRunden)
-        Me.SpielRunden = runden
-    End Sub
-
-    Protected Sub New(ByVal runden As SpielRunden)
-        Me.SpielRunden = runden
-    End Sub
-
 
     ''' <summary>
     ''' Darf nur einmalig gesetzt werden, und darf nur lesenderweise betreten werden!!
     ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
     ''' </summary>
     ''' <remarks></remarks>
-    Protected ReadOnly SpielRunden As SpielRunden
+    Protected ReadOnly Property SpielRunden As SpielRunden
+        Get
+            Return CType(Application.Current.TryFindResource("SpielRunden"), SpielRunden)
+        End Get
+    End Property
+
+
+    
 
     Public Property Id As String
 
     Public Property InterneNummer As String
 
     Public Property Geburtsjahr As Integer
+
+    Private _Vorname As String
 
     Public Property Vorname As String
         Get

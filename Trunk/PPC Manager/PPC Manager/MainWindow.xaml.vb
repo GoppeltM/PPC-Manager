@@ -3,14 +3,33 @@
 Class MainWindow
 
     Friend SpielRunden As SpielRunden
-    Friend SpielerListe As SpielerListe
+    Public ReadOnly Property SpielerListe As SpielerListe
+        Get
+            Return AktiveCompetition.SpielerListe
+        End Get
+    End Property
     Private DateiPfad As String
     Private SatzDifferenz As Boolean
     Private AutoSaveAn As Boolean
+    Private TurnierName As String
+    Private StartDatum As String
+    Private EndDatum As String
+    Private TurnierID As String
+    Private AktiveCompetition As New Competition
+
+
+    Public Function getXmlDocument() As XDocument
+
+        Dim doc = New XDocument(New XDocumentType("tournament", Nothing, "http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd", Nothing),
+                                <tournament end-date=<%= EndDatum %> start-date=<%= StartDatum %> name=<%= TurnierName %> tournament-id=<%= TurnierID %>>
+                                    <%= AktiveCompetition.ToXML %>                                                                        
+                                </tournament>)
+        Return doc
+    End Function
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        SpielerListe = CType(FindResource("SpielerListe"), SpielerListe)
+        AktiveCompetition.SpielerListe = CType(FindResource("SpielerListe"), SpielerListe)
         With New LadenNeu
             Dim result = .ShowDialog
             If .Canceled Then
@@ -49,18 +68,7 @@ Class MainWindow
         doc.Save(DateiPfad)
     End Sub
 
-    Private Function getXmlDocument() As XDocument
 
-        Dim doc = New XDocument(New XDocumentType("tournament", Nothing, "http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd", Nothing),
-                                <tournament GewinnSätze=<%= My.Settings.GewinnSätze %> SatzDifferenz=<%= SatzDifferenz %>>
-                                    <SpielerListe>
-                                        <%= From x In SpielerListe Let y = x.ToXML Select y %>
-                                    </SpielerListe>
-
-                                    <%= SpielRunden.ToXML %>
-                                </tournament>)
-        Return doc
-    End Function
 
     Friend Sub Open_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
         With LadenNeu.LadenDialog            
