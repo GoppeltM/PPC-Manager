@@ -17,13 +17,4 @@
                 }
     End Function
 
-    Function ToXML() As XElement
-        Return <competition start-date=<%= StartDatum %> ttr-remarks=<%= ttrRemarks %>
-                   age-group=<%= Altersgruppe %> type=<%= Typ %>>
-                   <players>
-                       <%= From spieler In SpielerListe Select Spieler = spieler.ToXML() %>
-                   </players>
-               </competition>
-    End Function
-
 End Class

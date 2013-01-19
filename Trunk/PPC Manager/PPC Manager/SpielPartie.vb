@@ -59,16 +59,16 @@ Public Class SpielPartie
     End Property
 
     Overridable Function ToXML() As XElement
-        Dim node = <SpielPartie SpielerLinks=<%= SpielerLinks.StartNummer %> SpielerRechts=<%= SpielerRechts.StartNummer %>>
+        Dim node = <match player-a=<%= SpielerLinks.Id %> player-b=<%= SpielerRechts.Id %>>
                        <%= From x In Me Let y = x.ToXML() Select y %>
-                   </SpielPartie>
+                   </match>
         Return node
     End Function
 
 
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie
-        Dim spielerA = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerLinks) Select x).First
-        Dim spielerB = (From x In spielerListe Where x.StartNummer = Integer.Parse(xSpielPartie.@SpielerRechts) Select x).First
+        Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
+        Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
         Dim partie As New SpielPartie(spielerA, spielerB)
         For Each Satz In xSpielPartie.<Satz>
@@ -103,7 +103,7 @@ Public Class FreiLosSpiel
     End Property
 
     Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement) As FreiLosSpiel
-        Dim spieler = (From x In spielerListe Where x.StartNummer = Integer.Parse(xFreilosSpiel.@Spieler) Select x).First
+        Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@ID Select x).First
         Return New FreiLosSpiel(spieler)
     End Function
 

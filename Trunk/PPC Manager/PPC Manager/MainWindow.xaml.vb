@@ -22,7 +22,7 @@ Class MainWindow
 
         Dim doc = New XDocument(New XDocumentType("tournament", Nothing, "http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd", Nothing),
                                 <tournament end-date=<%= EndDatum %> start-date=<%= StartDatum %> name=<%= TurnierName %> tournament-id=<%= TurnierID %>>
-                                    <%= AktiveCompetition.ToXML %>                                                                        
+
                                 </tournament>)
         Return doc
     End Function
@@ -30,23 +30,15 @@ Class MainWindow
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         AktiveCompetition.SpielerListe = CType(FindResource("SpielerListe"), SpielerListe)
-        With New LadenNeu
-            Dim result = .ShowDialog
-            If .Canceled Then
-                Me.Close()
-                Return
-            End If            
-            If result Then
-                DateiPfad = .SpeicherPfad
-                Einstellungen_Click(sender, e)
-                Save_Executed(sender, Nothing)
-            Else
-                Open_Executed(sender, Nothing)
-                If String.IsNullOrEmpty(DateiPfad) Then
-                    Me.Close()
-                End If
-            End If
+        With New LadenNeu            
+            DateiPfad = .SpeicherPfad
+            Dim doc = XDocument.Load(DateiPfad)
+            Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = .CompetitionCombo.SelectedItem.ToString).Single
+            AktiveCompetition = Competition.FromXML(competitionXML)
         End With
+
+        Einstellungen_Click(sender, e)
+        Save_Executed(sender, Nothing)
         
     End Sub
 
@@ -111,8 +103,7 @@ Class MainWindow
 
         SpielerListe.Clear()
         Dim current = 1
-        For Each Spieler In sortierteListe
-            Spieler.StartNummer = current
+        For Each Spieler In sortierteListe            
             SpielerListe.Add(Spieler)
             current += 1
         Next
@@ -132,11 +123,6 @@ Class MainWindow
         If MessageBox.Show(Me, "Wollen Sie wirklich das Turnier starten? Vergewissern Sie sich, dass alle Spielregeln und die Startreihenfolge richtig ist bevor Sie beginnen.", _
                            "Turnier Starten?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
 
-            Dim current = 1
-            For Each row As Spieler In SpielerListe
-                row.StartNummer = current
-                current += 1
-            Next            
             EditorArea.Navigate(New Begegnungen)
         End If
 

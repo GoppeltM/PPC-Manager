@@ -123,8 +123,7 @@
     End Sub
 
     Private Sub DataGrid1_InitializingNewItem(ByVal sender As System.Object, ByVal e As System.Windows.Controls.InitializingNewItemEventArgs) Handles DataGrid1.InitializingNewItem
-        Dim Spieler = CType(e.NewItem, Spieler)
-        Spieler.StartNummer = DataGrid1.Items.Count + 1
+        Dim Spieler = CType(e.NewItem, Spieler)        
     End Sub
 
     Private Sub DataGrid1_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.KeyEventArgs) Handles DataGrid1.PreviewKeyDown

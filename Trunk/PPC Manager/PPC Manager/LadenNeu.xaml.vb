@@ -2,19 +2,19 @@
 
     Public Property SpeicherPfad As String
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click        
-        Close()
-    End Sub
-
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button2.Click
-        With SpeichernDialog()
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
+        With LadenDialog()
             If .ShowDialog Then
-                SpeicherPfad = .FileName
-                DialogResult = True
-                Close()
+                XMLPathText.Text = .FileName
+                With CompetitionCombo
+                    .Items.Clear()
+                    For Each Entry In XDocument.Load(XMLPathText.Text).Root.<competition>
+                        .Items.Add(Entry.Attribute("age-group").Value)
+                    Next
+                    .IsEnabled = True
+                End With
             End If
-        End With
-        
+        End With        
     End Sub
 
     Public Property Canceled As Boolean
@@ -48,6 +48,18 @@
     End Function
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button3.Click
-        Canceled = True
+        Application.Current.Shutdown()
     End Sub
+End Class
+
+Public Class IsNotNullConverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        Return value IsNot Nothing
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+        Throw New NotImplementedException
+    End Function
 End Class

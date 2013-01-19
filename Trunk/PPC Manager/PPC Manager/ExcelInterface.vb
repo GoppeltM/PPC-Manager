@@ -47,7 +47,7 @@ Public Class ExcelInterface
             CType(sheet.Cells(current, 1), Range).Value2 = s.Vorname
             CType(sheet.Cells(current, 2), Range).Value2 = s.Nachname
             CType(sheet.Cells(current, 3), Range).Value2 = s.Vereinsname            
-            CType(sheet.Cells(current, 7), Range).Value2 = s.StartNummer            
+            CType(sheet.Cells(current, 7), Range).Value2 = s.Id
             CType(sheet.Cells(current, 9), Range).Value2 = s.TTRating
             CType(sheet.Cells(current, 10), Range).Value2 = s.Punkte
             CType(sheet.Cells(current, 11), Range).Value2 = s.BuchholzPunkte
@@ -60,7 +60,7 @@ Public Class ExcelInterface
             CType(sheet.Cells(current, 13), Range).Value2 = AlleSätze - meineSätze
 
             column = 14
-            Dim gegnerProfil = From x In ss.GespieltePartien Select x.MeinGegner(ss).StartNummer
+            Dim gegnerProfil = From x In ss.GespieltePartien Select x.MeinGegner(ss).Id
 
             For Each gegner In gegnerProfil
                 CType(sheet.Cells(current, column), Range).Value2 = gegner
@@ -85,8 +85,8 @@ Public Class ExcelInterface
             Next
             Dim current = 2
             For Each ergebnis In runde
-                CType(sheet.Cells(current, 1), Range).Value2 = ergebnis.SpielerLinks.StartNummer
-                CType(sheet.Cells(current, 2), Range).Value2 = ergebnis.SpielerRechts.StartNummer
+                CType(sheet.Cells(current, 1), Range).Value2 = ergebnis.SpielerLinks.Id
+                CType(sheet.Cells(current, 2), Range).Value2 = ergebnis.SpielerRechts.Id
                 CType(sheet.Cells(current, 3), Range).Value2 = ergebnis.MeineGewonnenenSätze(ergebnis.SpielerLinks).Count
                 CType(sheet.Cells(current, 4), Range).Value2 = ergebnis.MeineGewonnenenSätze(ergebnis.SpielerRechts).Count
                 current += 1

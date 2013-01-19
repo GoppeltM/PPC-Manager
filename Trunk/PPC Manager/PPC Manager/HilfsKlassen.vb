@@ -65,8 +65,8 @@ Public Class SpielRunde
         End If
 
         For Each xSpieler In xRunde.<AusgeschiedenerSpieler>
-            Dim StartNummer = Integer.Parse(xSpieler.Value)
-            runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.StartNummer = StartNummer Select x).First)
+            Dim StartNummer = xSpieler.@ID
+            runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.Id = StartNummer Select x).First)
         Next        
         Return runde
     End Function
@@ -75,7 +75,7 @@ Public Class SpielRunde
         Return <SpielRunde Nummer=<%= spielRunde + 1 %>>
                    <%= From x In Me Let y = x.ToXML() Select y %>
                    <%= From x In AusgeschiedeneSpieler Select <AusgeschiedenerSpieler>
-                                                                  <%= x.StartNummer %>
+                                                                  <%= x.Id %>
                                                               </AusgeschiedenerSpieler> %>
                </SpielRunde>
     End Function

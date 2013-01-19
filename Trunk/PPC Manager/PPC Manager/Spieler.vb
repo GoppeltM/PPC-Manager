@@ -12,20 +12,14 @@ Public Class Spieler
     ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
     ''' </summary>
     ''' <remarks></remarks>
-    Protected ReadOnly Property SpielRunden As SpielRunden
+    Protected Overridable ReadOnly Property SpielRunden As SpielRunden
         Get
             Return CType(Application.Current.TryFindResource("SpielRunden"), SpielRunden)
         End Get
     End Property
 
 
-    
-
     Public Property Id As String
-
-    Public Property InterneNummer As String
-
-    Public Property Geburtsjahr As Integer
 
     Private _Vorname As String
 
@@ -67,16 +61,7 @@ Public Class Spieler
 
     Public Property Lizenznummer As Integer
 
-    Private _StartNummer As Integer
-    Public Property StartNummer() As Integer
-        Get
-            Return _StartNummer
-        End Get
-        Set(ByVal value As Integer)
-            _StartNummer = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("StartNummer"))
-        End Set
-    End Property
+    Private _StartNummer As Integer    
 
     Private _Rating As Integer
     Public Property TTRating() As Integer
@@ -159,11 +144,11 @@ Public Class Spieler
 
         If Not TypeOf obj Is Spieler Then Return False
         Dim other = CType(obj, Spieler)
-        Return Me.StartNummer = other.StartNummer
+        Return Me.Id = other.Id
     End Function
 
     Public Overrides Function GetHashCode() As Integer
-        Return StartNummer.GetHashCode
+        Return Id.GetHashCode
     End Function
 
     Public Overrides Function ToString() As String
@@ -181,7 +166,7 @@ Public Class Spieler
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
-        Return Me.StartNummer - other.StartNummer
+        Return Me.TTRating - other.TTRating
     End Function
 
 
@@ -195,37 +180,17 @@ Public Class Spieler
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-
-    Public Function ToXML() As XElement
-        Dim node = <player type="single" id=<%= Id %>>
-                       <person
-                           birthyear=<%= Geburtsjahr %>
-                           firstname=<%= Vorname %> club-nr=<%= Vereinsnummer %> internal-nr=<%= InterneNummer %>
-                           lastname=<%= Nachname %>
-                           ttr-match-count=<%= TTRMatchCount %> sex=<%= Geschlecht %>
-                           club-name=<%= Vereinsname %>
-                           club-federation-nickname=<%= StartNummer %>
-                           licence-nr=<%= Lizenznummer %>
-                           ttr=<%= TTRating %>
-                           >
-                       </person>
-                   </player>
-        Return node
-    End Function
-
-    Friend Shared Function FromXML(ByVal spielerNode As XElement) As Spieler
+    Public Shared Function FromXML(ByVal spielerNode As XElement) As Spieler
         Dim spieler As New Spieler()
         With spieler
-            .Geburtsjahr = CInt(spielerNode.@birthyear)
-            .Vorname = spielerNode.@firstname
-            .Vereinsnummer = CInt(spielerNode.Attribute("club-nr").Value)
-            .InterneNummer = spielerNode.Attribute("internal-nr").Value
+            .Id = spielerNode.@id
+            spielerNode = spielerNode.<person>.First            
+            .Vorname = spielerNode.@firstname                        
             .Nachname = spielerNode.@lastname
             .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
             .Geschlecht = CInt(spielerNode.@sex)
-            .Vereinsname = spielerNode.Attribute("club-name").Value
-            .Verbandsspitzname = spielerNode.Attribute("club-federation-nickname").Value
-            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)            
+            .Vereinsname = spielerNode.Attribute("club-name").Value            
+            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
             .TTRating = CInt(spielerNode.@ttr)
         End With
         Return spieler

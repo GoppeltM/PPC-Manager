@@ -92,7 +92,7 @@ Class Paket
     End Function
 
 
-    Public Function Compare(ByVal x As Spieler, ByVal y As Spieler) As Integer Implements System.Collections.Generic.IComparer(Of Spieler).Compare
+    Public Function Compare(ByVal x As Spieler, ByVal y As Spieler) As Integer Implements IComparer(Of Spieler).Compare
         If Absteigend Then
             Return x.CompareTo(y)
         Else

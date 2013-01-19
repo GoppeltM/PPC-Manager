@@ -45,15 +45,15 @@ Friend Class DesignSpielerListe
     Inherits SpielerListe
 
     Public Sub New()
-        Add(New Spieler() With {.Vorname = "Marius", .Nachname = "Goppelt", .StartNummer = 1})
-        Add(New Spieler() With {.Vorname = "Flo", .Nachname = "Ewald", .StartNummer = 2})
-        Add(New Spieler() With {.Vorname = "Hartmut", .Nachname = "Seiter", .StartNummer = 3})
-        Add(New Spieler() With {.Vorname = "Max", .Nachname = "Mustermann", .StartNummer = 4})
-        Add(New Spieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .StartNummer = 5})
-        Add(New Spieler() With {.Vorname = "Sarah", .Nachname = "Palin", .StartNummer = 6})
-        Add(New Spieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .StartNummer = 7})
-        Add(New Spieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .StartNummer = 8})
-        Add(New Spieler() With {.Vorname = "Adam", .Nachname = "Jensen", .StartNummer = 9})
-        Add(New Spieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .StartNummer = 10})
+        Add(New Spieler() With {.Vorname = "Marius", .Nachname = "Goppelt", .TTRating = 1})
+        Add(New Spieler() With {.Vorname = "Flo", .Nachname = "Ewald", .TTRating = 2})
+        Add(New Spieler() With {.Vorname = "Hartmut", .Nachname = "Seiter", .TTRating = 3})
+        Add(New Spieler() With {.Vorname = "Max", .Nachname = "Mustermann", .TTRating = 4})
+        Add(New Spieler() With {.Vorname = "Leonardo", .Nachname = "Da Vinci", .TTRating = 5})
+        Add(New Spieler() With {.Vorname = "Sarah", .Nachname = "Palin", .TTRating = 6})
+        Add(New Spieler() With {.Vorname = "Manuel José", .Nachname = "Barroso", .TTRating = 7})
+        Add(New Spieler() With {.Vorname = "Catharina", .Nachname = "Sforza", .TTRating = 8})
+        Add(New Spieler() With {.Vorname = "Adam", .Nachname = "Jensen", .TTRating = 9})
+        Add(New Spieler() With {.Vorname = "Miroslav", .Nachname = "Klose", .TTRating = 10})
     End Sub
 End Class
