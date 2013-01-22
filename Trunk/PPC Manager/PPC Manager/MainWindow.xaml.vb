@@ -72,7 +72,7 @@ Class MainWindow
             DateiPfad = .FileName
             SpielerListe.FromXML(doc.Root.<SpielerListe>)
 
-            SpielRunden.FromXML(SpielerListe, doc.Root.<SpielRunden>.<SpielRunde>)
+            SpielRunden.FromXML(SpielerListe, doc.Root.<matches>.<match>)
             My.Settings.GewinnSätze = Integer.Parse(doc.Root.@GewinnSätze)
             SatzDifferenz = Boolean.Parse(doc.Root.@SatzDifferenz)
             If SpielRunden.Any Then

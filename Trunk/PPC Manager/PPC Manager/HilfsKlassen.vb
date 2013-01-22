@@ -23,8 +23,9 @@ Public Class SpielRunden
 
     Friend Sub FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
         Clear()
-        For Each xRunde In From x In runden Order By Integer.Parse(x.@Nummer)
-            Push(SpielRunde.FromXML(spielerListe, xRunde))
+        Dim xRunden = From x In runden Group By x.@group Into Runde = Group Order By Runde.@group, Runde.@nr Ascending
+        For Each xRunde In xRunden
+            Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
         Next
     End Sub
 
@@ -35,13 +36,17 @@ Public Class SpielRunden
 
         Dim current = 0
         For Each SpielRunde In Me.Reverse
-            xSpielRunden.Add(SpielRunde.ToXML(current))
+            Dim CurrentSpiel = 0
+            For Each Spiel In SpielRunde
+                xSpielRunden.Add(Spiel.ToXML(current, CurrentSpiel))
+                CurrentSpiel += 1
+            Next
             current += 1
         Next
 
-        Return <SpielRunden>
+        Return <matches>
                    <%= xSpielRunden %>
-               </SpielRunden>
+               </matches>
     End Function
 
     Public Shared ReadOnly Empty As SpielRunden = New SpielRunden
@@ -54,26 +59,30 @@ Public Class SpielRunde
 
     Friend Property AusgeschiedeneSpieler As New ObservableCollection(Of Spieler)
 
-    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xRunde As XElement) As SpielRunde
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
         Dim runde As New SpielRunde
-        For Each xSpielPartie In xRunde.<SpielPartie>
+        For Each xSpielPartie In xSpiele
             runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
         Next
-        Dim xFreilos = xRunde.<FreiLosSpiel>.SingleOrDefault
-        If xFreilos IsNot Nothing Then
-            runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
-        End If
 
-        For Each xSpieler In xRunde.<AusgeschiedenerSpieler>
-            Dim StartNummer = xSpieler.@ID
-            runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.Id = StartNummer Select x).First)
-        Next        
+        ' TODO: Freilosspiele und ausgeschiedene Spieler implementieren
+        'Dim xFreilos = xRunde.<FreiLosSpiel>.SingleOrDefault
+        'If xFreilos IsNot Nothing Then
+        '    runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
+        'End If
+
+        'For Each xSpieler In xRunde.<AusgeschiedenerSpieler>
+        '    Dim StartNummer = xSpieler.@ID
+        '    runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.Id = StartNummer Select x).First)
+        'Next
         Return runde
     End Function
 
     Friend Function ToXML(ByVal spielRunde As Integer) As XElement
-        Return <SpielRunde Nummer=<%= spielRunde + 1 %>>
-                   <%= From x In Me Let y = x.ToXML() Select y %>
+
+
+        Return <SpielRunde>
+                   <%= From x In Me Let y = x.ToXML(spielRunde + 1, 1) Select y %>
                    <%= From x In AusgeschiedeneSpieler Select <AusgeschiedenerSpieler>
                                                                   <%= x.Id %>
                                                               </AusgeschiedenerSpieler> %>

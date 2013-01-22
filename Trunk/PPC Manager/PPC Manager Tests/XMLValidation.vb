@@ -20,6 +20,7 @@ Imports PPC_Manager
         End With
     End Sub
 
+
     <TestMethod>
     Public Sub Spieler_From_XML()
         Dim XNode = <player type="single" id="PLAYER72">
@@ -33,7 +34,27 @@ Imports PPC_Manager
             Assert.AreEqual("TTC Langensteinbach e.V. ", .Vereinsname)
             Assert.AreEqual(53010, .Lizenznummer)
         End With
+    End Sub
 
+    <TestMethod>
+    Public Sub SpielPartie_From_XML()
+        Dim MatchXml = <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
+                           sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
+                           set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
+                           player-b="PLAYER299" player-a="PLAYER293" scheduled="" group=" Gruppe 01" nr="5"/>
+
+        Dim SpielerA = New TestSpieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New TestSpieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
+
+        Dim Partie = SpielPartie.FromXML(New Spieler() {SpielerA, SpielerB}, MatchXml)
+        With Partie
+            Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
+            Assert.AreEqual(0, .MeineGewonnenenSätze(SpielerB).Count)
+            CollectionAssert.AreEqual({5, 9, 9}, .Select(Function(x) x.PunkteRechts).ToList)
+            CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
+            Assert.AreEqual(SpielerB, .MeinGegner(SpielerA))
+            Assert.AreEqual(SpielerA, .MeinGegner(SpielerB))            
+        End With
 
     End Sub
 

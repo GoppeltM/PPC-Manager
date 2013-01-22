@@ -58,22 +58,48 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Overridable Function ToXML() As XElement
-        Dim node = <match player-a=<%= SpielerLinks.Id %> player-b=<%= SpielerRechts.Id %>>
-                       <%= From x In Me Let y = x.ToXML() Select y %>
-                   </match>
+    Overridable Function ToXML(spielRunde As Integer, matchNr As Integer) As XElement
+
+        Dim SätzeLinks = MeineGewonnenenSätze(SpielerLinks).Count
+        Dim SätzeRechts = MeineGewonnenenSätze(SpielerRechts).Count
+
+        Dim GewonnenLinks = 0
+        Dim GewonnenRechts = 0
+        If (SätzeLinks > SätzeRechts) Then GewonnenLinks = 1
+        If (SätzeLinks < SätzeRechts) Then GewonnenRechts = 1
+
+        Dim SatzReihe = Function(ident As String, ergebnisse As IEnumerable(Of Integer)) As IEnumerable(Of XAttribute)
+                            Return Enumerable.Range(1, 7).Zip(ergebnisse, Function(x, y) New XAttribute(String.Format("set-{0}-{1}", ident, x), y))
+                        End Function
+
+        Dim node = <match player-a=<%= SpielerLinks.Id %> player-b=<%= SpielerRechts.Id %>
+                       games-a=<%= Aggregate x In Me Into Sum(x.PunkteLinks) %> games-b=<%= Aggregate x In Me Into Sum(x.PunkteRechts) %>
+                       sets-a=<%= SätzeLinks %> sets-b=<%= SätzeRechts %>
+                       matches-a=<%= GewonnenLinks %> matches-b=<%= GewonnenRechts %>
+                       scheduled="" group=<%= "Runde " & spielRunde %> nr=<%= matchNr %>
+                       <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
+                       <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
+                   />
         Return node
     End Function
 
 
-    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie        
         Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
         Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
+
         Dim partie As New SpielPartie(spielerA, spielerB)
-        For Each Satz In xSpielPartie.<Satz>
-            partie.Add(New Satz With {.PunkteLinks = Integer.Parse(Satz.@PunkteLinks), .PunkteRechts = Integer.Parse(Satz.@PunkteRechts)})
+
+        Dim SätzeA = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-a") Order By x.Name.LocalName Ascending
+
+        Dim SätzeB = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-b") Order By x.Name.LocalName Ascending
+
+        For Each Satz In SätzeA.Zip(SätzeB, Function(x, y) New Satz With {.PunkteLinks = CInt(x.Value), .PunkteRechts = CInt(y.Value)}) _
+            .Where(Function(s) s.PunkteLinks <> 0 And s.PunkteRechts <> 0)
+            partie.Add(Satz)
         Next
+
         Return partie
     End Function
 
@@ -91,7 +117,7 @@ Public Class FreiLosSpiel
     End Sub
 
 
-    Public Overrides Function ToXML() As System.Xml.Linq.XElement
+    Public Overrides Function ToXML(spielRunde As Integer, matchNr As Integer) As System.Xml.Linq.XElement
         Dim node = <FreiLosSpiel Spieler=<%= SpielerLinks %>/>
         Return node
     End Function
