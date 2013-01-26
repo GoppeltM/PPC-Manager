@@ -3,11 +3,11 @@
 Public Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
-    Shared Function FromXML(ByVal xSpielerListe As IEnumerable(Of XElement)) As SpielerListe
+    Shared Function FromXML(ByVal xSpielerListe As IEnumerable(Of XElement), runden As SpielRunden) As SpielerListe
         Dim l = New SpielerListe
 
-        For Each xSpieler In xSpielerListe.<Spieler>
-            l.Add(Spieler.FromXML(xSpieler))
+        For Each xSpieler In xSpielerListe
+            l.Add(Spieler.FromXML(xSpieler, runden))
         Next
         Return l
     End Function

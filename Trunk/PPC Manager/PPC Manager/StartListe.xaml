@@ -27,15 +27,7 @@
                 <DataGridComboBoxColumn SelectedItemBinding="{Binding Path=Verein, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Verein" Width="2*" 
                                         ItemsSource="{Binding Path=Vereine, Source={x:Static local:MySettings.Default}}" 
                                         x:Name="Verein" EditingElementStyle="{StaticResource ComboBoxStyle}" />
-                    
-                <DataGridComboBoxColumn x:Name="SpielKlasse" Width="2*" EditingElementStyle="{StaticResource ComboBoxStyle}" 
-                                        Header="Spielklasse" SelectedItemBinding="{Binding Path=SpielKlasse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                        ItemsSource="{Binding Source={x:Static local:MySettings.Default}, Path=SpielKlassen}" />
-
-                <DataGridTextColumn Binding="{Binding Path=Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Position" Width="*" x:Name="Position" />
-                <DataGridTextColumn Binding="{Binding Path=TurnierKlasse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Turnierklasse" Width="*" x:Name="Turnierklasse" />
                 <DataGridTextColumn Binding="{Binding Path=Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False" CanUserSort="False" Header="ttRating" Width="*" />
-                <DataGridTextColumn Binding="{Binding Path=Rang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False" CanUserSort="False" Header="ttRang" Width="*" />
             </DataGrid.Columns>
             <DataGrid.RowHeaderStyle>
                 <Style TargetType="DataGridRowHeader">

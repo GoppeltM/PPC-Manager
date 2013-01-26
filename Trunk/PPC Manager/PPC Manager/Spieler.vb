@@ -12,14 +12,9 @@ Public Class Spieler
     ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
     ''' </summary>
     ''' <remarks></remarks>
-    Protected Overridable ReadOnly Property SpielRunden As SpielRunden
-        Get
-            Return CType(Application.Current.TryFindResource("SpielRunden"), SpielRunden)
-        End Get
-    End Property
+    Protected SpielRunden As New SpielRunden
 
-
-    Public Property Id As String
+    Public Property Id As String = "new"
 
     Private _Vorname As String
 
@@ -61,7 +56,7 @@ Public Class Spieler
 
     Public Property Lizenznummer As Integer
 
-    Private _StartNummer As Integer    
+    Private _StartNummer As Integer
 
     Private _Rating As Integer
     Public Property TTRating() As Integer
@@ -180,16 +175,17 @@ Public Class Spieler
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    Public Shared Function FromXML(ByVal spielerNode As XElement) As Spieler
+    Public Shared Function FromXML(ByVal spielerNode As XElement, spielRunden As SpielRunden) As Spieler
         Dim spieler As New Spieler()
         With spieler
             .Id = spielerNode.@id
-            spielerNode = spielerNode.<person>.First            
-            .Vorname = spielerNode.@firstname                        
+            .SpielRunden = spielRunden
+            spielerNode = spielerNode.<person>.First
+            .Vorname = spielerNode.@firstname
             .Nachname = spielerNode.@lastname
             .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
             .Geschlecht = CInt(spielerNode.@sex)
-            .Vereinsname = spielerNode.Attribute("club-name").Value            
+            .Vereinsname = spielerNode.Attribute("club-name").Value
             .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
             .TTRating = CInt(spielerNode.@ttr)
         End With

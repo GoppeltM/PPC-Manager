@@ -5,9 +5,7 @@
     Title="MainWindow" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="448" Width="923" Icon="/PPC%20Manager;component/Icon.ico">
     <Window.CommandBindings>
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
-        <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
-        <CommandBinding Command="SaveAs" Executed="SaveAs_Executed"/>
-        <CommandBinding Command="Open" Executed="Open_Executed"/>
+        <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        
         <CommandBinding Command="New" Executed="TurnierStarten_Executed"/>
         <CommandBinding Command="Print" Executed="Drucken_Executed"/>
         <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
