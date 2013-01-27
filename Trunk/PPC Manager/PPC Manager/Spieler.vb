@@ -90,6 +90,11 @@ Public Class Spieler
         End Get
     End Property
 
+    Public Sub PunkteGeändert()
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Punkte"))
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("BuchholzPunkte"))
+    End Sub
+
     Public ReadOnly Property GespieltePartien As List(Of SpielPartie)
         Get
             Dim r = From x In SpielRunden From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y

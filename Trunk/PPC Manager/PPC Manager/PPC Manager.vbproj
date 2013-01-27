@@ -139,6 +139,7 @@
     <Compile Include="StartListe.xaml.vb">
       <DependentUpon>StartListe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AutoRefreshCollectionViewSource.vb" />
     <Page Include="Begegnungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

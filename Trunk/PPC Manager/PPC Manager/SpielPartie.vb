@@ -30,6 +30,11 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public Sub Update()
+        SpielerLinks.PunkteGeändert()
+        SpielerRechts.PunkteGeändert()
+    End Sub
+
 
 
     Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler

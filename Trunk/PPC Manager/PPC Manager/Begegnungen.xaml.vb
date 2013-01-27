@@ -61,9 +61,11 @@ Class Begegnungen
         If AbgeschlosseneSätze >= partie.Count AndAlso Not Abgeschlossen(partie) Then
             partie.Add(New Satz)
         End If
-        BegegnungenView.View.Refresh()
-        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
-        SpielerView.View.Refresh()
+        partie.Update()
+        'BegegnungenView.View.Refresh()
+        'Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+
+        '        SpielerView.View.Refresh()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)

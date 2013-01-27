@@ -12,6 +12,8 @@ Class MainWindow
             Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden
             Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
             AktiveCompetition.Save()
+            Title = AktiveCompetition.Altersgruppe
+            EditorArea.Navigate(New Begegnungen)
         End With
     End Sub
 
