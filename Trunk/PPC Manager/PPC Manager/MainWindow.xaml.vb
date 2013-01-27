@@ -3,7 +3,7 @@
 Class MainWindow
 
 
-    Private AktiveCompetition As New Competition
+    Friend AktiveCompetition As New Competition
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         With New LadenNeu
@@ -13,7 +13,7 @@ Class MainWindow
             Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
             AktiveCompetition.Save()
             Title = AktiveCompetition.Altersgruppe
-            EditorArea.Navigate(New Begegnungen)
+            EditorArea.Navigate(New Begegnungen(Me))
         End With
     End Sub
 

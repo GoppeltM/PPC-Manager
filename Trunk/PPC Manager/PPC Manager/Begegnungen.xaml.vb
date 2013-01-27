@@ -2,6 +2,13 @@
 
 Class Begegnungen
 
+    Private Property MainWindow As MainWindow
+
+    Friend Sub New(main As MainWindow)
+        InitializeComponent()
+        MainWindow = main
+    End Sub
+
     Friend Property BegegnungenView As CollectionViewSource
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
@@ -16,13 +23,13 @@ Class Begegnungen
 
     End Sub
 
-    Friend Shared Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
+    Friend Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
 
         Dim SätzeLinks = Aggregate x In partie Where x.PunkteLinks = My.Settings.GewinnPunkte Into Count()
         Dim SätzeRechts = Aggregate x In partie Where x.PunkteRechts = My.Settings.GewinnPunkte Into Count()
 
         Dim gesamtAbgeschlossen = Math.Max(SätzeLinks, SätzeRechts)
-        Dim gewinnSätze = My.Settings.GewinnSätze
+        Dim gewinnSätze = MainWindow.AktiveCompetition.Gewinnsätze
         Return gesamtAbgeschlossen >= gewinnSätze
     End Function
 
@@ -62,10 +69,11 @@ Class Begegnungen
             partie.Add(New Satz)
         End If
         partie.Update()
-        'BegegnungenView.View.Refresh()
-        'Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+        ' Refresh erzwingt u.a. Filter
+        BegegnungenView.View.Refresh()
+        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
 
-        '        SpielerView.View.Refresh()
+        SpielerView.View.Refresh()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
