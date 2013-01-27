@@ -7,7 +7,7 @@ Class MainWindow
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         With New LadenNeu
-            .ShowDialog()            
+            If Not .ShowDialog() Then Return
             AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked)
             Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden
             Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
@@ -54,7 +54,7 @@ Class MainWindow
         If MessageBox.Show(Me, "Wollen Sie wirklich das Turnier starten? Vergewissern Sie sich, dass alle Spielregeln und die Startreihenfolge richtig ist bevor Sie beginnen.", _
                            "Turnier Starten?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
 
-            EditorArea.Navigate(New Begegnungen)
+            EditorArea.Navigate(New Begegnungen(Me))
         End If
 
     End Sub
