@@ -224,7 +224,9 @@
     <AppDesigner Include="My Project\" />
     <None Include="PPC Manager_TemporaryKey.pfx" />
     <None Include="SpeicherStandSchema.xsd" />
-    <None Include="TournamentPortal.dtd" />
+    <None Include="TournamentPortal.dtd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

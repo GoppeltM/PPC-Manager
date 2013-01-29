@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 
 Public Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
@@ -6,8 +7,14 @@ Public Class SpielerListe
     Shared Function FromXML(ByVal xSpielerListe As IEnumerable(Of XElement), runden As SpielRunden) As SpielerListe
         Dim l = New SpielerListe
 
-        For Each xSpieler In xSpielerListe
+        For Each xSpieler In xSpielerListe.<player>
             l.Add(Spieler.FromXML(xSpieler, runden))
+        Next
+
+        For Each xSpieler In xSpielerListe.<ppc:player>            
+            Dim s = Spieler.FromXML(xSpieler, runden)
+            s.Fremd = True
+            l.Add(s)
         Next
         Return l
     End Function
@@ -17,17 +24,15 @@ End Class
 Public Class SpielRunden
     Inherits Stack(Of SpielRunde)
 
-    Public Sub New()
-
-    End Sub
-
-    Friend Sub FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement))
-        Clear()
-        Dim xRunden = From x In runden Group By x.@group Into Runde = Group Order By Runde.@group, Runde.@nr Ascending
+    Friend Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement)) As SpielRunden
+        Dim SpielRunden As New SpielRunden
+        Dim xRunden = From x In runden.<match>.Concat(runden.<ppc:freematch>).Concat(runden.<ppc:inactiveplayer>) Group By x.@group Into Runde = Group Order By Runde.@group, Runde.@nr Ascending
         For Each xRunde In xRunden
-            Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
+            SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
         Next
-    End Sub
+        
+        Return SpielRunden
+    End Function
 
 
     Friend Function ToXML() As XElement
@@ -48,8 +53,6 @@ Public Class SpielRunden
                    <%= xSpielRunden %>
                </matches>
     End Function
-
-    Public Shared ReadOnly Empty As SpielRunden = New SpielRunden
         
 End Class
 
@@ -57,24 +60,24 @@ End Class
 Public Class SpielRunde
     Inherits ObservableCollection(Of SpielPartie)
 
-    Friend Property AusgeschiedeneSpieler As New ObservableCollection(Of Spieler)
+    Public Property AusgeschiedeneSpieler As New ObservableCollection(Of Spieler)
 
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
         Dim runde As New SpielRunde
-        For Each xSpielPartie In xSpiele
+        For Each xSpielPartie In From x In xSpiele Where x.Name = "match"
             runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
         Next
 
         ' TODO: Freilosspiele und ausgeschiedene Spieler implementieren
-        'Dim xFreilos = xRunde.<FreiLosSpiel>.SingleOrDefault
-        'If xFreilos IsNot Nothing Then
-        '    runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
-        'End If
+        Dim xFreilos = (From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de/") + "freematch").SingleOrDefault
+        If xFreilos IsNot Nothing Then
+            runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
+        End If
 
-        'For Each xSpieler In xRunde.<AusgeschiedenerSpieler>
-        '    Dim StartNummer = xSpieler.@ID
-        '    runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.Id = StartNummer Select x).First)
-        'Next
+        For Each xSpieler In From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de/") + "inactiveplayer"
+            Dim StartNummer = xSpieler.@id
+            runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.Id = StartNummer Select x).First)
+        Next
         Return runde
     End Function
 

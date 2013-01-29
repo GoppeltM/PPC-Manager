@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
 Imports System.Collections.Specialized
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 
 ''' <summary>
 ''' 
@@ -85,6 +86,9 @@ Public Class SpielPartie
                        <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
                        <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
                    />
+        If SpielerLinks.Fremd Or SpielerRechts.Fremd Then
+            node.Add(XNamespace.Get("http://www.ttc-langensteinbach.de"))
+        End If
         Return node
     End Function
 
@@ -123,7 +127,7 @@ Public Class FreiLosSpiel
 
 
     Public Overrides Function ToXML(spielRunde As Integer, matchNr As Integer) As System.Xml.Linq.XElement
-        Dim node = <FreiLosSpiel Spieler=<%= SpielerLinks %>/>
+        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %>/>
         Return node
     End Function
 
@@ -134,7 +138,7 @@ Public Class FreiLosSpiel
     End Property
 
     Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement) As FreiLosSpiel
-        Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@ID Select x).First
+        Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First
         Return New FreiLosSpiel(spieler)
     End Function
 

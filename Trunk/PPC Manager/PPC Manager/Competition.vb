@@ -17,7 +17,8 @@
                     .DateiPfad = dateipfad,
                     .StartDatum = node.Attribute("start-date").Value,
                     .Altersgruppe = node.Attribute("age-group").Value,
-        .SpielerListe = SpielerListe.FromXML(node.<players>.<player>, .SpielRunden)
+                    .SpielerListe = SpielerListe.FromXML(node.<players>, .SpielRunden),
+                   .SpielRunden = SpielRunden.FromXML(.SpielerListe, node.<matches>)
                 }
     End Function
 

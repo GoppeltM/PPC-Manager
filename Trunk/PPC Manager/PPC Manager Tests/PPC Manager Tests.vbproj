@@ -120,7 +120,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Turnierteilnehmer.xml" />
+    <None Include="Resources\Turnierteilnehmer.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PPC Manager\PPC Manager.vbproj">

@@ -90,6 +90,8 @@ Public Class Spieler
         End Get
     End Property
 
+    Property Fremd As Boolean
+
     Public Sub PunkteGeändert()
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Punkte"))
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("BuchholzPunkte"))
@@ -184,6 +186,8 @@ Public Class Spieler
         Dim spieler As New Spieler()
         With spieler
             .Id = spielerNode.@id
+            Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")
+            .Fremd = ppc IsNot Nothing AndAlso ppc.NamespaceName = "http://www.ttc-langensteinbach.de/"
             .SpielRunden = spielRunden
             spielerNode = spielerNode.<person>.First
             .Vorname = spielerNode.@firstname

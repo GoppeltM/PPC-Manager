@@ -77,10 +77,9 @@ Class Begegnungen
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
-        If ListView1.SelectedIndex <> -1 Then
-            Dim runde = CType(FindResource("SpielRunden"), SpielRunden).Peek
+        If ListView1.SelectedIndex <> -1 Then            
             Dim Spieler = CType(ListView1.SelectedItem, Spieler)
-            If Not runde.AusgeschiedeneSpieler.Contains(Spieler) Then
+            If Not Spieler.Ausgeschieden Then
                 e.CanExecute = True
                 Return
             End If
