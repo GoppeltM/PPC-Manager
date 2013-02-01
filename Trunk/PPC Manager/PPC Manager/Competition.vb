@@ -31,7 +31,11 @@
     Public Sub Save()
         Dim doc = XDocument.Load(DateiPfad)
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
-        CompetitionNode.SetElementValue("matches", Nothing)
+        Dim runden = SpielRunden.ToXML
+        CompetitionNode.<matches>.Remove()
+        CompetitionNode.Add(<matches>
+                                <%= runden %>
+                            </matches>)        
         doc.Save(DateiPfad)
     End Sub
 

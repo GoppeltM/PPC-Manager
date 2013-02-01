@@ -75,7 +75,13 @@ Public Class SpielPartie
         If (SätzeLinks < SätzeRechts) Then GewonnenRechts = 1
 
         Dim SatzReihe = Function(ident As String, ergebnisse As IEnumerable(Of Integer)) As IEnumerable(Of XAttribute)
-                            Return Enumerable.Range(1, 7).Zip(ergebnisse, Function(x, y) New XAttribute(String.Format("set-{0}-{1}", ident, x), y))
+                            Dim attributes = (From x In Enumerable.Range(1, 7) Select New XAttribute(String.Format("set-{0}-{1}", ident, x), 0)).ToList
+                            Dim current = 0
+                            For Each ergebnis In ergebnisse
+                                attributes(current).Value = ergebnis.ToString
+                                current += 1
+                            Next
+                            Return attributes
                         End Function
 
         Dim node = <match player-a=<%= SpielerLinks.Id %> player-b=<%= SpielerRechts.Id %>
@@ -105,9 +111,12 @@ Public Class SpielPartie
         Dim SätzeB = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-b") Order By x.Name.LocalName Ascending
 
         For Each Satz In SätzeA.Zip(SätzeB, Function(x, y) New Satz With {.PunkteLinks = CInt(x.Value), .PunkteRechts = CInt(y.Value)}) _
-            .Where(Function(s) s.PunkteLinks <> 0 And s.PunkteRechts <> 0)
+            .Where(Function(s) s.PunkteLinks <> 0 Or s.PunkteRechts <> 0)
             partie.Add(Satz)
         Next
+
+        ' Wenigstens einen leeren Dummy Satz anlegen
+        If Not partie.Any Then partie.Add(New Satz)
 
         Return partie
     End Function

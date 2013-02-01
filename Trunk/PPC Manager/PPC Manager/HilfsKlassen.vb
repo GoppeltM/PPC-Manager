@@ -35,7 +35,7 @@ Public Class SpielRunden
     End Function
 
 
-    Friend Function ToXML() As XElement
+    Friend Function ToXML() As IEnumerable(Of XElement)
 
         Dim xSpielRunden As New List(Of XElement)
 
@@ -49,9 +49,7 @@ Public Class SpielRunden
             current += 1
         Next
 
-        Return <matches>
-                   <%= xSpielRunden %>
-               </matches>
+        Return xSpielRunden
     End Function
         
 End Class
@@ -101,29 +99,6 @@ End Class
 
 Public Class SpielPartien
     Inherits ObservableCollection(Of SpielPartie)
-
-    Friend Sub PaarungenBerechnen(ByVal spielerListe As SpielerListe)
-        Me.Clear()
-        For Each SpielPartie In Berechnen(spielerListe)
-            Add(SpielPartie)
-        Next
-    End Sub
-
-    Public Sub ErgebnisseEintragen()
-        For Each begegnung In Me
-            begegnung.SpielerLinks.GespieltePartien.Add(begegnung)
-            begegnung.SpielerRechts.GespieltePartien.Add(begegnung)
-        Next
-    End Sub
-
-    Private Function Berechnen(ByVal spielerListe As SpielerListe) As IList(Of SpielPartie)
-        Dim list As New List(Of SpielPartie)
-        For i = 0 To spielerListe.Count - 2 Step 2
-            Dim partie As New SpielPartie(spielerListe(i), spielerListe(i + 1))
-            list.Add(partie)
-        Next
-        Return list
-    End Function
 
 End Class
 

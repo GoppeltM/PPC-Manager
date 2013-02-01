@@ -41,6 +41,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
             Assert.AreEqual(4, .SpielerListe.Count)
             Assert.AreEqual(2, .SpielRunden.Count)
             Assert.AreEqual(1, .SpielRunden.Peek.OfType(Of FreiLosSpiel).Count)
+            Assert.AreEqual(3, .SpielRunden.Last.First.Count)
             Assert.AreEqual("PLAYER127", .SpielRunden.Last.AusgeschiedeneSpieler.First.Id)
             CollectionAssert.AreEqual({"PLAYER127"}, (From x In .SpielRunden.Last.AusgeschiedeneSpieler Select x.Id).ToList)
             CollectionAssert.AreEqual({"PLAYER72", "PLAYER126", "PLAYER127", "PLAYER73"}, (From x In .SpielerListe Select x.Id).ToList)
@@ -66,7 +67,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
     <TestMethod>
     Public Sub SpielPartie_From_XML()
         Dim MatchXml = <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
-                           sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
+                           sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="0" set-b-1="5"
                            set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
                            player-b="PLAYER299" player-a="PLAYER293" scheduled="" group=" Gruppe 01" nr="5"/>
 
@@ -77,11 +78,35 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
         With Partie
             Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
             Assert.AreEqual(0, .MeineGewonnenenSätze(SpielerB).Count)
-            CollectionAssert.AreEqual({5, 9, 9}, .Select(Function(x) x.PunkteRechts).ToList)
+            CollectionAssert.AreEqual({5, 0, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
             Assert.AreEqual(SpielerB, .MeinGegner(SpielerA))
             Assert.AreEqual(SpielerA, .MeinGegner(SpielerB))
         End With
+    End Sub
+
+    <TestMethod>
+    Sub SpielePartie_To_XML()
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
+
+        Dim Partie = New SpielPartie(SpielerA, SpielerB)
+        Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
+        Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
+        Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})
+
+
+        Dim MatchXml = <match player-a="PLAYER293" player-b="PLAYER299" games-a="28" games-b="19" sets-a="2" sets-b="1"
+                           matches-a="1" matches-b="0" scheduled="" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
+                           set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
+                           set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
+
+        Dim result = Partie.ToXML(1, 5)
+
+        Assert.AreEqual("Runde 1", result.@group)
+        Assert.AreEqual("19", result.Attribute("games-b").Value)
+        Assert.AreEqual("2", result.Attribute("sets-a").Value)
+        Assert.IsTrue(XElement.DeepEquals(MatchXml, result))
 
     End Sub
 
