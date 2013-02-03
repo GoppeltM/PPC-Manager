@@ -40,6 +40,8 @@ Class Begegnungen
             RundeBerechnen()
         End If
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+        SpielerView.View.Refresh()
         ViewSource.View.Refresh()
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
@@ -109,18 +111,20 @@ Class Begegnungen
     End Sub
 
     Private Sub RundeBerechnen()
-        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        Dim begegnungen = PaketBildung.organisierePakete(CType(FindResource("SpielerListe"), SpielerListe).ToList, _
-                                                        SpielRunden.Count)
+        With MainWindow.AktiveCompetition
+            Dim begegnungen = PaketBildung.organisierePakete(.SpielerListe.ToList, _
+                                                        .SpielRunden.Count)
 
 
-        Dim spielRunde As New SpielRunde
+            Dim spielRunde As New SpielRunde
 
-        For Each begegnung In begegnungen
-            spielRunde.Add(begegnung)
-        Next
-        SpielRunden.Push(spielRunde)
-
+            For Each begegnung In begegnungen
+                spielRunde.Add(begegnung)
+            Next
+            .SpielRunden.Push(spielRunde)
+            RundenAnzeige.Content = "Runde " & .SpielRunden.Count
+        End With
+        
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
@@ -128,7 +132,7 @@ Class Begegnungen
         ViewSource.View.Refresh()
 
         ViewSource.View.MoveCurrentToFirst()
-        RundenAnzeige.Content = "Runde " & SpielRunden.Count
+
         If CBool(My.Settings.AutoSaveAn) Then
             ApplicationCommands.Save.Execute(Nothing, Me)
         End If

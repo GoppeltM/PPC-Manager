@@ -10,16 +10,19 @@
     Property Gewinnsätze As Integer
 
     Public Shared Function FromXML(dateipfad As String, node As XElement, satzzahl As Double, satzDifferenz As Boolean?) As Competition
-        Return New Competition With
+        Dim c = New Competition With
                {
                    .Gewinnsätze = Convert.ToInt32(satzzahl),
                    .SatzDifferenz = Convert.ToBoolean(satzDifferenz),
                     .DateiPfad = dateipfad,
                     .StartDatum = node.Attribute("start-date").Value,
                     .Altersgruppe = node.Attribute("age-group").Value,
-                    .SpielerListe = SpielerListe.FromXML(node.<players>, .SpielRunden),
-                   .SpielRunden = SpielRunden.FromXML(.SpielerListe, node.<matches>)
+                    .SpielerListe = SpielerListe.FromXML(node.<players>, .SpielRunden)
                 }
+        For Each runde In SpielRunden.FromXML(c.SpielerListe, node.<matches>)
+            c.SpielRunden.Push(runde)
+        Next
+        Return c
     End Function
 
     Public Shared Function FromXML(dateiPfad As String, gruppe As String, satzzahl As Double, satzDifferenz As Boolean?) As Competition
@@ -28,15 +31,27 @@
         Return FromXML(dateiPfad, competitionXML, satzzahl, satzDifferenz)
     End Function
 
+    
     Public Sub Save()
-        Dim doc = XDocument.Load(DateiPfad)
-        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
-        Dim runden = SpielRunden.ToXML
-        CompetitionNode.<matches>.Remove()
-        CompetitionNode.Add(<matches>
-                                <%= runden %>
-                            </matches>)        
-        doc.Save(DateiPfad)
+        For i = 0 To 19
+            Try
+                Using stream = IO.File.Open(DateiPfad, IO.FileMode.Open, IO.FileAccess.ReadWrite)
+                    Dim doc = XDocument.Load(stream)
+                    Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
+                    Dim runden = SpielRunden.ToXML
+                    CompetitionNode.<matches>.Remove()
+                    CompetitionNode.Add(<matches>
+                                            <%= runden %>
+                                        </matches>)
+                    stream.Position = 0
+                    doc.Save(stream)
+                    Return
+                End Using
+            Catch ex As IO.IOException
+                System.Threading.Thread.Sleep(1000)
+            End Try            
+        Next
+        Throw New Exception("Was unable to save!")
     End Sub
 
 
