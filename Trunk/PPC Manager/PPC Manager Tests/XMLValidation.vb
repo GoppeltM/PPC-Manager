@@ -31,7 +31,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
                                                                     <ppc:inactiveplayer id="PLAYER127" group="Runde 1"/>
                                                                 </matches>
                                                             </competition>, 4, False)
-
+        MainWindow.AktiveCompetition = reference
         With reference
             Assert.AreEqual("D:\dummy.xml", .DateiPfad)
             Assert.AreEqual(4, .Gewinnsätze)
@@ -40,10 +40,10 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
             Assert.AreEqual("Mädchen U 13", .Altersgruppe)
             Assert.AreEqual(4, .SpielerListe.Count)
             Assert.AreEqual(2, .SpielRunden.Count)
-            Assert.AreEqual(1, .SpielRunden.Peek.OfType(Of FreiLosSpiel).Count)
-            Assert.AreEqual(3, .SpielRunden.Last.First.Count)
-            Assert.AreEqual("PLAYER127", .SpielRunden.Last.AusgeschiedeneSpieler.First.Id)
-            CollectionAssert.AreEqual({"PLAYER127"}, (From x In .SpielRunden.Last.AusgeschiedeneSpieler Select x.Id).ToList)
+            Assert.AreEqual(1, .SpielRunden.Last.OfType(Of FreiLosSpiel).Count)
+            Assert.AreEqual(3, .SpielRunden.Peek.First.Count)
+            Assert.AreEqual("PLAYER127", .SpielRunden.First.AusgeschiedeneSpieler.First.Id)
+            CollectionAssert.AreEqual({"PLAYER127"}, (From x In .SpielRunden.First.AusgeschiedeneSpieler Select x.Id).ToList)
             CollectionAssert.AreEqual({"PLAYER72", "PLAYER126", "PLAYER127", "PLAYER73"}, (From x In .SpielerListe Select x.Id).ToList)
         End With
     End Sub
@@ -56,7 +56,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 
                     </player>
 
-        With Spieler.FromXML(XNode, New SpielRunden)
+        With Spieler.FromXML(XNode)
             Assert.AreEqual("Florian", .Vorname)
             Assert.AreEqual("Ewald", .Nachname)
             Assert.AreEqual("TTC Langensteinbach e.V. ", .Vereinsname)

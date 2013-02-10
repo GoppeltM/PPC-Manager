@@ -4,15 +4,15 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 Public Class SpielerListe
     Inherits ObservableCollection(Of Spieler)
 
-    Shared Function FromXML(ByVal xSpielerListe As IEnumerable(Of XElement), runden As SpielRunden) As SpielerListe
+    Shared Function FromXML(ByVal xSpielerListe As IEnumerable(Of XElement)) As SpielerListe
         Dim l = New SpielerListe
 
         For Each xSpieler In xSpielerListe.<player>
-            l.Add(Spieler.FromXML(xSpieler, runden))
+            l.Add(Spieler.FromXML(xSpieler))
         Next
 
-        For Each xSpieler In xSpielerListe.<ppc:player>            
-            Dim s = Spieler.FromXML(xSpieler, runden)
+        For Each xSpieler In xSpielerListe.<ppc:player>
+            Dim s = Spieler.FromXML(xSpieler)
             s.Fremd = True
             l.Add(s)
         Next
@@ -26,7 +26,8 @@ Public Class SpielRunden
 
     Friend Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement)) As SpielRunden
         Dim SpielRunden As New SpielRunden
-        Dim xRunden = From x In runden.<match>.Concat(runden.<ppc:freematch>).Concat(runden.<ppc:inactiveplayer>) Group By x.@group Into Runde = Group Order By Runde.@group, Runde.@nr Ascending
+        Dim xRunden = From x In runden.<match>.Concat(runden.<ppc:freematch>).Concat(runden.<ppc:inactiveplayer>)
+                      Group By Number = Integer.Parse(Regex.Match(x.@group, "\d+\Z").Value) Into Runde = Group Order By Number, Runde.@nr Ascending
         For Each xRunde In xRunden
             SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
         Next

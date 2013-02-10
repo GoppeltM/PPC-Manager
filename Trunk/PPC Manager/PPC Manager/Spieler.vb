@@ -12,7 +12,12 @@ Public Class Spieler
     ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
     ''' </summary>
     ''' <remarks></remarks>
-    Protected SpielRunden As New SpielRunden
+    Protected ReadOnly Property SpielRunden As SpielRunden
+        Get
+            Return MainWindow.AktiveCompetition.SpielRunden
+        End Get
+    End Property
+
 
     Public Property Id As String = "new"
 
@@ -164,7 +169,7 @@ Public Class Spieler
         diff = other.BuchholzPunkte - Me.BuchholzPunkte
         If diff <> 0 Then Return diff
 
-        If My.Settings.SatzDifferenz Then
+        If MainWindow.AktiveCompetition.SatzDifferenz Then
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
@@ -182,13 +187,12 @@ Public Class Spieler
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    Public Shared Function FromXML(ByVal spielerNode As XElement, spielRunden As SpielRunden) As Spieler
+    Public Shared Function FromXML(ByVal spielerNode As XElement) As Spieler
         Dim spieler As New Spieler()
         With spieler
             .Id = spielerNode.@id
             Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")
             .Fremd = ppc IsNot Nothing AndAlso ppc.NamespaceName = "http://www.ttc-langensteinbach.de/"
-            .SpielRunden = spielRunden
             spielerNode = spielerNode.<person>.First
             .Vorname = spielerNode.@firstname
             .Nachname = spielerNode.@lastname

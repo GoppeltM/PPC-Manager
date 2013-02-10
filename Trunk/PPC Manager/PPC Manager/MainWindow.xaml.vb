@@ -3,7 +3,7 @@
 Class MainWindow
 
 
-    Friend Shared AktiveCompetition As New Competition
+    Public Shared AktiveCompetition As Competition
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         With New LadenNeu
