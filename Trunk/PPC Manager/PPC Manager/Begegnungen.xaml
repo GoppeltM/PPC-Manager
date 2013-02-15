@@ -42,7 +42,7 @@
         </Grid.ColumnDefinitions>        
             <ListView Name="ListView1" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
                       ItemsSource="{Binding Source={StaticResource SpielerView}}"
-                      Grid.Column="0" FrameworkElement.HorizontalAlignment="Center" TextBlock.FontSize="20">
+                      Grid.Column="0" TextBlock.FontSize="20">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
             </ListView.CommandBindings>
@@ -91,13 +91,14 @@
                  DataContext="{Binding Source={StaticResource PartieView}}"
                  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
                  d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
-                </ItemsPanelTemplate>                
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
+            <ListBox.Resources>
+                <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=SpielerLinks.Nachname}"/>
+                        <TextBlock Text="Freilos"/>
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type local:SpielPartie}">
                     <Grid Margin="5" FrameworkElement.HorizontalAlignment="Center" TextBlock.FontSize="30">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -115,7 +116,7 @@
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}" Margin="0,0,10,0" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" Margin="0,0,10,0" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" Margin="0,0,10,0" />
-                        <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}" Margin="0,0,10,0">                            
+                        <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}" Margin="0,0,10,0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel Orientation="Horizontal"/>
@@ -154,9 +155,13 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </Grid>
-                    
                 </DataTemplate>
-            </ListBox.ItemTemplate>
+            </ListBox.Resources>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
+                </ItemsPanelTemplate>                
+            </ListBox.ItemsPanel>            
         </ListBox>
         <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" Margin="5" 
               Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" 
