@@ -1,0 +1,60 @@
+﻿<Window x:Class="MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StartlistenEditor"
+    Title="MainWindow" Height="350" Width="525">
+    <Grid>        
+        <Grid.Resources>
+            <local:SpielerListe x:Key="SpielerListe"/>            
+        </Grid.Resources>        
+        <DataGrid ItemsSource="{Binding Source={StaticResource SpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Neuer Fremdspieler"/>
+                    <MenuItem Header="Diesen Fremdspieler entfernen"/>
+                    <MenuItem Header="Diesen Fremdspieler bearbeiten"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Fremd}" Value="true">
+                            <Setter Property="Background" Value="Azure"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Fremd}" Value="false">
+                            <Setter Property="Background" Value="Beige"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>                
+            </DataGrid.RowStyle>            
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Vorname}" ClipboardContentBinding="{x:Null}" Header="Vorname" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Binding="{Binding Anwesend}" ClipboardContentBinding="{x:Null}" Header="Anwesend"/>
+                <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>                    
+                <DataGridTemplateColumn IsReadOnly="True" Header="Klassements">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl ItemsSource="{Binding Path=Klassements}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Black" BorderThickness="0,0,1,0">
+                                            <TextBlock Text="{Binding}" Margin="3"/>
+                                        </Border>                                        
+                                    </DataTemplate>                                    
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
