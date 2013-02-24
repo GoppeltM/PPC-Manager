@@ -19,10 +19,10 @@
   <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Jungen U 18" type="Einzel">
     <players>
       <player type="single" id="PLAYER1">
-        <person licence-nr="170225" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" internal-nr="NU1360042" club-nr="128" firstname="Mikail" birthyear="1999" />
+        <person licence-nr="170225" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" ttr="1299" internal-nr="NU1360042" club-nr="128" firstname="Mikail" birthyear="1999" />
       </player>
       <player type="single" id="PLAYER2">
-        <person licence-nr="171058" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="0" lastname="Axtmann" internal-nr="NU1367324" club-nr="428" firstname="Dominik" birthyear="1999" />
+        <person licence-nr="171058" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="0" ttr="1276" lastname="Axtmann" internal-nr="NU1367324" club-nr="428" firstname="Dominik" birthyear="1999" />
       </player>
       <player type="single" id="PLAYER3">
         <person licence-nr="121511" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="155" lastname="Bauer" ttr="1276" internal-nr="NU716186" club-nr="803" firstname="Maximilian" birthyear="1995" />
@@ -46,7 +46,7 @@
         <person licence-nr="121471" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="148" lastname="Ciupke" ttr="1116" internal-nr="NU716147" club-nr="803" firstname="Marian" birthyear="1999" />
       </player>
       <player type="single" id="PLAYER10">
-        <person licence-nr="170222" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Demirkol" internal-nr="NU1360033" club-nr="128" firstname="Adem" birthyear="1997" />
+        <person licence-nr="170222" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Demirkol" ttr="1042" internal-nr="NU1360033" club-nr="128" firstname="Adem" birthyear="1997" />
       </player>
       <player type="single" id="PLAYER11">
         <person licence-nr="166278" club-federation-nickname="BaTTV" club-name="TV 1900 Oberhausen e.V." sex="1" ttr-match-count="28" lastname="Franz" ttr="1044" internal-nr="NU1319810" club-nr="124" firstname="Johannes" birthyear="2002" />
@@ -76,7 +76,7 @@
         <person licence-nr="24015196" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="74" lastname="Holub" ttr="1096" internal-nr="NU1255671" club-nr="24015" firstname="Luca" birthyear="1999" />
       </player>
       <player type="single" id="PLAYER20">
-        <person licence-nr="171378" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="0" lastname="Höll" internal-nr="NU1371823" club-nr="428" firstname="Marius" birthyear="2001" />
+        <person licence-nr="171378" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="0" lastname="Höll" ttr="1044" internal-nr="NU1371823" club-nr="428" firstname="Marius" birthyear="2001" />
       </player>
       <player type="single" id="PLAYER21">
         <person licence-nr="146376" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="94" lastname="Knothe" ttr="1182" internal-nr="NU1104478" club-nr="407" firstname="David" birthyear="1999" />
@@ -272,7 +272,7 @@
         <person licence-nr="55996" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="226" lastname="Horner" ttr="1347" internal-nr="NU441262" club-nr="432" firstname="Rudolf" birthyear="1948" />
       </player>
       <player type="single" id="PLAYER83">
-        <person licence-nr="169099" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="0" lastname="Jäkel" internal-nr="NU1351834" club-nr="432" firstname="Lars" birthyear="1978" />
+        <person licence-nr="169099" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="0" lastname="Jäkel" ttr="1347" internal-nr="NU1351834" club-nr="432" firstname="Lars" birthyear="1978" />
       </player>
       <player type="single" id="PLAYER84">
         <person licence-nr="12018048" club-federation-nickname="TTVWH" club-name="SV Gültlingen" sex="1" ttr-match-count="162" lastname="Kahle" ttr="1231" internal-nr="NU2933" club-nr="12018" firstname="Mario" birthyear="1988" />
@@ -287,7 +287,7 @@
         <person licence-nr="60347" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="160" lastname="Kling" ttr="1217" internal-nr="NU445072" club-nr="703" firstname="Marco" birthyear="1984" />
       </player>
       <player type="single" id="PLAYER88">
-        <person licence-nr="06038131" club-federation-nickname="TTVWH" club-name="SV Leingarten" sex="1" ttr-match-count="0" lastname="Kocon" internal-nr="NU1324270" club-nr="06038" firstname="Patrick" birthyear="1979" />
+        <person licence-nr="06038131" club-federation-nickname="TTVWH" club-name="SV Leingarten" sex="1" ttr-match-count="0" lastname="Kocon" ttr="1217" internal-nr="NU1324270" club-nr="06038" firstname="Patrick" birthyear="1979" />
       </player>
       <player type="single" id="PLAYER89">
         <person licence-nr="106935" club-federation-nickname="BaTTV" club-name="TV Viktoria 1894 Dielheim e.V." sex="0" ttr-match-count="155" lastname="Krüger" ttr="1005" internal-nr="NU475717" club-nr="303" firstname="Julia" birthyear="1993" />
@@ -374,6 +374,36 @@
         <person licence-nr="108866" club-federation-nickname="BaTTV" club-name="TV 1897 Forst eV" sex="1" ttr-match-count="178" lastname="Wolfert" ttr="1310" internal-nr="NU489193" club-nr="108" firstname="Till" birthyear="1996" />
       </player>
     </players>
+    <matches>
+      <match player-a="PLAYER88" player-b="PLAYER81" games-a="0" games-b="33" sets-a="0" sets-b="3" matches-a="0" matches-b="1" scheduled="" group="Runde 0" nr="0" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="11" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER83" player-b="PLAYER107" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="1" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER89" player-b="PLAYER99" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="2" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER115" player-b="PLAYER93" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="3" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER91" player-b="PLAYER90" games-a="11" games-b="22" sets-a="1" sets-b="2" matches-a="0" matches-b="1" scheduled="" group="Runde 0" nr="4" set-a-1="0" set-a-2="0" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER96" player-b="PLAYER94" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="5" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER74" player-b="PLAYER108" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="6" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER92" player-b="PLAYER78" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="7" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER62" player-b="PLAYER114" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="8" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER105" player-b="PLAYER112" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="9" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER111" player-b="PLAYER110" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="10" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER80" player-b="PLAYER70" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="11" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER95" player-b="PLAYER64" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="12" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER61" player-b="PLAYER69" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="13" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER76" player-b="PLAYER66" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="14" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER86" player-b="PLAYER72" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="15" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER85" player-b="PLAYER104" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="16" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER102" player-b="PLAYER98" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="17" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER101" player-b="PLAYER75" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="18" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER77" player-b="PLAYER67" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="19" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER68" player-b="PLAYER65" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="20" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER106" player-b="PLAYER79" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="21" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER87" player-b="PLAYER71" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="22" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER103" player-b="PLAYER116" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="23" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER109" player-b="PLAYER73" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="24" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER84" player-b="PLAYER100" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="25" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER63" player-b="PLAYER113" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="26" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER97" player-b="PLAYER82" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="" group="Runde 0" nr="27" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+    </matches>
   </competition>
   <competition start-date="2012-09-09 08:30" ttr-from="1351" ttr-to="3000" age-group="Damen A" type="Einzel">
     <players>
@@ -457,7 +487,7 @@
         <person licence-nr="30779" club-federation-nickname="BaTTV" club-name="TTG Spöck 2010 e.V." sex="1" ttr-match-count="279" lastname="Gomez" ttr="1487" internal-nr="NU437419" club-nr="474" firstname="Miguel" birthyear="1969" />
       </player>
       <player type="single" id="PLAYER142">
-        <person licence-nr="167999" club-federation-nickname="BaTTV" club-name="SVK Beiertheim 1884/1998 e.V." sex="1" ttr-match-count="0" lastname="Hagmann" internal-nr="NU517356" club-nr="425" firstname="Björn" birthyear="1967" />
+        <person licence-nr="167999" club-federation-nickname="BaTTV" club-name="SVK Beiertheim 1884/1998 e.V." sex="1" ttr-match-count="0" lastname="Hagmann" ttr="1487" internal-nr="NU517356" club-nr="425" firstname="Björn" birthyear="1967" />
       </player>
       <player type="single" id="PLAYER143">
         <person licence-nr="24042041" club-federation-nickname="SbTTV" club-name="TUS Rammersweier" sex="1" ttr-match-count="222" lastname="Hansert" ttr="1274" internal-nr="NU179364" club-nr="24042" firstname="Jonas" birthyear="1988" />

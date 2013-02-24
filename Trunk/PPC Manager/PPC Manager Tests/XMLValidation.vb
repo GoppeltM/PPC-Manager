@@ -110,4 +110,11 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 
     End Sub
 
+    <TestMethod()> Public Sub TTRGültig()
+        Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
+        For Each person In doc...<person>
+            Assert.IsNotNull(person.@ttr)
+        Next
+    End Sub
+
 End Class

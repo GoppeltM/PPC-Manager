@@ -31,6 +31,11 @@ Class MainWindow
             AlleSpieler.Add(Spieler.FromXML(SpielerKnoten, Competitions))
         Next
 
+        AlleSpieler.Sort()
+        Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
+        For Each s In AlleSpieler
+            res.Add(s)
+        Next
 
 
     End Sub
