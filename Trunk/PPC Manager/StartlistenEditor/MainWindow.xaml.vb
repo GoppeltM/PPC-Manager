@@ -17,8 +17,8 @@ Class MainWindow
         End With
 
         Dim SpielerListe = From competition In Doc.Root.<competition>
-                           From Spieler In competition...<person>
-                           Group Spieler, competition By Spieler.Attribute("internal-nr").Value Into Group
+                           From Spieler In competition...<player>
+                           Group Spieler, competition By Spieler.<person>.First.Attribute("internal-nr").Value Into Group
                            Select Group
 
         Dim AlleSpieler As New List(Of Spieler)
@@ -37,6 +37,26 @@ Class MainWindow
             res.Add(s)
         Next
 
+
+    End Sub
+
+    Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing
+    End Sub
+
+    Private Sub CommandFremdSpieler_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing AndAlso DirectCast(SpielerGrid.SelectedItem, Spieler).Fremd
+    End Sub
+
+    Private Sub CommandNew_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+
+    End Sub
+
+    Private Sub CommandDelete_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+
+    End Sub
+
+    Private Sub CommandReplace_Executed(sender As Object, e As ExecutedRoutedEventArgs)
 
     End Sub
 End Class

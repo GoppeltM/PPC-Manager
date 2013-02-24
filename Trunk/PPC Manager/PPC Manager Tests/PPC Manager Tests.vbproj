@@ -130,6 +130,10 @@
       <Project>{5616326e-f52e-4b62-96c8-60d65f6d93e0}</Project>
       <Name>PPC Manager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StartlistenEditor\StartlistenEditor.vbproj">
+      <Project>{ef990b7a-fa45-4712-a138-8a67cad06029}</Project>
+      <Name>StartlistenEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

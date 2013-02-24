@@ -207,8 +207,13 @@ Public Class Spieler
             .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
             .Geschlecht = CInt(spielerNode.@sex)
             .Vereinsname = spielerNode.Attribute("club-name").Value
-            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
             .TTRating = CInt(spielerNode.@ttr)
+            If .Fremd Then
+                .Lizenznummer = -1
+            Else
+                .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
+            End If
+
         End With
         Return spieler
     End Function

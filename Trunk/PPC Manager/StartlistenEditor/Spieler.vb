@@ -5,15 +5,23 @@ Public Class Spieler
 
     ReadOnly Property Vorname As String
         Get
-            Return XmlKnoten.First.@lastname
+            Return XmlKnoten.First.@firstname
         End Get
     End Property
     ReadOnly Property Nachname As String
         Get
-            Return XmlKnoten.First.@firstname
+            Return XmlKnoten.First.@lastname
         End Get
     End Property
-    Property Fremd As Boolean
+    Private _Fremd As Boolean
+    ReadOnly Property Fremd As Boolean
+        Get
+            Return _Fremd
+        End Get
+    End Property
+
+    Private Property LocalNameSpace = XNamespace.None
+
 
     Private _XmlKnoten As IEnumerable(Of XElement)
     Property XmlKnoten As IEnumerable(Of XElement)
@@ -21,9 +29,13 @@ Public Class Spieler
             Return _XmlKnoten
         End Get
         Set(value As IEnumerable(Of XElement))
-            If Not value.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
             value.All(Function(x) XElement.DeepEquals(value.First, x))
-            _XmlKnoten = value
+            If value.First.GetNamespaceOfPrefix("ppc") IsNot Nothing Then
+                _Fremd = True
+                LocalNameSpace = value.First.GetNamespaceOfPrefix("ppc")
+            End If
+            _XmlKnoten = value.<person>
+            If Not _XmlKnoten.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
         End Set
     End Property
     Property Anwesend As Boolean
@@ -45,6 +57,12 @@ Public Class Spieler
     End Property
 
     Property Klassements As IEnumerable(Of String)
+
+    ReadOnly Property Geschlecht As Integer
+        Get
+            Return Integer.Parse(XmlKnoten.First.@sex)
+        End Get
+    End Property
 
     Shared Function FromXML(SpielerKnoten As IEnumerable(Of XElement), Competitions As IEnumerable(Of String)) As Spieler
         Return New Spieler With {

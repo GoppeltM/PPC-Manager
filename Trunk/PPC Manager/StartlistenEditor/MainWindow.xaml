@@ -6,16 +6,21 @@
     Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <local:SpielerListe x:Key="SpielerListe"/>
-    </Window.Resources>
+    </Window.Resources>    
     <Grid>                
-        <DataGrid ItemsSource="{Binding Source={StaticResource SpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single">
+        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource SpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Neuer Fremdspieler"/>
-                    <MenuItem Header="Diesen Fremdspieler entfernen"/>
-                    <MenuItem Header="Diesen Fremdspieler bearbeiten"/>
+                    <MenuItem Header="Neuer Fremdspieler" Command="ApplicationCommands.New" />
+                    <MenuItem Header="Diesen Fremdspieler entfernen" Command="ApplicationCommands.Delete"/>
+                    <MenuItem Header="Diesen Fremdspieler bearbeiten" Command="ApplicationCommands.Replace"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
+            <DataGrid.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.New" CanExecute="CommandBinding_CanExecute" Executed="CommandNew_Executed"/>
+                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandDelete_Executed"/>
+                <CommandBinding Command="ApplicationCommands.Replace" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandReplace_Executed"/>
+            </DataGrid.CommandBindings>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>

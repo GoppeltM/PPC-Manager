@@ -13,7 +13,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
                                                                         <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981"/>
                                                                     </player>
                                                                     <ppc:player type="single" id="PLAYER73">
-                                                                        <person licence-nr="109075" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="171" lastname="Fabricius" ttr="1326" internal-nr="NU490963" club-nr="703" firstname="Dominik" birthyear="1989"/>
+                                                                        <person club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="171" lastname="Fabricius" ttr="1326" firstname="Dominik"/>
                                                                     </ppc:player>
                                                                     <player type="single" id="PLAYER126">
                                                                         <person licence-nr="133311" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="196" lastname="Bastian" ttr="1350" internal-nr="NU915771" club-nr="407" firstname="Fabian" birthyear="1997"/>
