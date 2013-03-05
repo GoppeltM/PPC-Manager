@@ -18,6 +18,24 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
             Assert.AreEqual("Akin", .Nachname)
         End With
     End Sub
+
+    <TestMethod> Sub Alle_Spieler_Importieren()
+        Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
+
+        Dim AlleSpieler = StartlistenEditor.MainWindow.XmlZuSpielerListe(doc)
+
+        Assert.IsTrue(AlleSpieler.Any)
+
+        For Each Spieler In AlleSpieler
+            Dim g = Spieler.Geschlecht
+            Dim vorname = Spieler.Vorname
+            Dim nachname = Spieler.Nachname
+            Dim LizenzNr = Spieler.LizenzNr
+            Dim TTR = Spieler.TTR
+            Dim MatchCount = Spieler.TTRMatchCount
+        Next
+
+    End Sub
     
 
 End Class
