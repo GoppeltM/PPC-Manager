@@ -26,7 +26,7 @@ Public Class SpielRunden
 
     Friend Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement)) As SpielRunden
         Dim SpielRunden As New SpielRunden
-        Dim xRunden = From x In runden.<match>.Concat(runden.<ppc:freematch>).Concat(runden.<ppc:inactiveplayer>)
+        Dim xRunden = From x In runden.<match>.Concat(runden.<ppc:match>).Concat(runden.<ppc:freematch>).Concat(runden.<ppc:inactiveplayer>)
                       Group By Number = Integer.Parse(Regex.Match(x.@group, "\d+\Z").Value) Into Runde = Group Order By Number, Runde.@nr Ascending
         For Each xRunde In xRunden
             SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))

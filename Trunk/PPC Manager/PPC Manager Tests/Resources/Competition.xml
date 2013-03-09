@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:ppc="http://www.ttc-langensteinbach.de/" >
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Mädchen U 13" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER72">
+        <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981"/>
+      </player>
+      <ppc:player id="PLAYER-1">
+        <person licence-nr="-1" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="171" lastname="Fabricius" ttr="1326" firstname="Dominik"/>
+      </ppc:player>
+      <player type="single" id="PLAYER126">
+        <person licence-nr="133311" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="196" lastname="Bastian" ttr="1350" internal-nr="NU915771" club-nr="407" firstname="Fabian" birthyear="1997"/>
+      </player>
+      <player type="single" id="PLAYER127">
+        <person licence-nr="54469" club-federation-nickname="BaTTV" club-name="TSV 1887 Sulzbach e.V." sex="1" ttr-match-count="204" lastname="Bauer" ttr="1357" internal-nr="NU440726" club-nr="1114" firstname="Michael" birthyear="1980"/>
+      </player>
+    </players>
+    <matches>
+      <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
+          sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
+          set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
+          player-b="PLAYER72" player-a="PLAYER-1" scheduled="" group="Runde 1" nr="1"/>
+      <ppc games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
+          sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="5" set-b-2="9" set-b-1="5"
+          set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
+          player-b="PLAYER126" player-a="PLAYER127" scheduled="" group="Runde 1" nr="2"/>
+      <ppc:freematch player="PLAYER126" group="Runde 2"/>
+      <ppc:inactiveplayer id="PLAYER127" group="Runde 1"/>
+    </matches>
+  </competition>
+</root>

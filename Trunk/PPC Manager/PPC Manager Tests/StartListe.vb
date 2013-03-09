@@ -36,6 +36,19 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
         Next
 
     End Sub
+
+    <TestMethod> Sub Competition_Importieren()
+        Dim AlleSpieler = StartlistenEditor.MainWindow.XmlZuSpielerListe(XDocument.Parse(My.Resources.Competition))
+        Assert.IsTrue(AlleSpieler.Any)
+        Dim Referenz = {New With {.LizenzNr = 53010, .Fremd = False},
+                        New With {.LizenzNr = -1, .Fremd = True},
+                        New With {.LizenzNr = 133311, .Fremd = False},
+                        New With {.LizenzNr = 54469, .Fremd = False}}
+        For Each DatenSatz In AlleSpieler.Zip(Referenz, Function(x, y) New With {.Spieler = x, .Referenz = y})
+            Assert.AreEqual(DatenSatz.Referenz.LizenzNr, DatenSatz.Spieler.LizenzNr)
+            Assert.AreEqual(DatenSatz.Referenz.Fremd, DatenSatz.Spieler.Fremd)
+        Next
+    End Sub
     
 
 End Class

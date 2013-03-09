@@ -8,9 +8,11 @@ Public Class FremdSpielerDialog
         End Get
     End Property
 
-    Public Shared Function NeuerFremdSpieler(ttr As Integer) As FremdSpielerDialog
+    Public Shared Function NeuerFremdSpieler(ttr As Integer, lizenzNr As Integer) As FremdSpielerDialog
         Dim dialog As New FremdSpielerDialog
         dialog.Spieler.TTR = ttr
+        dialog.Spieler.LizenzNr = lizenzNr
+        dialog.Spieler.ID = "PLAYER" & lizenzNr
         Return dialog
     End Function
 

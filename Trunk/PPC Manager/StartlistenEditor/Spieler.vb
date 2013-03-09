@@ -17,22 +17,18 @@ Public Class Spieler
 
     Property Vorname As String
         Get
-            Return XmlKnoten.First.@firstname
+            Return XmlPerson.@firstname
         End Get
         Set(value As String)
-            For Each Spieler In XmlKnoten
-                Spieler.@firstname = value
-            Next
+            XmlPerson.@firstname = value            
         End Set
     End Property
     Property Nachname As String
         Get
-            Return XmlKnoten.First.@lastname
+            Return XmlPerson.@lastname
         End Get
         Set(value As String)
-            For Each Spieler In XmlKnoten
-                Spieler.@lastname = value
-            Next
+            XmlPerson.@lastname = value
         End Set
     End Property
     Private _Fremd As Boolean
@@ -44,68 +40,63 @@ Public Class Spieler
 
     Property Verein As String
         Get
-            Return XmlKnoten.First.Attribute("club-name").Value
+            Return XmlPerson.Attribute("club-name").Value
         End Get
         Set(value As String)
-            For Each Spieler In XmlKnoten
-                Spieler.Attribute("club-name").Value = value
-            Next
+            XmlPerson.Attribute("club-name").Value = value            
         End Set
     End Property
 
     Private Property LocalNameSpace As XNamespace = XNamespace.None
 
+    Private ReadOnly Property XmlPerson As XElement
+        Get
+            Return _XmlKnoten.<person>.First
+        End Get
+    End Property
 
     Private _XmlKnoten As IEnumerable(Of XElement)
     Property XmlKnoten As IEnumerable(Of XElement)
         Get
-            Return _XmlKnoten.<person>
+            Return _XmlKnoten
         End Get
         Set(value As IEnumerable(Of XElement))
             _Fremd = False
             value.All(Function(x) XElement.DeepEquals(value.First, x))
-            If value.First.GetNamespaceOfPrefix("ppc") IsNot Nothing Then
+            If Not String.IsNullOrEmpty(value.First.Name.NamespaceName) Then
                 _Fremd = True
                 LocalNameSpace = value.First.GetNamespaceOfPrefix("ppc")
             End If
             _XmlKnoten = value
             If Not XmlKnoten.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
+            If Not XmlKnoten.<person>.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
         End Set
     End Property
     Property Anwesend As Boolean
     Property TTR As Integer
         Get
-            Return Integer.Parse(XmlKnoten.First.@ttr)
+            Return Integer.Parse(XmlPerson.@ttr)
         End Get
         Set(value As Integer)
-            For Each Spieler In XmlKnoten
-                Spieler.@ttr = value.ToString
-            Next
+            XmlPerson.@ttr = value.ToString
             OnPropertyChanged("TTR")
         End Set
     End Property
 
     Property TTRMatchCount As Integer
         Get
-            Return Integer.Parse(XmlKnoten.First.Attribute("ttr-match-count").Value)
+            Return Integer.Parse(XmlPerson.Attribute("ttr-match-count").Value)
         End Get
         Set(value As Integer)
-            For Each Spieler In XmlKnoten
-                Spieler.Attribute("ttr-match-count").Value = value.ToString
-            Next
+            XmlPerson.Attribute("ttr-match-count").Value = value.ToString            
         End Set
     End Property
     Property LizenzNr As Integer
         Get
-            Dim Nr = -1
-            If XmlKnoten.First.Attribute("licence-nr") Is Nothing Then Return Nr
-            Integer.TryParse(XmlKnoten.First.Attribute("licence-nr").Value, Nr)
-            Return Nr
+            Return Integer.Parse(XmlPerson.Attribute("licence-nr").Value)            
         End Get
         Set(value As Integer)
-            For Each Spieler In XmlKnoten
-                Spieler.Attribute("licence-nr").Value = value.ToString
-            Next
+            XmlPerson.Attribute("licence-nr").Value = value.ToString            
         End Set
     End Property
 
@@ -113,11 +104,17 @@ Public Class Spieler
 
     Property Geschlecht As Integer
         Get
-            Return Integer.Parse(XmlKnoten.First.@sex)
+            Return Integer.Parse(XmlPerson.@sex)
         End Get
         Set(value As Integer)
-            For Each Spieler In XmlKnoten
-                Spieler.@sex = value.ToString
+            xmlperson.@sex = value.ToString            
+        End Set
+    End Property
+
+    WriteOnly Property ID As String
+        Set(value As String)
+            For Each knoten In XmlKnoten
+                XmlKnoten.@ID = value
             Next
         End Set
     End Property
@@ -144,11 +141,11 @@ Public Class Spieler
     Private _OldValue As IEnumerable(Of XElement)
 
     Public Sub BeginEdit() Implements IEditableObject.BeginEdit
-        _OldValue = (From x In _XmlKnoten Select New XElement(x)).ToList
+        _OldValue = (From x In XmlKnoten Select New XElement(x)).ToList
     End Sub
 
     Public Sub CancelEdit() Implements IEditableObject.CancelEdit
-        _XmlKnoten = _OldValue
+        XmlKnoten = _OldValue
     End Sub
 
     Public Sub EndEdit() Implements IEditableObject.EndEdit

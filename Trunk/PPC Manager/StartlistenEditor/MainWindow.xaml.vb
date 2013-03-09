@@ -1,8 +1,26 @@
 ﻿Imports Microsoft.Win32
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 
 Class MainWindow
 
     Public Shared Doc As XDocument
+    Public Pfad As String
+
+    Private ReadOnly Property SpielerListe As SpielerListe
+        Get
+            Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
+            Return res
+        End Get
+    End Property
+
+    Private Sub MainWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
+        Select Case MessageBox.Show("Sollen Änderungen gespeichert und dieses Programm geschlossen werden?" _
+                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
+            Case MessageBoxResult.Cancel : e.Cancel = True
+            Case MessageBoxResult.Yes : If Pfad IsNot Nothing Then Speichern()
+        End Select
+
+    End Sub
 
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
@@ -14,12 +32,13 @@ Class MainWindow
             End If
 
             Doc = XDocument.Load(.FileName)
+            Pfad = .FileName
         End With
 
         Dim AlleSpieler = XmlZuSpielerListe(Doc)
-        Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
+
         For Each s In AlleSpieler
-            res.Add(s)
+            SpielerListe.Add(s)
         Next
 
     End Sub
@@ -27,8 +46,8 @@ Class MainWindow
     Shared Function XmlZuSpielerListe(doc As XDocument) As IList(Of Spieler)
 
         Dim SpielerListe = From competition In doc.Root.<competition>
-                           From Spieler In competition...<player>
-                           Group Spieler, competition By Spieler.<person>.First.Attribute("internal-nr").Value Into Group
+                           From Spieler In competition...<player>.Concat(competition...<ppc:player>)
+                           Group Spieler, competition By Spieler.<person>.First.Attribute("licence-nr").Value Into Group
                            Select Group
 
         Dim AlleSpieler As New List(Of Spieler)
@@ -55,7 +74,12 @@ Class MainWindow
 
     Private Sub CommandNew_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim neuerTTR = DirectCast(SpielerGrid.SelectedItem, Spieler).TTR - 1
-        Dim dialog = FremdSpielerDialog.NeuerFremdSpieler(neuerTTR)
+        Dim Lizenznummern = (From x In SpielerListe Select x.LizenzNr).ToList
+        Dim NeueLizenzNummer = -1
+        While Lizenznummern.Contains(NeueLizenzNummer)
+            NeueLizenzNummer -= 1
+        End While
+        Dim dialog = FremdSpielerDialog.NeuerFremdSpieler(neuerTTR, NeueLizenzNummer)
         If dialog.ShowDialog() Then
             SpielerGrid.BeginInit()
             Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
@@ -82,4 +106,23 @@ Class MainWindow
         End If
         SpielerGrid.EndInit()
     End Sub
+
+    Private Sub Speichern()
+
+        Dim FremdSpieler = From x In DirectCast(FindResource("SpielerListe"), SpielerListe)
+                           Where x.Fremd
+
+        For Each Klassement In Doc.Root.<competition>
+            Klassement.<ppc:Player>.Remove()
+            Dim RelevanteSpieler = From x In FremdSpieler
+                                   Where x.Klassements.Contains(Klassement.Attribute("age-group").Value)
+
+            For Each Spieler In FremdSpieler
+                Klassement.Add(Spieler.XmlKnoten.First)
+            Next
+        Next
+
+        Doc.Save(Pfad)
+    End Sub
+
 End Class
