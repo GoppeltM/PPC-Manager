@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StartlistenEditor"
-    Title="MainWindow" Height="350" Width="525">
+    Title="MainWindow" Height="350" Width="525" Icon="Icon.ico">
     <Window.Resources>
         <local:SpielerListe x:Key="SpielerListe"/>
     </Window.Resources>    
