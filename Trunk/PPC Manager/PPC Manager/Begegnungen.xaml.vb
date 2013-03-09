@@ -234,7 +234,7 @@ Public Class RanglisteIndexConverter
         If provider.ObjectInstance Is Nothing Then Return Nothing
         Dim myList = CType(provider.ObjectInstance, SpielerListe).ToList
 
-        myList.Sort(Function(x, y) x.CompareTo(y))
+        myList.Sort()
         If myList IsNot Nothing Then
             Return myList.ToList.IndexOf(CType(value, Spieler)) + 1
         End If

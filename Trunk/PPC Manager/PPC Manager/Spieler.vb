@@ -173,9 +173,9 @@ Public Class Spieler
             diff = other.SatzDifferenz - Me.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
-        diff = Me.TTRating - other.TTRating
+        diff = other.TTRating - Me.TTRating
         If diff <> 0 Then Return diff
-        diff = Me.TTRMatchCount - other.TTRMatchCount
+        diff = other.TTRMatchCount - Me.TTRMatchCount
         If diff <> 0 Then Return diff
         diff = Me.Nachname.CompareTo(other.Nachname)
         If diff <> 0 Then Return diff
@@ -207,13 +207,8 @@ Public Class Spieler
             .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
             .Geschlecht = CInt(spielerNode.@sex)
             .Vereinsname = spielerNode.Attribute("club-name").Value
-            .TTRating = CInt(spielerNode.@ttr)
-            If .Fremd Then
-                .Lizenznummer = -1
-            Else
-                .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
-            End If
-
+            .TTRating = CInt(spielerNode.@ttr)        
+            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
         End With
         Return spieler
     End Function

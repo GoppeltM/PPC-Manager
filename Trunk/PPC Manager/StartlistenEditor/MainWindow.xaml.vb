@@ -92,6 +92,7 @@ Class MainWindow
         If MessageBox.Show("Wollen Sie wirklich diesen Spieler aus allen Klassements entfernen?", "Löschen?", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) = MessageBoxResult.OK Then
             Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
             res.Remove(aktuellerSpieler)
+            aktuellerSpieler.XmlKnoten.Remove()            
         End If
     End Sub
 

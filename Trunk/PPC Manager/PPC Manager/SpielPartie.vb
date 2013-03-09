@@ -136,7 +136,7 @@ Public Class FreiLosSpiel
 
 
     Public Overrides Function ToXML(spielRunde As Integer, matchNr As Integer) As System.Xml.Linq.XElement
-        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %>/>
+        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= "Runde " & spielRunde %>/>
         Return node
     End Function
 
