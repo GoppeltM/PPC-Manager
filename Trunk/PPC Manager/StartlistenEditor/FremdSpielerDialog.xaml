@@ -1,16 +1,17 @@
 ﻿<Window x:Class="FremdSpielerDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="FremdSpielerDialog" Height="322.059" Width="544.118"
+    Title="FremdSpielerDialog" Height="325.059" Width="692.118"
     xmlns:local="clr-namespace:StartlistenEditor">
     <Window.Resources>
+        <local:IsSelectedConverter x:Key="IsSelectedConverter"/>
         <local:SpielerContainer x:Key="AktuellerSpieler"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120*"/>
-            <ColumnDefinition Width="151*"/>
-            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="43*"/>
         </Grid.ColumnDefinitions>
         <Button Content="OK" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="75" Height="22" IsDefault="True" Click="Button_Click_1"/>
         <Button Content="Abbrechen" HorizontalAlignment="Left" Margin="180,260,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Height="22" IsCancel="True"/>        
@@ -26,9 +27,9 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,105,0,0" TextWrapping="Wrap" Text="{Binding Spieler.TTR, Source={StaticResource AktuellerSpieler}}" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,136,0,0" TextWrapping="Wrap" Text="{Binding Spieler.TTRMatchCount, Source={StaticResource AktuellerSpieler}}" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
         <CheckBox Content="(m=1, f=0)" Grid.Column="1" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Height="16" Width="74" IsChecked="{Binding Spieler.Geschlecht, Source={StaticResource AktuellerSpieler}}"/>
-        <ListBox x:Name="VerfügbareKlassements" Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="10,41,0,0" VerticalAlignment="Top" Width="100"/>
-        <ListBox x:Name="AusgewählteKlassements" Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="155,41,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button Content="-&gt;" Grid.Column="2" HorizontalAlignment="Left" Margin="115,59,0,0" VerticalAlignment="Top" Width="24"/>
-        <Button Content="&lt;-" Grid.Column="2" HorizontalAlignment="Left" Margin="115,86,0,0" VerticalAlignment="Top" Width="24"/>
+        <ListBox x:Name="VerfügbareKlassements" Grid.Column="2" HorizontalAlignment="Left" Height="161" Margin="10,41,0,0" VerticalAlignment="Top" Width="160"/>
+        <ListBox x:Name="AusgewählteKlassements" Grid.Column="2" HorizontalAlignment="Left" Height="161" Margin="216,43,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button Content="-&gt;" Grid.Column="2" HorizontalAlignment="Left" Margin="180,86,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click_2" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedConverter}, ElementName=VerfügbareKlassements}" Height="22"/>
+        <Button Content="&lt;-" Grid.Column="2" HorizontalAlignment="Left" Margin="180,123,0,0" VerticalAlignment="Top" Width="24" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedConverter}, ElementName=AusgewählteKlassements}" Click="Button_Click_3" Height="22"/>
     </Grid>
 </Window>

@@ -5,10 +5,25 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
 <TestClass()> Public Class StartListe
 
     <TestMethod> Sub FremdSpieler_Erzeugen()
-        Dim XMLKnoten = <ppc:player type="single">
+        Dim XMLKnoten =
+            <tournament>
+                <competition age-group="Herren D">
+                    <players>
+                        <ppc:player type="single">
                             <person club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" ttr="1299" firstname="Mikail"/>
                         </ppc:player>
-        Dim FremdSpieler = StartlistenEditor.Spieler.FromXML(New XElement() {XMLKnoten, XMLKnoten}, New String() {"Herren D", "Herren A"})
+                    </players>
+                </competition>
+                <competition age-group="Herren D">
+                    <players>
+                        <ppc:player type="single">
+                            <person club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" ttr="1299" firstname="Mikail"/>
+                        </ppc:player>
+                    </players>
+                </competition>
+            </tournament>...<ppc:player>
+            
+        Dim FremdSpieler = StartlistenEditor.Spieler.FromXML(XMLKnoten)
         With FremdSpieler
             Assert.IsTrue(FremdSpieler.Fremd)
             Assert.AreEqual(0, .TTRMatchCount)

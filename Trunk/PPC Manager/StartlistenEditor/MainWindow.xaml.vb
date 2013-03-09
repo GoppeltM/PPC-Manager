@@ -56,8 +56,7 @@ Class MainWindow
 
             Dim SpielerKnoten = From x In s Select x.Spieler
 
-            Dim Competitions = From x In s Select x.competition.Attribute("age-group").Value
-            AlleSpieler.Add(Spieler.FromXML(SpielerKnoten, Competitions))
+            AlleSpieler.Add(Spieler.FromXML(SpielerKnoten))
         Next
 
         AlleSpieler.Sort()
@@ -108,20 +107,6 @@ Class MainWindow
     End Sub
 
     Private Sub Speichern()
-
-        Dim FremdSpieler = From x In DirectCast(FindResource("SpielerListe"), SpielerListe)
-                           Where x.Fremd
-
-        For Each Klassement In Doc.Root.<competition>
-            Klassement.<ppc:Player>.Remove()
-            Dim RelevanteSpieler = From x In FremdSpieler
-                                   Where x.Klassements.Contains(Klassement.Attribute("age-group").Value)
-
-            For Each Spieler In FremdSpieler
-                Klassement.Add(Spieler.XmlKnoten.First)
-            Next
-        Next
-
         Doc.Save(Pfad)
     End Sub
 

@@ -11,7 +11,7 @@ Public Class Spieler
         XmlKnoten = New XElement() {
             <ppc:player>
                 <person club-name="" sex="1" ttr-match-count="0"
-                    firstname="" lastname="" ttr="0"/>
+                    firstname="" lastname="" ttr="0" licence-nr="0"/>
             </ppc:player>}
     End Sub
 
@@ -100,7 +100,13 @@ Public Class Spieler
         End Set
     End Property
 
-    Property Klassements As IEnumerable(Of String)
+    ReadOnly Property Klassements As IEnumerable(Of String)
+        Get
+            Dim KlassementNamen = From x In XmlKnoten.Ancestors("competition") Select x.Attribute("age-group").Value
+
+            Return KlassementNamen.ToList
+        End Get
+    End Property
 
     Property Geschlecht As Integer
         Get
@@ -114,15 +120,14 @@ Public Class Spieler
     WriteOnly Property ID As String
         Set(value As String)
             For Each knoten In XmlKnoten
-                XmlKnoten.@ID = value
+                XmlKnoten.@id = value
             Next
         End Set
     End Property
 
-    Shared Function FromXML(SpielerKnoten As IEnumerable(Of XElement), Competitions As IEnumerable(Of String)) As Spieler
+    Shared Function FromXML(SpielerKnoten As IEnumerable(Of XElement)) As Spieler
         Return New Spieler With {
-        .XmlKnoten = SpielerKnoten,
-        .Klassements = Competitions
+        .XmlKnoten = SpielerKnoten
         }
     End Function
 
@@ -141,7 +146,7 @@ Public Class Spieler
     Private _OldValue As IEnumerable(Of XElement)
 
     Public Sub BeginEdit() Implements IEditableObject.BeginEdit
-        _OldValue = (From x In XmlKnoten Select New XElement(x)).ToList
+        _OldValue = XmlKnoten
     End Sub
 
     Public Sub CancelEdit() Implements IEditableObject.CancelEdit
