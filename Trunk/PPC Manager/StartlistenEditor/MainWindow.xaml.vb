@@ -111,4 +111,80 @@ Class MainWindow
         Doc.Save(Pfad)
     End Sub
 
+
+    Shared Function FindVisualParent(Of T As UIElement)(element As UIElement) As T
+        Dim parent = element
+        While parent IsNot Nothing
+            Dim correctlyTyped = TryCast(parent, T)
+            If correctlyTyped IsNot Nothing Then
+                Return correctlyTyped
+            End If                
+            parent = TryCast(VisualTreeHelper.GetParent(parent), UIElement)
+        End While
+            
+        Return Nothing
+    End Function
+        
+
+    ' Click-Through Verhalten adaptiert von
+    ' http://wpf.codeplex.com/wikipage?title=Single-Click%20Editing&referringTitle=Tips%20%26%20Tricks&ProjectName=wpf
+
+    Private Sub DataGridCell_PreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
+        Dim cell = DirectCast(sender, DataGridCell)
+        If cell Is Nothing OrElse cell.IsEditing OrElse cell.IsReadOnly Then Return
+
+        If Not cell.IsFocused Then
+            cell.Focus()
+        End If
+        Dim DataGrid = FindVisualParent(Of DataGrid)(cell)
+        If DataGrid Is Nothing Then Return
+        If DataGrid.SelectionUnit <> DataGridSelectionUnit.FullRow Then
+            If Not cell.IsSelected Then
+                cell.IsSelected = True
+            End If
+        Else
+            Dim row = FindVisualParent(Of DataGridRow)(cell)
+            If (row IsNot Nothing AndAlso Not row.IsSelected) Then
+                row.IsSelected = True
+            End If
+        End If
+    End Sub
+
+    Private Sub SuchFilter(sender As Object, e As FilterEventArgs)
+        e.Accepted = True
+        If Suche Is Nothing Then Return
+        If String.IsNullOrEmpty(Suche.Text) Then Return
+
+        Dim SuchText = Suche.Text
+        With DirectCast(e.Item, Spieler)
+            If .Vorname.Contains(SuchText) Then Return
+            If .Nachname.Contains(SuchText) Then Return
+            If .Verein.Contains(SuchText) Then Return            
+            For Each klassement In .Klassements
+                If klassement.Contains(SuchText) Then Return
+            Next
+        End With
+        e.Accepted = False
+    End Sub
+
+    Private Sub Suche_TextChanged(sender As Object, e As TextChangedEventArgs) Handles Suche.TextChanged
+        Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
+        View.View.Refresh()
+    End Sub
+End Class
+
+Class StringIsEmptyConverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        If String.IsNullOrEmpty(DirectCast(value, String)) Then
+            Return Visibility.Visible
+        Else
+            Return Visibility.Hidden
+        End If
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+
+    End Function
 End Class

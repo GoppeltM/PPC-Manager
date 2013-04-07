@@ -25,7 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>PPC Startlisten Editor</ProductName>
     <PublisherName>Marius Goppelt</PublisherName>
-    <ApplicationRevision>0</ApplicationRevision>
+    <SuiteName>PPC Manager</SuiteName>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

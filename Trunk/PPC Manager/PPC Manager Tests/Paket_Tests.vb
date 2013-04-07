@@ -39,8 +39,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
                     </players>
 
         Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x)).ToList
-        Spielerliste.Sort()
-        Spielerliste.Reverse()
+        Spielerliste.Sort()        
         CollectionAssert.AreEqual(New String() {"Wolfert", "Westermann", "Goppelt", "Wild"}, (From x In Spielerliste Select x.Nachname).ToList)
 
     End Sub

@@ -96,3 +96,15 @@ Public Class IsSelectedConverter
         Throw New NotImplementedException
     End Function
 End Class
+
+Public Class HasAnyConverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        Return DirectCast(value, Integer) <> 0
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+
+    End Function
+End Class

@@ -4,6 +4,7 @@
     Title="FremdSpielerDialog" Height="325.059" Width="692.118"
     xmlns:local="clr-namespace:StartlistenEditor">
     <Window.Resources>
+        <local:HasAnyConverter x:Key="HasAnyConverter"/>
         <local:IsSelectedConverter x:Key="IsSelectedConverter"/>
         <local:SpielerContainer x:Key="AktuellerSpieler"/>
     </Window.Resources>
@@ -13,7 +14,7 @@
             <ColumnDefinition Width="16*"/>
             <ColumnDefinition Width="43*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="75" Height="22" IsDefault="True" Click="Button_Click_1"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="75" Height="22" IsDefault="True" Click="Button_Click_1" IsEnabled="{Binding Items.Count, Converter={StaticResource HasAnyConverter}, ElementName=AusgewählteKlassements, Mode=OneWay}"/>
         <Button Content="Abbrechen" HorizontalAlignment="Left" Margin="180,260,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Height="22" IsCancel="True"/>        
         <Label Content="Vorname" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="58"/>
         <Label Content="Nachname" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.392,2.744" Height="26" Width="67"/>
