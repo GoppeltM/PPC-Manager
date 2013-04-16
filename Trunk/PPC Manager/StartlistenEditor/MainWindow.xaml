@@ -45,6 +45,7 @@
                 <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Binding="{Binding Anwesend}" ClipboardContentBinding="{x:Null}" Header="Anwesend"/>
                 <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>
+                <DataGridTextColumn Binding="{Binding TTRMatchCount}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Match Count"/>
                 <DataGridTextColumn Binding="{Binding Verein}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Verein"/>
                 <DataGridTemplateColumn IsReadOnly="True" Header="Klassements">
                     <DataGridTemplateColumn.CellTemplate>

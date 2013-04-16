@@ -352,9 +352,6 @@
       <ppc:player id="PLAYER-114">
         <person licence-nr="-114" club-name="TTC Wöschbach" sex="1" ttr-match-count="0" lastname="Goldmann" ttr="1359" firstname="Christian" />
       </ppc:player>
-      <ppc:player id="PLAYER-115">
-        <person licence-nr="-115" club-name="SV Bruchsal" sex="1" ttr-match-count="0" lastname="Zeh" ttr="1419" firstname="Thomas" />
-      </ppc:player>
       <ppc:player id="PLAYER-116">
         <person licence-nr="-116" club-name="TTV Ettlingen" sex="1" ttr-match-count="0" lastname="Bastian" ttr="1363" firstname="Fabian" />
       </ppc:player>
@@ -508,6 +505,9 @@
       <ppc:player id="PLAYER-166">
         <person licence-nr="-166" club-name="VfB Mosbach-Waldstadt" sex="0" ttr-match-count="0" lastname="Rothengass" ttr="1200" firstname="Selina" />
       </ppc:player>
+      <ppc:player id="PLAYER-115">
+        <person licence-nr="-115" club-name="SV Bruchsal" sex="1" ttr-match-count="5" lastname="Zeh" ttr="1419" firstname="Thomas" />
+      </ppc:player>
     </players>
   </competition>
   <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="D-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de/">
@@ -544,9 +544,6 @@
       </ppc:player>
       <ppc:player id="PLAYER-177">
         <person licence-nr="-177" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Brecht" ttr="1299" firstname="Manuel" />
-      </ppc:player>
-      <ppc:player id="PLAYER-178">
-        <person licence-nr="-178" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Westermann" ttr="1284" firstname="Gerd" />
       </ppc:player>
       <ppc:player id="PLAYER-179">
         <person licence-nr="-179" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Flörchinger" ttr="1297" firstname="Walter" />
@@ -629,9 +626,6 @@
       <ppc:player id="PLAYER-205">
         <person licence-nr="-205" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Mayer" ttr="1085" firstname="Ewald" />
       </ppc:player>
-      <ppc:player id="PLAYER-206">
-        <person licence-nr="-206" club-name="SV Leingarten" sex="1" ttr-match-count="0" lastname="Kocon" ttr="0" firstname="Patrick" />
-      </ppc:player>
       <ppc:player id="PLAYER-207">
         <person licence-nr="-207" club-name="TTG Spöck" sex="1" ttr-match-count="0" lastname="Maus" ttr="1158" firstname="Daniel" />
       </ppc:player>
@@ -662,9 +656,6 @@
       <ppc:player id="PLAYER-216">
         <person licence-nr="-216" club-name="TSV Weissach" sex="1" ttr-match-count="0" lastname="Fauth" ttr="1092" firstname="Thomas" />
       </ppc:player>
-      <ppc:player id="PLAYER-217">
-        <person licence-nr="-217" club-name="1.TC Ittersbach" sex="1" ttr-match-count="0" lastname="Benko" ttr="1237" firstname="Robert" />
-      </ppc:player>
       <ppc:player id="PLAYER-218">
         <person licence-nr="-218" club-name="TV Dielheim" sex="0" ttr-match-count="0" lastname="Krüger" ttr="1005" firstname="Julia" />
       </ppc:player>
@@ -679,6 +670,15 @@
       </ppc:player>
       <ppc:player id="PLAYER-222">
         <person licence-nr="-222" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Dengel" ttr="1236" firstname="Laura" />
+      </ppc:player>
+      <ppc:player id="PLAYER-178">
+        <person licence-nr="-178" club-name="VfR Rheinsheim" sex="1" ttr-match-count="5" lastname="Westermann" ttr="1284" firstname="Gerd" />
+      </ppc:player>
+      <ppc:player id="PLAYER-217">
+        <person licence-nr="-217" club-name="1.TC Ittersbach" sex="1" ttr-match-count="5" lastname="Benko" ttr="1237" firstname="Robert" />
+      </ppc:player>
+      <ppc:player id="PLAYER-206">
+        <person licence-nr="-206" club-name="SV Leingarten" sex="1" ttr-match-count="5" lastname="Kocon" ttr="0" firstname="Patrick" />
       </ppc:player>
     </players>
   </competition>
@@ -707,9 +707,6 @@
       </ppc:player>
       <ppc:player id="PLAYER-230">
         <person licence-nr="-230" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Ried" ttr="921" firstname="Leon" />
-      </ppc:player>
-      <ppc:player id="PLAYER-231">
-        <person licence-nr="-231" club-name="TTV Ettlingen" sex="1" ttr-match-count="0" lastname="Seker" ttr="1140" firstname="Koray" />
       </ppc:player>
       <ppc:player id="PLAYER-232">
         <person licence-nr="-232" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Saleika" ttr="1022" firstname="Daniel" />
@@ -774,9 +771,6 @@
       <ppc:player id="PLAYER-252">
         <person licence-nr="-252" club-name="TTV Ettlingen" sex="1" ttr-match-count="0" lastname="Knothe" ttr="1205" firstname="David" />
       </ppc:player>
-      <ppc:player id="PLAYER-253">
-        <person licence-nr="-253" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Demirkol" ttr="0" firstname="Adem" />
-      </ppc:player>
       <ppc:player id="PLAYER-254">
         <person licence-nr="-254" club-name="TTV Ettlingen" sex="1" ttr-match-count="0" lastname="Held" ttr="1136" firstname="Julian" />
       </ppc:player>
@@ -803,9 +797,6 @@
       </ppc:player>
       <ppc:player id="PLAYER-262">
         <person licence-nr="-262" club-name="TTC Dietlingen" sex="1" ttr-match-count="0" lastname="König" ttr="1272" firstname="Ricky" />
-      </ppc:player>
-      <ppc:player id="PLAYER-263">
-        <person licence-nr="-263" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Axtmann" ttr="0" firstname="Dominik" />
       </ppc:player>
       <ppc:player id="PLAYER-264">
         <person licence-nr="-264" club-name="DJK Sportbund Stuttgart" sex="1" ttr-match-count="0" lastname="Kolarski" ttr="1121" firstname="Radovan" />
@@ -855,14 +846,23 @@
       <ppc:player id="PLAYER-279">
         <person licence-nr="-279" club-name="TTC Langensteinbach" sex="0" ttr-match-count="0" lastname="Lorenz" ttr="889" firstname="Kim" />
       </ppc:player>
-      <ppc:player id="PLAYER-280">
-        <person licence-nr="-280" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" ttr="0" firstname="Mikail" />
-      </ppc:player>
       <ppc:player id="PLAYER-281">
         <person licence-nr="-281" club-name="TTV Ettlingen" sex="0" ttr-match-count="0" lastname="Holfelder" ttr="876" firstname="Sarah" />
       </ppc:player>
       <ppc:player id="PLAYER-282">
         <person licence-nr="-282" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Lorenz" ttr="886" firstname="Lenny" />
+      </ppc:player>
+      <ppc:player id="PLAYER-231">
+        <person licence-nr="-231" club-name="TTV Ettlingen" sex="1" ttr-match-count="5" lastname="Seker" ttr="1140" firstname="Koray" />
+      </ppc:player>
+      <ppc:player id="PLAYER-253">
+        <person licence-nr="-253" club-name="VfR Rheinsheim" sex="1" ttr-match-count="20" lastname="Demirkol" ttr="0" firstname="Adem" />
+      </ppc:player>
+      <ppc:player id="PLAYER-280">
+        <person licence-nr="-280" club-name="VfR Rheinsheim" sex="1" ttr-match-count="10" lastname="Akin" ttr="0" firstname="Mikail" />
+      </ppc:player>
+      <ppc:player id="PLAYER-263">
+        <person licence-nr="-263" club-name="TTC Langensteinbach" sex="1" ttr-match-count="5" lastname="Axtmann" ttr="0" firstname="Dominik" />
       </ppc:player>
     </players>
   </competition>
