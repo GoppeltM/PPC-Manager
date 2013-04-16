@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PPC_Manager"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="573" d:DesignWidth="1034" Name="BegegnungenPage">
+      mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage">
     <Page.Resources>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />
@@ -90,71 +90,75 @@
         <ListBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" 
                  DataContext="{Binding Source={StaticResource PartieView}}"
                  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
-                 d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}">
+                 d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=SpielerLinks.Nachname}"/>
-                        <TextBlock Text="Freilos"/>
-                    </StackPanel>
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Width="260">
+                        <StackPanel TextBlock.FontSize="20">
+                            <TextBlock Text="{Binding Path=SpielerLinks.Nachname}" Margin="30,0,0,0"/>
+                            <TextBlock Text="(Freilos)" Margin="30,0,0,0" FontStyle="Italic"/>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type local:SpielPartie}">
-                    <Grid Margin="5" FrameworkElement.HorizontalAlignment="Center" TextBlock.FontSize="30">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.Resources>
-                            <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
-                        </Grid.Resources>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" Margin="0,0,10,0" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}" Margin="0,0,10,0" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" Margin="0,0,10,0" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" Margin="0,0,10,0" />
-                        <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}" Margin="0,0,10,0">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteLinks, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
-                                        <Ellipse.Fill>
-                                            <RadialGradientBrush>
-                                                <GradientStop Color="SpringGreen" Offset="0" />
-                                                <GradientStop Color="#FF23654C" Offset="1" />
-                                            </RadialGradientBrush>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl Grid.Row="1" Grid.Column="2" ItemsSource="{Binding}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteRechts, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
-                                        <Ellipse.Fill>
-                                            <RadialGradientBrush>
-                                                <GradientStop Color="SpringGreen" Offset="0" />
-                                                <GradientStop Color="#FF23654C" Offset="1" />
-                                            </RadialGradientBrush>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+                        <local:DoppelbreitenGrid TextBlock.FontSize="20">
+                            <local:DoppelbreitenGrid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </local:DoppelbreitenGrid.RowDefinitions>
+                            <local:DoppelbreitenGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition />
+                            </local:DoppelbreitenGrid.ColumnDefinitions>
+                            <local:DoppelbreitenGrid.Resources>
+                                <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
+                            </local:DoppelbreitenGrid.Resources>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" />
+                            <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteLinks, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
+                                            <Ellipse.Fill>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="SpringGreen" Offset="0" />
+                                                    <GradientStop Color="#FF23654C" Offset="1" />
+                                                </RadialGradientBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ItemsControl Grid.Row="1" Grid.Column="2" ItemsSource="{Binding}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteRechts, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
+                                            <Ellipse.Fill>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="SpringGreen" Offset="0" />
+                                                    <GradientStop Color="#FF23654C" Offset="1" />
+                                                </RadialGradientBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </local:DoppelbreitenGrid>
+                    </Border>                    
                 </DataTemplate>
             </ListBox.Resources>
             <ListBox.ItemsPanel>

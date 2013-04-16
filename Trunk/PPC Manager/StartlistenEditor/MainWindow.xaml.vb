@@ -155,13 +155,13 @@ Class MainWindow
         If Suche Is Nothing Then Return
         If String.IsNullOrEmpty(Suche.Text) Then Return
 
-        Dim SuchText = Suche.Text
+        Dim SuchText = Suche.Text.ToLower
         With DirectCast(e.Item, Spieler)
-            If .Vorname.Contains(SuchText) Then Return
-            If .Nachname.Contains(SuchText) Then Return
-            If .Verein.Contains(SuchText) Then Return            
+            If .Vorname.ToLower.Contains(SuchText) Then Return
+            If .Nachname.ToLower.Contains(SuchText) Then Return
+            If .Verein.ToLower.Contains(SuchText) Then Return
             For Each klassement In .Klassements
-                If klassement.Contains(SuchText) Then Return
+                If klassement.ToLower.Contains(SuchText) Then Return
             Next
         End With
         e.Accepted = False

@@ -61,7 +61,7 @@ Public Class Spieler
 
     Public Property Lizenznummer As Integer
 
-    Private _StartNummer As Integer
+    Public StartNummer As Integer
 
     Private _Rating As Integer
     Public Property TTRating() As Integer

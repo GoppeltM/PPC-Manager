@@ -62,16 +62,30 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        '''&lt;competition xmlns:ppc=&quot;http://www.ttc-langensteinbach.de/&quot; start-date=&quot;2012-09-08 11:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;MÃ¤dchen U 13&quot; type=&quot;Einzel&quot;&gt;
-        '''&lt;players&gt;
-        '''    &lt;player type=&quot;single&quot; id=&quot;PLAYER72&quot;&gt;
+        '''&lt;root xmlns:ppc=&quot;http://www.ttc-langensteinbach.de/&quot; &gt;
+        '''  &lt;competition start-date=&quot;2012-09-08 11:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;Mädchen U 13&quot; type=&quot;Einzel&quot;&gt;
+        '''    &lt;players&gt;
+        '''      &lt;player type=&quot;single&quot; id=&quot;PLAYER72&quot;&gt;
         '''        &lt;person licence-nr=&quot;53010&quot; club-federation-nickname=&quot;BaTTV&quot; club-name=&quot;TTC Langensteinbach e.V. &quot; sex=&quot;1&quot; ttr-match-count=&quot;102&quot; lastname=&quot;Ewald&quot; ttr=&quot;1294&quot; internal-nr=&quot;NU440049&quot; club-nr=&quot;428&quot; firstname=&quot;Florian&quot; birthyear=&quot;1981&quot;/&gt;
-        '''    &lt;/player&gt;
-        '''    &lt;ppc:player [rest of string was truncated]&quot;;.
+        '''      &lt;/player [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property Competition() As String
             Get
                 Return ResourceManager.GetString("Competition", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        '''&lt;tournament end-date=&quot;2012-09-09&quot; start-date=&quot;2012-09-08&quot; name=&quot;15. Turnier nach Schweizer Art &quot; tournament-id=&quot;Fp12HjV93pTyQlVex23%2FfGT919cb58I9&quot;&gt;
+        '''  &lt;competition start-date=&quot;2012-09-09 8:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;A-Klasse&quot; type=&quot;Einzel&quot; xmlns:ppc=&quot;http://www.ttc-langensteinbach.de/&quot;&gt;
+        '''    &lt;players&gt;
+        '''      &lt;ppc:player id=&quot;PLAYER-1&quot;&gt;
+        '''        &lt;person licence-nr=&quot;-1&quot; club-name=&quot;TTC Dietlingen&quot; sex=&quot;1&quot; ttr-match-count=&quot;0&quot; lastname=&quot;Krischer&quot; ttr=&quot;1573&quot; firstname=&quot; [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property PPC_15_Anmeldungen() As String
+            Get
+                Return ResourceManager.GetString("PPC_15_Anmeldungen", resourceCulture)
             End Get
         End Property
         
