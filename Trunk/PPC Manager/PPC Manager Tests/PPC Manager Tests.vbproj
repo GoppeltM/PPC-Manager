@@ -139,6 +139,9 @@
     <Content Include="Resources\Competition.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\PPC 15 Ergebnisse.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\PPC 15 Anmeldungen.xml" />
   </ItemGroup>
   <ItemGroup>

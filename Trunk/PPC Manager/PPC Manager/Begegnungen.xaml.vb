@@ -250,36 +250,14 @@ Public Class DoppelbreitenGrid
     Inherits Grid
 
     'Protected Overrides Function MeasureOverride(constraint As Size) As Size
-    '    Dim DesiredRowWidths As New Dictionary(Of Integer, Double)
-    '    Dim DesiredRowHeights As New Dictionary(Of Integer, Double)
-    '    For Each Child As UIElement In Me.InternalChildren
-    '        Child.Measure(constraint)
-    '    Next
-    '    For Each Child As UIElement In Me.InternalChildren
-    '        Dim Row = Grid.GetRow(Child)
-    '        If DesiredRowWidths.ContainsKey(Row) Then
-    '            DesiredRowWidths(Row) += Child.DesiredSize.Width
-    '        Else
-    '            DesiredRowWidths.Add(Row, Child.DesiredSize.Width)
-    '        End If
-    '    Next
-    '    Dim DesiredWidth = Aggregate x In DesiredRowWidths Into Max(x.Value)
-    '    If DesiredWidth > 100.0 Then DesiredWidth = 200.0 Else DesiredWidth = 100.0
-    '    Return New Size(DesiredWidth, 60.0)
+    '    MyBase.MeasureOverride(constraint)
+
+    '    Return New Size(400, 60)
     'End Function
 
     'Protected Overrides Function ArrangeOverride(arrangeSize As Size) As Size
-    '    Dim S As Size
+    '    Dim size = MyBase.ArrangeOverride(arrangeSize)
 
-    '    If arrangeSize.Width > 100 Then
-    '        S = New Size(200, arrangeSize.Height)
-    '    Else
-    '        S = New Size(100, arrangeSize.Height)
-    '    End If
-    '    For Each Child As UIElement In Me.InternalChildren
-    '        Child.Arrange(New Rect(New Point(0, 0), S))
-    '    Next
-
-    '    Return S
+    '    Return New Size(400, 60)
     'End Function
 End Class

@@ -128,5 +128,74 @@ Imports Microsoft.Office.Interop.Excel
         excel.Quit()
     End Sub
 
+    <Ignore>
+    <TestMethod>
+    Sub Ergebnisse_Import()
+        Dim excel As New Application
+        Dim wb = excel.Workbooks.Open("D:\Dropbox\Ping Pong Turnier\Einzelergebnisse_PPC15.xlsx")
+        Dim Ergebnisse = <Ergebnisse/>
+
+
+        Dim AktuellerIndex = -1
+
+        For Each sheet As Worksheet In wb.Sheets
+            If sheet.Name <> "Tabelle1" Then Continue For
+
+            Dim ColumnNames As New Dictionary(Of String, Integer)
+
+            For Each column As Range In sheet.UsedRange.Columns
+                Dim Text = column.Cells(1).Text
+                If Not ColumnNames.ContainsKey(Text) Then
+                    ColumnNames.Add(Text, column.Column)
+                End If
+            Next
+
+            Dim SpielerImKlassement As New List(Of XElement)
+            Dim SkipCount = 2
+
+            For Each row As Range In sheet.UsedRange.Rows
+                If SkipCount <> 0 Then
+                    SkipCount -= 1
+                    Continue For
+                End If
+                Dim NameLinks = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Name_links")), Range).Text
+                If NameLinks.ToString = "" Then Exit For
+                Dim NameRechts = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Name_rechts")), Range).Text
+                Dim Runde = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Rd")), Range).Text
+                Dim ErgebnisLinks = DirectCast(row.Cells(ColumnIndex:=ColumnNames("g_sätze")), Range).Text
+                Dim ErgebnisRechts = DirectCast(row.Cells(ColumnIndex:=ColumnNames("v_sätze")), Range).Text
+                Dim Klassement = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Kl")), Range).Text
+
+                Ergebnisse.Add(<Ergebnis Runde=<%= Runde %> Klassement=<%= Klassement %>
+                                   SpielerA=<%= NameLinks %> SpielerB=<%= NameRechts %>
+                                   SätzeA=<%= ErgebnisLinks %> SätzeB=<%= ErgebnisRechts %>/>)
+            Next
+        Next
+
+        Dim GruppiertNachKlassement = From x In Ergebnisse.<Ergebnis> Group x By x.@Klassement Into Group
+
+
+        Dim ErgebnisseStrukturiert = <Ergebnisse/>
+        For Each Klassement In GruppiertNachKlassement
+            Dim GruppiertNachRunde = From x In Klassement.Group Group x By x.@Runde Into Group
+
+            Dim XKlasse = <Klassement Name=<%= Klassement.Klassement %>
+                              <%= From x In GruppiertNachRunde Select <Runde Nummer=<%= x.Runde %>>
+                                                                          <%= x.Group %>
+                                                                      </Runde> %>
+                          />
+            ErgebnisseStrukturiert.Add(XKlasse)
+        Next
+        For Each Runde In ErgebnisseStrukturiert...<Ergebnis>
+            Runde.@Klassement = Nothing
+            Runde.@Runde = Nothing
+        Next
+
+
+        'Dim Gruppe = 
+        ErgebnisseStrukturiert.Save("E:\Eigene Dateien - Marius\Dokumente\Repositories\Programme\Trunk\PPC Manager\PPC Manager Tests\Resources\PPC 15 Ergebnisse.xml")
+        excel.Quit()
+    End Sub
+
 
 End Class

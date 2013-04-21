@@ -124,6 +124,9 @@
   <data name="PPC_15_Anmeldungen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PPC 15 Anmeldungen.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="PPC_15_Ergebnisse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PPC 15 Ergebnisse.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="Turnierteilnehmer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Turnierteilnehmer.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

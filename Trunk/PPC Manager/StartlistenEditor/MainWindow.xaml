@@ -10,7 +10,7 @@
         <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />        
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,36,0,0">
+        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,36,0,0" RowHeaderWidth="70">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDown"></EventSetter>
@@ -40,7 +40,7 @@
                     </Style.Triggers>
                 </Style>                
             </DataGrid.RowStyle>            
-            <DataGrid.Columns>
+            <DataGrid.Columns>                
                 <DataGridTextColumn Binding="{Binding Vorname}" ClipboardContentBinding="{x:Null}" Header="Vorname" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Binding="{Binding Anwesend}" ClipboardContentBinding="{x:Null}" Header="Anwesend"/>
@@ -72,5 +72,6 @@
         </DataGrid>
         <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
         <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>
+        <Button Content="Sortieren" HorizontalAlignment="Left" Height="21" Margin="10,38,0,0" VerticalAlignment="Top" Width="50" Click="Button_Click"/>
     </Grid>
 </Window>

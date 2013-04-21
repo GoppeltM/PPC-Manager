@@ -91,6 +91,22 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        '''&lt;Ergebnisse&gt;
+        '''  &lt;Klassement Name=&quot;A&quot;&gt;
+        '''    &lt;Runde Nummer=&quot;1&quot;&gt;
+        '''      &lt;Ergebnis Runde=&quot;1&quot; Klassement=&quot;A&quot; SpielerA=&quot;Nguyen&quot; SpielerB=&quot;Nürnberg&quot; SätzeA=&quot;3&quot; SätzeB=&quot;0&quot; /&gt;
+        '''      &lt;Ergebnis Runde=&quot;1&quot; Klassement=&quot;A&quot; SpielerA=&quot;Schreck&quot; SpielerB=&quot;Hirsch&quot; SätzeA=&quot;3&quot; SätzeB=&quot;1&quot; /&gt;
+        '''      &lt;Ergebnis Runde=&quot;1&quot; Klassement=&quot;A&quot; SpielerA=&quot;Stoyanov&quot; SpielerB=&quot;Welker&quot; SätzeA=&quot;3&quot; SätzeB=&quot;0&quot; /&gt;
+        '''      &lt;Ergebnis Runde=&quot;1&quot; Klassement=&quot;A&quot; SpielerA=&quot;Kappe&quot; SpielerB=&quot;Bühner&quot; SätzeA=&quot;3&quot; SätzeB=&quot; [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property PPC_15_Ergebnisse() As String
+            Get
+                Return ResourceManager.GetString("PPC_15_Ergebnisse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         '''&lt;!DOCTYPE tournament SYSTEM &quot;http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd&quot;[]&gt;
         '''&lt;tournament end-date=&quot;2012-09-09&quot; start-date=&quot;2012-09-08&quot; name=&quot;15. Turnier nach Schweizer Art &quot; tournament-id=&quot;Fp12HjV93pTyQlVex23%2FfGT919cb58I9&quot;&gt;
         '''  &lt;competition start-date=&quot;2012-09-08 11:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;Mädchen U 13&quot; type=&quot;Einzel&quot;&gt;

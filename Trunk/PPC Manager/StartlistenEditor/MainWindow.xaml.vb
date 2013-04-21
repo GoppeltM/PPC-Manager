@@ -167,9 +167,22 @@ Class MainWindow
         e.Accepted = False
     End Sub
 
-    Private Sub Suche_TextChanged(sender As Object, e As TextChangedEventArgs) Handles Suche.TextChanged
+    Private Sub Suche_TextChanged(sender As Object, e As TextChangedEventArgs) Handles Suche.TextChanged        
         Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
         View.View.Refresh()
+    End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
+        For Each column In SpielerGrid.Columns
+            column.SortDirection = Nothing
+        Next
+        With View.SortDescriptions
+            .Clear()
+            .Add(New System.ComponentModel.SortDescription With {.PropertyName = "TTR", .Direction = ComponentModel.ListSortDirection.Descending})
+            .Add(New System.ComponentModel.SortDescription With {.PropertyName = "TTRMatchCount", .Direction = ComponentModel.ListSortDirection.Descending})
+        End With
+        
     End Sub
 End Class
 

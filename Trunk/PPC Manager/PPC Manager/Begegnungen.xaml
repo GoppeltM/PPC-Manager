@@ -90,19 +90,19 @@
         <ListBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" 
                  DataContext="{Binding Source={StaticResource PartieView}}"
                  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
-                 d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
-                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Width="260">
-                        <StackPanel TextBlock.FontSize="20">
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+                        <StackPanel Width="200">
                             <TextBlock Text="{Binding Path=SpielerLinks.Nachname}" Margin="30,0,0,0"/>
                             <TextBlock Text="(Freilos)" Margin="30,0,0,0" FontStyle="Italic"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type local:SpielPartie}">
-                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
-                        <local:DoppelbreitenGrid TextBlock.FontSize="20">
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" >
+                        <local:DoppelbreitenGrid Width="200">
                             <local:DoppelbreitenGrid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
@@ -117,8 +117,8 @@
                             </local:DoppelbreitenGrid.Resources>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" TextBlock.TextTrimming="CharacterEllipsis" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" TextBlock.TextTrimming="CharacterEllipsis" />
                             <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
