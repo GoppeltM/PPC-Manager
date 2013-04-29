@@ -92,8 +92,11 @@ Public Class SpielPartie
                        <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
                        <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
                    />
+
         If SpielerLinks.Fremd Or SpielerRechts.Fremd Then
-            node.Add(XNamespace.Get("http://www.ttc-langensteinbach.de"))
+            Dim ns = XNamespace.Get("http://www.ttc-langensteinbach.de")
+            node.Name = ns + "match"
+            node.Add(New XAttribute(XNamespace.Xmlns + "ppc", ns.NamespaceName))
         End If
         Return node
     End Function

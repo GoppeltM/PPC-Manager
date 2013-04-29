@@ -27,10 +27,13 @@ Imports System.Collections.ObjectModel
     Sub Competition_ErsteRunde_From_XML()
         Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False)
         MainWindow.AktiveCompetition = reference
-        Dim ersteRunde = reference.SpielRunden.First        
+
+        Dim ersteRunde = reference.SpielRunden.First
+        Assert.AreEqual(2, ersteRunde.Count, "Zwei Spielpartien erwartet")
         With ersteRunde
             Assert.AreEqual("PLAYER127", .AusgeschiedeneSpieler.First.Id)
             CollectionAssert.AreEqual({"PLAYER127"}, (From x In .AusgeschiedeneSpieler Select x.Id).ToList)
+
             For Each partie In .ToList
                 Assert.AreEqual(3, partie.Count)
             Next
@@ -120,23 +123,23 @@ Imports System.Collections.ObjectModel
                 .Push(runde)
             End With
 
-            Dim result As IEnumerable(Of XElement) = .SpielRunden.ToXML()
-            Assert.AreEqual(1, result.Count)
-            Assert.AreEqual("PLAYER33", result.<ppc:freematch>.Single.@player)
-            Assert.AreEqual("PLAYER77", result.<ppc:inactiveplayer>.Single.@player)
-            Assert.AreEqual("PLAYER293", result.<match>.Single.Attribute("player-a").Value)
-            Assert.AreEqual("PLAYER299", result.<match>.Single.Attribute("player-b").Value)
+            Dim spielPartien As IEnumerable(Of XElement) = .SpielRunden.ToXML()
+            Dim Dummy = <Dummy xmlns:ppc="http://www.ttc-langensteinbach.de">
+                            <%= spielPartien %>
+                        </Dummy>
+            Assert.AreEqual(3, spielPartien.Count)
+            Assert.AreEqual("PLAYER33", Dummy.<ppc:freematch>.Single.@player)
+            Assert.AreEqual("PLAYER77", Dummy.<ppc:inactiveplayer>.Single.@player)
+            Assert.AreEqual("PLAYER293", Dummy.<match>.Single.Attribute("player-a").Value)
+            Assert.AreEqual("PLAYER299", Dummy.<match>.Single.Attribute("player-b").Value)
 
-            Assert.IsTrue(XElement.DeepEquals(result.First,
-                                              <SpielRunde xmlns:ppc="http://www.ttc-langensteinbach.de">
-                                                  <ppc:freematch player="PLAYER33" group="Runde 1"/>
-                                                  <match player-a="PLAYER293" player-b="PLAYER299"
-                                                      games-a="0" games-b="0" sets-a="0" sets-b="0"
-                                                      matches-a="0" matches-b="0" scheduled="" group="Runde 1" nr="2"
-                                                      set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
-                                                      set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
-                                                  <ppc:inactiveplayer player="PLAYER77" group="Runde 1"/>
-                                              </SpielRunde>))
+            Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1"/>.ToString)
+            Assert.AreEqual(spielPartien(1).ToString, <match player-a="PLAYER293" player-b="PLAYER299"
+                                                          games-a="0" games-b="0" sets-a="0" sets-b="0"
+                                                          matches-a="0" matches-b="0" scheduled="" group="Runde 1" nr="2"
+                                                          set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
+                                                          set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString)
+            Assert.AreEqual(spielPartien(2).ToString, <ppc:inactiveplayer player="PLAYER77" group="Runde 1"/>.ToString)
 
         End With
     End Sub
@@ -164,6 +167,38 @@ Imports System.Collections.ObjectModel
         Assert.AreEqual("2", result.Attribute("sets-a").Value)
         Assert.IsTrue(XElement.DeepEquals(MatchXml, result))
 
+    End Sub
+
+    <TestMethod>
+    Sub FremdPartie_To_XML()
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
+
+        Dim Partie = New SpielPartie(SpielerA, SpielerB)
+        Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
+        Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
+        Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})
+
+        Dim MatchXml = <ppc:match player-a="PLAYER293" player-b="PLAYER299" games-a="28" games-b="19" sets-a="2" sets-b="1"
+                           matches-a="1" matches-b="0" scheduled="" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
+                           set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
+                           set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
+
+        Dim result = Partie.ToXML("Runde 1", 5)
+
+        Assert.AreEqual("Runde 1", result.@group)
+        Assert.AreEqual("19", result.Attribute("games-b").Value)
+        Assert.AreEqual("2", result.Attribute("sets-a").Value)
+        Assert.IsTrue(XElement.DeepEquals(MatchXml, result))
+
+    End Sub
+
+    <TestMethod>
+    Sub FreiSpiel_To_XML()
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim Partie = New FreiLosSpiel(SpielerA)
+        Assert.AreEqual(Partie.SpielerLinks, SpielerA)
+        Assert.AreEqual(Partie.SpielerRechts, SpielerA)
     End Sub
 
     <TestMethod()> Public Sub TTRGültig()

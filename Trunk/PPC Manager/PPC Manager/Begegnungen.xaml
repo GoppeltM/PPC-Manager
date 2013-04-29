@@ -22,8 +22,11 @@
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Punkte" Direction="Descending"/>
                 <scm:SortDescription PropertyName="BuchholzPunkte" Direction="Descending"/>
-                <scm:SortDescription PropertyName="SatzDiff" Direction="Descending"/>
-                <scm:SortDescription PropertyName="StartNummer" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="TTRating" Direction="Descending"/>
+                <scm:SortDescription PropertyName="TTRMatchCount" Direction="Descending"/>
+                <scm:SortDescription PropertyName="Nachname" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="Vorname" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="Lizenznummer" Direction="Ascending"/>                
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </Page.Resources>
@@ -41,25 +44,27 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>        
-            <ListView Name="ListView1" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
+            <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
                       ItemsSource="{Binding Source={StaticResource SpielerView}}"
                       Grid.Column="0" TextBlock.FontSize="20">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
+                <CommandBinding Command="Select" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed"/>
             </ListView.CommandBindings>
                 <ListView.ContextMenu>
                 <ContextMenu>
                     <ContextMenu.Items>
-                        <MenuItem Header="Spieler ausscheiden" Name="MenuItem1" Command="Delete" />
+                        <MenuItem Header="Spieler ausscheiden" Name="AusscheidenMenu" Command="Delete" />
+                        <MenuItem Header="Spielpartie erstellen" Name="PartieErstellenMenu" Command="Select" />
                     </ContextMenu.Items>
                 </ContextMenu> 
             </ListView.ContextMenu>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">                        
-                        <Grid Margin="5" Width="180">
+                        <Grid Margin="5" Width="220">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="30" />
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="20" />
@@ -69,8 +74,9 @@
                                 <RowDefinition/>                                
                             </Grid.RowDefinitions>                            
                             <TextBlock Grid.Column="0" Grid.RowSpan="2"
-                                   FontSize="16" FontWeight="Bold" Foreground="#FF8D7979"
-                                   Text="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}"
+                                   FontSize="20" FontWeight="Bold" Foreground="#FF8D7979"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}" 
                                    />
                             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Vorname}" HorizontalAlignment="Center" />
                             <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Nachname}" HorizontalAlignment="Center" />

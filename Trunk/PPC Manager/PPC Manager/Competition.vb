@@ -33,25 +33,15 @@
 
     
     Public Sub Save()
-        For i = 0 To 19
-            Try
-                Using stream = IO.File.Open(DateiPfad, IO.FileMode.Open, IO.FileAccess.ReadWrite)
-                    Dim doc = XDocument.Load(stream)
-                    Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
-                    Dim runden = SpielRunden.ToXML
-                    CompetitionNode.<matches>.Remove()
-                    CompetitionNode.Add(<matches>
-                                            <%= runden %>
-                                        </matches>)
-                    stream.Position = 0
-                    doc.Save(stream)
-                    Return
-                End Using
-            Catch ex As IO.IOException
-                System.Threading.Thread.Sleep(1000)
-            End Try            
-        Next
-        Throw New Exception("Was unable to save!")
+        Dim doc = XDocument.Load(DateiPfad)
+        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
+        Dim runden = SpielRunden.ToXML
+        CompetitionNode.<matches>.Remove()
+        CompetitionNode.Add(<matches>
+                                <%= runden %>
+                            </matches>)
+
+        doc.Save(DateiPfad)
     End Sub
 
 

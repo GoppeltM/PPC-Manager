@@ -23,10 +23,12 @@ Public Class SpielRunden
         Dim current = 0
         For Each SpielRunde In Me.Reverse
             Dim matchNr = 0
-            xSpielRunden.Add(SpielRunde.ToXML(current, Function() As Integer
-                                                           matchNr += 1
-                                                           Return matchNr
-                                                       End Function))
+            For Each Match In SpielRunde.ToXML(current, Function() As Integer
+                                                            matchNr += 1
+                                                            Return matchNr
+                                                        End Function)
+                xSpielRunden.Add(Match)
+            Next
             current += 1
         Next
 
@@ -43,7 +45,7 @@ Public Class SpielRunde
 
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
         Dim runde As New SpielRunde
-        For Each xSpielPartie In From x In xSpiele Where x.Name = "match"
+        For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"
             runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
         Next
         Dim xFreilos = (From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de") + "freematch").SingleOrDefault
@@ -58,15 +60,14 @@ Public Class SpielRunde
         Return runde
     End Function
 
-    Friend Function ToXML(ByVal spielRunde As Integer, nextMatchNr As Func(Of Integer)) As XElement
+    Friend Function ToXML(ByVal spielRunde As Integer, nextMatchNr As Func(Of Integer)) As IEnumerable(Of XElement)
         Dim rundenName = "Runde " & spielRunde + 1
-        Return <SpielRunde>
-                   <%= From x In Me Let y = x.ToXML(rundenName, nextMatchNr()) Select y %>
+        Dim SpielRunden = From x In Me Let y = x.ToXML(rundenName, nextMatchNr()) Select y
 
-                   <%= From x In AusgeschiedeneSpieler
+        Dim inaktiveSpieler = From x In AusgeschiedeneSpieler
                        Let El As XElement = <ppc:inactiveplayer player=<%= x.Id %> group=<%= rundenName %>/>
-                       Select El %>
-               </SpielRunde>
+                       Select El
+        Return SpielRunden.Concat(inaktiveSpieler)
     End Function
 
     Public Overrides Function ToString() As String

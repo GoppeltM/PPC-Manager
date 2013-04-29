@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Paket_Tests.vb" />
+    <Compile Include="PPC15_Turnier.vb" />
     <Compile Include="StartListe.vb" />
     <Compile Include="XMLValidation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

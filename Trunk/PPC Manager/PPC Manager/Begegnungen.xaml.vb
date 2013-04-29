@@ -79,8 +79,8 @@ Class Begegnungen
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
-        If ListView1.SelectedIndex <> -1 Then            
-            Dim Spieler = CType(ListView1.SelectedItem, Spieler)
+        If LifeListe.SelectedIndex <> -1 Then
+            Dim Spieler = CType(LifeListe.SelectedItem, Spieler)
             If Not Spieler.Ausgeschieden Then
                 e.CanExecute = True
                 Return
@@ -91,7 +91,7 @@ Class Begegnungen
 
     Private Sub Ausscheiden_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Dim runde = CType(FindResource("SpielRunden"), SpielRunden).Peek
-        Dim Spieler = CType(ListView1.SelectedItem, Spieler)
+        Dim Spieler = CType(LifeListe.SelectedItem, Spieler)
         If MessageBox.Show(String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!", Spieler.Nachname), _
                         "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
             Spieler.AusscheidenLassen()
@@ -123,6 +123,8 @@ Class Begegnungen
             Next
             .SpielRunden.Push(spielRunde)
             RundenAnzeige.Content = "Runde " & .SpielRunden.Count
+            PlayOffAktiv = True
+            LifeListe.SelectionMode = SelectionMode.Single
         End With
         
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
@@ -138,7 +140,7 @@ Class Begegnungen
         End If
     End Sub
 
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         If Not SpielRunden.Any Then Return
         Dim AktuellePartien = SpielRunden.Peek.ToList
@@ -154,10 +156,14 @@ Class Begegnungen
         res.ObjectInstance = liste
     End Sub
 
+    Private Property PlayOffAktiv As Boolean = False
+
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         With MainWindow.AktiveCompetition        
             Dim spielRunde As New SpielRunde
             .SpielRunden.Push(spielRunde)
+            PlayOffAktiv = True
+            LifeListe.SelectionMode = SelectionMode.Extended
             RundenAnzeige.Content = "Runde " & .SpielRunden.Count
         End With
 
@@ -173,98 +179,21 @@ Class Begegnungen
             ApplicationCommands.Save.Execute(Nothing, Me)
         End If
     End Sub
+
+    Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = PlayOffAktiv AndAlso LifeListe.SelectedItems.Count = 2
+    End Sub
+
+    Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim AktuelleRunde = MainWindow.AktiveCompetition.SpielRunden.Peek()
+        Dim AusgewählteSpieler = LifeListe.SelectedItems
+        Dim neueSpielPartie = New SpielPartie(CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))
+        neueSpielPartie.Add(New Satz)
+        AktuelleRunde.Add(neueSpielPartie)
+    End Sub
 End Class
 
-Class StringFormatter
-    Implements IValueConverter
 
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
-        Return String.Format(parameter.ToString, value)
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
-
-Public Class SatzFarbenPainter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
-
-        If Not targetType Is GetType(Brush) Then
-            Throw New Exception("Must be a brush!")
-        End If
-
-        Dim x As Integer = CInt(value)
-        If x >= My.Settings.GewinnPunkte Then
-            Return Brushes.GreenYellow
-        Else
-            Return Brushes.Transparent
-        End If
-
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
-
-Public Class AusgeschiedenPainter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        If Not targetType Is GetType(Brush) Then
-            Throw New Exception("Must be a brush!")
-        End If
-
-        Dim val = CType(value, Boolean)
-        If val Then
-            Return Brushes.Red
-        Else
-            Return Brushes.Transparent
-        End If
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
-
-Public Class MeineGewonnenenSätze
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
-        Dim points = CType(value, Integer)
-        If points >= My.Settings.GewinnPunkte Then Return Visibility.Visible
-        Return Visibility.Hidden
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
-
-Public Class RanglisteIndexConverter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        Dim provider = CType(parameter, ObjectDataProvider)
-        If provider Is Nothing Then Return Nothing
-        If provider.ObjectInstance Is Nothing Then Return Nothing
-        Dim myList = CType(provider.ObjectInstance, SpielerListe).ToList
-
-        myList.Sort()
-        If myList IsNot Nothing Then
-            Return myList.ToList.IndexOf(CType(value, Spieler)) + 1
-        End If
-        Return Nothing
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
-        Return value
-    End Function
-End Class
 
 Public Class DoppelbreitenGrid
     Inherits Grid
