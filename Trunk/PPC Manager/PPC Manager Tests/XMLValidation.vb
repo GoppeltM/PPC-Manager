@@ -1,7 +1,8 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports PPC_Manager
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
+Imports System.Collections.ObjectModel
 
 <TestClass()> Public Class XMLValidation
 
@@ -42,7 +43,6 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
     Public Sub Spieler_From_XML()
         Dim XNode = <player type="single" id="PLAYER72">
                         <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981"/>
-
                     </player>
 
         With Spieler.FromXML(XNode)
@@ -96,6 +96,52 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
     End Sub
 
     <TestMethod>
+    Sub Runden_To_XML()
+        MainWindow.AktiveCompetition = New Competition
+        With MainWindow.AktiveCompetition
+            .DateiPfad = "D:\dummy.xml"
+            .Altersgruppe = "Mädchen U 13"
+            .Gewinnsätze = 4
+            .SatzDifferenz = False
+            .StartDatum = "2012-09-08 11:00"
+            .SpielerListe = New SpielerListe From {
+                New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
+                New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"},
+                New Spieler With {.Vorname = "Alec", .Nachname = "Baldwin", .Id = "PLAYER33"},
+                New Spieler With {.Vorname = "Mahatma", .Nachname = "Gandhi", .Id = "PLAYER77"}
+            }
+            Dim spieler = .SpielerListe
+            .SpielRunden = New SpielRunden
+            With .SpielRunden
+                Dim runde = New SpielRunde With {.AusgeschiedeneSpieler = New ObservableCollection(Of Spieler) From
+                                            {spieler(3)}}
+                runde.Add(New FreiLosSpiel(spieler(2)))
+                runde.Add(New SpielPartie(spieler(0), spieler(1)))
+                .Push(runde)
+            End With
+
+            Dim result As IEnumerable(Of XElement) = .SpielRunden.ToXML()
+            Assert.AreEqual(1, result.Count)
+            Assert.AreEqual("PLAYER33", result.<ppc:freematch>.Single.@player)
+            Assert.AreEqual("PLAYER77", result.<ppc:inactiveplayer>.Single.@player)
+            Assert.AreEqual("PLAYER293", result.<match>.Single.Attribute("player-a").Value)
+            Assert.AreEqual("PLAYER299", result.<match>.Single.Attribute("player-b").Value)
+
+            Assert.IsTrue(XElement.DeepEquals(result.First,
+                                              <SpielRunde xmlns:ppc="http://www.ttc-langensteinbach.de">
+                                                  <ppc:freematch player="PLAYER33" group="Runde 1"/>
+                                                  <match player-a="PLAYER293" player-b="PLAYER299"
+                                                      games-a="0" games-b="0" sets-a="0" sets-b="0"
+                                                      matches-a="0" matches-b="0" scheduled="" group="Runde 1" nr="2"
+                                                      set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
+                                                      set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
+                                                  <ppc:inactiveplayer player="PLAYER77" group="Runde 1"/>
+                                              </SpielRunde>))
+
+        End With
+    End Sub
+
+    <TestMethod>
     Sub SpielePartie_To_XML()
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
@@ -111,7 +157,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
-        Dim result = Partie.ToXML(1, 5)
+        Dim result = Partie.ToXML("Runde 1", 5)
 
         Assert.AreEqual("Runde 1", result.@group)
         Assert.AreEqual("19", result.Attribute("games-b").Value)

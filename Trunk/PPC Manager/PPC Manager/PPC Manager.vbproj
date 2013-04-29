@@ -138,6 +138,7 @@
     <Compile Include="Model\PaketBildung.vb" />
     <Compile Include="Spieler.vb" />
     <Compile Include="SpielPartie.vb" />
+    <Compile Include="SpielRunden.vb" />
     <Compile Include="StartListe.xaml.vb">
       <DependentUpon>StartListe.xaml</DependentUpon>
     </Compile>

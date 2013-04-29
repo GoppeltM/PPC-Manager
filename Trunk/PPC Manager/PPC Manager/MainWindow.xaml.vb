@@ -32,45 +32,14 @@ Class MainWindow
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         AktiveCompetition.Save()
     End Sub
-
-
-    Private Sub Vorsortieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Vorsortieren.Click
-
-        Dim sortierteListe = (From x In AktiveCompetition.SpielerListe
-                             Order By x.TTRating Descending).ToList
-
-        AktiveCompetition.SpielerListe.Clear()
-        Dim current = 1
-        For Each Spieler In sortierteListe            
-            AktiveCompetition.SpielerListe.Add(Spieler)
-            current += 1
-        Next
-
-    End Sub
-
- 
-
-    Private Sub TurnierStarten_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        If MessageBox.Show(Me, "Wollen Sie wirklich das Turnier starten? Vergewissern Sie sich, dass alle Spielregeln und die Startreihenfolge richtig ist bevor Sie beginnen.", _
-                           "Turnier Starten?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
-
-            EditorArea.Navigate(New Begegnungen(Me))
-        End If
-
-    End Sub
-
     
     Private Sub EditorArea_Navigated(ByVal sender As System.Object, ByVal e As System.Windows.Navigation.NavigationEventArgs) Handles EditorArea.Navigated
         Select Case e.Content.GetType
-            Case GetType(Begegnungen)
-                TurnierStarten.Visibility = Windows.Visibility.Collapsed
-                Vorsortieren.Visibility = Windows.Visibility.Collapsed
+            Case GetType(Begegnungen)                
                 NächsteRunde.Visibility = Windows.Visibility.Visible
                 Einstellungen.Visibility = Windows.Visibility.Collapsed
                 OffeneBegegnungen.Visibility = Windows.Visibility.Visible
-            Case GetType(StartListe)
-                TurnierStarten.Visibility = Windows.Visibility.Visible
-                Vorsortieren.Visibility = Windows.Visibility.Visible
+            Case GetType(StartListe)                
                 NächsteRunde.Visibility = Windows.Visibility.Collapsed
                 Einstellungen.Visibility = Windows.Visibility.Visible
                 OffeneBegegnungen.Visibility = Windows.Visibility.Collapsed

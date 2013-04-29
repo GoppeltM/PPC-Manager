@@ -1,6 +1,6 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports Microsoft.Office.Interop.Excel
 
 <TestClass()> Public Class StartListe
@@ -84,7 +84,7 @@ Imports Microsoft.Office.Interop.Excel
             Dim ColumnNames As New Dictionary(Of String, Integer)
 
             For Each column As Range In sheet.UsedRange.Columns
-                Dim Text = column.Cells(1).Text
+                Dim Text = DirectCast(column.Cells(1), Range).Text.ToString
                 If Not ColumnNames.ContainsKey(Text) Then
                     ColumnNames.Add(Text, column.Column)
                 End If
@@ -144,7 +144,7 @@ Imports Microsoft.Office.Interop.Excel
             Dim ColumnNames As New Dictionary(Of String, Integer)
 
             For Each column As Range In sheet.UsedRange.Columns
-                Dim Text = column.Cells(1).Text
+                Dim Text = DirectCast(column.Cells(1), Range).Text.ToString
                 If Not ColumnNames.ContainsKey(Text) Then
                     ColumnNames.Add(Text, column.Column)
                 End If

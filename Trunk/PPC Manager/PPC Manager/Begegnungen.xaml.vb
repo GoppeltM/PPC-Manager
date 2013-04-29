@@ -153,6 +153,26 @@ Class Begegnungen
         Dim liste = CType(FindResource("SpielerListe"), SpielerListe)
         res.ObjectInstance = liste
     End Sub
+
+    Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        With MainWindow.AktiveCompetition        
+            Dim spielRunde As New SpielRunde
+            .SpielRunden.Push(spielRunde)
+            RundenAnzeige.Content = "Runde " & .SpielRunden.Count
+        End With
+
+        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        ' dass die View aktualisiert wird bevor die Position verschoben wird.
+        ' Weiß die Hölle warum das so ist
+        ViewSource.View.Refresh()
+
+        ViewSource.View.MoveCurrentToFirst()
+
+        If CBool(My.Settings.AutoSaveAn) Then
+            ApplicationCommands.Save.Execute(Nothing, Me)
+        End If
+    End Sub
 End Class
 
 Class StringFormatter

@@ -1,5 +1,5 @@
 ﻿Imports Microsoft.Win32
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Class MainWindow
 

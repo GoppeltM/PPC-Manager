@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
 Imports System.Collections.Specialized
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 ''' <summary>
 ''' 
@@ -64,7 +64,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Overridable Function ToXML(spielRunde As Integer, matchNr As Integer) As XElement
+    Overridable Function ToXML(rundenName As String, matchNr As Integer) As XElement
 
         Dim SätzeLinks = MeineGewonnenenSätze(SpielerLinks).Count
         Dim SätzeRechts = MeineGewonnenenSätze(SpielerRechts).Count
@@ -88,7 +88,7 @@ Public Class SpielPartie
                        games-a=<%= Aggregate x In Me Into Sum(x.PunkteLinks) %> games-b=<%= Aggregate x In Me Into Sum(x.PunkteRechts) %>
                        sets-a=<%= SätzeLinks %> sets-b=<%= SätzeRechts %>
                        matches-a=<%= GewonnenLinks %> matches-b=<%= GewonnenRechts %>
-                       scheduled="" group=<%= "Runde " & spielRunde %> nr=<%= matchNr %>
+                       scheduled="" group=<%= rundenName %> nr=<%= matchNr %>
                        <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
                        <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
                    />
@@ -135,8 +135,8 @@ Public Class FreiLosSpiel
     End Sub
 
 
-    Public Overrides Function ToXML(spielRunde As Integer, matchNr As Integer) As System.Xml.Linq.XElement
-        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= "Runde " & spielRunde %>/>
+    Public Overrides Function ToXML(rundenName As String, matchNr As Integer) As System.Xml.Linq.XElement
+        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= rundenName %>/>
         Return node
     End Function
 
