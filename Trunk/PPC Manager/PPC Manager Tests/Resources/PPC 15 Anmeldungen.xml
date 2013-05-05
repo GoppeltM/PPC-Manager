@@ -534,7 +534,7 @@
         <person licence-nr="-173" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Klett" ttr="1181" firstname="Tim" />
       </ppc:player>
       <ppc:player id="PLAYER-174">
-        <person licence-nr="-174" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Wild" ttr="1009" firstname="Christian" />
+        <person licence-nr="-174" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Wild" ttr="1005" firstname="Christian" />
       </ppc:player>
       <ppc:player id="PLAYER-175">
         <person licence-nr="-175" club-name="FC Nöttingen" sex="0" ttr-match-count="0" lastname="Biendl" ttr="1303" firstname="Indra" />
@@ -549,7 +549,7 @@
         <person licence-nr="-179" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Flörchinger" ttr="1297" firstname="Walter" />
       </ppc:player>
       <ppc:player id="PLAYER-180">
-        <person licence-nr="-180" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Kellenberger" ttr="1181" firstname="Claus" />
+        <person licence-nr="-180" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Kellenberger" ttr="1189" firstname="Claus" />
       </ppc:player>
       <ppc:player id="PLAYER-181">
         <person licence-nr="-181" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Prautzsch" ttr="1193" firstname="Bernd" />
@@ -582,7 +582,7 @@
         <person licence-nr="-190" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Kling" ttr="1217" firstname="Marco" />
       </ppc:player>
       <ppc:player id="PLAYER-191">
-        <person licence-nr="-191" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Reichardt" ttr="1189" firstname="Mike" />
+        <person licence-nr="-191" club-name="SV Büchenbronn" sex="1" ttr-match-count="5" lastname="Reichardt" ttr="1181" firstname="Mike" />
       </ppc:player>
       <ppc:player id="PLAYER-192">
         <person licence-nr="-192" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Fabricius" ttr="1326" firstname="Dominik" />
@@ -648,7 +648,7 @@
         <person licence-nr="-213" club-name="SV Gültlingen" sex="1" ttr-match-count="0" lastname="Kahle" ttr="1231" firstname="Mario" />
       </ppc:player>
       <ppc:player id="PLAYER-214">
-        <person licence-nr="-214" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Jäkel" ttr="0" firstname="Lars" />
+        <person licence-nr="-214" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Jäkel" ttr="1090" firstname="Lars" />
       </ppc:player>
       <ppc:player id="PLAYER-215">
         <person licence-nr="-215" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Neumann" ttr="1265" firstname="Marius" />
@@ -657,7 +657,7 @@
         <person licence-nr="-216" club-name="TSV Weissach" sex="1" ttr-match-count="0" lastname="Fauth" ttr="1092" firstname="Thomas" />
       </ppc:player>
       <ppc:player id="PLAYER-218">
-        <person licence-nr="-218" club-name="TV Dielheim" sex="0" ttr-match-count="0" lastname="Krüger" ttr="1005" firstname="Julia" />
+        <person licence-nr="-218" club-name="TV Dielheim" sex="0" ttr-match-count="0" lastname="Krüger" ttr="1009" firstname="Julia" />
       </ppc:player>
       <ppc:player id="PLAYER-219">
         <person licence-nr="-219" club-name="TTC Langensteinbach" sex="0" ttr-match-count="0" lastname="Friedrich" ttr="1173" firstname="Valeska" />
@@ -678,9 +678,9 @@
         <person licence-nr="-217" club-name="1.TC Ittersbach" sex="1" ttr-match-count="5" lastname="Benko" ttr="1237" firstname="Robert" />
       </ppc:player>
       <ppc:player id="PLAYER-206">
-        <person licence-nr="-206" club-name="SV Leingarten" sex="1" ttr-match-count="5" lastname="Kocon" ttr="0" firstname="Patrick" />
+        <person licence-nr="-206" club-name="SV Leingarten" sex="1" ttr-match-count="5" lastname="Kocon" ttr="1230" firstname="Patrick" />
       </ppc:player>
-    </players>
+    </players>    
   </competition>
   <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="J-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de">
     <players>
