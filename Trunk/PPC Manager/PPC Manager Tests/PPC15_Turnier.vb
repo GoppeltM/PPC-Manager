@@ -110,9 +110,36 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
+    <TestMethod>
+    Sub Runde_3()
+        Runde_2()
+        With AktuelleCompetition
+            Dim ergebnisse = PaketBildung.organisierePakete(.SpielerListe.ToList, 2)
+            Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
+            Dim erwartet = XmlRundezuVergleicher(3)
+            CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
+            TrageSätzeEin(ergebnisse, erwartet)
+        End With
+
+    End Sub
+
+    <TestMethod>
+    Sub Runde_4()
+        Runde_3()
+        With AktuelleCompetition
+            Dim ergebnisse = PaketBildung.organisierePakete(.SpielerListe.ToList, 3)
+            Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
+            Dim erwartet = XmlRundezuVergleicher(4)
+            CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
+            TrageSätzeEin(ergebnisse, erwartet)
+        End With
+
+    End Sub
+
     Private Sub TrageSätzeEin(ergebnisse As IEnumerable(Of SpielPartie), erwartet As IEnumerable(Of BegegnungsVergleicher))
 
-        Dim VollständigeErgebnisse = From spielPartie In ergebnisse Join y In erwartet On spielPartie.SpielerLinks.Nachname Equals y.NachnameLinks Select spielPartie, y.SätzeLinks, y.SätzeRechts
+        Dim VollständigeErgebnisse = From spielPartie In ergebnisse Join y In erwartet
+           On spielPartie.SpielerLinks.Nachname & spielPartie.SpielerLinks.Vorname Equals y.NachnameLinks & y.VornameLinks Select spielPartie, y.SätzeLinks, y.SätzeRechts
 
         For Each ergebnis In VollständigeErgebnisse
             ergebnis.spielPartie.Clear()
@@ -135,7 +162,9 @@ Public Class PPC15_Turnier_Klasse_D
     Private Function BegegnungenZuVergleicher(begegnungen As List(Of SpielPartie)) As IEnumerable(Of BegegnungsVergleicher)
         Return From x In begegnungen Select New BegegnungsVergleicher With {
            .NachnameLinks = x.SpielerLinks.Nachname,
-           .NachnameRechts = x.SpielerRechts.Nachname
+           .NachnameRechts = x.SpielerRechts.Nachname,
+           .VornameLinks = x.SpielerLinks.Vorname,
+           .VornameRechts = x.SpielerRechts.Vorname
         }
     End Function
 
@@ -145,6 +174,8 @@ Public Class PPC15_Turnier_Klasse_D
         Dim result = From x In KlassementD.<Runde> Where x.@Nummer = runde.ToString
            From y In x.<Ergebnis>
            Select New BegegnungsVergleicher With {
+               .VornameLinks = y.@VornameA,
+               .VornameRechts = y.@VornameB,
                .NachnameLinks = y.@SpielerA,
                .NachnameRechts = y.@SpielerB,
                .SätzeLinks = Integer.Parse(y.@SätzeA),
@@ -158,6 +189,8 @@ End Class
 Class BegegnungsVergleicher
     Implements IEquatable(Of BegegnungsVergleicher)
 
+    Property VornameLinks As String
+    Property VornameRechts As String
     Property NachnameLinks As String
     Property NachnameRechts As String
     Property SätzeLinks As Integer

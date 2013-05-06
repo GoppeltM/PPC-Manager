@@ -2,1052 +2,1052 @@
 <Ergebnisse>
   <Klassement Name="A">
     <Runde Nummer="1">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Nürnberg" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schreck" SpielerB="Hirsch" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Welker" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kappe" SpielerB="Bühner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Fürst" SpielerB="Leber" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kappler" SpielerB="Kilzer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Tran" SpielerB="Savanovic" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Geisert" SpielerB="Maxelon" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Virk" SpielerB="von Streng" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Maier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schilling" SpielerB="Leube" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Pfeiffer" SpielerB="Hees" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="König" SpielerB="Gau" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Tiefenbacher" SpielerB="Buyer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Hrnic" SpielerB="Reitz" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Steinhauser" SpielerB="Becker" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Kappel" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Schmid" SpielerB="Dayan" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Maier" SpielerB="Jerkovic" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Breitschopf" SpielerB="Rohrpasser" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Saavedra-Fernandez" SpielerB="Essig" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Retz" SpielerB="Nowicki" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Rüger" SpielerB="Krischer" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Endres" SpielerB="Feketitsch" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Remo" SpielerA="Nguyen" SpielerB="Nürnberg" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Norman" VornameB="Jörg" SpielerA="Schreck" SpielerB="Hirsch" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Evgeni" VornameB="Tim" SpielerA="Stoyanov" SpielerB="Welker" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Kai" VornameB="Tobias" SpielerA="Kappe" SpielerB="Bühner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jonas" VornameB="Matthias" SpielerA="Fürst" SpielerB="Leber" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Alexander" VornameB="Klaus" SpielerA="Kappler" SpielerB="Kilzer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tony" VornameB="Aleksandar" SpielerA="Tran" SpielerB="Savanovic" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Sebastian" VornameB="Dennis" SpielerA="Geisert" SpielerB="Maxelon" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Oliver" VornameB="Moritz" SpielerA="Virk" SpielerB="von Streng" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Marcel" VornameB="Dominik" SpielerA="Eisenmann" SpielerB="Maier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Martin" VornameB="Dane" SpielerA="Schilling" SpielerB="Leube" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Michael" VornameB="Timo" SpielerA="Pfeiffer" SpielerB="Hees" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marco" VornameB="Christoph" SpielerA="König" SpielerB="Gau" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Konrad" VornameB="Sven" SpielerA="Tiefenbacher" SpielerB="Buyer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Kenan" VornameB="Dominik" SpielerA="Hrnic" SpielerB="Reitz" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Florian" VornameB="Alexander" SpielerA="Steinhauser" SpielerB="Becker" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Pascal" VornameB="Martin" SpielerA="Eisenmann" SpielerB="Kappel" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jakob" VornameB="Davut" SpielerA="Schmid" SpielerB="Dayan" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Robin" VornameB="Marin" SpielerA="Maier" SpielerB="Jerkovic" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Gregor" VornameB="Simon" SpielerA="Breitschopf" SpielerB="Rohrpasser" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Juan" VornameB="Daniel" SpielerA="Saavedra-Fernandez" SpielerB="Essig" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Robert" VornameB="Thomas" SpielerA="Retz" SpielerB="Nowicki" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Bastian" VornameB="Matthias" SpielerA="Rüger" SpielerB="Krischer" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Ralf" SpielerA="Endres" SpielerB="Feketitsch" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="2">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Saavedra-Fernandez" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Endres" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kappe" SpielerB="Jerkovic" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Fürst" SpielerB="Nowicki" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kappler" SpielerB="Schreck" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Geisert" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Schilling" SpielerB="Hrnic" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Pfeiffer" SpielerB="Tran" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Tiefenbacher" SpielerB="Virk" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Steinhauser" SpielerB="König" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Schmid" SpielerB="Rüger" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kappel" SpielerB="Breitschopf" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Feketitsch" SpielerB="Welker" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Essig" SpielerB="Nürnberg" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Rohrpasser" SpielerB="Retz" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Dayan" SpielerB="Maier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Becker" SpielerB="Reitz" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Buyer" SpielerB="Maxelon" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hees" SpielerB="Hirsch" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Leube" SpielerB="Krischer" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Maier" SpielerB="Gau" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Kilzer" SpielerB="von Streng" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Leber" SpielerB="Savanovic" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Bühner" SpielerB="Eisenmann" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Juan" SpielerA="Nguyen" SpielerB="Saavedra-Fernandez" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Evgeni" VornameB="Michael" SpielerA="Stoyanov" SpielerB="Endres" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Kai" VornameB="Marin" SpielerA="Kappe" SpielerB="Jerkovic" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Jonas" VornameB="Thomas" SpielerA="Fürst" SpielerB="Nowicki" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Alexander" VornameB="Norman" SpielerA="Kappler" SpielerB="Schreck" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Marcel" VornameB="Sebastian" SpielerA="Eisenmann" SpielerB="Geisert" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Martin" VornameB="Kenan" SpielerA="Schilling" SpielerB="Hrnic" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Tony" SpielerA="Pfeiffer" SpielerB="Tran" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Konrad" VornameB="Oliver" SpielerA="Tiefenbacher" SpielerB="Virk" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Florian" VornameB="Marco" SpielerA="Steinhauser" SpielerB="König" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Jakob" VornameB="Bastian" SpielerA="Schmid" SpielerB="Rüger" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Martin" VornameB="Gregor" SpielerA="Kappel" SpielerB="Breitschopf" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Ralf" VornameB="Tim" SpielerA="Feketitsch" SpielerB="Welker" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Remo" SpielerA="Essig" SpielerB="Nürnberg" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Robert" SpielerA="Rohrpasser" SpielerB="Retz" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Davut" VornameB="Robin" SpielerA="Dayan" SpielerB="Maier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Alexander" VornameB="Dominik" SpielerA="Becker" SpielerB="Reitz" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sven" VornameB="Dennis" SpielerA="Buyer" SpielerB="Maxelon" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Timo" VornameB="Jörg" SpielerA="Hees" SpielerB="Hirsch" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Dane" VornameB="Matthias" SpielerA="Leube" SpielerB="Krischer" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Dominik" VornameB="Christoph" SpielerA="Maier" SpielerB="Gau" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Klaus" VornameB="Moritz" SpielerA="Kilzer" SpielerB="von Streng" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Matthias" VornameB="Aleksandar" SpielerA="Leber" SpielerB="Savanovic" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Pascal" SpielerA="Bühner" SpielerB="Eisenmann" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="3">
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Fürst" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Nguyen" SpielerB="Breitschopf" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schreck" SpielerB="Schmid" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Tran" SpielerB="Kappe" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Virk" SpielerB="Geisert" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Hrnic" SpielerB="Steinhauser" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Schilling" SpielerB="König" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Jerkovic" SpielerB="Endres" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Welker" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Tiefenbacher" SpielerB="Reitz" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Nowicki" SpielerB="Rüger" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kappel" SpielerB="Nürnberg" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="von Streng" SpielerB="Eisenmann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Kappler" SpielerB="Maier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Saavedra-Fernandez" SpielerB="Buyer" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Hirsch" SpielerB="Retz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Savanovic" SpielerB="Maier" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Pfeiffer" SpielerB="Leube" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Feketitsch" SpielerB="Dayan" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Hees" SpielerB="Becker" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kilzer" SpielerB="Leber" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Essig" SpielerB="Bühner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Krischer" SpielerB="Rohrpasser" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Gau" SpielerB="Maxelon" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Evgeni" VornameB="Jonas" SpielerA="Stoyanov" SpielerB="Fürst" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Gregor" SpielerA="Nguyen" SpielerB="Breitschopf" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Norman" VornameB="Jakob" SpielerA="Schreck" SpielerB="Schmid" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tony" VornameB="Kai" SpielerA="Tran" SpielerB="Kappe" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Oliver" VornameB="Sebastian" SpielerA="Virk" SpielerB="Geisert" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kenan" VornameB="Florian" SpielerA="Hrnic" SpielerB="Steinhauser" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Martin" VornameB="Marco" SpielerA="Schilling" SpielerB="König" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Marin" VornameB="Michael" SpielerA="Jerkovic" SpielerB="Endres" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Marcel" VornameB="Tim" SpielerA="Eisenmann" SpielerB="Welker" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Konrad" VornameB="Dominik" SpielerA="Tiefenbacher" SpielerB="Reitz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Thomas" VornameB="Bastian" SpielerA="Nowicki" SpielerB="Rüger" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Martin" VornameB="Remo" SpielerA="Kappel" SpielerB="Nürnberg" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Moritz" VornameB="Pascal" SpielerA="von Streng" SpielerB="Eisenmann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Alexander" VornameB="Robin" SpielerA="Kappler" SpielerB="Maier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Juan" VornameB="Sven" SpielerA="Saavedra-Fernandez" SpielerB="Buyer" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jörg" VornameB="Robert" SpielerA="Hirsch" SpielerB="Retz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Aleksandar" VornameB="Dominik" SpielerA="Savanovic" SpielerB="Maier" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Dane" SpielerA="Pfeiffer" SpielerB="Leube" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ralf" VornameB="Davut" SpielerA="Feketitsch" SpielerB="Dayan" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Timo" VornameB="Alexander" SpielerA="Hees" SpielerB="Becker" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Klaus" VornameB="Matthias" SpielerA="Kilzer" SpielerB="Leber" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Tobias" SpielerA="Essig" SpielerB="Bühner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Matthias" VornameB="Simon" SpielerA="Krischer" SpielerB="Rohrpasser" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Christoph" VornameB="Dennis" SpielerA="Gau" SpielerB="Maxelon" SätzeA="2" SätzeB="3" />
     </Runde>
     <Runde Nummer="4">
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Geisert" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Nguyen" SpielerB="Kappe" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Schreck" SpielerB="Hrnic" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Tran" SpielerB="Endres" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schmid" SpielerB="Pfeiffer" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Virk" SpielerB="Savanovic" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Buyer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Hirsch" SpielerB="Nürnberg" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Fürst" SpielerB="Maier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Steinhauser" SpielerB="Eisenmann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Breitschopf" SpielerB="König" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Rüger" SpielerB="Tiefenbacher" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Leube" SpielerB="Maxelon" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Rohrpasser" SpielerB="Bühner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Retz" SpielerB="Welker" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Leber" SpielerB="Kappler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Dayan" SpielerB="Reitz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Hees" SpielerB="Saavedra-Fernandez" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maier" SpielerB="Kappel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="von Streng" SpielerB="Schilling" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Nowicki" SpielerB="Jerkovic" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Feketitsch" SpielerB="Krischer" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Becker" SpielerB="Gau" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Evgeni" VornameB="Sebastian" SpielerA="Stoyanov" SpielerB="Geisert" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Kai" SpielerA="Nguyen" SpielerB="Kappe" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Norman" VornameB="Kenan" SpielerA="Schreck" SpielerB="Hrnic" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tony" VornameB="Michael" SpielerA="Tran" SpielerB="Endres" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jakob" VornameB="Michael" SpielerA="Schmid" SpielerB="Pfeiffer" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Oliver" VornameB="Aleksandar" SpielerA="Virk" SpielerB="Savanovic" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marcel" VornameB="Sven" SpielerA="Eisenmann" SpielerB="Buyer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jörg" VornameB="Remo" SpielerA="Hirsch" SpielerB="Nürnberg" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jonas" VornameB="Robin" SpielerA="Fürst" SpielerB="Maier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Florian" VornameB="Pascal" SpielerA="Steinhauser" SpielerB="Eisenmann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Gregor" VornameB="Marco" SpielerA="Breitschopf" SpielerB="König" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Bastian" VornameB="Konrad" SpielerA="Rüger" SpielerB="Tiefenbacher" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Dane" VornameB="Dennis" SpielerA="Leube" SpielerB="Maxelon" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Tobias" SpielerA="Rohrpasser" SpielerB="Bühner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Robert" VornameB="Tim" SpielerA="Retz" SpielerB="Welker" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Matthias" VornameB="Alexander" SpielerA="Leber" SpielerB="Kappler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Davut" VornameB="Dominik" SpielerA="Dayan" SpielerB="Reitz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Timo" VornameB="Juan" SpielerA="Hees" SpielerB="Saavedra-Fernandez" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Dominik" VornameB="Martin" SpielerA="Maier" SpielerB="Kappel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Moritz" VornameB="Martin" SpielerA="von Streng" SpielerB="Schilling" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Marin" SpielerA="Nowicki" SpielerB="Jerkovic" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Ralf" VornameB="Matthias" SpielerA="Feketitsch" SpielerB="Krischer" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Alexander" VornameB="Christoph" SpielerA="Becker" SpielerB="Gau" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="5">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Geisert" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schreck" SpielerB="Tiefenbacher" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Hrnic" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kappe" SpielerB="Breitschopf" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Fürst" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Tran" SpielerB="Nürnberg" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Virk" SpielerB="Pfeiffer" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Maier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schmid" SpielerB="Welker" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Buyer" SpielerB="Schilling" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Steinhauser" SpielerB="Saavedra-Fernandez" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Savanovic" SpielerB="König" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Endres" SpielerB="Bühner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Jerkovic" SpielerB="Maxelon" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Reitz" SpielerB="Rüger" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Kappler" SpielerB="Maier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kilzer" SpielerB="Leube" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Feketitsch" SpielerB="Leber" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Becker" SpielerB="Nowicki" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Retz" SpielerB="Hees" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Rohrpasser" SpielerB="von Streng" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Dayan" SpielerB="Kappel" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Krischer" SpielerB="Gau" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Sebastian" SpielerA="Nguyen" SpielerB="Geisert" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Norman" VornameB="Konrad" SpielerA="Schreck" SpielerB="Tiefenbacher" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Evgeni" VornameB="Kenan" SpielerA="Stoyanov" SpielerB="Hrnic" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Kai" VornameB="Gregor" SpielerA="Kappe" SpielerB="Breitschopf" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Marcel" VornameB="Jonas" SpielerA="Eisenmann" SpielerB="Fürst" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Tony" VornameB="Remo" SpielerA="Tran" SpielerB="Nürnberg" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Oliver" VornameB="Michael" SpielerA="Virk" SpielerB="Pfeiffer" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Pascal" VornameB="Robin" SpielerA="Eisenmann" SpielerB="Maier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jakob" VornameB="Tim" SpielerA="Schmid" SpielerB="Welker" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Sven" VornameB="Martin" SpielerA="Buyer" SpielerB="Schilling" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Florian" VornameB="Juan" SpielerA="Steinhauser" SpielerB="Saavedra-Fernandez" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Aleksandar" VornameB="Marco" SpielerA="Savanovic" SpielerB="König" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Tobias" SpielerA="Endres" SpielerB="Bühner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marin" VornameB="Dennis" SpielerA="Jerkovic" SpielerB="Maxelon" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Dominik" VornameB="Bastian" SpielerA="Reitz" SpielerB="Rüger" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Alexander" VornameB="Dominik" SpielerA="Kappler" SpielerB="Maier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Klaus" VornameB="Dane" SpielerA="Kilzer" SpielerB="Leube" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ralf" VornameB="Matthias" SpielerA="Feketitsch" SpielerB="Leber" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Alexander" VornameB="Thomas" SpielerA="Becker" SpielerB="Nowicki" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Robert" VornameB="Timo" SpielerA="Retz" SpielerB="Hees" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Simon" VornameB="Moritz" SpielerA="Rohrpasser" SpielerB="von Streng" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Davut" VornameB="Martin" SpielerA="Dayan" SpielerB="Kappel" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Matthias" VornameB="Christoph" SpielerA="Krischer" SpielerB="Gau" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="6">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Schreck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Geisert" SpielerB="Breitschopf" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Pfeiffer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Tran" SpielerB="Fürst" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Kappler" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kappe" SpielerB="Endres" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hrnic" SpielerB="Nürnberg" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Tiefenbacher" SpielerB="König" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schmid" SpielerB="Schilling" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Eisenmann" SpielerB="Saavedra-Fernandez" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Virk" SpielerB="Maxelon" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Rüger" SpielerB="Buyer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kilzer" SpielerB="Nowicki" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Retz" SpielerB="Jerkovic" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Rohrpasser" SpielerB="Welker" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Maier" SpielerB="Maier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Reitz" SpielerB="Kappel" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Leber" SpielerB="Steinhauser" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bühner" SpielerB="Savanovic" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Krischer" SpielerB="Dayan" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Feketitsch" SpielerB="Leube" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Becker" SpielerB="von Streng" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Gau" SpielerB="Hees" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Norman" SpielerA="Nguyen" SpielerB="Schreck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Gregor" SpielerA="Geisert" SpielerB="Breitschopf" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Evgeni" VornameB="Michael" SpielerA="Stoyanov" SpielerB="Pfeiffer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tony" VornameB="Jonas" SpielerA="Tran" SpielerB="Fürst" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Pascal" VornameB="Alexander" SpielerA="Eisenmann" SpielerB="Kappler" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kai" VornameB="Michael" SpielerA="Kappe" SpielerB="Endres" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Kenan" VornameB="Remo" SpielerA="Hrnic" SpielerB="Nürnberg" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Konrad" VornameB="Marco" SpielerA="Tiefenbacher" SpielerB="König" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jakob" VornameB="Martin" SpielerA="Schmid" SpielerB="Schilling" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Marcel" VornameB="Juan" SpielerA="Eisenmann" SpielerB="Saavedra-Fernandez" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Oliver" VornameB="Dennis" SpielerA="Virk" SpielerB="Maxelon" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Bastian" VornameB="Sven" SpielerA="Rüger" SpielerB="Buyer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Klaus" VornameB="Thomas" SpielerA="Kilzer" SpielerB="Nowicki" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Robert" VornameB="Marin" SpielerA="Retz" SpielerB="Jerkovic" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Tim" SpielerA="Rohrpasser" SpielerB="Welker" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Dominik" VornameB="Robin" SpielerA="Maier" SpielerB="Maier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Dominik" VornameB="Martin" SpielerA="Reitz" SpielerB="Kappel" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Matthias" VornameB="Florian" SpielerA="Leber" SpielerB="Steinhauser" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Aleksandar" SpielerA="Bühner" SpielerB="Savanovic" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Matthias" VornameB="Davut" SpielerA="Krischer" SpielerB="Dayan" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Ralf" VornameB="Dane" SpielerA="Feketitsch" SpielerB="Leube" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Alexander" VornameB="Moritz" SpielerA="Becker" SpielerB="von Streng" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Christoph" VornameB="Timo" SpielerA="Gau" SpielerB="Hees" SätzeA="3" SätzeB="2" />
     </Runde>
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Tran" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Geisert" SpielerB="Breitschopf" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schreck" SpielerB="Kappe" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Stoyanov" SpielerB="Fürst" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Tony" SpielerA="Nguyen" SpielerB="Tran" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Gregor" SpielerA="Geisert" SpielerB="Breitschopf" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Norman" VornameB="Kai" SpielerA="Schreck" SpielerB="Kappe" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Evgeni" VornameB="Jonas" SpielerA="Stoyanov" SpielerB="Fürst" SätzeA="2" SätzeB="3" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Fürst" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Geisert" SpielerB="Kappe" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Jonas" SpielerA="Nguyen" SpielerB="Fürst" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Sebastian" VornameB="Kai" SpielerA="Geisert" SpielerB="Kappe" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Nguyen" SpielerB="Kappe" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Hai Khanh" VornameB="Kai" SpielerA="Nguyen" SpielerB="Kappe" SätzeA="3" SätzeB="0" />
     </Runde>
   </Klassement>
   <Klassement Name="B">
     <Runde Nummer="1">
-      <Ergebnis SpielerA="Schleicher" SpielerB="Laubner" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Köppel" SpielerB="Drexler" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Hermann" SpielerB="Schweisgut" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kiszler" SpielerB="Moch" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ebentheuer-Barceló" SpielerB="Fränznick" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Bossert" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Felger" SpielerB="Kattermann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Eilebrecht" SpielerB="Kimmich" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Maurer" SpielerB="Clemense" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wittmann" SpielerB="Jankowski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ehmann" SpielerB="Hanussek" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Hörner" SpielerB="Brückel" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Gimberlein" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="König" SpielerB="Nüßle" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kraemer" SpielerB="Bohner" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Goutier" SpielerB="Knöbl" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Schulz" SpielerB="Klemm" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Gaide" SpielerB="Novak" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Tomic" SpielerB="Dzheyn" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Zornmüller" SpielerB="Hanussek" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Jork" SpielerB="Maier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kolb" SpielerB="Müller" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Mannshardt" SpielerB="Dangel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Markopolsky" SpielerB="Axenowski" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Mertens" SpielerB="Sakmann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Degen" SpielerB="Aragian" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Bauermeister" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schönberger" SpielerB="Dietzinger" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Umapathisivam" SpielerB="Brückel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schwörer" SpielerB="Gross" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andre" VornameB="Markus" SpielerA="Schleicher" SpielerB="Laubner" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Thomas" VornameB="Marcel" SpielerA="Köppel" SpielerB="Drexler" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Stefan" VornameB="Stefan" SpielerA="Hermann" SpielerB="Schweisgut" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Wolfgang" VornameB="Vanessa" SpielerA="Kiszler" SpielerB="Moch" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jan" VornameB="Thomas" SpielerA="Ebentheuer-Barceló" SpielerB="Fränznick" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Martin" VornameB="Lukas" SpielerA="Elxnath" SpielerB="Bossert" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Martin" VornameB="Daniel" SpielerA="Felger" SpielerB="Kattermann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Joachim" VornameB="Michael" SpielerA="Eilebrecht" SpielerB="Kimmich" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Richard" VornameB="Carlo" SpielerA="Maurer" SpielerB="Clemense" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Kilian" SpielerA="Wittmann" SpielerB="Jankowski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Felix" VornameB="Maximilian" SpielerA="Ehmann" SpielerB="Hanussek" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Markus" VornameB="Toni" SpielerA="Hörner" SpielerB="Brückel" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Hans" VornameB="Karsten" SpielerA="Wackernagel" SpielerB="Gimberlein" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Andreas" VornameB="Florian" SpielerA="König" SpielerB="Nüßle" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Achim" VornameB="Markus" SpielerA="Kraemer" SpielerB="Bohner" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Cedric" VornameB="Ralf" SpielerA="Goutier" SpielerB="Knöbl" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ingo" VornameB="Jakob" SpielerA="Schulz" SpielerB="Klemm" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jens" VornameB="Manuel" SpielerA="Gaide" SpielerB="Novak" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Robert" VornameB="Evgeniy" SpielerA="Tomic" SpielerB="Dzheyn" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Patrick" SpielerA="Zornmüller" SpielerB="Hanussek" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jörn" VornameB="Michael" SpielerA="Jork" SpielerB="Maier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Eberhard" VornameB="Fiona" SpielerA="Kolb" SpielerB="Müller" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Roland" VornameB="Judith" SpielerA="Mannshardt" SpielerB="Dangel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Julian" VornameB="Demetrius" SpielerA="Markopolsky" SpielerB="Axenowski" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ingolf" VornameB="Sebastian" SpielerA="Mertens" SpielerB="Sakmann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thorsten" VornameB="Kian" SpielerA="Degen" SpielerB="Aragian" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Roland" VornameB="Benjamin" SpielerA="Ciupke" SpielerB="Bauermeister" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Gilbert" VornameB="Uwe" SpielerA="Schönberger" SpielerB="Dietzinger" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Abinayan" VornameB="Heiko" SpielerA="Umapathisivam" SpielerB="Brückel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Fabian" VornameB="Nicholas" SpielerA="Schwörer" SpielerB="Gross" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="2">
-      <Ergebnis SpielerA="Kiszler" SpielerB="Kraemer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Maurer" SpielerB="Goutier" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Wittmann" SpielerB="Markopolsky" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Ehmann" SpielerB="Degen" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Gaide" SpielerB="Klemm" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Mannshardt" SpielerB="Dzheyn" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Schleicher" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Umapathisivam" SpielerB="Köppel" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Schwörer" SpielerB="Hörner" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Hanussek" SpielerB="Schönberger" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maier" SpielerB="Bossert" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Hermann" SpielerB="Kattermann" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Ebentheuer-Barceló" SpielerB="Kimmich" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Müller" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sakmann" SpielerB="König" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Gross" SpielerB="Nüßle" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Gimberlein" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Bauermeister" SpielerB="Fränznick" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Dangel" SpielerB="Schweisgut" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Novak" SpielerB="Tomic" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Hanussek" SpielerB="Schulz" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Jankowski" SpielerB="Dietzinger" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Clemense" SpielerB="Brückel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Moch" SpielerB="Drexler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Jork" SpielerB="Laubner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Zornmüller" SpielerB="Mertens" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Aragian" SpielerB="Kolb" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Axenowski" SpielerB="Eilebrecht" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Knöbl" SpielerB="Felger" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Bohner" SpielerB="Elxnath" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Wolfgang" VornameB="Achim" SpielerA="Kiszler" SpielerB="Kraemer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Richard" VornameB="Cedric" SpielerA="Maurer" SpielerB="Goutier" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Manuel" VornameB="Julian" SpielerA="Wittmann" SpielerB="Markopolsky" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Felix" VornameB="Thorsten" SpielerA="Ehmann" SpielerB="Degen" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jens" VornameB="Jakob" SpielerA="Gaide" SpielerB="Klemm" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Roland" VornameB="Evgeniy" SpielerA="Mannshardt" SpielerB="Dzheyn" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Roland" VornameB="Andre" SpielerA="Ciupke" SpielerB="Schleicher" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Abinayan" VornameB="Thomas" SpielerA="Umapathisivam" SpielerB="Köppel" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Fabian" VornameB="Markus" SpielerA="Schwörer" SpielerB="Hörner" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Patrick" VornameB="Gilbert" SpielerA="Hanussek" SpielerB="Schönberger" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Lukas" SpielerA="Maier" SpielerB="Bossert" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Stefan" VornameB="Daniel" SpielerA="Hermann" SpielerB="Kattermann" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jan" VornameB="Michael" SpielerA="Ebentheuer-Barceló" SpielerB="Kimmich" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Hans" VornameB="Fiona" SpielerA="Wackernagel" SpielerB="Müller" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Andreas" SpielerA="Sakmann" SpielerB="König" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Nicholas" VornameB="Florian" SpielerA="Gross" SpielerB="Nüßle" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Heiko" VornameB="Karsten" SpielerA="Brückel" SpielerB="Gimberlein" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Benjamin" VornameB="Thomas" SpielerA="Bauermeister" SpielerB="Fränznick" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Judith" VornameB="Stefan" SpielerA="Dangel" SpielerB="Schweisgut" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Robert" SpielerA="Novak" SpielerB="Tomic" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Maximilian" VornameB="Ingo" SpielerA="Hanussek" SpielerB="Schulz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kilian" VornameB="Uwe" SpielerA="Jankowski" SpielerB="Dietzinger" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Carlo" VornameB="Toni" SpielerA="Clemense" SpielerB="Brückel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Vanessa" VornameB="Marcel" SpielerA="Moch" SpielerB="Drexler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jörn" VornameB="Markus" SpielerA="Jork" SpielerB="Laubner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Ingolf" SpielerA="Zornmüller" SpielerB="Mertens" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kian" VornameB="Eberhard" SpielerA="Aragian" SpielerB="Kolb" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Demetrius" VornameB="Joachim" SpielerA="Axenowski" SpielerB="Eilebrecht" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Ralf" VornameB="Martin" SpielerA="Knöbl" SpielerB="Felger" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Martin" SpielerA="Bohner" SpielerB="Elxnath" SätzeA="2" SätzeB="3" />
     </Runde>
     <Runde Nummer="3">
-      <Ergebnis SpielerA="Ehmann" SpielerB="König" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Maurer" SpielerB="Bossert" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Kiszler" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Mannshardt" SpielerB="Ciupke" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Ebentheuer-Barceló" SpielerB="Hermann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Gaide" SpielerB="Schönberger" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Köppel" SpielerB="Markopolsky" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Hörner" SpielerB="Dzheyn" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Wittmann" SpielerB="Dangel" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maier" SpielerB="Sakmann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Hanussek" SpielerB="Schleicher" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Degen" SpielerB="Clemense" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Kattermann" SpielerB="Gimberlein" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kimmich" SpielerB="Nüßle" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schwörer" SpielerB="Hanussek" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Umapathisivam" SpielerB="Müller" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Drexler" SpielerB="Eilebrecht" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Fränznick" SpielerB="Felger" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Klemm" SpielerB="Jork" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Aragian" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Kraemer" SpielerB="Zornmüller" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Goutier" SpielerB="Jankowski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Novak" SpielerB="Dietzinger" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Tomic" SpielerB="Schulz" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Gross" SpielerB="Mertens" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Bauermeister" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Laubner" SpielerB="Moch" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Knöbl" SpielerB="Schweisgut" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bohner" SpielerB="Axenowski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kolb" SpielerB="Brückel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Felix" VornameB="Andreas" SpielerA="Ehmann" SpielerB="König" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Richard" VornameB="Lukas" SpielerA="Maurer" SpielerB="Bossert" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Hans" VornameB="Wolfgang" SpielerA="Wackernagel" SpielerB="Kiszler" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Roland" VornameB="Roland" SpielerA="Mannshardt" SpielerB="Ciupke" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jan" VornameB="Stefan" SpielerA="Ebentheuer-Barceló" SpielerB="Hermann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jens" VornameB="Gilbert" SpielerA="Gaide" SpielerB="Schönberger" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Julian" SpielerA="Köppel" SpielerB="Markopolsky" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Markus" VornameB="Evgeniy" SpielerA="Hörner" SpielerB="Dzheyn" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Manuel" VornameB="Judith" SpielerA="Wittmann" SpielerB="Dangel" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Sebastian" SpielerA="Maier" SpielerB="Sakmann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Patrick" VornameB="Andre" SpielerA="Hanussek" SpielerB="Schleicher" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Thorsten" VornameB="Carlo" SpielerA="Degen" SpielerB="Clemense" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Karsten" SpielerA="Kattermann" SpielerB="Gimberlein" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Florian" SpielerA="Kimmich" SpielerB="Nüßle" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Fabian" VornameB="Maximilian" SpielerA="Schwörer" SpielerB="Hanussek" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Abinayan" VornameB="Fiona" SpielerA="Umapathisivam" SpielerB="Müller" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Marcel" VornameB="Joachim" SpielerA="Drexler" SpielerB="Eilebrecht" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Thomas" VornameB="Martin" SpielerA="Fränznick" SpielerB="Felger" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jakob" VornameB="Jörn" SpielerA="Klemm" SpielerB="Jork" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Martin" VornameB="Kian" SpielerA="Elxnath" SpielerB="Aragian" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Achim" VornameB="Thomas" SpielerA="Kraemer" SpielerB="Zornmüller" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Cedric" VornameB="Kilian" SpielerA="Goutier" SpielerB="Jankowski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Uwe" SpielerA="Novak" SpielerB="Dietzinger" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Robert" VornameB="Ingo" SpielerA="Tomic" SpielerB="Schulz" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Nicholas" VornameB="Ingolf" SpielerA="Gross" SpielerB="Mertens" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Heiko" VornameB="Benjamin" SpielerA="Brückel" SpielerB="Bauermeister" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Vanessa" SpielerA="Laubner" SpielerB="Moch" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Ralf" VornameB="Stefan" SpielerA="Knöbl" SpielerB="Schweisgut" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Markus" VornameB="Demetrius" SpielerA="Bohner" SpielerB="Axenowski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Eberhard" VornameB="Toni" SpielerA="Kolb" SpielerB="Brückel" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="4">
-      <Ergebnis SpielerA="Köppel" SpielerB="Bossert" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Wackernagel" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="König" SpielerB="Hermann" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Schönberger" SpielerB="Umapathisivam" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maurer" SpielerB="Schleicher" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Mannshardt" SpielerB="Markopolsky" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Ebentheuer-Barceló" SpielerB="Dzheyn" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kattermann" SpielerB="Kimmich" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Ehmann" SpielerB="Hörner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kiszler" SpielerB="Schwörer" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Drexler" SpielerB="Dangel" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Zornmüller" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sakmann" SpielerB="Clemense" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Felger" SpielerB="Novak" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Jork" SpielerB="Goutier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schulz" SpielerB="Nüßle" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kolb" SpielerB="Gimberlein" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Jankowski" SpielerB="Hanussek" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohner" SpielerB="Fränznick" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Moch" SpielerB="Degen" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bauermeister" SpielerB="Kraemer" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Aragian" SpielerB="Klemm" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Knöbl" SpielerB="Wittmann" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Eilebrecht" SpielerB="Müller" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Mertens" SpielerB="Maier" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Axenowski" SpielerB="Tomic" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Gross" SpielerB="Laubner" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Dietzinger" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Lukas" SpielerA="Köppel" SpielerB="Bossert" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Roland" VornameB="Hans" SpielerA="Ciupke" SpielerB="Wackernagel" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Stefan" SpielerA="König" SpielerB="Hermann" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Gilbert" VornameB="Abinayan" SpielerA="Schönberger" SpielerB="Umapathisivam" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Richard" VornameB="Andre" SpielerA="Maurer" SpielerB="Schleicher" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Roland" VornameB="Julian" SpielerA="Mannshardt" SpielerB="Markopolsky" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jan" VornameB="Evgeniy" SpielerA="Ebentheuer-Barceló" SpielerB="Dzheyn" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Michael" SpielerA="Kattermann" SpielerB="Kimmich" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Felix" VornameB="Markus" SpielerA="Ehmann" SpielerB="Hörner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Wolfgang" VornameB="Fabian" SpielerA="Kiszler" SpielerB="Schwörer" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Marcel" VornameB="Judith" SpielerA="Drexler" SpielerB="Dangel" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Martin" VornameB="Thomas" SpielerA="Elxnath" SpielerB="Zornmüller" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Carlo" SpielerA="Sakmann" SpielerB="Clemense" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Martin" VornameB="Manuel" SpielerA="Felger" SpielerB="Novak" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jörn" VornameB="Cedric" SpielerA="Jork" SpielerB="Goutier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Ingo" VornameB="Florian" SpielerA="Schulz" SpielerB="Nüßle" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Eberhard" VornameB="Karsten" SpielerA="Kolb" SpielerB="Gimberlein" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kilian" VornameB="Maximilian" SpielerA="Jankowski" SpielerB="Hanussek" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Markus" VornameB="Thomas" SpielerA="Bohner" SpielerB="Fränznick" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Vanessa" VornameB="Thorsten" SpielerA="Moch" SpielerB="Degen" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Benjamin" VornameB="Achim" SpielerA="Bauermeister" SpielerB="Kraemer" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kian" VornameB="Jakob" SpielerA="Aragian" SpielerB="Klemm" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Ralf" VornameB="Manuel" SpielerA="Knöbl" SpielerB="Wittmann" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Joachim" VornameB="Fiona" SpielerA="Eilebrecht" SpielerB="Müller" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ingolf" VornameB="Michael" SpielerA="Mertens" SpielerB="Maier" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Demetrius" VornameB="Robert" SpielerA="Axenowski" SpielerB="Tomic" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Nicholas" VornameB="Markus" SpielerA="Gross" SpielerB="Laubner" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Toni" VornameB="Uwe" SpielerA="Brückel" SpielerB="Dietzinger" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="5">
-      <Ergebnis SpielerA="Bossert" SpielerB="König" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Hermann" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Maurer" SpielerB="Elxnath" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Mannshardt" SpielerB="Kattermann" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Köppel" SpielerB="Dzheyn" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Umapathisivam" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Ehmann" SpielerB="Clemense" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Goutier" SpielerB="Schönberger" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Felger" SpielerB="Dangel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schwörer" SpielerB="Knöbl" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kiszler" SpielerB="Markopolsky" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Ebentheuer-Barceló" SpielerB="Kraemer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Sakmann" SpielerB="Fränznick" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Hörner" SpielerB="Novak" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Drexler" SpielerB="Jork" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Degen" SpielerB="Eilebrecht" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Aragian" SpielerB="Mertens" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Kimmich" SpielerB="Kolb" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schleicher" SpielerB="Jankowski" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Zornmüller" SpielerB="Schulz" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Nüßle" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Laubner" SpielerB="Klemm" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Moch" SpielerB="Wittmann" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Tomic" SpielerB="Hanussek" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Gimberlein" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohner" SpielerB="Maier" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Bauermeister" SpielerB="Müller" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Gross" SpielerB="Dietzinger" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Andreas" SpielerA="Bossert" SpielerB="König" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Hans" VornameB="Stefan" SpielerA="Wackernagel" SpielerB="Hermann" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Richard" VornameB="Martin" SpielerA="Maurer" SpielerB="Elxnath" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Roland" VornameB="Daniel" SpielerA="Mannshardt" SpielerB="Kattermann" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Evgeniy" SpielerA="Köppel" SpielerB="Dzheyn" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Roland" VornameB="Abinayan" SpielerA="Ciupke" SpielerB="Umapathisivam" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Felix" VornameB="Carlo" SpielerA="Ehmann" SpielerB="Clemense" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Cedric" VornameB="Gilbert" SpielerA="Goutier" SpielerB="Schönberger" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Martin" VornameB="Judith" SpielerA="Felger" SpielerB="Dangel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Fabian" VornameB="Ralf" SpielerA="Schwörer" SpielerB="Knöbl" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Wolfgang" VornameB="Julian" SpielerA="Kiszler" SpielerB="Markopolsky" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jan" VornameB="Achim" SpielerA="Ebentheuer-Barceló" SpielerB="Kraemer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Sebastian" VornameB="Thomas" SpielerA="Sakmann" SpielerB="Fränznick" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Manuel" SpielerA="Hörner" SpielerB="Novak" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marcel" VornameB="Jörn" SpielerA="Drexler" SpielerB="Jork" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thorsten" VornameB="Joachim" SpielerA="Degen" SpielerB="Eilebrecht" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Kian" VornameB="Ingolf" SpielerA="Aragian" SpielerB="Mertens" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Eberhard" SpielerA="Kimmich" SpielerB="Kolb" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andre" VornameB="Kilian" SpielerA="Schleicher" SpielerB="Jankowski" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Thomas" VornameB="Ingo" SpielerA="Zornmüller" SpielerB="Schulz" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Heiko" VornameB="Florian" SpielerA="Brückel" SpielerB="Nüßle" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Jakob" SpielerA="Laubner" SpielerB="Klemm" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Vanessa" VornameB="Manuel" SpielerA="Moch" SpielerB="Wittmann" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Robert" VornameB="Maximilian" SpielerA="Tomic" SpielerB="Hanussek" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Toni" VornameB="Karsten" SpielerA="Brückel" SpielerB="Gimberlein" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Markus" VornameB="Michael" SpielerA="Bohner" SpielerB="Maier" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Benjamin" VornameB="Fiona" SpielerA="Bauermeister" SpielerB="Müller" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Nicholas" VornameB="Uwe" SpielerA="Gross" SpielerB="Dietzinger" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="6">
-      <Ergebnis SpielerA="König" SpielerB="Wackernagel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bossert" SpielerB="Felger" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Köppel" SpielerB="Kattermann" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ehmann" SpielerB="Goutier" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Elxnath" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schwörer" SpielerB="Drexler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maurer" SpielerB="Degen" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Mannshardt" SpielerB="Schleicher" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Hermann" SpielerB="Markopolsky" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Dzheyn" SpielerB="Dangel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hörner" SpielerB="Fränznick" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Umapathisivam" SpielerB="Kolb" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Clemense" SpielerB="Schönberger" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Ebentheuer-Barceló" SpielerB="Mertens" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schulz" SpielerB="Sakmann" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Hanussek" SpielerB="Jork" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Laubner" SpielerB="Novak" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kraemer" SpielerB="Maier" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Tomic" SpielerB="Zornmüller" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Nüßle" SpielerB="Müller" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Jankowski" SpielerB="Kimmich" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Eilebrecht" SpielerB="Knöbl" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wittmann" SpielerB="Aragian" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Kiszler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Brückel" SpielerB="Moch" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Axenowski" SpielerB="Bauermeister" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Dietzinger" SpielerB="Bohner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Klemm" SpielerB="Gimberlein" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Hans" SpielerA="König" SpielerB="Wackernagel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Lukas" VornameB="Martin" SpielerA="Bossert" SpielerB="Felger" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Daniel" SpielerA="Köppel" SpielerB="Kattermann" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Felix" VornameB="Cedric" SpielerA="Ehmann" SpielerB="Goutier" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Roland" VornameB="Martin" SpielerA="Ciupke" SpielerB="Elxnath" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Fabian" VornameB="Marcel" SpielerA="Schwörer" SpielerB="Drexler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Richard" VornameB="Thorsten" SpielerA="Maurer" SpielerB="Degen" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Roland" VornameB="Andre" SpielerA="Mannshardt" SpielerB="Schleicher" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Stefan" VornameB="Julian" SpielerA="Hermann" SpielerB="Markopolsky" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Evgeniy" VornameB="Judith" SpielerA="Dzheyn" SpielerB="Dangel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Markus" VornameB="Thomas" SpielerA="Hörner" SpielerB="Fränznick" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Abinayan" VornameB="Eberhard" SpielerA="Umapathisivam" SpielerB="Kolb" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Carlo" VornameB="Gilbert" SpielerA="Clemense" SpielerB="Schönberger" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jan" VornameB="Ingolf" SpielerA="Ebentheuer-Barceló" SpielerB="Mertens" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Ingo" VornameB="Sebastian" SpielerA="Schulz" SpielerB="Sakmann" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Maximilian" VornameB="Jörn" SpielerA="Hanussek" SpielerB="Jork" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Manuel" SpielerA="Laubner" SpielerB="Novak" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Achim" VornameB="Michael" SpielerA="Kraemer" SpielerB="Maier" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Robert" VornameB="Thomas" SpielerA="Tomic" SpielerB="Zornmüller" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Florian" VornameB="Fiona" SpielerA="Nüßle" SpielerB="Müller" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Kilian" VornameB="Michael" SpielerA="Jankowski" SpielerB="Kimmich" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Joachim" VornameB="Ralf" SpielerA="Eilebrecht" SpielerB="Knöbl" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Kian" SpielerA="Wittmann" SpielerB="Aragian" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Toni" VornameB="Wolfgang" SpielerA="Brückel" SpielerB="Kiszler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Heiko" VornameB="Vanessa" SpielerA="Brückel" SpielerB="Moch" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Demetrius" VornameB="Benjamin" SpielerA="Axenowski" SpielerB="Bauermeister" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Uwe" VornameB="Markus" SpielerA="Dietzinger" SpielerB="Bohner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jakob" VornameB="Karsten" SpielerA="Klemm" SpielerB="Gimberlein" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="König" SpielerB="Maurer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Köppel" SpielerB="Bossert" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Goutier" SpielerB="Elxnath" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Felger" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Andreas" VornameB="Richard" SpielerA="König" SpielerB="Maurer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Lukas" SpielerA="Köppel" SpielerB="Bossert" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Cedric" VornameB="Martin" SpielerA="Goutier" SpielerB="Elxnath" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Hans" VornameB="Martin" SpielerA="Wackernagel" SpielerB="Felger" SätzeA="3" SätzeB="1" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="König" SpielerB="Wackernagel" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Bossert" SpielerB="Goutier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Hans" SpielerA="König" SpielerB="Wackernagel" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Lukas" VornameB="Cedric" SpielerA="Bossert" SpielerB="Goutier" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="König" SpielerB="Goutier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Cedric" SpielerA="König" SpielerB="Goutier" SätzeA="0" SätzeB="3" />
     </Runde>
   </Klassement>
   <Klassement Name="DA">
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Moch" SpielerB="Rothengass" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Räuchle" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Vanessa" VornameB="Selina" SpielerA="Moch" SpielerB="Rothengass" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Natascha" VornameB="Isabelle" SpielerA="Elxnath" SpielerB="Räuchle" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Dangel" SpielerB="Elxnath" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Müller" SpielerB="Moch" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Judith" VornameB="Natascha" SpielerA="Dangel" SpielerB="Elxnath" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Fiona" VornameB="Vanessa" SpielerA="Müller" SpielerB="Moch" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Dangel" SpielerB="Moch" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Judith" VornameB="Vanessa" SpielerA="Dangel" SpielerB="Moch" SätzeA="2" SätzeB="3" />
     </Runde>
   </Klassement>
   <Klassement Name="C">
     <Runde Nummer="1">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Schuh" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Monninger" SpielerB="Goldmann" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bayoumi" SpielerB="Brauch" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Zwick" SpielerB="Meier-Menzel" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Dapper" SpielerB="Fuchs" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Gomez" SpielerB="Zwick" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Neuberth" SpielerB="Watzke" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Auer" SpielerB="Kiefer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Geberzahn" SpielerB="Hildebrand" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Jacob" SpielerB="Höfling" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Zeh" SpielerB="Bauer" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Spies" SpielerB="Klittich" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Raible" SpielerB="Rothengass" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stala" SpielerB="Lucas" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Hornung" SpielerB="Schneider" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Nonnenmann" SpielerB="Kern" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Völkle" SpielerB="Maciejewski" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Vogel" SpielerB="Glöckner" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Bunjevac" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Imminger" SpielerB="Stolinsky" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Miesterfeld-Strack" SpielerB="Hansert" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Heck" SpielerB="Garbatzki" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Jesse" SpielerB="Baritz" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bronner" SpielerB="Läpple" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Pierstorf" SpielerB="Zimper" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Hansert" SpielerB="Rothengass" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Pommerening" SpielerB="Förg" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Burkhard" SpielerB="Abdulkarim" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Bastian" SpielerB="Räuchle" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Björn" VornameB="Jens Alexander" SpielerA="Hagmann" SpielerB="Schuh" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Edwin" VornameB="Christian" SpielerA="Monninger" SpielerB="Goldmann" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tarek" VornameB="Christian" SpielerA="Bayoumi" SpielerB="Brauch" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Heiner" SpielerA="Zwick" SpielerB="Meier-Menzel" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Benjamin" SpielerA="Dapper" SpielerB="Fuchs" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Miguel" VornameB="Hermann" SpielerA="Gomez" SpielerB="Zwick" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Frank" VornameB="Michael" SpielerA="Neuberth" SpielerB="Watzke" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jürgen" VornameB="Patrick" SpielerA="Auer" SpielerB="Kiefer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Willi" VornameB="Gerhard" SpielerA="Geberzahn" SpielerB="Hildebrand" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Peter" VornameB="Friedrich" SpielerA="Jacob" SpielerB="Höfling" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Michael" SpielerA="Zeh" SpielerB="Bauer" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Tobias" VornameB="Philipp" SpielerA="Spies" SpielerB="Klittich" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Markus" VornameB="Dieter" SpielerA="Raible" SpielerB="Rothengass" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Kevin" VornameB="Florian" SpielerA="Stala" SpielerB="Lucas" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Nicolas" VornameB="Pascal" SpielerA="Hornung" SpielerB="Schneider" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jörg" VornameB="Harry" SpielerA="Nonnenmann" SpielerB="Kern" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Martin" VornameB="Jonas" SpielerA="Völkle" SpielerB="Maciejewski" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Eberhard" VornameB="Joachim" SpielerA="Vogel" SpielerB="Glöckner" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Natascha" VornameB="Peter" SpielerA="Elxnath" SpielerB="Bunjevac" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Kurt" VornameB="Artur" SpielerA="Imminger" SpielerB="Stolinsky" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Jonas" SpielerA="Miesterfeld-Strack" SpielerB="Hansert" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Alexander" VornameB="Rico" SpielerA="Heck" SpielerB="Garbatzki" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Kai" VornameB="David" SpielerA="Jesse" SpielerB="Baritz" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jens" VornameB="Marcus" SpielerA="Bronner" SpielerB="Läpple" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Daniel" SpielerA="Pierstorf" SpielerB="Zimper" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Simon" VornameB="Selina" SpielerA="Hansert" SpielerB="Rothengass" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Paul" VornameB="Maximilian" SpielerA="Pommerening" SpielerB="Förg" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Frank" VornameB="Nabil" SpielerA="Burkhard" SpielerB="Abdulkarim" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Fabian" VornameB="Isabelle" SpielerA="Bastian" SpielerB="Räuchle" SätzeA="3" SätzeB="1" />
     </Runde>
     <Runde Nummer="2">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Vogel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Monninger" SpielerB="Elxnath" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Auer" SpielerB="Imminger" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Spies" SpielerB="Jesse" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hornung" SpielerB="Bastian" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Nonnenmann" SpielerB="Meier-Menzel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Heck" SpielerB="Hildebrand" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Pierstorf" SpielerB="Höfling" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hansert" SpielerB="Zeh" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Bayoumi" SpielerB="Stala" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Dapper" SpielerB="Miesterfeld-Strack" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Gomez" SpielerB="Bronner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Neuberth" SpielerB="Pommerening" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Raible" SpielerB="Maciejewski" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Burkhard" SpielerB="Völkle" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Rothengass" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Zimper" SpielerB="Watzke" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Garbatzki" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Kern" SpielerB="Fuchs" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Schneider" SpielerB="Brauch" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Klittich" SpielerB="Jacob" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kiefer" SpielerB="Geberzahn" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Goldmann" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Schuh" SpielerB="Abdulkarim" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Räuchle" SpielerB="Förg" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Baritz" SpielerB="Läpple" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Stolinsky" SpielerB="Hansert" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bunjevac" SpielerB="Lucas" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Glöckner" SpielerB="Bauer" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Björn" VornameB="Eberhard" SpielerA="Hagmann" SpielerB="Vogel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Edwin" VornameB="Natascha" SpielerA="Monninger" SpielerB="Elxnath" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Jürgen" VornameB="Kurt" SpielerA="Auer" SpielerB="Imminger" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Kai" SpielerA="Spies" SpielerB="Jesse" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Nicolas" VornameB="Fabian" SpielerA="Hornung" SpielerB="Bastian" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jörg" VornameB="Heiner" SpielerA="Nonnenmann" SpielerB="Meier-Menzel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Alexander" VornameB="Gerhard" SpielerA="Heck" SpielerB="Hildebrand" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Friedrich" SpielerA="Pierstorf" SpielerB="Höfling" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Simon" VornameB="Thomas" SpielerA="Hansert" SpielerB="Zeh" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tarek" VornameB="Kevin" SpielerA="Bayoumi" SpielerB="Stala" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Thomas" VornameB="Michael" SpielerA="Dapper" SpielerB="Miesterfeld-Strack" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Miguel" VornameB="Jens" SpielerA="Gomez" SpielerB="Bronner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Frank" VornameB="Paul" SpielerA="Neuberth" SpielerB="Pommerening" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Jonas" SpielerA="Raible" SpielerB="Maciejewski" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Frank" VornameB="Martin" SpielerA="Burkhard" SpielerB="Völkle" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Selina" VornameB="Dieter" SpielerA="Rothengass" SpielerB="Rothengass" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Michael" SpielerA="Zimper" SpielerB="Watzke" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Rico" VornameB="Hermann" SpielerA="Garbatzki" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Harry" VornameB="Benjamin" SpielerA="Kern" SpielerB="Fuchs" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Pascal" VornameB="Christian" SpielerA="Schneider" SpielerB="Brauch" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Philipp" VornameB="Peter" SpielerA="Klittich" SpielerB="Jacob" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Patrick" VornameB="Willi" SpielerA="Kiefer" SpielerB="Geberzahn" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Christian" VornameB="Michael" SpielerA="Goldmann" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jens Alexander" VornameB="Nabil" SpielerA="Schuh" SpielerB="Abdulkarim" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Isabelle" VornameB="Maximilian" SpielerA="Räuchle" SpielerB="Förg" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="David" VornameB="Marcus" SpielerA="Baritz" SpielerB="Läpple" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Artur" VornameB="Jonas" SpielerA="Stolinsky" SpielerB="Hansert" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Peter" VornameB="Florian" SpielerA="Bunjevac" SpielerB="Lucas" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Joachim" VornameB="Michael" SpielerA="Glöckner" SpielerB="Bauer" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="3">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Pommerening" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Nonnenmann" SpielerB="Pierstorf" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Gomez" SpielerB="Monninger" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Spies" SpielerB="Imminger" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Bayoumi" SpielerB="Heck" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Zeh" SpielerB="Dapper" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Raible" SpielerB="Bastian" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Burkhard" SpielerB="Maciejewski" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Neuberth" SpielerB="Förg" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Hildebrand" SpielerB="Vogel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Stala" SpielerB="Brauch" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Miesterfeld-Strack" SpielerB="Zwick" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Meier-Menzel" SpielerB="Klittich" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bronner" SpielerB="Kern" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Hornung" SpielerB="Schuh" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Auer" SpielerB="Hansert" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Watzke" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hansert" SpielerB="Lucas" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Läpple" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Jesse" SpielerB="Geberzahn" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Höfling" SpielerB="Zwick" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Abdulkarim" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Zimper" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Kiefer" SpielerB="Stolinsky" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Baritz" SpielerB="Garbatzki" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bunjevac" SpielerB="Fuchs" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Glöckner" SpielerB="Goldmann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Schneider" SpielerB="Räuchle" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Jacob" SpielerB="Völkle" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Björn" VornameB="Paul" SpielerA="Hagmann" SpielerB="Pommerening" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jörg" VornameB="Michael" SpielerA="Nonnenmann" SpielerB="Pierstorf" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Miguel" VornameB="Edwin" SpielerA="Gomez" SpielerB="Monninger" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Kurt" SpielerA="Spies" SpielerB="Imminger" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Tarek" VornameB="Alexander" SpielerA="Bayoumi" SpielerB="Heck" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Thomas" VornameB="Thomas" SpielerA="Zeh" SpielerB="Dapper" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Fabian" SpielerA="Raible" SpielerB="Bastian" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Frank" VornameB="Jonas" SpielerA="Burkhard" SpielerB="Maciejewski" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Frank" VornameB="Maximilian" SpielerA="Neuberth" SpielerB="Förg" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Gerhard" VornameB="Eberhard" SpielerA="Hildebrand" SpielerB="Vogel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kevin" VornameB="Christian" SpielerA="Stala" SpielerB="Brauch" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Hermann" SpielerA="Miesterfeld-Strack" SpielerB="Zwick" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Heiner" VornameB="Philipp" SpielerA="Meier-Menzel" SpielerB="Klittich" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jens" VornameB="Harry" SpielerA="Bronner" SpielerB="Kern" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Nicolas" VornameB="Jens Alexander" SpielerA="Hornung" SpielerB="Schuh" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jürgen" VornameB="Jonas" SpielerA="Auer" SpielerB="Hansert" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Natascha" VornameB="Michael" SpielerA="Elxnath" SpielerB="Watzke" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Simon" VornameB="Florian" SpielerA="Hansert" SpielerB="Lucas" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Marcus" SpielerA="Bauer" SpielerB="Läpple" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Kai" VornameB="Willi" SpielerA="Jesse" SpielerB="Geberzahn" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Friedrich" VornameB="Michael" SpielerA="Höfling" SpielerB="Zwick" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Dieter" VornameB="Nabil" SpielerA="Rothengass" SpielerB="Abdulkarim" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Selina" VornameB="Daniel" SpielerA="Rothengass" SpielerB="Zimper" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Patrick" VornameB="Artur" SpielerA="Kiefer" SpielerB="Stolinsky" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="David" VornameB="Rico" SpielerA="Baritz" SpielerB="Garbatzki" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Peter" VornameB="Benjamin" SpielerA="Bunjevac" SpielerB="Fuchs" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Joachim" VornameB="Christian" SpielerA="Glöckner" SpielerB="Goldmann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Pascal" VornameB="Isabelle" SpielerA="Schneider" SpielerB="Räuchle" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Peter" VornameB="Martin" SpielerA="Jacob" SpielerB="Völkle" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="4">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Bayoumi" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Nonnenmann" SpielerB="Dapper" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Monninger" SpielerB="Raible" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Spies" SpielerB="Burkhard" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Zeh" SpielerB="Schuh" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Gomez" SpielerB="Neuberth" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Imminger" SpielerB="Hansert" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Pommerening" SpielerB="Vogel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Heck" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Miesterfeld-Strack" SpielerB="Bastian" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Pierstorf" SpielerB="Bronner" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Jesse" SpielerB="Auer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stala" SpielerB="Bauer" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Höfling" SpielerB="Meier-Menzel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Glöckner" SpielerB="Klittich" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schneider" SpielerB="Kern" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Hildebrand" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Baritz" SpielerB="Rothengass" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stolinsky" SpielerB="Zwick" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bunjevac" SpielerB="Läpple" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Geberzahn" SpielerB="Lucas" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Zwick" SpielerB="Hansert" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Förg" SpielerB="Hornung" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Goldmann" SpielerB="Brauch" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Watzke" SpielerB="Maciejewski" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Völkle" SpielerB="Abdulkarim" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Zimper" SpielerB="Garbatzki" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Räuchle" SpielerB="Fuchs" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Björn" VornameB="Tarek" SpielerA="Hagmann" SpielerB="Bayoumi" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jörg" VornameB="Thomas" SpielerA="Nonnenmann" SpielerB="Dapper" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Edwin" VornameB="Markus" SpielerA="Monninger" SpielerB="Raible" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Tobias" VornameB="Frank" SpielerA="Spies" SpielerB="Burkhard" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Jens Alexander" SpielerA="Zeh" SpielerB="Schuh" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Miguel" VornameB="Frank" SpielerA="Gomez" SpielerB="Neuberth" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kurt" VornameB="Simon" SpielerA="Imminger" SpielerB="Hansert" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Paul" VornameB="Eberhard" SpielerA="Pommerening" SpielerB="Vogel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Natascha" VornameB="Alexander" SpielerA="Elxnath" SpielerB="Heck" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Fabian" SpielerA="Miesterfeld-Strack" SpielerB="Bastian" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Jens" SpielerA="Pierstorf" SpielerB="Bronner" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kai" VornameB="Jürgen" SpielerA="Jesse" SpielerB="Auer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Kevin" VornameB="Michael" SpielerA="Stala" SpielerB="Bauer" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Friedrich" VornameB="Heiner" SpielerA="Höfling" SpielerB="Meier-Menzel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Joachim" VornameB="Philipp" SpielerA="Glöckner" SpielerB="Klittich" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Pascal" VornameB="Harry" SpielerA="Schneider" SpielerB="Kern" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Selina" VornameB="Gerhard" SpielerA="Rothengass" SpielerB="Hildebrand" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="David" VornameB="Dieter" SpielerA="Baritz" SpielerB="Rothengass" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Artur" VornameB="Michael" SpielerA="Stolinsky" SpielerB="Zwick" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Peter" VornameB="Marcus" SpielerA="Bunjevac" SpielerB="Läpple" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Willi" VornameB="Florian" SpielerA="Geberzahn" SpielerB="Lucas" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Hermann" VornameB="Jonas" SpielerA="Zwick" SpielerB="Hansert" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Maximilian" VornameB="Nicolas" SpielerA="Förg" SpielerB="Hornung" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Christian" VornameB="Christian" SpielerA="Goldmann" SpielerB="Brauch" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Jonas" SpielerA="Watzke" SpielerB="Maciejewski" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Martin" VornameB="Nabil" SpielerA="Völkle" SpielerB="Abdulkarim" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Daniel" VornameB="Rico" SpielerA="Zimper" SpielerB="Garbatzki" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Isabelle" VornameB="Benjamin" SpielerA="Räuchle" SpielerB="Fuchs" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="5">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Monninger" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Spies" SpielerB="Dapper" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nonnenmann" SpielerB="Pommerening" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Gomez" SpielerB="Schuh" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Raible" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Jesse" SpielerB="Burkhard" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bayoumi" SpielerB="Hansert" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Miesterfeld-Strack" SpielerB="Höfling" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Pierstorf" SpielerB="Bauer" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Zeh" SpielerB="Hildebrand" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Imminger" SpielerB="Geberzahn" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Neuberth" SpielerB="Brauch" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Vogel" SpielerB="Watzke" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Stala" SpielerB="Kern" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bronner" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Meier-Menzel" SpielerB="Bunjevac" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Heck" SpielerB="Klittich" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bastian" SpielerB="Völkle" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Hornung" SpielerB="Stolinsky" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Auer" SpielerB="Baritz" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Kiefer" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Zimper" SpielerB="Fuchs" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schneider" SpielerB="Lucas" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Abdulkarim" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Förg" SpielerB="Läpple" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Goldmann" SpielerB="Hansert" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Garbatzki" SpielerB="Glöckner" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Björn" VornameB="Edwin" SpielerA="Hagmann" SpielerB="Monninger" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tobias" VornameB="Thomas" SpielerA="Spies" SpielerB="Dapper" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jörg" VornameB="Paul" SpielerA="Nonnenmann" SpielerB="Pommerening" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Miguel" VornameB="Jens Alexander" SpielerA="Gomez" SpielerB="Schuh" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Natascha" VornameB="Markus" SpielerA="Elxnath" SpielerB="Raible" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Kai" VornameB="Frank" SpielerA="Jesse" SpielerB="Burkhard" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tarek" VornameB="Simon" SpielerA="Bayoumi" SpielerB="Hansert" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Friedrich" SpielerA="Miesterfeld-Strack" SpielerB="Höfling" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Michael" SpielerA="Pierstorf" SpielerB="Bauer" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Gerhard" SpielerA="Zeh" SpielerB="Hildebrand" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Kurt" VornameB="Willi" SpielerA="Imminger" SpielerB="Geberzahn" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Frank" VornameB="Christian" SpielerA="Neuberth" SpielerB="Brauch" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Eberhard" VornameB="Michael" SpielerA="Vogel" SpielerB="Watzke" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kevin" VornameB="Harry" SpielerA="Stala" SpielerB="Kern" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jens" VornameB="Hermann" SpielerA="Bronner" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Heiner" VornameB="Peter" SpielerA="Meier-Menzel" SpielerB="Bunjevac" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Alexander" VornameB="Philipp" SpielerA="Heck" SpielerB="Klittich" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Fabian" VornameB="Martin" SpielerA="Bastian" SpielerB="Völkle" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Nicolas" VornameB="Artur" SpielerA="Hornung" SpielerB="Stolinsky" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jürgen" VornameB="David" SpielerA="Auer" SpielerB="Baritz" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Patrick" VornameB="Michael" SpielerA="Kiefer" SpielerB="Zwick" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Benjamin" SpielerA="Zimper" SpielerB="Fuchs" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Pascal" VornameB="Florian" SpielerA="Schneider" SpielerB="Lucas" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Selina" VornameB="Nabil" SpielerA="Rothengass" SpielerB="Abdulkarim" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Maximilian" VornameB="Marcus" SpielerA="Förg" SpielerB="Läpple" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Christian" VornameB="Jonas" SpielerA="Goldmann" SpielerB="Hansert" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Dieter" VornameB="Jonas" SpielerA="Rothengass" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Rico" VornameB="Joachim" SpielerA="Garbatzki" SpielerB="Glöckner" SätzeA="3" SätzeB="2" />
     </Runde>
     <Runde Nummer="6">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Dapper" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Spies" SpielerB="Schuh" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Monninger" SpielerB="Miesterfeld-Strack" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Jesse" SpielerB="Bayoumi" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Pommerening" SpielerB="Raible" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Höfling" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Nonnenmann" SpielerB="Hornung" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Gomez" SpielerB="Hansert" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Elxnath" SpielerB="Zwick" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Neuberth" SpielerB="Hildebrand" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Burkhard" SpielerB="Watzke" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Pierstorf" SpielerB="Kern" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Meier-Menzel" SpielerB="Baritz" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Geberzahn" SpielerB="Klittich" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Völkle" SpielerB="Zeh" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Brauch" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Goldmann" SpielerB="Fuchs" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Stolinsky" SpielerB="Bronner" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Bunjevac" SpielerB="Abdulkarim" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Zwick" SpielerB="Heck" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Rothengass" SpielerB="Imminger" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Lucas" SpielerB="Bastian" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Auer" SpielerB="Stala" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Förg" SpielerB="Vogel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Räuchle" SpielerB="Rothengass" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kiefer" SpielerB="Schneider" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Garbatzki" SpielerB="Hansert" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Zimper" SpielerB="Läpple" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Björn" VornameB="Thomas" SpielerA="Hagmann" SpielerB="Dapper" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tobias" VornameB="Jens Alexander" SpielerA="Spies" SpielerB="Schuh" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Edwin" VornameB="Michael" SpielerA="Monninger" SpielerB="Miesterfeld-Strack" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kai" VornameB="Tarek" SpielerA="Jesse" SpielerB="Bayoumi" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Paul" VornameB="Markus" SpielerA="Pommerening" SpielerB="Raible" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Friedrich" SpielerA="Bauer" SpielerB="Höfling" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jörg" VornameB="Nicolas" SpielerA="Nonnenmann" SpielerB="Hornung" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Miguel" VornameB="Simon" SpielerA="Gomez" SpielerB="Hansert" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Natascha" VornameB="Hermann" SpielerA="Elxnath" SpielerB="Zwick" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Frank" VornameB="Gerhard" SpielerA="Neuberth" SpielerB="Hildebrand" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Frank" VornameB="Michael" SpielerA="Burkhard" SpielerB="Watzke" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Harry" SpielerA="Pierstorf" SpielerB="Kern" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Heiner" VornameB="David" SpielerA="Meier-Menzel" SpielerB="Baritz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Willi" VornameB="Philipp" SpielerA="Geberzahn" SpielerB="Klittich" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Martin" VornameB="Thomas" SpielerA="Völkle" SpielerB="Zeh" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jonas" VornameB="Christian" SpielerA="Maciejewski" SpielerB="Brauch" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Christian" VornameB="Benjamin" SpielerA="Goldmann" SpielerB="Fuchs" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Artur" VornameB="Jens" SpielerA="Stolinsky" SpielerB="Bronner" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Peter" VornameB="Nabil" SpielerA="Bunjevac" SpielerB="Abdulkarim" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Michael" VornameB="Alexander" SpielerA="Zwick" SpielerB="Heck" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Dieter" VornameB="Kurt" SpielerA="Rothengass" SpielerB="Imminger" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Florian" VornameB="Fabian" SpielerA="Lucas" SpielerB="Bastian" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jürgen" VornameB="Kevin" SpielerA="Auer" SpielerB="Stala" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Maximilian" VornameB="Eberhard" SpielerA="Förg" SpielerB="Vogel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Isabelle" VornameB="Selina" SpielerA="Räuchle" SpielerB="Rothengass" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Patrick" VornameB="Pascal" SpielerA="Kiefer" SpielerB="Schneider" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Rico" VornameB="Jonas" SpielerA="Garbatzki" SpielerB="Hansert" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Marcus" SpielerA="Zimper" SpielerB="Läpple" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Jesse" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Dapper" SpielerB="Bauer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Monninger" SpielerB="Bayoumi" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Spies" SpielerB="Raible" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Björn" VornameB="Kai" SpielerA="Hagmann" SpielerB="Jesse" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Michael" SpielerA="Dapper" SpielerB="Bauer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Edwin" VornameB="Tarek" SpielerA="Monninger" SpielerB="Bayoumi" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Markus" SpielerA="Spies" SpielerB="Raible" SätzeA="2" SätzeB="3" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Hagmann" SpielerB="Raible" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Dapper" SpielerB="Bayoumi" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Björn" VornameB="Markus" SpielerA="Hagmann" SpielerB="Raible" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Tarek" SpielerA="Dapper" SpielerB="Bayoumi" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Raible" SpielerB="Bayoumi" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Markus" VornameB="Tarek" SpielerA="Raible" SpielerB="Bayoumi" SätzeA="1" SätzeB="3" />
     </Runde>
   </Klassement>
   <Klassement Name="D">
     <Runde Nummer="1">
-      <Ergebnis SpielerA="Horner" SpielerB="Breitner" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Ullrich" SpielerB="Dengel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Pastorini" SpielerB="Kahle" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Fabricius" SpielerB="Kocon" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Wolfert" SpielerB="Spindler" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Errerd" SpielerB="Riffel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hausmann" SpielerB="Kling" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Schmidt" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Brecht" SpielerB="Gross" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Flörchinger" SpielerB="Prautzsch" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Scherer" SpielerB="Reichardt" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Münzing" SpielerB="Kellenberger" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ewald" SpielerB="Klett" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Friedrich" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bernhardt" SpielerB="Breitner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sturm" SpielerB="Abdulkarim" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Westermann" SpielerB="Maus" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Storzum" SpielerB="Hefner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Haug" SpielerB="Stucky" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Schweikhardt" SpielerB="Schmidt" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Lessing" SpielerB="Bardoll" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kullack" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Kühn" SpielerB="Fauth" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Neumann" SpielerB="Jäkel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Scholl" SpielerB="Mayer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Holzwarth" SpielerB="Kullack" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Mühleck" SpielerB="Krüger" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Benko" SpielerB="Wild" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Rudolf" VornameB="Saskia" SpielerA="Horner" SpielerB="Breitner" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Jasmin" VornameB="Laura" SpielerA="Ullrich" SpielerB="Dengel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Manuel" VornameB="Mario" SpielerA="Pastorini" SpielerB="Kahle" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Dominik" VornameB="Patrick" SpielerA="Fabricius" SpielerB="Kocon" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Till" VornameB="Rolf" SpielerA="Wolfert" SpielerB="Spindler" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Klaus" VornameB="Thomas" SpielerA="Errerd" SpielerB="Riffel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Peter" VornameB="Marco" SpielerA="Hausmann" SpielerB="Kling" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Indra" VornameB="Peter" SpielerA="Biendl" SpielerB="Schmidt" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Harald" SpielerA="Brecht" SpielerB="Gross" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Walter" VornameB="Bernd" SpielerA="Flörchinger" SpielerB="Prautzsch" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Achim" VornameB="Mike" SpielerA="Scherer" SpielerB="Reichardt" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Timo" VornameB="Claus" SpielerA="Münzing" SpielerB="Kellenberger" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Florian" VornameB="Tim" SpielerA="Ewald" SpielerB="Klett" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Sven" VornameB="Valeska" SpielerA="Biendl" SpielerB="Friedrich" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Michael" VornameB="Luca" SpielerA="Bernhardt" SpielerB="Breitner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tobias" VornameB="Nabil" SpielerA="Sturm" SpielerB="Abdulkarim" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Gerd" VornameB="Daniel" SpielerA="Westermann" SpielerB="Maus" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andreas" VornameB="Christiane" SpielerA="Storzum" SpielerB="Hefner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Jan-Philipp" SpielerA="Haug" SpielerB="Stucky" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Felix" VornameB="Andreas" SpielerA="Schweikhardt" SpielerB="Schmidt" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Klaus" VornameB="Miriam" SpielerA="Lessing" SpielerB="Bardoll" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Dirk" VornameB="Alan" SpielerA="Kullack" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Dennis" VornameB="Thomas" SpielerA="Kühn" SpielerB="Fauth" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marius" VornameB="Lars" SpielerA="Neumann" SpielerB="Jäkel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Oliver" VornameB="Ewald" SpielerA="Scholl" SpielerB="Mayer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Patrick" VornameB="Filippo" SpielerA="Holzwarth" SpielerB="Kullack" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Julia" SpielerA="Mühleck" SpielerB="Krüger" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Robert" VornameB="Christian" SpielerA="Benko" SpielerB="Wild" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="2">
-      <Ergebnis SpielerA="Pastorini" SpielerB="Scholl" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wolfert" SpielerB="Holzwarth" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Hausmann" SpielerB="Mühleck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Benko" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Brecht" SpielerB="Dengel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Münzing" SpielerB="Kocon" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Klett" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bernhardt" SpielerB="Errerd" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Sturm" SpielerB="Flörchinger" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Westermann" SpielerB="Haug" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schweikhardt" SpielerB="Hefner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Lessing" SpielerB="Kumb" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kühn" SpielerB="Horner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Reichardt" SpielerB="Neumann" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Wild" SpielerB="Schmidt" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Krüger" SpielerB="Kling" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kullack" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Mayer" SpielerB="Kahle" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Jäkel" SpielerB="Ewald" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Fauth" SpielerB="Fabricius" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bardoll" SpielerB="Ullrich" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schmidt" SpielerB="Stucky" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maus" SpielerB="Prautzsch" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Abdulkarim" SpielerB="Riffel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Kullack" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Friedrich" SpielerB="Storzum" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Kellenberger" SpielerB="Breitner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Gross" SpielerB="Scherer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Oliver" SpielerA="Pastorini" SpielerB="Scholl" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Till" VornameB="Patrick" SpielerA="Wolfert" SpielerB="Holzwarth" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Peter" VornameB="Thomas" SpielerA="Hausmann" SpielerB="Mühleck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Indra" VornameB="Robert" SpielerA="Biendl" SpielerB="Benko" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Laura" SpielerA="Brecht" SpielerB="Dengel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Timo" VornameB="Patrick" SpielerA="Münzing" SpielerB="Kocon" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Sven" VornameB="Tim" SpielerA="Biendl" SpielerB="Klett" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Michael" VornameB="Klaus" SpielerA="Bernhardt" SpielerB="Errerd" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Walter" SpielerA="Sturm" SpielerB="Flörchinger" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Gerd" VornameB="Michael" SpielerA="Westermann" SpielerB="Haug" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Felix" VornameB="Christiane" SpielerA="Schweikhardt" SpielerB="Hefner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Klaus" VornameB="Alan" SpielerA="Lessing" SpielerB="Kumb" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Dennis" VornameB="Rudolf" SpielerA="Kühn" SpielerB="Horner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Mike" VornameB="Marius" SpielerA="Reichardt" SpielerB="Neumann" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Christian" VornameB="Peter" SpielerA="Wild" SpielerB="Schmidt" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Julia" VornameB="Marco" SpielerA="Krüger" SpielerB="Kling" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Filippo" VornameB="Rolf" SpielerA="Kullack" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Ewald" VornameB="Mario" SpielerA="Mayer" SpielerB="Kahle" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lars" VornameB="Florian" SpielerA="Jäkel" SpielerB="Ewald" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Dominik" SpielerA="Fauth" SpielerB="Fabricius" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Miriam" VornameB="Jasmin" SpielerA="Bardoll" SpielerB="Ullrich" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Jan-Philipp" SpielerA="Schmidt" SpielerB="Stucky" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Bernd" SpielerA="Maus" SpielerB="Prautzsch" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Nabil" VornameB="Thomas" SpielerA="Abdulkarim" SpielerB="Riffel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luca" VornameB="Dirk" SpielerA="Breitner" SpielerB="Kullack" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Valeska" VornameB="Andreas" SpielerA="Friedrich" SpielerB="Storzum" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Claus" VornameB="Saskia" SpielerA="Kellenberger" SpielerB="Breitner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Harald" VornameB="Achim" SpielerA="Gross" SpielerB="Scherer" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="3">
-      <Ergebnis SpielerA="Pastorini" SpielerB="Kocon" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hausmann" SpielerB="Horner" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Schweikhardt" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Brecht" SpielerB="Lessing" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Flörchinger" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Haug" SpielerB="Holzwarth" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Erred" SpielerB="Reichardt" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wolfert" SpielerB="Mühleck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Westermann" SpielerB="Benko" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Dengel" SpielerB="Kahle" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Klett" SpielerB="Kling" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kumb" SpielerB="Schmidt" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Münzing" SpielerB="Gross" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bernhardt" SpielerB="Stucky" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Sturm" SpielerB="Hefner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kühn" SpielerB="Friedrich" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Neumann" SpielerB="Kullack" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Ullrich" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Riffel" SpielerB="Ewald" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Fabricius" SpielerB="Spindler" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Scholl" SpielerB="Maus" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wild" SpielerB="Kellenberger" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Krüger" SpielerB="Storzum" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Mayer" SpielerB="Bardoll" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Jäkel" SpielerB="Kullack" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Fauth" SpielerB="Schmidt" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Abdulkarim" SpielerB="Prautzsch" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Scherer" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Manuel" VornameB="Patrick" SpielerA="Pastorini" SpielerB="Kocon" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Peter" VornameB="Rudolf" SpielerA="Hausmann" SpielerB="Horner" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Indra" VornameB="Felix" SpielerA="Biendl" SpielerB="Schweikhardt" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Klaus" SpielerA="Brecht" SpielerB="Lessing" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Sven" VornameB="Walter" SpielerA="Biendl" SpielerB="Flörchinger" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Patrick" SpielerA="Haug" SpielerB="Holzwarth" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Klaus" VornameB="Mike" SpielerA="Errerd" SpielerB="Reichardt" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Till" VornameB="Thomas" SpielerA="Wolfert" SpielerB="Mühleck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Gerd" VornameB="Robert" SpielerA="Westermann" SpielerB="Benko" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Laura" VornameB="Mario" SpielerA="Dengel" SpielerB="Kahle" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Tim" VornameB="Marco" SpielerA="Klett" SpielerB="Kling" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Alan" VornameB="Peter" SpielerA="Kumb" SpielerB="Schmidt" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Timo" VornameB="Harald" SpielerA="Münzing" SpielerB="Gross" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Michael" VornameB="Jan-Philipp" SpielerA="Bernhardt" SpielerB="Stucky" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Tobias" VornameB="Christiane" SpielerA="Sturm" SpielerB="Hefner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Dennis" VornameB="Valeska" SpielerA="Kühn" SpielerB="Friedrich" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Marius" VornameB="Dirk" SpielerA="Neumann" SpielerB="Kullack" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Saskia" VornameB="Jasmin" SpielerA="Breitner" SpielerB="Ullrich" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Florian" SpielerA="Riffel" SpielerB="Ewald" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Dominik" VornameB="Rolf" SpielerA="Fabricius" SpielerB="Spindler" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Oliver" VornameB="Daniel" SpielerA="Scholl" SpielerB="Maus" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Christian" VornameB="Claus" SpielerA="Wild" SpielerB="Kellenberger" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Julia" VornameB="Andreas" SpielerA="Krüger" SpielerB="Storzum" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Ewald" VornameB="Miriam" SpielerA="Mayer" SpielerB="Bardoll" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lars" VornameB="Filippo" SpielerA="Jäkel" SpielerB="Kullack" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Andreas" SpielerA="Fauth" SpielerB="Schmidt" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Nabil" VornameB="Bernd" SpielerA="Abdulkarim" SpielerB="Prautzsch" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Luca" VornameB="Achim" SpielerA="Breitner" SpielerB="Scherer" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="4">
-      <Ergebnis SpielerA="Biendl" SpielerB="Brecht" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Pastorini" SpielerB="Holzwarth" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Erred" SpielerB="Hausmann" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Flörchinger" SpielerB="Münzing" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Lessing" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kocon" SpielerB="Breitner" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Horner" SpielerB="Fabricius" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Reichardt" SpielerB="Schweikhardt" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Wolfert" SpielerB="Schmidt" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sturm" SpielerB="Bernhardt" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Haug" SpielerB="Benko" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Scholl" SpielerB="Friedrich" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Klett" SpielerB="Neumann" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Ewald" SpielerB="Dengel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Stucky" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Fauth" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maus" SpielerB="Hefner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Mayer" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Abdulkarim" SpielerB="Kling" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kullack" SpielerB="Mühleck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Scherer" SpielerB="Kühn" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Storzum" SpielerB="Westermann" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Kullack" SpielerB="Gross" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Ullrich" SpielerB="Kahle" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kellenberger" SpielerB="Riffel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Krüger" SpielerB="Schmidt" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Bardoll" SpielerB="Wild" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Jäkel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Indra" VornameB="Manuel" SpielerA="Biendl" SpielerB="Brecht" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Manuel" VornameB="Patrick" SpielerA="Pastorini" SpielerB="Holzwarth" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Klaus" VornameB="Peter" SpielerA="Errerd" SpielerB="Hausmann" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Walter" VornameB="Timo" SpielerA="Flörchinger" SpielerB="Münzing" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sven" VornameB="Klaus" SpielerA="Biendl" SpielerB="Lessing" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Patrick" VornameB="Saskia" SpielerA="Kocon" SpielerB="Breitner" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Rudolf" VornameB="Dominik" SpielerA="Horner" SpielerB="Fabricius" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Mike" VornameB="Felix" SpielerA="Reichardt" SpielerB="Schweikhardt" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Till" VornameB="Peter" SpielerA="Wolfert" SpielerB="Schmidt" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tobias" VornameB="Michael" SpielerA="Sturm" SpielerB="Bernhardt" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Michael" VornameB="Robert" SpielerA="Haug" SpielerB="Benko" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Oliver" VornameB="Valeska" SpielerA="Scholl" SpielerB="Friedrich" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Tim" VornameB="Marius" SpielerA="Klett" SpielerB="Neumann" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Florian" VornameB="Laura" SpielerA="Ewald" SpielerB="Dengel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Bernd" VornameB="Jan-Philipp" SpielerA="Prautzsch" SpielerB="Stucky" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Alan" SpielerA="Fauth" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Christiane" SpielerA="Maus" SpielerB="Hefner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Ewald" VornameB="Rolf" SpielerA="Mayer" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Nabil" VornameB="Marco" SpielerA="Abdulkarim" SpielerB="Kling" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Dirk" VornameB="Thomas" SpielerA="Kullack" SpielerB="Mühleck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Achim" VornameB="Dennis" SpielerA="Scherer" SpielerB="Kühn" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andreas" VornameB="Gerd" SpielerA="Storzum" SpielerB="Westermann" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Filippo" VornameB="Harald" SpielerA="Kullack" SpielerB="Gross" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jasmin" VornameB="Mario" SpielerA="Ullrich" SpielerB="Kahle" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Claus" VornameB="Thomas" SpielerA="Kellenberger" SpielerB="Riffel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Julia" VornameB="Andreas" SpielerA="Krüger" SpielerB="Schmidt" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Miriam" VornameB="Christian" SpielerA="Bardoll" SpielerB="Wild" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luca" VornameB="Lars" SpielerA="Breitner" SpielerB="Jäkel" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="5">
-      <Ergebnis SpielerA="Biendl" SpielerB="Holzwarth" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Hausmann" SpielerB="Schweikhardt" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Brecht" SpielerB="Horner" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Pastorini" SpielerB="Sturm" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Haug" SpielerB="Scholl" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Erred" SpielerB="Dengel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kocon" SpielerB="Flörchinger" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Wolfert" SpielerB="Lessing" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Münzing" SpielerB="Neumann" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Reichardt" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Biendl" SpielerB="Kullack" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Benko" SpielerB="Ewald" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Schmidt" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Friedrich" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Fabricius" SpielerB="Scherer" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Bernhardt" SpielerB="Ullrich" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Gross" SpielerB="Stucky" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Riffel" SpielerB="Maus" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Klett" SpielerB="Abdulkarim" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Westermann" SpielerB="Kahle" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wild" SpielerB="Kullack" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Storzum" SpielerB="Kellenberger" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Fauth" SpielerB="Kling" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Kühn" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Mayer" SpielerB="Hefner" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Schmidt" SpielerB="Mühleck" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Krüger" SpielerB="Jäkel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bardoll" SpielerB="Prautzsch" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Indra" VornameB="Patrick" SpielerA="Biendl" SpielerB="Holzwarth" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Peter" VornameB="Felix" SpielerA="Hausmann" SpielerB="Schweikhardt" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Manuel" VornameB="Rudolf" SpielerA="Brecht" SpielerB="Horner" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Manuel" VornameB="Tobias" SpielerA="Pastorini" SpielerB="Sturm" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Michael" VornameB="Oliver" SpielerA="Haug" SpielerB="Scholl" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Klaus" VornameB="Laura" SpielerA="Errerd" SpielerB="Dengel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Patrick" VornameB="Walter" SpielerA="Kocon" SpielerB="Flörchinger" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Till" VornameB="Klaus" SpielerA="Wolfert" SpielerB="Lessing" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Timo" VornameB="Marius" SpielerA="Münzing" SpielerB="Neumann" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Mike" VornameB="Alan" SpielerA="Reichardt" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sven" VornameB="Dirk" SpielerA="Biendl" SpielerB="Kullack" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Robert" VornameB="Florian" SpielerA="Benko" SpielerB="Ewald" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Peter" VornameB="Rolf" SpielerA="Schmidt" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Saskia" VornameB="Valeska" SpielerA="Breitner" SpielerB="Friedrich" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Dominik" VornameB="Achim" SpielerA="Fabricius" SpielerB="Scherer" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Michael" VornameB="Jasmin" SpielerA="Bernhardt" SpielerB="Ullrich" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Harald" VornameB="Jan-Philipp" SpielerA="Gross" SpielerB="Stucky" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Daniel" SpielerA="Riffel" SpielerB="Maus" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Tim" VornameB="Nabil" SpielerA="Klett" SpielerB="Abdulkarim" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Gerd" VornameB="Mario" SpielerA="Westermann" SpielerB="Kahle" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Christian" VornameB="Filippo" SpielerA="Wild" SpielerB="Kullack" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Claus" SpielerA="Storzum" SpielerB="Kellenberger" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Marco" SpielerA="Fauth" SpielerB="Kling" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luca" VornameB="Dennis" SpielerA="Breitner" SpielerB="Kühn" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Ewald" VornameB="Christiane" SpielerA="Mayer" SpielerB="Hefner" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Thomas" SpielerA="Schmidt" SpielerB="Mühleck" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Julia" VornameB="Lars" SpielerA="Krüger" SpielerB="Jäkel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Miriam" VornameB="Bernd" SpielerA="Bardoll" SpielerB="Prautzsch" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="6">
-      <Ergebnis SpielerA="Biendl" SpielerB="Münzing" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Holzwarth" SpielerB="Schweikhardt" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Pastorini" SpielerB="Erred" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Hausmann" SpielerB="Lessing" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kocon" SpielerB="Horner" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Scholl" SpielerB="Neumann" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Brecht" SpielerB="Ewald" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Wolfert" SpielerB="Abdulkarim" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Kumb" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Flörchinger" SpielerB="Spindler" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Riffel" SpielerB="Westermann" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Sturm" SpielerB="Scherer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Dengel" SpielerB="Stucky" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Ullrich" SpielerB="Biendl" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Mühleck" SpielerB="Friedrich" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kling" SpielerB="Bernhardt" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Kullack" SpielerB="Klett" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Hefner" SpielerB="Gross" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Kühn" SpielerB="Schmidt" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kellenberger" SpielerB="Benko" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Kullack" SpielerB="Fabricius" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maus" SpielerB="Reichardt" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bardoll" SpielerB="Breitner" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Wild" SpielerB="Mayer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Jäkel" SpielerB="Schmidt" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Storzum" SpielerB="Prautzsch" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Fauth" SpielerB="Kahle" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Indra" VornameB="Timo" SpielerA="Biendl" SpielerB="Münzing" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Patrick" VornameB="Felix" SpielerA="Holzwarth" SpielerB="Schweikhardt" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Manuel" VornameB="Klaus" SpielerA="Pastorini" SpielerB="Errerd" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Peter" VornameB="Klaus" SpielerA="Hausmann" SpielerB="Lessing" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Patrick" VornameB="Rudolf" SpielerA="Kocon" SpielerB="Horner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Oliver" VornameB="Marius" SpielerA="Scholl" SpielerB="Neumann" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Florian" SpielerA="Brecht" SpielerB="Ewald" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Till" VornameB="Nabil" SpielerA="Wolfert" SpielerB="Abdulkarim" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Saskia" VornameB="Alan" SpielerA="Breitner" SpielerB="Kumb" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Walter" VornameB="Rolf" SpielerA="Flörchinger" SpielerB="Spindler" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Thomas" VornameB="Gerd" SpielerA="Riffel" SpielerB="Westermann" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Tobias" VornameB="Achim" SpielerA="Sturm" SpielerB="Scherer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Laura" VornameB="Jan-Philipp" SpielerA="Dengel" SpielerB="Stucky" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Jasmin" VornameB="Sven" SpielerA="Ullrich" SpielerB="Biendl" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Thomas" VornameB="Valeska" SpielerA="Mühleck" SpielerB="Friedrich" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marco" VornameB="Michael" SpielerA="Kling" SpielerB="Bernhardt" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Filippo" VornameB="Tim" SpielerA="Kullack" SpielerB="Klett" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Christiane" VornameB="Harald" SpielerA="Hefner" SpielerB="Gross" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Dennis" VornameB="Peter" SpielerA="Kühn" SpielerB="Schmidt" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Claus" VornameB="Robert" SpielerA="Kellenberger" SpielerB="Benko" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Dirk" VornameB="Dominik" SpielerA="Kullack" SpielerB="Fabricius" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Daniel" VornameB="Mike" SpielerA="Maus" SpielerB="Reichardt" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Miriam" VornameB="Luca" SpielerA="Bardoll" SpielerB="Breitner" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Christian" VornameB="Ewald" SpielerA="Wild" SpielerB="Mayer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lars" VornameB="Andreas" SpielerA="Jäkel" SpielerB="Schmidt" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Bernd" SpielerA="Storzum" SpielerB="Prautzsch" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Thomas" VornameB="Mario" SpielerA="Fauth" SpielerB="Kahle" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Pastorini" SpielerB="Hausmann" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Kocon" SpielerB="Münzing" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Holzwarth" SpielerB="Brecht" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Lessing" SpielerB="Scholl" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Manuel" VornameB="Peter" SpielerA="Pastorini" SpielerB="Hausmann" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Patrick" VornameB="Timo" SpielerA="Kocon" SpielerB="Münzing" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Patrick" VornameB="Manuel" SpielerA="Holzwarth" SpielerB="Brecht" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Klaus" VornameB="Oliver" SpielerA="Lessing" SpielerB="Scholl" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Pastorini" SpielerB="Lessing" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Kocon" SpielerB="Brecht" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Manuel" VornameB="Klaus" SpielerA="Pastorini" SpielerB="Lessing" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Patrick" VornameB="Manuel" SpielerA="Kocon" SpielerB="Brecht" SätzeA="3" SätzeB="2" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Lessing" SpielerB="Kocon" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Klaus" VornameB="Patrick" SpielerA="Lessing" SpielerB="Kocon" SätzeA="3" SätzeB="0" />
     </Runde>
   </Klassement>
   <Klassement Name="DB">
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Biendl" SpielerB="Bardoll" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Krüger" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Dengel" SpielerB="Hefner" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Ullrich" SpielerB="Friedrich" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Indra" VornameB="Miriam" SpielerA="Biendl" SpielerB="Bardoll" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Saskia" VornameB="Julia" SpielerA="Breitner" SpielerB="Krüger" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Laura" VornameB="Christiane" SpielerA="Dengel" SpielerB="Hefner" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jasmin" VornameB="Valeska" SpielerA="Ullrich" SpielerB="Friedrich" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Biendl" SpielerB="Ullrich" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Breitner" SpielerB="Hefner" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Indra" VornameB="Jasmin" SpielerA="Biendl" SpielerB="Ullrich" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Saskia" VornameB="Christiane" SpielerA="Breitner" SpielerB="Hefner" SätzeA="3" SätzeB="1" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Biendl" SpielerB="Breitner" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Indra" VornameB="Saskia" SpielerA="Biendl" SpielerB="Breitner" SätzeA="3" SätzeB="0" />
     </Runde>
   </Klassement>
   <Klassement Name="J">
     <Runde Nummer="1">
-      <Ergebnis SpielerA="Stegemann" SpielerB="Demirkol" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Franz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Suveren" SpielerB="Köhler" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Glebov" SpielerB="Weber" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Saleika" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="König" SpielerB="Wackernagel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Rößler" SpielerB="Behringer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Treib" SpielerB="Wintermeyer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Neumaier" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Heinle" SpielerB="Lange" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Busse" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Knothe" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Neudeck" SpielerB="Ried" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Lee" SpielerB="Belz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Stiel" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schilling" SpielerB="Fränznick" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Stadter" SpielerB="Lorenz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Küsters" SpielerB="Lorenz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schwager" SpielerB="Stoll" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Seker" SpielerB="Nöller" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Holfelder" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Held" SpielerB="Mettler" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kolarski" SpielerB="Akin" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sobotzik" SpielerB="Axtmann" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Singh" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Yilmaz" SpielerB="Henning" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Holub" SpielerB="Fränznick" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Reiling" SpielerB="Nöller" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Lippa" SpielerB="Höll" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Torben" VornameB="Adem" SpielerA="Stegemann" SpielerB="Demirkol" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Nick" VornameB="Jochen" SpielerA="Bohnet" SpielerB="Franz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Mehmet" VornameB="Felix" SpielerA="Suveren" SpielerB="Köhler" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andreas" VornameB="Noah" SpielerA="Glebov" SpielerB="Weber" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Maximilian" VornameB="Daniel" SpielerA="Bauer" SpielerB="Saleika" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Ricky" VornameB="Niko" SpielerA="König" SpielerB="Wackernagel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jan" VornameB="Felicia" SpielerA="Rößler" SpielerB="Behringer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Luca" SpielerA="Treib" SpielerB="Wintermeyer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marcel" VornameB="Zidan" SpielerA="Neumaier" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Simon" VornameB="Philipp" SpielerA="Heinle" SpielerB="Lange" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jonathan" VornameB="Nico" SpielerA="Busse" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="David" VornameB="Andrea" SpielerA="Knothe" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Yannik" VornameB="Leon" SpielerA="Neudeck" SpielerB="Ried" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Young-Kwan" VornameB="Maik" SpielerA="Lee" SpielerB="Belz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Celine" VornameB="Meike" SpielerA="Bohnet" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lukas" VornameB="Hanna" SpielerA="Stiel" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jan Luca" VornameB="Jasmin" SpielerA="Schilling" SpielerB="Fränznick" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Bastian" VornameB="Kim" SpielerA="Stadter" SpielerB="Lorenz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Patrick" VornameB="Lenny" SpielerA="Küsters" SpielerB="Lorenz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Max" VornameB="Simon" SpielerA="Schwager" SpielerB="Stoll" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Koray" VornameB="Lea" SpielerA="Seker" SpielerB="Nöller" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lisa" VornameB="Sarah" SpielerA="Prautzsch" SpielerB="Holfelder" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Julian" VornameB="Lukas" SpielerA="Held" SpielerB="Mettler" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Radovan" VornameB="Mikail" SpielerA="Kolarski" SpielerB="Akin" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Dominik" SpielerA="Sobotzik" SpielerB="Axtmann" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marian" VornameB="Sidharth Rahul" SpielerA="Ciupke" SpielerB="Singh" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Selia" VornameB="Lukas" SpielerA="Yilmaz" SpielerB="Henning" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Luca" VornameB="Simon" SpielerA="Holub" SpielerB="Fränznick" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lukas" VornameB="Luke" SpielerA="Reiling" SpielerB="Nöller" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andre" VornameB="Marius" SpielerA="Lippa" SpielerB="Höll" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="2">
-      <Ergebnis SpielerA="Stegemann" SpielerB="Stadter" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Küsters" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Suveren" SpielerB="Schwager" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Glebov" SpielerB="Seker" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Held" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Rößler" SpielerB="Kolarski" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Treib" SpielerB="Sobotzik" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Neumaier" SpielerB="Ciupke" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Busse" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Knothe" SpielerB="Holub" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Neudeck" SpielerB="Reiling" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Lee" SpielerB="Lippa" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="König" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Stiel" SpielerB="Heinle" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Schilling" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Höll" SpielerB="Belz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Ried" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Fränznick" SpielerB="Maciejewski" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Henning" SpielerB="Neumaier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Singh" SpielerB="Yilmaz" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Axtmann" SpielerB="Wintermeyer" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Akin" SpielerB="Behringer" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Mettler" SpielerB="Saleika" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Weber" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Stoll" SpielerB="Köhler" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Franz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Demirkol" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Fränznick" SpielerB="Holfelder" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Lange" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Wackernagel" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Torben" VornameB="Bastian" SpielerA="Stegemann" SpielerB="Stadter" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Nick" VornameB="Patrick" SpielerA="Bohnet" SpielerB="Küsters" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Mehmet" VornameB="Max" SpielerA="Suveren" SpielerB="Schwager" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Andreas" VornameB="Koray" SpielerA="Glebov" SpielerB="Seker" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Maximilian" VornameB="Julian" SpielerA="Bauer" SpielerB="Held" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jan" VornameB="Radovan" SpielerA="Rößler" SpielerB="Kolarski" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Sebastian" VornameB="Thomas" SpielerA="Treib" SpielerB="Sobotzik" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Marcel" VornameB="Marian" SpielerA="Neumaier" SpielerB="Ciupke" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jonathan" VornameB="Selia" SpielerA="Busse" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="David" VornameB="Luca" SpielerA="Knothe" SpielerB="Holub" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Yannik" VornameB="Lukas" SpielerA="Neudeck" SpielerB="Reiling" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Young-Kwan" VornameB="Andre" SpielerA="Lee" SpielerB="Lippa" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Celine" VornameB="Ricky" SpielerA="Bohnet" SpielerB="König" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Simon" SpielerA="Stiel" SpielerB="Heinle" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lisa" VornameB="Jan Luca" SpielerA="Prautzsch" SpielerB="Schilling" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marius" VornameB="Maik" SpielerA="Höll" SpielerB="Belz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luke" VornameB="Leon" SpielerA="Nöller" SpielerB="Ried" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Andrea" SpielerA="Fränznick" SpielerB="Maciejewski" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Nico" SpielerA="Henning" SpielerB="Neumaier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Sidharth Rahul" VornameB="Zidan" SpielerA="Singh" SpielerB="Yilmaz" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Dominik" VornameB="Luca" SpielerA="Axtmann" SpielerB="Wintermeyer" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Mikail" VornameB="Felicia" SpielerA="Akin" SpielerB="Behringer" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Daniel" SpielerA="Mettler" SpielerB="Saleika" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lea" VornameB="Noah" SpielerA="Nöller" SpielerB="Weber" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Felix" SpielerA="Stoll" SpielerB="Köhler" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lenny" VornameB="Jochen" SpielerA="Lorenz" SpielerB="Franz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kim" VornameB="Adem" SpielerA="Lorenz" SpielerB="Demirkol" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jasmin" VornameB="Sarah" SpielerA="Fränznick" SpielerB="Holfelder" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Hanna" VornameB="Philipp" SpielerA="Maciejewski" SpielerB="Lange" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Meike" VornameB="Niko" SpielerA="Maciejewski" SpielerB="Wackernagel" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="3">
-      <Ergebnis SpielerA="Stegemann" SpielerB="Treib" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Lee" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Neumaier" SpielerB="Prautzsch" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Busse" SpielerB="Bohnet" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Suveren" SpielerB="König" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Glebov" SpielerB="Neudeck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Rößler" SpielerB="Stiel" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Holub" SpielerB="Franz" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Knothe" SpielerB="Köhler" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Heinle" SpielerB="Weber" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Küsters" SpielerB="Saleika" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Reiling" SpielerB="Wackernagel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Behringer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schwager" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Seker" SpielerB="Ried" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Kolarski" SpielerB="Belz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sobotzik" SpielerB="Holfelder" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Lippa" SpielerB="Demirkol" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Schilling" SpielerB="Wintermeyer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stadter" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Held" SpielerB="Lange" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Yilmaz" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Höll" SpielerB="Lorenz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Lorenz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Henning" SpielerB="Fränznick" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Akin" SpielerB="Maciejewski" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Mettler" SpielerB="Singh" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Axtmann" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Stoll" SpielerB="Fränznick" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Torben" VornameB="Sebastian" SpielerA="Stegemann" SpielerB="Treib" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Maximilian" VornameB="Young-Kwan" SpielerA="Bauer" SpielerB="Lee" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marcel" VornameB="Lisa" SpielerA="Neumaier" SpielerB="Prautzsch" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jonathan" VornameB="Nick" SpielerA="Busse" SpielerB="Bohnet" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Mehmet" VornameB="Ricky" SpielerA="Suveren" SpielerB="König" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andreas" VornameB="Yannik" SpielerA="Glebov" SpielerB="Neudeck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jan" VornameB="Lukas" SpielerA="Rößler" SpielerB="Stiel" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Luca" VornameB="Jochen" SpielerA="Holub" SpielerB="Franz" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="David" VornameB="Felix" SpielerA="Knothe" SpielerB="Köhler" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Noah" SpielerA="Heinle" SpielerB="Weber" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Patrick" VornameB="Daniel" SpielerA="Küsters" SpielerB="Saleika" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lukas" VornameB="Niko" SpielerA="Reiling" SpielerB="Wackernagel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Celine" VornameB="Felicia" SpielerA="Bohnet" SpielerB="Behringer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Max" VornameB="Nico" SpielerA="Schwager" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Koray" VornameB="Leon" SpielerA="Seker" SpielerB="Ried" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Radovan" VornameB="Maik" SpielerA="Kolarski" SpielerB="Belz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Sarah" SpielerA="Sobotzik" SpielerB="Holfelder" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andre" VornameB="Adem" SpielerA="Lippa" SpielerB="Demirkol" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jan Luca" VornameB="Luca" SpielerA="Schilling" SpielerB="Wintermeyer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Bastian" VornameB="Zidan" SpielerA="Stadter" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Julian" VornameB="Philipp" SpielerA="Held" SpielerB="Lange" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Marian" VornameB="Andrea" SpielerA="Ciupke" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Selia" VornameB="Hanna" SpielerA="Yilmaz" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marius" VornameB="Lenny" SpielerA="Höll" SpielerB="Lorenz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luke" VornameB="Kim" SpielerA="Nöller" SpielerB="Lorenz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Jasmin" SpielerA="Henning" SpielerB="Fränznick" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Mikail" VornameB="Meike" SpielerA="Akin" SpielerB="Maciejewski" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Sidharth Rahul" SpielerA="Mettler" SpielerB="Singh" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lea" VornameB="Dominik" SpielerA="Nöller" SpielerB="Axtmann" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Simon" VornameB="Simon" SpielerA="Stoll" SpielerB="Fränznick" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="4">
-      <Ergebnis SpielerA="Suveren" SpielerB="Glebov" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stegemann" SpielerB="Rößler" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Neumaier" SpielerB="Bauer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Busse" SpielerB="Holub" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="König" SpielerB="Köhler" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Treib" SpielerB="Neudeck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Lee" SpielerB="Küsters" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Bohnet" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Kolarski" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stiel" SpielerB="Wackernagel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Schwager" SpielerB="Schilling" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Seker" SpielerB="Sobotzik" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Stadter" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Lange" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Lippa" SpielerB="Heinle" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Reiling" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Holfelder" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Fränznick" SpielerB="Neumaier" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Behringer" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Saleika" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Singh" SpielerB="Held" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Wintermeyer" SpielerB="Yilmaz" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Stoll" SpielerB="Weber" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Demirkol" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Belz" SpielerB="Franz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Ried" SpielerB="Knothe" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Akin" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Mettler" SpielerB="Axtmann" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Höll" SpielerB="Fränznick" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Henning" SpielerB="Maciejewski" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Mehmet" VornameB="Andreas" SpielerA="Suveren" SpielerB="Glebov" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Torben" VornameB="Jan" SpielerA="Stegemann" SpielerB="Rößler" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marcel" VornameB="Maximilian" SpielerA="Neumaier" SpielerB="Bauer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jonathan" VornameB="Luca" SpielerA="Busse" SpielerB="Holub" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ricky" VornameB="Felix" SpielerA="König" SpielerB="Köhler" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Yannik" SpielerA="Treib" SpielerB="Neudeck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Young-Kwan" VornameB="Patrick" SpielerA="Lee" SpielerB="Küsters" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lisa" VornameB="Celine" SpielerA="Prautzsch" SpielerB="Bohnet" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Nick" VornameB="Radovan" SpielerA="Bohnet" SpielerB="Kolarski" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Lukas" VornameB="Niko" SpielerA="Stiel" SpielerB="Wackernagel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Max" VornameB="Jan Luca" SpielerA="Schwager" SpielerB="Schilling" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Koray" VornameB="Thomas" SpielerA="Seker" SpielerB="Sobotzik" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Bastian" VornameB="Selia" SpielerA="Stadter" SpielerB="Yilmaz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marian" VornameB="Philipp" SpielerA="Ciupke" SpielerB="Lange" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andre" VornameB="Simon" SpielerA="Lippa" SpielerB="Heinle" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lea" VornameB="Lukas" SpielerA="Nöller" SpielerB="Reiling" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lenny" VornameB="Sarah" SpielerA="Lorenz" SpielerB="Holfelder" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jasmin" VornameB="Nico" SpielerA="Fränznick" SpielerB="Neumaier" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andrea" VornameB="Felicia" SpielerA="Maciejewski" SpielerB="Behringer" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Kim" VornameB="Daniel" SpielerA="Lorenz" SpielerB="Saleika" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sidharth Rahul" VornameB="Julian" SpielerA="Singh" SpielerB="Held" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luca" VornameB="Zidan" SpielerA="Wintermeyer" SpielerB="Yilmaz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Simon" VornameB="Noah" SpielerA="Stoll" SpielerB="Weber" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Meike" VornameB="Adem" SpielerA="Maciejewski" SpielerB="Demirkol" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Maik" VornameB="Jochen" SpielerA="Belz" SpielerB="Franz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Leon" VornameB="David" SpielerA="Ried" SpielerB="Knothe" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Luke" VornameB="Mikail" SpielerA="Nöller" SpielerB="Akin" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Dominik" SpielerA="Mettler" SpielerB="Axtmann" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Marius" VornameB="Simon" SpielerA="Höll" SpielerB="Fränznick" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Lukas" VornameB="Hanna" SpielerA="Henning" SpielerB="Maciejewski" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="5">
-      <Ergebnis SpielerA="Stegemann" SpielerB="Suveren" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Busse" SpielerB="Neumaier" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Glebov" SpielerB="Bohnet" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Stiel" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Stadter" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Rößler" SpielerB="Lange" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Treib" SpielerB="Lee" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Heinle" SpielerB="Holub" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="König" SpielerB="Schilling" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Seker" SpielerB="Yilmaz" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Schwager" SpielerB="Lippa" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Weber" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Knothe" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Köhler" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Küsters" SpielerB="Behringer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Ciupke" SpielerB="Saleika" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Neudeck" SpielerB="Holfelder" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Kolarski" SpielerB="Wintermeyer" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Held" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Sobotzik" SpielerB="Reiling" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Franz" SpielerB="Demirkol" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Höll" SpielerB="Nöller" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Mettler" SpielerB="Fränznick" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Akin" SpielerB="Ried" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Stoll" SpielerB="Lorenz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Maciejewski" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Singh" SpielerB="Belz" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Yilmaz" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Fränznick" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Henning" SpielerB="Axtmann" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Torben" VornameB="Mehmet" SpielerA="Stegemann" SpielerB="Suveren" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jonathan" VornameB="Marcel" SpielerA="Busse" SpielerB="Neumaier" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Nick" SpielerA="Glebov" SpielerB="Bohnet" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Maximilian" VornameB="Lukas" SpielerA="Bauer" SpielerB="Stiel" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lisa" VornameB="Bastian" SpielerA="Prautzsch" SpielerB="Stadter" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jan" VornameB="Philipp" SpielerA="Rößler" SpielerB="Lange" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Sebastian" VornameB="Young-Kwan" SpielerA="Treib" SpielerB="Lee" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Luca" SpielerA="Heinle" SpielerB="Holub" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Ricky" VornameB="Jan Luca" SpielerA="König" SpielerB="Schilling" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Koray" VornameB="Selia" SpielerA="Seker" SpielerB="Yilmaz" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Max" VornameB="Andre" SpielerA="Schwager" SpielerB="Lippa" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Celine" VornameB="Noah" SpielerA="Bohnet" SpielerB="Weber" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Niko" VornameB="David" SpielerA="Wackernagel" SpielerB="Knothe" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Felix" VornameB="Nico" SpielerA="Köhler" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Patrick" VornameB="Felicia" SpielerA="Küsters" SpielerB="Behringer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marian" VornameB="Daniel" SpielerA="Ciupke" SpielerB="Saleika" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Yannik" VornameB="Sarah" SpielerA="Neudeck" SpielerB="Holfelder" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Radovan" VornameB="Luca" SpielerA="Kolarski" SpielerB="Wintermeyer" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Julian" VornameB="Meike" SpielerA="Held" SpielerB="Maciejewski" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Thomas" VornameB="Lukas" SpielerA="Sobotzik" SpielerB="Reiling" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Jochen" VornameB="Adem" SpielerA="Franz" SpielerB="Demirkol" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marius" VornameB="Lea" SpielerA="Höll" SpielerB="Nöller" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Jasmin" SpielerA="Mettler" SpielerB="Fränznick" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Mikail" VornameB="Leon" SpielerA="Akin" SpielerB="Ried" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Lenny" SpielerA="Stoll" SpielerB="Lorenz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Andrea" VornameB="Hanna" SpielerA="Maciejewski" SpielerB="Maciejewski" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sidharth Rahul" VornameB="Maik" SpielerA="Singh" SpielerB="Belz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Kim" VornameB="Zidan" SpielerA="Lorenz" SpielerB="Yilmaz" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Luke" VornameB="Simon" SpielerA="Nöller" SpielerB="Fränznick" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Dominik" SpielerA="Henning" SpielerB="Axtmann" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="6">
-      <Ergebnis SpielerA="Suveren" SpielerB="Neumaier" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Stegemann" SpielerB="Stiel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Busse" SpielerB="Stadter" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Rößler" SpielerB="Holub" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Lee" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="König" SpielerB="Seker" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Schwager" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Ciupke" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Glebov" SpielerB="Bohnet" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Heinle" SpielerB="Kolarski" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Lange" SpielerB="Knothe" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Köhler" SpielerB="Franz" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Küsters" SpielerB="Held" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Treib" SpielerB="Holfelder" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Reiling" SpielerB="Schilling" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Behringer" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Singh" SpielerB="Neumaier" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Fränznick" SpielerB="Saleika" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Weber" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Maciejewski" SpielerB="Lippa" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Ried" SpielerB="Yilmaz" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Wintermeyer" SpielerB="Neudeck" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Sobotzik" SätzeA="1" SätzeB="3" />
-      <Ergebnis SpielerA="Lorenz" SpielerB="Wackernagel" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Fränznick" SpielerB="Belz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Axtmann" SpielerB="Stoll" SätzeA="3" SätzeB="2" />
-      <Ergebnis SpielerA="Höll" SpielerB="Maciejewski" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Akin" SpielerB="Demirkol" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Mettler" SpielerB="Yilmaz" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Henning" SpielerB="Nöller" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Mehmet" VornameB="Marcel" SpielerA="Suveren" SpielerB="Neumaier" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Torben" VornameB="Lukas" SpielerA="Stegemann" SpielerB="Stiel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Jonathan" VornameB="Bastian" SpielerA="Busse" SpielerB="Stadter" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jan" VornameB="Luca" SpielerA="Rößler" SpielerB="Holub" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Nick" VornameB="Young-Kwan" SpielerA="Bohnet" SpielerB="Lee" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Ricky" VornameB="Koray" SpielerA="König" SpielerB="Seker" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Maximilian" VornameB="Max" SpielerA="Bauer" SpielerB="Schwager" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lisa" VornameB="Marian" SpielerA="Prautzsch" SpielerB="Ciupke" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Andreas" VornameB="Celine" SpielerA="Glebov" SpielerB="Bohnet" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Simon" VornameB="Radovan" SpielerA="Heinle" SpielerB="Kolarski" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Philipp" VornameB="David" SpielerA="Lange" SpielerB="Knothe" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Felix" VornameB="Jochen" SpielerA="Köhler" SpielerB="Franz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Patrick" VornameB="Julian" SpielerA="Küsters" SpielerB="Held" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Sebastian" VornameB="Sarah" SpielerA="Treib" SpielerB="Holfelder" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Lukas" VornameB="Jan Luca" SpielerA="Reiling" SpielerB="Schilling" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Kim" VornameB="Felicia" SpielerA="Lorenz" SpielerB="Behringer" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sidharth Rahul" VornameB="Nico" SpielerA="Singh" SpielerB="Neumaier" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Jasmin" VornameB="Daniel" SpielerA="Fränznick" SpielerB="Saleika" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Meike" VornameB="Noah" SpielerA="Maciejewski" SpielerB="Weber" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Hanna" VornameB="Andre" SpielerA="Maciejewski" SpielerB="Lippa" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Leon" VornameB="Selia" SpielerA="Ried" SpielerB="Yilmaz" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Luca" VornameB="Yannik" SpielerA="Wintermeyer" SpielerB="Neudeck" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lea" VornameB="Thomas" SpielerA="Nöller" SpielerB="Sobotzik" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Lenny" VornameB="Niko" SpielerA="Lorenz" SpielerB="Wackernagel" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Simon" VornameB="Maik" SpielerA="Fränznick" SpielerB="Belz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Dominik" VornameB="Simon" SpielerA="Axtmann" SpielerB="Stoll" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Marius" VornameB="Andrea" SpielerA="Höll" SpielerB="Maciejewski" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Mikail" VornameB="Adem" SpielerA="Akin" SpielerB="Demirkol" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Zidan" SpielerA="Mettler" SpielerB="Yilmaz" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Luke" SpielerA="Henning" SpielerB="Nöller" SätzeA="3" SätzeB="1" />
     </Runde>
   </Klassement>
   <Klassement Name="mJu18">
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Suveren" SpielerB="Neudeck" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Busse" SpielerB="Treib" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="König" SpielerB="Küsters" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Bauer" SpielerB="Lee" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Mehmet" VornameB="Yannik" SpielerA="Suveren" SpielerB="Neudeck" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Jonathan" VornameB="Sebastian" SpielerA="Busse" SpielerB="Treib" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Ricky" VornameB="Patrick" SpielerA="König" SpielerB="Küsters" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Maximilian" VornameB="Young-Kwan" SpielerA="Bauer" SpielerB="Lee" SätzeA="3" SätzeB="1" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Suveren" SpielerB="Bauer" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Busse" SpielerB="König" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Mehmet" VornameB="Maximilian" SpielerA="Suveren" SpielerB="Bauer" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jonathan" VornameB="Ricky" SpielerA="Busse" SpielerB="König" SätzeA="0" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Suveren" SpielerB="König" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Mehmet" VornameB="Ricky" SpielerA="Suveren" SpielerB="König" SätzeA="3" SätzeB="0" />
     </Runde>
   </Klassement>
   <Klassement Name="mJu15">
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Rößler" SpielerB="Kolarski" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Stiel" SpielerB="Stadter" SätzeA="2" SätzeB="3" />
-      <Ergebnis SpielerA="Seker" SpielerB="Köhler" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Glebov" SpielerB="Holub" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Jan" VornameB="Radovan" SpielerA="Rößler" SpielerB="Kolarski" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Lukas" VornameB="Bastian" SpielerA="Stiel" SpielerB="Stadter" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Koray" VornameB="Felix" SpielerA="Seker" SpielerB="Köhler" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Andreas" VornameB="Luca" SpielerA="Glebov" SpielerB="Holub" SätzeA="3" SätzeB="1" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Kolarski" SpielerB="Glebov" SätzeA="0" SätzeB="3" />
-      <Ergebnis SpielerA="Stadter" SpielerB="Seker" SätzeA="2" SätzeB="3" />
+      <Ergebnis VornameA="Radovan" VornameB="Andreas" SpielerA="Kolarski" SpielerB="Glebov" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Bastian" VornameB="Koray" SpielerA="Stadter" SpielerB="Seker" SätzeA="2" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Glebov" SpielerB="Seker" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Andreas" VornameB="Koray" SpielerA="Glebov" SpielerB="Seker" SätzeA="3" SätzeB="0" />
     </Runde>
   </Klassement>
   <Klassement Name="mJu13">
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Neumaier" SpielerB="Ried" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Reiling" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Stegemann" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Wackernagel" SpielerB="Franz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Marcel" VornameB="Leon" SpielerA="Neumaier" SpielerB="Ried" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Nick" VornameB="Lukas" SpielerA="Bohnet" SpielerB="Reiling" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Torben" VornameB="Nico" SpielerA="Stegemann" SpielerB="Neumaier" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Niko" VornameB="Jochen" SpielerA="Wackernagel" SpielerB="Franz" SätzeA="3" SätzeB="0" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Neumaier" SpielerB="Wackernagel" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Bohnet" SpielerB="Stegemann" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Marcel" VornameB="Niko" SpielerA="Neumaier" SpielerB="Wackernagel" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Nick" VornameB="Torben" SpielerA="Bohnet" SpielerB="Stegemann" SätzeA="3" SätzeB="2" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Neumaier" SpielerB="Bohnet" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Marcel" VornameB="Nick" SpielerA="Neumaier" SpielerB="Bohnet" SätzeA="1" SätzeB="3" />
     </Runde>
   </Klassement>
   <Klassement Name="wJu15">
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Holfelder" SpielerB="Lorenz" SätzeA="1" SätzeB="3" />
+      <Ergebnis VornameA="Sarah" VornameB="Kim" SpielerA="Holfelder" SpielerB="Lorenz" SätzeA="1" SätzeB="3" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Bohnet" SpielerB="Lorenz" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Celine" VornameB="Kim" SpielerA="Bohnet" SpielerB="Lorenz" SätzeA="3" SätzeB="0" />
     </Runde>
   </Klassement>
   <Klassement Name="wJu13">
     <Runde Nummer="POVF">
-      <Ergebnis SpielerA="Yilmaz" SpielerB="Fränznick" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Behringer" SpielerB="Maciejewski" SätzeA="3" SätzeB="1" />
-      <Ergebnis SpielerA="Nöller" SpielerB="Maciejewski" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Selia" VornameB="Jasmin" SpielerA="Yilmaz" SpielerB="Fränznick" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Felicia" VornameB="Andrea" SpielerA="Behringer" SpielerB="Maciejewski" SätzeA="3" SätzeB="1" />
+      <Ergebnis VornameA="Lea" VornameB="Hanna" SpielerA="Nöller" SpielerB="Maciejewski" SätzeA="3" SätzeB="2" />
     </Runde>
     <Runde Nummer="POHF">
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Nöller" SätzeA="3" SätzeB="0" />
-      <Ergebnis SpielerA="Yilmaz" SpielerB="Behringer" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Lisa" VornameB="Lea" SpielerA="Prautzsch" SpielerB="Nöller" SätzeA="3" SätzeB="0" />
+      <Ergebnis VornameA="Selia" VornameB="Felicia" SpielerA="Yilmaz" SpielerB="Behringer" SätzeA="3" SätzeB="2" />
     </Runde>
     <Runde Nummer="POF">
-      <Ergebnis SpielerA="Prautzsch" SpielerB="Yilmaz" SätzeA="3" SätzeB="2" />
+      <Ergebnis VornameA="Lisa" VornameB="Selia" SpielerA="Prautzsch" SpielerB="Yilmaz" SätzeA="3" SätzeB="2" />
     </Runde>
   </Klassement>
 </Ergebnisse>

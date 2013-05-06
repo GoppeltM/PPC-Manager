@@ -106,7 +106,7 @@ Public Class Spieler
 
     Public ReadOnly Property GespieltePartien As List(Of SpielPartie)
         Get
-            Dim r = From x In SpielRunden From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Take 1 Select y
+            Dim r = From x In SpielRunden From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
             Return r.ToList
         End Get
     End Property

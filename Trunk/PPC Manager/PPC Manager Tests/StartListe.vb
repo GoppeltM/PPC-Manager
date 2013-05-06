@@ -161,12 +161,15 @@ Imports Microsoft.Office.Interop.Excel
                 Dim NameLinks = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Name_links")), Range).Text
                 If NameLinks.ToString = "" Then Exit For
                 Dim NameRechts = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Name_rechts")), Range).Text
+                Dim VornameLinks = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Vorname_links")), Range).Text
+                Dim VornameRechts = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Vorname_rechts")), Range).Text
                 Dim Runde = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Rd")), Range).Text
                 Dim ErgebnisLinks = DirectCast(row.Cells(ColumnIndex:=ColumnNames("g_sätze")), Range).Text
                 Dim ErgebnisRechts = DirectCast(row.Cells(ColumnIndex:=ColumnNames("v_sätze")), Range).Text
                 Dim Klassement = DirectCast(row.Cells(ColumnIndex:=ColumnNames("Kl")), Range).Text
 
                 Ergebnisse.Add(<Ergebnis Runde=<%= Runde %> Klassement=<%= Klassement %>
+                                   VornameA=<%= VornameLinks %> VornameB=<%= VornameRechts %>
                                    SpielerA=<%= NameLinks %> SpielerB=<%= NameRechts %>
                                    SätzeA=<%= ErgebnisLinks %> SätzeB=<%= ErgebnisRechts %>/>)
             Next
