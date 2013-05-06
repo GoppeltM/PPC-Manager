@@ -712,7 +712,7 @@
       <Ergebnis VornameA="Till" VornameB="Klaus" SpielerA="Wolfert" SpielerB="Lessing" SätzeA="2" SätzeB="3" />
       <Ergebnis VornameA="Timo" VornameB="Marius" SpielerA="Münzing" SpielerB="Neumann" SätzeA="3" SätzeB="1" />
       <Ergebnis VornameA="Mike" VornameB="Alan" SpielerA="Reichardt" SpielerB="Kumb" SätzeA="1" SätzeB="3" />
-      <Ergebnis VornameA="Sven" VornameB="Dirk" SpielerA="Biendl" SpielerB="Kullack" SätzeA="0" SätzeB="3" />
+      <Ergebnis VornameA="Sven" VornameB="Dirk" SpielerA="Biendl" SpielerB="Kullack" SätzeA="3" SätzeB="0" />
       <Ergebnis VornameA="Robert" VornameB="Florian" SpielerA="Benko" SpielerB="Ewald" SätzeA="1" SätzeB="3" />
       <Ergebnis VornameA="Peter" VornameB="Rolf" SpielerA="Schmidt" SpielerB="Spindler" SätzeA="1" SätzeB="3" />
       <Ergebnis VornameA="Saskia" VornameB="Valeska" SpielerA="Breitner" SpielerB="Friedrich" SätzeA="3" SätzeB="2" />
@@ -759,6 +759,7 @@
       <Ergebnis VornameA="Lars" VornameB="Andreas" SpielerA="Jäkel" SpielerB="Schmidt" SätzeA="1" SätzeB="3" />
       <Ergebnis VornameA="Andreas" VornameB="Bernd" SpielerA="Storzum" SpielerB="Prautzsch" SätzeA="2" SätzeB="3" />
       <Ergebnis VornameA="Thomas" VornameB="Mario" SpielerA="Fauth" SpielerB="Kahle" SätzeA="0" SätzeB="3" />
+      <Freilos Vorname="Julia" Nachname="Krüger" />
     </Runde>
     <Runde Nummer="POVF">
       <Ergebnis VornameA="Manuel" VornameB="Peter" SpielerA="Pastorini" SpielerB="Hausmann" SätzeA="3" SätzeB="1" />

@@ -80,11 +80,10 @@ Public Class Spieler
 
     Public ReadOnly Property Punkte As Integer
         Get
-            Dim _punkte = Aggregate x In GespieltePartien
-                          Let gewonneneSätze = x.MeineGewonnenenSätze(Me).Count
-                          Where gewonneneSätze >= MainWindow.AktiveCompetition.Gewinnsätze AndAlso
-                          gewonneneSätze > x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count
-                          Into Count()
+            Dim GewonneneSätze = From x In GespieltePartien Select Meine = x.MeineGewonnenenSätze(Me).Count, Gegner = x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count
+            Dim _punkte = Aggregate x In GewonneneSätze
+                          Where x.Meine >= MainWindow.AktiveCompetition.Gewinnsätze AndAlso
+                          x.Meine > x.Gegner Into Count()
 
             Return _punkte
         End Get

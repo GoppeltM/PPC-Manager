@@ -136,6 +136,40 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
+    <TestMethod>
+    Sub Runde_5()
+        Runde_4()
+        With AktuelleCompetition
+            Dim ergebnisse = PaketBildung.organisierePakete(.SpielerListe.ToList, 4)
+            Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
+            Dim erwartet = XmlRundezuVergleicher(5)
+            CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
+            TrageSätzeEin(ergebnisse, erwartet)
+        End With
+
+    End Sub
+
+    <TestMethod>
+    Sub Runde_6()
+        Runde_5()
+        With AktuelleCompetition
+            Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").First
+            AktuelleCompetition.SpielRunden.Peek.AusgeschiedeneSpieler.Add(Ausgeschieden)
+            Dim AktiveListe = .SpielerListe.ToList
+            For Each Runde In .SpielRunden
+                For Each Ausgeschieden In Runde.AusgeschiedeneSpieler
+                    AktiveListe.Remove(Ausgeschieden)
+                Next
+            Next
+            Dim ergebnisse = PaketBildung.organisierePakete(AktiveListe.ToList, 5)
+            Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
+            Dim erwartet = XmlRundezuVergleicher(6)
+            CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
+            TrageSätzeEin(ergebnisse, erwartet)
+        End With
+
+    End Sub
+
     Private Sub TrageSätzeEin(ergebnisse As IEnumerable(Of SpielPartie), erwartet As IEnumerable(Of BegegnungsVergleicher))
 
         Dim VollständigeErgebnisse = From spielPartie In ergebnisse Join y In erwartet
@@ -171,8 +205,8 @@ Public Class PPC15_Turnier_Klasse_D
     Private Function XmlRundezuVergleicher(runde As Integer) As IEnumerable(Of BegegnungsVergleicher)
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Ergebnisse)
         Dim KlassementD = From x In doc.Root.<Klassement> Where x.@Name = "D" Select x
-        Dim result = From x In KlassementD.<Runde> Where x.@Nummer = runde.ToString
-           From y In x.<Ergebnis>
+        Dim AktuelleRunde = From x In KlassementD.<Runde> Where x.@Nummer = runde.ToString
+        Dim result = From y In AktuelleRunde.<Ergebnis>
            Select New BegegnungsVergleicher With {
                .VornameLinks = y.@VornameA,
                .VornameRechts = y.@VornameB,
@@ -181,7 +215,14 @@ Public Class PPC15_Turnier_Klasse_D
                .SätzeLinks = Integer.Parse(y.@SätzeA),
                .SätzeRechts = Integer.Parse(y.@SätzeB)
         }
-        Return result
+        Dim Freispiel = From x In AktuelleRunde.<Freilos>
+                        Select New BegegnungsVergleicher With {
+        .VornameLinks = x.@Vorname,
+        .VornameRechts = x.@Vorname,
+        .NachnameLinks = x.@Nachname,
+        .NachnameRechts = x.@Nachname
+        }
+        Return result.Concat(Freispiel)
     End Function
 
 End Class

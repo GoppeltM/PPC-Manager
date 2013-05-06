@@ -112,8 +112,13 @@ Class Begegnungen
 
     Private Sub RundeBerechnen()
         With MainWindow.AktiveCompetition
-            Dim begegnungen = PaketBildung.organisierePakete(.SpielerListe.ToList, _
-                                                        .SpielRunden.Count)
+            Dim AktiveListe = .SpielerListe.ToList
+            For Each Runde In .SpielRunden
+                For Each Ausgeschieden In Runde.AusgeschiedeneSpieler
+                    AktiveListe.Remove(Ausgeschieden)
+                Next
+            Next
+            Dim begegnungen = PaketBildung.organisierePakete(AktiveListe, .SpielRunden.Count)
 
 
             Dim spielRunde As New SpielRunde
