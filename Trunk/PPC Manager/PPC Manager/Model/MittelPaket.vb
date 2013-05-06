@@ -53,6 +53,8 @@ Class MittelPaket
         vorgänger.Partien.Remove(MyPartie)
         vorgänger.SpielerListe.Remove(MyPartie.SpielerLinks)
         vorgänger.SpielerListe.Remove(MyPartie.SpielerRechts)
+        Me.SpielerListe.Add(MyPartie.SpielerLinks)
+        Me.SpielerListe.Add(MyPartie.SpielerRechts)
     End Sub
 
 

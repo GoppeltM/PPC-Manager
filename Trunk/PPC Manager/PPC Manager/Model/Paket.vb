@@ -1,5 +1,5 @@
 ﻿
-Class Paket    
+Public Class Paket
     Implements IComparable(Of Paket), IComparer(Of Spieler)
 
 

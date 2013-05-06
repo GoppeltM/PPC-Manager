@@ -131,8 +131,7 @@
         Dim vorgänger As Paket = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
 
         While vorgänger IsNot Nothing
-            If mittelPaket.SuchePaarungen Then
-                vorgänger = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
+            If mittelPaket.SuchePaarungen Then                
                 Return
             End If
 

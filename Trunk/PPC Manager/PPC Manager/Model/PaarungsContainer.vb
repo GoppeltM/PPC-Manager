@@ -1,5 +1,5 @@
 ﻿
-Class PaarungsContainer
+Public Class PaarungsContainer
 
     Public Property aktuellerSchwimmer As Spieler
 

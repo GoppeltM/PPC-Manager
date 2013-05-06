@@ -3,18 +3,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()> Public Class Paket_Tests
 
-    <TestMethod()> Public Sub Runde_1()
-        Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
-        MainWindow.AktiveCompetition = New Competition
-
-        Dim SpielerListe = From x In doc.Root.<competition> Where x.Attribute("age-group").Value = "Herren C"
-                        From y In x...<player> Select Spieler.FromXML(y)
-
-        Dim SpielPartien = PaketBildung.organisierePakete(SpielerListe.ToList, 1)
-        Assert.IsTrue(SpielPartien.Any)
-    End Sub
-
-    <TestMethod> Sub Spieler_Sortieren()
+    <TestMethod>
+    Sub Spieler_Sortieren()
         MainWindow.AktiveCompetition = New Competition
         Dim XNode = <players>
                         <player type="single" id="PLAYER114">
@@ -39,9 +29,42 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
                     </players>
 
         Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x)).ToList
-        Spielerliste.Sort()        
+        Spielerliste.Sort()
         CollectionAssert.AreEqual(New String() {"Wolfert", "Westermann", "Goppelt", "Wild"}, (From x In Spielerliste Select x.Nachname).ToList)
 
+    End Sub
+
+    <TestMethod>
+    Sub Gerade_StandardPaarung()
+        MainWindow.AktiveCompetition = New Competition
+        Dim p As New Paket(1)        
+        p.SpielerListe = New List(Of Spieler) From
+                {New Spieler With {.Nachname = "Alpha", .TTRating = 50},
+                New Spieler With {.Nachname = "Beta", .TTRating = 40},
+                New Spieler With {.Nachname = "Gamma", .TTRating = 30},
+                New Spieler With {.Nachname = "Delta", .TTRating = 20}}
+
+        Dim suche = PaarungsSuche.StandardPaarung(p.SpielerListe, 2, p)
+        Assert.IsNotNull(suche)
+        Assert.IsNull(suche.aktuellerSchwimmer)
+        Assert.AreEqual(2, suche.Partien.Count)
+    End Sub
+
+    <TestMethod>
+    Sub Ungerade_StandardPaarung()
+        MainWindow.AktiveCompetition = New Competition
+        Dim p As New Paket(1)        
+        p.SpielerListe = New List(Of Spieler) From
+                {New Spieler With {.Nachname = "Alpha", .TTRating = 50},
+                New Spieler With {.Nachname = "Beta", .TTRating = 40},
+                New Spieler With {.Nachname = "Gamma", .TTRating = 30},
+                New Spieler With {.Nachname = "Delta", .TTRating = 20},
+                New Spieler With {.Nachname = "Epsilon", .TTRating = 20}}
+
+        Dim suche = PaarungsSuche.StandardPaarung(p.SpielerListe, 2, p)
+        Assert.IsNotNull(suche)
+        Assert.IsNotNull(suche.aktuellerSchwimmer)
+        Assert.AreEqual(2, suche.Partien.Count)
     End Sub
 
 End Class

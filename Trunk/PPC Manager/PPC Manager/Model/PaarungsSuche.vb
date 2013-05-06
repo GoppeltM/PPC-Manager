@@ -1,7 +1,7 @@
 ﻿
-Class PaarungsSuche
+Public Class PaarungsSuche
 
-    Shared Function SuchePaarungen(ByVal spielerListe As List(Of Spieler), ByVal paket As Paket) As PaarungsContainer
+    Public Shared Function SuchePaarungen(ByVal spielerListe As List(Of Spieler), ByVal paket As Paket) As PaarungsContainer
         If spielerListe.Count < 2 Then Return Nothing
 
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
@@ -18,7 +18,7 @@ Class PaarungsSuche
         If rest.Count = 1 Then
             Dim kombination = New List(Of Spieler)(anfang)
             kombination.AddRange(rest)
-            Dim isOk As PaarungsContainer = standardPaarung(kombination, mitte, parent)
+            Dim isOk As PaarungsContainer = StandardPaarung(kombination, mitte, parent)
             If isOk IsNot Nothing Then
                 Return isOk
             End If
@@ -80,7 +80,7 @@ Class PaarungsSuche
     '''@param listeRechts - rechte Hälfte der Liste
     '''@return - Paarung erfolgreich
     '''
-    Private Shared Function standardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
+    Public Shared Function StandardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
         ' prüft, ob der potentielle Schwimmer in der rechten Liste eigentlich gar nicht schwimmen kann
 
         If kombination.Count Mod 2 = 1 Then

@@ -21,7 +21,7 @@ Public Class Spieler
 
     Public Property Id As String = "new"
 
-    Private _Vorname As String
+    Private _Vorname As String = String.Empty
 
     Public Property Vorname As String
         Get
@@ -33,7 +33,7 @@ Public Class Spieler
         End Set
     End Property
 
-    Private _Nachname As String = "Mustermann"
+    Private _Nachname As String = String.Empty
     Public Property Nachname As String
         Get
             Return _Nachname
@@ -44,7 +44,7 @@ Public Class Spieler
         End Set
     End Property
 
-    Private _Verein As String
+    Private _Verein As String = String.Empty
     Public Property Vereinsname As String
         Get
             Return _Verein
