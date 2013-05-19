@@ -80,6 +80,7 @@ Class MainWindow
         With LadenNeu.SpeichernDialog
             .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"
             .FileName = IO.Path.ChangeExtension(AktiveCompetition.DateiPfad, "xlsx")
+            .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
                 ExcelInterface.CreateFile(.FileName, AktiveCompetition.SpielerListe, AktiveCompetition.SpielRunden)
             End If
@@ -94,5 +95,9 @@ Class MainWindow
             Case MessageBoxResult.Cancel : e.Cancel = True
             Case MessageBoxResult.Yes : AktiveCompetition.Save()
         End Select
+    End Sub
+
+    Private Sub MyWindow_Closed(sender As Object, e As EventArgs) Handles MyWindow.Closed
+        My.Settings.Save()
     End Sub
 End Class

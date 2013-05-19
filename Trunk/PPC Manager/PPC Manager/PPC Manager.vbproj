@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>de</TargetCulture>
     <ProductName>PPC Manager</ProductName>
-    <PublisherName>PPC Manager</PublisherName>
+    <PublisherName>Marius Goppelt</PublisherName>
     <SuiteName>PPC Manager</SuiteName>
     <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.3</ApplicationVersion>
