@@ -82,7 +82,9 @@ Class MainWindow
             .FileName = IO.Path.ChangeExtension(AktiveCompetition.DateiPfad, "xlsx")
             .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
-                ExcelInterface.CreateFile(.FileName, AktiveCompetition.SpielerListe, AktiveCompetition.SpielRunden)
+                Dim spieler = AktiveCompetition.SpielerListe.ToList
+                spieler.Sort()
+                ExcelInterface.CreateFile(.FileName, spieler, AktiveCompetition.SpielRunden)
             End If
 
         End With
