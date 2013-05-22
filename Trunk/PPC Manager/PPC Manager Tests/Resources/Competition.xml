@@ -19,11 +19,11 @@
       <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
           sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
           set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
-          player-b="PLAYER72" player-a="PLAYER-1" scheduled="" group="Runde 1" nr="1"/>
+          player-b="PLAYER72" player-a="PLAYER-1" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="1"/>
       <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
           sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="5" set-b-2="9" set-b-1="5"
           set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
-          player-b="PLAYER126" player-a="PLAYER127" scheduled="" group="Runde 1" nr="2"/>
+          player-b="PLAYER126" player-a="PLAYER127" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"/>
       <ppc:freematch player="PLAYER126" group="Runde 2"/>
       <ppc:inactiveplayer player="PLAYER127" group="Runde 1"/>
     </matches>

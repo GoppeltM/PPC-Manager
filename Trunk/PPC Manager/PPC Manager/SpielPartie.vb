@@ -34,9 +34,10 @@ Public Class SpielPartie
     Public Sub Update()
         SpielerLinks.PunkteGeändert()
         SpielerRechts.PunkteGeändert()
+        ZeitStempel = Date.Now
     End Sub
 
-
+    Public Property ZeitStempel As Date
 
     Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
         Get
@@ -88,7 +89,8 @@ Public Class SpielPartie
                        games-a=<%= Aggregate x In Me Into Sum(x.PunkteLinks) %> games-b=<%= Aggregate x In Me Into Sum(x.PunkteRechts) %>
                        sets-a=<%= SätzeLinks %> sets-b=<%= SätzeRechts %>
                        matches-a=<%= GewonnenLinks %> matches-b=<%= GewonnenRechts %>
-                       scheduled="" group=<%= rundenName %> nr=<%= matchNr %>
+                       scheduled=<%= ZeitStempel.ToString(Globalization.CultureInfo.GetCultureInfo("de")) %>
+                       group=<%= rundenName %> nr=<%= matchNr %>
                        <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
                        <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
                    />
@@ -117,6 +119,8 @@ Public Class SpielPartie
             .Where(Function(s) s.PunkteLinks <> 0 Or s.PunkteRechts <> 0)
             partie.Add(Satz)
         Next
+
+        partie.ZeitStempel = Date.Parse(xSpielPartie.@scheduled, Globalization.CultureInfo.GetCultureInfo("de"))
 
         ' Wenigstens einen leeren Dummy Satz anlegen
         If Not partie.Any Then partie.Add(New Satz)

@@ -122,8 +122,8 @@
                             <local:DoppelbreitenGrid.Resources>
                                 <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
                             </local:DoppelbreitenGrid.Resources>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}" HorizontalAlignment="Center"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" TextBlock.TextTrimming="CharacterEllipsis" />
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" TextBlock.TextTrimming="CharacterEllipsis" />
                             <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}">
@@ -179,6 +179,7 @@
               d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}"
               MinWidth="500">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
@@ -203,16 +204,18 @@
                     </Setter>
                 </Style>             
             </Grid.Resources>
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <ItemsControl Grid.Row="0" Style="{StaticResource SatzListe}">
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks.StartNummer}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts.StartNummer}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=SpielerLinks.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=SpielerRechts.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <ItemsControl Grid.Column="2" Grid.Row="0" Style="{StaticResource SatzListe}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Name="Button1" Click="SatzLinks_Click" DataContext="{Binding}" Background="{Binding Path=PunkteLinks, Converter={StaticResource MyPainter}}" MinWidth="30" Margin="5" />                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <ItemsControl Grid.Row="1" Style="{StaticResource SatzListe}">
+            <ItemsControl Grid.Column="2" Grid.Row="1" Style="{StaticResource SatzListe}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Name="Button1" Click="SatzRechts_Click" DataContext="{Binding}" 

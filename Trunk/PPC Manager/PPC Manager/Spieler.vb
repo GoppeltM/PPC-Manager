@@ -61,7 +61,7 @@ Public Class Spieler
 
     Public Property Lizenznummer As Integer
 
-    Public StartNummer As Integer
+    Public Property StartNummer As Integer
 
     Private _Rating As Integer
     Public Property TTRating() As Integer
@@ -160,7 +160,7 @@ Public Class Spieler
     End Function
 
     Public Overrides Function ToString() As String
-        Return Nachname
+        Return String.Format("{0} {1}", Vorname, Nachname)
     End Function
 
 

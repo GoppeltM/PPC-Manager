@@ -61,7 +61,7 @@ Imports System.Collections.ObjectModel
         Dim MatchXml = <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
                            sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
                            set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
-                           player-b="PLAYER72" player-a="PLAYER-1" scheduled="" group="Runde 1" nr="1"/>
+                           player-b="PLAYER72" player-a="PLAYER-1" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="1"/>
 
         Dim SpielerA = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER-1", .Fremd = True}
         Dim SpielerB = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER72"}
@@ -82,7 +82,7 @@ Imports System.Collections.ObjectModel
         Dim MatchXml = <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
                            sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="0" set-b-1="5"
                            set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
-                           player-b="PLAYER299" player-a="PLAYER293" scheduled="" group=" Gruppe 01" nr="5"/>
+                           player-b="PLAYER299" player-a="PLAYER293" scheduled="22.05.2013 21:17:45" group=" Gruppe 01" nr="5"/>
 
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
@@ -119,7 +119,7 @@ Imports System.Collections.ObjectModel
                 Dim runde = New SpielRunde With {.AusgeschiedeneSpieler = New ObservableCollection(Of Spieler) From
                                             {spieler(3)}}
                 runde.Add(New FreiLosSpiel(spieler(2)))
-                runde.Add(New SpielPartie(spieler(0), spieler(1)))
+                runde.Add(New SpielPartie(spieler(0), spieler(1)) With {.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))})
                 .Push(runde)
             End With
 
@@ -136,7 +136,7 @@ Imports System.Collections.ObjectModel
             Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1"/>.ToString)
             Assert.AreEqual(spielPartien(1).ToString, <match player-a="PLAYER293" player-b="PLAYER299"
                                                           games-a="0" games-b="0" sets-a="0" sets-b="0"
-                                                          matches-a="0" matches-b="0" scheduled="" group="Runde 1" nr="2"
+                                                          matches-a="0" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"
                                                           set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
                                                           set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString)
             Assert.AreEqual(spielPartien(2).ToString, <ppc:inactiveplayer player="PLAYER77" group="Runde 1"/>.ToString)
@@ -150,13 +150,14 @@ Imports System.Collections.ObjectModel
         Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
 
         Dim Partie = New SpielPartie(SpielerA, SpielerB)
+        Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})
 
 
         Dim MatchXml = <match player-a="PLAYER293" player-b="PLAYER299" games-a="28" games-b="19" sets-a="2" sets-b="1"
-                           matches-a="1" matches-b="0" scheduled="" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
+                           matches-a="1" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
@@ -178,9 +179,10 @@ Imports System.Collections.ObjectModel
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})
+        Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
 
         Dim MatchXml = <ppc:match player-a="PLAYER293" player-b="PLAYER299" games-a="28" games-b="19" sets-a="2" sets-b="1"
-                           matches-a="1" matches-b="0" scheduled="" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
+                           matches-a="1" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
