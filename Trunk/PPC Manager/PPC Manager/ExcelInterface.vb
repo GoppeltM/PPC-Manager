@@ -75,7 +75,8 @@ Public Class ExcelInterface
         Dim currentRunde = 1
         For Each runde In spielrunden
             Dim sheet = CType(workbook.Worksheets.Add, Worksheet)
-            sheet.Name = "Runde " & currentRunde
+            sheet.Name = "Runde_" & currentRunde
+            currentRunde += 1
 
             Dim Titles = {"Linker Spieler", "Rechter Spieler", "Sätze Links", "Sätze Rechts"}
             Dim currentTitle = 1
