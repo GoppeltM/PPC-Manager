@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Win32
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
+Imports System.Windows.Controls.Primitives
 
 Class MainWindow
 
@@ -37,6 +38,14 @@ Class MainWindow
 
         Dim AlleSpieler = XmlZuSpielerListe(Doc)
 
+
+        Dim AlleKlassements = (From x In Doc.Root.<competition> Select x.Attribute("age-group").Value).Distinct
+        With DirectCast(FindResource("KlassementListe"), KlassementListe)
+            For Each Klassement In AlleKlassements
+                .Add(New KlassementName With {.Name = Klassement})
+            Next
+        End With
+
         For Each s In AlleSpieler
             SpielerListe.Add(s)
         Next
@@ -47,7 +56,7 @@ Class MainWindow
 
         Dim SpielerListe = From competition In doc.Root.<competition>
                            From Spieler In competition...<player>.Concat(competition...<ppc:player>)
-                           Select Spieler                           
+                           Select Spieler
 
         Dim AlleSpieler As New List(Of Spieler)
 
@@ -93,7 +102,7 @@ Class MainWindow
     End Sub
 
     Private Sub CommandReplace_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)        
+        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
         Dim dialog = FremdSpielerDialog.EditiereFremdSpieler(aktuellerSpieler)
         aktuellerSpieler.BeginEdit()
         SpielerGrid.BeginInit()
@@ -114,13 +123,13 @@ Class MainWindow
             Dim correctlyTyped = TryCast(parent, T)
             If correctlyTyped IsNot Nothing Then
                 Return correctlyTyped
-            End If                
+            End If
             parent = TryCast(VisualTreeHelper.GetParent(parent), UIElement)
         End While
-            
+
         Return Nothing
     End Function
-        
+
 
     ' Click-Through Verhalten adaptiert von
     ' http://wpf.codeplex.com/wikipage?title=Single-Click%20Editing&referringTitle=Tips%20%26%20Tricks&ProjectName=wpf
@@ -149,23 +158,61 @@ Class MainWindow
     Private Sub SuchFilter(sender As Object, e As FilterEventArgs)
         e.Accepted = True
         If Suche Is Nothing Then Return
-        If String.IsNullOrEmpty(Suche.Text) Then Return
-
-        Dim SuchText = Suche.Text.ToLower
+        Dim KlassementButtons = FindVisualChildren(Of ToggleButton)(KlassementFilterListe)
+        Dim KlassementFilterAktiv = Aggregate x In KlassementButtons Where x.IsChecked Into Any()
+        
         With DirectCast(e.Item, Spieler)
+
+            
+            If Unbezahlt.IsChecked AndAlso .Bezahlt Then
+                e.Accepted = False
+                Return
+            End If
+            If NichtAnwesend.IsChecked AndAlso .Anwesend Then
+                e.Accepted = False
+                Return
+            End If
+
+            If KlassementFilterAktiv Then
+                e.Accepted = False
+                For Each tb In FindVisualChildren(Of ToggleButton)(KlassementFilterListe)
+                    If tb.IsChecked AndAlso tb.Content.ToString = .Klassement Then
+                        e.Accepted = True
+                    End If
+                Next
+                If Not e.Accepted Then Return
+            End If
+
+
+            If Not e.Accepted Then Return
+
+            e.Accepted = True
+            If String.IsNullOrEmpty(Suche.Text) Then Return
+
+            Dim SuchText = Suche.Text.ToLower
+
             If .Vorname.ToLower.Contains(SuchText) Then Return
             If .Nachname.ToLower.Contains(SuchText) Then Return
             If .Verein.ToLower.Contains(SuchText) Then Return
-            If .Klassement.ToLower.Contains(SuchText) Then Return            
+            If .Klassement.ToLower.Contains(SuchText) Then Return
         End With
-        e.Accepted = False
+            e.Accepted = False
     End Sub
 
-    Private Sub Suche_TextChanged(sender As Object, e As TextChangedEventArgs) Handles Suche.TextChanged        
-        Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
-        View.View.Refresh()
-    End Sub
+    Shared Function FindVisualChildren(Of T As DependencyObject)(parent As DependencyObject) As IEnumerable(Of T)
+        Dim Children As New List(Of T)
+        If TypeOf parent Is T Then
+            Children.Add(DirectCast(parent, T))
+            Return Children
+        End If
 
+        For i = 0 To VisualTreeHelper.GetChildrenCount(parent) - 1
+            Dim child = VisualTreeHelper.GetChild(parent, i)
+            Children.AddRange(FindVisualChildren(Of T)(child))
+        Next
+        Return Children
+    End Function
+	
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
         For Each column In SpielerGrid.Columns
@@ -176,7 +223,32 @@ Class MainWindow
             .Add(New System.ComponentModel.SortDescription With {.PropertyName = "TTR", .Direction = ComponentModel.ListSortDirection.Descending})
             .Add(New System.ComponentModel.SortDescription With {.PropertyName = "TTRMatchCount", .Direction = ComponentModel.ListSortDirection.Descending})
         End With
-        
+
+    End Sub
+
+    Private Sub UpdateFilter(sender As Object, e As RoutedEventArgs)
+        Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
+        SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
+        View.View.Refresh()
+    End Sub
+
+    Private Sub Save_Click(sender As Object, e As RoutedEventArgs)
+        Speichern()
+    End Sub
+
+    Private Sub Drucken_Click(sender As Object, e As RoutedEventArgs)
+        With New PrintDialog
+            If .ShowDialog Then
+                Dim CollectionSource = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
+                Dim l As New List(Of Object)
+                For Each item In CollectionSource.View
+                    l.Add(item)
+                Next
+                Dim paginator As New UserControlPaginator(Of StartlisteSeite)(l, _
+                                                                             New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                .PrintDocument(paginator, "Spielerliste - Aktuelle Sicht")
+            End If
+        End With        
     End Sub
 End Class
 
@@ -194,4 +266,12 @@ Class StringIsEmptyConverter
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
 
     End Function
+End Class
+
+Class KlassementListe
+    Inherits ObjectModel.ObservableCollection(Of KlassementName)
+End Class
+
+Class KlassementName
+    Property Name As String
 End Class

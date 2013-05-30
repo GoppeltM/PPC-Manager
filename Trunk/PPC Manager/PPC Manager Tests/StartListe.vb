@@ -18,7 +18,8 @@ Imports Microsoft.Office.Interop.Excel
                 <competition age-group="Herren D">
                     <players>
                         <ppc:player type="single">
-                            <person club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" ttr="1299" firstname="Mikail"/>
+                            <person club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin"
+                                ttr="1299" firstname="Mikail" ppc:anwesend="true" ppc:abwesend="true" ppc:bezahlt="true"/>
                         </ppc:player>
                     </players>
                 </competition>
@@ -33,6 +34,9 @@ Imports Microsoft.Office.Interop.Excel
             Assert.AreEqual("Mikail", .Vorname)
             Assert.AreEqual("Akin", .Nachname)
             Assert.AreEqual("Herren C", .Klassement)
+            Assert.IsFalse(.Bezahlt)
+            Assert.IsFalse(.Anwesend)
+            Assert.IsFalse(.Abwesend)
         End With
 
         FremdSpieler = StartlistenEditor.Spieler.FromXML(XMLKnoten(1))
@@ -44,6 +48,9 @@ Imports Microsoft.Office.Interop.Excel
             Assert.AreEqual("Mikail", .Vorname)
             Assert.AreEqual("Akin", .Nachname)
             Assert.AreEqual("Herren D", .Klassement)
+            Assert.IsTrue(.Bezahlt)
+            Assert.IsTrue(.Anwesend)
+            Assert.IsTrue(.Abwesend)
         End With
     End Sub
 

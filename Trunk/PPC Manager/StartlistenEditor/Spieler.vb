@@ -74,7 +74,7 @@ Public Class Spieler
             _XmlKnoten = value            
         End Set
     End Property
-    Property Anwesend As Boolean
+
     Property TTR As Integer
         Get
             Return Integer.Parse(XmlPerson.@ttr)
@@ -115,13 +115,46 @@ Public Class Spieler
             Return Integer.Parse(XmlPerson.@sex)
         End Get
         Set(value As Integer)
-            xmlperson.@sex = value.ToString            
+            XmlPerson.@sex = value.ToString
         End Set
     End Property
 
     WriteOnly Property ID As String
         Set(value As String)
             XmlKnoten.@id = value            
+        End Set
+    End Property
+
+    Property Bezahlt As Boolean
+        Get
+            Dim result As Boolean
+            Return Boolean.TryParse(XmlPerson.@ppc:bezahlt, result)
+            Return result
+        End Get
+        Set(value As Boolean)
+            XmlPerson.@ppc:bezahlt = value.ToString
+        End Set
+    End Property
+
+    Property Anwesend As Boolean
+        Get
+            Dim result As Boolean
+            Return Boolean.TryParse(XmlPerson.@ppc:anwesend, result)
+            Return result
+        End Get
+        Set(value As Boolean)
+            XmlPerson.@ppc:anwesend = value.ToString
+        End Set
+    End Property
+
+    Property Abwesend As Boolean
+        Get
+            Dim result As Boolean
+            Return Boolean.TryParse(XmlPerson.@ppc:abwesend, result)
+            Return result
+        End Get
+        Set(value As Boolean)
+            XmlPerson.@ppc:abwesend = value.ToString
         End Set
     End Property
 

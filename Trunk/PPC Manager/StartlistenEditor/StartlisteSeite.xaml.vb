@@ -1,12 +1,12 @@
-﻿Public Class RanglisteSeite
+﻿Public Class StartlisteSeite
     Implements IPaginatibleUserControl
 
 
     Public Function GetMaxItemCount() As Integer Implements IPaginatibleUserControl.GetMaxItemCount
-        Dim width = PageContent.ActualWidth
-        Dim height = PageContent.ActualHeight
+        Dim width = SpielerRangListe.ActualWidth
+        Dim height = SpielerRangListe.ActualHeight - 70 ' Row Headers ausgenommen
 
-        Dim ItemHeight = 75.5905511811024
+        Dim ItemHeight = 21
 
         Dim Rows = CInt(height) \ CInt(ItemHeight)
 
@@ -42,3 +42,10 @@ Public Class IndexConverter
     End Function
 End Class
 
+Class DesignSpielerListe
+    Inherits SpielerListe
+
+    Sub New()
+        Add(New Spieler)
+    End Sub
+End Class

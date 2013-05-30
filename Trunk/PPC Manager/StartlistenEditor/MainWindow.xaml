@@ -7,10 +7,11 @@
     <Window.Resources>
         <local:StringIsEmptyConverter x:Key="StringIsEmptyConverter"/>
         <local:SpielerListe x:Key="SpielerListe"/>
-        <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />        
+        <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />
+        <local:KlassementListe x:Key="KlassementListe"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,36,0,0" RowHeaderWidth="100">
+        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDown"></EventSetter>
@@ -38,20 +39,46 @@
                             <Setter Property="Background" Value="Beige"/>
                         </DataTrigger>
                     </Style.Triggers>
-                </Style>                
-            </DataGrid.RowStyle>            
-            <DataGrid.Columns>                
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Vorname}" ClipboardContentBinding="{x:Null}" Header="Vorname" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Binding="{Binding Anwesend}" ClipboardContentBinding="{x:Null}" Header="Anwesend"/>
+                <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>                
                 <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>
                 <DataGridTextColumn Binding="{Binding TTRMatchCount}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Match Count"/>
                 <DataGridTextColumn Binding="{Binding Verein}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Verein"/>
-                <DataGridTextColumn Binding="{Binding Klassement}" IsReadOnly="True" Header="Klassement"/>                    
+                <DataGridTextColumn Binding="{Binding Klassement}" IsReadOnly="True" Header="Klassement"/>
+                <DataGridCheckBoxColumn Binding="{Binding Anwesend}" ClipboardContentBinding="{x:Null}" Header="Anwesend"/>
+                <DataGridCheckBoxColumn Binding="{Binding Bezahlt}" Header="Bezahlt"/>                
+                <DataGridCheckBoxColumn Binding="{Binding Abwesend}" Header="Abwesend"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
-        <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>
-        <Button Content="Sortieren" HorizontalAlignment="Left" Height="21" Margin="10,38,0,0" VerticalAlignment="Top" Width="70" Click="Button_Click"/>
+        <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" TextChanged="UpdateFilter"/>
+        <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>        
+        <ToolBarTray x:Name="ToolbarLeiste" HorizontalAlignment="Stretch" Height="35" Margin="10,10,10,0" VerticalAlignment="Top">
+            <ToolBar Band="1" BandIndex="1">
+                <Button Content="Sortieren" Click="Button_Click"/>
+                <Button Content="Speichern" Click="Save_Click"/>
+                <Button Content="Drucken..." Click="Drucken_Click"/>
+                <Separator/>
+                <ToggleButton x:Name="Unbezahlt" Content="Unbezahlt" Click="UpdateFilter"/>
+                <ToggleButton x:Name="NichtAnwesend" Content="Nicht anwesend" Click="UpdateFilter"/>
+                <Separator/>
+            </ToolBar>
+            <ToolBar x:Name="KlassementFilter" Band="1" BandIndex="2">
+                <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding Mode=OneWay, Source={StaticResource KlassementListe}}">                  
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>                        
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton x:Name="KlassementButton" Content="{Binding Path=Name}" Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}" Click="UpdateFilter"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ToolBar>
+        </ToolBarTray>
     </Grid>
 </Window>
