@@ -8,7 +8,7 @@ Imports Microsoft.Office.Interop.Excel
     <TestMethod> Sub FremdSpieler_Erzeugen()
         Dim XMLKnoten =
             <tournament>
-                <competition age-group="Herren D">
+                <competition age-group="Herren C">
                     <players>
                         <ppc:player type="single">
                             <person club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" ttr="1299" firstname="Mikail"/>
@@ -24,7 +24,7 @@ Imports Microsoft.Office.Interop.Excel
                 </competition>
             </tournament>...<ppc:player>
 
-        Dim FremdSpieler = StartlistenEditor.Spieler.FromXML(XMLKnoten)
+        Dim FremdSpieler = StartlistenEditor.Spieler.FromXML(XMLKnoten(0))
         With FremdSpieler
             Assert.IsTrue(FremdSpieler.Fremd)
             Assert.AreEqual(0, .TTRMatchCount)
@@ -32,6 +32,18 @@ Imports Microsoft.Office.Interop.Excel
             Assert.AreEqual(1299, .TTR)
             Assert.AreEqual("Mikail", .Vorname)
             Assert.AreEqual("Akin", .Nachname)
+            Assert.AreEqual("Herren C", .Klassement)
+        End With
+
+        FremdSpieler = StartlistenEditor.Spieler.FromXML(XMLKnoten(1))
+        With FremdSpieler
+            Assert.IsTrue(FremdSpieler.Fremd)
+            Assert.AreEqual(0, .TTRMatchCount)
+            Assert.AreEqual(1, .Geschlecht)
+            Assert.AreEqual(1299, .TTR)
+            Assert.AreEqual("Mikail", .Vorname)
+            Assert.AreEqual("Akin", .Nachname)
+            Assert.AreEqual("Herren D", .Klassement)
         End With
     End Sub
 

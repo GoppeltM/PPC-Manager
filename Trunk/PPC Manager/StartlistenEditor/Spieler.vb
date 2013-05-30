@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de/">
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports System.ComponentModel
 
 Public Class Spieler
@@ -8,11 +8,14 @@ Public Class Spieler
 
 
     Public Sub New()
-        XmlKnoten = New XElement() {
-            <ppc:player>
-                <person club-name="" sex="1" ttr-match-count="0"
-                    firstname="" lastname="" ttr="0" licence-nr="0"/>
-            </ppc:player>}
+        XmlKnoten = <ppc:player>
+                        <person club-name="" sex="1" ttr-match-count="0"
+                            firstname="" lastname="" ttr="0" licence-nr="0"/>
+                    </ppc:player>
+    End Sub
+
+    Public Sub New(knoten As XElement)
+        XmlKnoten = knoten
     End Sub
 
     Property Vorname As String
@@ -55,21 +58,20 @@ Public Class Spieler
         End Get
     End Property
 
-    Private _XmlKnoten As IEnumerable(Of XElement)
-    Property XmlKnoten As IEnumerable(Of XElement)
+    Private _XmlKnoten As XElement
+    Property XmlKnoten As XElement
         Get
             Return _XmlKnoten
         End Get
-        Set(value As IEnumerable(Of XElement))
+        Set(value As XElement)
+            If value Is Nothing Then Throw New ArgumentNullException("value")
+            If Not value.<person>.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
             _Fremd = False
-            value.All(Function(x) XElement.DeepEquals(value.First, x))
-            If Not String.IsNullOrEmpty(value.First.Name.NamespaceName) Then
+            If Not String.IsNullOrEmpty(value.Name.NamespaceName) Then
                 _Fremd = True
-                LocalNameSpace = value.First.GetNamespaceOfPrefix("ppc")
+                LocalNameSpace = value.GetNamespaceOfPrefix("ppc")
             End If
-            _XmlKnoten = value
-            If Not XmlKnoten.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
-            If Not XmlKnoten.<person>.Any Then Throw New ArgumentException("Konsistenzfehler: mindestens ein Spieler notwendig")
+            _XmlKnoten = value            
         End Set
     End Property
     Property Anwesend As Boolean
@@ -100,11 +102,11 @@ Public Class Spieler
         End Set
     End Property
 
-    ReadOnly Property Klassements As IEnumerable(Of String)
+    ReadOnly Property Klassement As String
         Get
-            Dim KlassementNamen = From x In XmlKnoten.Ancestors("competition") Select x.Attribute("age-group").Value
+            Dim KlassementName = From x In XmlKnoten.Ancestors("competition") Select x.Attribute("age-group").Value
 
-            Return KlassementNamen.ToList
+            Return KlassementName.Single
         End Get
     End Property
 
@@ -119,16 +121,12 @@ Public Class Spieler
 
     WriteOnly Property ID As String
         Set(value As String)
-            For Each knoten In XmlKnoten
-                XmlKnoten.@id = value
-            Next
+            XmlKnoten.@id = value            
         End Set
     End Property
 
-    Shared Function FromXML(SpielerKnoten As IEnumerable(Of XElement)) As Spieler
-        Return New Spieler With {
-        .XmlKnoten = SpielerKnoten
-        }
+    Shared Function FromXML(SpielerKnoten As XElement) As Spieler
+        Return New Spieler(SpielerKnoten)        
     End Function
 
     Public Function CompareTo(other As Spieler) As Integer Implements IComparable(Of Spieler).CompareTo
@@ -143,7 +141,7 @@ Public Class Spieler
         Return Me.LizenzNr - other.LizenzNr
     End Function
 
-    Private _OldValue As IEnumerable(Of XElement)
+    Private _OldValue As XElement
 
     Public Sub BeginEdit() Implements IEditableObject.BeginEdit
         _OldValue = XmlKnoten

@@ -47,16 +47,12 @@ Class MainWindow
 
         Dim SpielerListe = From competition In doc.Root.<competition>
                            From Spieler In competition...<player>.Concat(competition...<ppc:player>)
-                           Group Spieler, competition By Spieler.<person>.First.Attribute("licence-nr").Value Into Group
-                           Select Group
+                           Select Spieler                           
 
         Dim AlleSpieler As New List(Of Spieler)
 
         For Each s In SpielerListe
-
-            Dim SpielerKnoten = From x In s Select x.Spieler
-
-            AlleSpieler.Add(Spieler.FromXML(SpielerKnoten))
+            AlleSpieler.Add(Spieler.FromXML(s))
         Next
 
         AlleSpieler.Sort()
@@ -89,10 +85,10 @@ Class MainWindow
 
     Private Sub CommandDelete_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
-        If MessageBox.Show("Wollen Sie wirklich diesen Spieler aus allen Klassements entfernen?", "Löschen?", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) = MessageBoxResult.OK Then
+        If MessageBox.Show("Wollen Sie wirklich diesen Spieler entfernen?", "Löschen?", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) = MessageBoxResult.OK Then
             Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
             res.Remove(aktuellerSpieler)
-            aktuellerSpieler.XmlKnoten.Remove()            
+            aktuellerSpieler.XmlKnoten.Remove()
         End If
     End Sub
 
@@ -160,9 +156,7 @@ Class MainWindow
             If .Vorname.ToLower.Contains(SuchText) Then Return
             If .Nachname.ToLower.Contains(SuchText) Then Return
             If .Verein.ToLower.Contains(SuchText) Then Return
-            For Each klassement In .Klassements
-                If klassement.ToLower.Contains(SuchText) Then Return
-            Next
+            If .Klassement.ToLower.Contains(SuchText) Then Return            
         End With
         e.Accepted = False
     End Sub

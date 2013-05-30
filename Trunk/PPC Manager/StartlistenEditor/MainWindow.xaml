@@ -10,7 +10,7 @@
         <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />        
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,36,0,0" RowHeaderWidth="70">
+        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,36,0,0" RowHeaderWidth="100">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDown"></EventSetter>
@@ -47,31 +47,11 @@
                 <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>
                 <DataGridTextColumn Binding="{Binding TTRMatchCount}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Match Count"/>
                 <DataGridTextColumn Binding="{Binding Verein}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Verein"/>
-                <DataGridTemplateColumn IsReadOnly="True" Header="Klassements">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding Path=Klassements}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="0,0,1,0">
-                                            <TextBlock Text="{Binding}" Margin="3"/>
-                                        </Border>                                        
-                                    </DataTemplate>                                    
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                            
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Klassement}" IsReadOnly="True" Header="Klassement"/>                    
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
         <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>
-        <Button Content="Sortieren" HorizontalAlignment="Left" Height="21" Margin="10,38,0,0" VerticalAlignment="Top" Width="50" Click="Button_Click"/>
+        <Button Content="Sortieren" HorizontalAlignment="Left" Height="21" Margin="10,38,0,0" VerticalAlignment="Top" Width="70" Click="Button_Click"/>
     </Grid>
 </Window>

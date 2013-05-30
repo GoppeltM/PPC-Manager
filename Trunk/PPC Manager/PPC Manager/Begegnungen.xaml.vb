@@ -111,6 +111,11 @@ Class Begegnungen
     End Sub
 
     Private Sub RundeBerechnen()
+
+        If CBool(My.Settings.AutoSaveAn) Then
+            ApplicationCommands.Save.Execute(Nothing, Me)
+        End If
+
         With MainWindow.AktiveCompetition
             Dim AktiveListe = .SpielerListe.ToList
             For Each Runde In .SpielRunden
@@ -131,7 +136,7 @@ Class Begegnungen
             PlayOffAktiv = True
             LifeListe.SelectionMode = SelectionMode.Single
         End With
-        
+
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
@@ -140,9 +145,6 @@ Class Begegnungen
 
         ViewSource.View.MoveCurrentToFirst()
 
-        If CBool(My.Settings.AutoSaveAn) Then
-            ApplicationCommands.Save.Execute(Nothing, Me)
-        End If
     End Sub
 
     Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
