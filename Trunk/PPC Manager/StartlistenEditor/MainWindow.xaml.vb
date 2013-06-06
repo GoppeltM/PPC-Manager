@@ -136,7 +136,7 @@ Class MainWindow
 
     Private Sub DataGridCell_PreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
         Dim cell = DirectCast(sender, DataGridCell)
-        If cell Is Nothing OrElse cell.IsEditing OrElse cell.IsReadOnly Then Return
+        If cell Is Nothing OrElse cell.IsEditing OrElse cell.IsReadOnly Then Return        
 
         If Not cell.IsFocused Then
             cell.Focus()
@@ -218,6 +218,7 @@ Class MainWindow
         For Each column In SpielerGrid.Columns
             column.SortDirection = Nothing
         Next
+        SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
         With View.SortDescriptions
             .Clear()
             .Add(New System.ComponentModel.SortDescription With {.PropertyName = "TTR", .Direction = ComponentModel.ListSortDirection.Descending})

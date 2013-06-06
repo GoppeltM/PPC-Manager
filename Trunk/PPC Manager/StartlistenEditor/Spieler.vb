@@ -77,7 +77,11 @@ Public Class Spieler
 
     Property TTR As Integer
         Get
-            Return Integer.Parse(XmlPerson.@ttr)
+            Dim value As Integer
+            If Not Integer.TryParse(XmlPerson.@ttr, value) Then
+                XmlPerson.@ttr = value.ToString
+            End If
+            Return value
         End Get
         Set(value As Integer)
             XmlPerson.@ttr = value.ToString
@@ -90,7 +94,8 @@ Public Class Spieler
             Return Integer.Parse(XmlPerson.Attribute("ttr-match-count").Value)
         End Get
         Set(value As Integer)
-            XmlPerson.Attribute("ttr-match-count").Value = value.ToString            
+            XmlPerson.Attribute("ttr-match-count").Value = value.ToString
+            OnPropertyChanged("TTRMatchCount")
         End Set
     End Property
     Property LizenzNr As Integer
@@ -98,7 +103,8 @@ Public Class Spieler
             Return Integer.Parse(XmlPerson.Attribute("licence-nr").Value)            
         End Get
         Set(value As Integer)
-            XmlPerson.Attribute("licence-nr").Value = value.ToString            
+            XmlPerson.Attribute("licence-nr").Value = value.ToString
+            OnPropertyChanged("LizenzNr")
         End Set
     End Property
 
@@ -116,6 +122,7 @@ Public Class Spieler
         End Get
         Set(value As Integer)
             XmlPerson.@sex = value.ToString
+            OnPropertyChanged("Geschlecht")
         End Set
     End Property
 
@@ -128,33 +135,38 @@ Public Class Spieler
     Property Bezahlt As Boolean
         Get
             Dim result As Boolean
-            Return Boolean.TryParse(XmlPerson.@ppc:bezahlt, result)
+            Boolean.TryParse(XmlPerson.@ppc:bezahlt, result)
             Return result
         End Get
         Set(value As Boolean)
             XmlPerson.@ppc:bezahlt = value.ToString
+            OnPropertyChanged("Bezahlt")
         End Set
     End Property
 
     Property Anwesend As Boolean
         Get
             Dim result As Boolean
-            Return Boolean.TryParse(XmlPerson.@ppc:anwesend, result)
+            Boolean.TryParse(XmlPerson.@ppc:anwesend, result)
             Return result
         End Get
         Set(value As Boolean)
+            If value Then Abwesend = False
             XmlPerson.@ppc:anwesend = value.ToString
+            OnPropertyChanged("Anwesend")
         End Set
     End Property
 
     Property Abwesend As Boolean
         Get
             Dim result As Boolean
-            Return Boolean.TryParse(XmlPerson.@ppc:abwesend, result)
+            Boolean.TryParse(XmlPerson.@ppc:abwesend, result)
             Return result
         End Get
         Set(value As Boolean)
+            If value Then Anwesend = False
             XmlPerson.@ppc:abwesend = value.ToString
+            OnPropertyChanged("Abwesend")
         End Set
     End Property
 
