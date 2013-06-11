@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FremdSpielerDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Nicht registrierter Spieler" Height="271.059" Width="531.5"
+    Title="Nicht registrierter Spieler" Height="311.059" Width="531.5"
     xmlns:local="clr-namespace:StartlistenEditor">
     <Window.Resources>
         <local:IsSelectedConverter x:Key="IsSelectedConverter"/>
@@ -13,8 +13,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="10,209,0,0" VerticalAlignment="Top" Width="75" Height="22" IsDefault="True" Click="Button_Click_1" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedConverter}, ElementName=Klassements}"/>
-        <Button Content="Abbrechen" Margin="0,209,10,0" VerticalAlignment="Top" Grid.Column="2" Height="22" IsCancel="True" HorizontalAlignment="Right" Width="75"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" Height="22" IsDefault="True" Click="Button_Click_1" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedConverter}, ElementName=Klassements}"/>
+        <Button Content="Abbrechen" Margin="0,0,10,10" VerticalAlignment="Bottom" Grid.Column="2" Height="22" IsCancel="True" HorizontalAlignment="Right" Width="75"/>
         <Label Content="Vorname" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="58"/>
         <Label Content="Nachname" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.392,2.744" Height="26" Width="67"/>
         <Label Content="Verein" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.392,2.744" Height="26" Width="44"/>
@@ -27,6 +27,8 @@
         <TextBox HorizontalAlignment="Stretch" Height="23" Margin="10,105,0,0" TextWrapping="Wrap" Text="{Binding Spieler.TTR, Source={StaticResource AktuellerSpieler}}" VerticalAlignment="Top" Grid.Column="1"/>
         <TextBox HorizontalAlignment="Stretch" Height="23" Margin="10,136,0,0" TextWrapping="Wrap" Text="{Binding Spieler.TTRMatchCount, Source={StaticResource AktuellerSpieler}}" VerticalAlignment="Top" Grid.Column="1"/>
         <CheckBox Content="(m=1, f=0)" Grid.Column="1" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Height="16" Width="74" IsChecked="{Binding Spieler.Geschlecht, Source={StaticResource AktuellerSpieler}}"/>
-        <ListBox x:Name="Klassements" Grid.Column="2" Height="161" Margin="0,12,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="139"/>
+        <ListBox x:Name="Klassements" Grid.Column="2" Height="207" Margin="0,12,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="139"/>
+        <Label Content="Geburtsjahr" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.392,2.744" Height="26" Width="130"/>
+        <TextBox HorizontalAlignment="Stretch" Height="23" Margin="10,196,0,0" TextWrapping="Wrap" Text="{Binding Spieler.Geburtsjahr, Source={StaticResource AktuellerSpieler}}" VerticalAlignment="Top" Grid.Column="1"/>
     </Grid>
 </Window>

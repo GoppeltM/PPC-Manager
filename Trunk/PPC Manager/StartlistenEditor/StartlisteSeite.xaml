@@ -6,13 +6,15 @@
              xmlns:local="clr-namespace:StartlistenEditor"
              mc:Ignorable="d" d:DesignHeight="1123" d:DesignWidth="793">
     <UserControl.Resources>
-        <local:SpielerListe x:Key="Spieler"/>        
+        <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
+        <local:SpielerListe x:Key="Spieler"/>
     </UserControl.Resources>
     <Grid x:Name="PageContent" Margin="20">        
         <DataGrid x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="21">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Vorname}" ClipboardContentBinding="{x:Null}" Header="Vorname" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}" ClipboardContentBinding="{x:Null}" Header="Geschlecht" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>
                 <DataGridTextColumn Binding="{Binding TTRMatchCount}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Match Count"/>
                 <DataGridTextColumn Binding="{Binding Verein}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Verein"/>

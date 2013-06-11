@@ -126,6 +126,20 @@ Public Class Spieler
         End Set
     End Property
 
+    Property Geburtsjahr As Integer
+        Get
+            Dim value As Integer
+            If Not Integer.TryParse(XmlPerson.@birthyear, value) Then
+                XmlPerson.@birthyear = value.ToString
+            End If
+            Return value
+        End Get
+        Set(value As Integer)
+            XmlPerson.@birthyear = value.ToString
+        End Set
+    End Property
+
+
     WriteOnly Property ID As String
         Set(value As String)
             XmlKnoten.@id = value            

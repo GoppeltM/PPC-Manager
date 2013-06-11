@@ -64,15 +64,19 @@ Class Begegnungen
         Dim partie = CType(DetailGrid.DataContext, SpielPartie)
         Dim AbgeschlosseneSätze = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
-        If AbgeschlosseneSätze >= partie.Count AndAlso Not Abgeschlossen(partie) Then
+        Dim Fertig = Abgeschlossen(partie)
+
+        If AbgeschlosseneSätze >= partie.Count AndAlso Not Fertig Then
             partie.Add(New Satz)
         End If
         partie.Update()
         ' Refresh erzwingt u.a. Filter
-        BegegnungenView.View.Refresh()
-        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
-
-        SpielerView.View.Refresh()
+        If Fertig Then
+            BegegnungenView.View.Refresh()
+            Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+            SpielerView.View.Refresh()
+        End If
+        
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)

@@ -106,10 +106,10 @@
     <Compile Include="FremdSpielerDialog.xaml.vb">
       <DependentUpon>FremdSpielerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Spieler.vb" />
     <Compile Include="StartlisteSeite.xaml.vb">
       <DependentUpon>StartlisteSeite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Spieler.vb" />
     <Compile Include="UserControlPaginator.vb" />
     <Page Include="FremdSpielerDialog.xaml">
       <SubType>Designer</SubType>
@@ -128,8 +128,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="StartlisteSeite.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

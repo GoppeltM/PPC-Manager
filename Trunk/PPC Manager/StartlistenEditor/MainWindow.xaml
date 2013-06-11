@@ -7,6 +7,7 @@
     <Window.Resources>
         <local:StringIsEmptyConverter x:Key="StringIsEmptyConverter"/>
         <local:SpielerListe x:Key="SpielerListe"/>
+        <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />
         <local:KlassementListe x:Key="KlassementListe"/>
     </Window.Resources>
@@ -43,7 +44,8 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Vorname}" ClipboardContentBinding="{x:Null}" Header="Vorname" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>                
+                <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}" ClipboardContentBinding="{x:Null}" Header="Geschlecht" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>
                 <DataGridTextColumn Binding="{Binding TTRMatchCount}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Match Count"/>
                 <DataGridTextColumn Binding="{Binding Verein}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Verein"/>

@@ -276,3 +276,20 @@ End Class
 Class KlassementName
     Property Name As String
 End Class
+
+Public Class GeschlechtKonverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        Dim geschlecht = DirectCast(value, Integer)
+        Select Case geschlecht
+            Case 0 : Return "w"
+            Case 1 : Return "m"
+        End Select
+        Throw New ArgumentException("Unbekanntes geschlecht: " & geschlecht)
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+
+    End Function
+End Class
