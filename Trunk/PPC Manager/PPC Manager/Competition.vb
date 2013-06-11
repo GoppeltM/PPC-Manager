@@ -1,7 +1,9 @@
-﻿Public Class Competition
+﻿Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
-    Property StartDatum As String    
-    Property Altersgruppe As String    
+Public Class Competition
+
+    Property StartDatum As String
+    Property Altersgruppe As String
     Property SpielerListe As New SpielerListe
     Property DateiPfad As String
     Property SatzDifferenz As Boolean
@@ -28,10 +30,25 @@
     Public Shared Function FromXML(dateiPfad As String, gruppe As String, satzzahl As Double, satzDifferenz As Boolean?) As Competition
         Dim doc = XDocument.Load(dateiPfad)
         Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
+        ' Syntax Checks
+
+        Dim TryBool = Function(x As String) As Boolean
+                          Dim val As Boolean = False
+                          Boolean.TryParse(x, val)
+                          Return val
+                      End Function
+
+        Dim UnbekannterZustand = From x In competitionXML...<person> Where Not TryBool(x.@ppc:anwesend) AndAlso Not TryBool(x.@ppc:abwesend)
+
+        If UnbekannterZustand.Any Then
+            MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", UnbekannterZustand.Count), _
+                            "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)            
+            Application.Current.Shutdown()
+        End If
         Return FromXML(dateiPfad, competitionXML, satzzahl, satzDifferenz)
     End Function
 
-    
+
     Public Sub SaveXML()
         Dim doc = XDocument.Load(DateiPfad)
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
