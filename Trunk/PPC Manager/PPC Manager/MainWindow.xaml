@@ -37,6 +37,6 @@
                 <MenuItem Header="Rangliste..." Command="Print" CommandParameter="Rangliste"/>
             </MenuItem>
         </Menu>
-        <Frame Margin="12,43,12,12" Name="EditorArea" Source="StartListe.xaml" NavigationUIVisibility="Hidden" />
+        <Frame Margin="12,43,12,12" Name="EditorArea" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

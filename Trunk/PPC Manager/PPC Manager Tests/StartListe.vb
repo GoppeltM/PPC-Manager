@@ -84,6 +84,15 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         Next
     End Sub
 
+    <Ignore>
+    <TestMethod>
+    Sub ExcelExport()
+        MainWindow.AktiveCompetition = New Competition
+        Dim s As New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt"}
+        ExcelInterface.CreateFile("E:\Skydrive\Dokumente\Repositories\Programme\Trunk\PPC Manager\PPC Manager Tests\Resources\PPC 15 Anmeldungen D-Klasse.xlsx", New Spieler() {s}, New SpielRunden)
+    End Sub
+
+
     '<Ignore>
     '<TestMethod>
     'Sub Spielerliste_Import()

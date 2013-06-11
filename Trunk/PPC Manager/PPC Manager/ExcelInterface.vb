@@ -10,11 +10,11 @@ Public Class ExcelInterface
 
 
     Private Sub New(filePath As String)
-        'If IO.File.Exists(filePath) Then
-        '    doc = OpenExistingExcelDocument(filePath)
-        'Else
-        doc = CreateEmptyExcelDocument(filePath)
-        'End If
+        If IO.File.Exists(filePath) Then
+            doc = OpenExistingExcelDocument(filePath)
+        Else
+            doc = CreateEmptyExcelDocument(filePath)
+        End If
     End Sub
 
     Private Property doc As SpreadsheetDocument
@@ -25,13 +25,13 @@ Public Class ExcelInterface
         Using ex = New ExcelInterface(filePath)
             With ex
                 Dim RundeNr = spielrunden.Count.ToString.PadLeft(2, "0"c)
-                Dim sheet = .AddSheet("sp_rd" & RundeNr)                
+                Dim sheet = .GetSheet("sp_rd" & RundeNr)
                 .WriteSpielerSheet(spieler, sheet)
 
                 Dim current = 1
                 For Each runde In spielrunden
                     Dim currentName = current.ToString.PadLeft(2, "0"c)
-                    sheet = .AddSheet("erg_rd" & currentName)                    
+                    sheet = .GetSheet("erg_rd" & currentName)
                     .WriteRunde(spielrunden, sheet)
                     current += 1
                 Next
@@ -46,8 +46,8 @@ Public Class ExcelInterface
 
 
         Dim SheetData = sheet.GetFirstChild(Of SheetData)()
+        SheetData.RemoveAllChildren(Of Row)()
         
-
         CreateRow(SheetData, 1, Titles)
 
         Dim current = 2UI
@@ -70,6 +70,8 @@ Public Class ExcelInterface
 
     Private Sub WriteRunde(ByVal spielrunden As SpielRunden, ByVal worksheet As Worksheet)
         Dim SheetData = worksheet.GetFirstChild(Of SheetData)()
+        SheetData.RemoveAllChildren(Of Row)()
+
         Dim Titles = {"Linker Spieler", "Rechter Spieler", "Sätze Links", "Sätze Rechts"}
         CreateRow(SheetData, 1, Titles)
 
@@ -120,6 +122,10 @@ Public Class ExcelInterface
         ' By default, AutoSave = true, Editable = true, and Type = xlsx.
         Dim spreadsheetDocument As SpreadsheetDocument = Nothing
         Dim MissCount = 0
+        Dim folder = IO.Path.GetDirectoryName(path)
+        If Not IO.Directory.Exists(folder) Then
+            IO.Directory.CreateDirectory(folder)
+        End If
         While spreadsheetDocument Is Nothing
             Try
                 spreadsheetDocument = spreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook, True)
@@ -143,12 +149,18 @@ Public Class ExcelInterface
         Return spreadsheetDocument
     End Function
 
-    Private Function AddSheet(sheetName As String) As Worksheet
-        ' Add a WorksheetPart to the WorkbookPart.
-        Dim worksheetPart As WorksheetPart = doc.WorkbookPart.AddNewPart(Of WorksheetPart)()
-        worksheetPart.Worksheet = New Worksheet(New SheetData())
-
+    Private Function GetSheet(sheetName As String) As Worksheet
         Dim Sheets = doc.WorkbookPart.Workbook.Sheets
+        Dim MySheet = (From x In Sheets.Elements(Of Sheet)() Where x.Name = sheetName).FirstOrDefault
+        If MySheet IsNot Nothing Then
+            Dim Worksheet = doc.WorkbookPart.GetPartById(MySheet.Id)
+            Return DirectCast(Worksheet, WorksheetPart).Worksheet
+        End If
+        ' Add a WorksheetPart to the WorkbookPart.
+        Dim WorkSheetPart As WorksheetPart
+        WorkSheetPart = doc.WorkbookPart.AddNewPart(Of WorksheetPart)()
+        WorkSheetPart.Worksheet = New Worksheet(New SheetData())
+
         Dim SheetIDs = (From x In Sheets.Elements(Of Sheet)() Select x.SheetId.Value).ToList
 
         Dim CurrentId = 1UI
@@ -158,7 +170,7 @@ Public Class ExcelInterface
 
         ' Append a new worksheet and associate it with the workbook.
         Dim sheet As Sheet = New Sheet
-        sheet.Id = doc.WorkbookPart.GetIdOfPart(worksheetPart)
+        sheet.Id = doc.WorkbookPart.GetIdOfPart(WorkSheetPart)
         sheet.SheetId = CurrentId
         sheet.Name = sheetName
 

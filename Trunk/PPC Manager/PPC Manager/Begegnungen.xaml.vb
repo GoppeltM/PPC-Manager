@@ -35,10 +35,7 @@ Class Begegnungen
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
-        If SpielRunden.Count = 0 Then
-            RundeBerechnen()
-        End If
+        BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)        
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         SpielerView.View.Refresh()
@@ -124,7 +121,10 @@ Class Begegnungen
                 Next
             Next
             Dim begegnungen = PaketBildung.organisierePakete(AktiveListe, .SpielRunden.Count)
-
+            Dim Zeitstempel = Date.Now
+            For Each partie In begegnungen
+                partie.ZeitStempel = Zeitstempel
+            Next
 
             Dim spielRunde As New SpielRunde
 
@@ -149,7 +149,11 @@ Class Begegnungen
 
     Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        If Not SpielRunden.Any Then Return
+        If Not SpielRunden.Any Then
+            e.CanExecute = True
+            Return
+        End If
+
         Dim AktuellePartien = SpielRunden.Peek.ToList
 
         Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Abgeschlossen(x))

@@ -46,16 +46,24 @@
         ' Autosave für Excel Export
         Dim spieler = MainWindow.AktiveCompetition.SpielerListe.ToList
         spieler.Sort()
-        Dim DateiName = IO.Path.GetFileNameWithoutExtension(DateiPfad)
-        DateiName &= " " & Altersgruppe
-        For Each c In IO.Path.GetInvalidFileNameChars
-            DateiName = DateiName.Replace(c, " "c)
-        Next
-        DateiName &= ".xlsx"
-        DateiName = IO.Path.Combine(IO.Path.GetDirectoryName(DateiPfad), DateiName)
-        ExcelInterface.CreateFile(DateiName, spieler, SpielRunden)
+        
+        ExcelInterface.CreateFile(ExcelPfad, spieler, SpielRunden)
 
     End Sub
+
+    Public ReadOnly Property ExcelPfad As String
+        Get
+            Dim DateiName = IO.Path.GetFileNameWithoutExtension(DateiPfad)
+            DateiName &= " " & Altersgruppe
+            For Each c In IO.Path.GetInvalidFileNameChars
+                DateiName = DateiName.Replace(c, " "c)
+            Next
+            DateiName &= ".xlsx"
+            Dim Unterpfad = IO.Path.Combine(IO.Path.GetDirectoryName(DateiPfad), "Protokolle")
+            DateiName = IO.Path.Combine(Unterpfad, DateiName)
+            Return DateiName
+        End Get
+    End Property
 
 
 End Class

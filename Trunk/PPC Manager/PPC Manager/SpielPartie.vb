@@ -33,8 +33,7 @@ Public Class SpielPartie
 
     Public Sub Update()
         SpielerLinks.PunkteGeändert()
-        SpielerRechts.PunkteGeändert()
-        ZeitStempel = Date.Now
+        SpielerRechts.PunkteGeändert()        
     End Sub
 
     Public Property ZeitStempel As Date

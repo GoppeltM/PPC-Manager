@@ -10,8 +10,7 @@ Class MainWindow
             If Not .ShowDialog() Then Return
             AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked)
             Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden
-            Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe            
-            AktiveCompetition.Save()
+            Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe                        
             Title = AktiveCompetition.Altersgruppe
             EditorArea.Navigate(New Begegnungen(Me))
         End With
@@ -38,11 +37,7 @@ Class MainWindow
             Case GetType(Begegnungen)                
                 NächsteRunde.Visibility = Windows.Visibility.Visible
                 Einstellungen.Visibility = Windows.Visibility.Collapsed
-                OffeneBegegnungen.Visibility = Windows.Visibility.Visible
-            Case GetType(StartListe)                
-                NächsteRunde.Visibility = Windows.Visibility.Collapsed
-                Einstellungen.Visibility = Windows.Visibility.Visible
-                OffeneBegegnungen.Visibility = Windows.Visibility.Collapsed
+                OffeneBegegnungen.Visibility = Windows.Visibility.Visible            
             Case Else
                 Throw New Exception("Unbekannter Seitentyp")
         End Select
@@ -79,7 +74,7 @@ Class MainWindow
 
         With LadenNeu.SpeichernDialog
             .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"
-            .FileName = IO.Path.ChangeExtension(AktiveCompetition.DateiPfad, "xlsx")
+            .FileName = AktiveCompetition.ExcelPfad
             .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
                 Dim spieler = AktiveCompetition.SpielerListe.ToList
