@@ -37,23 +37,24 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     <TestMethod>
     Sub Gerade_StandardPaarung()
         MainWindow.AktiveCompetition = New Competition
-        Dim p As New Paket(1)        
+        Dim p As New Paket(1, "Runde 1")
         p.SpielerListe = New List(Of Spieler) From
                 {New Spieler With {.Nachname = "Alpha", .TTRating = 50},
                 New Spieler With {.Nachname = "Beta", .TTRating = 40},
                 New Spieler With {.Nachname = "Gamma", .TTRating = 30},
                 New Spieler With {.Nachname = "Delta", .TTRating = 20}}
 
-        Dim suche = PaarungsSuche.StandardPaarung(p.SpielerListe, 2, p)
+        Dim suche = New PaarungsSuche("Runde 1").StandardPaarung(p.SpielerListe, 2, p)
         Assert.IsNotNull(suche)
         Assert.IsNull(suche.aktuellerSchwimmer)
         Assert.AreEqual(2, suche.Partien.Count)
+        Assert.AreEqual("Runde 1", suche.Partien.First.RundenName)
     End Sub
 
     <TestMethod>
     Sub Ungerade_StandardPaarung()
         MainWindow.AktiveCompetition = New Competition
-        Dim p As New Paket(1)        
+        Dim p As New Paket(1, "Runde xyz")
         p.SpielerListe = New List(Of Spieler) From
                 {New Spieler With {.Nachname = "Alpha", .TTRating = 50},
                 New Spieler With {.Nachname = "Beta", .TTRating = 40},
@@ -61,10 +62,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
                 New Spieler With {.Nachname = "Delta", .TTRating = 20},
                 New Spieler With {.Nachname = "Epsilon", .TTRating = 20}}
 
-        Dim suche = PaarungsSuche.StandardPaarung(p.SpielerListe, 2, p)
+        Dim suche = New PaarungsSuche("Runde xyz").StandardPaarung(p.SpielerListe, 2, p)
         Assert.IsNotNull(suche)
         Assert.IsNotNull(suche.aktuellerSchwimmer)
         Assert.AreEqual(2, suche.Partien.Count)
+        Assert.AreEqual("Runde xyz", suche.Partien.First.RundenName)
     End Sub
 
 End Class

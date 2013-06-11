@@ -140,6 +140,9 @@
     <Compile Include="Model\PaarungsSuche.vb" />
     <Compile Include="Model\Paket.vb" />
     <Compile Include="Model\PaketBildung.vb" />
+    <Compile Include="NeueSpielPartieDialog.xaml.vb">
+      <DependentUpon>NeueSpielPartieDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Spieler.vb" />
     <Compile Include="SpielPartie.vb" />
     <Compile Include="SpielRunden.vb" />
@@ -172,6 +175,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NeueSpielPartieDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.Win32" />

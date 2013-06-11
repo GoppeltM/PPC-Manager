@@ -62,7 +62,7 @@ Public Class SpielRunde
 
     Friend Function ToXML(ByVal spielRunde As Integer, nextMatchNr As Func(Of Integer)) As IEnumerable(Of XElement)
         Dim rundenName = "Runde " & spielRunde + 1
-        Dim SpielRunden = From x In Me Let y = x.ToXML(rundenName, nextMatchNr()) Select y
+        Dim SpielRunden = From x In Me Let y = x.ToXML(nextMatchNr()) Select y
 
         Dim inaktiveSpieler = From x In AusgeschiedeneSpieler
                        Let El As XElement = <ppc:inactiveplayer player=<%= x.Id %> group=<%= rundenName %>/>

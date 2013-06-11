@@ -23,13 +23,13 @@ Public Class DesignSpielPartien
     Public Sub New()
         Dim spielerListe = New DesignSpielerListe()
         For i = 1 To spielerListe.Count - 1 Step 2
-            Dim partie = New SpielPartie(spielerListe(i - 1), spielerListe(i))
+            Dim partie = New SpielPartie("Runde 2", spielerListe(i - 1), spielerListe(i))
             partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
             Me.Add(partie)
         Next
-        Me.Add(New FreiLosSpiel(New Spieler With {.Vorname = "Günther", .Nachname = "Netzer"}))
+        Me.Add(New FreiLosSpiel("Runde 2", New Spieler With {.Vorname = "Günther", .Nachname = "Netzer"}))
     End Sub
 
     Public Shared ReadOnly Property DesignSpielPartie As SpielPartie

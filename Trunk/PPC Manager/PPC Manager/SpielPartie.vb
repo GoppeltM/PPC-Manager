@@ -13,9 +13,18 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
-    Public Sub New(ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
+    Public Sub New(rundenName As String, ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
+        _RundenName = rundenName
     End Sub
+
+    Private ReadOnly _RundenName As String
+    Public ReadOnly Property RundenName As String
+        Get
+            Return _RundenName
+        End Get
+    End Property
+
 
     Private ReadOnly Spieler As KeyValuePair(Of Spieler, Spieler)
 
@@ -33,7 +42,7 @@ Public Class SpielPartie
 
     Public Sub Update()
         SpielerLinks.PunkteGeändert()
-        SpielerRechts.PunkteGeändert()        
+        SpielerRechts.PunkteGeändert()
     End Sub
 
     Public Property ZeitStempel As Date
@@ -64,7 +73,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Overridable Function ToXML(rundenName As String, matchNr As Integer) As XElement
+    Overridable Function ToXML(matchNr As Integer) As XElement
 
         Dim SätzeLinks = MeineGewonnenenSätze(SpielerLinks).Count
         Dim SätzeRechts = MeineGewonnenenSätze(SpielerRechts).Count
@@ -103,12 +112,12 @@ Public Class SpielPartie
     End Function
 
 
-    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie        
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie
         Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
         Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
 
-        Dim partie As New SpielPartie(spielerA, spielerB)
+        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB)
 
         Dim SätzeA = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-a") Order By x.Name.LocalName Ascending
 
@@ -136,12 +145,12 @@ End Class
 Public Class FreiLosSpiel
     Inherits SpielPartie
 
-    Public Sub New(ByVal freilosSpieler As Spieler)
-        MyBase.New(freilosSpieler, freilosSpieler)
+    Public Sub New(rundenName As String, ByVal freilosSpieler As Spieler)
+        MyBase.New(rundenName, freilosSpieler, freilosSpieler)
     End Sub
 
 
-    Public Overrides Function ToXML(rundenName As String, matchNr As Integer) As System.Xml.Linq.XElement
+    Public Overrides Function ToXML(matchNr As Integer) As System.Xml.Linq.XElement
         Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= rundenName %>/>
         Return node
     End Function
@@ -154,7 +163,7 @@ Public Class FreiLosSpiel
 
     Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement) As FreiLosSpiel
         Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First
-        Return New FreiLosSpiel(spieler)
+        Return New FreiLosSpiel(xFreilosSpiel.@group, spieler)
     End Function
 
 End Class

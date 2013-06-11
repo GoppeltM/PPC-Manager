@@ -110,7 +110,7 @@ Class Begegnungen
     Private Sub RundeBerechnen()
 
         If CBool(My.Settings.AutoSaveAn) Then
-            ApplicationCommands.Save.Execute(Nothing, Me)
+            MainWindow.AktiveCompetition.SaveXML()
         End If
 
         With MainWindow.AktiveCompetition
@@ -120,7 +120,8 @@ Class Begegnungen
                     AktiveListe.Remove(Ausgeschieden)
                 Next
             Next
-            Dim begegnungen = PaketBildung.organisierePakete(AktiveListe, .SpielRunden.Count)
+            Dim RundenName = "Runde " & .SpielRunden.Count
+            Dim begegnungen = PaketBildung.organisierePakete(RundenName, AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
             For Each partie In begegnungen
                 partie.ZeitStempel = Zeitstempel
@@ -131,8 +132,7 @@ Class Begegnungen
             For Each begegnung In begegnungen
                 spielRunde.Add(begegnung)
             Next
-            .SpielRunden.Push(spielRunde)
-            RundenAnzeige.Content = "Runde " & .SpielRunden.Count
+            .SpielRunden.Push(spielRunde)            
             PlayOffAktiv = True
             LifeListe.SelectionMode = SelectionMode.Single
         End With
@@ -144,6 +144,10 @@ Class Begegnungen
         ViewSource.View.Refresh()
 
         ViewSource.View.MoveCurrentToFirst()
+
+        If CBool(My.Settings.AutoSaveAn) Then
+            MainWindow.AktiveCompetition.SaveExcel()
+        End If
 
     End Sub
 
@@ -174,8 +178,7 @@ Class Begegnungen
             Dim spielRunde As New SpielRunde
             .SpielRunden.Push(spielRunde)
             PlayOffAktiv = True
-            LifeListe.SelectionMode = SelectionMode.Extended
-            RundenAnzeige.Content = "Runde " & .SpielRunden.Count
+            LifeListe.SelectionMode = SelectionMode.Extended            
         End With
 
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
@@ -198,7 +201,11 @@ Class Begegnungen
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim AktuelleRunde = MainWindow.AktiveCompetition.SpielRunden.Peek()
         Dim AusgewählteSpieler = LifeListe.SelectedItems
-        Dim neueSpielPartie = New SpielPartie(CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))
+        Dim dialog = New NeueSpielPartieDialog
+        dialog.RundenNameTextBox.Text = "Runde " & MainWindow.AktiveCompetition.SpielRunden.Count
+        If Not dialog.ShowDialog Then Return
+
+        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))
         neueSpielPartie.Add(New Satz)
         AktuelleRunde.Add(neueSpielPartie)
     End Sub

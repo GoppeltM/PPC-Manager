@@ -1,7 +1,12 @@
 ﻿
 Public Class PaarungsSuche
 
-    Public Shared Function SuchePaarungen(ByVal spielerListe As List(Of Spieler), ByVal paket As Paket) As PaarungsContainer
+    Private Property _rundenName As String
+    Public Sub New(rundenName As String)
+        _rundenName = rundenName
+    End Sub
+
+    Public Function SuchePaarungen(ByVal spielerListe As List(Of Spieler), ByVal paket As Paket) As PaarungsContainer
         If spielerListe.Count < 2 Then Return Nothing
 
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
@@ -12,7 +17,7 @@ Public Class PaarungsSuche
         Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, paket)
     End Function
 
-    Private Shared Function rekursiveUmtauschung(ByVal anfang As List(Of Spieler), ByVal rest As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
+    Private Function rekursiveUmtauschung(ByVal anfang As List(Of Spieler), ByVal rest As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
         ' Ist nur noch ein Spieler am Ende da, muss das eine neue Kombination sein
 
         If rest.Count = 1 Then
@@ -52,7 +57,7 @@ Public Class PaarungsSuche
     ''' <param name="parent"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function doProceed(ByVal anfang As List(Of Spieler), ByVal rest As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As Boolean
+    Private Function doProceed(ByVal anfang As List(Of Spieler), ByVal rest As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As Boolean
         Dim zuprüfenderSpieler = anfang.Last
         Dim kombination = New List(Of Spieler)(anfang)
         kombination.AddRange(rest)
@@ -80,7 +85,7 @@ Public Class PaarungsSuche
     '''@param listeRechts - rechte Hälfte der Liste
     '''@return - Paarung erfolgreich
     '''
-    Public Shared Function StandardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
+    Public Function StandardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
         ' prüft, ob der potentielle Schwimmer in der rechten Liste eigentlich gar nicht schwimmen kann
 
         If kombination.Count Mod 2 = 1 Then
@@ -99,7 +104,7 @@ Public Class PaarungsSuche
             Dim spieler2 = listeRechts.First
             If spieler1.HatBereitsGespieltGegen(spieler2) Then Return Nothing
 
-            Dim partie = New SpielPartie(spieler1, spieler2)
+            Dim partie = New SpielPartie(_rundenName, spieler1, spieler2)
             partie.Add(New Satz) ' Damit wenigstens ein Satz gesetzt werden kann
             paarungen.Add(partie)
             listeLinks.Remove(spieler1)

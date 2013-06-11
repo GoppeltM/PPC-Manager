@@ -10,7 +10,7 @@
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
     '''
-    Public Shared Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
+    Public Shared Function organisierePakete(rundenname As String, ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
         aktiveListe.Sort()
 
         Dim paarungen As New List(Of SpielPartie)
@@ -18,12 +18,12 @@
         If aktiveListe.Count Mod 2 = 1 Then
             Dim freilosSpieler = freilosRegel(aktiveListe)
             aktiveListe.Remove(freilosSpieler)
-            paarungen.Add(New FreiLosSpiel(freilosSpieler))
+            paarungen.Add(New FreiLosSpiel(rundenname, freilosSpieler))
         End If
 
 
-        Dim mittelPaket As New MittelPaket(aktuelleRunde)
-        Dim pakete = makeEvenPointPackets(aktiveListe, aktuelleRunde, mittelPaket)
+        Dim mittelPaket As New MittelPaket(aktuelleRunde, rundenname)
+        Dim pakete = makeEvenPointPackets(rundenname, aktiveListe, aktuelleRunde, mittelPaket)
 
         If pakete.Count = 1 Then
             Dim paket = pakete.First
@@ -235,7 +235,7 @@
     '''Dies geschieht solange, bis keine Pakete mehr gebildet werden können.
     '''@return - es konnte ein Paket gebildet werden.
     '''
-    Private Shared Function makeEvenPointPackets(ByVal spielerliste As List(Of Spieler), ByVal aktuelleRunde As Integer, ByVal mittelPaket As MittelPaket) As List(Of Paket)
+    Private Shared Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As List(Of Spieler), ByVal aktuelleRunde As Integer, ByVal mittelPaket As MittelPaket) As List(Of Paket)
 
         Dim pakete As New List(Of Paket)
         Dim gesamtPaketzahl = aktuelleRunde * 2 + 1
@@ -244,11 +244,11 @@
             If i = aktuelleRunde Then
                 pakete.Add(mittelPaket)
             Else
-                pakete.Add(New Paket(i))
+                pakete.Add(New Paket(i, rundenname))
             End If
         Next
 
-        For Each Spieler In SpielerListe
+        For Each Spieler In spielerliste
             Dim punkte = Spieler.Punkte
             pakete(2 * aktuelleRunde - 2 * punkte).SpielerListe.Add(Spieler)
         Next

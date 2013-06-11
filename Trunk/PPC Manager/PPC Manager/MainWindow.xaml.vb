@@ -29,7 +29,7 @@ Class MainWindow
     End Sub
 
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        AktiveCompetition.Save()
+        AktiveCompetition.SaveXML()
     End Sub
     
     Private Sub EditorArea_Navigated(ByVal sender As System.Object, ByVal e As System.Windows.Navigation.NavigationEventArgs) Handles EditorArea.Navigated
@@ -90,7 +90,7 @@ Class MainWindow
         Select Case MessageBox.Show("Sollen Änderungen gespeichert und dieses Programm geschlossen werden?" _
                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
-            Case MessageBoxResult.Yes : AktiveCompetition.Save()
+            Case MessageBoxResult.Yes : AktiveCompetition.SaveXML()
         End Select
     End Sub
 

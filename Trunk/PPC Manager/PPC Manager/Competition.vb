@@ -32,7 +32,7 @@
     End Function
 
     
-    Public Sub Save()
+    Public Sub SaveXML()
         Dim doc = XDocument.Load(DateiPfad)
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
         Dim runden = SpielRunden.ToXML
@@ -42,13 +42,13 @@
                             </matches>)
 
         doc.Save(DateiPfad)
+    End Sub
 
-        ' Autosave für Excel Export
+    Public Sub SaveExcel()
         Dim spieler = MainWindow.AktiveCompetition.SpielerListe.ToList
         spieler.Sort()
-        
-        ExcelInterface.CreateFile(ExcelPfad, spieler, SpielRunden)
 
+        ExcelInterface.CreateFile(ExcelPfad, spieler, SpielRunden)
     End Sub
 
     Public ReadOnly Property ExcelPfad As String

@@ -118,8 +118,8 @@ Imports System.Collections.ObjectModel
             With .SpielRunden
                 Dim runde = New SpielRunde With {.AusgeschiedeneSpieler = New ObservableCollection(Of Spieler) From
                                             {spieler(3)}}
-                runde.Add(New FreiLosSpiel(spieler(2)))
-                runde.Add(New SpielPartie(spieler(0), spieler(1)) With {.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))})
+                runde.Add(New FreiLosSpiel("Runde 1", spieler(2)))
+                runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1)) With {.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))})
                 .Push(runde)
             End With
 
@@ -149,7 +149,7 @@ Imports System.Collections.ObjectModel
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
 
-        Dim Partie = New SpielPartie(SpielerA, SpielerB)
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB)
         Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
@@ -161,7 +161,7 @@ Imports System.Collections.ObjectModel
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
-        Dim result = Partie.ToXML("Runde 1", 5)
+        Dim result = Partie.ToXML(5)
 
         Assert.AreEqual("Runde 1", result.@group)
         Assert.AreEqual("19", result.Attribute("games-b").Value)
@@ -175,7 +175,7 @@ Imports System.Collections.ObjectModel
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
 
-        Dim Partie = New SpielPartie(SpielerA, SpielerB)
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB)
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})
@@ -186,7 +186,7 @@ Imports System.Collections.ObjectModel
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
-        Dim result = Partie.ToXML("Runde 1", 5)
+        Dim result = Partie.ToXML(5)
 
         Assert.AreEqual("Runde 1", result.@group)
         Assert.AreEqual("19", result.Attribute("games-b").Value)
@@ -198,7 +198,7 @@ Imports System.Collections.ObjectModel
     <TestMethod>
     Sub FreiSpiel_To_XML()
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim Partie = New FreiLosSpiel(SpielerA)
+        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA)
         Assert.AreEqual(Partie.SpielerLinks, SpielerA)
         Assert.AreEqual(Partie.SpielerRechts, SpielerA)
     End Sub
