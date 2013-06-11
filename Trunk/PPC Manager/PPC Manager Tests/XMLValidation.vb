@@ -53,6 +53,8 @@ Imports System.Collections.ObjectModel
             Assert.AreEqual("Ewald", .Nachname)
             Assert.AreEqual("TTC Langensteinbach e.V. ", .Vereinsname)
             Assert.AreEqual(53010, .Lizenznummer)
+            Assert.AreEqual(1981, .Geburtsjahr)
+            Assert.AreEqual(1, .Geschlecht)
         End With
     End Sub
 

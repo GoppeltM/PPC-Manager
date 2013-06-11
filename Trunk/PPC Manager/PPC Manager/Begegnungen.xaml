@@ -7,22 +7,24 @@
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       mc:Ignorable="d" Title="Begegnungen" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage">
     <Page.Resources>
+        <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
+        <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />
         <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
         <ObjectDataProvider x:Key="RanglisteDataProvider"/>
         <local:RanglisteIndexConverter x:Key="RanglisteIndexConverter"/>
         <CollectionViewSource x:Key="SpielRundenView" Source="{Binding Source={StaticResource SpielRunden}, UpdateSourceTrigger=PropertyChanged}"
-           d:DesignSource="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}}"/>
+    		d:DesignSource="{Binding Source={d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielRunden}}}"/>
         <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"                              
-                              Source="{Binding Source={StaticResource SpielRundenView}, Path=/, UpdateSourceTrigger=PropertyChanged}">
+    		Source="{Binding /, Source={StaticResource SpielRundenView}, UpdateSourceTrigger=PropertyChanged}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="RundenName"/>
             </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>        
+        </CollectionViewSource>
         <CollectionViewSource x:Key="SpielerView"
-                              d:DesignSource="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}"
-                      Source="{Binding Source={StaticResource SpielerListe}}">
+    		d:DesignSource="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielerListe}}"
+    		Source="{Binding Source={StaticResource SpielerListe}}">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Punkte" Direction="Descending"/>
                 <scm:SortDescription PropertyName="BuchholzPunkte" Direction="Descending"/>
@@ -30,7 +32,7 @@
                 <scm:SortDescription PropertyName="TTRMatchCount" Direction="Descending"/>
                 <scm:SortDescription PropertyName="Nachname" Direction="Ascending"/>
                 <scm:SortDescription PropertyName="Vorname" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="Lizenznummer" Direction="Ascending"/>                
+                <scm:SortDescription PropertyName="Lizenznummer" Direction="Ascending"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </Page.Resources>
@@ -45,57 +47,60 @@
             <RowDefinition Height="378*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-        </Grid.ColumnDefinitions>        
-            <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
+            <ColumnDefinition Width="449*" />
+            <ColumnDefinition Width="858*" />
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
                       ItemsSource="{Binding Source={StaticResource SpielerView}}"
                       Grid.Column="0" TextBlock.FontSize="20">
             <ListView.CommandBindings>
                 <CommandBinding Command="Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Executed"/>
                 <CommandBinding Command="Select" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed"/>
             </ListView.CommandBindings>
-                <ListView.ContextMenu>
+            <ListView.ContextMenu>
                 <ContextMenu>
                     <ContextMenu.Items>
                         <MenuItem Header="Spieler ausscheiden" Name="AusscheidenMenu" Command="Delete" />
                         <MenuItem Header="Spielpartie erstellen" Name="PartieErstellenMenu" Command="Select" />
                     </ContextMenu.Items>
-                </ContextMenu> 
+                </ContextMenu>
             </ListView.ContextMenu>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">                        
-                        <Grid Margin="5" Width="220">
+                    <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">
+                        <Grid Margin="5" Width="300">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="40" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
-                                <RowDefinition/>                                
-                            </Grid.RowDefinitions>                            
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             <TextBlock Grid.Column="0" Grid.RowSpan="2"
                                    FontSize="20" FontWeight="Bold" Foreground="#FF8D7979"
                                    VerticalAlignment="Center"
                                    Text="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}" 
                                    />
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Vorname}" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Nachname}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Vorname}" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Nachname}" HorizontalAlignment="Left" />
                             <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Path=Punkte}" HorizontalAlignment="Center" ToolTip="Punkte" />
                             <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Path=BuchholzPunkte}" HorizontalAlignment="Center" ToolTip="Buchholzpunkte" />
                             <TextBlock Grid.Column="3" Grid.Row="0" Text="{Binding Path=SätzeGewonnen}" HorizontalAlignment="Center" ToolTip="Gewonnene Sätze" />
                             <Line Grid.Column="3" Grid.RowSpan="2" Stroke="Black" StrokeThickness="2" Stretch="Fill" X2="1" Margin="2" ToolTip="Verlorene Sätze" />
                             <TextBlock Grid.Column="3" Grid.Row="1" Text="{Binding Path=SätzeVerloren}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="4" Grid.Row="0" Text="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="4" Grid.Row="1" Text="{Binding Geburtsjahr, Converter={StaticResource SpielKlassenkonverter}}" HorizontalAlignment="Center" />
                         </Grid>
-                    </ListViewItem> 
+                    </ListViewItem>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <GridSplitter Grid.Column ="0" Background="Blue" Width="5"
-                HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="5" />
+                HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="0,5,5,5" />
         <ListBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Name="SpielPartienView" VerticalAlignment="Stretch" FontSize="24" 
                  DataContext="{Binding Source={StaticResource PartieView}}"
                  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
@@ -117,18 +122,15 @@
                                 <RowDefinition/>
                             </local:DoppelbreitenGrid.RowDefinitions>
                             <local:DoppelbreitenGrid.ColumnDefinitions>
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
                                 <ColumnDefinition />
                             </local:DoppelbreitenGrid.ColumnDefinitions>
                             <local:DoppelbreitenGrid.Resources>
                                 <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
                             </local:DoppelbreitenGrid.Resources>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" TextBlock.TextTrimming="CharacterEllipsis" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts.Nachname}" TextBlock.TextTrimming="CharacterEllipsis" />
-                            <ItemsControl Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks}" TextBlock.TextTrimming="CharacterEllipsis" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts}" TextBlock.TextTrimming="CharacterEllipsis" />
+                            <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel Orientation="Horizontal"/>
@@ -136,7 +138,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteLinks, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
+                                        <Ellipse Grid.Row="0" Grid.Column="1" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteLinks, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
                                             <Ellipse.Fill>
                                                 <RadialGradientBrush>
                                                     <GradientStop Color="SpringGreen" Offset="0" />
@@ -167,7 +169,7 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </local:DoppelbreitenGrid>
-                    </Border>                    
+                    </Border>
                 </DataTemplate>
             </ListBox.Resources>
             <ListBox.GroupStyle>
@@ -182,7 +184,7 @@
                           BorderThickness="0,0,0,1">
                                             <Expander.Header>
                                                 <DockPanel>
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>                                                    
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>
                                                 </DockPanel>
                                             </Expander.Header>
                                             <Expander.Content>
@@ -199,51 +201,48 @@
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
-                </ItemsPanelTemplate>                
-            </ListBox.ItemsPanel>            
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
         </ListBox>
-        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" Margin="5" 
+        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" Margin="5,5,0,5" 
               Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" 
               d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}"
-              MinWidth="500">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
+              MinWidth="500" Width="500">
+            <Grid.ColumnDefinitions>                
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.Resources>
-                
+
                 <Style x:Key="SatzListe" TargetType="ItemsControl">
                     <Setter Property="Grid.Column" Value="1"/>
                     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
                     <Setter Property="ItemsSource" Value="{Binding}" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment" Value="Stretch" />                    
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
                     <Setter Property="ItemsPanel">
                         <Setter.Value>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>                            
+                            </ItemsPanelTemplate>
                         </Setter.Value>
                     </Setter>
-                </Style>             
-            </Grid.Resources>
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks.StartNummer}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts.StartNummer}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=SpielerLinks.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=SpielerRechts.Nachname}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <ItemsControl Grid.Column="2" Grid.Row="0" Style="{StaticResource SatzListe}">
+                </Style>
+            </Grid.Resources>            
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+            <ItemsControl Grid.Column="1" Grid.Row="0" Style="{StaticResource SatzListe}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Name="Button1" Click="SatzLinks_Click" DataContext="{Binding}" Background="{Binding Path=PunkteLinks, Converter={StaticResource MyPainter}}" MinWidth="30" Margin="5" />                        
+                        <Button Name="Button1" Click="SatzLinks_Click" DataContext="{Binding}" Background="{Binding Path=PunkteLinks, Converter={StaticResource MyPainter}}" MinWidth="30" Margin="5" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <ItemsControl Grid.Column="2" Grid.Row="1" Style="{StaticResource SatzListe}">
+            <ItemsControl Grid.Column="1" Grid.Row="1" Style="{StaticResource SatzListe}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Name="Button1" Click="SatzRechts_Click" DataContext="{Binding}" 

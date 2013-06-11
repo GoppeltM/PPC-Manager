@@ -232,3 +232,39 @@ Public Class DoppelbreitenGrid
     '    Return New Size(400, 60)
     'End Function
 End Class
+
+Public Class GeschlechtKonverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        Dim geschlecht = DirectCast(value, Integer)
+        Select Case geschlecht
+            Case 0 : Return "w"
+            Case 1 : Return "m"
+        End Select
+        Throw New ArgumentException("Unbekanntes geschlecht: " & geschlecht)
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+        Throw New NotImplementedException
+    End Function
+End Class
+
+Public Class SpielKlassenkonverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
+        Dim Geburtsjahr = DirectCast(value, Integer)
+
+        Select Case Date.Now.Year - Geburtsjahr
+            Case Is <= 13 : Return "u13"
+            Case Is <= 15 : Return "u15"
+            Case Is <= 18 : Return "u18"
+            Case Else : Return "Ü18"
+        End Select
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
+
+    End Function
+End Class

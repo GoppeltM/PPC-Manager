@@ -99,7 +99,7 @@ Class MainWindow
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = AktiveCompetition.SpielRunden.Count > 1
+        e.CanExecute = AktiveCompetition.SpielRunden.Count > 0
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)

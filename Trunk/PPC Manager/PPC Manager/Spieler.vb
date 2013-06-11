@@ -98,6 +98,8 @@ Public Class Spieler
 
     Property Fremd As Boolean
 
+    Public Property Geburtsjahr As Integer
+
     Public Sub PunkteGeändert()
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Punkte"))
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("BuchholzPunkte"))
@@ -207,6 +209,7 @@ Public Class Spieler
             .Nachname = spielerNode.@lastname
             .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
             .Geschlecht = CInt(spielerNode.@sex)
+            .Geburtsjahr = CInt(spielerNode.@birthyear)
             .Vereinsname = spielerNode.Attribute("club-name").Value
             .TTRating = CInt(spielerNode.@ttr)        
             .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
