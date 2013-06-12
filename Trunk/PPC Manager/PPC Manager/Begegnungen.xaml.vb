@@ -119,10 +119,8 @@ Class Begegnungen
 
         With MainWindow.AktiveCompetition
             Dim AktiveListe = .SpielerListe.ToList
-            For Each Runde In .SpielRunden
-                For Each Ausgeschieden In Runde.AusgeschiedeneSpieler
-                    AktiveListe.Remove(Ausgeschieden)
-                Next
+            For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
+                AktiveListe.Remove(Ausgeschieden.Spieler)
             Next
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
             Dim begegnungen = PaketBildung.organisierePakete(RundenName, AktiveListe, .SpielRunden.Count)
@@ -136,7 +134,7 @@ Class Begegnungen
             For Each begegnung In begegnungen
                 spielRunde.Add(begegnung)
             Next
-            .SpielRunden.Push(spielRunde)            
+            .SpielRunden.Push(spielRunde)
             PlayOffAktiv = True
             LifeListe.SelectionMode = SelectionMode.Single
         End With

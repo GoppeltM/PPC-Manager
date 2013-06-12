@@ -153,13 +153,11 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_6()
         Runde_5()
         With AktuelleCompetition
-            Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").First
-            AktuelleCompetition.SpielRunden.Peek.AusgeschiedeneSpieler.Add(Ausgeschieden)
+            Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").Single
+            .SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = Ausgeschieden, .Runde = 6})
             Dim AktiveListe = .SpielerListe.ToList
-            For Each Runde In .SpielRunden
-                For Each Ausgeschieden In Runde.AusgeschiedeneSpieler
-                    AktiveListe.Remove(Ausgeschieden)
-                Next
+            For Each a In .SpielRunden.AusgeschiedeneSpieler
+                AktiveListe.Remove(a.Spieler)
             Next
             Dim ergebnisse = PaketBildung.organisierePakete("Runde 5", AktiveListe.ToList, 5)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)

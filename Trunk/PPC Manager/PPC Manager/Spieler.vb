@@ -139,12 +139,12 @@ Public Class Spieler
     Public ReadOnly Property Ausgeschieden As Boolean
         Get
             If Not SpielRunden.Any Then Return False
-            Return SpielRunden.Peek.AusgeschiedeneSpieler.Contains(Me)
+            Return Aggregate x In SpielRunden.AusgeschiedeneSpieler Where x.Spieler = Me Into Any()
         End Get
     End Property
 
     Public Sub AusscheidenLassen()
-        SpielRunden.Peek.AusgeschiedeneSpieler.Add(Me)
+        SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = Me, .Runde = SpielRunden.Count})
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Ausgeschieden"))
     End Sub
 

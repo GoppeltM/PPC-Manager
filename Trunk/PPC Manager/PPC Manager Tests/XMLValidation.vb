@@ -28,17 +28,39 @@ Imports System.Collections.ObjectModel
         Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False)
         MainWindow.AktiveCompetition = reference
 
+        
+        CollectionAssert.AreEqual({"PLAYER127"}, (From x In reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
         Dim ersteRunde = reference.SpielRunden.First
-        Assert.AreEqual(2, ersteRunde.Count, "Zwei Spielpartien erwartet")
-        With ersteRunde
-            Assert.AreEqual("PLAYER127", .AusgeschiedeneSpieler.First.Id)
-            CollectionAssert.AreEqual({"PLAYER127"}, (From x In .AusgeschiedeneSpieler Select x.Id).ToList)
 
+        Assert.AreEqual(2, ersteRunde.Count, "Zwei Spielpartien erwartet")
+
+        With ersteRunde            
             For Each partie In .ToList
                 Assert.AreEqual(3, partie.Count)
             Next
         End With
         
+    End Sub
+
+    <TestMethod>
+    Sub Spielrunden_From_XML()
+        Dim rundenRef = <matches>
+                            <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
+                                sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
+                                set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
+                                player-b="PLAYER72" player-a="PLAYER-1" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="1"/>
+                            <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
+                                sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="5" set-b-2="9" set-b-1="5"
+                                set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
+                                player-b="PLAYER126" player-a="PLAYER127" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"/>
+                            <ppc:freematch player="PLAYER126" group="Runde 2"/>
+                            <ppc:inactiveplayer player="PLAYER127" group="1"/>
+                        </matches>
+        Dim RundenRes = SpielRunden.FromXML(New SpielerListe From {New Spieler With {.Id = "PLAYER127"}, New Spieler With {.Id = "PLAYER126"},
+                                                                   New Spieler With {.Id = "PLAYER72"}, New Spieler With {.Id = "PLAYER-1"}}, rundenRef)
+        With RundenRes
+            CollectionAssert.AreEqual({"PLAYER127"}.ToList, (From x In .AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
+        End With
     End Sub
 
 
@@ -118,8 +140,8 @@ Imports System.Collections.ObjectModel
             Dim spieler = .SpielerListe
             .SpielRunden = New SpielRunden
             With .SpielRunden
-                Dim runde = New SpielRunde With {.AusgeschiedeneSpieler = New ObservableCollection(Of Spieler) From
-                                            {spieler(3)}}
+                .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden) From {New Ausgeschieden With {.Spieler = spieler(3), .Runde = 1}}
+                Dim runde = New SpielRunde
                 runde.Add(New FreiLosSpiel("Runde 1", spieler(2)))
                 runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1)) With {.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))})
                 .Push(runde)
@@ -141,7 +163,7 @@ Imports System.Collections.ObjectModel
                                                           matches-a="0" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"
                                                           set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
                                                           set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString)
-            Assert.AreEqual(spielPartien(2).ToString, <ppc:inactiveplayer player="PLAYER77" group="Runde 1"/>.ToString)
+            Assert.AreEqual(spielPartien(2).ToString, <ppc:inactiveplayer player="PLAYER77" group="1"/>.ToString)
 
         End With
     End Sub

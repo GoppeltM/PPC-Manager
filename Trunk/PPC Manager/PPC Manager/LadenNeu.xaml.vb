@@ -73,7 +73,7 @@ Public Class LadenNeu
             SatzDiffCheck.IsChecked = Boolean.Parse(competition.@ppc:satzdifferenz)
         End If
 
-        If competition.<matches>.Elements.Any Then
+        If competition.<matches>.Elements.Except(competition.<matches>.<ppc:inaktivespieler>).Any Then
             SatzDiffCheck.IsEnabled = False
             GewinnsätzeAnzahl.IsEnabled = False
         Else

@@ -4,11 +4,27 @@ Imports System.Collections.ObjectModel
 Public Class SpielRunden
     Inherits Stack(Of SpielRunde)
 
-    Friend Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal runden As IEnumerable(Of XElement)) As SpielRunden
+
+    Public Property AusgeschiedeneSpieler As New ObservableCollection(Of Ausgeschieden)
+
+    Public Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal matchesKnoten As XElement) As SpielRunden
         Dim SpielRunden As New SpielRunden
-        Dim xRunden = From x In runden.<match>.Concat(runden.<ppc:match>).Concat(runden.<ppc:freematch>).Concat(runden.<ppc:inactiveplayer>)
-                      Group By Number = Integer.Parse(Regex.Match(x.@group, "\d+\Z").Value) Into Runde = Group Order By Number, Runde.@nr Ascending
-        For Each xRunde In xRunden
+        If matchesKnoten Is Nothing Then
+            Return SpielRunden
+        End If
+        Dim xSpielPartien = From x In matchesKnoten.Elements.Except(matchesKnoten.<ppc:inactiveplayer>)
+                      Group By x.@group Into Runde = Group
+
+
+        For Each AusgeschiedenerSpieler In matchesKnoten.<ppc:inactiveplayer>
+            Dim StartNummer = AusgeschiedenerSpieler.@player
+            Dim ausgeschieden As New Ausgeschieden
+            ausgeschieden.Spieler = (From x In spielerListe Where x.Id = StartNummer Select x).Single
+            ausgeschieden.Runde = Integer.Parse(AusgeschiedenerSpieler.@group)
+            SpielRunden.AusgeschiedeneSpieler.Add(ausgeschieden)
+        Next
+
+        For Each xRunde In xSpielPartien.Reverse
             SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
         Next
 
@@ -28,8 +44,12 @@ Public Class SpielRunden
                                                             Return matchNr
                                                         End Function)
                 xSpielRunden.Add(Match)
-            Next
+            Next            
             current += 1
+        Next
+
+        For Each s In AusgeschiedeneSpieler
+            xSpielRunden.Add(<ppc:inactiveplayer player=<%= s.Spieler.Id %> group=<%= s.Runde %>/>)
         Next
 
         Return xSpielRunden
@@ -41,8 +61,6 @@ End Class
 Public Class SpielRunde
     Inherits ObservableCollection(Of SpielPartie)
 
-    Public Property AusgeschiedeneSpieler As New ObservableCollection(Of Spieler)
-
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"
@@ -53,25 +71,23 @@ Public Class SpielRunde
             runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
         End If
 
-        For Each xSpieler In From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de") + "inactiveplayer"
-            Dim StartNummer = xSpieler.@player
-            runde.AusgeschiedeneSpieler.Add((From x In spielerListe Where x.Id = StartNummer Select x).First)
-        Next
+        
         Return runde
     End Function
 
-    Friend Function ToXML(ByVal spielRunde As Integer, nextMatchNr As Func(Of Integer)) As IEnumerable(Of XElement)
-        Dim rundenName = "Runde " & spielRunde + 1
-        Dim SpielRunden = From x In Me Let y = x.ToXML(nextMatchNr()) Select y
-
-        Dim inaktiveSpieler = From x In AusgeschiedeneSpieler
-                       Let El As XElement = <ppc:inactiveplayer player=<%= x.Id %> group=<%= rundenName %>/>
-                       Select El
-        Return SpielRunden.Concat(inaktiveSpieler)
+    Friend Function ToXML(ByVal spielRunde As Integer, nextMatchNr As Func(Of Integer)) As IEnumerable(Of XElement)        
+        Dim SpielRunden = From x In Me Let y = x.ToXML(nextMatchNr()) Select y        
+        Return SpielRunden
     End Function
 
     Public Overrides Function ToString() As String
         Return "SpielRunde"
     End Function
+
+End Class
+
+Public Class Ausgeschieden
+    Property Spieler As Spieler
+    Property Runde As Integer
 
 End Class

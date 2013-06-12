@@ -9,7 +9,7 @@
         For Each partie In New DesignSpielPartien
             SpielRunde.Add(partie)
         Next        
-        SpielRunde.AusgeschiedeneSpieler.Add(spielerListe.Last)        
+        AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = spielerListe.Last, .Runde = 1})
         Me.Push(SpielRunde)
     End Sub
 

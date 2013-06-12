@@ -21,9 +21,8 @@ Public Class Competition
                     .Altersgruppe = node.Attribute("age-group").Value,
                     .SpielerListe = SpielerListe.FromXML(node.<players>)
                 }
-        For Each runde In SpielRunden.FromXML(c.SpielerListe, node.<matches>)
-            c.SpielRunden.Push(runde)
-        Next
+        c.SpielRunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault)
+        
         Return c
     End Function
 
