@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PPC_Manager"
-             mc:Ignorable="d" d:DesignHeight="1123" d:DesignWidth="794">
+             mc:Ignorable="d" d:DesignHeight="1287.179" d:DesignWidth="792.507">
     <Grid Name="PageContent" DataContext="{Binding Source=SpielPartien}" d:DataContext="{d:DesignInstance Type=local:DesignSpielPartien, IsDesignTimeCreatable=True}" Margin="20">
         <Grid.Resources>
-            <local:SpielPartien x:Key="SpielPartien"/>            
+            <local:SpielPartien x:Key="SpielPartien"/>
         </Grid.Resources>
         <ItemsControl Name="ItemsContainer" ItemsSource="{Binding}">
             <ItemsControl.Resources>
@@ -17,26 +17,31 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Row="0" Text="{StaticResource KlassementName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="1" Text="{Binding Path=RundenName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+                            <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
                         </Grid>
-                    </Border>                    
+                    </Border>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type local:SpielPartie}">
                     <Border BorderThickness="1" BorderBrush="Black" CornerRadius="8" Margin="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.4*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition/>                                
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
@@ -46,28 +51,35 @@
                                     <Setter Property="StrokeThickness" Value="1"/>
                                     <Setter Property="Stretch" Value="Fill"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                     <Setter Property="Grid.RowSpan" Value="2"/>
                                 </Style>
                             </Grid.Resources>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.StartNummer}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts.StartNummer}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SpielerRechts}" VerticalAlignment="Center" />
-                            <Line Grid.ColumnSpan="8" Style="{StaticResource LineStyle}" X2="1" X1="0" Margin="20,0" />
-                            <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="2" Y2="1" StrokeThickness="2" />
-                            <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="3" Y2="1" />
-                            <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="4" Y2="1" />
-                            <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="5" Y2="1" />
-                            <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="6" Y2="1" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{StaticResource KlassementName}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=RundenName}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="1" Y2="1" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="Tischname" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=SpielerLinks.Nachname}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding Path=SpielerRechts.Nachname}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding Path=SpielerRechts.Vorname}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <Line Grid.RowSpan="4" Grid.ColumnSpan="8" Style="{StaticResource LineStyle}" X2="1" X1="0" Margin="20,0" />
+                            <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="1" Y2="1" StrokeThickness="2" />
+                            <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="2" Y2="1" />
+                            <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="3" Y2="1" />
+                            <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="4" Y2="1" />
+                            <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="5" Y2="1" />
+                            <Line Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="8" Style="{StaticResource LineStyle}" X2="1" X1="0" Margin="20,0" />
+
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate x:Name="xxPanel">
-                    <WrapPanel  Name="Test" ItemHeight="2cm" ItemWidth="9.5cm"/>
-                </ItemsPanelTemplate>                
-            </ItemsControl.ItemsPanel>            
+                    <WrapPanel  Name="Test" ItemHeight="4cm" ItemWidth="9.5cm"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
         </ItemsControl>
     </Grid>
 </UserControl>

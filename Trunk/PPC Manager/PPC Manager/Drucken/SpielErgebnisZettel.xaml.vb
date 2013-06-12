@@ -5,7 +5,7 @@
         Dim width = PageContent.ActualWidth
         Dim height = PageContent.ActualHeight
 
-        Dim ItemHeight = 75.5905511811024
+        Dim ItemHeight = 151
         Dim ItemWidth = 359.055118110236
 
         Dim Rows = CInt(width) \ CInt(ItemWidth)

@@ -40,6 +40,7 @@
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
         <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed" CanExecute="NächsteRunde_CanExecute"/>
         <CommandBinding Command="GoToPage" Executed="PlayOff_Executed" CanExecute="NächsteRunde_CanExecute"/>
+        <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>
     </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>

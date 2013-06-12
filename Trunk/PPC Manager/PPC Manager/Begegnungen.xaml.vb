@@ -124,7 +124,7 @@ Class Begegnungen
                     AktiveListe.Remove(Ausgeschieden)
                 Next
             Next
-            Dim RundenName = "Runde " & .SpielRunden.Count
+            Dim RundenName = "Runde " & .SpielRunden.Count + 1
             Dim begegnungen = PaketBildung.organisierePakete(RundenName, AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
             For Each partie In begegnungen
@@ -213,6 +213,25 @@ Class Begegnungen
         neueSpielPartie.Add(New Satz)
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
+
+    Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = MainWindow.AktiveCompetition.SpielRunden.Count > 0
+    End Sub
+
+    Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
+            Return
+        End If
+        MainWindow.AktiveCompetition.SpielRunden.Pop()
+        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        ' dass die View aktualisiert wird bevor die Position verschoben wird.
+        ' Weiß die Hölle warum das so ist
+        ViewSource.View.Refresh()
+
+        ViewSource.View.MoveCurrentToFirst()
+    End Sub
+
 End Class
 
 

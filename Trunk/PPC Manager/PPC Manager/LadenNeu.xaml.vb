@@ -1,19 +1,25 @@
-﻿Public Class LadenNeu
+﻿Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
+
+Public Class LadenNeu
+
+    Private doc As XDocument
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
         With LadenDialog()
             If .ShowDialog Then
                 XMLPathText.Text = .FileName
                 My.Settings.LetztesVerzeichnis = IO.Path.GetDirectoryName(.FileName)
+                doc = XDocument.Load(XMLPathText.Text)
                 With CompetitionCombo
                     .Items.Clear()
-                    For Each Entry In XDocument.Load(XMLPathText.Text).Root.<competition>
+                    For Each Entry In doc.Root.<competition>
                         .Items.Add(Entry.Attribute("age-group").Value)
                     Next
                     .IsEnabled = True
                 End With
+
             End If
-        End With        
+        End With
     End Sub
 
     Public Shared Function SpeichernDialog() As SaveFileDialog
@@ -51,6 +57,29 @@
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
         Me.DialogResult = True
         Me.Close()
+    End Sub
+
+    Private Sub CompetitionCombo_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CompetitionCombo.SelectionChanged
+        If Not e.AddedItems.Count > 0 Then Return
+        Dim Item = e.AddedItems(0).ToString
+        Dim competition = (From x In doc.Root.<competition>
+                          Where x.Attribute("age-group").Value = Item Select x).Single
+
+        If competition.@ppc:gewinnsätze IsNot Nothing Then
+            GewinnsätzeAnzahl.Value = Double.Parse(competition.@ppc:gewinnsätze)
+        End If
+
+        If competition.@ppc:satzdifferenz IsNot Nothing Then
+            SatzDiffCheck.IsChecked = Boolean.Parse(competition.@ppc:satzdifferenz)
+        End If
+
+        If competition.<matches>.Elements.Any Then
+            SatzDiffCheck.IsEnabled = False
+            GewinnsätzeAnzahl.IsEnabled = False
+        Else
+            SatzDiffCheck.IsEnabled = True
+            GewinnsätzeAnzahl.IsEnabled = True
+        End If
     End Sub
 End Class
 

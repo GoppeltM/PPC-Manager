@@ -10,8 +10,8 @@ Class MainWindow
             If Not .ShowDialog() Then Return
             AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked)
             Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden
-            Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe                        
-            Title = AktiveCompetition.Altersgruppe
+            Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
+            Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe            
             EditorArea.Navigate(New Begegnungen(Me))
         End With
     End Sub
@@ -98,21 +98,5 @@ Class MainWindow
         My.Settings.Save()
     End Sub
 
-    Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = AktiveCompetition.SpielRunden.Count > 0
-    End Sub
-
-    Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
-            Return
-        End If
-        AktiveCompetition.SpielRunden.Pop()
-        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
-        ' dass die View aktualisiert wird bevor die Position verschoben wird.
-        ' Weiß die Hölle warum das so ist
-        ViewSource.View.Refresh()
-
-        ViewSource.View.MoveCurrentToFirst()
-    End Sub
+    
 End Class
