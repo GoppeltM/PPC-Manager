@@ -138,7 +138,6 @@ Public Class Spieler
 
     Public ReadOnly Property Ausgeschieden As Boolean
         Get
-            If Not SpielRunden.Any Then Return False
             Return Aggregate x In SpielRunden.AusgeschiedeneSpieler Where x.Spieler = Me Into Any()
         End Get
     End Property

@@ -90,8 +90,7 @@ Class Begegnungen
         e.CanExecute = False
     End Sub
 
-    Private Sub Ausscheiden_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim runde = CType(FindResource("SpielRunden"), SpielRunden).Peek
+    Private Sub Ausscheiden_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
         Dim Spieler = CType(LifeListe.SelectedItem, Spieler)
         If MessageBox.Show(String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!", Spieler.Nachname), _
                         "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
@@ -176,11 +175,15 @@ Class Begegnungen
     Private Property PlayOffAktiv As Boolean = False
 
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        With MainWindow.AktiveCompetition        
+        If MessageBox.Show("Wollen Sie wirklich die Playoffs beginnen? Es wird eine leere Runde erzeugt, und die vorigen Ergebnisse können nicht verändert werden.", _
+                   "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
+            Return
+        End If
+        With MainWindow.AktiveCompetition
             Dim spielRunde As New SpielRunde
             .SpielRunden.Push(spielRunde)
             PlayOffAktiv = True
-            LifeListe.SelectionMode = SelectionMode.Extended            
+            LifeListe.SelectionMode = SelectionMode.Extended
         End With
 
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
@@ -220,14 +223,24 @@ Class Begegnungen
         If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
             Return
         End If
-        MainWindow.AktiveCompetition.SpielRunden.Pop()
+        With MainWindow.AktiveCompetition.SpielRunden
+            .Pop()
+            Dim überzählig = (From x In .AusgeschiedeneSpieler Where x.Runde > .Count).ToList
+
+            For Each ausgeschieden In überzählig
+                .AusgeschiedeneSpieler.Remove(ausgeschieden)
+            Next
+        End With
+
+
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
         ' Weiß die Hölle warum das so ist
         ViewSource.View.Refresh()
-
         ViewSource.View.MoveCurrentToFirst()
+        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+        SpielerView.View.Refresh()
     End Sub
 
 End Class
