@@ -33,11 +33,21 @@ Class Begegnungen
         Return gesamtAbgeschlossen >= gewinnSätze
     End Function
 
+    Private Class SpielerComparer
+        Implements IComparer
+
+        Public Function Compare1(x As Object, y As Object) As Integer Implements IComparer.Compare
+            Return DirectCast(x, Spieler).CompareTo(DirectCast(y, Spieler))
+        End Function
+    End Class
+
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
         Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)        
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+        Dim v = DirectCast(SpielerView.View, ListCollectionView)
+        v.CustomSort = New SpielerComparer
         SpielerView.View.Refresh()
         ViewSource.View.Refresh()
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 

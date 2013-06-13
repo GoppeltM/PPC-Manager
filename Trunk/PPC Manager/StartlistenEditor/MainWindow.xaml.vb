@@ -113,6 +113,26 @@ Class MainWindow
     End Sub
 
     Private Sub Speichern()
+
+        Dim AusgeschiedenKlassements = From x In SpielerListe Group x By x.KlassementNode Into Group
+
+        For Each klassement In AusgeschiedenKlassements
+
+            If Not klassement.KlassementNode.<matches>.Any Then
+                klassement.KlassementNode.Add(<matches/>)
+            End If
+
+            For Each ausgeschiedeneSpieler In klassement.KlassementNode.<matches>.<ppc:inactiveplayer>.ToList
+                If ausgeschiedeneSpieler.@group = "0" Then
+                    ausgeschiedeneSpieler.Remove()
+                End If
+            Next
+
+            Dim xSpieler = From x In klassement.Group Where x.Abwesend Select <ppc:inactiveplayer player=<%= x.ID %> group="0"/>
+
+            klassement.KlassementNode.<matches>.Single.Add(xSpieler)
+        Next
+
         Doc.Save(Pfad)
     End Sub
 

@@ -108,11 +108,15 @@ Public Class Spieler
         End Set
     End Property
 
+    ReadOnly Property KlassementNode As XElement
+        Get
+            Return XmlKnoten.Ancestors("competition").Single
+        End Get
+    End Property
+
     ReadOnly Property Klassement As String
         Get
-            Dim KlassementName = From x In XmlKnoten.Ancestors("competition") Select x.Attribute("age-group").Value
-
-            Return KlassementName.Single
+            Return KlassementNode.Attribute("age-group").Value           
         End Get
     End Property
 
@@ -140,9 +144,12 @@ Public Class Spieler
     End Property
 
 
-    WriteOnly Property ID As String
+    Property ID As String
+        Get
+            Return XmlKnoten.@id
+        End Get
         Set(value As String)
-            XmlKnoten.@id = value            
+            XmlKnoten.@id = value
         End Set
     End Property
 

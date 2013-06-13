@@ -24,16 +24,7 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="SpielerView"
     		d:DesignSource="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielerListe}}"
-    		Source="{Binding Source={StaticResource SpielerListe}}">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Punkte" Direction="Descending"/>
-                <scm:SortDescription PropertyName="BuchholzPunkte" Direction="Descending"/>
-                <scm:SortDescription PropertyName="TTRating" Direction="Descending"/>
-                <scm:SortDescription PropertyName="TTRMatchCount" Direction="Descending"/>
-                <scm:SortDescription PropertyName="Nachname" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="Vorname" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="Lizenznummer" Direction="Ascending"/>
-            </CollectionViewSource.SortDescriptions>
+    		Source="{Binding Source={StaticResource SpielerListe}}">            
         </CollectionViewSource>
     </Page.Resources>
     <Page.CommandBindings>
