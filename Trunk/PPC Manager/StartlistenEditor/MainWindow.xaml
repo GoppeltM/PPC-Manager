@@ -12,7 +12,7 @@
         <local:KlassementListe x:Key="KlassementListe"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0" SelectionUnit="Cell">
+        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDown"></EventSetter>
@@ -46,6 +46,7 @@
                 <DataGridTextColumn Binding="{Binding Vorname}" ClipboardContentBinding="{x:Null}" Header="Vorname" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nachname}" ClipboardContentBinding="{x:Null}" Header="Nachname" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}" ClipboardContentBinding="{x:Null}" Header="Geschlecht" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Geburtsjahr}" ClipboardContentBinding="{x:Null}" Header="Geburtsjahr" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding TTR}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="TTR"/>
                 <DataGridTextColumn Binding="{Binding TTRMatchCount}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Match Count"/>
                 <DataGridTextColumn Binding="{Binding Verein}" ClipboardContentBinding="{x:Null}" IsReadOnly="True" Header="Verein"/>

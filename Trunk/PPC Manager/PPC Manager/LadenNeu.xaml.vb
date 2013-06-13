@@ -77,12 +77,14 @@ Public Class LadenNeu
             SonneBorn.IsChecked = Boolean.Parse(competition.@ppc:sonnebornberger)
         End If
 
-        If competition.<matches>.Elements.Except(competition.<matches>.<ppc:inaktivespieler>).Any Then
+        If competition.<matches>.Elements.Except(competition.<matches>.<ppc:inactiveplayer>).Any Then
             SatzDiffCheck.IsEnabled = False
             GewinnsätzeAnzahl.IsEnabled = False
+            SonneBorn.IsEnabled = False
         Else
             SatzDiffCheck.IsEnabled = True
             GewinnsätzeAnzahl.IsEnabled = True
+            SonneBorn.IsEnabled = True
         End If
     End Sub
 End Class

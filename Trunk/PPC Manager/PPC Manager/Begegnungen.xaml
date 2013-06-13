@@ -176,7 +176,7 @@
                           BorderThickness="0,0,0,1">
                                             <Expander.Header>
                                                 <DockPanel>
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
                                                 </DockPanel>
                                             </Expander.Header>
                                             <Expander.Content>
