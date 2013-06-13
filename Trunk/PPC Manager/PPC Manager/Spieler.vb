@@ -80,18 +80,30 @@ Public Class Spieler
 
     Public ReadOnly Property Punkte As Integer
         Get
-            Dim GewonneneSätze = From x In GespieltePartien Select Meine = x.MeineGewonnenenSätze(Me).Count, Gegner = x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count
-            Dim _punkte = Aggregate x In GewonneneSätze
-                          Where x.Meine >= MainWindow.AktiveCompetition.Gewinnsätze AndAlso
-                          x.Meine > x.Gegner Into Count()
+            Return MeineGewonnenenSpiele.Count
+        End Get
+    End Property
 
-            Return _punkte
+    Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
+        Get
+            Dim GewonneneSätze = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count, Gegner = x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count
+                             Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze AndAlso
+                             Meine > Gegner Select x
+
+            Return GewonneneSätze.ToList
         End Get
     End Property
 
     Public ReadOnly Property BuchholzPunkte As Integer
         Get
             Dim _punkte = Aggregate x In GespieltePartien Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Return _punkte
+        End Get
+    End Property
+
+    Private ReadOnly Property SonneBornBergerPunkte As Integer
+        Get
+            Dim _punkte = Aggregate x In MeineGewonnenenSpiele Let y = x.MeinGegner(Me).Punkte Into Sum(y)
             Return _punkte
         End Get
     End Property
@@ -170,6 +182,11 @@ Public Class Spieler
         If diff <> 0 Then Return diff
         diff = other.BuchholzPunkte - Me.BuchholzPunkte
         If diff <> 0 Then Return diff
+
+        If MainWindow.AktiveCompetition.SonneBornBerger Then
+            diff = other.SonneBornBergerPunkte - Me.SonneBornBergerPunkte
+            If diff <> 0 Then Return diff
+        End If
 
         If MainWindow.AktiveCompetition.SatzDifferenz Then
             diff = other.SatzDifferenz - Me.SatzDifferenz

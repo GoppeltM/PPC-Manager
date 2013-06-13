@@ -8,7 +8,7 @@ Class MainWindow
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         With New LadenNeu
             If Not .ShowDialog() Then Return
-            AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked)
+            AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
             Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden
             Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
             Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe            

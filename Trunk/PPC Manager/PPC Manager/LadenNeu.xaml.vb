@@ -66,11 +66,15 @@ Public Class LadenNeu
                           Where x.Attribute("age-group").Value = Item Select x).Single
 
         If competition.@ppc:gewinnsätze IsNot Nothing Then
-            GewinnsätzeAnzahl.Value = Double.Parse(competition.@ppc:gewinnsätze)
+            GewinnsätzeAnzahl.Value = Double.Parse(competition.@ppc:gewinnsätze)        
         End If
 
         If competition.@ppc:satzdifferenz IsNot Nothing Then
             SatzDiffCheck.IsChecked = Boolean.Parse(competition.@ppc:satzdifferenz)
+        End If
+
+        If competition.@ppc:sonnebornberger IsNot Nothing Then
+            SonneBorn.IsChecked = Boolean.Parse(competition.@ppc:sonnebornberger)
         End If
 
         If competition.<matches>.Elements.Except(competition.<matches>.<ppc:inaktivespieler>).Any Then

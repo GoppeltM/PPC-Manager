@@ -11,22 +11,25 @@ Public Class Competition
     Property SpielRunden As New SpielRunden
     Property Gewinnsätze As Integer
 
-    Public Shared Function FromXML(dateipfad As String, node As XElement, satzzahl As Double, satzDifferenz As Boolean?) As Competition
+    Property SonneBornBerger As Boolean
+
+    Public Shared Function FromXML(dateipfad As String, node As XElement, satzzahl As Double, satzDifferenz As Boolean?, SonneBornBerger As Boolean?) As Competition
         Dim c = New Competition With
                {
                    .Gewinnsätze = Convert.ToInt32(satzzahl),
                    .SatzDifferenz = Convert.ToBoolean(satzDifferenz),
-                    .DateiPfad = dateipfad,
-                    .StartDatum = node.Attribute("start-date").Value,
-                    .Altersgruppe = node.Attribute("age-group").Value,
-                    .SpielerListe = SpielerListe.FromXML(node.<players>)
+                   .SonneBornBerger = Convert.ToBoolean(SonneBornBerger),
+                   .DateiPfad = dateipfad,
+                   .StartDatum = node.Attribute("start-date").Value,
+                   .Altersgruppe = node.Attribute("age-group").Value,
+                   .SpielerListe = SpielerListe.FromXML(node.<players>)
                 }
         c.SpielRunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault)
-        
+
         Return c
     End Function
 
-    Public Shared Function FromXML(dateiPfad As String, gruppe As String, satzzahl As Double, satzDifferenz As Boolean?) As Competition
+    Public Shared Function FromXML(dateiPfad As String, gruppe As String, satzzahl As Double, satzDifferenz As Boolean?, SonneBornBerger As Boolean?) As Competition
         Dim doc = XDocument.Load(dateiPfad)
         Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
         ' Syntax Checks
@@ -41,10 +44,10 @@ Public Class Competition
 
         If UnbekannterZustand.Any Then
             MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", UnbekannterZustand.Count), _
-                            "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)            
+                            "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
             Application.Current.Shutdown()
         End If
-        Return FromXML(dateiPfad, competitionXML, satzzahl, satzDifferenz)
+        Return FromXML(dateiPfad, competitionXML, satzzahl, satzDifferenz, SonneBornBerger)
     End Function
 
 
@@ -53,6 +56,7 @@ Public Class Competition
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
         CompetitionNode.@ppc:satzdifferenz = SatzDifferenz.ToString
         CompetitionNode.@ppc:gewinnsätze = Gewinnsätze.ToString
+        CompetitionNode.@ppc:sonnenbornberger = SonneBornBerger.ToString
         Dim runden = SpielRunden.ToXML
         CompetitionNode.<matches>.Remove()
         CompetitionNode.Add(<matches>

@@ -8,7 +8,7 @@ Imports System.Collections.ObjectModel
 
     <TestMethod>
     Public Sub Competition_From_XML()
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False)
+        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False, False)
         MainWindow.AktiveCompetition = reference
         With reference
             Assert.AreEqual("D:\dummy.xml", .DateiPfad)
@@ -25,7 +25,7 @@ Imports System.Collections.ObjectModel
 
     <TestMethod>
     Sub Competition_ErsteRunde_From_XML()
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False)
+        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False, False)
         MainWindow.AktiveCompetition = reference
 
         

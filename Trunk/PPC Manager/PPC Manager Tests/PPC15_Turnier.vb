@@ -5,8 +5,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub CompetitionInit()
         Dim KlassementD = (From x In XDocument.Parse(My.Resources.PPC_15_Anmeldungen).Root.<competition>
                            Where x.Attribute("age-group").Value = "D-Klasse").First
-        AktuelleCompetition = Competition.FromXML("D:\dummy.xml", KlassementD, 3, False)
-        AktuelleCompetition.SatzDifferenz = True
+        AktuelleCompetition = Competition.FromXML("D:\dummy.xml", KlassementD, 3, True, False)        
         MainWindow.AktiveCompetition = AktuelleCompetition
     End Sub
 
