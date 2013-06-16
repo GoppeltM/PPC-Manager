@@ -9,10 +9,10 @@ Class MainWindow
         With New LadenNeu
             If Not .ShowDialog() Then Return
             AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
-            Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden
-            Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
-            Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe            
-            EditorArea.Navigate(New Begegnungen(Me))
+            Me.DataContext = AktiveCompetition
+            'Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden            
+            'Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
+            'Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe                        
         End With
     End Sub
 
@@ -31,17 +31,7 @@ Class MainWindow
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         AktiveCompetition.SaveXML()
     End Sub
-    
-    Private Sub EditorArea_Navigated(ByVal sender As System.Object, ByVal e As System.Windows.Navigation.NavigationEventArgs) Handles EditorArea.Navigated
-        Select Case e.Content.GetType
-            Case GetType(Begegnungen)                
-                NächsteRunde.Visibility = Windows.Visibility.Visible
-                Einstellungen.Visibility = Windows.Visibility.Collapsed
-                OffeneBegegnungen.Visibility = Windows.Visibility.Visible            
-            Case Else
-                Throw New Exception("Unbekannter Seitentyp")
-        End Select
-    End Sub
+
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Select Case e.Parameter.ToString

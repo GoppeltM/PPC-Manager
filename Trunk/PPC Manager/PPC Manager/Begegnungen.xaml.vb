@@ -2,11 +2,13 @@
 
 Class Begegnungen
 
-    Private Property MainWindow As MainWindow
+    Public Sub New()
 
-    Friend Sub New(main As MainWindow)
+        ' This call is required by the designer.
         InitializeComponent()
-        MainWindow = main
+
+        ' Add any initialization after the InitializeComponent() call.
+
     End Sub
 
     Friend Property BegegnungenView As CollectionViewSource
@@ -41,9 +43,9 @@ Class Begegnungen
         End Function
     End Class
 
-    Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded        
-        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)        
+    Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+        Me.DataContext = MainWindow.AktiveCompetition
+        BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         Dim v = DirectCast(SpielerView.View, ListCollectionView)
@@ -143,8 +145,7 @@ Class Begegnungen
             For Each begegnung In begegnungen
                 spielRunde.Add(begegnung)
             Next
-            .SpielRunden.Push(spielRunde)
-            PlayOffAktiv = True
+            .SpielRunden.Push(spielRunde)            
             LifeListe.SelectionMode = SelectionMode.Single
         End With
 
@@ -160,8 +161,7 @@ Class Begegnungen
             MainWindow.AktiveCompetition.SaveExcel()
         End If
 
-        PlayOffAktiv = False
-
+        Resources("PlayoffAktiv") = False
     End Sub
 
     Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
@@ -184,8 +184,6 @@ Class Begegnungen
         res.ObjectInstance = liste
     End Sub
 
-    Private Property PlayOffAktiv As Boolean = False
-
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die Playoffs beginnen? Es wird eine leere Runde erzeugt, und die vorigen Ergebnisse können nicht verändert werden.", _
                    "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
@@ -194,7 +192,7 @@ Class Begegnungen
         With MainWindow.AktiveCompetition
             Dim spielRunde As New SpielRunde
             .SpielRunden.Push(spielRunde)
-            PlayOffAktiv = True
+            Resources("PlayoffAktiv") = True            
             LifeListe.SelectionMode = SelectionMode.Extended
         End With
 
@@ -211,18 +209,10 @@ Class Begegnungen
         End If
     End Sub
 
-    Private Sub SpielPartie_Löschen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = PlayOffAktiv AndAlso SpielPartienView.SelectedItem IsNot Nothing
-    End Sub
-
-    Private Sub SpielPartie_Löschen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim AktuelleRunde = MainWindow.AktiveCompetition.SpielRunden.Peek()
-        Dim SelektierteSpielpartie = DirectCast(SpielPartienView.SelectedItem, SpielPartie)        
-        AktuelleRunde.Remove(SelektierteSpielpartie)
-    End Sub
+  
 
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = PlayOffAktiv AndAlso LifeListe.SelectedItems.Count = 2
+        e.CanExecute = DirectCast(FindResource("PlayoffAktiv"), Boolean) AndAlso LifeListe.SelectedItems.Count = 2
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)

@@ -145,6 +145,9 @@
     </Compile>
     <Compile Include="Spieler.vb" />
     <Compile Include="SpielPartie.vb" />
+    <Compile Include="SpielPartienListe.xaml.vb">
+      <DependentUpon>SpielPartienListe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SpielRunden.vb" />
     <Compile Include="ValueConverter.vb" />
     <Page Include="Begegnungen.xaml">
@@ -176,6 +179,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NeueSpielPartieDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpielPartienListe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
