@@ -3,11 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPC_Manager"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-             
+    xmlns:core="clr-namespace:System;assembly=mscorlib"
     StartupUri="MainWindow.xaml" xmlns:my="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <local:SpielerListe x:Key="SpielerListe" />
         <local:SpielRunden x:Key="SpielRunden" />
         <system:String x:Key="KlassementName">Turnier D</system:String>
+        <core:Boolean x:Key="PlayoffAktiv"/>
   </Application.Resources>
 </Application>

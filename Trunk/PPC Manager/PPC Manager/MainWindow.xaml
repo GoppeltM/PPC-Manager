@@ -1,13 +1,16 @@
 ﻿<Window x:Class="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:PPC_Manager"
-    Title="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="448" Width="923" Icon="/PPC%20Manager;component/Icon.ico">
+    xmlns:local="clr-namespace:PPC_Manager"    
+    Title="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="448" Width="923" Icon="/PPC%20Manager;component/Icon.ico">    
     <Window.CommandBindings>
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        
         <CommandBinding Command="Print" Executed="Drucken_Executed"/>
         <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
+        <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
+        <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />
+        <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>                
     </Window.CommandBindings>
     <Grid>
         <Menu Height="23" HorizontalAlignment="Stretch" Name="Menu1" VerticalAlignment="Top">            
@@ -38,6 +41,6 @@
                 <MenuItem Header="Rangliste..." Command="Print" CommandParameter="Rangliste"/>
             </MenuItem>
         </Menu>
-        <local:Begegnungen Margin="0,28,0,0"/>        
+        <local:Begegnungen x:Name="Begegnungen" Margin="0,28,0,0"/>        
     </Grid>
 </Window>

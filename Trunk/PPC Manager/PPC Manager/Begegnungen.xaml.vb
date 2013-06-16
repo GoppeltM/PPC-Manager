@@ -44,6 +44,7 @@ Class Begegnungen
     End Class
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+        If MainWindow.AktiveCompetition Is Nothing Then Return
         Me.DataContext = MainWindow.AktiveCompetition
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
@@ -114,102 +115,13 @@ Class Begegnungen
         BegegnungenView.View.Refresh()
     End Sub
 
-    Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
-                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
-            RundeBerechnen()
-        End If
-
-    End Sub
-
-    Private Sub RundeBerechnen()
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            MainWindow.AktiveCompetition.SaveXML()
-        End If
-
-        With MainWindow.AktiveCompetition
-            Dim AktiveListe = .SpielerListe.ToList
-            For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
-                AktiveListe.Remove(Ausgeschieden.Spieler)
-            Next
-            Dim RundenName = "Runde " & .SpielRunden.Count + 1
-            Dim begegnungen = PaketBildung.organisierePakete(RundenName, AktiveListe, .SpielRunden.Count)
-            Dim Zeitstempel = Date.Now
-            For Each partie In begegnungen
-                partie.ZeitStempel = Zeitstempel
-            Next
-
-            Dim spielRunde As New SpielRunde
-
-            For Each begegnung In begegnungen
-                spielRunde.Add(begegnung)
-            Next
-            .SpielRunden.Push(spielRunde)            
-            LifeListe.SelectionMode = SelectionMode.Single
-        End With
-
-        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
-        ' dass die View aktualisiert wird bevor die Position verschoben wird.
-        ' Weiß die Hölle warum das so ist
-        ViewSource.View.Refresh()
-
-        ViewSource.View.MoveCurrentToFirst()
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            MainWindow.AktiveCompetition.SaveExcel()
-        End If
-
-        Resources("PlayoffAktiv") = False
-    End Sub
-
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
-        Dim SpielRunden = CType(FindResource("SpielRunden"), SpielRunden)
-        If Not SpielRunden.Any Then
-            e.CanExecute = True
-            Return
-        End If
-
-        Dim AktuellePartien = SpielRunden.Peek.ToList
-
-        Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Abgeschlossen(x))
-
-        e.CanExecute = AlleAbgeschlossen
-    End Sub
+  
 
     Private Sub Window_Initialized(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Initialized
         Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)
         Dim liste = CType(FindResource("SpielerListe"), SpielerListe)
         res.ObjectInstance = liste
     End Sub
-
-    Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die Playoffs beginnen? Es wird eine leere Runde erzeugt, und die vorigen Ergebnisse können nicht verändert werden.", _
-                   "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
-            Return
-        End If
-        With MainWindow.AktiveCompetition
-            Dim spielRunde As New SpielRunde
-            .SpielRunden.Push(spielRunde)
-            Resources("PlayoffAktiv") = True            
-            LifeListe.SelectionMode = SelectionMode.Extended
-        End With
-
-        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
-        ' dass die View aktualisiert wird bevor die Position verschoben wird.
-        ' Weiß die Hölle warum das so ist
-        ViewSource.View.Refresh()
-
-        ViewSource.View.MoveCurrentToFirst()
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            ApplicationCommands.Save.Execute(Nothing, Me)
-        End If
-    End Sub
-
-  
 
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = DirectCast(FindResource("PlayoffAktiv"), Boolean) AndAlso LifeListe.SelectedItems.Count = 2
@@ -227,24 +139,8 @@ Class Begegnungen
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
-    Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = MainWindow.AktiveCompetition.SpielRunden.Count > 0
-    End Sub
 
-    Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
-            Return
-        End If
-        With MainWindow.AktiveCompetition.SpielRunden
-            .Pop()
-            Dim überzählig = (From x In .AusgeschiedeneSpieler Where x.Runde > .Count).ToList
-
-            For Each ausgeschieden In überzählig
-                .AusgeschiedeneSpieler.Remove(ausgeschieden)
-            Next
-        End With
-
-
+    Private Sub RefreshView()
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
@@ -253,6 +149,15 @@ Class Begegnungen
         ViewSource.View.MoveCurrentToFirst()
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         SpielerView.View.Refresh()
+    End Sub
+
+    Private Sub Refresh_Executed(sender As Object, e As ExecutedRoutedEventArgs)        
+        If DirectCast(FindResource("PlayoffAktiv"), Boolean) Then
+            LifeListe.SelectionMode = SelectionMode.Extended
+        Else
+            LifeListe.SelectionMode = SelectionMode.Single
+        End If
+        RefreshView()
     End Sub
 
 End Class
@@ -307,6 +212,6 @@ Public Class SpielKlassenkonverter
     End Function
 
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-
+        Throw New NotImplementedException
     End Function
 End Class

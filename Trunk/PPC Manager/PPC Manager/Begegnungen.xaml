@@ -7,7 +7,7 @@
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:core="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage">
-    <UserControl.Resources>
+    <UserControl.Resources>        
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <local:SatzFarbenPainter x:Key="MyPainter" />
@@ -25,18 +25,14 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="SpielerView"
     		d:DesignSource="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielerListe}}"
-    		Source="{Binding SpielerListe}">            
-        </CollectionViewSource>
-        <core:Boolean x:Key="PlayoffAktiv"/>
+    		Source="{Binding SpielerListe}"/>        
     </UserControl.Resources>
     <UserControl.DataContext>
         <local:Competition/>
     </UserControl.DataContext>
     <UserControl.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
-        <CommandBinding Command="NextPage" Executed="NächsteRunde_Executed" CanExecute="NächsteRunde_CanExecute"/>
-        <CommandBinding Command="GoToPage" Executed="PlayOff_Executed" CanExecute="NächsteRunde_CanExecute"/>
-        <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>
+        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />        
     </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -47,7 +43,7 @@
             <ColumnDefinition Width="449*" />
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
-        <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2" SelectionMode="Single"
+        <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2"
                       ItemsSource="{Binding Source={StaticResource SpielerView}}"
                       Grid.Column="0" TextBlock.FontSize="20">
             <ListView.CommandBindings>
