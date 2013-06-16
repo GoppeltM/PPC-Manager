@@ -57,6 +57,22 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public Overridable ReadOnly Property MeineVerlorenenSätze(ByVal ich As Spieler) As IList(Of Satz)
+        Get
+            Dim verlorenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteRechts > x.PunkteLinks
+                           Select x
+
+            Dim verlorenRechts = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
+                           Select x
+
+            If SpielerLinks = ich Then
+                Return verlorenLinks.ToList
+            Else
+                Return verlorenRechts.ToList
+            End If
+        End Get
+    End Property
+
     Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
         Get
             Dim gewonnenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
@@ -170,7 +186,7 @@ Public Class FreiLosSpiel
 
     Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As System.Collections.Generic.IList(Of Satz)
         Get
-            Return New List(Of Satz) From {New Satz() With {.PunkteLinks = 1}}
+            Return New List(Of Satz) From {New Satz() With {.PunkteLinks = My.Settings.GewinnPunkte}}
         End Get
     End Property
 

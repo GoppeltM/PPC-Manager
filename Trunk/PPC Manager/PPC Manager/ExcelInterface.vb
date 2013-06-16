@@ -41,7 +41,7 @@ Public Class ExcelInterface
     End Sub
 
     Private Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of Spieler), ByVal sheet As Worksheet)
-        Dim Titles = {"Vorname", "Nachname", "Verein", "ID", "TTRating", "Punkte", "Buchholzpunkte",
+        Dim Titles = {"Vorname", "Nachname", "Geschlecht", "Geburtsjahr", "Verein", "ID", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
                           "Gewonnene Sätze", "Verlorene Sätze", "Gegnerprofil"}
 
 
@@ -53,15 +53,19 @@ Public Class ExcelInterface
         Dim current = 2UI
 
         For Each s In spieler
+            Dim gegnerProfil = From x In s.GespieltePartien Select x.MeinGegner(s).Id
 
-            Dim AlleSätze = Aggregate x In s.GespieltePartien Into Sum(x.Count)
-            Dim ss = s
-            Dim meineSätze = Aggregate x In s.GespieltePartien Into Sum(x.MeineGewonnenenSätze(ss).Count)
-            Dim gegnerProfil = From x In ss.GespieltePartien Select x.MeinGegner(ss).Id
+            Dim Geschlecht = Function() As String
+                                 Select Case s.Geschlecht
+                                     Case 0 : Return "w"
+                                     Case 1 : Return "m"
+                                     Case Else : Throw New ArgumentException("Unbekanntes Geschlecht: " & s.Geschlecht)
+                                 End Select
+                             End Function
 
-            Dim Werte = {s.Vorname, s.Nachname, s.Vereinsname, s.Id.ToString, s.TTRating.ToString,
-                         s.Punkte.ToString, s.BuchholzPunkte.ToString, meineSätze.ToString,
-                         (AlleSätze - meineSätze).ToString}.Concat(gegnerProfil)
+            Dim Werte = {s.Vorname, s.Nachname, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.Id.ToString, s.TTRating.ToString,
+                         s.Punkte.ToString, s.BuchholzPunkte.ToString, s.SonneBornBergerPunkte.ToString, s.SätzeGewonnen.ToString,
+                         s.SätzeVerloren.ToString}.Concat(gegnerProfil)
             CreateRow(SheetData, current, Werte)
             current += 1UI
         Next

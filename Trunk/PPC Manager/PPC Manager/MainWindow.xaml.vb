@@ -156,7 +156,7 @@ Class MainWindow
                     If .ShowDialog Then
                         Dim paginator As New UserControlPaginator(Of SpielErgebnisZettel)(AktiveCompetition.SpielRunden.Peek, _
                                                                                      New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                        .PrintDocument(paginator, "Spieler Rangliste")
+                        .PrintDocument(paginator, "Neue Begegnungen - Schiedsrichterzettel")
                     End If
                 End With
             Case Else

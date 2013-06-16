@@ -101,7 +101,7 @@ Public Class Spieler
         End Get
     End Property
 
-    Private ReadOnly Property SonneBornBergerPunkte As Integer
+    Public ReadOnly Property SonneBornBergerPunkte As Integer
         Get
             Dim _punkte = Aggregate x In MeineGewonnenenSpiele Let y = x.MeinGegner(Me).Punkte Into Sum(y)
             Return _punkte
@@ -138,7 +138,7 @@ Public Class Spieler
 
     Public ReadOnly Property SätzeVerloren As Integer
         Get
-            Return Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count)
+            Return Aggregate x In GespieltePartien Into Sum(x.MeineVerlorenenSätze(Me).Count)
         End Get
     End Property
 
