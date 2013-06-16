@@ -114,6 +114,8 @@ Class MainWindow
 
     Private Sub Speichern()
 
+        SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
+
         Dim AusgeschiedenKlassements = From x In SpielerListe Group x By x.KlassementNode Into Group
 
         For Each klassement In AusgeschiedenKlassements

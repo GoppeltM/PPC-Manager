@@ -160,6 +160,8 @@ Class Begegnungen
             MainWindow.AktiveCompetition.SaveExcel()
         End If
 
+        PlayOffAktiv = False
+
     End Sub
 
     Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
@@ -207,6 +209,16 @@ Class Begegnungen
         If CBool(My.Settings.AutoSaveAn) Then
             ApplicationCommands.Save.Execute(Nothing, Me)
         End If
+    End Sub
+
+    Private Sub SpielPartie_Löschen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = PlayOffAktiv AndAlso SpielPartienView.SelectedItem IsNot Nothing
+    End Sub
+
+    Private Sub SpielPartie_Löschen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim AktuelleRunde = MainWindow.AktiveCompetition.SpielRunden.Peek()
+        Dim SelektierteSpielpartie = DirectCast(SpielPartienView.SelectedItem, SpielPartie)        
+        AktuelleRunde.Remove(SelektierteSpielpartie)
     End Sub
 
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)

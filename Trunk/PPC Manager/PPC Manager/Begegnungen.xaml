@@ -97,6 +97,9 @@
                  DataContext="{Binding Source={StaticResource PartieView}}"
                  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
                  d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
+            <ListBox.CommandBindings>
+                <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
+            </ListBox.CommandBindings>
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
@@ -164,6 +167,11 @@
                     </Border>
                 </DataTemplate>
             </ListBox.Resources>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Playoff Partie löschen" Command="Delete"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>

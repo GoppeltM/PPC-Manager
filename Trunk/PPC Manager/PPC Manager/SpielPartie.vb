@@ -136,6 +136,19 @@ Public Class SpielPartie
         Return partie
     End Function
 
+    Public Overrides Function Equals(obj As Object) As Boolean
+        Dim other = TryCast(obj, SpielPartie)
+        If other Is Nothing Then Return False
+        If Me.SpielerLinks <> other.SpielerLinks Then Return False
+        If Me.SpielerRechts <> other.SpielerRechts Then Return False
+        If Me.RundenName <> other.RundenName Then Return False
+        Return True
+    End Function
+
+    Public Overrides Function GetHashCode() As Integer
+        Return SpielerLinks.GetHashCode Xor SpielerRechts.GetHashCode Xor RundenName.GetHashCode
+    End Function
+
     Public Overrides Function ToString() As String
         Return String.Format("{0} : {1}", SpielerLinks, SpielerRechts)
     End Function
