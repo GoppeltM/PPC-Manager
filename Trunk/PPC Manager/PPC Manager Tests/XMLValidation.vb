@@ -219,13 +219,7 @@ Imports System.Collections.ObjectModel
 
     End Sub
 
-    <TestMethod>
-    Sub FreiSpiel_To_XML()
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA)
-        Assert.AreEqual(Partie.SpielerLinks, SpielerA)
-        Assert.AreEqual(Partie.SpielerRechts, SpielerA)
-    End Sub
+    
 
     <TestMethod()> Public Sub TTRGültig()
         Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)

@@ -29,9 +29,9 @@
                 <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
             </MenuItem>
             <MenuItem Header="Projekt" IsTabStop="False">                                                               
-                <MenuItem Header="Nächste Runde..." Name="NächsteRunde" Command="NextPage" CommandTarget="{Binding ElementName=BegegnungenPage}" />
-                <MenuItem Header="Nächstes Playoff..." Name="NächstesPlayoff" Command="GoToPage" CommandTarget="{Binding ElementName=BegegnungenPage}" />                
-                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" Command="NavigationCommands.Favorites" />
+                <MenuItem Header="Nächste Runde..." Name="NächsteRunde" Command="NextPage" CommandTarget="{Binding ElementName=Begegnungen}" />
+                <MenuItem Header="Nächstes Playoff..." Name="NächstesPlayoff" Command="GoToPage" CommandTarget="{Binding ElementName=Begegnungen}" />
+                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" Command="NavigationCommands.Favorites" CommandTarget="{Binding ElementName=Begegnungen}" />
                 <Separator/>
                 <MenuItem Header="Aktuelle Runde Verwerfen" Name="RundeVerwerfen" Command="Undo" />
             </MenuItem>

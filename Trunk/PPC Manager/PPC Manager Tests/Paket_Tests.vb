@@ -69,4 +69,42 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual("Runde xyz", suche.Partien.First.RundenName)
     End Sub
 
+    <TestMethod>
+    Sub FreilosSpiel()
+        MainWindow.AktiveCompetition = New Competition
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA)
+        MainWindow.AktiveCompetition.SpielRunden.Push(New SpielRunde From {Partie})
+        Assert.AreEqual(Partie.SpielerLinks, SpielerA)
+        Assert.AreEqual(Partie.SpielerRechts, SpielerA)
+        Assert.AreEqual(1, SpielerA.Punkte)
+        Assert.AreEqual(0, SpielerA.SätzeGewonnen)
+        Assert.AreEqual(0, SpielerA.SätzeVerloren)
+    End Sub
+
+    <TestMethod>
+    Sub StandardSpiel()
+        MainWindow.AktiveCompetition = New Competition With {.Gewinnsätze = 3}
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}
+        Dim Partie = New SpielPartie("Runde 4", SpielerA, SpielerB)
+        Partie.Add(New Satz With {.PunkteLinks = 11})
+        Partie.Add(New Satz With {.PunkteRechts = 11})
+        Partie.Add(New Satz With {.PunkteLinks = 11})
+        Partie.Add(New Satz With {.PunkteLinks = 11})
+        MainWindow.AktiveCompetition.SpielRunden.Push(New SpielRunde From {Partie})
+        Assert.AreEqual(Partie.SpielerLinks, SpielerA)
+        Assert.AreEqual(Partie.SpielerRechts, SpielerB)
+        Assert.AreEqual(1, SpielerA.Punkte)
+        Assert.AreEqual(3, SpielerA.SätzeGewonnen)
+        Assert.AreEqual(1, SpielerA.SätzeVerloren)
+        Assert.AreEqual(0, SpielerA.BuchholzPunkte)
+        Assert.AreEqual(0, SpielerA.SonneBornBergerPunkte)
+        Assert.AreEqual(0, SpielerB.Punkte)
+        Assert.AreEqual(1, SpielerB.SätzeGewonnen)
+        Assert.AreEqual(3, SpielerB.SätzeVerloren)
+        Assert.AreEqual(1, SpielerB.BuchholzPunkte)
+        Assert.AreEqual(0, SpielerB.SonneBornBergerPunkte)
+    End Sub
+
 End Class

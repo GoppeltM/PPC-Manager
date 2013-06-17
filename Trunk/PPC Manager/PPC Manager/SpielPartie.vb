@@ -186,7 +186,11 @@ Public Class FreiLosSpiel
 
     Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As System.Collections.Generic.IList(Of Satz)
         Get
-            Return New List(Of Satz) From {New Satz() With {.PunkteLinks = My.Settings.GewinnPunkte}}
+            Dim l As New List(Of Satz)
+            For i = 0 To MainWindow.AktiveCompetition.Gewinnsätze - 1
+                l.Add(New Satz() With {.PunkteLinks = My.Settings.GewinnPunkte})
+            Next
+            Return l
         End Get
     End Property
 

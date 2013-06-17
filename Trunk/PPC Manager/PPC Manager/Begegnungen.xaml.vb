@@ -20,7 +20,11 @@ Class Begegnungen
             Return
         End If
 
-        Dim partie As SpielPartie = CType(e.Item, SpielPartie)        
+        Dim partie As SpielPartie = CType(e.Item, SpielPartie)
+        If TypeOf partie Is FreiLosSpiel Then
+            e.Accepted = False
+            Return
+        End If
         e.Accepted = Not Abgeschlossen(partie)
 
     End Sub
@@ -112,6 +116,7 @@ Class Begegnungen
     End Sub
 
     Private Sub BegegnungenFiltern_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+        If BegegnungenView.View Is Nothing Then Return
         BegegnungenView.View.Refresh()
     End Sub
 

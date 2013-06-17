@@ -61,6 +61,10 @@ End Class
 Public Class SpielRunde
     Inherits ObservableCollection(Of SpielPartie)
 
+    Sub Update()
+        Me.OnCollectionChanged(New Specialized.NotifyCollectionChangedEventArgs(Specialized.NotifyCollectionChangedAction.Reset, Me.Items))
+    End Sub
+
     Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"

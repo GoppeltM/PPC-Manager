@@ -13,7 +13,7 @@
     <MyType>Custom</MyType>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\Eigene Dateien - Marius\Desktop\Startlisten Editor\</PublishUrl>
+    <PublishUrl>E:\PPC Manager Dropfolder\Startlisteneditor\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,7 +26,7 @@
     <ProductName>PPC Startlisten Editor</ProductName>
     <PublisherName>Marius Goppelt</PublisherName>
     <SuiteName>PPC Manager</SuiteName>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -82,7 +82,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Core" />

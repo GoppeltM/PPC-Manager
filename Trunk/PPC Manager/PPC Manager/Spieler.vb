@@ -86,9 +86,8 @@ Public Class Spieler
 
     Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
         Get
-            Dim GewonneneSätze = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count, Gegner = x.MeineGewonnenenSätze(x.MeinGegner(Me)).Count
-                             Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze AndAlso
-                             Meine > Gegner Select x
+            Dim GewonneneSätze = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
+                             Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze Select x
 
             Return GewonneneSätze.ToList
         End Get
@@ -96,14 +95,14 @@ Public Class Spieler
 
     Public ReadOnly Property BuchholzPunkte As Integer
         Get
-            Dim _punkte = Aggregate x In GespieltePartien Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Dim _punkte = Aggregate x In GespieltePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
             Return _punkte
         End Get
     End Property
 
     Public ReadOnly Property SonneBornBergerPunkte As Integer
         Get
-            Dim _punkte = Aggregate x In MeineGewonnenenSpiele Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Dim _punkte = Aggregate x In MeineGewonnenenSpiele Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
             Return _punkte
         End Get
     End Property
@@ -132,13 +131,13 @@ Public Class Spieler
 
     Public ReadOnly Property SätzeGewonnen As Integer
         Get
-            Return Aggregate x In GespieltePartien Into Sum(x.MeineGewonnenenSätze(Me).Count)
+            Return Aggregate x In GespieltePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineGewonnenenSätze(Me).Count)
         End Get
     End Property
 
     Public ReadOnly Property SätzeVerloren As Integer
         Get
-            Return Aggregate x In GespieltePartien Into Sum(x.MeineVerlorenenSätze(Me).Count)
+            Return Aggregate x In GespieltePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineVerlorenenSätze(Me).Count)
         End Get
     End Property
 
