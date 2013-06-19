@@ -93,6 +93,50 @@ Public Class Spieler
         End Get
     End Property
 
+    ' 
+    ' Diese beiden Einträge sind notwendig, weil zum Zeitpunkt der Paarung bereits die aktuellen Buchholzpunkte verändert werden.
+    ' Ergo: ich brauche für den Export nur die Werte der Vergangenheit - exklusive der aktuellen Runde
+#Region "Export Properties"
+
+    Private ReadOnly Property VergangenePartien As IEnumerable(Of SpielPartie)
+        Get
+            Dim p As IEnumerable(Of SpielPartie) = GespieltePartien
+            p = p.Reverse.Skip(1)
+            Return p
+        End Get
+    End Property
+
+    Public ReadOnly Property ExportBHZ As Integer
+        Get
+            Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Return _punkte
+        End Get
+    End Property
+
+    Public ReadOnly Property ExportSonneborn As Integer
+        Get
+
+            Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Return _punkte
+        End Get
+    End Property
+
+
+
+    Public ReadOnly Property ExportSätzeGewonnen As Integer
+        Get
+            Return Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineGewonnenenSätze(Me).Count)
+        End Get
+    End Property
+
+    Public ReadOnly Property ExportSätzeVerloren As Integer
+        Get
+            Return Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineVerlorenenSätze(Me).Count)
+        End Get
+    End Property
+#End Region
+    
+
     Public ReadOnly Property BuchholzPunkte As Integer
         Get
             Dim _punkte = Aggregate x In GespieltePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
@@ -118,7 +162,7 @@ Public Class Spieler
 
     Public ReadOnly Property GespieltePartien As List(Of SpielPartie)
         Get
-            Dim r = From x In SpielRunden From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
+            Dim r = From x In SpielRunden.Reverse From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
             Return r.ToList
         End Get
     End Property

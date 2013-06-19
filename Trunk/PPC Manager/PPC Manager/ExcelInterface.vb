@@ -29,10 +29,10 @@ Public Class ExcelInterface
                 .WriteSpielerSheet(spieler, sheet)
 
                 Dim current = 1
-                For Each runde In spielrunden
+                For Each runde In spielrunden.Reverse
                     Dim currentName = current.ToString.PadLeft(2, "0"c)
                     sheet = .GetSheet("erg_rd" & currentName)
-                    .WriteRunde(spielrunden, sheet)
+                    .WriteRunde(runde, sheet)
                     current += 1
                 Next
             End With
@@ -64,15 +64,15 @@ Public Class ExcelInterface
                              End Function
 
             Dim Werte = {s.Vorname, s.Nachname, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.Id.ToString, s.TTRating.ToString,
-                         s.Punkte.ToString, s.BuchholzPunkte.ToString, s.SonneBornBergerPunkte.ToString, s.SätzeGewonnen.ToString,
-                         s.SätzeVerloren.ToString}.Concat(gegnerProfil)
+                         s.Punkte.ToString, s.ExportBHZ.ToString, s.ExportSonneborn.ToString, s.ExportSätzeGewonnen.ToString,
+                         s.ExportSätzeVerloren.ToString}.Concat(gegnerProfil)
             CreateRow(SheetData, current, Werte)
             current += 1UI
         Next
 
     End Sub
 
-    Private Sub WriteRunde(ByVal spielrunden As SpielRunden, ByVal worksheet As Worksheet)
+    Private Sub WriteRunde(ByVal spielrunde As SpielRunde, ByVal worksheet As Worksheet)
         Dim SheetData = worksheet.GetFirstChild(Of SheetData)()
         SheetData.RemoveAllChildren(Of Row)()
 
@@ -81,7 +81,7 @@ Public Class ExcelInterface
 
         Dim current = 2UI
 
-        For Each ergebnis In spielrunden.Peek
+        For Each ergebnis In spielrunde
             Dim Werte = {ergebnis.SpielerLinks.Id, ergebnis.SpielerRechts.Id, ergebnis.MeineGewonnenenSätze(ergebnis.SpielerLinks).Count.ToString,
                          ergebnis.MeineGewonnenenSätze(ergebnis.SpielerRechts).Count.ToString}
             CreateRow(SheetData, current, Werte)

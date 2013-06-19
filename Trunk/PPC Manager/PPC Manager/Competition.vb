@@ -56,7 +56,7 @@ Public Class Competition
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
         CompetitionNode.@ppc:satzdifferenz = SatzDifferenz.ToString
         CompetitionNode.@ppc:gewinnsätze = Gewinnsätze.ToString
-        CompetitionNode.@ppc:sonnenbornberger = SonneBornBerger.ToString
+        CompetitionNode.@ppc:sonnebornberger = SonneBornBerger.ToString
         Dim runden = SpielRunden.ToXML
         CompetitionNode.<matches>.Remove()
         CompetitionNode.Add(<matches>

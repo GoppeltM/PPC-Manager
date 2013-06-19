@@ -27,7 +27,7 @@
     <ProductName>PPC Manager</ProductName>
     <PublisherName>Marius Goppelt</PublisherName>
     <SuiteName>PPC Manager</SuiteName>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -131,6 +131,9 @@
     </Compile>
     <Compile Include="Drucken\UserControlPaginator.vb" />
     <Compile Include="ExcelInterface.vb" />
+    <Compile Include="Fehler.xaml.vb">
+      <DependentUpon>Fehler.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HilfsKlassen.vb" />
     <Compile Include="LadenNeu.xaml.vb">
       <DependentUpon>LadenNeu.xaml</DependentUpon>
@@ -161,6 +164,10 @@
     <Page Include="Drucken\RanglisteSeite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Fehler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LadenNeu.xaml">
       <SubType>Designer</SubType>
