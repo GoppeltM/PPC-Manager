@@ -183,7 +183,9 @@ Public Class Spieler
 
     Public ReadOnly Property HatFreilos As Boolean
         Get
-            Return Aggregate x In SpielRunden From y In x.OfType(Of FreiLosSpiel)() Into Any()
+            Return Aggregate Runde In SpielRunden, Freilos In Runde.OfType(Of FreiLosSpiel)()
+                   Where Freilos.SpielerLinks = Me Or Freilos.SpielerRechts = Me
+                   Into Any()
         End Get
     End Property
 
@@ -235,23 +237,23 @@ Public Class Spieler
 
 
     Public Function CompareTo(ByVal other As Spieler) As Integer Implements System.IComparable(Of Spieler).CompareTo
-        Dim diff = other.Punkte - Me.Punkte
+        Dim diff = Me.Punkte - other.Punkte
         If diff <> 0 Then Return diff
-        diff = other.BuchholzPunkte - Me.BuchholzPunkte
+        diff = Me.BuchholzPunkte - other.BuchholzPunkte
         If diff <> 0 Then Return diff
 
         If MainWindow.AktiveCompetition.SonneBornBerger Then
-            diff = other.SonneBornBergerPunkte - Me.SonneBornBergerPunkte
+            diff = Me.SonneBornBergerPunkte - other.SonneBornBergerPunkte
             If diff <> 0 Then Return diff
         End If
 
         If MainWindow.AktiveCompetition.SatzDifferenz Then
-            diff = other.SatzDifferenz - Me.SatzDifferenz
+            diff = Me.SatzDifferenz - other.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
         diff = other.TTRating - Me.TTRating
         If diff <> 0 Then Return diff
-        diff = other.TTRMatchCount - Me.TTRMatchCount
+        diff = Me.TTRMatchCount - other.TTRMatchCount
         If diff <> 0 Then Return diff
         diff = Me.Nachname.CompareTo(other.Nachname)
         If diff <> 0 Then Return diff

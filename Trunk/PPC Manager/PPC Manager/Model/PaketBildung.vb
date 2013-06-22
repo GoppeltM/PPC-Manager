@@ -12,6 +12,7 @@
     '''
     Public Shared Function organisierePakete(rundenname As String, ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
         aktiveListe.Sort()
+        aktiveListe.Reverse()
 
         Dim paarungen As New List(Of SpielPartie)
 
@@ -225,7 +226,7 @@
                 Return tempSpieler
             End If
         Next
-        Return Nothing
+        Throw New ArgumentException("Kein Freilosspieler gefunden")
     End Function
 
   

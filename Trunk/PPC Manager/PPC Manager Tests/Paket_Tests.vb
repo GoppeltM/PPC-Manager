@@ -74,12 +74,32 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         MainWindow.AktiveCompetition = New Competition
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim Partie = New FreiLosSpiel("Runde 1", SpielerA)
-        MainWindow.AktiveCompetition.SpielRunden.Push(New SpielRunde From {Partie})
+        Dim runde = New SpielRunde
+        MainWindow.AktiveCompetition.SpielRunden.Push(runde)
+        Assert.IsFalse(SpielerA.HatFreilos)
+        runde.Add(Partie)
+        Assert.IsTrue(SpielerA.HatFreilos)
         Assert.AreEqual(Partie.SpielerLinks, SpielerA)
         Assert.AreEqual(Partie.SpielerRechts, SpielerA)
         Assert.AreEqual(1, SpielerA.Punkte)
         Assert.AreEqual(0, SpielerA.SätzeGewonnen)
         Assert.AreEqual(0, SpielerA.SätzeVerloren)
+    End Sub
+
+    <TestMethod>
+    Sub HatFreilos()
+        MainWindow.AktiveCompetition = New Competition
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER111"}
+
+        Dim runde = New SpielRunde
+        MainWindow.AktiveCompetition.SpielRunden.Push(runde)
+        Assert.IsFalse(SpielerA.HatFreilos)
+        Assert.IsFalse(SpielerB.HatFreilos)
+        Dim Freilos = New FreiLosSpiel("Runde 1", SpielerA)
+        runde.Add(Freilos)
+        Assert.IsTrue(SpielerA.HatFreilos)
+        Assert.IsFalse(SpielerB.HatFreilos)
     End Sub
 
     <TestMethod>
@@ -149,7 +169,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
             Assert.AreEqual(3, .ExportSätzeGewonnen)
             Assert.AreEqual(0, .ExportSätzeVerloren)
         End With
-        
+
+        Assert.IsTrue(SpielerC.CompareTo(SpielerB) > 0)
+        Assert.IsTrue(SpielerC.CompareTo(SpielerA) > 0)
+        Assert.IsTrue(SpielerA.CompareTo(SpielerB) > 0)
+
+
     End Sub
 
 End Class

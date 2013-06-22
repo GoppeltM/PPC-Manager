@@ -14,6 +14,9 @@ Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
     Public Sub New(rundenName As String, ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
+        If spielerLinks Is Nothing Then Throw New ArgumentNullException
+        If spielerRechts Is Nothing Then Throw New ArgumentNullException
+
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
         _RundenName = rundenName
     End Sub

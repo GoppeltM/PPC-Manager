@@ -6,7 +6,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        
-        <CommandBinding Command="Print" Executed="Drucken_Executed"/>
+        <CommandBinding Command="Print" CanExecute="Drucken_CanExecute" Executed="Drucken_Executed"/>
         <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
         <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
         <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />

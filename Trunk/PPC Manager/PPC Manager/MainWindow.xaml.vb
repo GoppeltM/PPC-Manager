@@ -198,4 +198,7 @@ Class MainWindow
     End Sub
 
     
+    Private Sub Drucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = AktiveCompetition.SpielRunden.Any
+    End Sub
 End Class

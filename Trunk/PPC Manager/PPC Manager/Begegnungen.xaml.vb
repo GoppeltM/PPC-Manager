@@ -29,7 +29,7 @@ Class Begegnungen
         Implements IComparer
 
         Public Function Compare1(x As Object, y As Object) As Integer Implements IComparer.Compare
-            Return DirectCast(x, Spieler).CompareTo(DirectCast(y, Spieler))
+            Return DirectCast(y, Spieler).CompareTo(DirectCast(x, Spieler))
         End Function
     End Class
 
