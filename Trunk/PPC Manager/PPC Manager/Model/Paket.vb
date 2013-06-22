@@ -51,9 +51,9 @@ Public Class Paket
 
     Sub sort()
         If Absteigend Then
-            SpielerListe.Sort(Function(s1, s2) s1.CompareTo(s2))
-        Else
             SpielerListe.Sort(Function(s1, s2) s2.CompareTo(s1))
+        Else
+            SpielerListe.Sort(Function(s1, s2) s1.CompareTo(s2))
         End If
     End Sub
 

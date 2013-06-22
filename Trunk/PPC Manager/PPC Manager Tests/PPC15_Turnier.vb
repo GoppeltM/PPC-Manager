@@ -80,6 +80,7 @@ Public Class PPC15_Turnier_Klasse_D
         }
         Dim tatsächlich = MainWindow.AktiveCompetition.SpielerListe.ToList
         tatsächlich.Sort()
+        tatsächlich.Reverse()
         Dim NachnamenResult = (From x In tatsächlich Select x.Nachname).ToList
         CollectionAssert.AreEqual(Nachnamen, NachnamenResult)
     End Sub
@@ -170,7 +171,9 @@ Public Class PPC15_Turnier_Klasse_D
     Private Sub TrageSätzeEin(ergebnisse As IEnumerable(Of SpielPartie), erwartet As IEnumerable(Of BegegnungsVergleicher))
 
         Dim VollständigeErgebnisse = From spielPartie In ergebnisse Join y In erwartet
-           On spielPartie.SpielerLinks.Nachname & spielPartie.SpielerLinks.Vorname Equals y.NachnameLinks & y.VornameLinks Select spielPartie, y.SätzeLinks, y.SätzeRechts
+           On spielPartie.SpielerLinks.Nachname & spielPartie.SpielerLinks.Vorname Equals y.NachnameRechts & y.VornameRechts Select spielPartie, SätzeLinks = y.SätzeRechts, SätzeRechts = y.SätzeLinks
+
+        Assert.IsTrue(VollständigeErgebnisse.Any)
 
         For Each ergebnis In VollständigeErgebnisse
             ergebnis.spielPartie.Clear()

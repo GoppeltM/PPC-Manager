@@ -251,13 +251,13 @@ Public Class Spieler
             diff = Me.SatzDifferenz - other.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
-        diff = other.TTRating - Me.TTRating
+        diff = Me.TTRating - other.TTRating
         If diff <> 0 Then Return diff
         diff = Me.TTRMatchCount - other.TTRMatchCount
         If diff <> 0 Then Return diff
-        diff = Me.Nachname.CompareTo(other.Nachname)
+        diff = other.Nachname.CompareTo(Me.Nachname)
         If diff <> 0 Then Return diff
-        diff = Me.Vorname.CompareTo(other.Vorname)
+        diff = other.Vorname.CompareTo(Me.Vorname)
         If diff <> 0 Then Return diff
         Return Me.Lizenznummer - other.Lizenznummer
     End Function

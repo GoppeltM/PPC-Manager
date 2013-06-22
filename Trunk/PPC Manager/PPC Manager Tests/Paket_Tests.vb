@@ -30,6 +30,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
         Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x)).ToList
         Spielerliste.Sort()
+        Spielerliste.Reverse()
         CollectionAssert.AreEqual(New String() {"Wolfert", "Westermann", "Goppelt", "Wild"}, (From x In Spielerliste Select x.Nachname).ToList)
 
     End Sub
@@ -104,7 +105,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod>
     Sub StandardSpiel()
-        MainWindow.AktiveCompetition = New Competition With {.Gewinnsätze = 3}
+        MainWindow.AktiveCompetition = New Competition With {.Gewinnsätze = 3, .SatzDifferenz = True, .SonneBornBerger = True}
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim SpielerB = New Spieler With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}
         Dim SpielerC = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}
