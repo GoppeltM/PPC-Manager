@@ -20,24 +20,10 @@ Class Begegnungen
             Return
         End If
 
-        Dim partie As SpielPartie = CType(e.Item, SpielPartie)
-        If TypeOf partie Is FreiLosSpiel Then
-            e.Accepted = False
-            Return
-        End If
-        e.Accepted = Not Abgeschlossen(partie)
+        Dim partie As SpielPartie = CType(e.Item, SpielPartie)        
+        e.Accepted = Not MainWindow.Abgeschlossen(partie)
 
     End Sub
-
-    Friend Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
-
-        Dim SätzeLinks = Aggregate x In partie Where x.PunkteLinks = My.Settings.GewinnPunkte Into Count()
-        Dim SätzeRechts = Aggregate x In partie Where x.PunkteRechts = My.Settings.GewinnPunkte Into Count()
-
-        Dim gesamtAbgeschlossen = Math.Max(SätzeLinks, SätzeRechts)
-        Dim gewinnSätze = MainWindow.AktiveCompetition.Gewinnsätze
-        Return gesamtAbgeschlossen >= gewinnSätze
-    End Function
 
     Private Class SpielerComparer
         Implements IComparer
@@ -81,7 +67,7 @@ Class Begegnungen
         Dim partie = CType(DetailGrid.DataContext, SpielPartie)
         Dim AbgeschlosseneSätze = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
 
-        Dim Fertig = Abgeschlossen(partie)
+        Dim Fertig = MainWindow.Abgeschlossen(partie)
 
         If AbgeschlosseneSätze >= partie.Count AndAlso Not Fertig Then
             partie.Add(New Satz)

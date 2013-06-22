@@ -84,12 +84,21 @@ Public Class Spieler
         End Get
     End Property
 
-    Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
+    Private ReadOnly Property MeineGewonnenenSpieleExport As IEnumerable(Of SpielPartie)
         Get
-            Dim GewonneneSätze = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
+            Dim GewonneneSpiele = From x In VergangenePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
                              Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze Select x
 
-            Return GewonneneSätze.ToList
+            Return GewonneneSpiele.ToList
+        End Get
+    End Property
+
+    Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
+        Get
+            Dim GewonneneSpiele = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
+                             Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze Select x
+
+            Return GewonneneSpiele.ToList
         End Get
     End Property
 
@@ -106,6 +115,12 @@ Public Class Spieler
         End Get
     End Property
 
+    Public ReadOnly Property ExportPunkte As Integer
+        Get
+            Return MeineGewonnenenSpieleExport.Count
+        End Get
+    End Property
+
     Public ReadOnly Property ExportBHZ As Integer
         Get
             Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
@@ -115,8 +130,7 @@ Public Class Spieler
 
     Public ReadOnly Property ExportSonneborn As Integer
         Get
-
-            Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Dim _punkte = Aggregate x In MeineGewonnenenSpieleExport Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
             Return _punkte
         End Get
     End Property

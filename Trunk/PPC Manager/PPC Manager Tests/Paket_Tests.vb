@@ -87,24 +87,69 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         MainWindow.AktiveCompetition = New Competition With {.Gewinnsätze = 3}
         Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim SpielerB = New Spieler With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}
-        Dim Partie = New SpielPartie("Runde 4", SpielerA, SpielerB)
-        Partie.Add(New Satz With {.PunkteLinks = 11})
-        Partie.Add(New Satz With {.PunkteRechts = 11})
-        Partie.Add(New Satz With {.PunkteLinks = 11})
-        Partie.Add(New Satz With {.PunkteLinks = 11})
-        MainWindow.AktiveCompetition.SpielRunden.Push(New SpielRunde From {Partie})
-        Assert.AreEqual(Partie.SpielerLinks, SpielerA)
-        Assert.AreEqual(Partie.SpielerRechts, SpielerB)
-        Assert.AreEqual(1, SpielerA.Punkte)
-        Assert.AreEqual(3, SpielerA.SätzeGewonnen)
-        Assert.AreEqual(1, SpielerA.SätzeVerloren)
-        Assert.AreEqual(0, SpielerA.BuchholzPunkte)
-        Assert.AreEqual(0, SpielerA.SonneBornBergerPunkte)
-        Assert.AreEqual(0, SpielerB.Punkte)
-        Assert.AreEqual(1, SpielerB.SätzeGewonnen)
-        Assert.AreEqual(3, SpielerB.SätzeVerloren)
-        Assert.AreEqual(1, SpielerB.BuchholzPunkte)
-        Assert.AreEqual(0, SpielerB.SonneBornBergerPunkte)
+        Dim SpielerC = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}
+        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB) From {
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteRechts = 11},
+                New Satz With {.PunkteLinks = 11}}
+
+        Dim Partie2 = New SpielPartie("Runde 2", SpielerC, SpielerA) From {
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11}}
+
+        Dim Partie3 = New SpielPartie("Runde 3", SpielerC, SpielerB) From {
+               New Satz With {.PunkteLinks = 11}
+        }
+
+        With MainWindow.AktiveCompetition.SpielRunden
+            .Push(New SpielRunde From {Partie1, New FreiLosSpiel("Runde 1", SpielerC)})
+            .Push(New SpielRunde From {Partie2, New FreiLosSpiel("Runde 2", SpielerB)})
+            .Push(New SpielRunde From {Partie3, New FreiLosSpiel("Runde 3", SpielerA)})
+        End With
+
+        Assert.AreEqual(Partie1.SpielerLinks, SpielerA)
+        Assert.AreEqual(Partie1.SpielerRechts, SpielerB)
+        With SpielerA
+            Assert.AreEqual(2, .Punkte)
+            Assert.AreEqual(1, .ExportPunkte)
+            Assert.AreEqual(3, .BuchholzPunkte)
+            Assert.AreEqual(3, .ExportBHZ)
+            Assert.AreEqual(1, .SonneBornBergerPunkte)
+            Assert.AreEqual(1, .ExportSonneborn)
+            Assert.AreEqual(3, .SätzeGewonnen)
+            Assert.AreEqual(4, .SätzeVerloren)
+            Assert.AreEqual(3, .ExportSätzeGewonnen)
+            Assert.AreEqual(4, .ExportSätzeVerloren)
+        End With
+
+        With SpielerB
+            Assert.AreEqual(1, .Punkte)
+            Assert.AreEqual(1, .ExportPunkte)
+            Assert.AreEqual(4, .BuchholzPunkte)
+            Assert.AreEqual(2, .ExportBHZ)
+            Assert.AreEqual(0, .SonneBornBergerPunkte)
+            Assert.AreEqual(0, .ExportSonneborn)
+            Assert.AreEqual(1, .SätzeGewonnen)
+            Assert.AreEqual(4, .SätzeVerloren)
+            Assert.AreEqual(1, .ExportSätzeGewonnen)
+            Assert.AreEqual(3, .ExportSätzeVerloren)
+        End With
+
+        With SpielerC
+            Assert.AreEqual(2, .Punkte)
+            Assert.AreEqual(2, .ExportPunkte)
+            Assert.AreEqual(3, .BuchholzPunkte)
+            Assert.AreEqual(2, .ExportBHZ)
+            Assert.AreEqual(2, .SonneBornBergerPunkte)
+            Assert.AreEqual(2, .ExportSonneborn)
+            Assert.AreEqual(4, .SätzeGewonnen)
+            Assert.AreEqual(0, .SätzeVerloren)
+            Assert.AreEqual(3, .ExportSätzeGewonnen)
+            Assert.AreEqual(0, .ExportSätzeVerloren)
+        End With
+        
     End Sub
 
 End Class

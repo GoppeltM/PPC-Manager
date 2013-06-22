@@ -130,7 +130,8 @@ Class MainWindow
         End If
     End Sub
 
-    Friend Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
+    Friend Shared Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
+        If TypeOf partie Is FreiLosSpiel Then Return True
 
         Dim SätzeLinks = Aggregate x In partie Where x.PunkteLinks = My.Settings.GewinnPunkte Into Count()
         Dim SätzeRechts = Aggregate x In partie Where x.PunkteRechts = My.Settings.GewinnPunkte Into Count()

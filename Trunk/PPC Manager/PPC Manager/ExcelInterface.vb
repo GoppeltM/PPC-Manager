@@ -64,7 +64,7 @@ Public Class ExcelInterface
                              End Function
 
             Dim Werte = {s.Vorname, s.Nachname, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.Id.ToString, s.TTRating.ToString,
-                         s.Punkte.ToString, s.ExportBHZ.ToString, s.ExportSonneborn.ToString, s.ExportSätzeGewonnen.ToString,
+                         s.ExportPunkte.ToString, s.ExportBHZ.ToString, s.ExportSonneborn.ToString, s.ExportSätzeGewonnen.ToString,
                          s.ExportSätzeVerloren.ToString}.Concat(gegnerProfil)
             CreateRow(SheetData, current, Werte)
             current += 1UI
