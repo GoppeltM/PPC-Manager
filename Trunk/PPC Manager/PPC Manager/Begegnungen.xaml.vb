@@ -48,6 +48,7 @@ Class Begegnungen
         ' Weiß die Hölle warum das so ist.
         ViewSource.View.MoveCurrentToFirst()
         SetFocus()
+        Begegnungsliste = SpielPartienListe.SpielPartienView
     End Sub
 
     Private Sub SatzLinks_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -215,6 +216,12 @@ Class Begegnungen
         Dim GewinnRechts = Aggregate x In s Where x.PunkteLinks < x.PunkteRechts Into Count()
 
         e.CanExecute = Math.Max(GewinnLinks, GewinnRechts) < 3
+    End Sub
+
+    Private WithEvents Begegnungsliste As ListBox
+
+    Private Sub Blubb(sender As Object, args As SelectionChangedEventArgs) Handles Begegnungsliste.SelectionChanged
+        SetFocus()
     End Sub
 
 End Class
