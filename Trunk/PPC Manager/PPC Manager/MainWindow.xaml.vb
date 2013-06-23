@@ -186,7 +186,7 @@ Class MainWindow
     End Sub
 
     Private Sub MyWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles MyWindow.Closing
-        Select Case MessageBox.Show("Sollen Änderungen gespeichert und dieses Programm geschlossen werden?" _
+        Select Case MessageBox.Show("Das Programm wird geschlossen. Sollen Änderungen gespeichert werden?" _
                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
             Case MessageBoxResult.Yes : AktiveCompetition.SaveXML()
