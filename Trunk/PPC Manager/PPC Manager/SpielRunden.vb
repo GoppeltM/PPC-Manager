@@ -1,10 +1,11 @@
 ﻿Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports System.Collections.ObjectModel
 
+
 Public Class SpielRunden
     Inherits Stack(Of SpielRunde)
 
-
+    <DebuggerBrowsable(DebuggerBrowsableState.Collapsed)>
     Public Property AusgeschiedeneSpieler As New ObservableCollection(Of Ausgeschieden)
 
     Public Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal matchesKnoten As XElement) As SpielRunden
@@ -44,7 +45,7 @@ Public Class SpielRunden
                                                             Return matchNr
                                                         End Function)
                 xSpielRunden.Add(Match)
-            Next            
+            Next
             current += 1
         Next
 

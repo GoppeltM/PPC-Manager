@@ -10,6 +10,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 ''' Ein Spiel besteht aus den darin teilnehmenden Spielern, und den Ergebnissen die sie verbuchen konnten.
 ''' Jedes Ergebnis besteht aus 3 oder 5 Sätzen, und den Punkten die darin angehäuft wurden.
 ''' </remarks>
+''' 
+<DebuggerDisplay("Runde = {RundenName}")>
 Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
@@ -21,7 +23,7 @@ Public Class SpielPartie
         _RundenName = rundenName
     End Sub
 
-    Private ReadOnly _RundenName As String
+    Private ReadOnly _RundenName As String    
     Public ReadOnly Property RundenName As String
         Get
             Return _RundenName
@@ -117,7 +119,7 @@ Public Class SpielPartie
                        sets-a=<%= SätzeLinks %> sets-b=<%= SätzeRechts %>
                        matches-a=<%= GewonnenLinks %> matches-b=<%= GewonnenRechts %>
                        scheduled=<%= ZeitStempel.ToString(Globalization.CultureInfo.GetCultureInfo("de")) %>
-                       group=<%= rundenName %> nr=<%= matchNr %>
+                       group=<%= RundenName %> nr=<%= matchNr %>
                        <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
                        <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
                    />
@@ -243,6 +245,10 @@ Public Class Satz
 
                    </Satz>
         Return node
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return String.Format("{0}:{1}", PunkteLinks, PunkteRechts)
     End Function
 
 End Class
