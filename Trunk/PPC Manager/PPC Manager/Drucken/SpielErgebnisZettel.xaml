@@ -22,7 +22,7 @@
                             <TextBlock Grid.Row="0" Text="{StaticResource KlassementName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="1" Text="{Binding Path=RundenName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
-                            <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                            <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>                            
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -59,7 +59,7 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{StaticResource KlassementName}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=RundenName}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <Line Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="2" Grid.Column="1" Y2="1" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="Tisch:" VerticalAlignment="Center" FontSize="18" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Text="Tisch: __________" VerticalAlignment="Bottom" FontSize="18" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding SpielerLinks.Nachname, StringFormat=\{0\}\,}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" VerticalAlignment="Center" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding SpielerRechts.Nachname, StringFormat=\{0\}\,}" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
@@ -72,7 +72,12 @@
                             <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="5" Y2="1" />
                             <Line Grid.Row="2" Style="{StaticResource LineStyle}" Margin="0,10" Grid.RowSpan="4" Grid.Column="6" Y2="1" StrokeThickness="3" />
                             <Line Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="8" Style="{StaticResource LineStyle}" X2="1" X1="0" Margin="20,0,10,0" />
-
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.Column="3" Text="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.Column="4" Text="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.Column="5" Text="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.Column="6" Text="Sieger" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="12" TextDecorations="Underline"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
