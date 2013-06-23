@@ -51,39 +51,6 @@ Class Begegnungen
         Begegnungsliste = SpielPartienListe.SpielPartienView
     End Sub
 
-    Private Sub SatzLinks_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim x = CType(CType(sender, Button).DataContext, Satz)
-        x.PunkteLinks = My.Settings.GewinnPunkte
-        x.PunkteRechts = 0
-        SatzUpdate()
-    End Sub
-
-    Private Sub SatzRechts_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim x = CType(CType(sender, Button).DataContext, Satz)
-        x.PunkteRechts = My.Settings.GewinnPunkte
-        x.PunkteLinks = 0
-        SatzUpdate()
-    End Sub
-
-    Private Sub SatzUpdate()
-        Dim partie = CType(DetailGrid.DataContext, SpielPartie)
-        Dim AbgeschlosseneSätze = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
-
-        Dim Fertig = MainWindow.Abgeschlossen(partie)
-
-        If AbgeschlosseneSätze >= partie.Count AndAlso Not Fertig Then
-            partie.Add(New Satz)
-        End If
-        partie.Update()
-        ' Refresh erzwingt u.a. Filter
-        If Fertig Then
-            BegegnungenView.View.Refresh()
-            Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
-            SpielerView.View.Refresh()
-        End If
-        
-    End Sub
-
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
         If LifeListe.SelectedIndex <> -1 Then
             Dim Spieler = CType(LifeListe.SelectedItem, Spieler)
@@ -220,7 +187,13 @@ Class Begegnungen
 
     Private WithEvents Begegnungsliste As ListBox
 
-    Private Sub Blubb(sender As Object, args As SelectionChangedEventArgs) Handles Begegnungsliste.SelectionChanged
+    Private Sub NeuePartieAusgewählt(sender As Object, args As EventArgs) Handles Begegnungsliste.SelectionChanged, Begegnungsliste.MouseDown
+        If BegegnungenView.View IsNot Nothing Then
+            BegegnungenView.View.Refresh()
+            Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+            SpielerView.View.Refresh()
+        End If
+
         SetFocus()
     End Sub
 

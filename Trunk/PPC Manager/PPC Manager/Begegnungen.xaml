@@ -103,9 +103,9 @@
               d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}"
               MinWidth="500" Width="587">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="266*" />
-                <ColumnDefinition Width="250*" />
-                <ColumnDefinition Width="71*"/>
+                <ColumnDefinition Width="266" />
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="71"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
