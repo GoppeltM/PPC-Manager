@@ -43,7 +43,7 @@ Class Begegnungen
         v.CustomSort = New SpielerComparer
         SpielerView.View.Refresh()
         ViewSource.View.Refresh()
-        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
         ' Weiß die Hölle warum das so ist.
         ViewSource.View.MoveCurrentToFirst()
