@@ -2,7 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPC_Manager"    
-    Title="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="448" Width="923" Icon="/PPC%20Manager;component/Icon.ico">    
+    Title="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="448" Width="923" Icon="/PPC%20Manager;component/Icon.ico">
+    <Window.InputBindings>
+        <KeyBinding Key="Add" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
+        <KeyBinding Key="OemPlus" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
+        <KeyBinding Key="Subtract" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
+        <KeyBinding Key="OemMinus" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
+    </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        

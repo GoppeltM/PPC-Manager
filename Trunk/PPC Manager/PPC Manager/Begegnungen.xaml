@@ -7,10 +7,9 @@
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:core="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage">
-    <UserControl.Resources>        
+    <UserControl.Resources>
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
-        <local:SatzFarbenPainter x:Key="MyPainter" />
         <local:StringFormatter x:Key="StringFormatter" />
         <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
         <ObjectDataProvider x:Key="RanglisteDataProvider"/>
@@ -25,14 +24,18 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="SpielerView"
     		d:DesignSource="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielerListe}}"
-    		Source="{Binding SpielerListe}"/>        
+    		Source="{Binding SpielerListe}"/>
+        <local:HintergrundLinksKonverter x:Key="HintergrundLinksKonverter"/>
+        <local:HintergrundRechtsKonverter x:Key="HintergrundRechtsKonverter"/>
     </UserControl.Resources>
     <UserControl.DataContext>
         <local:Competition/>
     </UserControl.DataContext>
     <UserControl.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
-        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />        
+        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
+        <CommandBinding Command="BrowseForward" Executed="CommandBinding_Executed" CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="BrowseBack" Executed="CommandBinding_Executed_1" CanExecute="CommandBinding_CanExecute"/>
     </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -94,14 +97,15 @@
         </ListView>
         <GridSplitter Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="0,5,5,5" />
-        
-        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" Margin="5,5,0,5" 
+
+        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,5" 
               Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" 
               d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}"
-              MinWidth="500" Width="500">
-            <Grid.ColumnDefinitions>                
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+              MinWidth="500" Width="587">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="266*" />
+                <ColumnDefinition Width="250*" />
+                <ColumnDefinition Width="71*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -122,25 +126,43 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </Grid.Resources>            
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-            <ItemsControl Grid.Column="1" Grid.Row="0" Style="{StaticResource SatzListe}">
-                <ItemsControl.ItemTemplate>
+            </Grid.Resources>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="26" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="27" />
+            <ListBox x:Name="Sätze" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}" Margin="0" VerticalContentAlignment="Stretch">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Löschen" Command="Delete"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.CommandBindings>
+                    <CommandBinding Command="Delete" Executed="CommandBinding_Executed_2"/>
+                </ListBox.CommandBindings>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Button Name="Button1" Click="SatzLinks_Click" DataContext="{Binding}" Background="{Binding Path=PunkteLinks, Converter={StaticResource MyPainter}}" MinWidth="30" Margin="5" />
+                        <Grid Width="30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Margin="2"  Background="{Binding Converter={StaticResource HintergrundLinksKonverter}}" >
+                                <TextBlock Text="{Binding PunkteLinks}" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="1" Margin="2" Background="{Binding Converter={StaticResource HintergrundRechtsKonverter}}" >
+                                <TextBlock Text="{Binding PunkteRechts}" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="1" Grid.Row="1" Style="{StaticResource SatzListe}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Name="Button1" Click="SatzRechts_Click" DataContext="{Binding}" 
-                                Background="{Binding Path=PunkteRechts, Converter={StaticResource MyPainter}}" 
-                                MinWidth="30" Margin="5" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>            
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="PlusButton" Content="+" Command="BrowseForward" Grid.Column="2" Width="30" Height="20"  HorizontalAlignment="Center" />
+            <Button x:Name="MinusButton" Content="-" Width="30" Height="20"  HorizontalAlignment="Center" Command="BrowseBack" Grid.Column="2" Grid.Row="1" />
+            <TextBox x:Name="Punkte" HorizontalAlignment="Center" Height="20" Text="0" VerticalAlignment="Center" Width="30" Grid.Column="2" Grid.RowSpan="2" Margin="20,36,21,36" TextAlignment="Center" FontSize="16" />
         </Grid>
         <local:SpielPartienListe HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                  Grid.Column="1" Grid.Row="1" DataContext="{Binding Source={StaticResource PartieView}}" />
