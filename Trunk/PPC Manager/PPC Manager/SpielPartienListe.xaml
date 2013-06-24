@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700">
     <ListBox  Name="SpielPartienView"  FontSize="24"                  
-                 ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True"
+                 ItemsSource="{Binding Mode=OneWay}" IsSynchronizedWithCurrentItem="True"
                  d:DataContext="{Binding Source={d:DesignInstance Type=local:DesignSpielRunden, IsDesignTimeCreatable=True}, Path=/}" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
         <ListBox.CommandBindings>
             <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
@@ -45,7 +45,8 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Ellipse Grid.Row="0" Grid.Column="1" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteLinks, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
+                                    <Ellipse Grid.Row="0" Grid.Column="1" Width="10" Height="10" Margin="2" 
+                                             Visibility="{Binding Path=MySelf, ConverterParameter=L, Converter={StaticResource MeineGewonnenenSätze}, Mode=TwoWay, NotifyOnSourceUpdated=True}">
                                         <Ellipse.Fill>
                                             <RadialGradientBrush>
                                                 <GradientStop Color="SpringGreen" Offset="0" />
@@ -64,7 +65,8 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" Visibility="{Binding Path=PunkteRechts, Mode=TwoWay, Converter={StaticResource MeineGewonnenenSätze}}">
+                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" 
+                                             Visibility="{Binding Path=MySelf, ConverterParameter=R, Converter={StaticResource MeineGewonnenenSätze}, Mode=TwoWay, NotifyOnSourceUpdated=True}">
                                         <Ellipse.Fill>
                                             <RadialGradientBrush>
                                                 <GradientStop Color="SpringGreen" Offset="0" />

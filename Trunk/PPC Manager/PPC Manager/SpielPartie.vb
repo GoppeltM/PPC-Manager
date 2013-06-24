@@ -216,7 +216,8 @@ Public Class Satz
         End Get
         Set(ByVal value As Integer)
             _PunkteLinks = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("PunkteLinks"))
+            OnPropertyChanged("PunkteLinks")
+            OnPropertyChanged("MySelf")
         End Set
     End Property
 
@@ -227,15 +228,22 @@ Public Class Satz
         End Get
         Set(ByVal value As Integer)
             _PunkteRechts = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("PunkteRechts"))
+            OnPropertyChanged("PunkteRechts")
+            OnPropertyChanged("MySelf")
         End Set
     End Property
+
+    Public Property MySelf As Satz = Me
 
     Public ReadOnly Property Abgeschlossen As Boolean
         Get
             Return Math.Max(PunkteLinks, PunkteRechts) >= My.Settings.GewinnPunkte
         End Get
     End Property
+
+    Private Sub OnPropertyChanged(name As string)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(name))
+    End Sub
 
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
