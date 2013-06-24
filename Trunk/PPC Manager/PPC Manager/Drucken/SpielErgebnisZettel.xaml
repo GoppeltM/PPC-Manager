@@ -77,7 +77,7 @@
                             <TextBlock Grid.Row="1" Grid.Column="3" Text="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
                             <TextBlock Grid.Row="1" Grid.Column="4" Text="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
                             <TextBlock Grid.Row="1" Grid.Column="5" Text="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="14" TextDecorations="Underline"/>
-                            <TextBlock Grid.Row="1" Grid.Column="6" Text="Sieger" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="12" TextDecorations="Underline"/>
+                            <TextBlock Grid.Row="1" Grid.Column="6" Text="Erg." VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="12" TextDecorations="Underline"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
