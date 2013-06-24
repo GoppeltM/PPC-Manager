@@ -56,19 +56,6 @@ Public Class AusgeschiedenPainter
     End Function
 End Class
 
-Public Class MeineGewonnenenSätze
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.Convert
-        Dim points = CType(value, Integer)
-        If points >= My.Settings.GewinnPunkte Then Return Visibility.Visible
-        Return Visibility.Hidden
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
 
 Public Class RanglisteIndexConverter
     Implements IValueConverter
