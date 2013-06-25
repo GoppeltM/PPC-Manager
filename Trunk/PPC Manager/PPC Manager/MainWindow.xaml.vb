@@ -144,12 +144,14 @@ Class MainWindow
     Friend Shared Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
         If TypeOf partie Is FreiLosSpiel Then Return True
 
-        Dim SätzeLinks = Aggregate x In partie Where x.PunkteLinks = My.Settings.GewinnPunkte Into Count()
-        Dim SätzeRechts = Aggregate x In partie Where x.PunkteRechts = My.Settings.GewinnPunkte Into Count()
+        Dim AbgeschlosseneSätzeLinks = Aggregate x In partie Where x.PunkteLinks >= x.PunkteRechts + 2 _
+                                      And x.PunkteLinks >= My.Settings.GewinnPunkte Into Count()
 
-        Dim gesamtAbgeschlossen = Math.Max(SätzeLinks, SätzeRechts)
+        Dim AbgeschlosseneSätzeRechts = Aggregate x In partie Where x.PunkteRechts >= x.PunkteLinks + 2 _
+                                      And x.PunkteRechts >= My.Settings.GewinnPunkte Into Count()
+
         Dim gewinnSätze = MainWindow.AktiveCompetition.Gewinnsätze
-        Return gesamtAbgeschlossen >= gewinnSätze
+        Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= gewinnSätze
     End Function
 
 
