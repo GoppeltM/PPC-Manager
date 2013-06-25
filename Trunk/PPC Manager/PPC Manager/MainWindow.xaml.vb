@@ -71,6 +71,17 @@ Class MainWindow
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
                    "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
+
+            Try
+
+            Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
+
+            End Using
+            Catch ex As IO.IOException
+                MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei {0} möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", AktiveCompetition.ExcelPfad),
+                                "Excel offen", MessageBoxButton.OK)
+                Return
+            End Try
             RundeBerechnen()
         End If
 
@@ -186,7 +197,7 @@ Class MainWindow
     End Sub
 
     Private Sub MyWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles MyWindow.Closing
-        Select Case MessageBox.Show("Sollen Änderungen gespeichert und dieses Programm geschlossen werden?" _
+        Select Case MessageBox.Show("Das Programm wird geschlossen. Sollen Änderungen gespeichert werden?" _
                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
             Case MessageBoxResult.Yes : AktiveCompetition.SaveXML()

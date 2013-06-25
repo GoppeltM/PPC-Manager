@@ -3,6 +3,7 @@ Imports System.Text
 Imports DocumentFormat.OpenXml
 Imports DocumentFormat.OpenXml.Packaging
 Imports DocumentFormat.OpenXml.Spreadsheet
+Imports System.IO
 
 
 Public Class ExcelInterface
@@ -21,22 +22,28 @@ Public Class ExcelInterface
 
     Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal spielrunden As SpielRunden)
 
+        Try
 
-        Using ex = New ExcelInterface(filePath)
-            With ex
-                Dim RundeNr = spielrunden.Count.ToString.PadLeft(2, "0"c)
-                Dim sheet = .GetSheet("sp_rd" & RundeNr)
-                .WriteSpielerSheet(spieler, sheet)
+            Using ex = New ExcelInterface(filePath)
+                With ex
+                    Dim RundeNr = spielrunden.Count.ToString.PadLeft(2, "0"c)
+                    Dim sheet = .GetSheet("sp_rd" & RundeNr)
+                    .WriteSpielerSheet(spieler, sheet)
 
-                Dim current = 1
-                For Each runde In spielrunden.Reverse
-                    Dim currentName = current.ToString.PadLeft(2, "0"c)
-                    sheet = .GetSheet("erg_rd" & currentName)
-                    .WriteRunde(runde, sheet)
-                    current += 1
-                Next
-            End With
-        End Using
+                    Dim current = 1
+                    For Each runde In spielrunden.Reverse
+                        Dim currentName = current.ToString.PadLeft(2, "0"c)
+                        sheet = .GetSheet("erg_rd" & currentName)
+                        .WriteRunde(runde, sheet)
+                        current += 1
+                    Next
+                End With
+            End Using
+
+        Catch ex As IOException
+            Throw New Exception("Excel Datei konnte nicht geschrieben werden.", ex)
+        End Try
+
 
     End Sub
 
@@ -47,7 +54,7 @@ Public Class ExcelInterface
 
         Dim SheetData = sheet.GetFirstChild(Of SheetData)()
         SheetData.RemoveAllChildren(Of Row)()
-        
+
         CreateRow(SheetData, 1, Titles)
 
         Dim current = 2UI
@@ -179,11 +186,11 @@ Public Class ExcelInterface
         sheet.Name = sheetName
 
         Sheets.Append(sheet)
-        Return worksheetPart.Worksheet
+        Return WorkSheetPart.Worksheet
     End Function
 
-    Private Function GetWorkSheet(sheetName As String) As Worksheet        
-        For Each Sheet In doc.WorkbookPart.Workbook.Sheets.Elements(Of Sheet)()            
+    Private Function GetWorkSheet(sheetName As String) As Worksheet
+        For Each Sheet In doc.WorkbookPart.Workbook.Sheets.Elements(Of Sheet)()
             If Sheet.Name = sheetName Then
                 Dim ID = doc.WorkbookPart.GetPartById(Sheet.Id)
                 Return DirectCast(ID, WorksheetPart).Worksheet
