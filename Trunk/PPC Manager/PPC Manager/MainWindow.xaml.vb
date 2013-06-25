@@ -73,10 +73,11 @@ Class MainWindow
                    "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
 
             Try
+                If IO.File.Exists(AktiveCompetition.ExcelPfad) Then
+                    Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
 
-            Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
-
-            End Using
+                    End Using
+                End If            
             Catch ex As IO.IOException
                 MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei {0} möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", AktiveCompetition.ExcelPfad),
                                 "Excel offen", MessageBoxButton.OK)
