@@ -40,7 +40,7 @@
             <RowDefinition Height="378*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="449*" />
+            <ColumnDefinition Width="600*" />
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
         <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2"
@@ -61,13 +61,14 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">
-                        <Grid Margin="5" Width="300">
+                        <Grid Margin="5" Width="380">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="60" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -87,6 +88,8 @@
                             <TextBlock Grid.Column="3" Grid.Row="1" Text="{Binding Path=SätzeVerloren}" HorizontalAlignment="Center" />
                             <TextBlock Grid.Column="4" Grid.Row="0" Text="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}" HorizontalAlignment="Center" />
                             <TextBlock Grid.Column="4" Grid.Row="1" Text="{Binding Geburtsjahr, Converter={StaticResource SpielKlassenkonverter}}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="5" Grid.Row="0" Text="{Binding Path=TTRating}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="5" Grid.Row="1" Text="{Binding Path=TTRMatchCount}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
                     </ListViewItem>
                 </DataTemplate>

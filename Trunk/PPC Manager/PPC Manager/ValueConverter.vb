@@ -35,27 +35,6 @@ Public Class SatzFarbenPainter
     End Function
 End Class
 
-Public Class AusgeschiedenPainter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        If Not targetType Is GetType(Brush) Then
-            Throw New Exception("Must be a brush!")
-        End If
-
-        Dim val = CType(value, Boolean)
-        If val Then
-            Return Brushes.Red
-        Else
-            Return Brushes.Transparent
-        End If
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
-
 
 Public Class RanglisteIndexConverter
     Implements IValueConverter
