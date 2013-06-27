@@ -21,14 +21,16 @@ Public Class ExcelInterface
     Private Property doc As SpreadsheetDocument
 
     Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal spielrunden As SpielRunden)
-
+        Dim s = spieler.ToList
+        s.Sort(New ExportComparer)
+        s.Reverse()
         Try
 
             Using ex = New ExcelInterface(filePath)
                 With ex
                     Dim RundeNr = spielrunden.Count.ToString.PadLeft(2, "0"c)
                     Dim sheet = .GetSheet("sp_rd" & RundeNr)
-                    .WriteSpielerSheet(spieler, sheet)
+                    .WriteSpielerSheet(s, sheet)
 
                     Dim current = 1
                     For Each runde In spielrunden.Reverse
@@ -44,8 +46,37 @@ Public Class ExcelInterface
             Throw New Exception("Excel Datei konnte nicht geschrieben werden.", ex)
         End Try
 
-
     End Sub
+
+    Private Class ExportComparer
+        Implements IComparer(Of Spieler)
+
+        Public Function Compare(myself As Spieler, other As Spieler) As Integer Implements IComparer(Of Spieler).Compare
+            Dim diff = myself.ExportPunkte - other.ExportPunkte
+            If diff <> 0 Then Return diff
+            diff = myself.ExportBHZ - other.ExportBHZ
+            If diff <> 0 Then Return diff
+
+            If MainWindow.AktiveCompetition.SonneBornBerger Then
+                diff = myself.ExportSonneborn - other.ExportSonneborn
+                If diff <> 0 Then Return diff
+            End If
+
+            If MainWindow.AktiveCompetition.SatzDifferenz Then
+                diff = (myself.ExportSätzeGewonnen - myself.ExportSätzeVerloren) - (other.ExportSätzeGewonnen - other.ExportSätzeVerloren)
+                If diff <> 0 Then Return diff
+            End If
+            diff = myself.TTRating - other.TTRating
+            If diff <> 0 Then Return diff
+            diff = myself.TTRMatchCount - other.TTRMatchCount
+            If diff <> 0 Then Return diff
+            diff = other.Nachname.CompareTo(myself.Nachname)
+            If diff <> 0 Then Return diff
+            diff = other.Vorname.CompareTo(myself.Vorname)
+            If diff <> 0 Then Return diff
+            Return myself.Lizenznummer - other.Lizenznummer
+        End Function
+    End Class
 
     Private Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of Spieler), ByVal sheet As Worksheet)
         Dim Titles = {"Vorname", "Nachname", "Geschlecht", "Geburtsjahr", "Verein", "ID", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",

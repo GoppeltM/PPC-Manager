@@ -123,14 +123,14 @@ Public Class Spieler
 
     Public ReadOnly Property ExportBHZ As Integer
         Get
-            Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).ExportPunkte Into Sum(y)
             Return _punkte
         End Get
     End Property
 
     Public ReadOnly Property ExportSonneborn As Integer
         Get
-            Dim _punkte = Aggregate x In MeineGewonnenenSpieleExport Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).Punkte Into Sum(y)
+            Dim _punkte = Aggregate x In MeineGewonnenenSpieleExport Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).ExportPunkte Into Sum(y)
             Return _punkte
         End Get
     End Property

@@ -68,41 +68,8 @@ Public Class Competition
 
     Public Sub SaveExcel()
         Dim spieler = MainWindow.AktiveCompetition.SpielerListe.ToList
-        spieler.Sort(New ExportComparer)
-        spieler.Reverse()
-
         ExcelInterface.CreateFile(ExcelPfad, spieler, SpielRunden)
     End Sub
-
-    Private Class ExportComparer
-        Implements IComparer(Of Spieler)
-
-        Public Function Compare(myself As Spieler, other As Spieler) As Integer Implements IComparer(Of Spieler).Compare
-            Dim diff = myself.ExportPunkte - other.ExportPunkte
-            If diff <> 0 Then Return diff
-            diff = myself.ExportBHZ - other.ExportBHZ
-            If diff <> 0 Then Return diff
-
-            If MainWindow.AktiveCompetition.SonneBornBerger Then
-                diff = myself.ExportSonneborn - other.ExportSonneborn
-                If diff <> 0 Then Return diff
-            End If
-
-            If MainWindow.AktiveCompetition.SatzDifferenz Then
-                diff = (myself.ExportSätzeGewonnen - myself.ExportSätzeVerloren) - (other.ExportSätzeGewonnen - other.ExportSätzeVerloren)
-                If diff <> 0 Then Return diff
-            End If
-            diff = myself.TTRating - other.TTRating
-            If diff <> 0 Then Return diff
-            diff = myself.TTRMatchCount - other.TTRMatchCount
-            If diff <> 0 Then Return diff
-            diff = other.Nachname.CompareTo(myself.Nachname)
-            If diff <> 0 Then Return diff
-            diff = other.Vorname.CompareTo(myself.Vorname)
-            If diff <> 0 Then Return diff
-            Return myself.Lizenznummer - other.Lizenznummer
-        End Function
-    End Class
 
     Public ReadOnly Property ExcelPfad As String
         Get
