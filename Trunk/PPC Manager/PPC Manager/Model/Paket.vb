@@ -50,16 +50,13 @@ Public Class Paket
 
 
     Sub sort()
-        If Absteigend Then
-            SpielerListe.Sort(Function(s1, s2) s2.CompareTo(s1))
-        Else
-            SpielerListe.Sort(Function(s1, s2) s1.CompareTo(s2))
-        End If
+        SpielerListe.Sort(AddressOf Compare)        
     End Sub
 
     Sub VerschiebeSchwimmer(ByVal paket As Paket)
         If aktuellerSchwimmer IsNot Nothing Then
             paket.moveAltSchwimmer(aktuellerSchwimmer)
+            SpielerListe.Remove(aktuellerSchwimmer)
         End If
         aktuellerSchwimmer = Nothing
     End Sub
@@ -102,9 +99,9 @@ Public Class Paket
 
     Public Function Compare(ByVal x As Spieler, ByVal y As Spieler) As Integer Implements IComparer(Of Spieler).Compare
         If Absteigend Then
-            Return x.CompareTo(y)
-        Else
             Return y.CompareTo(x)
+        Else
+            Return x.CompareTo(y)
         End If
     End Function
 End Class

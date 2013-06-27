@@ -13,9 +13,7 @@ Public Class SpielRunden
         If matchesKnoten Is Nothing Then
             Return SpielRunden
         End If
-        Dim xSpielPartien = From x In matchesKnoten.Elements.Except(matchesKnoten.<ppc:inactiveplayer>)
-                      Group By x.@group Into Runde = Group
-
+        
 
         For Each AusgeschiedenerSpieler In matchesKnoten.<ppc:inactiveplayer>
             Dim StartNummer = AusgeschiedenerSpieler.@player
@@ -25,7 +23,10 @@ Public Class SpielRunden
             SpielRunden.AusgeschiedeneSpieler.Add(ausgeschieden)
         Next
 
-        For Each xRunde In xSpielPartien.Reverse
+        Dim xSpielPartien = From x In matchesKnoten.Elements.Except(matchesKnoten.<ppc:inactiveplayer>)
+                      Group By x.@group Into Runde = Group Order By Date.Parse(Runde.First.@scheduled, Globalization.CultureInfo.GetCultureInfo("de")) Ascending
+
+        For Each xRunde In xSpielPartien
             SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
         Next
 
