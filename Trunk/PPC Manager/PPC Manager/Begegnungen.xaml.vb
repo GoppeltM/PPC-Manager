@@ -47,39 +47,8 @@ Class Begegnungen
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
         ' Weiß die Hölle warum das so ist.
         ViewSource.View.MoveCurrentToFirst()
-    End Sub
-
-    Private Sub SatzLinks_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim x = CType(CType(sender, Button).DataContext, Satz)
-        x.PunkteLinks = My.Settings.GewinnPunkte
-        x.PunkteRechts = 0
-        SatzUpdate()
-    End Sub
-
-    Private Sub SatzRechts_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim x = CType(CType(sender, Button).DataContext, Satz)
-        x.PunkteRechts = My.Settings.GewinnPunkte
-        x.PunkteLinks = 0
-        SatzUpdate()
-    End Sub
-
-    Private Sub SatzUpdate()
-        Dim partie = CType(DetailGrid.DataContext, SpielPartie)
-        Dim AbgeschlosseneSätze = Aggregate x In partie Where Math.Max(x.PunkteLinks, x.PunkteRechts) = My.Settings.GewinnPunkte Into Count()
-
-        Dim Fertig = MainWindow.Abgeschlossen(partie)
-
-        If AbgeschlosseneSätze >= partie.Count AndAlso Not Fertig Then
-            partie.Add(New Satz)
-        End If
-        partie.Update()
-        ' Refresh erzwingt u.a. Filter
-        If Fertig Then
-            BegegnungenView.View.Refresh()
-            Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
-            SpielerView.View.Refresh()
-        End If
-        
+        SetFocus()
+        Begegnungsliste = SpielPartienListe.SpielPartienView
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -149,6 +118,83 @@ Class Begegnungen
             LifeListe.SelectionMode = SelectionMode.Single
         End If
         RefreshView()
+    End Sub
+
+    Private Sub CommandBinding_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Satzbearbeiten(True)
+    End Sub
+
+    Private Sub SetFocus()
+        Punkte.Text = "0"
+        Punkte.Focus()
+        Punkte.SelectAll()
+    End Sub
+
+    Private Function OtherValue(value As Integer) As Integer
+        Dim oValue = 11
+        If value > 9 Then oValue = value + 2
+        Return oValue
+    End Function
+
+    Private Sub Satzbearbeiten(inverted As Boolean)
+        If Not Integer.TryParse(Punkte.Text, Nothing) Then
+            Punkte.Text = "0"
+            SetFocus()
+            Return
+        End If
+
+        Dim value = Integer.Parse(Punkte.Text)
+        Dim oValue = OtherValue(value)
+        If inverted Then
+            Dim temp = value
+            value = oValue
+            oValue = temp
+        End If
+        Dim s = New Satz With {.PunkteLinks = value, .PunkteRechts = oValue}
+        DirectCast(DetailGrid.DataContext, SpielPartie).Add(s)
+
+        SetFocus()
+    End Sub
+
+    Private Sub CommandBinding_Executed_1(sender As Object, e As ExecutedRoutedEventArgs)
+        Satzbearbeiten(False)
+    End Sub
+
+    Private Sub CommandBinding_Executed_2(sender As Object, e As ExecutedRoutedEventArgs)
+        DirectCast(DetailGrid.DataContext, SpielPartie).Remove(CType(Sätze.SelectedItem, Satz))
+    End Sub
+
+    Private Sub Punkte_PreviewTextInput(sender As Object, e As TextCompositionEventArgs) Handles Punkte.PreviewTextInput
+        Dim i As Integer
+        e.Handled = Not Integer.TryParse(e.Text, i)
+    End Sub
+
+
+    Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+
+        If DetailGrid.DataContext Is Nothing Then
+            e.CanExecute = False
+            Return
+        End If
+
+        Dim s = DirectCast(DetailGrid.DataContext, SpielPartie)
+
+        Dim GewinnLinks = Aggregate x In s Where x.PunkteLinks > x.PunkteRechts Into Count()
+        Dim GewinnRechts = Aggregate x In s Where x.PunkteLinks < x.PunkteRechts Into Count()
+
+        e.CanExecute = Math.Max(GewinnLinks, GewinnRechts) < 3
+    End Sub
+
+    Private WithEvents Begegnungsliste As ListBox
+
+    Private Sub NeuePartieAusgewählt(sender As Object, args As EventArgs) Handles Begegnungsliste.SelectionChanged, Begegnungsliste.MouseDown
+        If BegegnungenView.View IsNot Nothing Then
+            BegegnungenView.View.Refresh()
+            Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+            SpielerView.View.Refresh()
+        End If
+
+        SetFocus()
     End Sub
 
 End Class
@@ -226,5 +272,41 @@ Public Class AusgeschiedenPainter
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
         Throw New NotSupportedException
+    End Function
+End Class
+Class HintergrundLinksKonverter
+    Implements IValueConverter
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        With DirectCast(value, Satz)
+            If .PunkteLinks >= 11 AndAlso .PunkteLinks > .PunkteRechts Then
+                Return Brushes.Yellow
+            Else
+                Return Brushes.Transparent
+            End If
+        End With
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+
+    End Function
+End Class
+
+Class HintergrundRechtsKonverter
+    Implements IValueConverter
+
+
+    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+        With DirectCast(value, Satz)
+            If .PunkteRechts >= 11 AndAlso .PunkteRechts > .PunkteLinks Then
+                Return Brushes.Yellow
+            Else
+                Return Brushes.Transparent
+            End If
+        End With
+    End Function
+
+    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+
     End Function
 End Class

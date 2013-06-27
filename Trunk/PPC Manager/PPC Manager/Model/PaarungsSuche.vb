@@ -104,8 +104,7 @@ Public Class PaarungsSuche
             Dim spieler2 = listeRechts.First
             If spieler1.HatBereitsGespieltGegen(spieler2) Then Return Nothing
 
-            Dim partie = New SpielPartie(_rundenName, spieler1, spieler2)
-            partie.Add(New Satz) ' Damit wenigstens ein Satz gesetzt werden kann
+            Dim partie = New SpielPartie(_rundenName, spieler1, spieler2)            
             paarungen.Add(partie)
             listeLinks.Remove(spieler1)
             listeRechts.Remove(spieler2)
