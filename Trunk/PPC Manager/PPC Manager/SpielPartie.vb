@@ -185,7 +185,8 @@ Public Class FreiLosSpiel
 
 
     Public Overrides Function ToXML(matchNr As Integer) As System.Xml.Linq.XElement
-        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= rundenName %>/>
+        Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= RundenName %>
+                       scheduled=<%= ZeitStempel.ToString(Globalization.CultureInfo.GetCultureInfo("de")) %>/>
         Return node
     End Function
 

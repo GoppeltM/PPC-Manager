@@ -171,7 +171,8 @@ Public Class PPC15_Turnier_Klasse_D
     Private Sub TrageSätzeEin(ergebnisse As IEnumerable(Of SpielPartie), erwartet As IEnumerable(Of BegegnungsVergleicher))
 
         Dim VollständigeErgebnisse = From spielPartie In ergebnisse Join y In erwartet
-           On spielPartie.SpielerLinks.Nachname & spielPartie.SpielerLinks.Vorname Equals y.NachnameRechts & y.VornameRechts Select spielPartie, SätzeLinks = y.SätzeRechts, SätzeRechts = y.SätzeLinks
+           On spielPartie.SpielerLinks.Nachname & spielPartie.SpielerLinks.Vorname Equals y.NachnameLinks & y.VornameLinks
+           Select spielPartie, SätzeLinks = y.SätzeLinks, SätzeRechts = y.SätzeRechts
 
         Assert.IsTrue(VollständigeErgebnisse.Any)
 

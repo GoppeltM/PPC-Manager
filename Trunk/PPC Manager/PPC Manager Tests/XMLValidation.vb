@@ -18,7 +18,7 @@ Imports System.Collections.ObjectModel
             Assert.AreEqual("Mädchen U 13", .Altersgruppe)
             Assert.AreEqual(4, .SpielerListe.Count)
             Assert.AreEqual(2, .SpielRunden.Count)
-            Assert.AreEqual(1, .SpielRunden.Last.OfType(Of FreiLosSpiel).Count)            
+            Assert.AreEqual(1, .SpielRunden.Peek.OfType(Of FreiLosSpiel).Count)
             CollectionAssert.AreEqual({"PLAYER72", "PLAYER126", "PLAYER127", "PLAYER-1"}, (From x In .SpielerListe Select x.Id).ToList)
         End With
     End Sub
@@ -30,7 +30,7 @@ Imports System.Collections.ObjectModel
 
         
         CollectionAssert.AreEqual({"PLAYER127"}, (From x In reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
-        Dim ersteRunde = reference.SpielRunden.First
+        Dim ersteRunde = reference.SpielRunden.Last
 
         Assert.AreEqual(2, ersteRunde.Count, "Zwei Spielpartien erwartet")
 
@@ -38,6 +38,11 @@ Imports System.Collections.ObjectModel
             For Each partie In .ToList
                 Assert.AreEqual(3, partie.Count)
             Next
+        End With
+
+        Dim zweiteRunde = reference.SpielRunden.Peek
+        With zweiteRunde
+            Assert.IsInstanceOfType(zweiteRunde.Single, GetType(FreiLosSpiel))            
         End With
         
     End Sub
@@ -52,8 +57,8 @@ Imports System.Collections.ObjectModel
                             <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
                                 sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="5" set-b-2="9" set-b-1="5"
                                 set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
-                                player-b="PLAYER126" player-a="PLAYER127" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"/>
-                            <ppc:freematch player="PLAYER126" group="Runde 2"/>
+                                player-b="PLAYER126" player-a="PLAYER127" scheduled="22.05.2013 23:17:45" group="Runde 1" nr="2"/>
+                            <ppc:freematch player="PLAYER126" scheduled="22.05.2013 23:17:45" group="Runde 2"/>
                             <ppc:inactiveplayer player="PLAYER127" group="1"/>
                         </matches>
         Dim RundenRes = SpielRunden.FromXML(New SpielerListe From {New Spieler With {.Id = "PLAYER127"}, New Spieler With {.Id = "PLAYER126"},
@@ -142,8 +147,9 @@ Imports System.Collections.ObjectModel
             With .SpielRunden
                 .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden) From {New Ausgeschieden With {.Spieler = spieler(3), .Runde = 1}}
                 Dim runde = New SpielRunde
-                runde.Add(New FreiLosSpiel("Runde 1", spieler(2)))
-                runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1)) With {.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))})
+                Dim Zeitstempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
+                runde.Add(New FreiLosSpiel("Runde 1", spieler(2)) With {.ZeitStempel = Zeitstempel})
+                runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1)) With {.ZeitStempel = Zeitstempel})
                 .Push(runde)
             End With
 
@@ -157,7 +163,7 @@ Imports System.Collections.ObjectModel
             Assert.AreEqual("PLAYER293", Dummy.<match>.Single.Attribute("player-a").Value)
             Assert.AreEqual("PLAYER299", Dummy.<match>.Single.Attribute("player-b").Value)
 
-            Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1"/>.ToString)
+            Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1" scheduled="22.05.2013 21:17:45"/>.ToString)
             Assert.AreEqual(spielPartien(1).ToString, <match player-a="PLAYER293" player-b="PLAYER299"
                                                           games-a="0" games-b="0" sets-a="0" sets-b="0"
                                                           matches-a="0" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"
