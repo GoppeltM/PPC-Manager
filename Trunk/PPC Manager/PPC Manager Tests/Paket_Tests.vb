@@ -164,7 +164,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
             Assert.AreEqual(3, .BuchholzPunkte)
             Assert.AreEqual(1, .ExportBHZ)
             Assert.AreEqual(2, .SonneBornBergerPunkte)
-            Assert.AreEqual(2, .ExportSonneborn)
+            Assert.AreEqual(1, .ExportSonneborn)
             Assert.AreEqual(4, .SätzeGewonnen)
             Assert.AreEqual(0, .SätzeVerloren)
             Assert.AreEqual(3, .ExportSätzeGewonnen)
