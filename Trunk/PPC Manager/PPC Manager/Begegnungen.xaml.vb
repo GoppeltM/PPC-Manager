@@ -21,7 +21,7 @@ Class Begegnungen
         End If
 
         Dim partie As SpielPartie = CType(e.Item, SpielPartie)        
-        e.Accepted = Not MainWindow.Abgeschlossen(partie)
+        e.Accepted = Not partie.Abgeschlossen
 
     End Sub
 

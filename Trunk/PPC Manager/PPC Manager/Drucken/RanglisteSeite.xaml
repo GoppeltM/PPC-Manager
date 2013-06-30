@@ -6,16 +6,42 @@
              xmlns:local="clr-namespace:PPC_Manager"
              mc:Ignorable="d" d:DesignHeight="1123" d:DesignWidth="793">
     <UserControl.Resources>
+        <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <local:SpielerListe x:Key="Spieler"/>
         <local:IndexConverter x:Key="IndexConverter"/>
     </UserControl.Resources>
     <Grid x:Name="PageContent" Margin="20">        
-        <DataGrid x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False">
+        <DataGrid x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NummerColumn" Header="Rang" Binding="{Binding Converter={StaticResource IndexConverter}, ConverterParameter={StaticResource Spieler}}"/>
-                <DataGridTextColumn Header="Vorname" Binding="{Binding Path=Vorname}" />
-                <DataGridTextColumn Header="Nachname" Binding="{Binding Path=Nachname}"/>
-                <DataGridTextColumn Header="Startnummer" Binding="{Binding Path=Startnummer}"/>
+                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" />
+                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
+                <DataGridTextColumn Header="Geschl." Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}"/>
+                <DataGridTextColumn Header="Verein" Binding="{Binding Vereinsname}"/>
+                <DataGridTextColumn Header="Tn Kl." Binding="{Binding Geburtsjahr}"/>
+                <DataGridTextColumn Header="Punkte" Binding="{Binding Punkte}"/>
+                <DataGridTextColumn Header="BHP" Binding="{Binding BuchholzPunkte}"/>
+                <DataGridTextColumn Header="SBP" Binding="{Binding SonneBornBergerPunkte}"/>
+                <DataGridTextColumn Header="Satzdiff" Binding="{Binding SatzDifferenz}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding StartNummer}"/>
+                <DataGridTemplateColumn Header="Spielpartien">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl  ItemsSource="{Binding Path=MeineSpieleDruck}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="0,0,5,0"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>                
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

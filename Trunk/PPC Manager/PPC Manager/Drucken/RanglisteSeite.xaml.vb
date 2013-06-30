@@ -6,9 +6,9 @@
         Dim width = PageContent.ActualWidth
         Dim height = PageContent.ActualHeight
 
-        Dim ItemHeight = 75.5905511811024
+        Dim ItemHeight = 20
 
-        Dim Rows = CInt(height) \ CInt(ItemHeight)
+        Dim Rows = CInt(height - 25) \ CInt(ItemHeight)
 
         If Rows = 0 Then
             Throw New Exception("Seitenformat zu klein! Kann kein Element darauf vollständig drucken!")
@@ -41,4 +41,3 @@ Public Class IndexConverter
         Throw New NotImplementedException
     End Function
 End Class
-

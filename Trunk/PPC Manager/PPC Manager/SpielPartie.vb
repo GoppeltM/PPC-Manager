@@ -62,6 +62,26 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public ReadOnly Property Gewonnen(ich As Spieler) As Boolean
+        Get
+            If Abgeschlossen() AndAlso MeineGewonnenenSätze(ich).Count > MeineVerlorenenSätze(ich).Count Then Return True
+            Return False
+        End Get
+    End Property
+
+    Friend Function Abgeschlossen() As Boolean
+        If TypeOf Me Is FreiLosSpiel Then Return True
+
+        Dim AbgeschlosseneSätzeLinks = Aggregate x In Me Where x.PunkteLinks >= x.PunkteRechts + 2 _
+                                      And x.PunkteLinks >= My.Settings.GewinnPunkte Into Count()
+
+        Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where x.PunkteRechts >= x.PunkteLinks + 2 _
+                                      And x.PunkteRechts >= My.Settings.GewinnPunkte Into Count()
+
+        Dim gewinnSätze = MainWindow.AktiveCompetition.Gewinnsätze
+        Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= gewinnSätze
+    End Function
+
     Public Overridable ReadOnly Property MeineVerlorenenSätze(ByVal ich As Spieler) As IList(Of Satz)
         Get
             Dim verlorenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteRechts > x.PunkteLinks

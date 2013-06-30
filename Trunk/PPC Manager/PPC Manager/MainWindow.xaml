@@ -1,8 +1,9 @@
 ﻿<Window x:Class="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:PPC_Manager"    
-    Title="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="448" Width="923" Icon="/PPC%20Manager;component/Icon.ico">
+    xmlns:local="clr-namespace:PPC_Manager" Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        Height="448" Width="1035" Icon="/PPC%20Manager;component/Icon.ico">
     <Window.InputBindings>
         <KeyBinding Key="Add" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
         <KeyBinding Key="OemPlus" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
@@ -13,6 +14,7 @@
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        
         <CommandBinding Command="Print" CanExecute="Drucken_CanExecute" Executed="Drucken_Executed"/>
+        <CommandBinding Command="PrintPreview" CanExecute="RanglisteDrucken_CanExecute" Executed="RanglisteDrucken_Executed"/>
         <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
         <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
         <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />
@@ -42,8 +44,8 @@
                 <MenuItem Header="Aktuelle Runde Verwerfen" Name="RundeVerwerfen" Command="Undo" />
             </MenuItem>
             <MenuItem Header="Drucken" IsTabStop="False">
-                <MenuItem Header="Begegnungszettel..." Command="Print" CommandParameter="Begegnungen"/>
-                <MenuItem Header="Rangliste..." Command="Print" CommandParameter="Rangliste" Visibility="Collapsed" />
+                <MenuItem Header="Begegnungszettel..." Command="Print" />
+                <MenuItem Header="Rangliste..." Command="PrintPreview" />
             </MenuItem>
         </Menu>
         <local:Begegnungen x:Name="Begegnungen" Margin="0,28,0,0"/>        

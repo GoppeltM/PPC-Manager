@@ -61,7 +61,11 @@ Public Class Spieler
 
     Public Property Lizenznummer As Integer
 
-    Public Property StartNummer As Integer
+    Public ReadOnly Property StartNummer As Integer
+        Get
+            Return Integer.Parse(Regex.Match(Id, "-?\d+\Z").Value)
+        End Get
+    End Property
 
     Private _Rating As Integer
     Public Property TTRating() As Integer
@@ -99,6 +103,23 @@ Public Class Spieler
                              Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze Select x
 
             Return GewonneneSpiele.ToList
+        End Get
+    End Property
+
+    Public ReadOnly Property MeineSpieleDruck As IEnumerable(Of String)
+        Get
+            Dim l As New List(Of String)
+            For Each s In GespieltePartien
+
+                Dim text = s.MeinGegner(Me).StartNummer.ToString
+                If s.Gewonnen(Me) Then
+                    text &= "G"
+                Else
+                    text &= "V"
+                End If
+                l.Add(text)
+            Next
+            Return l
         End Get
     End Property
 
@@ -149,7 +170,7 @@ Public Class Spieler
         End Get
     End Property
 #End Region
-    
+
 
     Public ReadOnly Property BuchholzPunkte As Integer
         Get
@@ -201,7 +222,7 @@ Public Class Spieler
         End Get
     End Property
 
-    Private ReadOnly Property SatzDifferenz As Integer
+    Public ReadOnly Property SatzDifferenz As Integer
         Get
             Return SätzeGewonnen - SätzeVerloren
         End Get
@@ -286,7 +307,7 @@ Public Class Spieler
             .Geschlecht = CInt(spielerNode.@sex)
             .Geburtsjahr = CInt(spielerNode.@birthyear)
             .Vereinsname = spielerNode.Attribute("club-name").Value
-            .TTRating = CInt(spielerNode.@ttr)        
+            .TTRating = CInt(spielerNode.@ttr)
             .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
         End With
         Return spieler

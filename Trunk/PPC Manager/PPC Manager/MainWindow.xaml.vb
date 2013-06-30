@@ -10,9 +10,6 @@ Class MainWindow
             If Not .ShowDialog() Then Return
             AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
             Me.DataContext = AktiveCompetition
-            'Application.Current.Resources("SpielRunden") = AktiveCompetition.SpielRunden            
-            'Application.Current.Resources("SpielerListe") = AktiveCompetition.SpielerListe
-            'Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe                        
         End With
     End Sub
 
@@ -61,7 +58,7 @@ Class MainWindow
 
             Dim AktuellePartien = .Peek.ToList
 
-            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(Abgeschlossen(x))
+            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(x.Abgeschlossen)
 
             e.CanExecute = AlleAbgeschlossen
         End With
@@ -142,41 +139,27 @@ Class MainWindow
         End If
     End Sub
 
-    Friend Shared Function Abgeschlossen(ByVal partie As SpielPartie) As Boolean
-        If TypeOf partie Is FreiLosSpiel Then Return True
+    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+        With New PrintDialog
+            If .ShowDialog Then
+                Dim paginator As New UserControlPaginator(Of SpielErgebnisZettel)(AktiveCompetition.SpielRunden.Peek, _
+                                                                                New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                .PrintDocument(paginator, "Neue Begegnungen - Schiedsrichterzettel")
+            End If
+        End With        
+    End Sub
 
-        Dim AbgeschlosseneSätzeLinks = Aggregate x In partie Where x.PunkteLinks >= x.PunkteRechts + 2 _
-                                      And x.PunkteLinks >= My.Settings.GewinnPunkte Into Count()
+    Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        With New PrintDialog
+            If .ShowDialog Then
+                Dim l = AktiveCompetition.SpielerListe.ToList
+                l.Sort()
+                l.Reverse()
 
-        Dim AbgeschlosseneSätzeRechts = Aggregate x In partie Where x.PunkteRechts >= x.PunkteLinks + 2 _
-                                      And x.PunkteRechts >= My.Settings.GewinnPunkte Into Count()
-
-        Dim gewinnSätze = MainWindow.AktiveCompetition.Gewinnsätze
-        Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= gewinnSätze
-    End Function
-
-
-    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Select Case e.Parameter.ToString
-            Case "Rangliste"
-                With New PrintDialog
-                    If .ShowDialog Then
-                        Dim paginator As New UserControlPaginator(Of RanglisteSeite)(AktiveCompetition.SpielerListe, _
-                                                                                     New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                        .PrintDocument(paginator, "Spieler Rangliste")
-                    End If
-                End With
-            Case "Begegnungen"
-                With New PrintDialog
-                    If .ShowDialog Then
-                        Dim paginator As New UserControlPaginator(Of SpielErgebnisZettel)(AktiveCompetition.SpielRunden.Peek, _
-                                                                                     New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                        .PrintDocument(paginator, "Neue Begegnungen - Schiedsrichterzettel")
-                    End If
-                End With
-            Case Else
-                Throw New ArgumentException("Unbekannter Command parameter", e.Parameter.ToString)
-        End Select
+                Dim paginator As New UserControlPaginator(Of RanglisteSeite)(l, New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                .PrintDocument(paginator, "Spieler Rangliste")
+            End If
+        End With
     End Sub
 
     Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -214,5 +197,9 @@ Class MainWindow
     
     Private Sub Drucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = AktiveCompetition.SpielRunden.Any
+    End Sub
+
+    Private Sub RanglisteDrucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = AktiveCompetition.SpielerListe.Any
     End Sub
 End Class
