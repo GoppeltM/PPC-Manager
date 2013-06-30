@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:PPC_Manager"
              mc:Ignorable="d" d:DesignHeight="1123" d:DesignWidth="793">
     <UserControl.Resources>
+        <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <local:SpielerListe x:Key="Spieler"/>
         <local:IndexConverter x:Key="IndexConverter"/>
@@ -18,7 +19,7 @@
                 <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
                 <DataGridTextColumn Header="Geschl." Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}"/>
                 <DataGridTextColumn Header="Verein" Binding="{Binding Vereinsname}"/>
-                <DataGridTextColumn Header="Tn Kl." Binding="{Binding Geburtsjahr}"/>
+                <DataGridTextColumn Header="Tn Kl." Binding="{Binding Geburtsjahr, Converter={StaticResource SpielKlassenkonverter}}"/>
                 <DataGridTextColumn Header="Punkte" Binding="{Binding Punkte}"/>
                 <DataGridTextColumn Header="BHP" Binding="{Binding BuchholzPunkte}"/>
                 <DataGridTextColumn Header="SBP" Binding="{Binding SonneBornBergerPunkte}"/>
