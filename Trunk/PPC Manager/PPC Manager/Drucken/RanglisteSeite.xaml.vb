@@ -16,13 +16,17 @@
         Return Rows
     End Function
 
-    Public Sub SetSource(ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
+    Public Sub SetSource(startIndex As Integer, ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
+        RanglisteSeite.StartIndex = startIndex
         Dim res = CType(FindResource("Spieler"), SpielerListe)
         For Each s In elements.OfType(Of Spieler)()
             res.Add(s)
         Next
 
     End Sub
+
+    Public Shared StartIndex As Integer
+
 End Class
 
 
@@ -34,7 +38,7 @@ Public Class IndexConverter
         Dim spieler = CType(value, Spieler)
         Dim liste = CType(parameter, IEnumerable(Of Spieler))
 
-        Return liste.ToList.IndexOf(spieler) + 1
+        Return liste.ToList.IndexOf(spieler) + 1 + RanglisteSeite.StartIndex
     End Function
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack

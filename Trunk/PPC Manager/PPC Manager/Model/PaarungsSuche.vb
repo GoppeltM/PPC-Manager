@@ -66,13 +66,13 @@ Public Class PaarungsSuche
         Dim andererSpieler As Spieler
         If index < mitte Then
             andererSpieler = kombination(index + mitte)
-            If parent.Compare(zuprüfenderSpieler, andererSpieler) < 0 Then
+            If parent.Compare(zuprüfenderSpieler, andererSpieler) > 0 Then
                 Return True
             End If
         Else
             andererSpieler = kombination(index - mitte)
             If andererSpieler.HatBereitsGespieltGegen(zuprüfenderSpieler) Then Return False
-            If parent.Compare(zuprüfenderSpieler, andererSpieler) > 0 Then
+            If parent.Compare(zuprüfenderSpieler, andererSpieler) < 0 Then
                 Return True
             End If
         End If

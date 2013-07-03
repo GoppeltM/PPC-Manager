@@ -1,6 +1,6 @@
 ﻿Public Interface IPaginatibleUserControl
 
-    Sub SetSource(ByVal elements As IEnumerable(Of Object))
+    Sub SetSource(startIndex As Integer, ByVal elements As IEnumerable(Of Object))
     Function GetMaxItemCount() As Integer
 
 End Interface
@@ -14,7 +14,7 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
     Public Sub New(ByVal begegnungen As IEnumerable(Of Object), ByVal pageSize As Size)
         _begegnungen = begegnungen
         _pageSize = pageSize
-        EmptyPage = CreateVisual(New Object() {})
+        EmptyPage = CreateVisual(0, New Object() {})
     End Sub
 
 
@@ -24,15 +24,15 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
     Public Overrides Function GetPage(ByVal pageNumber As Integer) As System.Windows.Documents.DocumentPage
         Dim start = pageNumber * ElementsPerPage
         Dim currentElements = _begegnungen.Skip(start).Take(ElementsPerPage).ToList
-        Dim page = CreateVisual(currentElements)
+        Dim page = CreateVisual(start, currentElements)
         Dim visibleArea = New Rect(_pageSize)
         Dim doc = New DocumentPage(page, _pageSize, visibleArea, visibleArea)
         Return doc
     End Function
 
-    Public Function CreateVisual(ByVal elements As IEnumerable(Of Object)) As T
+    Public Function CreateVisual(start As Integer, ByVal elements As IEnumerable(Of Object)) As T
         Dim visual = New T()
-        visual.SetSource(elements)
+        visual.SetSource(start, elements)
         Dim page As New FixedPage
         page.Width = _pageSize.Width
         page.Height = _pageSize.Height

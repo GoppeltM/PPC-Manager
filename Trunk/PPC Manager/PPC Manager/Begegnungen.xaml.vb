@@ -94,8 +94,7 @@ Class Begegnungen
         dialog.RundenNameTextBox.Text = "Runde " & MainWindow.AktiveCompetition.SpielRunden.Count
         If Not dialog.ShowDialog Then Return
 
-        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))
-        neueSpielPartie.Add(New Satz)
+        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))        
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
@@ -288,7 +287,7 @@ Class HintergrundLinksKonverter
     End Function
 
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
-
+        Throw New NotImplementedException
     End Function
 End Class
 
@@ -307,6 +306,6 @@ Class HintergrundRechtsKonverter
     End Function
 
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
-
+        Throw New NotImplementedException
     End Function
 End Class

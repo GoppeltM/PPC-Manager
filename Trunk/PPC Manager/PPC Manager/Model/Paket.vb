@@ -99,9 +99,9 @@ Public Class Paket
 
     Public Function Compare(ByVal x As Spieler, ByVal y As Spieler) As Integer Implements IComparer(Of Spieler).Compare
         If Absteigend Then
-            Return y.CompareTo(x)
-        Else
             Return x.CompareTo(y)
+        Else
+            Return y.CompareTo(x)
         End If
     End Function
 End Class

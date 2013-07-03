@@ -23,7 +23,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" >
-                    <local:DoppelbreitenGrid Width="200">
+                    <local:DoppelbreitenGrid Width="220">
                         <local:DoppelbreitenGrid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>

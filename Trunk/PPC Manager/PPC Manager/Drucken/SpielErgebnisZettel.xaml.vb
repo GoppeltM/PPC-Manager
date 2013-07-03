@@ -18,7 +18,7 @@
         Return total
     End Function
 
-    Public Sub SetSource(ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
+    Public Sub SetSource(startIndex As Integer, ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
         ItemsContainer.ItemsSource = elements
     End Sub
 End Class
