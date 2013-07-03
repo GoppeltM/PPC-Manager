@@ -160,7 +160,7 @@ Public Class Spieler
             Return result
         End Get
         Set(value As Boolean)
-            XmlPerson.@ppc:bezahlt = value.ToString
+            XmlPerson.@ppc:bezahlt = value.ToString.ToLower
             OnPropertyChanged("Bezahlt")
         End Set
     End Property
@@ -173,7 +173,7 @@ Public Class Spieler
         End Get
         Set(value As Boolean)
             If value Then Abwesend = False
-            XmlPerson.@ppc:anwesend = value.ToString
+            XmlPerson.@ppc:anwesend = value.ToString.ToLower
             OnPropertyChanged("Anwesend")
         End Set
     End Property
@@ -186,7 +186,7 @@ Public Class Spieler
         End Get
         Set(value As Boolean)
             If value Then Anwesend = False
-            XmlPerson.@ppc:abwesend = value.ToString
+            XmlPerson.@ppc:abwesend = value.ToString.ToLower
             OnPropertyChanged("Abwesend")
         End Set
     End Property

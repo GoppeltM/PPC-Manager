@@ -3,6 +3,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports PPC_Manager
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports System.Collections.ObjectModel
+Imports System.Xml.Schema
+Imports System.Xml
 
 <TestClass()> Public Class XMLValidation
 
@@ -28,13 +30,13 @@ Imports System.Collections.ObjectModel
         Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False, False)
         MainWindow.AktiveCompetition = reference
 
-        
+
         CollectionAssert.AreEqual({"PLAYER127"}, (From x In reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
         Dim ersteRunde = reference.SpielRunden.Last
 
         Assert.AreEqual(2, ersteRunde.Count, "Zwei Spielpartien erwartet")
 
-        With ersteRunde            
+        With ersteRunde
             For Each partie In .ToList
                 Assert.AreEqual(3, partie.Count)
             Next
@@ -42,9 +44,9 @@ Imports System.Collections.ObjectModel
 
         Dim zweiteRunde = reference.SpielRunden.Peek
         With zweiteRunde
-            Assert.IsInstanceOfType(zweiteRunde.Single, GetType(FreiLosSpiel))            
+            Assert.IsInstanceOfType(zweiteRunde.Single, GetType(FreiLosSpiel))
         End With
-        
+
     End Sub
 
     <TestMethod>
@@ -94,7 +96,7 @@ Imports System.Collections.ObjectModel
 
         Dim SpielerA = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER-1", .Fremd = True}
         Dim SpielerB = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER72"}
-        
+
         Dim Partie = SpielPartie.FromXML(New Spieler() {SpielerA, SpielerB}, MatchXml)
         With Partie
             Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
@@ -225,7 +227,7 @@ Imports System.Collections.ObjectModel
 
     End Sub
 
-    
+
 
     <TestMethod()> Public Sub TTRGültig()
         Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
@@ -233,5 +235,53 @@ Imports System.Collections.ObjectModel
             Assert.IsNotNull(person.@ttr)
         Next
     End Sub
+
+    <Ignore>
+    <TestMethod()>
+    Public Sub BereinigeNamespaces()
+        Dim doc = XDocument.Load("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test.xml")
+        Dim NodesToRemove = From x In doc.Root.Descendants Where x.Name.NamespaceName = "http://www.ttc-langensteinbach.de"
+
+        Dim AttributesToRemove = From x In doc.Root.Descendants
+                                 From y In x.Attributes
+                                 Where y.Name.NamespaceName = "http://www.ttc-langensteinbach.de" Or
+                                 y.Value = "http://www.ttc-langensteinbach.de" Select y
+
+        For Each attr In AttributesToRemove.ToList
+            attr.Remove()
+        Next
+
+        For Each node In NodesToRemove.ToList
+            node.Remove()
+        Next
+
+    End Sub
+
+    <Ignore>
+    <TestMethod>
+    Public Sub FügeSchemaHinzu()
+        Dim doc = XDocument.Load("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test.xml")
+        Dim schema As XmlSchema
+        Using stream = New IO.FileStream("E:\Skydrive\Dokumente\Repositories\Programme\Trunk\PPC Manager\PPC Manager\SpeicherStandSchema.xsd", IO.FileMode.Open)
+            schema = XmlSchema.Read(stream, Nothing)
+        End Using
+
+        Dim schemaSet As New XmlSchemaSet
+        schemaSet.Add(schema)
+
+        schemaSet.Compile()
+
+        doc.Validate(schemaSet, Nothing)
+
+        Using s As New IO.MemoryStream
+            schema.Write(s)
+            s.Position = 0
+            Dim schemaDoc = XDocument.Load(s) '"D:\Blubb.xml")
+            doc.Root.Add(schemaDoc.Root)
+        End Using
+
+        doc.Save("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test_Schema.xml")
+    End Sub
+
 
 End Class

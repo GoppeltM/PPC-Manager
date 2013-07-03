@@ -1,77 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns="http://www.ttc-langensteinbach.de/"
-           targetNamespace="http://www.ttc-langensteinbach.de/">  
-  <xs:element name="PPCTurnier">
-    <xs:complexType>      
-      <xs:sequence>
-        <xs:element name="SpielerListe" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence maxOccurs="unbounded">
-              <xs:element  ref="Spieler"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>        
-        <xs:element name="SpielRunden" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence maxOccurs="unbounded">
-              <xs:element ref="SpielRunde"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="GewinnSätze" type="xs:byte" use="required"/>
-      <xs:attribute name="SatzDifferenz" type="xs:boolean" use="required"/>
-    </xs:complexType>
-  </xs:element>
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"         
+           targetNamespace="http://www.ttc-langensteinbach.de">
 
-  <xs:element name="Spieler">
-    <xs:complexType>
-      <xs:attribute name="Vorname" type="xs:string" use="optional" />
-      <xs:attribute name="Nachname" type="xs:string" use="required" />
-      <xs:attribute name="Verein" type="xs:string" use="required" />
-      <xs:attribute name="SpielKlasse" type="xs:string" use="required" />
-      <xs:attribute name="StartNummer" type="xs:integer" use="required" />
-      <xs:attribute name="Position" type="xs:unsignedByte" use="required" />
-      <xs:attribute name="TurnierKlasse" type="xs:string" use="required" />
-      <xs:attribute name="ttRang" type="xs:integer" use="required" />
-      <xs:attribute name="ttRating" type="xs:integer" use="required" />
-    </xs:complexType>
-  </xs:element>
+  <xs:attribute name="satzdifferenz" type="xs:boolean"/>
+  <xs:attribute name="sonnebornberger" type="xs:boolean"/>
+  <xs:attribute name="anwesend" type="xs:boolean"/>
+  <xs:attribute name="abwesend" type="xs:boolean"/>
+  <xs:attribute name="bezahlt" type="xs:boolean"/>
+  <xs:attribute name="gewinnsätze" type="xs:int"/>
 
-  <xs:element name="SpielRunde">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="SpielPartie"/>
-        <xs:element ref="FreiLosSpiel" maxOccurs="1"/>
-        <xs:element name="AusgeschiedenerSpieler" type="xs:integer"/>
-      </xs:sequence>
-      <xs:attribute name="Nummer" type="xs:byte"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="player">
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
 
-  <xs:element name="SpielPartie">
-    <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:element ref="Satz"/>
-      </xs:sequence>
-      <xs:attribute name="SpielerLinks" type="xs:int" use="required" />
-      <xs:attribute name="SpielerRechts" type="xs:int" use="required" />      
-    </xs:complexType>  
-  </xs:element>
-
-  <xs:element name="FreiLosSpiel">
-    <xs:complexType>
-      <xs:attribute name="Spieler" type="xs:int" use="required" />
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="Satz">
-    <xs:complexType>
-      <xs:attribute name="PunkteLinks" type="xs:int"/>
-      <xs:attribute name="PunkteRechts" type="xs:int"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="freematch">
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
   
+  <xs:complexType name="match">
+    <xs:attribute name="player-a" type="xs:string"/>
+  </xs:complexType>
 </xs:schema>
