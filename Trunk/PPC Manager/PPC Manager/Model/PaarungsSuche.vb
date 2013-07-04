@@ -33,50 +33,28 @@ Public Class PaarungsSuche
                 Dim restNeu = New List(Of Spieler)(rest)
                 Dim anfangNeu = New List(Of Spieler)(anfang)
                 Dim tauschSpieler = restNeu(i)
+                Dim NeuerIndex = anfangNeu.Count
+                If NeuerIndex >= mitte Then                    
+                    Dim PartnerSpieler = anfangNeu(NeuerIndex - mitte)
+                    ' Optimierung 1:
+                    '  Wenn ABC <-> DEF, dann prüfe ob D > A. Wenn ja, wurde A gegen D bereits geprüft,
+                    ' und alle darauf aufbauenden Kombinationen auch.
+                    If parent.Compare(tauschSpieler, PartnerSpieler) > 0 Then Continue For
+                    ' Optimierung 2:
+                    ' Wenn ABC <-> DEF, dann prüfe ob D gegen A schonmal gespielt hat.
+                    ' Wenn ja, sind eh alle darauf basierenden Kombinationen unmöglich.
+                    If tauschSpieler.HatBereitsGespieltGegen(PartnerSpieler) Then Continue For
+                End If
                 restNeu.Remove(tauschSpieler)
                 anfangNeu.Add(tauschSpieler)
 
-                Dim isOk As PaarungsContainer = Nothing
-                If doProceed(anfangNeu, restNeu, mitte, parent) Then
-                    isOk = rekursiveUmtauschung(anfangNeu, restNeu, mitte, parent)
-                End If
+                Dim isOk As PaarungsContainer = rekursiveUmtauschung(anfangNeu, restNeu, mitte, parent)
 
                 If Not isOk Is Nothing Then Return isOk
             Next
         End If
 
         Return Nothing
-    End Function
-
-    ''' <summary>
-    ''' Prüft für eine Kombination, ob sich weitere Permutationen der Restliste noch lohnen.
-    ''' </summary>
-    ''' <param name="anfang"></param>
-    ''' <param name="rest"></param>
-    ''' <param name="mitte"></param>
-    ''' <param name="parent"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function doProceed(ByVal anfang As List(Of Spieler), ByVal rest As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As Boolean
-        Dim zuprüfenderSpieler = anfang.Last
-        Dim kombination = New List(Of Spieler)(anfang)
-        kombination.AddRange(rest)
-
-        Dim index = kombination.IndexOf(zuprüfenderSpieler)
-        Dim andererSpieler As Spieler
-        If index < mitte Then
-            andererSpieler = kombination(index + mitte)
-            If parent.Compare(zuprüfenderSpieler, andererSpieler) > 0 Then
-                Return True
-            End If
-        Else
-            andererSpieler = kombination(index - mitte)
-            If andererSpieler.HatBereitsGespieltGegen(zuprüfenderSpieler) Then Return False
-            If parent.Compare(zuprüfenderSpieler, andererSpieler) < 0 Then
-                Return True
-            End If
-        End If
-        Return False
     End Function
 
     '''

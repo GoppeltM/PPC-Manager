@@ -94,7 +94,8 @@ Class Begegnungen
         dialog.RundenNameTextBox.Text = "Runde " & MainWindow.AktiveCompetition.SpielRunden.Count
         If Not dialog.ShowDialog Then Return
 
-        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))        
+        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))
+        neueSpielPartie.ZeitStempel = Date.Now
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 

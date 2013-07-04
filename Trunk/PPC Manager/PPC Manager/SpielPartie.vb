@@ -138,7 +138,7 @@ Public Class SpielPartie
                        games-a=<%= Aggregate x In Me Into Sum(x.PunkteLinks) %> games-b=<%= Aggregate x In Me Into Sum(x.PunkteRechts) %>
                        sets-a=<%= SätzeLinks %> sets-b=<%= SätzeRechts %>
                        matches-a=<%= GewonnenLinks %> matches-b=<%= GewonnenRechts %>
-                       scheduled=<%= ZeitStempel.ToString(Globalization.CultureInfo.GetCultureInfo("de")) %>
+                       scheduled=<%= ZeitStempel.ToString("yyyy-MM-dd HH:mm") %>
                        group=<%= RundenName %> nr=<%= matchNr %>
                        <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
                        <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
@@ -169,7 +169,7 @@ Public Class SpielPartie
             partie.Add(Satz)
         Next
 
-        partie.ZeitStempel = Date.Parse(xSpielPartie.@scheduled, Globalization.CultureInfo.GetCultureInfo("de"))
+        partie.ZeitStempel = Date.Parse(xSpielPartie.@scheduled)
 
         ' Wenigstens einen leeren Dummy Satz anlegen
         If Not partie.Any Then partie.Add(New Satz)
@@ -206,7 +206,7 @@ Public Class FreiLosSpiel
 
     Public Overrides Function ToXML(matchNr As Integer) As System.Xml.Linq.XElement
         Dim node = <ppc:freematch player=<%= SpielerLinks.Id %> group=<%= RundenName %>
-                       scheduled=<%= ZeitStempel.ToString(Globalization.CultureInfo.GetCultureInfo("de")) %>/>
+                       scheduled=<%= ZeitStempel.ToString("yyyy-MM-dd HH:mm") %>/>
         Return node
     End Function
 

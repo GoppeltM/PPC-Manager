@@ -165,10 +165,10 @@ Imports System.Xml
             Assert.AreEqual("PLAYER293", Dummy.<match>.Single.Attribute("player-a").Value)
             Assert.AreEqual("PLAYER299", Dummy.<match>.Single.Attribute("player-b").Value)
 
-            Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1" scheduled="22.05.2013 21:17:45"/>.ToString)
+            Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1" scheduled="2013-05-22 21:17"/>.ToString)
             Assert.AreEqual(spielPartien(1).ToString, <match player-a="PLAYER293" player-b="PLAYER299"
                                                           games-a="0" games-b="0" sets-a="0" sets-b="0"
-                                                          matches-a="0" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="2"
+                                                          matches-a="0" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="2"
                                                           set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
                                                           set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString)
             Assert.AreEqual(spielPartien(2).ToString, <ppc:inactiveplayer player="PLAYER77" group="1"/>.ToString)
@@ -189,7 +189,7 @@ Imports System.Xml
 
 
         Dim MatchXml = <match player-a="PLAYER293" player-b="PLAYER299" games-a="28" games-b="19" sets-a="2" sets-b="1"
-                           matches-a="1" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
+                           matches-a="1" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
@@ -214,7 +214,7 @@ Imports System.Xml
         Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
 
         Dim MatchXml = <ppc:match player-a="PLAYER293" player-b="PLAYER299" games-a="28" games-b="19" sets-a="2" sets-b="1"
-                           matches-a="1" matches-b="0" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
+                           matches-a="1" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
@@ -281,6 +281,11 @@ Imports System.Xml
         End Using
 
         doc.Save("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test_Schema.xml")
+    End Sub
+
+    <TestMethod>
+    Sub DatumSetzen()
+        Dim x = Date.Now.ToString("yyyy-MM-dd HH:mm")
     End Sub
 
 

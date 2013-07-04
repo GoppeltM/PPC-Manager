@@ -50,7 +50,8 @@ Public Class Paket
 
 
     Sub sort()
-        SpielerListe.Sort(AddressOf Compare)        
+        SpielerListe.Sort(AddressOf Compare)
+        SpielerListe.Reverse()
     End Sub
 
     Sub VerschiebeSchwimmer(ByVal paket As Paket)
