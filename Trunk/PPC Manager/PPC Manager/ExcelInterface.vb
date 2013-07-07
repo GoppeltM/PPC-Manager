@@ -79,7 +79,7 @@ Public Class ExcelInterface
     End Class
 
     Private Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of Spieler), ByVal sheet As Worksheet)
-        Dim Titles = {"Vorname", "Nachname", "Geschlecht", "Geburtsjahr", "Verein", "ID", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
+        Dim Titles = {"Vorname", "Nachname", "ID", "Geschlecht", "Geburtsjahr", "Verein", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
                           "Gewonnene Sätze", "Verlorene Sätze", "Ausgeschieden", "Gegnerprofil"}
 
 
@@ -101,7 +101,7 @@ Public Class ExcelInterface
                                  End Select
                              End Function
 
-            Dim Werte = {s.Vorname, s.Nachname, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.Id.ToString, s.TTRating.ToString,
+            Dim Werte = {s.Vorname, s.Nachname, s.Id.ToString, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.TTRating.ToString,
                          s.ExportPunkte.ToString, s.ExportBHZ.ToString, s.ExportSonneborn.ToString, s.ExportSätzeGewonnen.ToString,
                          s.ExportSätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(gegnerProfil)
             CreateRow(SheetData, current, Werte)
