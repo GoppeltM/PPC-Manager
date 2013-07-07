@@ -171,9 +171,6 @@ Public Class SpielPartie
 
         partie.ZeitStempel = Date.Parse(xSpielPartie.@scheduled)
 
-        ' Wenigstens einen leeren Dummy Satz anlegen
-        If Not partie.Any Then partie.Add(New Satz)
-
         Return partie
     End Function
 

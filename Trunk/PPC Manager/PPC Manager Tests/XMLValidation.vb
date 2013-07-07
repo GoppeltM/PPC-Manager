@@ -286,6 +286,7 @@ Imports System.Xml
     <TestMethod>
     Sub DatumSetzen()
         Dim x = Date.Now.ToString("yyyy-MM-dd HH:mm")
+        Dim y = Date.Parse(x)
     End Sub
 
 
