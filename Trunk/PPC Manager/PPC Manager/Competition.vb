@@ -58,9 +58,9 @@ Public Class Competition
     Public Sub SaveXML()
         Dim doc = XDocument.Load(DateiPfad)
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = Altersgruppe).Single
-        CompetitionNode.@ppc:satzdifferenz = SatzDifferenz.ToString
+        CompetitionNode.@ppc:satzdifferenz = SatzDifferenz.ToString.ToLower
         CompetitionNode.@ppc:gewinnsätze = Gewinnsätze.ToString
-        CompetitionNode.@ppc:sonnebornberger = SonneBornBerger.ToString
+        CompetitionNode.@ppc:sonnebornberger = SonneBornBerger.ToString.ToLower
         Dim runden = SpielRunden.ToXML
         CompetitionNode.<matches>.Remove()
         CompetitionNode.Add(<matches>

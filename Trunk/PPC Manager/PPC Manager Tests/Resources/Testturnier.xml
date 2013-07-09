@@ -1,0 +1,1157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE tournament SYSTEM "http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd"[]>
+<tournament end-date="2012-09-09" start-date="2012-09-08" name="15. Turnier nach Schweizer Art " tournament-id="4MGSAgWpFNN%2FCGskx1WKbLUQRB6iFN7s">
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Mädchen U 13" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER1">
+        <person licence-nr="161858" club-federation-nickname="BaTTV" club-name="FC Dörlesberg e.V. 1946 " sex="0" ttr-match-count="69" lastname="Behringer" ttr="1007" internal-nr="NU1282955" club-nr="1004" firstname="Felicia" birthyear="2003" />
+      </player>
+      <player type="single" id="PLAYER2">
+        <person licence-nr="06051202" club-federation-nickname="TTVWH" club-name="SpVgg Oedheim" sex="0" ttr-match-count="50" lastname="Fränznick" ttr="929" internal-nr="NU1261969" club-nr="06051" firstname="Jasmin" birthyear="2001" />
+      </player>
+      <player type="single" id="PLAYER3">
+        <person licence-nr="136713" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="130" lastname="Maciejewski" ttr="923" internal-nr="NU944733" club-nr="428" firstname="Andrea" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER4">
+        <person licence-nr="136714" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="130" lastname="Maciejewski" ttr="913" internal-nr="NU944734" club-nr="428" firstname="Hanna" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER5">
+        <person licence-nr="152229" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="68" lastname="Nöller" ttr="881" internal-nr="NU1164639" club-nr="428" firstname="Lea" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER6">
+        <person licence-nr="142502" club-federation-nickname="BaTTV" club-name="TV 1900 Oberhausen e.V." sex="0" ttr-match-count="139" lastname="Prautzsch" ttr="1101" internal-nr="NU994730" club-nr="124" firstname="Lisa" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER7">
+        <person licence-nr="151903" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="0" ttr-match-count="142" lastname="Yilmaz" ttr="1098" internal-nr="NU1162636" club-nr="803" firstname="Selia" birthyear="2001" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Jungen U 13" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER8">
+        <person licence-nr="143714" club-federation-nickname="BaTTV" club-name="TTG 1956 Neckarbischofsheim" sex="1" ttr-match-count="225" lastname="Bohnet" ttr="1423" internal-nr="NU1084203" club-nr="920" firstname="Nick" birthyear="2002" />
+      </player>
+      <player type="single" id="PLAYER9">
+        <person licence-nr="166278" club-federation-nickname="BaTTV" club-name="TV 1900 Oberhausen e.V." sex="1" ttr-match-count="28" lastname="Franz" ttr="1044" internal-nr="NU1319810" club-nr="124" firstname="Johannes" birthyear="2002" />
+      </player>
+      <player type="single" id="PLAYER10">
+        <person licence-nr="24015190" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="115" lastname="Neumaier" ttr="1229" internal-nr="NU1161447" club-nr="24015" firstname="Marcel" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER11">
+        <person licence-nr="24015207" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="44" lastname="Neumaier" ttr="927" internal-nr="NU1288453" club-nr="24015" firstname="Nico" birthyear="2003" />
+      </player>
+      <player type="single" id="PLAYER12">
+        <person licence-nr="142715" club-federation-nickname="BaTTV" club-name="1. TTC Ersingen 1957 e.V." sex="1" ttr-match-count="101" lastname="Reiling" ttr="1091" internal-nr="NU1067844" club-nr="708" firstname="Lukas" birthyear="2002" />
+      </player>
+      <player type="single" id="PLAYER13">
+        <person licence-nr="163298" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="21" lastname="Ried" ttr="922" internal-nr="NU1294131" club-nr="428" firstname="Leon" birthyear="2001" />
+      </player>
+      <player type="single" id="PLAYER14">
+        <person licence-nr="134892" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="187" lastname="Stegemann" ttr="1356" internal-nr="NU932628" club-nr="407" firstname="Torben" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER15">
+        <person licence-nr="142716" club-federation-nickname="BaTTV" club-name="1. TTC Ersingen 1957 e.V." sex="1" ttr-match-count="99" lastname="Wackernagel" ttr="995" internal-nr="NU1067825" club-nr="708" firstname="Niko" birthyear="2002" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Jungen U 15" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER16">
+        <person licence-nr="140573" club-federation-nickname="BaTTV" club-name="DJK St. Hildegard Käfertal Süd" sex="1" ttr-match-count="155" lastname="Glebov" ttr="1297" internal-nr="NU981977" club-nr="503" firstname="Andreas" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER17">
+        <person licence-nr="24015196" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="74" lastname="Holub" ttr="1096" internal-nr="NU1255671" club-nr="24015" firstname="Luca" birthyear="1999" />
+      </player>
+      <player type="single" id="PLAYER18">
+        <person licence-nr="14036391" club-federation-nickname="TTVWH" club-name="DJK Sportbund Stuttgart" sex="1" ttr-match-count="42" lastname="Kolarski" ttr="1121" internal-nr="NU1256637" club-nr="14036" firstname="Radovan" birthyear="1999" />
+      </player>
+      <player type="single" id="PLAYER19">
+        <person licence-nr="74678" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="35" lastname="Köhler" ttr="1029" internal-nr="NU452525" club-nr="322" firstname="Felix" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER20">
+        <person licence-nr="142534" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="146" lastname="Rößler" ttr="1256" internal-nr="NU995063" club-nr="322" firstname="Jan" birthyear="1999" />
+      </player>
+      <player type="single" id="PLAYER21">
+        <person licence-nr="149675" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="113" lastname="Seker" ttr="1136" internal-nr="NU1137071" club-nr="407" firstname="Koray" birthyear="1999" />
+      </player>
+      <player type="single" id="PLAYER22">
+        <person licence-nr="149175" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="124" lastname="Stadter" ttr="1170" internal-nr="NU1133394" club-nr="322" firstname="Bastian" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER23">
+        <person licence-nr="142509" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="160" lastname="Stiel" ttr="1145" internal-nr="NU994788" club-nr="322" firstname="Lukas" birthyear="1999" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Mädchen U 15" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER24">
+        <person licence-nr="130612" club-federation-nickname="BaTTV" club-name="TTG 1956 Neckarbischofsheim" sex="0" ttr-match-count="261" lastname="Bohnet" ttr="1197" internal-nr="NU865228" club-nr="920" firstname="Celine" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER25">
+        <person licence-nr="165223" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="0" ttr-match-count="77" lastname="Holfelder" ttr="876" internal-nr="NU587461" club-nr="407" firstname="Sarah" birthyear="1999" />
+      </player>
+      <player type="single" id="PLAYER26">
+        <person licence-nr="147474" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="105" lastname="Lorenz" ttr="890" internal-nr="NU1120992" club-nr="428" firstname="Kim" birthyear="1998" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Mädchen U 18" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER27">
+        <person licence-nr="147475" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="106" lastname="Maciejewski" ttr="914" internal-nr="NU1120994" club-nr="428" firstname="Meike" birthyear="1997" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-remarks="-" age-group="Jungen U 18" type="Einzel" p2:satzdifferenz="true" p2:gewinnsätze="3" p2:sonnebornberger="true" xmlns:p2="http://www.ttc-langensteinbach.de">
+    <players>
+      <player type="single" id="PLAYER28">
+        <person licence-nr="170225" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Akin" internal-nr="NU1360042" club-nr="128" firstname="Mikail" birthyear="1999" ttr="0" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER29">
+        <person licence-nr="171058" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="0" lastname="Axtmann" internal-nr="NU1367324" club-nr="428" firstname="Dominik" birthyear="1999" ttr="0" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER30">
+        <person licence-nr="121511" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="155" lastname="Bauer" ttr="1276" internal-nr="NU716186" club-nr="803" firstname="Maximilian" birthyear="1995" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER31">
+        <person licence-nr="161858" club-federation-nickname="BaTTV" club-name="FC Dörlesberg e.V. 1946 " sex="0" ttr-match-count="69" lastname="Behringer" ttr="1007" internal-nr="NU1282955" club-nr="1004" firstname="Felicia" birthyear="2003" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER32">
+        <person licence-nr="159495" club-federation-nickname="BaTTV" club-name="TV 1895 e.V. Bad Rappenau" sex="1" ttr-match-count="30" lastname="Belz" ttr="912" internal-nr="NU1256716" club-nr="923" firstname="Maik" birthyear="2000" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER33">
+        <person licence-nr="130612" club-federation-nickname="BaTTV" club-name="TTG 1956 Neckarbischofsheim" sex="0" ttr-match-count="261" lastname="Bohnet" ttr="1197" internal-nr="NU865228" club-nr="920" firstname="Celine" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER34">
+        <person licence-nr="143714" club-federation-nickname="BaTTV" club-name="TTG 1956 Neckarbischofsheim" sex="1" ttr-match-count="225" lastname="Bohnet" ttr="1423" internal-nr="NU1084203" club-nr="920" firstname="Nick" birthyear="2002" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER35">
+        <person licence-nr="139772" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="134" lastname="Busse" ttr="1209" internal-nr="NU976971" club-nr="803" firstname="Jonathan" birthyear="1995" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER36">
+        <person licence-nr="121471" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="148" lastname="Ciupke" ttr="1116" internal-nr="NU716147" club-nr="803" firstname="Marian" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER37">
+        <person licence-nr="170222" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Demirkol" internal-nr="NU1360033" club-nr="128" firstname="Adem" birthyear="1997" ttr="0" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER38">
+        <person licence-nr="166278" club-federation-nickname="BaTTV" club-name="TV 1900 Oberhausen e.V." sex="1" ttr-match-count="28" lastname="Franz" ttr="1044" internal-nr="NU1319810" club-nr="124" firstname="Johannes" birthyear="2002" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER39">
+        <person licence-nr="06051202" club-federation-nickname="TTVWH" club-name="SpVgg Oedheim" sex="0" ttr-match-count="50" lastname="Fränznick" ttr="929" internal-nr="NU1261969" club-nr="06051" firstname="Jasmin" birthyear="2001" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER40">
+        <person licence-nr="06051201" club-federation-nickname="TTVWH" club-name="SpVgg Oedheim" sex="1" ttr-match-count="35" lastname="Fränznick" ttr="771" internal-nr="NU1261968" club-nr="06051" firstname="Simon" birthyear="2004" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER41">
+        <person licence-nr="140573" club-federation-nickname="BaTTV" club-name="DJK St. Hildegard Käfertal Süd" sex="1" ttr-match-count="155" lastname="Glebov" ttr="1297" internal-nr="NU981977" club-nr="503" firstname="Andreas" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER42">
+        <person licence-nr="109755" club-federation-nickname="BaTTV" club-name="TTV &quot;Grün-Weiss&quot; Rohrbach" sex="1" ttr-match-count="79" lastname="Heinle" ttr="1209" internal-nr="NU503602" club-nr="925" firstname="Simon" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER43">
+        <person licence-nr="152738" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="84" lastname="Held" ttr="1124" internal-nr="NU1169318" club-nr="407" firstname="Julian" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER44">
+        <person licence-nr="161583" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="13" lastname="Henning" ttr="809" internal-nr="NU1281063" club-nr="428" firstname="Lukas" birthyear="2000" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER45">
+        <person licence-nr="165223" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="0" ttr-match-count="77" lastname="Holfelder" ttr="876" internal-nr="NU587461" club-nr="407" firstname="Sarah" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER46">
+        <person licence-nr="24015196" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="74" lastname="Holub" ttr="1096" internal-nr="NU1255671" club-nr="24015" firstname="Luca" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER47">
+        <person licence-nr="171378" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="0" lastname="Höll" internal-nr="NU1371823" club-nr="428" firstname="Marius" birthyear="2001" ttr="0" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER48">
+        <person licence-nr="146376" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="94" lastname="Knothe" ttr="1182" internal-nr="NU1104478" club-nr="407" firstname="David" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER49">
+        <person licence-nr="14036391" club-federation-nickname="TTVWH" club-name="DJK Sportbund Stuttgart" sex="1" ttr-match-count="42" lastname="Kolarski" ttr="1121" internal-nr="NU1256637" club-nr="14036" firstname="Radovan" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER50">
+        <person licence-nr="74678" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="35" lastname="Köhler" ttr="1029" internal-nr="NU452525" club-nr="322" firstname="Felix" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER51">
+        <person licence-nr="136806" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="151" lastname="König" ttr="1272" internal-nr="NU491288" club-nr="704" firstname="Ricky" birthyear="1996" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER52">
+        <person licence-nr="105198" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="159" lastname="Küsters" ttr="1146" internal-nr="NU463072" club-nr="803" firstname="Patrick" birthyear="1995" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER53">
+        <person licence-nr="170457" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="31" lastname="Lange" ttr="973" internal-nr="NU1264473" club-nr="407" firstname="Philipp" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER54">
+        <person licence-nr="157598" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="42" lastname="Lee" ttr="1205" internal-nr="NU1230540" club-nr="407" firstname="Young-Kwang" birthyear="1995" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER55">
+        <person licence-nr="143328" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="53" lastname="Lippa" ttr="1042" internal-nr="NU1072493" club-nr="713" firstname="André" birthyear="1996" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER56">
+        <person licence-nr="147474" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="105" lastname="Lorenz" ttr="890" internal-nr="NU1120992" club-nr="428" firstname="Kim" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER57">
+        <person licence-nr="160253" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="28" lastname="Lorenz" ttr="887" internal-nr="NU1262117" club-nr="428" firstname="Lenny" birthyear="2002" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER58">
+        <person licence-nr="136713" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="130" lastname="Maciejewski" ttr="923" internal-nr="NU944733" club-nr="428" firstname="Andrea" birthyear="2000" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER59">
+        <person licence-nr="136714" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="130" lastname="Maciejewski" ttr="913" internal-nr="NU944734" club-nr="428" firstname="Hanna" birthyear="2000" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER60">
+        <person licence-nr="147475" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="106" lastname="Maciejewski" ttr="914" internal-nr="NU1120994" club-nr="428" firstname="Meike" birthyear="1997" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER61">
+        <person licence-nr="157035" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="26" lastname="Mettler" ttr="868" internal-nr="NU1229082" club-nr="724" firstname="Lukas" birthyear="1999" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER62">
+        <person licence-nr="104923" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="97" lastname="Neudeck" ttr="1192" internal-nr="NU452820" club-nr="713" firstname="Yannik" birthyear="1997" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER63">
+        <person licence-nr="24015190" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="115" lastname="Neumaier" ttr="1229" internal-nr="NU1161447" club-nr="24015" firstname="Marcel" birthyear="2000" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER64">
+        <person licence-nr="24015207" club-federation-nickname="SbTTV" club-name="TTSF Hohberg" sex="1" ttr-match-count="44" lastname="Neumaier" ttr="927" internal-nr="NU1288453" club-nr="24015" firstname="Nico" birthyear="2003" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER65">
+        <person licence-nr="152229" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="68" lastname="Nöller" ttr="881" internal-nr="NU1164639" club-nr="428" firstname="Lea" birthyear="2000" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER66">
+        <person licence-nr="152230" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="19" lastname="Nöller" ttr="719" internal-nr="NU1164641" club-nr="428" firstname="Luke" birthyear="2003" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER67">
+        <person licence-nr="142502" club-federation-nickname="BaTTV" club-name="TV 1900 Oberhausen e.V." sex="0" ttr-match-count="139" lastname="Prautzsch" ttr="1101" internal-nr="NU994730" club-nr="124" firstname="Lisa" birthyear="2000" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER68">
+        <person licence-nr="142715" club-federation-nickname="BaTTV" club-name="1. TTC Ersingen 1957 e.V." sex="1" ttr-match-count="101" lastname="Reiling" ttr="1091" internal-nr="NU1067844" club-nr="708" firstname="Lukas" birthyear="2002" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER69">
+        <person licence-nr="163298" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="21" lastname="Ried" ttr="922" internal-nr="NU1294131" club-nr="428" firstname="Leon" birthyear="2001" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER70">
+        <person licence-nr="142534" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="146" lastname="Rößler" ttr="1256" internal-nr="NU995063" club-nr="322" firstname="Jan" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER71">
+        <person licence-nr="104842" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="79" lastname="Saleika" ttr="1022" internal-nr="NU452739" club-nr="428" firstname="Daniel" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER72">
+        <person licence-nr="141094" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="92" lastname="Schilling" ttr="1157" internal-nr="NU990252" club-nr="322" firstname="Jan Luca" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER73">
+        <person licence-nr="120231" club-federation-nickname="BaTTV" club-name="TTV Bilfingen e.V." sex="1" ttr-match-count="107" lastname="Schwager" ttr="1144" internal-nr="NU694266" club-nr="743" firstname="Max" birthyear="1998" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER74">
+        <person licence-nr="149675" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="113" lastname="Seker" ttr="1136" internal-nr="NU1137071" club-nr="407" firstname="Koray" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER75">
+        <person licence-nr="159174" club-federation-nickname="BaTTV" club-name="TV 1895 e.V. Bad Rappenau" sex="1" ttr-match-count="25" lastname="Singh" ttr="841" internal-nr="NU1255774" club-nr="923" firstname="Sidharth Rahul" birthyear="2000" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER76">
+        <person licence-nr="149175" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="124" lastname="Stadter" ttr="1170" internal-nr="NU1133394" club-nr="322" firstname="Bastian" birthyear="1998" p5:anwesend="true" p5:abwesend="false" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER77">
+        <person licence-nr="134892" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="187" lastname="Stegemann" ttr="1356" internal-nr="NU932628" club-nr="407" firstname="Torben" birthyear="2000" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER78">
+        <person licence-nr="142509" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="160" lastname="Stiel" ttr="1145" internal-nr="NU994788" club-nr="322" firstname="Lukas" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER79">
+        <person licence-nr="156314" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="30" lastname="Stoll" ttr="880" internal-nr="NU1225723" club-nr="724" firstname="Simon" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER80">
+        <person licence-nr="157315" club-federation-nickname="BaTTV" club-name="DJK St. Hildegard Käfertal Süd" sex="1" ttr-match-count="97" lastname="Suveren" ttr="1348" internal-nr="NU1229751" club-nr="503" firstname="Mehmet" birthyear="1995" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER81">
+        <person licence-nr="121572" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="153" lastname="Treib" ttr="1220" internal-nr="NU716266" club-nr="803" firstname="Sebastian" birthyear="1997" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER82">
+        <person licence-nr="142716" club-federation-nickname="BaTTV" club-name="1. TTC Ersingen 1957 e.V." sex="1" ttr-match-count="99" lastname="Wackernagel" ttr="995" internal-nr="NU1067825" club-nr="708" firstname="Niko" birthyear="2002" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER83">
+        <person licence-nr="139174" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="65" lastname="Weber" ttr="1023" internal-nr="NU969753" club-nr="724" firstname="Noah" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER84">
+        <person licence-nr="147294" club-federation-nickname="BaTTV" club-name="SC Wettersbach" sex="1" ttr-match-count="88" lastname="Wintermeyer" ttr="1000" internal-nr="NU1120244" club-nr="444" firstname="Luca" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER85">
+        <person licence-nr="151903" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="0" ttr-match-count="142" lastname="Yilmaz" ttr="1098" internal-nr="NU1162636" club-nr="803" firstname="Selia" birthyear="2001" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER86">
+        <person licence-nr="151904" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="74" lastname="Yilmaz" ttr="978" internal-nr="NU1162637" club-nr="803" firstname="Zidan" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <player type="single" id="PLAYER87">
+        <person licence-nr="142504" club-federation-nickname="BaTTV" club-name="TV 1900 Oberhausen e.V." sex="1" ttr-match-count="65" lastname="Zobotzik" ttr="1121" internal-nr="NU994737" club-nr="124" firstname="Thomas" birthyear="1999" p5:anwesend="false" p5:abwesend="true" xmlns:p5="http://www.ttc-langensteinbach.de" />
+      </player>
+      <ppc:player xmlns:ppc="http://www.ttc-langensteinbach.de" id="PLAYER-1">
+        <person club-name="" sex="1" ttr-match-count="0" firstname="Heinz" lastname="Kunz" ttr="1275" licence-nr="-1" birthyear="0" ppc:abwesend="false" ppc:anwesend="true" />
+      </ppc:player>
+      <ppc:player xmlns:ppc="http://www.ttc-langensteinbach.de" id="PLAYER-2">
+        <person club-name="" sex="0" ttr-match-count="0" firstname="Andrea" lastname="Buschmann" ttr="1123" licence-nr="-2" birthyear="0" ppc:abwesend="false" ppc:anwesend="true" />
+      </ppc:player>
+    </players>
+    <matches xmlns:ppc="http://www.ttc-langensteinbach.de">
+      <ppc:match player-a="PLAYER34" player-b="PLAYER-2" games-a="33" games-b="18" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 17:48" group="Runde 1" nr="1" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="6" set-b-2="4" set-b-3="8" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER67" games-a="34" games-b="22" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 17:48" group="Runde 1" nr="2" set-a-1="11" set-a-2="12" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="9" set-b-2="10" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER35" player-b="PLAYER31" games-a="41" games-b="27" sets-a="3" sets-b="1" matches-a="1" matches-b="0" scheduled="2013-07-09 17:48" group="Runde 1" nr="3" set-a-1="11" set-a-2="8" set-a-3="11" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="11" set-b-3="9" set-b-4="4" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER76" player-b="PLAYER58" games-a="33" games-b="19" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 17:48" group="Runde 1" nr="4" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="8" set-b-2="6" set-b-3="5" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER52" player-b="PLAYER59" games-a="33" games-b="11" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 17:48" group="Runde 1" nr="5" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="2" set-b-2="4" set-b-3="5" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER61" group="Runde 1" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER52" games-a="34" games-b="21" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:01" group="Runde 2" nr="1" set-a-1="11" set-a-2="12" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="8" set-b-2="10" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER35" games-a="43" games-b="48" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:01" group="Runde 2" nr="2" set-a-1="3" set-a-2="11" set-a-3="11" set-a-4="8" set-a-5="10" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="8" set-b-3="6" set-b-4="11" set-b-5="12" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER61" player-b="PLAYER76" games-a="29" games-b="43" sets-a="1" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:01" group="Runde 2" nr="3" set-a-1="4" set-a-2="3" set-a-3="11" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="8" set-b-4="13" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER58" player-b="PLAYER-2" games-a="40" games-b="52" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:01" group="Runde 2" nr="4" set-a-1="8" set-a-2="2" set-a-3="11" set-a-4="12" set-a-5="7" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="9" set-b-4="10" set-b-5="11" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER67" player-b="PLAYER31" games-a="49" games-b="44" sets-a="3" sets-b="2" matches-a="1" matches-b="0" scheduled="2013-07-09 18:01" group="Runde 2" nr="5" set-a-1="11" set-a-2="12" set-a-3="8" set-a-4="7" set-a-5="11" set-a-6="0" set-a-7="0" set-b-1="9" set-b-2="10" set-b-3="11" set-b-4="11" set-b-5="3" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER59" group="Runde 2" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER35" games-a="47" games-b="49" sets-a="3" sets-b="2" matches-a="1" matches-b="0" scheduled="2013-07-09 18:08" group="Runde 3" nr="1" set-a-1="11" set-a-2="2" set-a-3="11" set-a-4="10" set-a-5="13" set-a-6="0" set-a-7="0" set-b-1="8" set-b-2="11" set-b-3="7" set-b-4="12" set-b-5="11" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER76" player-b="PLAYER67" games-a="47" games-b="45" sets-a="3" sets-b="2" matches-a="1" matches-b="0" scheduled="2013-07-09 18:08" group="Runde 3" nr="2" set-a-1="5" set-a-2="11" set-a-3="12" set-a-4="8" set-a-5="11" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="6" set-b-3="10" set-b-4="11" set-b-5="7" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER61" games-a="33" games-b="8" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:08" group="Runde 3" nr="3" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="2" set-b-2="4" set-b-3="2" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER52" player-b="PLAYER31" games-a="42" games-b="20" sets-a="3" sets-b="1" matches-a="1" matches-b="0" scheduled="2013-07-09 18:08" group="Runde 3" nr="4" set-a-1="11" set-a-2="11" set-a-3="9" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="4" set-b-3="11" set-b-4="2" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-2" player-b="PLAYER59" games-a="33" games-b="19" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:08" group="Runde 3" nr="5" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="8" set-b-2="5" set-b-3="6" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <ppc:freematch player="PLAYER58" group="Runde 3" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER76" games-a="57" games-b="47" sets-a="3" sets-b="2" matches-a="1" matches-b="0" scheduled="2013-07-09 18:13" group="Runde 4" nr="1" set-a-1="12" set-a-2="11" set-a-3="10" set-a-4="13" set-a-5="11" set-a-6="0" set-a-7="0" set-b-1="10" set-b-2="3" set-b-3="12" set-b-4="15" set-b-5="7" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER35" player-b="PLAYER52" games-a="25" games-b="40" sets-a="1" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:13" group="Runde 4" nr="2" set-a-1="7" set-a-2="11" set-a-3="3" set-a-4="4" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="7" set-b-3="11" set-b-4="11" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-2" player-b="PLAYER-1" games-a="42" games-b="48" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:13" group="Runde 4" nr="3" set-a-1="3" set-a-2="11" set-a-3="11" set-a-4="8" set-a-5="9" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="7" set-b-3="8" set-b-4="11" set-b-5="11" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER59" player-b="PLAYER58" games-a="37" games-b="48" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:13" group="Runde 4" nr="4" set-a-1="3" set-a-2="11" set-a-3="4" set-a-4="11" set-a-5="8" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="7" set-b-3="11" set-b-4="8" set-b-5="11" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER61" player-b="PLAYER67" games-a="7" games-b="33" sets-a="0" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:13" group="Runde 4" nr="5" set-a-1="2" set-a-2="3" set-a-3="2" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="11" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER31" group="Runde 4" scheduled="0001-01-01 00:00" />
+      <ppc:match player-a="PLAYER34" player-b="PLAYER-1" games-a="50" games-b="54" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:19" group="Runde 5" nr="1" set-a-1="8" set-a-2="11" set-a-3="12" set-a-4="11" set-a-5="8" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="9" set-b-3="10" set-b-4="13" set-b-5="11" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER76" player-b="PLAYER52" games-a="23" games-b="41" sets-a="1" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:19" group="Runde 5" nr="2" set-a-1="3" set-a-2="2" set-a-3="11" set-a-4="7" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="8" set-b-4="11" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER35" player-b="PLAYER58" games-a="33" games-b="12" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:19" group="Runde 5" nr="3" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="2" set-b-2="7" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-2" player-b="PLAYER61" games-a="57" games-b="60" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:19" group="Runde 5" nr="4" set-a-1="9" set-a-2="8" set-a-3="12" set-a-4="15" set-a-5="13" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="10" set-b-4="13" set-b-5="15" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER59" player-b="PLAYER31" games-a="41" games-b="56" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:19" group="Runde 5" nr="5" set-a-1="3" set-a-2="13" set-a-3="14" set-a-4="7" set-a-5="4" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="12" set-b-4="11" set-b-5="11" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER67" group="Runde 5" scheduled="0001-01-01 00:00" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER52" games-a="48" games-b="50" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:25" group="Runde 6" nr="1" set-a-1="8" set-a-2="9" set-a-3="12" set-a-4="11" set-a-5="8" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="10" set-b-4="7" set-b-5="11" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER34" player-b="PLAYER67" games-a="34" games-b="20" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:25" group="Runde 6" nr="2" set-a-1="11" set-a-2="11" set-a-3="12" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="7" set-b-3="10" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER76" player-b="PLAYER35" games-a="33" games-b="27" sets-a="3" sets-b="1" matches-a="1" matches-b="0" scheduled="2013-07-09 18:25" group="Runde 6" nr="3" set-a-1="0" set-a-2="11" set-a-3="11" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="3" set-b-3="9" set-b-4="4" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER59" player-b="PLAYER61" games-a="33" games-b="14" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:25" group="Runde 6" nr="4" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="4" set-b-3="7" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER58" player-b="PLAYER31" games-a="22" games-b="40" sets-a="1" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:25" group="Runde 6" nr="5" set-a-1="7" set-a-2="11" set-a-3="0" set-a-4="4" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="7" set-b-3="11" set-b-4="11" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER-2" group="Runde 6" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER31" games-a="33" games-b="17" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:38" group="Runde 7" nr="1" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="4" set-b-2="6" set-b-3="7" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER52" player-b="PLAYER67" games-a="43" games-b="52" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:38" group="Runde 7" nr="2" set-a-1="11" set-a-2="7" set-a-3="12" set-a-4="9" set-a-5="4" set-a-6="0" set-a-7="0" set-b-1="9" set-b-2="11" set-b-3="10" set-b-4="11" set-b-5="11" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER59" games-a="33" games-b="11" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:38" group="Runde 7" nr="3" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="4" set-b-2="3" set-b-3="4" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <ppc:match player-a="PLAYER76" player-b="PLAYER-2" games-a="43" games-b="52" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:38" group="Runde 7" nr="4" set-a-1="12" set-a-2="7" set-a-3="4" set-a-4="11" set-a-5="9" set-a-6="0" set-a-7="0" set-b-1="10" set-b-2="11" set-b-3="11" set-b-4="9" set-b-5="11" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER58" player-b="PLAYER61" games-a="42" games-b="48" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:38" group="Runde 7" nr="5" set-a-1="9" set-a-2="13" set-a-3="2" set-a-4="11" set-a-5="7" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="11" set-b-3="11" set-b-4="4" set-b-5="11" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER35" group="Runde 7" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER61" games-a="33" games-b="5" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:43" group="Runde 8" nr="1" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="2" set-b-2="0" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER52" player-b="PLAYER-2" games-a="31" games-b="37" sets-a="0" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:43" group="Runde 8" nr="2" set-a-1="9" set-a-2="10" set-a-3="12" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="12" set-b-3="14" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER31" games-a="43" games-b="30" sets-a="3" sets-b="1" matches-a="1" matches-b="0" scheduled="2013-07-09 18:43" group="Runde 8" nr="3" set-a-1="11" set-a-2="10" set-a-3="11" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="12" set-b-3="7" set-b-4="8" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER67" player-b="PLAYER58" games-a="33" games-b="19" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:43" group="Runde 8" nr="4" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="7" set-b-3="9" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER35" player-b="PLAYER59" games-a="33" games-b="12" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:43" group="Runde 8" nr="5" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="4" set-b-3="5" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER76" group="Runde 8" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER59" games-a="42" games-b="19" sets-a="3" sets-b="1" matches-a="1" matches-b="0" scheduled="2013-07-09 18:49" group="Runde 9" nr="1" set-a-1="11" set-a-2="11" set-a-3="9" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="5" set-b-3="11" set-b-4="3" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER58" games-a="33" games-b="11" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:49" group="Runde 9" nr="2" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="4" set-b-2="3" set-b-3="4" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER76" player-b="PLAYER31" games-a="49" games-b="39" sets-a="3" sets-b="2" matches-a="1" matches-b="0" scheduled="2013-07-09 18:49" group="Runde 9" nr="3" set-a-1="11" set-a-2="6" set-a-3="12" set-a-4="9" set-a-5="11" set-a-6="0" set-a-7="0" set-b-1="5" set-b-2="11" set-b-3="10" set-b-4="11" set-b-5="2" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER67" player-b="PLAYER-2" games-a="39" games-b="52" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:49" group="Runde 9" nr="4" set-a-1="4" set-a-2="10" set-a-3="13" set-a-4="11" set-a-5="1" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="12" set-b-3="11" set-b-4="7" set-b-5="11" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER35" player-b="PLAYER61" games-a="33" games-b="3" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:49" group="Runde 9" nr="5" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="1" set-b-2="1" set-b-3="1" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER52" group="Runde 9" scheduled="0001-01-01 00:00" />
+      <match player-a="PLAYER34" player-b="PLAYER58" games-a="33" games-b="12" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:54" group="Runde 10" nr="1" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5" set-b-2="3" set-b-3="4" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER52" player-b="PLAYER61" games-a="33" games-b="16" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:54" group="Runde 10" nr="2" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="3" set-b-2="6" set-b-3="7" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-2" player-b="PLAYER31" games-a="39" games-b="27" sets-a="3" sets-b="1" matches-a="1" matches-b="0" scheduled="2013-07-09 18:54" group="Runde 10" nr="3" set-a-1="6" set-a-2="11" set-a-3="11" set-a-4="11" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="11" set-b-2="8" set-b-3="2" set-b-4="6" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER76" player-b="PLAYER59" games-a="33" games-b="19" sets-a="3" sets-b="0" matches-a="1" matches-b="0" scheduled="2013-07-09 18:54" group="Runde 10" nr="4" set-a-1="11" set-a-2="11" set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="7" set-b-2="3" set-b-3="9" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER35" player-b="PLAYER67" games-a="51" games-b="53" sets-a="2" sets-b="3" matches-a="0" matches-b="1" scheduled="2013-07-09 18:54" group="Runde 10" nr="5" set-a-1="11" set-a-2="11" set-a-3="10" set-a-4="7" set-a-5="12" set-a-6="0" set-a-7="0" set-b-1="9" set-b-2="7" set-b-3="12" set-b-4="11" set-b-5="14" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER-1" group="Runde 10" scheduled="0001-01-01 00:00" />
+      <ppc:match player-a="PLAYER-1" player-b="PLAYER76" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="2013-07-09 18:59" group="Runde 11" nr="1" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER52" player-b="PLAYER58" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="2013-07-09 18:59" group="Runde 11" nr="2" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:match player-a="PLAYER-2" player-b="PLAYER35" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="2013-07-09 18:59" group="Runde 11" nr="3" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" xmlns:ppc="http://www.ttc-langensteinbach.de" />
+      <match player-a="PLAYER67" player-b="PLAYER59" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="2013-07-09 18:59" group="Runde 11" nr="4" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <match player-a="PLAYER61" player-b="PLAYER31" games-a="0" games-b="0" sets-a="0" sets-b="0" matches-a="0" matches-b="0" scheduled="2013-07-09 18:59" group="Runde 11" nr="5" set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0" />
+      <ppc:freematch player="PLAYER34" group="Runde 11" scheduled="0001-01-01 00:00" />
+      <ppc:inactiveplayer player="PLAYER28" group="0" />
+      <ppc:inactiveplayer player="PLAYER29" group="0" />
+      <ppc:inactiveplayer player="PLAYER37" group="0" />
+      <ppc:inactiveplayer player="PLAYER47" group="0" />
+      <ppc:inactiveplayer player="PLAYER66" group="0" />
+      <ppc:inactiveplayer player="PLAYER40" group="0" />
+      <ppc:inactiveplayer player="PLAYER44" group="0" />
+      <ppc:inactiveplayer player="PLAYER75" group="0" />
+      <ppc:inactiveplayer player="PLAYER45" group="0" />
+      <ppc:inactiveplayer player="PLAYER79" group="0" />
+      <ppc:inactiveplayer player="PLAYER65" group="0" />
+      <ppc:inactiveplayer player="PLAYER57" group="0" />
+      <ppc:inactiveplayer player="PLAYER56" group="0" />
+      <ppc:inactiveplayer player="PLAYER32" group="0" />
+      <ppc:inactiveplayer player="PLAYER60" group="0" />
+      <ppc:inactiveplayer player="PLAYER69" group="0" />
+      <ppc:inactiveplayer player="PLAYER64" group="0" />
+      <ppc:inactiveplayer player="PLAYER39" group="0" />
+      <ppc:inactiveplayer player="PLAYER53" group="0" />
+      <ppc:inactiveplayer player="PLAYER86" group="0" />
+      <ppc:inactiveplayer player="PLAYER82" group="0" />
+      <ppc:inactiveplayer player="PLAYER84" group="0" />
+      <ppc:inactiveplayer player="PLAYER71" group="0" />
+      <ppc:inactiveplayer player="PLAYER83" group="0" />
+      <ppc:inactiveplayer player="PLAYER50" group="0" />
+      <ppc:inactiveplayer player="PLAYER55" group="0" />
+      <ppc:inactiveplayer player="PLAYER38" group="0" />
+      <ppc:inactiveplayer player="PLAYER68" group="0" />
+      <ppc:inactiveplayer player="PLAYER46" group="0" />
+      <ppc:inactiveplayer player="PLAYER85" group="0" />
+      <ppc:inactiveplayer player="PLAYER36" group="0" />
+      <ppc:inactiveplayer player="PLAYER49" group="0" />
+      <ppc:inactiveplayer player="PLAYER87" group="0" />
+      <ppc:inactiveplayer player="PLAYER43" group="0" />
+      <ppc:inactiveplayer player="PLAYER74" group="0" />
+      <ppc:inactiveplayer player="PLAYER73" group="0" />
+      <ppc:inactiveplayer player="PLAYER78" group="0" />
+      <ppc:inactiveplayer player="PLAYER72" group="0" />
+      <ppc:inactiveplayer player="PLAYER48" group="0" />
+      <ppc:inactiveplayer player="PLAYER62" group="0" />
+      <ppc:inactiveplayer player="PLAYER33" group="0" />
+      <ppc:inactiveplayer player="PLAYER54" group="0" />
+      <ppc:inactiveplayer player="PLAYER42" group="0" />
+      <ppc:inactiveplayer player="PLAYER81" group="0" />
+      <ppc:inactiveplayer player="PLAYER63" group="0" />
+      <ppc:inactiveplayer player="PLAYER70" group="0" />
+      <ppc:inactiveplayer player="PLAYER51" group="0" />
+      <ppc:inactiveplayer player="PLAYER30" group="0" />
+      <ppc:inactiveplayer player="PLAYER41" group="0" />
+      <ppc:inactiveplayer player="PLAYER80" group="0" />
+      <ppc:inactiveplayer player="PLAYER77" group="0" />
+    </matches>
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-from="0" ttr-to="1350" age-group="Damen B" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER88">
+        <person licence-nr="108302" club-federation-nickname="BaTTV" club-name="SV 1962 Bruchsal eV" sex="0" ttr-match-count="100" lastname="Bardoll" ttr="1132" internal-nr="NU483092" club-nr="104" firstname="Miriam" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER89">
+        <person licence-nr="69384" club-federation-nickname="BaTTV" club-name="FC Nöttingen e.V." sex="0" ttr-match-count="163" lastname="Biendl" ttr="1303" internal-nr="NU428529" club-nr="722" firstname="Indra" birthyear="1976" />
+      </player>
+      <player type="single" id="PLAYER90">
+        <person licence-nr="133051" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="345" lastname="Breitner" ttr="1287" internal-nr="NU475719" club-nr="118" firstname="Saskia" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER91">
+        <person licence-nr="126491" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="257" lastname="Dengel" ttr="1285" internal-nr="NU773146" club-nr="118" firstname="Laura" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER92">
+        <person licence-nr="69671" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="195" lastname="Friedrich" ttr="1173" internal-nr="NU447216" club-nr="428" firstname="Valeska" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER93">
+        <person licence-nr="53079" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="236" lastname="Hefner" ttr="1155" internal-nr="NU440067" club-nr="118" firstname="Christiane" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER94">
+        <person licence-nr="106935" club-federation-nickname="BaTTV" club-name="TV Viktoria 1894 Dielheim e.V." sex="0" ttr-match-count="155" lastname="Krüger" ttr="1005" internal-nr="NU475717" club-nr="303" firstname="Julia" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER95">
+        <person licence-nr="52821" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="217" lastname="Ullrich" ttr="1333" internal-nr="NU439989" club-nr="118" firstname="Jasmin" birthyear="1979" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-08 11:00" ttr-from="0" ttr-to="1350" age-group="Herren D" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER96">
+        <person licence-nr="73774" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="22" lastname="Abdulkarim" ttr="1165" internal-nr="NU449173" club-nr="724" firstname="Nabil" birthyear="1965" />
+      </player>
+      <player type="single" id="PLAYER97">
+        <person licence-nr="108302" club-federation-nickname="BaTTV" club-name="SV 1962 Bruchsal eV" sex="0" ttr-match-count="100" lastname="Bardoll" ttr="1132" internal-nr="NU483092" club-nr="104" firstname="Miriam" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER98">
+        <person licence-nr="156297" club-federation-nickname="BaTTV" club-name="1. TC Ittersbach" sex="1" ttr-match-count="22" lastname="Benko" ttr="1237" internal-nr="NU1225454" club-nr="714" firstname="Robert" birthyear="1962" />
+      </player>
+      <player type="single" id="PLAYER99">
+        <person licence-nr="12041095" club-federation-nickname="TTVWH" club-name="TTG Unterreichenbach-Dennjächt" sex="1" ttr-match-count="107" lastname="Bernhardt" ttr="1286" internal-nr="NU909546" club-nr="12041" firstname="Michael" birthyear="1992" />
+      </player>
+      <player type="single" id="PLAYER100">
+        <person licence-nr="69384" club-federation-nickname="BaTTV" club-name="FC Nöttingen e.V." sex="0" ttr-match-count="163" lastname="Biendl" ttr="1303" internal-nr="NU428529" club-nr="722" firstname="Indra" birthyear="1976" />
+      </player>
+      <player type="single" id="PLAYER101">
+        <person licence-nr="132551" club-federation-nickname="BaTTV" club-name="TTV Bilfingen e.V." sex="1" ttr-match-count="101" lastname="Biendl" ttr="1288" internal-nr="NU909850" club-nr="743" firstname="Sven" birthyear="1970" />
+      </player>
+      <player type="single" id="PLAYER102">
+        <person licence-nr="53457" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="171" lastname="Brecht" ttr="1299" internal-nr="NU440192" club-nr="128" firstname="Manuel" birthyear="1977" />
+      </player>
+      <player type="single" id="PLAYER103">
+        <person licence-nr="107128" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="179" lastname="Breitner" ttr="1203" internal-nr="NU477076" club-nr="322" firstname="Luca" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER104">
+        <person licence-nr="133051" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="345" lastname="Breitner" ttr="1287" internal-nr="NU475719" club-nr="118" firstname="Saskia" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER105">
+        <person licence-nr="126491" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="257" lastname="Dengel" ttr="1285" internal-nr="NU773146" club-nr="118" firstname="Laura" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER106">
+        <person licence-nr="67178" club-federation-nickname="BaTTV" club-name="SV 1962 Bruchsal eV" sex="1" ttr-match-count="182" lastname="Errerd" ttr="1305" internal-nr="NU448085" club-nr="104" firstname="Klaus" birthyear="1957" />
+      </player>
+      <player type="single" id="PLAYER107">
+        <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981" />
+      </player>
+      <player type="single" id="PLAYER108">
+        <person licence-nr="109075" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="171" lastname="Fabricius" ttr="1326" internal-nr="NU490963" club-nr="703" firstname="Dominik" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER109">
+        <person licence-nr="03034096" club-federation-nickname="TTVWH" club-name="TSV Weissach" sex="1" ttr-match-count="148" lastname="Fauth" ttr="1092" internal-nr="NU388553" club-nr="03034" firstname="Thomas" birthyear="1994" />
+      </player>
+      <player type="single" id="PLAYER110">
+        <person licence-nr="66285" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="185" lastname="Flörchinger" ttr="1297" internal-nr="NU445902" club-nr="128" firstname="Walter" birthyear="1943" />
+      </player>
+      <player type="single" id="PLAYER111">
+        <person licence-nr="69671" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="0" ttr-match-count="195" lastname="Friedrich" ttr="1173" internal-nr="NU447216" club-nr="428" firstname="Valeska" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER112">
+        <person licence-nr="12018041" club-federation-nickname="TTVWH" club-name="SV Gültlingen" sex="1" ttr-match-count="155" lastname="Gross" ttr="1194" internal-nr="NU161035" club-nr="12018" firstname="Harald" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER113">
+        <person licence-nr="161281" club-federation-nickname="BaTTV" club-name="TTC Weingarten e.V." sex="1" ttr-match-count="24" lastname="Haug" ttr="1279" internal-nr="NU177970" club-nr="443" firstname="Michael" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER114">
+        <person licence-nr="25338" club-federation-nickname="BaTTV" club-name="TTG 1947 Walldorf e.V." sex="1" ttr-match-count="135" lastname="Hausmann" ttr="1304" internal-nr="NU437130" club-nr="335" firstname="Peter" birthyear="1940" />
+      </player>
+      <player type="single" id="PLAYER115">
+        <person licence-nr="53079" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="236" lastname="Hefner" ttr="1155" internal-nr="NU440067" club-nr="118" firstname="Christiane" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER116">
+        <person licence-nr="71617" club-federation-nickname="BaTTV" club-name="TTV 1961 Zeutern e.V." sex="1" ttr-match-count="199" lastname="Holzwarth" ttr="1255" internal-nr="NU449510" club-nr="139" firstname="Patrick" birthyear="1988" />
+      </player>
+      <player type="single" id="PLAYER117">
+        <person licence-nr="55996" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="226" lastname="Horner" ttr="1347" internal-nr="NU441262" club-nr="432" firstname="Rudolf" birthyear="1948" />
+      </player>
+      <player type="single" id="PLAYER118">
+        <person licence-nr="169099" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="0" lastname="Jäkel" internal-nr="NU1351834" club-nr="432" firstname="Lars" birthyear="1978" ttr="0" />
+      </player>
+      <player type="single" id="PLAYER119">
+        <person licence-nr="12018048" club-federation-nickname="TTVWH" club-name="SV Gültlingen" sex="1" ttr-match-count="162" lastname="Kahle" ttr="1231" internal-nr="NU2933" club-nr="12018" firstname="Mario" birthyear="1988" />
+      </player>
+      <player type="single" id="PLAYER120">
+        <person licence-nr="34305" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="153" lastname="Kellenberger" ttr="1181" internal-nr="NU438219" club-nr="713" firstname="Claus" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER121">
+        <person licence-nr="139152" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="95" lastname="Klett" ttr="1181" internal-nr="NU969692" club-nr="713" firstname="Tim" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER122">
+        <person licence-nr="60347" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="160" lastname="Kling" ttr="1217" internal-nr="NU445072" club-nr="703" firstname="Marco" birthyear="1984" />
+      </player>
+      <player type="single" id="PLAYER123">
+        <person licence-nr="06038131" club-federation-nickname="TTVWH" club-name="SV Leingarten" sex="1" ttr-match-count="0" lastname="Kocon" internal-nr="NU1324270" club-nr="06038" firstname="Patrick" birthyear="1979" ttr="0" />
+      </player>
+      <player type="single" id="PLAYER124">
+        <person licence-nr="106935" club-federation-nickname="BaTTV" club-name="TV Viktoria 1894 Dielheim e.V." sex="0" ttr-match-count="155" lastname="Krüger" ttr="1005" internal-nr="NU475717" club-nr="303" firstname="Julia" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER125">
+        <person licence-nr="28754" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="165" lastname="Kullack" ttr="1274" internal-nr="NU437525" club-nr="432" firstname="Dirk" birthyear="1968" />
+      </player>
+      <player type="single" id="PLAYER126">
+        <person licence-nr="127011" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="47" lastname="Kullack" ttr="1026" internal-nr="NU768358" club-nr="432" firstname="Filippo" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER127">
+        <person licence-nr="146654" club-federation-nickname="BaTTV" club-name="TV 1897 Forst eV" sex="1" ttr-match-count="47" lastname="Kumb" ttr="1129" internal-nr="NU1108964" club-nr="108" firstname="Alan" birthyear="1986" />
+      </player>
+      <player type="single" id="PLAYER128">
+        <person licence-nr="63938" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="239" lastname="Kühn" ttr="1269" internal-nr="NU444268" club-nr="713" firstname="Dennis" birthyear="1988" />
+      </player>
+      <player type="single" id="PLAYER129">
+        <person licence-nr="130272" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="175" lastname="Lessing" ttr="1276" internal-nr="NU12278" club-nr="724" firstname="Klaus" birthyear="1966" />
+      </player>
+      <player type="single" id="PLAYER130">
+        <person licence-nr="66655" club-federation-nickname="BaTTV" club-name="TTG Spöck 2010 e.V." sex="1" ttr-match-count="86" lastname="Maus" ttr="1158" internal-nr="NU446633" club-nr="474" firstname="Daniel" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER131">
+        <person licence-nr="112351" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="78" lastname="Mayer" ttr="1085" internal-nr="NU590898" club-nr="713" firstname="Ewald" birthyear="1976" />
+      </player>
+      <player type="single" id="PLAYER132">
+        <person licence-nr="67663" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="235" lastname="Mühleck" ttr="1244" internal-nr="NU445521" club-nr="703" firstname="Thomas" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER133">
+        <person licence-nr="68412" club-federation-nickname="BaTTV" club-name="TTC Weingarten e.V." sex="1" ttr-match-count="218" lastname="Münzing" ttr="1295" internal-nr="NU447407" club-nr="443" firstname="Timo" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER134">
+        <person licence-nr="148475" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="106" lastname="Neumann" ttr="1265" internal-nr="NU1124914" club-nr="703" firstname="Marius" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER135">
+        <person licence-nr="70345" club-federation-nickname="BaTTV" club-name="TV Viktoria 1894 Dielheim e.V." sex="1" ttr-match-count="224" lastname="Pastorini" ttr="1331" internal-nr="NU445410" club-nr="303" firstname="Manuel" birthyear="1976" />
+      </player>
+      <player type="single" id="PLAYER136">
+        <person licence-nr="74807" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="141" lastname="Prautzsch" ttr="1193" internal-nr="NU449242" club-nr="128" firstname="Bernd" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER137">
+        <person licence-nr="113153" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="109" lastname="Reichardt" ttr="1189" internal-nr="NU595503" club-nr="703" firstname="Mike" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER138">
+        <person licence-nr="64120" club-federation-nickname="BaTTV" club-name="TSV Karlsdorf" sex="1" ttr-match-count="61" lastname="Riffel" ttr="1225" internal-nr="NU444724" club-nr="116" firstname="Thomas" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER139">
+        <person licence-nr="22355" club-federation-nickname="BaTTV" club-name="TTG 1947 Walldorf e.V." sex="1" ttr-match-count="130" lastname="Scherer" ttr="1295" internal-nr="NU436651" club-nr="335" firstname="Achim" birthyear="1953" />
+      </player>
+      <player type="single" id="PLAYER140">
+        <person licence-nr="06052248" club-federation-nickname="TTVWH" club-name="TG Offenau" sex="1" ttr-match-count="78" lastname="Schmidt" ttr="1152" internal-nr="NU1159445" club-nr="06052" firstname="Andreas" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER141">
+        <person licence-nr="06044365" club-federation-nickname="TTVWH" club-name="NSU Neckarsulm" sex="1" ttr-match-count="124" lastname="Schmidt" ttr="1211" internal-nr="NU439589" club-nr="06044" firstname="Peter" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER142">
+        <person licence-nr="72536" club-federation-nickname="BaTTV" club-name="SV Büchenbronn e.V." sex="1" ttr-match-count="190" lastname="Scholl" ttr="1264" internal-nr="NU452179" club-nr="703" firstname="Oliver" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER143">
+        <person licence-nr="03034006" club-federation-nickname="TTVWH" club-name="TSV Weissach" sex="1" ttr-match-count="116" lastname="Schweikhardt" ttr="1277" internal-nr="NU149800" club-nr="03034" firstname="Felix" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER144">
+        <person licence-nr="7311" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="174" lastname="Spindler" ttr="1226" internal-nr="NU434871" club-nr="128" firstname="Rolf" birthyear="1950" />
+      </player>
+      <player type="single" id="PLAYER145">
+        <person licence-nr="64843" club-federation-nickname="BaTTV" club-name="TTG 1947 Walldorf e.V." sex="1" ttr-match-count="183" lastname="Storzum" ttr="1285" internal-nr="NU442379" club-nr="335" firstname="Andreas" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER146">
+        <person licence-nr="74536" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="208" lastname="Stucky" ttr="1153" internal-nr="NU452044" club-nr="428" firstname="Jan-Philipp" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER147">
+        <person licence-nr="55367" club-federation-nickname="BaTTV" club-name="TV Busenbach 1905 e.V." sex="1" ttr-match-count="138" lastname="Sturm" ttr="1285" internal-nr="NU440617" club-nr="403" firstname="Tobias" birthyear="1978" />
+      </player>
+      <player type="single" id="PLAYER148">
+        <person licence-nr="52821" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="217" lastname="Ullrich" ttr="1333" internal-nr="NU439989" club-nr="118" firstname="Jasmin" birthyear="1979" />
+      </player>
+      <player type="single" id="PLAYER149">
+        <person licence-nr="49790" club-federation-nickname="BaTTV" club-name="VfR Rheinsheim" sex="1" ttr-match-count="181" lastname="Westermann" ttr="1284" internal-nr="NU439379" club-nr="128" firstname="Gerd" birthyear="1973" />
+      </player>
+      <player type="single" id="PLAYER150">
+        <person licence-nr="143323" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="1" ttr-match-count="46" lastname="Wild" ttr="1009" internal-nr="NU1072486" club-nr="713" firstname="Christian" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER151">
+        <person licence-nr="108866" club-federation-nickname="BaTTV" club-name="TV 1897 Forst eV" sex="1" ttr-match-count="178" lastname="Wolfert" ttr="1310" internal-nr="NU489193" club-nr="108" firstname="Till" birthyear="1996" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 08:30" ttr-from="1351" ttr-to="3000" age-group="Damen A" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER152">
+        <person licence-nr="106939" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="425" lastname="Dangel" ttr="1404" internal-nr="NU475722" club-nr="118" firstname="Judith" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER153">
+        <person licence-nr="73160" club-federation-nickname="BaTTV" club-name="TTC Weingarten e.V." sex="0" ttr-match-count="452" lastname="Elxnath" ttr="1392" internal-nr="NU450755" club-nr="443" firstname="Natascha" birthyear="1994" />
+      </player>
+      <player type="single" id="PLAYER154">
+        <person licence-nr="121831" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="327" lastname="Moch" ttr="1439" internal-nr="NU725126" club-nr="118" firstname="Vanessa" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER155">
+        <person licence-nr="66810" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="0" ttr-match-count="243" lastname="Müller" ttr="1413" internal-nr="NU447105" club-nr="704" firstname="Fiona" birthyear="1990" />
+      </player>
+      <player type="single" id="PLAYER156">
+        <person licence-nr="149694" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="0" ttr-match-count="147" lastname="Rothengass" ttr="1131" internal-nr="NU1137127" club-nr="611" firstname="Selina" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER157">
+        <person licence-nr="153101" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="0" ttr-match-count="50" lastname="Räuchle" ttr="900" internal-nr="NU447639" club-nr="713" firstname="Isabelle" birthyear="1986" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 08:30" ttr-from="1351" ttr-to="1450" age-group="Herren C" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER158">
+        <person licence-nr="73774" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="22" lastname="Abdulkarim" ttr="1165" internal-nr="NU449173" club-nr="724" firstname="Nabil" birthyear="1965" />
+      </player>
+      <player type="single" id="PLAYER159">
+        <person licence-nr="10470" club-federation-nickname="BaTTV" club-name="TSV Graben" sex="1" ttr-match-count="150" lastname="Auer" ttr="1424" internal-nr="NU435214" club-nr="111" firstname="Jürgen" birthyear="1958" />
+      </player>
+      <player type="single" id="PLAYER160">
+        <person licence-nr="70327" club-federation-nickname="BaTTV" club-name="TSV 1887 Sulzbach e.V." sex="1" ttr-match-count="164" lastname="Baritz" ttr="1242" internal-nr="NU445399" club-nr="1114" firstname="David" birthyear="1988" />
+      </player>
+      <player type="single" id="PLAYER161">
+        <person licence-nr="133311" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="196" lastname="Bastian" ttr="1350" internal-nr="NU915771" club-nr="407" firstname="Fabian" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER162">
+        <person licence-nr="54469" club-federation-nickname="BaTTV" club-name="TSV 1887 Sulzbach e.V." sex="1" ttr-match-count="204" lastname="Bauer" ttr="1357" internal-nr="NU440726" club-nr="1114" firstname="Michael" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER163">
+        <person licence-nr="109490" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="277" lastname="Bayoumi" ttr="1443" internal-nr="NU502540" club-nr="407" firstname="Tarek" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER164">
+        <person licence-nr="48438" club-federation-nickname="BaTTV" club-name="SSC Karlsruhe e.V." sex="1" ttr-match-count="164" lastname="Brauch" ttr="1354" internal-nr="NU438651" club-nr="422" firstname="Christian" birthyear="1971" />
+      </player>
+      <player type="single" id="PLAYER165">
+        <person licence-nr="24012" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="1" ttr-match-count="243" lastname="Bronner" ttr="1384" internal-nr="NU436529" club-nr="611" firstname="Jens" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER166">
+        <person licence-nr="132053" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="1" ttr-match-count="99" lastname="Bunjevac" ttr="1281" internal-nr="NU905508" club-nr="611" firstname="Peter" birthyear="1996" />
+      </player>
+      <player type="single" id="PLAYER167">
+        <person licence-nr="25003077" club-federation-nickname="SbTTV" club-name="TB Bad Rotenfels" sex="1" ttr-match-count="205" lastname="Burkhard" ttr="1365" internal-nr="NU947127" club-nr="25003" firstname="Frank" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER168">
+        <person licence-nr="109071" club-federation-nickname="BaTTV" club-name="TV 1897 Forst eV" sex="1" ttr-match-count="212" lastname="Dapper" ttr="1431" internal-nr="NU490959" club-nr="108" firstname="Thomas" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER169">
+        <person licence-nr="73160" club-federation-nickname="BaTTV" club-name="TTC Weingarten e.V." sex="0" ttr-match-count="452" lastname="Elxnath" ttr="1392" internal-nr="NU450755" club-nr="443" firstname="Natascha" birthyear="1994" />
+      </player>
+      <player type="single" id="PLAYER170">
+        <person licence-nr="61790" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="155" lastname="Fuchs" ttr="1349" internal-nr="NU443682" club-nr="428" firstname="Benjamin" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER171">
+        <person licence-nr="112931" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="1" ttr-match-count="115" lastname="Förg" ttr="1197" internal-nr="NU594561" club-nr="611" firstname="Maximilian" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER172">
+        <person licence-nr="54318" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="196" lastname="Garbatzki" ttr="1272" internal-nr="NU440695" club-nr="704" firstname="Rico" birthyear="1976" />
+      </player>
+      <player type="single" id="PLAYER173">
+        <person licence-nr="74572" club-federation-nickname="BaTTV" club-name="TSG Eintracht Plankstadt 1890 e.V." sex="1" ttr-match-count="228" lastname="Geberzahn" ttr="1446" internal-nr="NU452256" club-nr="812" firstname="Willi" birthyear="1940" />
+      </player>
+      <player type="single" id="PLAYER174">
+        <person licence-nr="61674" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="204" lastname="Glöckner" ttr="1282" internal-nr="NU443474" club-nr="724" firstname="Joachim" birthyear="1961" />
+      </player>
+      <player type="single" id="PLAYER175">
+        <person licence-nr="113856" club-federation-nickname="BaTTV" club-name="TTC Wöschbach 58 e.V." sex="1" ttr-match-count="298" lastname="Goldmann" ttr="1359" internal-nr="NU137474" club-nr="445" firstname="Christian" birthyear="1983" />
+      </player>
+      <player type="single" id="PLAYER176">
+        <person licence-nr="30779" club-federation-nickname="BaTTV" club-name="TTG Spöck 2010 e.V." sex="1" ttr-match-count="279" lastname="Gomez" ttr="1487" internal-nr="NU437419" club-nr="474" firstname="Miguel" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER177">
+        <person licence-nr="167999" club-federation-nickname="BaTTV" club-name="SVK Beiertheim 1884/1998 e.V." sex="1" ttr-match-count="0" lastname="Hagmann" internal-nr="NU517356" club-nr="425" firstname="Björn" birthyear="1967" ttr="0" />
+      </player>
+      <player type="single" id="PLAYER178">
+        <person licence-nr="24042041" club-federation-nickname="SbTTV" club-name="TUS Rammersweier" sex="1" ttr-match-count="222" lastname="Hansert" ttr="1274" internal-nr="NU179364" club-nr="24042" firstname="Jonas" birthyear="1988" />
+      </player>
+      <player type="single" id="PLAYER179">
+        <person licence-nr="24042129" club-federation-nickname="SbTTV" club-name="TUS Rammersweier" sex="1" ttr-match-count="223" lastname="Hansert" ttr="1383" internal-nr="NU179235" club-nr="24042" firstname="Simon" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER180">
+        <person licence-nr="70658" club-federation-nickname="BaTTV" club-name="SVK Beiertheim 1884/1998 e.V." sex="1" ttr-match-count="198" lastname="Heck" ttr="1391" internal-nr="NU446330" club-nr="425" firstname="Alexander" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER181">
+        <person licence-nr="48781" club-federation-nickname="BaTTV" club-name="SVK Beiertheim 1884/1998 e.V." sex="1" ttr-match-count="160" lastname="Hildebrand" ttr="1336" internal-nr="NU438745" club-nr="425" firstname="Gerhard" birthyear="1956" />
+      </player>
+      <player type="single" id="PLAYER182">
+        <person licence-nr="160878" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="247" lastname="Hornung" ttr="1404" internal-nr="NU178012" club-nr="428" firstname="Nicolas" birthyear="1984" />
+      </player>
+      <player type="single" id="PLAYER183">
+        <person licence-nr="69144" club-federation-nickname="BaTTV" club-name="SSC Karlsruhe e.V." sex="1" ttr-match-count="223" lastname="Höfling" ttr="1333" internal-nr="NU445793" club-nr="422" firstname="Friedrich" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER184">
+        <person licence-nr="64294" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="139" lastname="Imminger" ttr="1394" internal-nr="NU444996" club-nr="803" firstname="Kurt" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER185">
+        <person licence-nr="139532" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="91" lastname="Jacob" ttr="1422" internal-nr="NU974359" club-nr="432" firstname="Peter" birthyear="1943" />
+      </player>
+      <player type="single" id="PLAYER186">
+        <person licence-nr="73216" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="118" lastname="Jesse" ttr="1390" internal-nr="NU450990" club-nr="407" firstname="Kai" birthyear="1972" />
+      </player>
+      <player type="single" id="PLAYER187">
+        <person licence-nr="63649" club-federation-nickname="BaTTV" club-name="TTC Hamberg e.V." sex="1" ttr-match-count="209" lastname="Kern" ttr="1294" internal-nr="NU443531" club-nr="710" firstname="Harry" birthyear="1971" />
+      </player>
+      <player type="single" id="PLAYER188">
+        <person licence-nr="69736" club-federation-nickname="BaTTV" club-name="TTC Eisingen e.V." sex="1" ttr-match-count="198" lastname="Kiefer" ttr="1336" internal-nr="NU447454" club-nr="706" firstname="Patrick" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER189">
+        <person licence-nr="113673" club-federation-nickname="BaTTV" club-name="ASV Grünwettersbach" sex="1" ttr-match-count="201" lastname="Klittich" ttr="1325" internal-nr="NU595893" club-nr="412" firstname="Philipp" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER190">
+        <person licence-nr="57611" club-federation-nickname="BaTTV" club-name="TTC Wiesloch-Baiertal 52 e.V." sex="1" ttr-match-count="201" lastname="Lucas" ttr="1300" internal-nr="NU444561" club-nr="338" firstname="Florian" birthyear="1984" />
+      </player>
+      <player type="single" id="PLAYER191">
+        <person licence-nr="68469" club-federation-nickname="BaTTV" club-name="TTC Hamberg e.V." sex="1" ttr-match-count="156" lastname="Läpple" ttr="1212" internal-nr="NU447640" club-nr="710" firstname="Marcus" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER192">
+        <person licence-nr="111543" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="192" lastname="Maciejewski" ttr="1310" internal-nr="NU587161" club-nr="407" firstname="Jonas" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER193">
+        <person licence-nr="73567" club-federation-nickname="BaTTV" club-name="TS Durlach 1846 e.V. " sex="1" ttr-match-count="178" lastname="Meier-Menzel" ttr="1352" internal-nr="NU452197" club-nr="405" firstname="Heiner" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER194">
+        <person licence-nr="72332" club-federation-nickname="BaTTV" club-name="TV Busenbach 1905 e.V." sex="1" ttr-match-count="166" lastname="Miesterfeld-Strack" ttr="1392" internal-nr="NU451674" club-nr="403" firstname="Michael" birthyear="1972" />
+      </player>
+      <player type="single" id="PLAYER195">
+        <person licence-nr="143592" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="123" lastname="Monninger" ttr="1449" internal-nr="NU1077660" club-nr="803" firstname="Edwin" birthyear="1973" />
+      </player>
+      <player type="single" id="PLAYER196">
+        <person licence-nr="29975" club-federation-nickname="BaTTV" club-name="TTF Obergrombach e.V. " sex="1" ttr-match-count="169" lastname="Neuberth" ttr="1424" internal-nr="NU437678" club-nr="123" firstname="Frank" birthyear="1971" />
+      </player>
+      <player type="single" id="PLAYER197">
+        <person licence-nr="08039072" club-federation-nickname="TTVWH" club-name="TTV Knittlingen" sex="1" ttr-match-count="200" lastname="Nonnenmann" ttr="1399" internal-nr="NU150763" club-nr="08039" firstname="Jörg" birthyear="1966" />
+      </player>
+      <player type="single" id="PLAYER198">
+        <person licence-nr="64050" club-federation-nickname="BaTTV" club-name="TTG Kleinsteinbach/Singen" sex="1" ttr-match-count="184" lastname="Pierstorf" ttr="1384" internal-nr="NU444500" club-nr="742" firstname="Michael" birthyear="1983" />
+      </player>
+      <player type="single" id="PLAYER199">
+        <person licence-nr="120351" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="149" lastname="Pommerening" ttr="1409" internal-nr="NU694946" club-nr="407" firstname="Paul" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER200">
+        <person licence-nr="31072" club-federation-nickname="BaTTV" club-name="TTC Hamberg e.V." sex="1" ttr-match-count="186" lastname="Raible" ttr="1412" internal-nr="NU437477" club-nr="710" firstname="Markus" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER201">
+        <person licence-nr="109285" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="1" ttr-match-count="163" lastname="Rothengass" ttr="1319" internal-nr="NU492965" club-nr="611" firstname="Dieter" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER202">
+        <person licence-nr="149694" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="0" ttr-match-count="147" lastname="Rothengass" ttr="1131" internal-nr="NU1137127" club-nr="611" firstname="Selina" birthyear="2000" />
+      </player>
+      <player type="single" id="PLAYER203">
+        <person licence-nr="153101" club-federation-nickname="BaTTV" club-name="TTF 1955 Ispringen e.V." sex="0" ttr-match-count="50" lastname="Räuchle" ttr="900" internal-nr="NU447639" club-nr="713" firstname="Isabelle" birthyear="1986" />
+      </player>
+      <player type="single" id="PLAYER204">
+        <person licence-nr="65024" club-federation-nickname="BaTTV" club-name="SG Straßenbahner Karlsruhe" sex="1" ttr-match-count="197" lastname="Schneider" ttr="1296" internal-nr="NU446557" club-nr="421" firstname="Pascal" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER205">
+        <person licence-nr="64326" club-federation-nickname="BaTTV" club-name="SV 1962 Bruchsal eV" sex="1" ttr-match-count="155" lastname="Schuh" ttr="1360" internal-nr="NU441399" club-nr="104" firstname="Jens Alexander" birthyear="1978" />
+      </player>
+      <player type="single" id="PLAYER206">
+        <person licence-nr="56742" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="235" lastname="Spies" ttr="1419" internal-nr="NU443078" club-nr="428" firstname="Tobias" birthyear="1983" />
+      </player>
+      <player type="single" id="PLAYER207">
+        <person licence-nr="107840" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="195" lastname="Stala" ttr="1409" internal-nr="NU480613" club-nr="407" firstname="Kevin" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER208">
+        <person licence-nr="08039124" club-federation-nickname="TTVWH" club-name="TTV Knittlingen" sex="1" ttr-match-count="181" lastname="Stolinsky" ttr="1278" internal-nr="NU189337" club-nr="08039" firstname="Artur" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER209">
+        <person licence-nr="00000000" club-federation-nickname="HeTTV" club-name="Tschft. 1856 Griesheim" sex="1" ttr-match-count="246" lastname="Vogel" ttr="1383" internal-nr="NU440686" club-nr="43028" firstname="Eberhard" birthyear="1952" />
+      </player>
+      <player type="single" id="PLAYER210">
+        <person licence-nr="66224" club-federation-nickname="BaTTV" club-name="SSC Karlsruhe e.V." sex="1" ttr-match-count="247" lastname="Völkle" ttr="1406" internal-nr="NU445695" club-nr="422" firstname="Martin" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER211">
+        <person licence-nr="32863" club-federation-nickname="BaTTV" club-name="SC Wettersbach" sex="1" ttr-match-count="187" lastname="Watzke" ttr="1341" internal-nr="NU437760" club-nr="444" firstname="Michael" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER212">
+        <person licence-nr="26322" club-federation-nickname="BaTTV" club-name="SV 1962 Bruchsal eV" sex="1" ttr-match-count="229" lastname="Zeh" ttr="1419" internal-nr="NU436835" club-nr="104" firstname="Thomas" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER213">
+        <person licence-nr="24042014" club-federation-nickname="SbTTV" club-name="TUS Rammersweier" sex="1" ttr-match-count="161" lastname="Zimper" ttr="1205" internal-nr="NU175582" club-nr="24042" firstname="Daniel" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER214">
+        <person licence-nr="61665" club-federation-nickname="BaTTV" club-name="SG Straßenbahner Karlsruhe" sex="1" ttr-match-count="208" lastname="Zwick" ttr="1348" internal-nr="NU443470" club-nr="421" firstname="Hermann" birthyear="1951" />
+      </player>
+      <player type="single" id="PLAYER215">
+        <person licence-nr="61666" club-federation-nickname="BaTTV" club-name="SG Straßenbahner Karlsruhe" sex="1" ttr-match-count="230" lastname="Zwick" ttr="1431" internal-nr="NU443471" club-nr="421" firstname="Michael" birthyear="1976" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 08:30" ttr-from="1451" ttr-to="1600" age-group="Herren B" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER216">
+        <person licence-nr="141073" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="229" lastname="Aragian" ttr="1377" internal-nr="NU990234" club-nr="407" firstname="Kian" birthyear="1996" />
+      </player>
+      <player type="single" id="PLAYER217">
+        <person licence-nr="70615" club-federation-nickname="BaTTV" club-name="TTC 1950 Forchheim e.V." sex="1" ttr-match-count="215" lastname="Axenowski" ttr="1380" internal-nr="NU446306" club-nr="410" firstname="Demetrius" birthyear="1978" />
+      </player>
+      <player type="single" id="PLAYER218">
+        <person licence-nr="111171" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="233" lastname="Bauermeister" ttr="1393" internal-nr="NU585028" club-nr="407" firstname="Benjamin" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER219">
+        <person licence-nr="138351" club-federation-nickname="BaTTV" club-name="EK Söllingen" sex="1" ttr-match-count="114" lastname="Bohner" ttr="1440" internal-nr="NU958769" club-nr="437" firstname="Markus" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER220">
+        <person licence-nr="111333" club-federation-nickname="BaTTV" club-name="TS Durlach 1846 e.V. " sex="1" ttr-match-count="253" lastname="Bossert" ttr="1462" internal-nr="NU585946" club-nr="405" firstname="Lukas" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER221">
+        <person licence-nr="114271" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="1" ttr-match-count="201" lastname="Brückel" ttr="1349" internal-nr="NU603374" club-nr="118" firstname="Heiko" birthyear="1981" />
+      </player>
+      <player type="single" id="PLAYER222">
+        <person licence-nr="115691" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="1" ttr-match-count="191" lastname="Brückel" ttr="1449" internal-nr="NU611970" club-nr="118" firstname="Toni" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER223">
+        <person licence-nr="69222" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="233" lastname="Ciupke" ttr="1500" internal-nr="NU446025" club-nr="803" firstname="Roland" birthyear="1964" />
+      </player>
+      <player type="single" id="PLAYER224">
+        <person licence-nr="71621" club-federation-nickname="BaTTV" club-name="TS Durlach 1846 e.V. " sex="1" ttr-match-count="205" lastname="Clemense" ttr="1457" internal-nr="NU449512" club-nr="405" firstname="Carlo" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER225">
+        <person licence-nr="106939" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="425" lastname="Dangel" ttr="1404" internal-nr="NU475722" club-nr="118" firstname="Judith" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER226">
+        <person licence-nr="31546" club-federation-nickname="BaTTV" club-name="TTF Obergrombach e.V. " sex="1" ttr-match-count="277" lastname="Degen" ttr="1510" internal-nr="NU437983" club-nr="123" firstname="Thorsten" birthyear="1971" />
+      </player>
+      <player type="single" id="PLAYER227">
+        <person licence-nr="64169" club-federation-nickname="BaTTV" club-name="TTC Wiesloch-Baiertal 52 e.V." sex="1" ttr-match-count="248" lastname="Dietzinger" ttr="1347" internal-nr="NU444748" club-nr="338" firstname="Uwe" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER228">
+        <person licence-nr="133293" club-federation-nickname="BaTTV" club-name="FV 1912  Wiesental" sex="1" ttr-match-count="205" lastname="Drexler" ttr="1468" internal-nr="NU446377" club-nr="136" firstname="Marcel" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER229">
+        <person licence-nr="74182" club-federation-nickname="BaTTV" club-name="TS Durlach 1846 e.V. " sex="1" ttr-match-count="202" lastname="Dzheyn" ttr="1475" internal-nr="NU450813" club-nr="405" firstname="Evgeniy" birthyear="1977" />
+      </player>
+      <player type="single" id="PLAYER230">
+        <person licence-nr="74693" club-federation-nickname="BaTTV" club-name="TTC Weingarten e.V." sex="1" ttr-match-count="414" lastname="Ebentheuer-Barceló" ttr="1707" internal-nr="NU452540" club-nr="443" firstname="Jan" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER231">
+        <person licence-nr="134712" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="208" lastname="Ehmann" ttr="1529" internal-nr="NU931687" club-nr="407" firstname="Felix" birthyear="1996" />
+      </player>
+      <player type="single" id="PLAYER232">
+        <person licence-nr="118715" club-federation-nickname="BaTTV" club-name="TV Busenbach 1905 e.V." sex="1" ttr-match-count="158" lastname="Eilebrecht" ttr="1562" internal-nr="NU2848" club-nr="403" firstname="Joachim" birthyear="1964" />
+      </player>
+      <player type="single" id="PLAYER233">
+        <person licence-nr="64006" club-federation-nickname="BaTTV" club-name="TTC Weingarten e.V." sex="1" ttr-match-count="170" lastname="Elxnath" ttr="1565" internal-nr="NU444483" club-nr="443" firstname="Martin" birthyear="1988" />
+      </player>
+      <player type="single" id="PLAYER234">
+        <person licence-nr="72184" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="226" lastname="Felger" ttr="1562" internal-nr="NU451219" club-nr="704" firstname="Martin" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER235">
+        <person licence-nr="06051200" club-federation-nickname="TTVWH" club-name="SpVgg Oedheim" sex="1" ttr-match-count="220" lastname="Fränznick" ttr="1480" internal-nr="NU1222589" club-nr="06051" firstname="Thomas" birthyear="1972" />
+      </player>
+      <player type="single" id="PLAYER236">
+        <person licence-nr="1278" club-federation-nickname="TTVMV" club-name="TSV Rostock Süd" sex="1" ttr-match-count="208" lastname="Gaide" ttr="1509" internal-nr="NU165966" club-nr="30861" firstname="Jens" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER237">
+        <person licence-nr="58436" club-federation-nickname="BaTTV" club-name="SC Wettersbach" sex="1" ttr-match-count="200" lastname="Gimberlein" ttr="1449" internal-nr="NU441499" club-nr="444" firstname="Karsten" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER238">
+        <person licence-nr="147114" club-federation-nickname="BaTTV" club-name="TTC 95 Odenheim e.V." sex="1" ttr-match-count="263" lastname="Goutier" ttr="1533" internal-nr="NU1118844" club-nr="141" firstname="Cedric" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER239">
+        <person licence-nr="159934" club-federation-nickname="BaTTV" club-name="TTC Karlsruhe-Neureut e.V." sex="1" ttr-match-count="80" lastname="Gross" ttr="1269" internal-nr="NU1258568" club-nr="432" firstname="Nicholas" birthyear="1986" />
+      </player>
+      <player type="single" id="PLAYER240">
+        <person licence-nr="08043055" club-federation-nickname="TTVWH" club-name="TV Lienzingen" sex="1" ttr-match-count="259" lastname="Hanussek" ttr="1454" internal-nr="NU129163" club-nr="08043" firstname="Maximilian" birthyear="1990" />
+      </player>
+      <player type="single" id="PLAYER241">
+        <person licence-nr="08043076" club-federation-nickname="TTVWH" club-name="TV Lienzingen" sex="1" ttr-match-count="230" lastname="Hanussek" ttr="1413" internal-nr="NU164527" club-nr="08043" firstname="Patrick" birthyear="1992" />
+      </player>
+      <player type="single" id="PLAYER242">
+        <person licence-nr="54817" club-federation-nickname="BaTTV" club-name="ASV Grünwettersbach" sex="1" ttr-match-count="177" lastname="Hermann" ttr="1583" internal-nr="NU193411" club-nr="412" firstname="Stefan" birthyear="1981" />
+      </player>
+      <player type="single" id="PLAYER243">
+        <person licence-nr="72230" club-federation-nickname="BaTTV" club-name="DJK Grün-Weiß Rüppurr e.V." sex="1" ttr-match-count="307" lastname="Hörner" ttr="1542" internal-nr="NU451429" club-nr="435" firstname="Markus" birthyear="1972" />
+      </player>
+      <player type="single" id="PLAYER244">
+        <person licence-nr="51723" club-federation-nickname="BaTTV" club-name="TTC Hamberg e.V." sex="1" ttr-match-count="169" lastname="Jankowski" ttr="1454" internal-nr="NU439876" club-nr="710" firstname="Kilian" birthyear="1979" />
+      </player>
+      <player type="single" id="PLAYER245">
+        <person licence-nr="69249" club-federation-nickname="BaTTV" club-name="TTF Obergrombach e.V. " sex="1" ttr-match-count="240" lastname="Jork" ttr="1517" internal-nr="NU446045" club-nr="123" firstname="Jörn" birthyear="1977" />
+      </player>
+      <player type="single" id="PLAYER246">
+        <person licence-nr="59948" club-federation-nickname="BaTTV" club-name="DJK Grün-Weiß Rüppurr e.V." sex="1" ttr-match-count="145" lastname="Kattermann" ttr="1459" internal-nr="NU444361" club-nr="435" firstname="Daniel" birthyear="1978" />
+      </player>
+      <player type="single" id="PLAYER247">
+        <person licence-nr="27315" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="272" lastname="Kimmich" ttr="1457" internal-nr="NU436964" club-nr="428" firstname="Michael" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER248">
+        <person licence-nr="131131" club-federation-nickname="BaTTV" club-name="TTC Oberacker e.V." sex="1" ttr-match-count="246" lastname="Kiszler" ttr="1604" internal-nr="NU877968" club-nr="122" firstname="Wolfgang" birthyear="1957" />
+      </player>
+      <player type="single" id="PLAYER249">
+        <person licence-nr="111175" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="194" lastname="Klemm" ttr="1413" internal-nr="NU585033" club-nr="407" firstname="Jakob" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER250">
+        <person licence-nr="03022054" club-federation-nickname="TTVWH" club-name="VfL Oberjettingen" sex="1" ttr-match-count="382" lastname="Knöbl" ttr="1425" internal-nr="NU157466" club-nr="03022" firstname="Ralf" birthyear="1971" />
+      </player>
+      <player type="single" id="PLAYER251">
+        <person licence-nr="26267" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="296" lastname="Kolb" ttr="1500" internal-nr="NU437244" club-nr="428" firstname="Eberhard" birthyear="1948" />
+      </player>
+      <player type="single" id="PLAYER252">
+        <person licence-nr="01013183" club-federation-nickname="TTVWH" club-name="TV Derendingen" sex="1" ttr-match-count="295" lastname="Kraemer" ttr="1528" internal-nr="NU138110" club-nr="01013" firstname="Achim" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER253">
+        <person licence-nr="59059" club-federation-nickname="BaTTV" club-name="TV Ottenhausen e.V. 1897 " sex="1" ttr-match-count="214" lastname="König" ttr="1540" internal-nr="NU442913" club-nr="724" firstname="Andreas" birthyear="1984" />
+      </player>
+      <player type="single" id="PLAYER254">
+        <person licence-nr="54146" club-federation-nickname="BaTTV" club-name="TTV &quot;Grün-Weiss&quot; Rohrbach" sex="1" ttr-match-count="186" lastname="Köppel" ttr="1592" internal-nr="NU440377" club-nr="925" firstname="Thomas" birthyear="1981" />
+      </player>
+      <player type="single" id="PLAYER255">
+        <person licence-nr="56239" club-federation-nickname="BaTTV" club-name="SV 1962 Bruchsal eV" sex="1" ttr-match-count="139" lastname="Laubner" ttr="1474" internal-nr="NU441366" club-nr="104" firstname="Markus" birthyear="1974" />
+      </player>
+      <player type="single" id="PLAYER256">
+        <person licence-nr="47554" club-federation-nickname="BaTTV" club-name="TTC Wiesloch-Baiertal 52 e.V." sex="1" ttr-match-count="212" lastname="Maier" ttr="1412" internal-nr="NU438901" club-nr="338" firstname="Michael" birthyear="1973" />
+      </player>
+      <player type="single" id="PLAYER257">
+        <person licence-nr="66363" club-federation-nickname="BaTTV" club-name="TS Durlach 1846 e.V. " sex="1" ttr-match-count="61" lastname="Mannshardt" ttr="1498" internal-nr="NU445942" club-nr="405" firstname="Roland" birthyear="1970" />
+      </player>
+      <player type="single" id="PLAYER258">
+        <person licence-nr="64496" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="321" lastname="Markopolsky" ttr="1493" internal-nr="NU441677" club-nr="322" firstname="Julian" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER259">
+        <person licence-nr="74515" club-federation-nickname="BaTTV" club-name="TSV Karlsdorf" sex="1" ttr-match-count="201" lastname="Maurer" ttr="1561" internal-nr="NU452023" club-nr="116" firstname="Richard" birthyear="1977" />
+      </player>
+      <player type="single" id="PLAYER260">
+        <person licence-nr="57493" club-federation-nickname="BaTTV" club-name="SC Wettersbach" sex="1" ttr-match-count="206" lastname="Mertens" ttr="1491" internal-nr="NU444516" club-nr="444" firstname="Ingolf" birthyear="1970" />
+      </player>
+      <player type="single" id="PLAYER261">
+        <person licence-nr="121831" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="0" ttr-match-count="327" lastname="Moch" ttr="1439" internal-nr="NU725126" club-nr="118" firstname="Vanessa" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER262">
+        <person licence-nr="66810" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="0" ttr-match-count="243" lastname="Müller" ttr="1413" internal-nr="NU447105" club-nr="704" firstname="Fiona" birthyear="1990" />
+      </player>
+      <player type="single" id="PLAYER263">
+        <person licence-nr="70712" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="198" lastname="Novak" ttr="1425" internal-nr="NU450397" club-nr="704" firstname="Manuel" birthyear="1986" />
+      </player>
+      <player type="single" id="PLAYER264">
+        <person licence-nr="104866" club-federation-nickname="BaTTV" club-name="SC Wettersbach" sex="1" ttr-match-count="231" lastname="Nüßle" ttr="1445" internal-nr="NU452763" club-nr="444" firstname="Florian" birthyear="1990" />
+      </player>
+      <player type="single" id="PLAYER265">
+        <person licence-nr="146375" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="187" lastname="Sakmann" ttr="1377" internal-nr="NU1104477" club-nr="407" firstname="Sebastian" birthyear="1998" />
+      </player>
+      <player type="single" id="PLAYER266">
+        <person licence-nr="74898" club-federation-nickname="BaTTV" club-name="TTC Eisingen e.V." sex="1" ttr-match-count="236" lastname="Schleicher" ttr="1594" internal-nr="NU449686" club-nr="706" firstname="Andre" birthyear="1992" />
+      </player>
+      <player type="single" id="PLAYER267">
+        <person licence-nr="151901" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="94" lastname="Schulz" ttr="1530" internal-nr="NU1162629" club-nr="803" firstname="Ingo" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER268">
+        <person licence-nr="53694" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="225" lastname="Schweisgut" ttr="1468" internal-nr="NU440453" club-nr="428" firstname="Stefan" birthyear="1964" />
+      </player>
+      <player type="single" id="PLAYER269">
+        <person licence-nr="24051077" club-federation-nickname="SbTTV" club-name="TTC Steinach" sex="1" ttr-match-count="274" lastname="Schwörer" ttr="1467" internal-nr="NU174815" club-nr="24051" firstname="Fabian" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER270">
+        <person licence-nr="27647" club-federation-nickname="BaTTV" club-name="TG Aue 1895 e.V." sex="1" ttr-match-count="223" lastname="Schönberger" ttr="1497" internal-nr="NU436998" club-nr="424" firstname="Gilbert" birthyear="1957" />
+      </player>
+      <player type="single" id="PLAYER271">
+        <person licence-nr="131897" club-federation-nickname="BaTTV" club-name="FV 1912  Wiesental" sex="1" ttr-match-count="155" lastname="Tomic" ttr="1507" internal-nr="NU901926" club-nr="136" firstname="Robert" birthyear="1974" />
+      </player>
+      <player type="single" id="PLAYER272">
+        <person licence-nr="152795" club-federation-nickname="BaTTV" club-name="TV 1895 e.V. Bad Rappenau" sex="1" ttr-match-count="270" lastname="Umapathisivam" ttr="1464" internal-nr="NU1169639" club-nr="923" firstname="Abinayan" birthyear="1999" />
+      </player>
+      <player type="single" id="PLAYER273">
+        <person licence-nr="30879" club-federation-nickname="BaTTV" club-name="1. TTC Ersingen 1957 e.V." sex="1" ttr-match-count="185" lastname="Wackernagel" ttr="1542" internal-nr="NU437444" club-nr="708" firstname="Hans" birthyear="1968" />
+      </player>
+      <player type="single" id="PLAYER274">
+        <person licence-nr="61277" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="1" ttr-match-count="274" lastname="Wittmann" ttr="1558" internal-nr="NU442959" club-nr="118" firstname="Manuel" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER275">
+        <person licence-nr="06044203" club-federation-nickname="TTVWH" club-name="NSU Neckarsulm" sex="1" ttr-match-count="272" lastname="Zornmüller" ttr="1504" internal-nr="NU165141" club-nr="06044" firstname="Thomas" birthyear="1979" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 08:30" ttr-from="1601" ttr-to="3000" age-group="Herren A" type="Einzel">
+    <players>
+      <player type="single" id="PLAYER276">
+        <person licence-nr="111601" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="1" ttr-match-count="342" lastname="Becker" ttr="1610" internal-nr="NU587295" club-nr="611" firstname="Alexander" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER277">
+        <person licence-nr="08074333" club-federation-nickname="TTVWH" club-name="TTC Bietigheim-Bissingen" sex="1" ttr-match-count="283" lastname="Breitschopf" ttr="1708" internal-nr="NU450504" club-nr="08074" firstname="Gregor" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER278">
+        <person licence-nr="06016064" club-federation-nickname="TTVWH" club-name="TGV Dürrenzimmern" sex="1" ttr-match-count="285" lastname="Buyer" ttr="1607" internal-nr="NU160172" club-nr="06016" firstname="Sven" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER279">
+        <person licence-nr="72048" club-federation-nickname="BaTTV" club-name="ASV Grünwettersbach" sex="1" ttr-match-count="406" lastname="Bühner" ttr="1641" internal-nr="NU450938" club-nr="412" firstname="Tobias" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER280">
+        <person licence-nr="107841" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="318" lastname="Dayan" ttr="1619" internal-nr="NU480615" club-nr="407" firstname="Davut" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER281">
+        <person licence-nr="65346" club-federation-nickname="BaTTV" club-name="TTC Wöschbach 58 e.V." sex="1" ttr-match-count="267" lastname="Eisenmann" ttr="1790" internal-nr="NU447307" club-nr="445" firstname="Marcel" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER282">
+        <person licence-nr="67385" club-federation-nickname="BaTTV" club-name="TTC Wöschbach 58 e.V." sex="1" ttr-match-count="238" lastname="Eisenmann" ttr="1725" internal-nr="NU448578" club-nr="445" firstname="Pascal" birthyear="1993" />
+      </player>
+      <player type="single" id="PLAYER283">
+        <person licence-nr="46519" club-federation-nickname="BaTTV" club-name="TG Söllingen e.V. " sex="1" ttr-match-count="282" lastname="Endres" ttr="1696" internal-nr="NU438487" club-nr="438" firstname="Michael" birthyear="1972" />
+      </player>
+      <player type="single" id="PLAYER284">
+        <person licence-nr="66273" club-federation-nickname="BaTTV" club-name="TTC 1950 Forchheim e.V." sex="1" ttr-match-count="189" lastname="Essig" ttr="1600" internal-nr="NU445897" club-nr="410" firstname="Daniel" birthyear="1984" />
+      </player>
+      <player type="single" id="PLAYER285">
+        <person licence-nr="137751" club-federation-nickname="BaTTV" club-name="TS Durlach 1846 e.V. " sex="1" ttr-match-count="197" lastname="Feketitsch" ttr="1465" internal-nr="NU954047" club-nr="405" firstname="Ralf" birthyear="1968" />
+      </player>
+      <player type="single" id="PLAYER286">
+        <person licence-nr="104838" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="467" lastname="Fürst" ttr="1801" internal-nr="NU452735" club-nr="407" firstname="Jonas" birthyear="1996" />
+      </player>
+      <player type="single" id="PLAYER287">
+        <person licence-nr="73356" club-federation-nickname="BaTTV" club-name="TTC 1950 Forchheim e.V." sex="1" ttr-match-count="384" lastname="Gau" ttr="1662" internal-nr="NU451481" club-nr="410" firstname="Christoph" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER288">
+        <person licence-nr="74383" club-federation-nickname="BaTTV" club-name="TTC 95 Odenheim e.V." sex="1" ttr-match-count="406" lastname="Geisert" ttr="1884" internal-nr="NU451548" club-nr="141" firstname="Sebastian" birthyear="1994" />
+      </player>
+      <player type="single" id="PLAYER289">
+        <person licence-nr="52820" club-federation-nickname="BaTTV" club-name="TTC Kronau 1956 e.V." sex="1" ttr-match-count="211" lastname="Hees" ttr="1612" internal-nr="NU439988" club-nr="118" firstname="Timo" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER290">
+        <person licence-nr="116191" club-federation-nickname="BaTTV" club-name="TTV Mühlhausen 1980 e.V." sex="1" ttr-match-count="240" lastname="Hirsch" ttr="1647" internal-nr="NU616145" club-nr="322" firstname="Jörg" birthyear="1974" />
+      </player>
+      <player type="single" id="PLAYER291">
+        <person licence-nr="74796" club-federation-nickname="BaTTV" club-name="DJK Grün-Weiß Rüppurr e.V." sex="1" ttr-match-count="507" lastname="Hrnic" ttr="1802" internal-nr="NU449231" club-nr="435" firstname="Kenan" birthyear="1996" />
+      </player>
+      <player type="single" id="PLAYER292">
+        <person licence-nr="130613" club-federation-nickname="BaTTV" club-name="TV 1895 e.V. Bad Rappenau" sex="1" ttr-match-count="507" lastname="Jerkovic" ttr="1712" internal-nr="NU865226" club-nr="923" firstname="Marin" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER293">
+        <person licence-nr="64687" club-federation-nickname="BaTTV" club-name="TV 1895 e.V. Bad Rappenau" sex="1" ttr-match-count="326" lastname="Kappe" ttr="1860" internal-nr="NU442136" club-nr="923" firstname="Kai" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER294">
+        <person licence-nr="24009032" club-federation-nickname="SbTTV" club-name="TTC Fessenbach" sex="1" ttr-match-count="328" lastname="Kappel" ttr="1651" internal-nr="NU179696" club-nr="24009" firstname="Martin" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER295">
+        <person licence-nr="72258" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="305" lastname="Kappler" ttr="1826" internal-nr="NU451454" club-nr="407" firstname="Alexander" birthyear="1984" />
+      </player>
+      <player type="single" id="PLAYER296">
+        <person licence-nr="08039173" club-federation-nickname="TTVWH" club-name="TTV Knittlingen" sex="1" ttr-match-count="323" lastname="Kilzer" ttr="1629" internal-nr="NU135696" club-nr="08039" firstname="Klaus" birthyear="1963" />
+      </player>
+      <player type="single" id="PLAYER297">
+        <person licence-nr="70681" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="204" lastname="Krischer" ttr="1573" internal-nr="NU446346" club-nr="704" firstname="Matthias" birthyear="1969" />
+      </player>
+      <player type="single" id="PLAYER298">
+        <person licence-nr="75047" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="250" lastname="König" ttr="1751" internal-nr="NU450164" club-nr="704" firstname="Marco" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER299">
+        <person licence-nr="14036397" club-federation-nickname="TTVWH" club-name="DJK Sportbund Stuttgart" sex="1" ttr-match-count="235" lastname="Leber" ttr="1655" internal-nr="NU438763" club-nr="14036" firstname="Matthias" birthyear="1975" />
+      </player>
+      <player type="single" id="PLAYER300">
+        <person licence-nr="170446" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="316" lastname="Leube" ttr="1598" internal-nr="NU176631" club-nr="407" firstname="Dane" birthyear="1990" />
+      </player>
+      <player type="single" id="PLAYER301">
+        <person licence-nr="74876" club-federation-nickname="BaTTV" club-name="TTG 1947 Walldorf e.V." sex="1" ttr-match-count="406" lastname="Maier" ttr="1629" internal-nr="NU449482" club-nr="335" firstname="Dominik" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER302">
+        <person licence-nr="74434" club-federation-nickname="BaTTV" club-name="TTG 1947 Walldorf e.V." sex="1" ttr-match-count="479" lastname="Maier" ttr="1707" internal-nr="NU451768" club-nr="335" firstname="Robin" birthyear="1997" />
+      </player>
+      <player type="single" id="PLAYER303">
+        <person licence-nr="72373" club-federation-nickname="BaTTV" club-name="DJK Grün-Weiß Rüppurr e.V." sex="1" ttr-match-count="380" lastname="Maxelon" ttr="1600" internal-nr="NU451691" club-nr="435" firstname="Dennis" birthyear="1989" />
+      </player>
+      <player type="single" id="PLAYER304">
+        <person licence-nr="153093" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="384" lastname="Nguyen" ttr="1939" internal-nr="NU373854" club-nr="407" firstname="Hai Khanh" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER305">
+        <person licence-nr="73473" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="196" lastname="Nowicki" ttr="1578" internal-nr="NU451941" club-nr="704" firstname="Thomas" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER306">
+        <person licence-nr="75040" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="241" lastname="Nürnberg" ttr="1664" internal-nr="NU450158" club-nr="704" firstname="Remo" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER307">
+        <person licence-nr="71958" club-federation-nickname="BaTTV" club-name="TTC 95 Odenheim e.V." sex="1" ttr-match-count="390" lastname="Pfeiffer" ttr="1773" internal-nr="NU450507" club-nr="141" firstname="Michael" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER308">
+        <person licence-nr="64783" club-federation-nickname="BaTTV" club-name="TTV Ettlingenweier 1980 e.V. " sex="1" ttr-match-count="200" lastname="Reitz" ttr="1608" internal-nr="NU193486" club-nr="408" firstname="Dominik" birthyear="1986" />
+      </player>
+      <player type="single" id="PLAYER309">
+        <person licence-nr="143785" club-federation-nickname="BaTTV" club-name="TTC Edingen-Neckarhausen 1971 e.V." sex="1" ttr-match-count="99" lastname="Retz" ttr="1688" internal-nr="NU980511" club-nr="803" firstname="Robert" birthyear="1986" />
+      </player>
+      <player type="single" id="PLAYER310">
+        <person licence-nr="74593" club-federation-nickname="BaTTV" club-name="FV 1912  Wiesental" sex="1" ttr-match-count="229" lastname="Rohrpasser" ttr="1602" internal-nr="NU452268" club-nr="136" firstname="Simon" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER311">
+        <person licence-nr="73975" club-federation-nickname="BaTTV" club-name="TTV Ettlingenweier 1980 e.V. " sex="1" ttr-match-count="237" lastname="Rüger" ttr="1687" internal-nr="NU449905" club-nr="408" firstname="Bastian" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER312">
+        <person licence-nr="158067" club-federation-nickname="BaTTV" club-name="TTC Schwarz-Gold 1948 St. Ilgen e.V." sex="1" ttr-match-count="271" lastname="Saavedra-Fernandez" ttr="1703" internal-nr="NU433707" club-nr="333" firstname="Juan" birthyear="1980" />
+      </player>
+      <player type="single" id="PLAYER313">
+        <person licence-nr="126331" club-federation-nickname="BaTTV" club-name="VfB Mosbach-Waldstadt 1967 e.V." sex="1" ttr-match-count="332" lastname="Savanovic" ttr="1647" internal-nr="NU772987" club-nr="611" firstname="Aleksandar" birthyear="1995" />
+      </player>
+      <player type="single" id="PLAYER314">
+        <person licence-nr="60039" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="236" lastname="Schilling" ttr="1762" internal-nr="NU444578" club-nr="704" firstname="Martin" birthyear="1983" />
+      </player>
+      <player type="single" id="PLAYER315">
+        <person licence-nr="69649" club-federation-nickname="BaTTV" club-name="TTV Ettlingenweier 1980 e.V. " sex="1" ttr-match-count="320" lastname="Schmid" ttr="1715" internal-nr="NU447013" club-nr="408" firstname="Jakob" birthyear="1991" />
+      </player>
+      <player type="single" id="PLAYER316">
+        <person licence-nr="67993" club-federation-nickname="BaTTV" club-name="TTV  &quot;Grün-Weiß&quot; Ettlingen e.V." sex="1" ttr-match-count="313" lastname="Schreck" ttr="1889" internal-nr="NU446223" club-nr="407" firstname="Norman" birthyear="1985" />
+      </player>
+      <player type="single" id="PLAYER317">
+        <person licence-nr="73468" club-federation-nickname="BaTTV" club-name="TTC 95 Odenheim e.V." sex="1" ttr-match-count="209" lastname="Steinhauser" ttr="1729" internal-nr="NU451755" club-nr="141" firstname="Florian" birthyear="1977" />
+      </player>
+      <player type="single" id="PLAYER318">
+        <person licence-nr="165225" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="26" lastname="Stoyanov" ttr="1931" internal-nr="NU1300912" club-nr="428" firstname="Evgeni" birthyear="1979" />
+      </player>
+      <player type="single" id="PLAYER319">
+        <person licence-nr="103632" club-federation-nickname="STTB" club-name="DJK Dudweiler" sex="1" ttr-match-count="23" lastname="Tiefenbacher" ttr="1768" internal-nr="NU517488" club-nr="206" firstname="Konrad" birthyear="1967" />
+      </player>
+      <player type="single" id="PLAYER320">
+        <person licence-nr="148742" club-federation-nickname="BaTTV" club-name="TTG Kleinsteinbach/Singen" sex="1" ttr-match-count="207" lastname="Tran" ttr="1731" internal-nr="NU369716" club-nr="742" firstname="Tony" birthyear="1992" />
+      </player>
+      <player type="single" id="PLAYER321">
+        <person licence-nr="112350" club-federation-nickname="BaTTV" club-name="TTC Dietlingen e.V." sex="1" ttr-match-count="152" lastname="Virk" ttr="1782" internal-nr="NU590896" club-nr="704" firstname="Oliver" birthyear="1982" />
+      </player>
+      <player type="single" id="PLAYER322">
+        <person licence-nr="60219" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="217" lastname="Welker" ttr="1630" internal-nr="NU444830" club-nr="428" firstname="Tim" birthyear="1987" />
+      </player>
+      <player type="single" id="PLAYER323">
+        <person licence-nr="109810" club-federation-nickname="TTVR" club-name="TuS Dichtelbach" sex="1" ttr-match-count="246" lastname="von Streng" ttr="1561" internal-nr="NU510298" club-nr="001366" firstname="Moritz" birthyear="1994" />
+      </player>
+    </players>
+    <matches />
+  </competition>
+</tournament>

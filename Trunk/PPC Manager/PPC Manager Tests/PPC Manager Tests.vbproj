@@ -89,6 +89,7 @@
     <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
     <Compile Include="StartListe.vb" />
+    <Compile Include="Testturnier.vb" />
     <Compile Include="XMLValidation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -144,6 +145,7 @@
     <Content Include="Resources\Competition.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\Testturnier.xml" />
     <None Include="Resources\PPC 15 Ergebnisse.xml">
       <SubType>Designer</SubType>
     </None>
