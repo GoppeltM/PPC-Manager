@@ -178,4 +178,57 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     End Sub
 
+    <TestMethod>
+    Sub Spieler_Ausscheiden()
+
+        MainWindow.AktiveCompetition = New Competition With {.Gewinnsätze = 3, .SatzDifferenz = True, .SonneBornBerger = True}
+        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}
+        Dim SpielerC = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}
+        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB) From {
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteRechts = 11},
+                New Satz With {.PunkteRechts = 11},
+                New Satz With {.PunkteRechts = 11}}
+
+        Dim Partie2 = New SpielPartie("Runde 2", SpielerA, SpielerC) From {
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11}}
+
+        Dim Partie3 = New SpielPartie("Runde 3", SpielerA, SpielerC) From {
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11},
+                New Satz With {.PunkteLinks = 11}}
+
+        With MainWindow.AktiveCompetition.SpielRunden
+            .Push(New SpielRunde From {Partie1})
+            With SpielerB
+                Assert.AreEqual(.Punkte, 1)
+                Assert.AreEqual(.ExportPunkte, 0)
+                Assert.AreEqual(.BuchholzPunkte, 0)
+            End With
+            
+            .AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = SpielerB, .Runde = 1})
+            .Push(New SpielRunde From {Partie2})
+
+            With SpielerB
+                Assert.AreEqual(.Punkte, 1)
+                Assert.AreEqual(.ExportPunkte, 1)
+                Assert.AreEqual(.BuchholzPunkte, 1)
+                Assert.AreEqual(.ExportBHZ, 0)
+            End With
+
+            .Push(New SpielRunde From {Partie3})
+
+            With SpielerB
+                Assert.AreEqual(.Punkte, 1)
+                Assert.AreEqual(.ExportPunkte, 1)
+                Assert.AreEqual(.BuchholzPunkte, 2)
+                Assert.AreEqual(.ExportBHZ, 1)
+            End With
+
+        End With
+    End Sub
+
 End Class

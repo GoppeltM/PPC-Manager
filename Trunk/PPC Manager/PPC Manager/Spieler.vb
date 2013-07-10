@@ -130,9 +130,8 @@ Public Class Spieler
 
     Private ReadOnly Property VergangenePartien As IEnumerable(Of SpielPartie)
         Get
-            Dim p As IEnumerable(Of SpielPartie) = GespieltePartien
-            p = p.Reverse.Skip(1)
-            Return p
+            Dim r = From x In SpielRunden.Skip(1).Reverse From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
+            Return r.ToList
         End Get
     End Property
 
