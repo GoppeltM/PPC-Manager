@@ -20,9 +20,9 @@
             </DataGrid.Resources>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Neuer Fremdspieler" Command="ApplicationCommands.New" />
-                    <MenuItem Header="Diesen Fremdspieler entfernen" Command="ApplicationCommands.Delete"/>
-                    <MenuItem Header="Diesen Fremdspieler bearbeiten" Command="ApplicationCommands.Replace"/>
+                    <MenuItem Header="Neue Nachmeldung" Command="ApplicationCommands.New" />
+                    <MenuItem Header="Diesen nachgemeldeten Spieler entfernen" Command="ApplicationCommands.Delete"/>
+                    <MenuItem Header="Diesen nachgemeldeten Spieler bearbeiten" Command="ApplicationCommands.Replace"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.CommandBindings>

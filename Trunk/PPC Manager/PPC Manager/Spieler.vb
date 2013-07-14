@@ -265,8 +265,11 @@ Public Class Spieler
     End Function
 
 
-    Public Function CompareTo(ByVal other As Spieler) As Integer Implements System.IComparable(Of Spieler).CompareTo
-        Dim diff = Me.Punkte - other.Punkte
+    Public Function CompareTo(ByVal other As Spieler) As Integer Implements System.IComparable(Of Spieler).CompareTo        
+        Dim diff As Integer = 0
+        diff = other.Ausgeschieden.CompareTo(Me.Ausgeschieden)
+        If diff <> 0 Then Return diff
+        diff = Me.Punkte - other.Punkte
         If diff <> 0 Then Return diff
         diff = Me.BuchholzPunkte - other.BuchholzPunkte
         If diff <> 0 Then Return diff
