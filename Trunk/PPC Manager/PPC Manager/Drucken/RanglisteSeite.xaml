@@ -11,8 +11,19 @@
         <local:SpielerListe x:Key="Spieler"/>
         <local:IndexConverter x:Key="IndexConverter"/>
     </UserControl.Resources>
-    <Grid x:Name="PageContent" Margin="20">        
-        <DataGrid x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock x:Name="AktuellesDatum" Grid.Row="0" Text="14.12.1013" Margin="20,0,0,0"/>
+            <TextBlock x:Name="KlassementName" Grid.Row="0" Text="Klasse D" Margin="20,0,0,0"/>
+            <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>
+            <TextBlock x:Name="Seitennummer" Grid.Row="0" Text="Seite 1" Margin="20,0,0,0" />
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1" x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NummerColumn" Header="Rang" Binding="{Binding Converter={StaticResource IndexConverter}, ConverterParameter={StaticResource Spieler}}"/>
                 <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" />

@@ -1,6 +1,17 @@
 ﻿Public Class SpielErgebnisZettel
     Implements IPaginatibleUserControl
 
+    Public Sub New()
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        Me.KlassementName.Text = MainWindow.AktiveCompetition.Altersgruppe
+        Me.AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
+        Me.RundenNummer.Text = "Runde Nr. " & MainWindow.AktiveCompetition.SpielRunden.Count
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+
     Public Function GetMaxItemCount() As Integer Implements IPaginatibleUserControl.GetMaxItemCount
         Dim width = PageContent.ActualWidth
         Dim height = PageContent.ActualHeight
@@ -21,4 +32,15 @@
     Public Sub SetSource(startIndex As Integer, ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
         ItemsContainer.ItemsSource = elements
     End Sub
+
+    Private _PageNumber As Integer
+    Public Property PageNumber As Integer Implements IPaginatibleUserControl.PageNumber
+        Get
+            Return _PageNumber
+        End Get
+        Set(value As Integer)
+            _PageNumber = value
+            Me.Seitennummer.Text = "Seite " & value + 1
+        End Set
+    End Property
 End Class
