@@ -123,8 +123,11 @@
     </Compile>
     <Compile Include="Competition.vb" />
     <Compile Include="DesignData.vb" />
-    <Compile Include="Drucken\SpielErgebnisZettel.xaml.vb">
-      <DependentUpon>SpielErgebnisZettel.xaml</DependentUpon>
+    <Compile Include="Drucken\SpielErgebnisse.xaml.vb">
+      <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Drucken\SchiedsrichterZettel.xaml.vb">
+      <DependentUpon>SchiedsrichterZettel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Drucken\RanglisteSeite.xaml.vb">
       <DependentUpon>RanglisteSeite.xaml</DependentUpon>
@@ -157,7 +160,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Drucken\SpielErgebnisZettel.xaml">
+    <Page Include="Drucken\SpielErgebnisse.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Drucken\SchiedsrichterZettel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

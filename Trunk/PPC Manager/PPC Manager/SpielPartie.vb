@@ -100,11 +100,9 @@ Public Class SpielPartie
 
     Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
         Get
-            Dim gewonnenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
-                           Select x
+            Dim gewonnenLinks = From x In Me Where x.GewonnenLinks
 
-            Dim gewonnenRechts = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks < x.PunkteRechts
-                           Select x
+            Dim gewonnenRechts = From x In Me Where x.GewonnenRechts
 
             If SpielerLinks = ich Then
                 Return gewonnenLinks.ToList
@@ -256,6 +254,18 @@ Public Class Satz
     Public ReadOnly Property Abgeschlossen As Boolean
         Get
             Return Math.Max(PunkteLinks, PunkteRechts) >= My.Settings.GewinnPunkte
+        End Get
+    End Property
+
+    Public ReadOnly Property GewonnenLinks As Boolean
+        Get
+            Return Abgeschlossen AndAlso PunkteLinks > PunkteRechts
+        End Get
+    End Property
+
+    Public ReadOnly Property GewonnenRechts As Boolean
+        Get
+            Return Abgeschlossen AndAlso PunkteLinks < PunkteRechts
         End Get
     End Property
 

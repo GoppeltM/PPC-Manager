@@ -126,6 +126,11 @@ Class MainWindow
                    "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
             Return
         End If
+
+        If CBool(My.Settings.AutoSaveAn) Then
+            MainWindow.AktiveCompetition.SaveXML()
+        End If
+
         With MainWindow.AktiveCompetition
             Dim spielRunde As New SpielRunde
             .SpielRunden.Push(spielRunde)
@@ -135,14 +140,14 @@ Class MainWindow
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
 
         If CBool(My.Settings.AutoSaveAn) Then
-            ApplicationCommands.Save.Execute(Nothing, Me)
+            MainWindow.AktiveCompetition.SaveExcel()
         End If
     End Sub
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
         With New PrintDialog
             If .ShowDialog Then
-                Dim paginator As New UserControlPaginator(Of SpielErgebnisZettel)(AktiveCompetition.SpielRunden.Peek, _
+                Dim paginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, _
                                                                                 New Size(.PrintableAreaWidth, .PrintableAreaHeight))
                 .PrintDocument(paginator, "Neue Begegnungen - Schiedsrichterzettel")
             End If

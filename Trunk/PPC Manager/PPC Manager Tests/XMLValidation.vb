@@ -8,6 +8,41 @@ Imports System.Xml
 
 <TestClass()> Public Class XMLValidation
 
+    Private Function GetSchemaSet() As XmlSchemaSet
+        Dim schema As XmlSchema
+        Dim AktuellerPfad = Reflection.Assembly.GetCallingAssembly.Location
+        AktuellerPfad = IO.Path.GetDirectoryName(AktuellerPfad)
+        AktuellerPfad &= "..\..\..\..\PPC Manager\SpeicherStandSchema.xsd"
+        Using stream = New IO.FileStream(AktuellerPfad, IO.FileMode.Open)
+            schema = XmlSchema.Read(stream, Nothing)
+        End Using
+
+        Dim schemaSet As New XmlSchemaSet
+        schemaSet.Add(schema)
+
+        schemaSet.Compile()
+        Return schemaSet
+    End Function
+
+
+    <TestMethod>
+    Sub Competition_Validieren()
+        Dim doc = XDocument.Parse(My.Resources.Competition)
+        doc.Validate(GetSchemaSet, Nothing)
+    End Sub
+
+    <TestMethod>
+    Sub PPC_15_Validieren()
+        Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
+        doc.Validate(GetSchemaSet, Nothing)
+    End Sub
+
+    <TestMethod>
+    Sub Testturnier_Validieren()
+        Dim doc = XDocument.Parse(My.Resources.Testturnier)
+        doc.Validate(GetSchemaSet, Nothing)
+    End Sub
+
     <TestMethod>
     Public Sub Competition_From_XML()
         Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False, False)

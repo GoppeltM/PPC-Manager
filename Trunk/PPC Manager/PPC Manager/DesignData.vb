@@ -16,8 +16,7 @@
 
 End Class
 
-
-Public Class DesignSpielPartien
+Public Class DesignSpielPartienOhneFreilos
     Inherits SpielPartien
 
     Public Sub New()
@@ -28,8 +27,7 @@ Public Class DesignSpielPartien
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
             Me.Add(partie)
-        Next
-        Me.Add(New FreiLosSpiel("Runde 2", New Spieler With {.Vorname = "Günther", .Nachname = "Netzer"}))
+        Next        
     End Sub
 
     Public Shared ReadOnly Property DesignSpielPartie As SpielPartie
@@ -39,6 +37,14 @@ Public Class DesignSpielPartien
         End Get
     End Property
 
+End Class
+
+Public Class DesignSpielPartien
+    Inherits DesignSpielPartienOhneFreilos
+
+    Public Sub New()        
+        Me.Add(New FreiLosSpiel("Runde 2", New Spieler With {.Vorname = "Günther", .Nachname = "Netzer", .Id = "PLAYER255"}))
+    End Sub
 
 End Class
 

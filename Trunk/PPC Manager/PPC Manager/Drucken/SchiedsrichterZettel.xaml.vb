@@ -1,4 +1,4 @@
-﻿Public Class SpielErgebnisZettel
+﻿Public Class SchiedsrichterZettel
     Implements IPaginatibleUserControl
 
     Public Sub New()
