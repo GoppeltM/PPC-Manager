@@ -144,17 +144,31 @@ Class MainWindow
         End If
     End Sub
 
-    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+        With New PrintDialog
+            If .ShowDialog Then
+                Dim paginator As New UserControlPaginator(Of NeuePaarungen)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, _
+                                                                                New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                .PrintDocument(paginator, "Neue Begegnungen - Aushang")
+            End If
+        End With
         With New PrintDialog
             If .ShowDialog Then
                 Dim paginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, _
                                                                                 New Size(.PrintableAreaWidth, .PrintableAreaHeight))
                 .PrintDocument(paginator, "Neue Begegnungen - Schiedsrichterzettel")
             End If
-        End With        
+        End With
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        With New PrintDialog
+            If .ShowDialog Then
+                Dim paginator As New UserControlPaginator(Of SpielErgebnisse)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, _
+                                                                                New Size(.PrintableAreaWidth, .PrintableAreaHeight))
+                .PrintDocument(paginator, "Aktuelle Ergebnisse - Aushang")
+            End If
+        End With
         With New PrintDialog
             If .ShowDialog Then
                 Dim l = AktiveCompetition.SpielerListe.ToList

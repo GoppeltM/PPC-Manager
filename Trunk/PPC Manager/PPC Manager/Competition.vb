@@ -68,6 +68,33 @@ Public Class Competition
                             </matches>)
 
         doc.Save(DateiPfad)
+        Dim BereinigtesDoc = New XDocument(doc)
+        BereinigeNamespaces(BereinigtesDoc)
+        Dim ClickTTPfad = IO.Path.Combine(IO.Path.GetDirectoryName(DateiPfad), IO.Path.GetFileNameWithoutExtension(DateiPfad) & "_ClickTT.xml")
+
+        BereinigtesDoc.Save(ClickTTPfad)
+    End Sub
+
+    ''' <summary>
+    ''' Notwendig für Import ins ClickTT
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub BereinigeNamespaces(doc As XDocument)        
+        Dim NodesToRemove = From x In doc.Root.Descendants Where x.Name.NamespaceName = "http://www.ttc-langensteinbach.de"
+
+        Dim AttributesToRemove = From x In doc.Root.Descendants
+                                 From y In x.Attributes
+                                 Where y.Name.NamespaceName = "http://www.ttc-langensteinbach.de" Or
+                                 y.Value = "http://www.ttc-langensteinbach.de" Select y
+
+        For Each attr In AttributesToRemove.ToList
+            attr.Remove()
+        Next
+
+        For Each node In NodesToRemove.ToList
+            node.Remove()
+        Next
+
     End Sub
 
     Public Sub SaveExcel()

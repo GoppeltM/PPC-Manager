@@ -44,8 +44,8 @@
                 <MenuItem Header="Aktuelle Runde Verwerfen" Name="RundeVerwerfen" Command="Undo" />
             </MenuItem>
             <MenuItem Header="Drucken" IsTabStop="False">
-                <MenuItem Header="Begegnungszettel..." Command="Print" />
-                <MenuItem Header="Rangliste..." Command="PrintPreview" />
+                <MenuItem Header="Runde Beginn... (neue Partien)" Command="Print" />
+                <MenuItem Header="Runde Ende... (Ergebnisse)" Command="PrintPreview" />
             </MenuItem>
         </Menu>
         <local:Begegnungen x:Name="Begegnungen" Margin="0,28,0,0"/>        

@@ -14,8 +14,8 @@
     End Sub
 
     Public Function GetMaxItemCount() As Integer Implements IPaginatibleUserControl.GetMaxItemCount
-        Dim width = SpielerRangListe.ActualWidth
-        Dim height = SpielerRangListe.ActualHeight
+        Dim width = SpielErgebnisseListe.ActualWidth
+        Dim height = SpielErgebnisseListe.ActualHeight
 
         Dim ItemHeight = 20
 
@@ -29,8 +29,8 @@
 
     Public Sub SetSource(startIndex As Integer, ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
         RanglisteSeite.StartIndex = startIndex
-        Dim res = CType(FindResource("Spieler"), SpielerListe)
-        For Each s In elements.OfType(Of Spieler)()
+        Dim res = CType(FindResource("Spieler"), SpielPartien)
+        For Each s In elements.OfType(Of SpielPartie)()
             res.Add(s)
         Next
 
