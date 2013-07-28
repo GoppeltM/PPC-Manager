@@ -10,11 +10,10 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
     Inherits DocumentPaginator
 
     Dim _begegnungen As IEnumerable(Of Object)
-    Dim _pageSize As Size
-
+    
     Public Sub New(ByVal begegnungen As IEnumerable(Of Object), ByVal pageSize As Size)
         _begegnungen = begegnungen
-        _pageSize = pageSize
+        Me.PageSize = pageSize
         EmptyPage = CreateVisual(0, New Object() {}, 1)
     End Sub
 
@@ -26,8 +25,8 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
         Dim start = pageNumber * ElementsPerPage
         Dim currentElements = _begegnungen.Skip(start).Take(ElementsPerPage).ToList
         Dim page = CreateVisual(start, currentElements, pageNumber)
-        Dim visibleArea = New Rect(_pageSize)
-        Dim doc = New DocumentPage(page, _pageSize, visibleArea, visibleArea)
+        Dim visibleArea = New Rect(PageSize)
+        Dim doc = New DocumentPage(page, PageSize, visibleArea, visibleArea)
         Return doc
     End Function
 
@@ -36,13 +35,13 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
         visual.SetSource(startIndex, elements)
         visual.PageNumber = pageNumber
         Dim page As New FixedPage
-        page.Width = _pageSize.Width
-        page.Height = _pageSize.Height
+        page.Width = PageSize.Width
+        page.Height = PageSize.Height
         visual.Width = page.Width
         visual.Height = page.Height
         page.Children.Add(visual)
-        page.Measure(_pageSize)
-        page.Arrange(New Rect(New Point(0, 0), _pageSize))
+        page.Measure(PageSize)
+        page.Arrange(New Rect(New Point(0, 0), PageSize))
         page.UpdateLayout()
         Return visual
     End Function
@@ -67,14 +66,7 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
     End Property
 
     Public Overrides Property PageSize As System.Windows.Size
-        Get
-            Return _pageSize
-        End Get
-        Set(ByVal value As System.Windows.Size)
-            _pageSize = value
-        End Set
-    End Property
-
+        
     Public Overrides ReadOnly Property Source As IDocumentPaginatorSource
         Get
             'Dim doc As New FixedDocument

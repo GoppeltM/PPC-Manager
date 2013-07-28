@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Competition.vb" />
     <Compile Include="DesignData.vb" />
+    <Compile Include="Drucken\PaginatingPaginator.vb" />
     <Compile Include="Drucken\SpielErgebnisse.xaml.vb">
       <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
     </Compile>

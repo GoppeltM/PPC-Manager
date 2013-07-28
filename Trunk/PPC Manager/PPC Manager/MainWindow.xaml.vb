@@ -146,39 +146,30 @@ Class MainWindow
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         With New PrintDialog
+            .UserPageRangeEnabled = True
             If .ShowDialog Then
-                Dim paginator As New UserControlPaginator(Of NeuePaarungen)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, _
-                                                                                New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                .PrintDocument(paginator, "Neue Begegnungen - Aushang")
-            End If
-        End With
-        With New PrintDialog
-            If .ShowDialog Then
-                Dim paginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, _
-                                                                                New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                .PrintDocument(paginator, "Neue Begegnungen - Schiedsrichterzettel")
+                Dim size = New Size(.PrintableAreaWidth, .PrintableAreaHeight)
+                Dim PaarungenPaginator As New UserControlPaginator(Of NeuePaarungen)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, size)
+                Dim SchiriPaginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, size)
+                .PrintDocument(New PaginatingPaginator({PaarungenPaginator, SchiriPaginator}), "Neue Begegnungen - Aushang und Schiedsrichterzettel")
             End If
         End With
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         With New PrintDialog
+            .UserPageRangeEnabled = True
             If .ShowDialog Then
-                Dim paginator As New UserControlPaginator(Of SpielErgebnisse)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, _
-                                                                                New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                .PrintDocument(paginator, "Aktuelle Ergebnisse - Aushang")
-            End If
-        End With
-        With New PrintDialog
-            If .ShowDialog Then
+                Dim size = New Size(.PrintableAreaWidth, .PrintableAreaHeight)
+                Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, size)
                 Dim l = AktiveCompetition.SpielerListe.ToList
                 l.Sort()
                 l.Reverse()
 
-                Dim paginator As New UserControlPaginator(Of RanglisteSeite)(l, New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                .PrintDocument(paginator, "Spieler Rangliste")
+                Dim RanglistePaginator As New UserControlPaginator(Of RanglisteSeite)(l, size)
+                .PrintDocument(New PaginatingPaginator({ErgebnissePaginator, RanglistePaginator}), "Rundenende - Aushang und Rangliste")
             End If
-        End With
+        End With        
     End Sub
 
     Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
