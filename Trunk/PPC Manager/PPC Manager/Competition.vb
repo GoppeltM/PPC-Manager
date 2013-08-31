@@ -105,9 +105,9 @@ Public Class Competition
     Public ReadOnly Property ExcelPfad As String
         Get
             Dim DateiName = IO.Path.GetFileNameWithoutExtension(DateiPfad)
-            DateiName &= " " & Altersgruppe
+            DateiName &= "_" & Altersgruppe
             For Each c In IO.Path.GetInvalidFileNameChars
-                DateiName = DateiName.Replace(c, " "c)
+                DateiName = DateiName.Replace(c, "_"c)
             Next
             DateiName &= ".xlsx"
             Dim Unterpfad = IO.Path.Combine(IO.Path.GetDirectoryName(DateiPfad), "Protokolle")

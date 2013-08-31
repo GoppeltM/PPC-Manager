@@ -28,9 +28,9 @@
                   d:DataContext="{d:DesignInstance Type=local:DesignSpielPartienOhneFreilos, IsDesignTimeCreatable=True}" 
                   ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Startnr." Binding="{Binding SpielerLinks.StartNummer}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding SpielerLinks.StartNummer}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding SpielerLinks}"/>
-                <DataGridTextColumn Header="Startnr." Binding="{Binding SpielerRechts.StartNummer}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding SpielerRechts.StartNummer}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding SpielerRechts}" />                
                 <DataGridTextColumn x:Name="ErgebnisSpalte" Header="Ergebnis" Binding="{Binding Converter={StaticResource GewonneneSätzeConverter}}"/>                
             </DataGrid.Columns>

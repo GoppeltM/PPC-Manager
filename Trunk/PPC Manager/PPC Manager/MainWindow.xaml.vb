@@ -161,7 +161,15 @@ Class MainWindow
             .UserPageRangeEnabled = True
             If .ShowDialog Then
                 Dim size = New Size(.PrintableAreaWidth, .PrintableAreaHeight)
-                Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, size)
+
+                Dim Spielpartien As IEnumerable(Of SpielPartie) = New List(Of SpielPartie)
+                With AktiveCompetition.SpielRunden
+                    If .Any Then
+                        Spielpartien = From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel
+                    End If
+                End With
+
+                Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size)
                 Dim l = AktiveCompetition.SpielerListe.ToList
                 l.Sort()
                 l.Reverse()
