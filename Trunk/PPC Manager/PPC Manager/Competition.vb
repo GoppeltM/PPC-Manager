@@ -109,6 +109,7 @@ Public Class Competition
             For Each c In IO.Path.GetInvalidFileNameChars
                 DateiName = DateiName.Replace(c, "_"c)
             Next
+            DateiName = DateiName.Replace(" "c, "_"c)
             DateiName &= ".xlsx"
             Dim Unterpfad = IO.Path.Combine(IO.Path.GetDirectoryName(DateiPfad), "Protokolle")
             DateiName = IO.Path.Combine(Unterpfad, DateiName)
