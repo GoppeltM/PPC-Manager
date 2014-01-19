@@ -13,6 +13,7 @@
             <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
         </ListBox.CommandBindings>
         <ListBox.Resources>
+            <local:OpacityConverter x:Key="OpacityConverter"/>
             <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
                     <StackPanel Width="200">
@@ -23,7 +24,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" >
-                    <local:DoppelbreitenGrid Width="220">
+                    <local:DoppelbreitenGrid Width="220" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
                         <local:DoppelbreitenGrid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
