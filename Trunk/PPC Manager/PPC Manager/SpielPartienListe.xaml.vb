@@ -41,7 +41,7 @@ Public Class OpacityConverter
 
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         If DirectCast(value, Boolean) Then
-            Return 0.5
+            Return 0.2
         Else
             Return 1.0
         End If

@@ -26,6 +26,8 @@ Public Class DesignSpielPartienOhneFreilos
             partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
+            partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
+            partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})            
             Me.Add(partie)
         Next        
     End Sub

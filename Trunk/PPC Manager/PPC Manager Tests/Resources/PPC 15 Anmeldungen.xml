@@ -147,6 +147,7 @@
         <person licence-nr="-48" club-name="TS Durlach" sex="1" ttr-match-count="0" lastname="Feketitsch" ttr="1463" firstname="Ralf" birthyear="1968"></person>
       </ppc:player>
     </players>
+    <matches />
   </competition>
   <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="B-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de">
     <players>
@@ -331,6 +332,7 @@
         <person licence-nr="-108" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Gross" ttr="1269" firstname="Nicholas" birthyear="1986"></person>
       </ppc:player>
     </players>
+    <matches />
   </competition>
   <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="C-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de">
     <players>
@@ -509,178 +511,180 @@
         <person licence-nr="-166" club-name="VfB Mosbach-Waldstadt" sex="0" ttr-match-count="0" lastname="Rothengass" ttr="1200" firstname="Selina" birthyear="2000"></person>
       </ppc:player>
     </players>
+    <matches />
   </competition>
-  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="D-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de">
+  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="D-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de" ppc:satzdifferenz="true" ppc:gewinnsätze="3" ppc:sonnebornberger="true">
     <players>
       <ppc:player id="PLAYER-167">
-        <person licence-nr="-167" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Stucky" ttr="1153" firstname="Jan-Philipp" birthyear="1995"></person>
+        <person licence-nr="-167" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Stucky" ttr="1153" firstname="Jan-Philipp" birthyear="1995" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-168">
-        <person licence-nr="-168" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Kühn" ttr="1269" firstname="Dennis" birthyear="1988"></person>
+        <person licence-nr="-168" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Kühn" ttr="1269" firstname="Dennis" birthyear="1988" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-169">
-        <person licence-nr="-169" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Kullack" ttr="1274" firstname="Dirk" birthyear="1968"></person>
+        <person licence-nr="-169" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Kullack" ttr="1274" firstname="Dirk" birthyear="1968" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-170">
-        <person licence-nr="-170" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Kullack" ttr="1026" firstname="Filippo" birthyear="1997"></person>
+        <person licence-nr="-170" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Kullack" ttr="1026" firstname="Filippo" birthyear="1997" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-171">
-        <person licence-nr="-171" club-name="TV Ottenhausen" sex="1" ttr-match-count="0" lastname="Lessing" ttr="1276" firstname="Klaus" birthyear="1966"></person>
+        <person licence-nr="-171" club-name="TV Ottenhausen" sex="1" ttr-match-count="0" lastname="Lessing" ttr="1276" firstname="Klaus" birthyear="1966" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-172">
-        <person licence-nr="-172" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Horner" ttr="1347" firstname="Rudolf" birthyear="1948"></person>
+        <person licence-nr="-172" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Horner" ttr="1347" firstname="Rudolf" birthyear="1948" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-173">
-        <person licence-nr="-173" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Klett" ttr="1181" firstname="Tim" birthyear="1989"></person>
+        <person licence-nr="-173" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Klett" ttr="1181" firstname="Tim" birthyear="1989" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-174">
-        <person licence-nr="-174" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Wild" ttr="1005" firstname="Christian" birthyear="1993"></person>
+        <person licence-nr="-174" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Wild" ttr="1005" firstname="Christian" birthyear="1993" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-175">
-        <person licence-nr="-175" club-name="FC Nöttingen" sex="0" ttr-match-count="0" lastname="Biendl" ttr="1303" firstname="Indra" birthyear="1976"></person>
+        <person licence-nr="-175" club-name="FC Nöttingen" sex="0" ttr-match-count="0" lastname="Biendl" ttr="1303" firstname="Indra" birthyear="1976" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-176">
-        <person licence-nr="-176" club-name="TTV Bilfingen " sex="1" ttr-match-count="0" lastname="Biendl" ttr="1288" firstname="Sven" birthyear="1970"></person>
+        <person licence-nr="-176" club-name="TTV Bilfingen " sex="1" ttr-match-count="0" lastname="Biendl" ttr="1288" firstname="Sven" birthyear="1970" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-177">
-        <person licence-nr="-177" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Brecht" ttr="1299" firstname="Manuel" birthyear="1977"></person>
+        <person licence-nr="-177" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Brecht" ttr="1299" firstname="Manuel" birthyear="1977" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-178">
-        <person licence-nr="-178" club-name="VfR Rheinsheim" sex="1" ttr-match-count="5" lastname="Westermann" ttr="1284" firstname="Gerd" birthyear="1973"></person>
+        <person licence-nr="-178" club-name="VfR Rheinsheim" sex="1" ttr-match-count="5" lastname="Westermann" ttr="1284" firstname="Gerd" birthyear="1973" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-179">
-        <person licence-nr="-179" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Flörchinger" ttr="1297" firstname="Walter" birthyear="1943"></person>
+        <person licence-nr="-179" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Flörchinger" ttr="1297" firstname="Walter" birthyear="1943" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-180">
-        <person licence-nr="-180" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Kellenberger" ttr="1189" firstname="Claus" birthyear="1967"></person>
+        <person licence-nr="-180" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Kellenberger" ttr="1189" firstname="Claus" birthyear="1967" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-181">
-        <person licence-nr="-181" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Prautzsch" ttr="1193" firstname="Bernd" birthyear="1963"></person>
+        <person licence-nr="-181" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Prautzsch" ttr="1193" firstname="Bernd" birthyear="1963" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-182">
-        <person licence-nr="-182" club-name="TTC Weingarten" sex="1" ttr-match-count="0" lastname="Münzing" ttr="1295" firstname="Timo" birthyear="1987"></person>
+        <person licence-nr="-182" club-name="TTC Weingarten" sex="1" ttr-match-count="0" lastname="Münzing" ttr="1295" firstname="Timo" birthyear="1987" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-183">
-        <person licence-nr="-183" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Spindler" ttr="1226" firstname="Rolf" birthyear="1950"></person>
+        <person licence-nr="-183" club-name="VfR Rheinsheim" sex="1" ttr-match-count="0" lastname="Spindler" ttr="1226" firstname="Rolf" birthyear="1950" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-184">
-        <person licence-nr="-184" club-name="TV Busenbach" sex="1" ttr-match-count="0" lastname="Sturm" ttr="1285" firstname="Tobias" birthyear="1978"></person>
+        <person licence-nr="-184" club-name="TV Busenbach" sex="1" ttr-match-count="0" lastname="Sturm" ttr="1285" firstname="Tobias" birthyear="1978" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-185">
-        <person licence-nr="-185" club-name="NSU Neckarsulm" sex="1" ttr-match-count="0" lastname="Schmidt" ttr="1211" firstname="Peter" birthyear="1967"></person>
+        <person licence-nr="-185" club-name="NSU Neckarsulm" sex="1" ttr-match-count="0" lastname="Schmidt" ttr="1211" firstname="Peter" birthyear="1967" ppc:anwesend="true" ppc:abwesend="false"></person>
       </ppc:player>
       <ppc:player id="PLAYER-186">
-        <person licence-nr="-186" club-name="TTC Weingarten" sex="1" ttr-match-count="0" lastname="Haug" ttr="1278" firstname="Michael" birthyear="1985"></person>
+        <person licence-nr="-186" club-name="TTC Weingarten" sex="1" ttr-match-count="0" lastname="Haug" ttr="1278" firstname="Michael" birthyear="1985" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-187">
-        <person licence-nr="-187" club-name="TTG Walldorf" sex="1" ttr-match-count="0" lastname="Storzum" ttr="1284" firstname="Andreas" birthyear="1969"></person>
+        <person licence-nr="-187" club-name="TTG Walldorf" sex="1" ttr-match-count="0" lastname="Storzum" ttr="1284" firstname="Andreas" birthyear="1969" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-188">
-        <person licence-nr="-188" club-name="TTG Walldorf" sex="1" ttr-match-count="0" lastname="Hausmann" ttr="1304" firstname="Peter" birthyear="1940"></person>
+        <person licence-nr="-188" club-name="TTG Walldorf" sex="1" ttr-match-count="0" lastname="Hausmann" ttr="1304" firstname="Peter" birthyear="1940" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-189">
-        <person licence-nr="-189" club-name="TTG Walldorf" sex="1" ttr-match-count="0" lastname="Scherer" ttr="1295" firstname="Achim" birthyear="1953"></person>
+        <person licence-nr="-189" club-name="TTG Walldorf" sex="1" ttr-match-count="0" lastname="Scherer" ttr="1295" firstname="Achim" birthyear="1953" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-190">
-        <person licence-nr="-190" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Kling" ttr="1217" firstname="Marco" birthyear="1984"></person>
+        <person licence-nr="-190" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Kling" ttr="1217" firstname="Marco" birthyear="1984" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-191">
-        <person licence-nr="-191" club-name="SV Büchenbronn" sex="1" ttr-match-count="5" lastname="Reichardt" ttr="1181" firstname="Mike" birthyear="1991"></person>
+        <person licence-nr="-191" club-name="SV Büchenbronn" sex="1" ttr-match-count="5" lastname="Reichardt" ttr="1181" firstname="Mike" birthyear="1991" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-192">
-        <person licence-nr="-192" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Fabricius" ttr="1326" firstname="Dominik" birthyear="1989"></person>
+        <person licence-nr="-192" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Fabricius" ttr="1326" firstname="Dominik" birthyear="1989" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-193">
-        <person licence-nr="-193" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Mühleck" ttr="1244" firstname="Thomas" birthyear="1989"></person>
+        <person licence-nr="-193" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Mühleck" ttr="1244" firstname="Thomas" birthyear="1989" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-194">
-        <person licence-nr="-194" club-name="SV Bruchsal" sex="1" ttr-match-count="0" lastname="Errerd" ttr="1305" firstname="Klaus" birthyear="1957"></person>
+        <person licence-nr="-194" club-name="SV Bruchsal" sex="1" ttr-match-count="0" lastname="Errerd" ttr="1305" firstname="Klaus" birthyear="1957" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-195">
-        <person licence-nr="-195" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Scholl" ttr="1264" firstname="Oliver" birthyear="1991"></person>
+        <person licence-nr="-195" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Scholl" ttr="1264" firstname="Oliver" birthyear="1991" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-196">
-        <person licence-nr="-196" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Ewald" ttr="1294" firstname="Florian" birthyear="1981"></person>
+        <person licence-nr="-196" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Ewald" ttr="1294" firstname="Florian" birthyear="1981" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-197">
-        <person licence-nr="-197" club-name="TV Dielheim" sex="1" ttr-match-count="0" lastname="Pastorini" ttr="1331" firstname="Manuel" birthyear="1976"></person>
+        <person licence-nr="-197" club-name="TV Dielheim" sex="1" ttr-match-count="0" lastname="Pastorini" ttr="1331" firstname="Manuel" birthyear="1976" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-198">
-        <person licence-nr="-198" club-name="TG Offenau" sex="1" ttr-match-count="0" lastname="Schmidt" ttr="1152" firstname="Andreas" birthyear="1997"></person>
+        <person licence-nr="-198" club-name="TG Offenau" sex="1" ttr-match-count="0" lastname="Schmidt" ttr="1152" firstname="Andreas" birthyear="1997" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-199">
-        <person licence-nr="-199" club-name="TTG Unterreichenbach-Dennjächt" sex="1" ttr-match-count="0" lastname="Bernhardt" ttr="1286" firstname="Michael" birthyear="1992"></person>
+        <person licence-nr="-199" club-name="TTG Unterreichenbach-Dennjächt" sex="1" ttr-match-count="0" lastname="Bernhardt" ttr="1286" firstname="Michael" birthyear="1992" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-200">
-        <person licence-nr="-200" club-name="TSV Weissach" sex="1" ttr-match-count="0" lastname="Schweikhardt" ttr="1277" firstname="Felix" birthyear="1987"></person>
+        <person licence-nr="-200" club-name="TSV Weissach" sex="1" ttr-match-count="0" lastname="Schweikhardt" ttr="1277" firstname="Felix" birthyear="1987" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-201">
-        <person licence-nr="-201" club-name="TV Forst" sex="1" ttr-match-count="0" lastname="Kumb" ttr="1129" firstname="Alan" birthyear="1986"></person>
+        <person licence-nr="-201" club-name="TV Forst" sex="1" ttr-match-count="0" lastname="Kumb" ttr="1129" firstname="Alan" birthyear="1986" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-202">
-        <person licence-nr="-202" club-name="TV Ottenhausen" sex="1" ttr-match-count="0" lastname="Abdulkarim" ttr="1165" firstname="Nabil" birthyear="1965"></person>
+        <person licence-nr="-202" club-name="TV Ottenhausen" sex="1" ttr-match-count="0" lastname="Abdulkarim" ttr="1165" firstname="Nabil" birthyear="1965" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-203">
-        <person licence-nr="-203" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Ullrich" ttr="1333" firstname="Jasmin" birthyear="1979"></person>
+        <person licence-nr="-203" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Ullrich" ttr="1333" firstname="Jasmin" birthyear="1979" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-204">
-        <person licence-nr="-204" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Hefner" ttr="1155" firstname="Christiane" birthyear="1969"></person>
+        <person licence-nr="-204" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Hefner" ttr="1155" firstname="Christiane" birthyear="1969" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-205">
-        <person licence-nr="-205" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Mayer" ttr="1085" firstname="Ewald" birthyear="1976"></person>
+        <person licence-nr="-205" club-name="TTF Ispringen" sex="1" ttr-match-count="0" lastname="Mayer" ttr="1085" firstname="Ewald" birthyear="1976" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-206">
-        <person licence-nr="-206" club-name="SV Leingarten" sex="1" ttr-match-count="5" lastname="Kocon" ttr="1230" firstname="Patrick" birthyear="1979"></person>
+        <person licence-nr="-206" club-name="SV Leingarten" sex="1" ttr-match-count="5" lastname="Kocon" ttr="1230" firstname="Patrick" birthyear="1979" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-207">
-        <person licence-nr="-207" club-name="TTG Spöck" sex="1" ttr-match-count="0" lastname="Maus" ttr="1158" firstname="Daniel" birthyear="1987"></person>
+        <person licence-nr="-207" club-name="TTG Spöck" sex="1" ttr-match-count="0" lastname="Maus" ttr="1158" firstname="Daniel" birthyear="1987" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-208">
-        <person licence-nr="-208" club-name="TSV Karlsdorf" sex="1" ttr-match-count="0" lastname="Riffel" ttr="1225" firstname="Thomas" birthyear="1985"></person>
+        <person licence-nr="-208" club-name="TSV Karlsdorf" sex="1" ttr-match-count="0" lastname="Riffel" ttr="1225" firstname="Thomas" birthyear="1985" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-209">
-        <person licence-nr="-209" club-name="SV Bruchsal" sex="0" ttr-match-count="0" lastname="Bardoll" ttr="1131" firstname="Miriam" birthyear="1993"></person>
+        <person licence-nr="-209" club-name="SV Bruchsal" sex="0" ttr-match-count="0" lastname="Bardoll" ttr="1131" firstname="Miriam" birthyear="1993" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-210">
-        <person licence-nr="-210" club-name="TV Forst" sex="1" ttr-match-count="0" lastname="Wolfert" ttr="1310" firstname="Till" birthyear="1996"></person>
+        <person licence-nr="-210" club-name="TV Forst" sex="1" ttr-match-count="0" lastname="Wolfert" ttr="1310" firstname="Till" birthyear="1996" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-211">
-        <person licence-nr="-211" club-name="TTV Zeutern" sex="1" ttr-match-count="0" lastname="Holzwarth" ttr="1255" firstname="Patrick" birthyear="1988"></person>
+        <person licence-nr="-211" club-name="TTV Zeutern" sex="1" ttr-match-count="0" lastname="Holzwarth" ttr="1255" firstname="Patrick" birthyear="1988" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-212">
-        <person licence-nr="-212" club-name="SV Gültlingen" sex="1" ttr-match-count="0" lastname="Gross" ttr="1194" firstname="Harald" birthyear="1982"></person>
+        <person licence-nr="-212" club-name="SV Gültlingen" sex="1" ttr-match-count="0" lastname="Gross" ttr="1194" firstname="Harald" birthyear="1982" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-213">
-        <person licence-nr="-213" club-name="SV Gültlingen" sex="1" ttr-match-count="0" lastname="Kahle" ttr="1231" firstname="Mario" birthyear="1988"></person>
+        <person licence-nr="-213" club-name="SV Gültlingen" sex="1" ttr-match-count="0" lastname="Kahle" ttr="1231" firstname="Mario" birthyear="1988" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-214">
-        <person licence-nr="-214" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Jäkel" ttr="1090" firstname="Lars" birthyear="1978"></person>
+        <person licence-nr="-214" club-name="TTC Karlsruhe-Neureut" sex="1" ttr-match-count="0" lastname="Jäkel" ttr="1090" firstname="Lars" birthyear="1978" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-215">
-        <person licence-nr="-215" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Neumann" ttr="1265" firstname="Marius" birthyear="1993"></person>
+        <person licence-nr="-215" club-name="SV Büchenbronn" sex="1" ttr-match-count="0" lastname="Neumann" ttr="1265" firstname="Marius" birthyear="1993" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-216">
-        <person licence-nr="-216" club-name="TSV Weissach" sex="1" ttr-match-count="0" lastname="Fauth" ttr="1092" firstname="Thomas" birthyear="1994"></person>
+        <person licence-nr="-216" club-name="TSV Weissach" sex="1" ttr-match-count="0" lastname="Fauth" ttr="1092" firstname="Thomas" birthyear="1994" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-217">
-        <person licence-nr="-217" club-name="1.TC Ittersbach" sex="1" ttr-match-count="5" lastname="Benko" ttr="1237" firstname="Robert" birthyear="1962"></person>
+        <person licence-nr="-217" club-name="1.TC Ittersbach" sex="1" ttr-match-count="5" lastname="Benko" ttr="1237" firstname="Robert" birthyear="1962" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-218">
-        <person licence-nr="-218" club-name="TV Dielheim" sex="0" ttr-match-count="0" lastname="Krüger" ttr="1009" firstname="Julia" birthyear="1993"></person>
+        <person licence-nr="-218" club-name="TV Dielheim" sex="0" ttr-match-count="0" lastname="Krüger" ttr="1009" firstname="Julia" birthyear="1993" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-219">
-        <person licence-nr="-219" club-name="TTC Langensteinbach" sex="0" ttr-match-count="0" lastname="Friedrich" ttr="1173" firstname="Valeska" birthyear="1991"></person>
+        <person licence-nr="-219" club-name="TTC Langensteinbach" sex="0" ttr-match-count="0" lastname="Friedrich" ttr="1173" firstname="Valeska" birthyear="1991" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-220">
-        <person licence-nr="-220" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Breitner" ttr="1237" firstname="Saskia" birthyear="1993"></person>
+        <person licence-nr="-220" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Breitner" ttr="1237" firstname="Saskia" birthyear="1993" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
       <ppc:player id="PLAYER-221">
-        <person licence-nr="-221" club-name="TTV Mühlhausen" sex="1" ttr-match-count="0" lastname="Breitner" ttr="1166" firstname="Luca" birthyear="1997"></person>
+        <person licence-nr="-221" club-name="TTV Mühlhausen" sex="1" ttr-match-count="0" lastname="Breitner" ttr="1166" firstname="Luca" birthyear="1997" ppc:anwesend="true" ppc:abwesend="false"></person>
       </ppc:player>
       <ppc:player id="PLAYER-222">
-        <person licence-nr="-222" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Dengel" ttr="1236" firstname="Laura" birthyear="1998"></person>
+        <person licence-nr="-222" club-name="TTC Kronau" sex="0" ttr-match-count="0" lastname="Dengel" ttr="1236" firstname="Laura" birthyear="1998" ppc:abwesend="false" ppc:anwesend="true"></person>
       </ppc:player>
     </players>
+    <matches />
   </competition>
   <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="J-Klasse" type="Einzel" xmlns:ppc="http://www.ttc-langensteinbach.de">
     <players>
@@ -865,5 +869,6 @@
         <person licence-nr="-282" club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" lastname="Lorenz" ttr="886" firstname="Lenny" birthyear="2002"></person>
       </ppc:player>
     </players>
+    <matches />
   </competition>
 </tournament>
