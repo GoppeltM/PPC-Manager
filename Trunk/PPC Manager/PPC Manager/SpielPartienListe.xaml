@@ -13,6 +13,7 @@
             <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
         </ListBox.CommandBindings>
         <ListBox.Resources>
+            <local:OpacityConverter x:Key="OpacityConverter"/>
             <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
                     <StackPanel Width="200">
@@ -22,22 +23,26 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
-                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" >
-                    <local:DoppelbreitenGrid Width="220">
+                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0" >
+                    <local:DoppelbreitenGrid Width="280" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
                         <local:DoppelbreitenGrid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </local:DoppelbreitenGrid.RowDefinitions>
                         <local:DoppelbreitenGrid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="31*" />
+                            <ColumnDefinition Width="24*" />
                         </local:DoppelbreitenGrid.ColumnDefinitions>
                         <local:DoppelbreitenGrid.Resources>
                             <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
                         </local:DoppelbreitenGrid.Resources>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks}" TextBlock.TextTrimming="CharacterEllipsis" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerRechts}" TextBlock.TextTrimming="CharacterEllipsis" />
-                        <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=SpielerRechts.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" Margin="0,5,0,0" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=SpielerRechts.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
+                        <ItemsControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel Orientation="Horizontal"/>
@@ -45,7 +50,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Ellipse Grid.Row="0" Grid.Column="1" Width="10" Height="10" Margin="2" 
+                                    <Ellipse Grid.Row="0" Grid.Column="1" Width="20" Height="20" Margin="2" 
                                              Visibility="{Binding Path=MySelf, ConverterParameter=L, Converter={StaticResource MeineGewonnenenSätze}, Mode=TwoWay, NotifyOnSourceUpdated=True}">
                                         <Ellipse.Fill>
                                             <RadialGradientBrush>
@@ -57,7 +62,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <ItemsControl Grid.Row="1" Grid.Column="2" ItemsSource="{Binding}">
+                        <ItemsControl Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel Orientation="Horizontal"/>
@@ -65,7 +70,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="10" Height="10" Margin="2" 
+                                    <Ellipse Grid.Row="0" Grid.Column="2" Width="20" Height="20" Margin="2" 
                                              Visibility="{Binding Path=MySelf, ConverterParameter=R, Converter={StaticResource MeineGewonnenenSätze}, Mode=TwoWay, NotifyOnSourceUpdated=True}">
                                         <Ellipse.Fill>
                                             <RadialGradientBrush>
