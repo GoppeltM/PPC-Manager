@@ -318,11 +318,5 @@ Imports System.Xml
         doc.Save("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test_Schema.xml")
     End Sub
 
-    <TestMethod>
-    Sub DatumSetzen()
-        Dim x = Date.Now.ToString("yyyy-MM-dd HH:mm")
-        Dim y = Date.Parse(x)
-    End Sub
-
 
 End Class

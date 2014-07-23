@@ -5,6 +5,14 @@ Imports Microsoft.Office.Interop.Excel
 
 <TestClass()> Public Class StartListe
 
+    <TestMethod>
+    <Ignore>
+    Sub UIDummy_Starten()
+        Dim controller = New ControllerStub()
+        Dim mainWindow As New StartlistenEditor.MainWindow(controller)
+        mainWindow.ShowDialog()
+    End Sub
+
     <TestMethod> Sub FremdSpieler_Erzeugen()
         Dim XMLKnoten =
             <tournament>
@@ -57,7 +65,7 @@ Imports Microsoft.Office.Interop.Excel
     <TestMethod> Sub Alle_Spieler_Importieren()
         Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
 
-        Dim AlleSpieler = StartlistenEditor.MainWindow.XmlZuSpielerListe(doc)
+        Dim AlleSpieler = StartlistenEditor.StartlistenController.XmlZuSpielerListe(doc)
 
         Assert.IsTrue(AlleSpieler.Any)
 
@@ -73,7 +81,7 @@ Imports Microsoft.Office.Interop.Excel
     End Sub
 
     <TestMethod> Sub Competition_Importieren()
-        Dim AlleSpieler = StartlistenEditor.MainWindow.XmlZuSpielerListe(XDocument.Parse(My.Resources.Competition))
+        Dim AlleSpieler = StartlistenEditor.StartlistenController.XmlZuSpielerListe(XDocument.Parse(My.Resources.Competition))
         Assert.IsTrue(AlleSpieler.Any)
         Dim Referenz = {New With {.LizenzNr = 53010, .Fremd = False},
                         New With {.LizenzNr = -1, .Fremd = True},

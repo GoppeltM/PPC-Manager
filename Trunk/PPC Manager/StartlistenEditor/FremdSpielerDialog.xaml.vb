@@ -2,35 +2,41 @@
 
 Public Class FremdSpielerDialog
 
+    Private ReadOnly _Doc As XDocument
+
+    Public Sub New(doc As XDocument)
+        InitializeComponent()
+        _Doc = doc
+    End Sub
+
     Public ReadOnly Property Spieler As Spieler
         Get
             Return DirectCast(Resources("AktuellerSpieler"), SpielerContainer).Spieler
         End Get
     End Property
 
-    Public Shared Function NeuerFremdSpieler(ttr As Integer, lizenzNr As Integer) As FremdSpielerDialog
-        Dim dialog As New FremdSpielerDialog
+    Public Shared Function NeuerFremdSpieler(doc As XDocument, ttr As Integer, lizenzNr As Integer) As FremdSpielerDialog
+        Dim dialog As New FremdSpielerDialog(doc)
         dialog.Spieler.TTR = ttr
         dialog.Spieler.LizenzNr = lizenzNr
         dialog.Spieler.ID = "PLAYER" & lizenzNr
         Return dialog
     End Function
 
-    Public Shared Function EditiereFremdSpieler(spieler As Spieler) As FremdSpielerDialog
-        Dim dialog As New FremdSpielerDialog
-        DirectCast(dialog.Resources("AktuellerSpieler"), SpielerContainer).Spieler = spieler
-        dialog.Klassements.SelectedItem = spieler.Klassement
+    Public Shared Function EditiereFremdSpieler(doc As XDocument, spieler As Spieler) As FremdSpielerDialog
+        Dim dialog As New FremdSpielerDialog(doc)
+        DirectCast(dialog.Resources("AktuellerSpieler"), SpielerContainer).Spieler = Spieler
+        dialog.Klassements.SelectedItem = Spieler.Klassement
         Return dialog
     End Function
 
     Private Sub FremdSpielerDialog_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        If MainWindow.Doc IsNot Nothing Then
-            Dim Categories = From x In MainWindow.Doc.Root.<competition> Select x.Attribute("age-group").Value
 
-            For Each cat In Categories
-                Klassements.Items.Add(cat)
-            Next
-        End If
+        Dim Categories = From x In _Doc.Root.<competition> Select x.Attribute("age-group").Value
+
+        For Each cat In Categories
+            Klassements.Items.Add(cat)
+        Next        
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
@@ -40,7 +46,7 @@ Public Class FremdSpielerDialog
         End If
 
         Dim SelektiertesKlassement = Klassements.SelectedItem.ToString
-        Dim klassementKnoten = (From x In MainWindow.Doc.Root.<competition>
+        Dim klassementKnoten = (From x In _Doc.Root.<competition>
                                 Where x.Attribute("age-group").Value = SelektiertesKlassement Select x).Single
         Dim neuesElement = New XElement(Spieler.XmlKnoten)
         klassementKnoten.<players>.First.Add(neuesElement)        
