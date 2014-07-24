@@ -91,7 +91,7 @@ Public Class Spieler
     Private ReadOnly Property MeineGewonnenenSpieleExport As IEnumerable(Of SpielPartie)
         Get
             Dim GewonneneSpiele = From x In VergangenePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
-                             Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze Select x
+                             Where Meine >= MainWindow.AktiveCompetition.SpielRegeln.Gewinnsätze Select x
 
             Return GewonneneSpiele.ToList
         End Get
@@ -100,7 +100,7 @@ Public Class Spieler
     Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
         Get
             Dim GewonneneSpiele = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
-                             Where Meine >= MainWindow.AktiveCompetition.Gewinnsätze Select x
+                             Where Meine >= MainWindow.AktiveCompetition.SpielRegeln.Gewinnsätze Select x
 
             Return GewonneneSpiele.ToList
         End Get
@@ -274,12 +274,12 @@ Public Class Spieler
         diff = Me.BuchholzPunkte - other.BuchholzPunkte
         If diff <> 0 Then Return diff
 
-        If MainWindow.AktiveCompetition.SonneBornBerger Then
+        If MainWindow.AktiveCompetition.SpielRegeln.SonneBornBerger Then
             diff = Me.SonneBornBergerPunkte - other.SonneBornBergerPunkte
             If diff <> 0 Then Return diff
         End If
 
-        If MainWindow.AktiveCompetition.SatzDifferenz Then
+        If MainWindow.AktiveCompetition.SpielRegeln.SatzDifferenz Then
             diff = Me.SatzDifferenz - other.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
