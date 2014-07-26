@@ -24,7 +24,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0" >
-                    <local:DoppelbreitenGrid Width="280" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
+                    <local:DoppelbreitenGrid Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
                         <local:DoppelbreitenGrid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -32,8 +32,8 @@
                             <RowDefinition/>
                         </local:DoppelbreitenGrid.RowDefinitions>
                         <local:DoppelbreitenGrid.ColumnDefinitions>
-                            <ColumnDefinition Width="31*" />
-                            <ColumnDefinition Width="24*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="122" />
                         </local:DoppelbreitenGrid.ColumnDefinitions>
                         <local:DoppelbreitenGrid.Resources>
                             <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />

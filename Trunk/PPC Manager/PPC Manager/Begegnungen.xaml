@@ -28,9 +28,6 @@
         <local:HintergrundLinksKonverter x:Key="HintergrundLinksKonverter"/>
         <local:HintergrundRechtsKonverter x:Key="HintergrundRechtsKonverter"/>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <local:Competition/>
-    </UserControl.DataContext>
     <UserControl.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
         <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
