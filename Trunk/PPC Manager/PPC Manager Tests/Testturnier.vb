@@ -116,7 +116,7 @@ Imports System.Xml.Schema
         Dim AktuellePaarungen = PaketBildung.organisierePakete(rundenName, AktiveListe.ToList, rundenNummer)
 
         Dim XMLPartien = From x In JungenU18.<matches>.Elements Where x.@group = rundenName
-        Dim ErwarteteErgebnisse = From x In SpielRunde.FromXML(AktiveListe, XMLPartien) Order By x.GetType.Name
+        Dim ErwarteteErgebnisse = From x In SpielRunde.FromXML(AktiveListe, XMLPartien) Order By x.GetType.Name Descending
 
         Assert.AreEqual(AktuellePaarungen.Count, ErwarteteErgebnisse.Count)
 

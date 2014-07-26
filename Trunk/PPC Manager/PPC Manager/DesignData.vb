@@ -8,7 +8,10 @@
 
         For Each partie In New DesignSpielPartien
             SpielRunde.Add(partie)
-        Next        
+        Next
+
+        SpielRunde.Add(New FreiLosSpiel("Runde 1", New Spieler With {.Id = "999", .Nachname = "MisterX", .Vorname = "Max"}))
+
         AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = spielerListe.Last, .Runde = 1})
         Me.Push(SpielRunde)
     End Sub

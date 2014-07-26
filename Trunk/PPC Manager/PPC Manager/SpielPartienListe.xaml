@@ -16,7 +16,7 @@
             <local:OpacityConverter x:Key="OpacityConverter"/>
             <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
-                    <StackPanel Width="200">
+                    <StackPanel Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}">
                         <TextBlock Text="{Binding Path=SpielerLinks}" Margin="30,0,0,0"/>
                         <TextBlock Text="(Freilos)" Margin="30,0,0,0" FontStyle="Italic"/>
                     </StackPanel>
