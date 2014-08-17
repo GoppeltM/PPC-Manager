@@ -171,7 +171,14 @@ Class MainWindow
                 End With
 
                 Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size)
-                Dim l = AktiveCompetition.SpielerListe.ToList
+                Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
+                                                Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+                                                       Where x.Spieler = s AndAlso x.Runde = 0
+                                                       Into Any()
+                                            End Function
+                Dim l = (From x In AktiveCompetition.SpielerListe
+                        Where Not AusgeschiedenInRunde0(x)
+                        Select x).ToList
                 l.Sort()
                 l.Reverse()
 
