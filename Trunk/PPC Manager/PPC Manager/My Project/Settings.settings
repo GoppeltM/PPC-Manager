@@ -25,14 +25,6 @@
   &lt;string&gt;Keine Angabe&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="Vereine" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;TTC Langensteinbach&lt;/string&gt;
-  &lt;string&gt;TTC Oberrhein&lt;/string&gt;
-  &lt;string&gt;TTC Gumpelhofen&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
-    </Setting>
     <Setting Name="LetztesVerzeichnis" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -50,6 +42,9 @@
     </Setting>
     <Setting Name="Sonneborn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PartieBreite" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">220</Value>
     </Setting>
   </Settings>
 </SettingsFile>

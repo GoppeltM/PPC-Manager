@@ -1,72 +1,24 @@
-﻿Imports Microsoft.Win32
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
-Imports System.Windows.Controls.Primitives
+﻿Imports System.Windows.Controls.Primitives
 
 Class MainWindow
 
-    Public Shared Doc As XDocument
-    Public Pfad As String
+    Private ReadOnly Controller As IStartlistenController
 
-    Private ReadOnly Property SpielerListe As SpielerListe
-        Get
-            Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
-            Return res
-        End Get
-    End Property
+    Public Sub New(controller As IStartlistenController)
+        InitializeComponent()
+        Me.Controller = controller
+        Dim spielerListe = DirectCast(Resources("SpielerListe"), SpielerListe)
+        Dim klassementListe = DirectCast(Resources("KlassementListe"), KlassementListe)
+        Me.Controller.Initialize(spielerListe, klassementListe)
+    End Sub
 
     Private Sub MainWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
-        Select Case MessageBox.Show("Dieses Programm wird jetzt geschlossen. Sollen Änderungen gespeichert werden?" _
-                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
-            Case MessageBoxResult.Cancel : e.Cancel = True
-            Case MessageBoxResult.Yes : If Pfad IsNot Nothing Then Speichern()
-        End Select
-
+        Controller.Schließend(SpielerGrid, e)
     End Sub
 
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-
-        With New OpenFileDialog
-            .Filter = "Click-TT Turnierdaten|*.xml"
-            If Not .ShowDialog Then
-                Application.Current.Shutdown()
-                Return
-            End If
-
-            Doc = XDocument.Load(.FileName)
-            Pfad = .FileName
-        End With
-
-        Dim AlleSpieler = XmlZuSpielerListe(Doc)
-
-
-        Dim AlleKlassements = (From x In Doc.Root.<competition> Select x.Attribute("age-group").Value).Distinct
-        With DirectCast(FindResource("KlassementListe"), KlassementListe)
-            For Each Klassement In AlleKlassements
-                .Add(New KlassementName With {.Name = Klassement})
-            Next
-        End With
-
-        For Each s In AlleSpieler
-            SpielerListe.Add(s)
-        Next
-
+        Controller.Öffnend()
     End Sub
-
-    Shared Function XmlZuSpielerListe(doc As XDocument) As IList(Of Spieler)
-
-        Dim SpielerListe = From competition In doc.Root.<competition>
-                           From Spieler In competition...<player>.Concat(competition...<ppc:player>)
-                           Select Spieler
-
-        Dim AlleSpieler As New List(Of Spieler)
-
-        For Each s In SpielerListe
-            AlleSpieler.Add(Spieler.FromXML(s))
-        Next
-
-        AlleSpieler.Sort()
-        Return AlleSpieler
-    End Function
 
     Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing
@@ -77,67 +29,20 @@ Class MainWindow
     End Sub
 
     Private Sub CommandNew_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim neuerTTR = DirectCast(SpielerGrid.SelectedItem, Spieler).TTR - 1
-        Dim Lizenznummern = (From x In SpielerListe Select x.LizenzNr).ToList
-        Dim NeueLizenzNummer = -1
-        While Lizenznummern.Contains(NeueLizenzNummer)
-            NeueLizenzNummer -= 1
-        End While
-        Dim dialog = FremdSpielerDialog.NeuerFremdSpieler(neuerTTR, NeueLizenzNummer)
-        If dialog.ShowDialog() Then
-            SpielerGrid.BeginInit()
-            Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
-            res.Add(dialog.Spieler)
-            SpielerGrid.EndInit()
-        End If
+        Controller.NeuerFremdSpieler(SpielerGrid)        
     End Sub
 
     Private Sub CommandDelete_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
-        If MessageBox.Show("Wollen Sie wirklich diesen Spieler entfernen?", "Löschen?", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) = MessageBoxResult.OK Then
-            Dim res = DirectCast(FindResource("SpielerListe"), SpielerListe)
-            res.Remove(aktuellerSpieler)
-            aktuellerSpieler.XmlKnoten.Remove()
-        End If
+        Controller.LöscheFremdSpieler(SpielerGrid)        
     End Sub
 
     Private Sub CommandReplace_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
-        Dim dialog = FremdSpielerDialog.EditiereFremdSpieler(aktuellerSpieler)
-        aktuellerSpieler.BeginEdit()
-        SpielerGrid.BeginInit()
-        If Not dialog.ShowDialog() Then
-            aktuellerSpieler.CancelEdit()
-        End If
-        SpielerGrid.EndInit()
+        Controller.EditiereFremdSpieler(SpielerGrid)        
     End Sub
 
-    Private Sub Speichern()
-
-        SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
-
-        Dim AusgeschiedenKlassements = From x In SpielerListe Group x By x.KlassementNode Into Group
-
-        For Each klassement In AusgeschiedenKlassements
-
-            If Not klassement.KlassementNode.<matches>.Any Then
-                klassement.KlassementNode.Add(<matches/>)
-            End If
-
-            For Each ausgeschiedeneSpieler In klassement.KlassementNode.<matches>.<ppc:inactiveplayer>.ToList
-                If ausgeschiedeneSpieler.@group = "0" Then
-                    ausgeschiedeneSpieler.Remove()
-                End If
-            Next
-
-            Dim xSpieler = From x In klassement.Group Where x.Abwesend Select <ppc:inactiveplayer player=<%= x.ID %> group="0"/>
-
-            klassement.KlassementNode.<matches>.Single.Add(xSpieler)
-        Next
-
-        Doc.Save(Pfad)
+    Private Sub Save_Click(sender As Object, e As RoutedEventArgs)
+        Controller.Speichern(SpielerGrid)
     End Sub
-
 
     Shared Function FindVisualParent(Of T As UIElement)(element As UIElement) As T
         Dim parent = element
@@ -255,10 +160,6 @@ Class MainWindow
         View.View.Refresh()
     End Sub
 
-    Private Sub Save_Click(sender As Object, e As RoutedEventArgs)
-        Speichern()
-    End Sub
-
     Private Sub Drucken_Click(sender As Object, e As RoutedEventArgs)
         With New PrintDialog
             If .ShowDialog Then
@@ -291,11 +192,11 @@ Class StringIsEmptyConverter
     End Function
 End Class
 
-Class KlassementListe
+Public Class KlassementListe
     Inherits ObjectModel.ObservableCollection(Of KlassementName)
 End Class
 
-Class KlassementName
+Public Class KlassementName
     Property Name As String
 End Class
 

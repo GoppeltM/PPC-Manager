@@ -26,7 +26,7 @@
     <ProductName>PPC Startlisten Editor</ProductName>
     <PublisherName>Marius Goppelt</PublisherName>
     <SuiteName>PPC Manager</SuiteName>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>20</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -106,6 +106,8 @@
     <Compile Include="FremdSpielerDialog.xaml.vb">
       <DependentUpon>FremdSpielerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IStartlistenController.vb" />
+    <Compile Include="StartlistenController.vb" />
     <Compile Include="Spieler.vb" />
     <Compile Include="StartlisteSeite.xaml.vb">
       <DependentUpon>StartlisteSeite.xaml</DependentUpon>

@@ -82,7 +82,7 @@ Public Class SpielPartie
             Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where x.PunkteRechts >= x.PunkteLinks + 2 _
                                           And x.PunkteRechts >= My.Settings.GewinnPunkte Into Count()
 
-            Dim gewinnSätze = MainWindow.AktiveCompetition.Gewinnsätze
+            Dim gewinnSätze = MainWindow.AktiveCompetition.SpielRegeln.Gewinnsätze
             Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= gewinnSätze
         End Get
     End Property
@@ -213,7 +213,7 @@ Public Class FreiLosSpiel
     Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As System.Collections.Generic.IList(Of Satz)
         Get
             Dim l As New List(Of Satz)
-            For i = 0 To MainWindow.AktiveCompetition.Gewinnsätze - 1
+            For i = 0 To MainWindow.AktiveCompetition.SpielRegeln.Gewinnsätze - 1
                 l.Add(New Satz() With {.PunkteLinks = My.Settings.GewinnPunkte})
             Next
             Return l

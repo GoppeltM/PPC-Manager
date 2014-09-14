@@ -60,12 +60,12 @@ Public Class ExcelInterface
             diff = myself.ExportBHZ - other.ExportBHZ
             If diff <> 0 Then Return diff
 
-            If MainWindow.AktiveCompetition.SonneBornBerger Then
+            If MainWindow.AktiveCompetition.SpielRegeln.SonneBornBerger Then
                 diff = myself.ExportSonneborn - other.ExportSonneborn
                 If diff <> 0 Then Return diff
             End If
 
-            If MainWindow.AktiveCompetition.SatzDifferenz Then
+            If MainWindow.AktiveCompetition.SpielRegeln.SatzDifferenz Then
                 diff = (myself.ExportSätzeGewonnen - myself.ExportSätzeVerloren) - (other.ExportSätzeGewonnen - other.ExportSätzeVerloren)
                 If diff <> 0 Then Return diff
             End If

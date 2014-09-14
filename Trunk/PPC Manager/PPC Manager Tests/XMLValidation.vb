@@ -45,12 +45,13 @@ Imports System.Xml
 
     <TestMethod>
     Public Sub Competition_From_XML()
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False, False)
+        Dim regeln = New SpielRegeln(4, False, False)
+        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)
         MainWindow.AktiveCompetition = reference
         With reference
             Assert.AreEqual("D:\dummy.xml", .DateiPfad)
-            Assert.AreEqual(4, .Gewinnsätze)
-            Assert.AreEqual(False, .SatzDifferenz)
+            Assert.AreEqual(4, .SpielRegeln.Gewinnsätze)
+            Assert.AreEqual(False, .SpielRegeln.SatzDifferenz)
             Assert.AreEqual("2012-09-08 11:00", .StartDatum)
             Assert.AreEqual("Mädchen U 13", .Altersgruppe)
             Assert.AreEqual(4, .SpielerListe.Count)
@@ -62,7 +63,8 @@ Imports System.Xml
 
     <TestMethod>
     Sub Competition_ErsteRunde_From_XML()
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, 4, False, False)
+        Dim regeln = New SpielRegeln(4, False, False)
+        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)
         MainWindow.AktiveCompetition = reference
 
 
@@ -166,12 +168,10 @@ Imports System.Xml
 
     <TestMethod>
     Sub Runden_To_XML()
-        MainWindow.AktiveCompetition = New Competition
+        MainWindow.AktiveCompetition = New Competition(New SpielRegeln(4, False, False))
         With MainWindow.AktiveCompetition
             .DateiPfad = "D:\dummy.xml"
             .Altersgruppe = "Mädchen U 13"
-            .Gewinnsätze = 4
-            .SatzDifferenz = False
             .StartDatum = "2012-09-08 11:00"
             .SpielerListe = New SpielerListe From {
                 New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
@@ -316,12 +316,6 @@ Imports System.Xml
         End Using
 
         doc.Save("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test_Schema.xml")
-    End Sub
-
-    <TestMethod>
-    Sub DatumSetzen()
-        Dim x = Date.Now.ToString("yyyy-MM-dd HH:mm")
-        Dim y = Date.Parse(x)
     End Sub
 
 

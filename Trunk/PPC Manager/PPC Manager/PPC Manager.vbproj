@@ -27,9 +27,9 @@
     <ProductName>PPC Manager</ProductName>
     <PublisherName>Marius Goppelt</PublisherName>
     <SuiteName>PPC Manager</SuiteName>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>22</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <AutorunEnabled>true</AutorunEnabled>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -140,6 +140,7 @@
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
     <Compile Include="HilfsKlassen.vb" />
+    <Compile Include="ICompetition.vb" />
     <Compile Include="LadenNeu.xaml.vb">
       <DependentUpon>LadenNeu.xaml</DependentUpon>
     </Compile>
@@ -156,6 +157,7 @@
     <Compile Include="SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SpielRegeln.vb" />
     <Compile Include="SpielRunden.vb" />
     <Compile Include="ValueConverter.vb" />
     <Page Include="Begegnungen.xaml">

@@ -15,13 +15,17 @@
         aktiveListe.Reverse()
 
         Dim paarungen As New List(Of SpielPartie)
+        Dim AddFreilos = Sub()
+
+                         End Sub
 
         If aktiveListe.Count Mod 2 = 1 Then
             Dim freilosSpieler = freilosRegel(aktiveListe)
             aktiveListe.Remove(freilosSpieler)
-            paarungen.Add(New FreiLosSpiel(rundenname, freilosSpieler))
+            AddFreilos = Sub()
+                             paarungen.Add(New FreiLosSpiel(rundenname, freilosSpieler))
+                         End Sub
         End If
-
 
         Dim mittelPaket As New MittelPaket(aktuelleRunde, rundenname)
         Dim pakete = makeEvenPointPackets(rundenname, aktiveListe, aktuelleRunde, mittelPaket)
@@ -30,6 +34,7 @@
             Dim paket = pakete.First
             paket.SuchePaarungen()
             paarungen.AddRange(From x In paket.Partien)
+            AddFreilos()
             Return paarungen
         End If
 
@@ -66,6 +71,7 @@
         For Each Paket In pakete
             paarungen.AddRange(Paket.Partien)
         Next
+        AddFreilos()
         Return paarungen
     End Function
 

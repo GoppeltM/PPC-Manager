@@ -8,7 +8,8 @@ Class MainWindow
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         With New LadenNeu
             If Not .ShowDialog() Then Return
-            AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, .GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
+            Dim spielRegeln = New SpielRegeln(.GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
+            AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, spielRegeln)
             Me.DataContext = AktiveCompetition
         End With
     End Sub
@@ -170,7 +171,14 @@ Class MainWindow
                 End With
 
                 Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size)
-                Dim l = AktiveCompetition.SpielerListe.ToList
+                Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
+                                                Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+                                                       Where x.Spieler = s AndAlso x.Runde = 0
+                                                       Into Any()
+                                            End Function
+                Dim l = (From x In AktiveCompetition.SpielerListe
+                        Where Not AusgeschiedenInRunde0(x)
+                        Select x).ToList
                 l.Sort()
                 l.Reverse()
 

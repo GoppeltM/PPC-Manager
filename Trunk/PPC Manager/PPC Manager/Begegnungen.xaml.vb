@@ -197,6 +197,16 @@ Class Begegnungen
         SetFocus()
     End Sub
 
+    Private Sub SpielerView_Filter(sender As Object, e As FilterEventArgs)
+        Dim s As Spieler = DirectCast(e.Item, Spieler)
+        Dim ausgeschiedeneSpieler = MainWindow.AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+
+        Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
+                            x.Spieler = s Into Any()
+
+        e.Accepted = Not AusgeschiedenVorBeginn
+
+    End Sub
 End Class
 
 
