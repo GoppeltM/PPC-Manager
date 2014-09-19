@@ -3,15 +3,15 @@
 Class MainWindow
 
 
-    Public AktiveCompetition As Competition
+    Public ReadOnly AktiveCompetition As Competition
+    Private _aktiveCompetition As Competition    
 
-    Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
-        With New LadenNeu
-            If Not .ShowDialog() Then Return
-            Dim spielRegeln = New SpielRegeln(.GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
-            AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, spielRegeln)
-            Me.DataContext = AktiveCompetition
-        End With
+    Sub New(competition As Competition, titel As String)
+        InitializeComponent()
+
+        AktiveCompetition = competition
+        Me.DataContext = AktiveCompetition
+        Me.Title = titel
     End Sub
 
     Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)

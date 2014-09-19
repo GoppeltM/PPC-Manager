@@ -4,8 +4,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 <TestClass()> Public Class Paket_Tests
 
     <TestInitialize>
-    Sub Init()        
+    Sub Init()
+        c = New Competition(New SpielRegeln(3, True, True))
     End Sub
+
+    Private c As Competition
 
     <TestMethod>
     Sub Spieler_Sortieren()        
@@ -29,8 +32,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
                             <person club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" firstname="Marius"
                                 lastname="Goppelt" ttr="1102" licence-nr="-1"/>
                         </ppc:player>
-                    </players>
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+                    </players>        
         Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x, c)).ToList
         Spielerliste.Sort()
         Spielerliste.Reverse()
@@ -39,8 +41,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub Gerade_StandardPaarung()
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+    Sub Gerade_StandardPaarung()        
         Dim p As New Paket(1, "Runde 1", 3)
         p.SpielerListe = New List(Of Spieler) From
                 {New Spieler(c) With {.Nachname = "Alpha", .TTRating = 50},
@@ -56,8 +57,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub Ungerade_StandardPaarung()
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+    Sub Ungerade_StandardPaarung()        
         Dim p As New Paket(1, "Runde xyz", 3)
         p.SpielerListe = New List(Of Spieler) From
                 {New Spieler(c) With {.Nachname = "Alpha", .TTRating = 50},
@@ -74,8 +74,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub FreilosSpiel()
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+    Sub FreilosSpiel()        
         Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
         Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
         Dim runde = New SpielRunde
@@ -91,8 +90,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub HatFreilos()
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+    Sub HatFreilos()        
         Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
         Dim SpielerB = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER111"}        
         Dim runde = New SpielRunde
@@ -106,8 +104,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub StandardSpiel()
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+    Sub StandardSpiel()        
         Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
         Dim SpielerB = New Spieler(c) With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}        
         Dim SpielerC = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}        
@@ -181,8 +178,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub Spieler_Ausscheiden()
-        Dim c = New Competition(New SpielRegeln(3, True, True))
+    Sub Spieler_Ausscheiden()        
         Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
         Dim SpielerB = New Spieler(c) With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}        
         Dim SpielerC = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}        

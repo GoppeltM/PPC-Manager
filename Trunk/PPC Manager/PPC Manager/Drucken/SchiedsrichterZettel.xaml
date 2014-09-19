@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PPC_Manager"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:DesignHeight="1287.179" d:DesignWidth="792.507">
+    <UserControl.Resources>
+        <system:String x:Key="KlassementName">Klasse X</system:String>
+    </UserControl.Resources>
     <Grid Name="PageContent" DataContext="{Binding Source=SpielPartien}" d:DataContext="{d:DesignInstance Type=local:DesignSpielPartien, IsDesignTimeCreatable=True}" Margin="20">
         <Grid.Resources>
             <local:SpielPartien x:Key="SpielPartien"/>
@@ -15,11 +19,11 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock x:Name="AktuellesDatum" Grid.Row="0" Text="14.12.1013" Margin="20,0,0,0"/>
-            <TextBlock x:Name="KlassementName" Grid.Row="0" Text="Klasse D" Margin="20,0,0,0"/>
+            <TextBlock x:Name="KlassementName" Grid.Row="0" Text="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Margin="20,0,0,0"/>
             <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>
             <TextBlock x:Name="Seitennummer" Grid.Row="0" Text="Seite 1" Margin="20,0,0,0" />
         </StackPanel>
-        <ItemsControl Grid.Row="1" Name="ItemsContainer" ItemsSource="{Binding}">
+        <ItemsControl Grid.Row="1" Name="ItemsContainer" ItemsSource="{Binding}" Grid.ColumnSpan="3">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                     <Border BorderThickness="1" BorderBrush="Black" CornerRadius="8" Margin="2">
@@ -32,7 +36,7 @@
                             <TextBlock Grid.Row="0" Text="{StaticResource KlassementName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="1" Text="{Binding Path=RundenName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
-                            <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>                            
+                            <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

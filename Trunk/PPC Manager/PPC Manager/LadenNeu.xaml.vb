@@ -51,7 +51,8 @@ Public Class LadenNeu
     End Function
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button3.Click
-        Application.Current.Shutdown()
+        Me.DialogResult = False
+        Me.Close()
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)

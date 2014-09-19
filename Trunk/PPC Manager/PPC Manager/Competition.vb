@@ -30,11 +30,6 @@ Public Class Competition
                 }
         c.SpielerListe = SpielerListe.FromXML(node.<players>, c)
         c.SpielRunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
-        If Application.Current IsNot Nothing Then
-            Application.Current.MainWindow.Title = node.Attribute("age-group").Value
-            Application.Current.Resources("KlassementName") = node.Attribute("age-group").Value
-        End If
-
         Return c
     End Function
 
