@@ -6,9 +6,7 @@ Class Begegnungen
 
         ' This call is required by the designer.
         InitializeComponent()
-
         ' Add any initialization after the InitializeComponent() call.
-
     End Sub
 
     Friend Property BegegnungenView As CollectionViewSource
@@ -38,6 +36,8 @@ Class Begegnungen
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         AktiveCompetition = DirectCast(Me.DataContext, Competition)
         If AktiveCompetition Is Nothing Then Return
+        Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)        
+        res.ObjectInstance = AktiveCompetition.SpielerListe        
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
@@ -75,14 +75,6 @@ Class Begegnungen
     Private Sub BegegnungenFiltern_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         If BegegnungenView.View Is Nothing Then Return
         BegegnungenView.View.Refresh()
-    End Sub
-
-  
-
-    Private Sub Window_Initialized(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Initialized
-        Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)
-        Dim liste = CType(FindResource("SpielerListe"), SpielerListe)
-        res.ObjectInstance = liste
     End Sub
 
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)

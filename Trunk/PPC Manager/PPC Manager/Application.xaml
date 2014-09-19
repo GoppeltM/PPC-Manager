@@ -4,9 +4,7 @@
     xmlns:local="clr-namespace:PPC_Manager"    
     xmlns:core="clr-namespace:System;assembly=mscorlib"
     xmlns:my="clr-namespace:System;assembly=mscorlib">
-    <Application.Resources>
-        <local:SpielerListe x:Key="SpielerListe" />
-        <local:SpielRunden x:Key="SpielRunden" />        
+    <Application.Resources>                      
         <core:Boolean x:Key="PlayoffAktiv"/>
   </Application.Resources>
 </Application>
