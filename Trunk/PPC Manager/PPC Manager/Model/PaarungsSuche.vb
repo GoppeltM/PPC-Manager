@@ -2,8 +2,10 @@
 Public Class PaarungsSuche
 
     Private Property _rundenName As String
-    Public Sub New(rundenName As String)
+    Private ReadOnly _Gewinnsätze As Integer
+    Public Sub New(rundenName As String, gewinnsätze As Integer)
         _rundenName = rundenName
+        _Gewinnsätze = gewinnsätze
     End Sub
 
     Public Function SuchePaarungen(ByVal spielerListe As List(Of Spieler), ByVal paket As Paket) As PaarungsContainer
@@ -82,7 +84,7 @@ Public Class PaarungsSuche
             Dim spieler2 = listeRechts.First
             If spieler1.HatBereitsGespieltGegen(spieler2) Then Return Nothing
 
-            Dim partie = New SpielPartie(_rundenName, spieler1, spieler2)            
+            Dim partie = New SpielPartie(_rundenName, spieler1, spieler2, _Gewinnsätze)
             paarungen.Add(partie)
             listeLinks.Remove(spieler1)
             listeRechts.Remove(spieler2)

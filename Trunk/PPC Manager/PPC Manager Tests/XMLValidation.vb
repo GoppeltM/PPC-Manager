@@ -46,8 +46,7 @@ Imports System.Xml
     <TestMethod>
     Public Sub Competition_From_XML()
         Dim regeln = New SpielRegeln(4, False, False)
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)
-        MainWindow.AktiveCompetition = reference
+        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)        
         With reference
             Assert.AreEqual("D:\dummy.xml", .DateiPfad)
             Assert.AreEqual(4, .SpielRegeln.Gewinnsätze)
@@ -64,9 +63,7 @@ Imports System.Xml
     <TestMethod>
     Sub Competition_ErsteRunde_From_XML()
         Dim regeln = New SpielRegeln(4, False, False)
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)
-        MainWindow.AktiveCompetition = reference
-
+        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)    
 
         CollectionAssert.AreEqual({"PLAYER127"}, (From x In reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
         Dim ersteRunde = reference.SpielRunden.Last
@@ -100,8 +97,9 @@ Imports System.Xml
                             <ppc:freematch player="PLAYER126" scheduled="22.05.2013 23:17:45" group="Runde 2"/>
                             <ppc:inactiveplayer player="PLAYER127" group="1"/>
                         </matches>
-        Dim RundenRes = SpielRunden.FromXML(New SpielerListe From {New Spieler With {.Id = "PLAYER127"}, New Spieler With {.Id = "PLAYER126"},
-                                                                   New Spieler With {.Id = "PLAYER72"}, New Spieler With {.Id = "PLAYER-1"}}, rundenRef)
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim RundenRes = SpielRunden.FromXML(New SpielerListe From {New Spieler(c) With {.Id = "PLAYER127"}, New Spieler(c) With {.Id = "PLAYER126"},
+                                                                   New Spieler(c) With {.Id = "PLAYER72"}, New Spieler(c) With {.Id = "PLAYER-1"}}, rundenRef, c.SpielRegeln.Gewinnsätze)
         With RundenRes
             CollectionAssert.AreEqual({"PLAYER127"}.ToList, (From x In .AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
         End With
@@ -110,11 +108,13 @@ Imports System.Xml
 
     <TestMethod>
     Public Sub Spieler_From_XML()
+
+        Dim c = New Competition(New SpielRegeln(3, True, True))
         Dim XNode = <player type="single" id="PLAYER72">
                         <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981"/>
                     </player>
 
-        With Spieler.FromXML(XNode)
+        With Spieler.FromXML(XNode, c)
             Assert.AreEqual("Florian", .Vorname)
             Assert.AreEqual("Ewald", .Nachname)
             Assert.AreEqual("TTC Langensteinbach e.V. ", .Vereinsname)
@@ -131,10 +131,11 @@ Imports System.Xml
                            set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
                            player-b="PLAYER72" player-a="PLAYER-1" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="1"/>
 
-        Dim SpielerA = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER-1", .Fremd = True}
-        Dim SpielerB = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER72"}
+        Dim c = New Competition(New SpielRegeln(4, False, False))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER-1", .Fremd = True}        
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER72"}
 
-        Dim Partie = SpielPartie.FromXML(New Spieler() {SpielerA, SpielerB}, MatchXml)
+        Dim Partie = SpielPartie.FromXML(New Spieler() {SpielerA, SpielerB}, MatchXml, c.SpielRegeln.Gewinnsätze)
         With Partie
             Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
             Assert.AreEqual(0, .MeineGewonnenenSätze(SpielerB).Count)
@@ -151,11 +152,11 @@ Imports System.Xml
                            sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="0" set-b-1="5"
                            set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
                            player-b="PLAYER299" player-a="PLAYER293" scheduled="22.05.2013 21:17:45" group=" Gruppe 01" nr="5"/>
+        Dim c = New Competition(New SpielRegeln(4, False, False))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}        
 
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
-
-        Dim Partie = SpielPartie.FromXML(New Spieler() {SpielerA, SpielerB}, MatchXml)
+        Dim Partie = SpielPartie.FromXML(New Spieler() {SpielerA, SpielerB}, MatchXml, c.SpielRegeln.Gewinnsätze)
         With Partie
             Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
             Assert.AreEqual(0, .MeineGewonnenenSätze(SpielerB).Count)
@@ -168,16 +169,16 @@ Imports System.Xml
 
     <TestMethod>
     Sub Runden_To_XML()
-        MainWindow.AktiveCompetition = New Competition(New SpielRegeln(4, False, False))
-        With MainWindow.AktiveCompetition
+        Dim c = New Competition(New SpielRegeln(4, False, False))
+        With c
             .DateiPfad = "D:\dummy.xml"
             .Altersgruppe = "Mädchen U 13"
             .StartDatum = "2012-09-08 11:00"
             .SpielerListe = New SpielerListe From {
-                New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
-                New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"},
-                New Spieler With {.Vorname = "Alec", .Nachname = "Baldwin", .Id = "PLAYER33"},
-                New Spieler With {.Vorname = "Mahatma", .Nachname = "Gandhi", .Id = "PLAYER77"}
+                New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
+                New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"},
+                New Spieler(c) With {.Vorname = "Alec", .Nachname = "Baldwin", .Id = "PLAYER33"},
+                New Spieler(c) With {.Vorname = "Mahatma", .Nachname = "Gandhi", .Id = "PLAYER77"}
             }
             Dim spieler = .SpielerListe
             .SpielRunden = New SpielRunden
@@ -185,8 +186,8 @@ Imports System.Xml
                 .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden) From {New Ausgeschieden With {.Spieler = spieler(3), .Runde = 1}}
                 Dim runde = New SpielRunde
                 Dim Zeitstempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
-                runde.Add(New FreiLosSpiel("Runde 1", spieler(2)) With {.ZeitStempel = Zeitstempel})
-                runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1)) With {.ZeitStempel = Zeitstempel})
+                runde.Add(New FreiLosSpiel("Runde 1", spieler(2), c.SpielRegeln.Gewinnsätze) With {.ZeitStempel = Zeitstempel})
+                runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1), c.SpielRegeln.Gewinnsätze) With {.ZeitStempel = Zeitstempel})
                 .Push(runde)
             End With
 
@@ -213,10 +214,10 @@ Imports System.Xml
 
     <TestMethod>
     Sub SpielePartie_To_XML()
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
-
-        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB)
+        Dim c = New Competition(New SpielRegeln(4, False, False))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, c.SpielRegeln.Gewinnsätze)
         Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
@@ -239,10 +240,11 @@ Imports System.Xml
 
     <TestMethod>
     Sub FremdPartie_To_XML()
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
+        Dim c = New Competition(New SpielRegeln(4, False, False))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
 
-        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB)
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, c.SpielRegeln.Gewinnsätze)
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})

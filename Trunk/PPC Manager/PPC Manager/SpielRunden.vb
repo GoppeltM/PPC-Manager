@@ -8,12 +8,12 @@ Public Class SpielRunden
     <DebuggerBrowsable(DebuggerBrowsableState.Collapsed)>
     Public Property AusgeschiedeneSpieler As New ObservableCollection(Of Ausgeschieden)
 
-    Public Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal matchesKnoten As XElement) As SpielRunden
+    Public Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal matchesKnoten As XElement, gewinnsätze As Integer) As SpielRunden
         Dim SpielRunden As New SpielRunden
         If matchesKnoten Is Nothing Then
             Return SpielRunden
         End If
-        
+
 
         For Each AusgeschiedenerSpieler In matchesKnoten.<ppc:inactiveplayer>
             Dim StartNummer = AusgeschiedenerSpieler.@player
@@ -27,7 +27,7 @@ Public Class SpielRunden
                       Group By x.@group Into Runde = Group Order By Date.Parse(Runde.First.@scheduled, Globalization.CultureInfo.GetCultureInfo("de")) Ascending
 
         For Each xRunde In xSpielPartien
-            SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde))
+            SpielRunden.Push(SpielRunde.FromXML(spielerListe, xRunde.Runde, gewinnsätze))
         Next
 
         Return SpielRunden
@@ -67,14 +67,14 @@ Public Class SpielRunde
         Me.OnCollectionChanged(New Specialized.NotifyCollectionChangedEventArgs(Specialized.NotifyCollectionChangedAction.Reset, Me.Items))
     End Sub
 
-    Public Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
+    Public Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement), gewinnsätze As Integer) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"
-            runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie))
+            runde.Add(SpielPartie.FromXML(spielerListe, xSpielPartie, gewinnsätze))
         Next
         Dim xFreilos = (From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de") + "freematch").SingleOrDefault
         If xFreilos IsNot Nothing Then
-            runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos))
+            runde.Add(FreiLosSpiel.FromXML(spielerListe, xFreilos, gewinnsätze))
         End If
 
 

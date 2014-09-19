@@ -2,13 +2,13 @@
     Implements IPaginatibleUserControl
 
 
-    Public Sub New()
+    Public Sub New(altersgruppe As String, rundenzahl As Integer)
         ' This call is required by the designer.
         InitializeComponent()
 
-        Me.KlassementName.Text = MainWindow.AktiveCompetition.Altersgruppe
+        Me.KlassementName.Text = altersgruppe
         Me.AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
-        Me.RundenNummer.Text = "Runde Nr. " & MainWindow.AktiveCompetition.SpielRunden.Count
+        Me.RundenNummer.Text = "Runde Nr. " & rundenzahl
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
@@ -71,7 +71,8 @@ End Class
 Public Class NeuePaarungen
     Inherits SpielErgebnisse
 
-    Public Sub New()
+    Public Sub New(altersgruppe As String, rundenzahl As Integer)
+        MyBase.New(altersgruppe, rundenzahl)
         ErgebnisSpalte.Visibility = Windows.Visibility.Collapsed
     End Sub
 

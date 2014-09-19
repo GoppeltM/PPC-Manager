@@ -15,12 +15,15 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
-    Public Sub New(rundenName As String, ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler)
+    Protected ReadOnly _GewinnSätze As Integer
+
+    Public Sub New(rundenName As String, ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, gewinnsätze As Integer)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException
         If spielerRechts Is Nothing Then Throw New ArgumentNullException
 
         Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
         _RundenName = rundenName
+        _GewinnSätze = gewinnsätze
         AddHandler Me.CollectionChanged, Sub()
                                              Me.OnPropertyChanged(New PropertyChangedEventArgs("Abgeschlossen"))
                                          End Sub
@@ -81,9 +84,8 @@ Public Class SpielPartie
 
             Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where x.PunkteRechts >= x.PunkteLinks + 2 _
                                           And x.PunkteRechts >= My.Settings.GewinnPunkte Into Count()
-
-            Dim gewinnSätze = MainWindow.AktiveCompetition.SpielRegeln.Gewinnsätze
-            Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= gewinnSätze
+            
+            Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= _GewinnSätze
         End Get
     End Property
             
@@ -156,12 +158,11 @@ Public Class SpielPartie
     End Function
 
 
-    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement) As SpielPartie
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
         Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
         Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
-
-        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB)
+        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB, Gewinnsätze)
 
         Dim SätzeA = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-a") Order By x.Name.LocalName Ascending
 
@@ -199,8 +200,8 @@ End Class
 Public Class FreiLosSpiel
     Inherits SpielPartie
 
-    Public Sub New(rundenName As String, ByVal freilosSpieler As Spieler)
-        MyBase.New(rundenName, freilosSpieler, freilosSpieler)
+    Public Sub New(rundenName As String, ByVal freilosSpieler As Spieler, gewinnsätze As Integer)
+        MyBase.New(rundenName, freilosSpieler, freilosSpieler, gewinnsätze)
     End Sub
 
 
@@ -213,16 +214,16 @@ Public Class FreiLosSpiel
     Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As System.Collections.Generic.IList(Of Satz)
         Get
             Dim l As New List(Of Satz)
-            For i = 0 To MainWindow.AktiveCompetition.SpielRegeln.Gewinnsätze - 1
+            For i = 0 To _Gewinnsätze - 1
                 l.Add(New Satz() With {.PunkteLinks = My.Settings.GewinnPunkte})
             Next
             Return l
         End Get
     End Property
 
-    Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement) As FreiLosSpiel
-        Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First
-        Return New FreiLosSpiel(xFreilosSpiel.@group, spieler)
+    Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement, gewinnsätze As Integer) As FreiLosSpiel
+        Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First        
+        Return New FreiLosSpiel(xFreilosSpiel.@group, spieler, gewinnsätze)
     End Function
 
 End Class

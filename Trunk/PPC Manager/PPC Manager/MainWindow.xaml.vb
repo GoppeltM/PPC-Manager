@@ -3,7 +3,7 @@
 Class MainWindow
 
 
-    Public Shared AktiveCompetition As Competition
+    Public AktiveCompetition As Competition
 
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         With New LadenNeu
@@ -89,7 +89,7 @@ Class MainWindow
     Private Sub RundeBerechnen()
 
         If CBool(My.Settings.AutoSaveAn) Then
-            MainWindow.AktiveCompetition.SaveXML()
+            AktiveCompetition.SaveXML()
         End If
 
         With AktiveCompetition
@@ -98,7 +98,7 @@ Class MainWindow
                 AktiveListe.Remove(Ausgeschieden.Spieler)
             Next
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
-            Dim begegnungen = PaketBildung.organisierePakete(RundenName, AktiveListe, .SpielRunden.Count)
+            Dim begegnungen = New PaketBildung(RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
             For Each partie In begegnungen
                 partie.ZeitStempel = Zeitstempel
@@ -116,7 +116,7 @@ Class MainWindow
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
 
         If CBool(My.Settings.AutoSaveAn) Then
-            MainWindow.AktiveCompetition.SaveExcel()
+            AktiveCompetition.SaveExcel()
         End If
 
     End Sub
@@ -129,19 +129,19 @@ Class MainWindow
         End If
 
         If CBool(My.Settings.AutoSaveAn) Then
-            MainWindow.AktiveCompetition.SaveXML()
+            AktiveCompetition.SaveXML()
         End If
 
-        With MainWindow.AktiveCompetition
+        With AktiveCompetition
             Dim spielRunde As New SpielRunde
             .SpielRunden.Push(spielRunde)
-            Resources("PlayoffAktiv") = True            
+            Resources("PlayoffAktiv") = True
         End With
 
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
 
         If CBool(My.Settings.AutoSaveAn) Then
-            MainWindow.AktiveCompetition.SaveExcel()
+            AktiveCompetition.SaveExcel()
         End If
     End Sub
 
@@ -150,8 +150,15 @@ Class MainWindow
             .UserPageRangeEnabled = True
             If .ShowDialog Then
                 Dim size = New Size(.PrintableAreaWidth, .PrintableAreaHeight)
-                Dim PaarungenPaginator As New UserControlPaginator(Of NeuePaarungen)(From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel, size)
-                Dim SchiriPaginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, size)
+
+                Dim neuePaarungenFactory = Function() New NeuePaarungen(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+
+                Dim PaarungenPaginator As New UserControlPaginator(Of NeuePaarungen) _
+                    (From x In AktiveCompetition.SpielRunden.Peek
+                     Where Not TypeOf x Is FreiLosSpiel, size, neuePaarungenFactory)
+
+                Dim SchiriFactory = Function() New SchiedsrichterZettel(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                Dim SchiriPaginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, size, SchiriFactory)
                 .PrintDocument(New PaginatingPaginator({PaarungenPaginator, SchiriPaginator}), "Neue Begegnungen - Aushang und Schiedsrichterzettel")
             End If
         End With
@@ -170,7 +177,8 @@ Class MainWindow
                     End If
                 End With
 
-                Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size)
+                Dim SpielErgebnisseFactory = Function() New SpielErgebnisse(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size, SpielErgebnisseFactory)
                 Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
                                                 Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
                                                        Where x.Spieler = s AndAlso x.Runde = 0
@@ -182,7 +190,8 @@ Class MainWindow
                 l.Sort()
                 l.Reverse()
 
-                Dim RanglistePaginator As New UserControlPaginator(Of RanglisteSeite)(l, size)
+                Dim ranglisteFactory = Function() New RanglisteSeite(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                Dim RanglistePaginator As New UserControlPaginator(Of RanglisteSeite)(l, size, ranglisteFactory)
                 .PrintDocument(New PaginatingPaginator({ErgebnissePaginator, RanglistePaginator}), "Rundenende - Aushang und Rangliste")
             End If
         End With        
@@ -201,7 +210,7 @@ Class MainWindow
             If .ShowDialog Then
                 Dim spieler = AktiveCompetition.SpielerListe.ToList
                 spieler.Sort()
-                ExcelInterface.CreateFile(.FileName, spieler, AktiveCompetition.SpielRunden)
+                ExcelInterface.CreateFile(.FileName, spieler, AktiveCompetition)
             End If
 
         End With

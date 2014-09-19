@@ -4,9 +4,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 <TestClass()> Public Class Paket_Tests
 
     <TestInitialize>
-    Sub Init()
-        Dim spielRegeln = New SpielRegeln(3, True, True)
-        MainWindow.AktiveCompetition = New Competition(spielRegeln)
+    Sub Init()        
     End Sub
 
     <TestMethod>
@@ -32,8 +30,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
                                 lastname="Goppelt" ttr="1102" licence-nr="-1"/>
                         </ppc:player>
                     </players>
-
-        Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x)).ToList
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x, c)).ToList
         Spielerliste.Sort()
         Spielerliste.Reverse()
         CollectionAssert.AreEqual(New String() {"Wolfert", "Westermann", "Goppelt", "Wild"}, (From x In Spielerliste Select x.Nachname).ToList)
@@ -41,15 +39,16 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub Gerade_StandardPaarung()        
-        Dim p As New Paket(1, "Runde 1")
+    Sub Gerade_StandardPaarung()
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim p As New Paket(1, "Runde 1", 3)
         p.SpielerListe = New List(Of Spieler) From
-                {New Spieler With {.Nachname = "Alpha", .TTRating = 50},
-                New Spieler With {.Nachname = "Beta", .TTRating = 40},
-                New Spieler With {.Nachname = "Gamma", .TTRating = 30},
-                New Spieler With {.Nachname = "Delta", .TTRating = 20}}
+                {New Spieler(c) With {.Nachname = "Alpha", .TTRating = 50},
+                New Spieler(c) With {.Nachname = "Beta", .TTRating = 40},
+                New Spieler(c) With {.Nachname = "Gamma", .TTRating = 30},
+                New Spieler(c) With {.Nachname = "Delta", .TTRating = 20}}
 
-        Dim suche = New PaarungsSuche("Runde 1").StandardPaarung(p.SpielerListe, 2, p)
+        Dim suche = New PaarungsSuche("Runde 1", 3).StandardPaarung(p.SpielerListe, 2, p)
         Assert.IsNotNull(suche)
         Assert.IsNull(suche.aktuellerSchwimmer)
         Assert.AreEqual(2, suche.Partien.Count)
@@ -57,16 +56,17 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub Ungerade_StandardPaarung()        
-        Dim p As New Paket(1, "Runde xyz")
+    Sub Ungerade_StandardPaarung()
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim p As New Paket(1, "Runde xyz", 3)
         p.SpielerListe = New List(Of Spieler) From
-                {New Spieler With {.Nachname = "Alpha", .TTRating = 50},
-                New Spieler With {.Nachname = "Beta", .TTRating = 40},
-                New Spieler With {.Nachname = "Gamma", .TTRating = 30},
-                New Spieler With {.Nachname = "Delta", .TTRating = 20},
-                New Spieler With {.Nachname = "Epsilon", .TTRating = 20}}
+                {New Spieler(c) With {.Nachname = "Alpha", .TTRating = 50},
+                New Spieler(c) With {.Nachname = "Beta", .TTRating = 40},
+                New Spieler(c) With {.Nachname = "Gamma", .TTRating = 30},
+                New Spieler(c) With {.Nachname = "Delta", .TTRating = 20},
+                New Spieler(c) With {.Nachname = "Epsilon", .TTRating = 20}}
 
-        Dim suche = New PaarungsSuche("Runde xyz").StandardPaarung(p.SpielerListe, 2, p)
+        Dim suche = New PaarungsSuche("Runde xyz", 3).StandardPaarung(p.SpielerListe, 2, p)
         Assert.IsNotNull(suche)
         Assert.IsNotNull(suche.aktuellerSchwimmer)
         Assert.AreEqual(2, suche.Partien.Count)
@@ -74,11 +74,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub FreilosSpiel()        
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA)
+    Sub FreilosSpiel()
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
         Dim runde = New SpielRunde
-        MainWindow.AktiveCompetition.SpielRunden.Push(runde)
+        c.SpielRunden.Push(runde)
         Assert.IsFalse(SpielerA.HatFreilos)
         runde.Add(Partie)
         Assert.IsTrue(SpielerA.HatFreilos)
@@ -90,44 +91,45 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub HatFreilos()        
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER111"}
-
+    Sub HatFreilos()
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER111"}        
         Dim runde = New SpielRunde
-        MainWindow.AktiveCompetition.SpielRunden.Push(runde)
+        c.SpielRunden.Push(runde)
         Assert.IsFalse(SpielerA.HatFreilos)
         Assert.IsFalse(SpielerB.HatFreilos)
-        Dim Freilos = New FreiLosSpiel("Runde 1", SpielerA)
+        Dim Freilos = New FreiLosSpiel("Runde 1", SpielerA, 3)
         runde.Add(Freilos)
         Assert.IsTrue(SpielerA.HatFreilos)
         Assert.IsFalse(SpielerB.HatFreilos)
     End Sub
 
     <TestMethod>
-    Sub StandardSpiel()        
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}
-        Dim SpielerC = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}
-        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB) From {
+    Sub StandardSpiel()
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}        
+        Dim SpielerC = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}        
+        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteRechts = 11},
                 New Satz With {.PunkteLinks = 11}}
 
-        Dim Partie2 = New SpielPartie("Runde 2", SpielerC, SpielerA) From {
+        Dim Partie2 = New SpielPartie("Runde 2", SpielerC, SpielerA, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11}}
 
-        Dim Partie3 = New SpielPartie("Runde 3", SpielerC, SpielerB) From {
+        Dim Partie3 = New SpielPartie("Runde 3", SpielerC, SpielerB, 3) From {
                New Satz With {.PunkteLinks = 11}
         }
 
-        With MainWindow.AktiveCompetition.SpielRunden
-            .Push(New SpielRunde From {Partie1, New FreiLosSpiel("Runde 1", SpielerC)})
-            .Push(New SpielRunde From {Partie2, New FreiLosSpiel("Runde 2", SpielerB)})
-            .Push(New SpielRunde From {Partie3, New FreiLosSpiel("Runde 3", SpielerA)})
+        With c.SpielRunden
+            .Push(New SpielRunde From {Partie1, New FreiLosSpiel("Runde 1", SpielerC, 3)})
+            .Push(New SpielRunde From {Partie2, New FreiLosSpiel("Runde 2", SpielerB, 3)})
+            .Push(New SpielRunde From {Partie3, New FreiLosSpiel("Runde 3", SpielerA, 3)})
         End With
 
         Assert.AreEqual(Partie1.SpielerLinks, SpielerA)
@@ -179,34 +181,35 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub Spieler_Ausscheiden()        
-        Dim SpielerA = New Spieler With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}
-        Dim SpielerC = New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}
-        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB) From {
+    Sub Spieler_Ausscheiden()
+        Dim c = New Competition(New SpielRegeln(3, True, True))
+        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
+        Dim SpielerB = New Spieler(c) With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}        
+        Dim SpielerC = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}        
+        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteRechts = 11},
                 New Satz With {.PunkteRechts = 11},
                 New Satz With {.PunkteRechts = 11}}
 
-        Dim Partie2 = New SpielPartie("Runde 2", SpielerA, SpielerC) From {
+        Dim Partie2 = New SpielPartie("Runde 2", SpielerA, SpielerC, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11}}
 
-        Dim Partie3 = New SpielPartie("Runde 3", SpielerA, SpielerC) From {
+        Dim Partie3 = New SpielPartie("Runde 3", SpielerA, SpielerC, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11}}
 
-        With MainWindow.AktiveCompetition.SpielRunden
+        With c.SpielRunden
             .Push(New SpielRunde From {Partie1})
             With SpielerB
                 Assert.AreEqual(.Punkte, 1)
                 Assert.AreEqual(.ExportPunkte, 0)
                 Assert.AreEqual(.BuchholzPunkte, 0)
             End With
-            
+
             .AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = SpielerB, .Runde = 1})
             .Push(New SpielRunde From {Partie2})
 

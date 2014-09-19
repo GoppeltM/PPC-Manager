@@ -10,7 +10,8 @@ Public Class ExcelInterface
     Implements IDisposable
 
 
-    Private Sub New(filePath As String)
+    Private Sub New(filePath As String, competition As Competition)
+        _Competition = competition
         If IO.File.Exists(filePath) Then
             doc = OpenExistingExcelDocument(filePath)
         Else
@@ -18,22 +19,24 @@ Public Class ExcelInterface
         End If
     End Sub
 
+    Private ReadOnly _Competition As Competition
+
     Private Property doc As SpreadsheetDocument
 
-    Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal spielrunden As SpielRunden)
+    Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal competition As Competition)
         Dim s = spieler.ToList
-        s.Sort(New ExportComparer)
+        s.Sort(New ExportComparer(competition.SpielRegeln.SonneBornBerger, competition.SpielRegeln.SatzDifferenz))
         s.Reverse()
         Try
 
-            Using ex = New ExcelInterface(filePath)
+            Using ex = New ExcelInterface(filePath, competition)
                 With ex
-                    Dim RundeNr = spielrunden.Count.ToString.PadLeft(2, "0"c)
+                    Dim RundeNr = competition.SpielRunden.Count.ToString.PadLeft(2, "0"c)
                     Dim sheet = .GetSheet("sp_rd" & RundeNr)
                     .WriteSpielerSheet(s, sheet)
 
                     Dim current = 1
-                    For Each runde In spielrunden.Reverse
+                    For Each runde In competition.SpielRunden.Reverse
                         Dim currentName = current.ToString.PadLeft(2, "0"c)
                         sheet = .GetSheet("erg_rd" & currentName)
                         .WriteRunde(runde, sheet)
@@ -51,6 +54,14 @@ Public Class ExcelInterface
     Private Class ExportComparer
         Implements IComparer(Of Spieler)
 
+        Private ReadOnly _Sonneborn As Boolean
+        Private ReadOnly _satzDifferenz As Boolean
+
+        Public Sub New(sonneBornBerger As Boolean, satzDifferenz As Boolean)
+            _Sonneborn = sonneBornBerger
+            _satzDifferenz = satzDifferenz
+        End Sub
+
         Public Function Compare(myself As Spieler, other As Spieler) As Integer Implements IComparer(Of Spieler).Compare
             Dim diff = 0
             diff = other.Ausgeschieden.CompareTo(myself.Ausgeschieden)
@@ -60,12 +71,12 @@ Public Class ExcelInterface
             diff = myself.ExportBHZ - other.ExportBHZ
             If diff <> 0 Then Return diff
 
-            If MainWindow.AktiveCompetition.SpielRegeln.SonneBornBerger Then
+            If _Sonneborn Then
                 diff = myself.ExportSonneborn - other.ExportSonneborn
                 If diff <> 0 Then Return diff
             End If
 
-            If MainWindow.AktiveCompetition.SpielRegeln.SatzDifferenz Then
+            If _satzDifferenz Then
                 diff = (myself.ExportSätzeGewonnen - myself.ExportSätzeVerloren) - (other.ExportSätzeGewonnen - other.ExportSätzeVerloren)
                 If diff <> 0 Then Return diff
             End If

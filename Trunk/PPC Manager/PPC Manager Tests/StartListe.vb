@@ -96,9 +96,10 @@ Imports Microsoft.Office.Interop.Excel
     <Ignore>
     <TestMethod>
     Sub ExcelExport()
-        MainWindow.AktiveCompetition = New Competition(New SpielRegeln(0, True, True))
-        Dim s As New Spieler With {.Vorname = "Marius", .Nachname = "Goppelt"}
-        ExcelInterface.CreateFile("E:\Skydrive\Dokumente\Repositories\Programme\Trunk\PPC Manager\PPC Manager Tests\Resources\PPC 15 Anmeldungen D-Klasse.xlsx", New Spieler() {s}, New SpielRunden)
+        Dim c = New Competition(New SpielRegeln(0, True, True))
+        Dim s As New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt"}        
+        ExcelInterface.CreateFile("E:\Skydrive\Dokumente\Repositories\Programme\Trunk\PPC Manager\PPC Manager Tests\Resources\PPC 15 Anmeldungen D-Klasse.xlsx", _
+                                  New Spieler() {s}, c)
     End Sub
 
 

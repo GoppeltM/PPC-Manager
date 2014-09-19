@@ -20,7 +20,7 @@ Class Begegnungen
             Return
         End If
 
-        Dim partie As SpielPartie = CType(e.Item, SpielPartie)        
+        Dim partie As SpielPartie = CType(e.Item, SpielPartie)
         e.Accepted = Not partie.Abgeschlossen
 
     End Sub
@@ -33,9 +33,11 @@ Class Begegnungen
         End Function
     End Class
 
+    Private Property AktiveCompetition As Competition
+
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
-        If MainWindow.AktiveCompetition Is Nothing Then Return
-        Me.DataContext = MainWindow.AktiveCompetition
+        AktiveCompetition = DirectCast(Me.DataContext, Competition)
+        If AktiveCompetition Is Nothing Then Return
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
@@ -88,13 +90,13 @@ Class Begegnungen
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim AktuelleRunde = MainWindow.AktiveCompetition.SpielRunden.Peek()
+        Dim AktuelleRunde = AktiveCompetition.SpielRunden.Peek()
         Dim AusgewählteSpieler = LifeListe.SelectedItems
         Dim dialog = New NeueSpielPartieDialog
-        dialog.RundenNameTextBox.Text = "Runde " & MainWindow.AktiveCompetition.SpielRunden.Count
+        dialog.RundenNameTextBox.Text = "Runde " & AktiveCompetition.SpielRunden.Count
         If Not dialog.ShowDialog Then Return
 
-        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler))
+        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler), AktiveCompetition.SpielRegeln.Gewinnsätze)
         neueSpielPartie.ZeitStempel = Date.Now
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
@@ -199,7 +201,11 @@ Class Begegnungen
 
     Private Sub SpielerView_Filter(sender As Object, e As FilterEventArgs)
         Dim s As Spieler = DirectCast(e.Item, Spieler)
-        Dim ausgeschiedeneSpieler = MainWindow.AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+        If AktiveCompetition Is Nothing Then
+            e.Accepted = True
+            Return
+        End If
+        Dim ausgeschiedeneSpieler = AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
 
         Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
                             x.Spieler = s Into Any()

@@ -1,5 +1,11 @@
 ﻿Public Class PaketBildung
 
+    Private ReadOnly _Rundenname As String
+    Private ReadOnly _Gewinnsätze As Integer
+    Public Sub New(rundenname As String, gewinnsätze As Integer)
+        _Rundenname = rundenname
+        _Gewinnsätze = gewinnsätze
+    End Sub
 
     '''
     '''Stellt sicher dass alle Pakete in der richtigen Form vorliegen und alle
@@ -10,7 +16,7 @@
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
     '''
-    Public Shared Function organisierePakete(rundenname As String, ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
+    Public Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
         aktiveListe.Sort()
         aktiveListe.Reverse()
 
@@ -23,12 +29,12 @@
             Dim freilosSpieler = freilosRegel(aktiveListe)
             aktiveListe.Remove(freilosSpieler)
             AddFreilos = Sub()
-                             paarungen.Add(New FreiLosSpiel(rundenname, freilosSpieler))
+                             paarungen.Add(New FreiLosSpiel(_Rundenname, freilosSpieler, _Gewinnsätze))
                          End Sub
         End If
 
-        Dim mittelPaket As New MittelPaket(aktuelleRunde, rundenname)
-        Dim pakete = makeEvenPointPackets(rundenname, aktiveListe, aktuelleRunde, mittelPaket)
+        Dim mittelPaket As New MittelPaket(aktuelleRunde, _Rundenname, _Gewinnsätze)
+        Dim pakete = makeEvenPointPackets(_Rundenname, aktiveListe, aktuelleRunde, mittelPaket)
 
         If pakete.Count = 1 Then
             Dim paket = pakete.First
@@ -242,7 +248,7 @@
     '''Dies geschieht solange, bis keine Pakete mehr gebildet werden können.
     '''@return - es konnte ein Paket gebildet werden.
     '''
-    Private Shared Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As List(Of Spieler), ByVal aktuelleRunde As Integer, ByVal mittelPaket As MittelPaket) As List(Of Paket)
+    Private Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As List(Of Spieler), ByVal aktuelleRunde As Integer, ByVal mittelPaket As MittelPaket) As List(Of Paket)
 
         Dim pakete As New List(Of Paket)
         Dim gesamtPaketzahl = aktuelleRunde * 2 + 1
@@ -251,7 +257,7 @@
             If i = aktuelleRunde Then
                 pakete.Add(mittelPaket)
             Else
-                pakete.Add(New Paket(i, rundenname))
+                pakete.Add(New Paket(i, rundenname, _Gewinnsätze))
             End If
         Next
 

@@ -22,10 +22,13 @@ Public Class Paket
         InitialNummer = backup.InitialNummer
     End Sub
 
-    Sub New(ByVal initialNummer As Integer, rundenName As String)
+    Sub New(ByVal initialNummer As Integer, rundenName As String, gewinnsätze As Integer)
         Me.InitialNummer = initialNummer
         _RundenName = rundenName
+        _Gewinnsätze = gewinnsätze
     End Sub
+
+    Private ReadOnly _Gewinnsätze As Integer
 
     Private _RundenName As String
     Public ReadOnly Property RundenName As String
@@ -83,7 +86,7 @@ Public Class Paket
 
     Function SuchePaarungen() As Boolean
         sort()
-        Dim container = New PaarungsSuche(_RundenName).SuchePaarungen(SpielerListe, Me)
+        Dim container = New PaarungsSuche(_RundenName, _Gewinnsätze).SuchePaarungen(SpielerListe, Me)
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.aktuellerSchwimmer
             Partien.Clear()

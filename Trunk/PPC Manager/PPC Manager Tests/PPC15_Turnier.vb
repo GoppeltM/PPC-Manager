@@ -7,7 +7,6 @@ Public Class PPC15_Turnier_Klasse_D
                            Where x.Attribute("age-group").Value = "D-Klasse").First
         Dim regeln = New SpielRegeln(3, True, False)
         AktuelleCompetition = Competition.FromXML("D:\dummy.xml", KlassementD, regeln)
-        MainWindow.AktiveCompetition = AktuelleCompetition
     End Sub
 
     Dim AktuelleCompetition As Competition
@@ -79,7 +78,7 @@ Public Class PPC15_Turnier_Klasse_D
         "Krüger",
         "Wild"
         }
-        Dim tatsächlich = MainWindow.AktiveCompetition.SpielerListe.ToList
+        Dim tatsächlich = AktuelleCompetition.SpielerListe.ToList
         tatsächlich.Sort()
         tatsächlich.Reverse()
         Dim NachnamenResult = (From x In tatsächlich Select x.Nachname).ToList
@@ -89,7 +88,7 @@ Public Class PPC15_Turnier_Klasse_D
     <TestMethod>
     Sub Runde_1()
         With AktuelleCompetition
-            Dim ergebnisse = PaketBildung.organisierePakete("Runde 0", .SpielerListe.ToList, 0)
+            Dim ergebnisse = New PaketBildung("Runde 0", 3).organisierePakete(.SpielerListe.ToList, 0)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(1)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -102,7 +101,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_2()
         Runde_1()
         With AktuelleCompetition
-            Dim ergebnisse = PaketBildung.organisierePakete("Runde 1", .SpielerListe.ToList, 1)
+            Dim ergebnisse = New PaketBildung("Runde 1", 3).organisierePakete(.SpielerListe.ToList, 1)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(2)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -115,7 +114,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_3()
         Runde_2()
         With AktuelleCompetition
-            Dim ergebnisse = PaketBildung.organisierePakete("Runde 2", .SpielerListe.ToList, 2)
+            Dim ergebnisse = New PaketBildung("Runde 2", 3).organisierePakete(.SpielerListe.ToList, 2)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(3)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -128,7 +127,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_4()
         Runde_3()
         With AktuelleCompetition
-            Dim ergebnisse = PaketBildung.organisierePakete("Runde 3", .SpielerListe.ToList, 3)
+            Dim ergebnisse = New PaketBildung("Runde 3", 3).organisierePakete(.SpielerListe.ToList, 3)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(4)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -141,7 +140,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_5()
         Runde_4()
         With AktuelleCompetition
-            Dim ergebnisse = PaketBildung.organisierePakete("Runde 4", .SpielerListe.ToList, 4)
+            Dim ergebnisse = New PaketBildung("Runde 4", 3).organisierePakete(.SpielerListe.ToList, 4)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(5)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -160,7 +159,7 @@ Public Class PPC15_Turnier_Klasse_D
             For Each a In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(a.Spieler)
             Next
-            Dim ergebnisse = PaketBildung.organisierePakete("Runde 5", AktiveListe.ToList, 5)
+            Dim ergebnisse = New PaketBildung("Runde 5", 3).organisierePakete(AktiveListe.ToList, 5)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(6)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)

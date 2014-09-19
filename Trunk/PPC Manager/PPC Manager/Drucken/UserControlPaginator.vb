@@ -6,14 +6,16 @@
 
 End Interface
 
-Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserControl})
+Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, UserControl})
     Inherits DocumentPaginator
 
-    Dim _begegnungen As IEnumerable(Of Object)
-    
-    Public Sub New(ByVal begegnungen As IEnumerable(Of Object), ByVal pageSize As Size)
+    Private ReadOnly _begegnungen As IEnumerable(Of Object)
+    Private ReadOnly _factory As Func(Of T)
+
+    Public Sub New(ByVal begegnungen As IEnumerable(Of Object), ByVal pageSize As Size, factory As Func(Of T))
         _begegnungen = begegnungen
         Me.PageSize = pageSize
+        _factory = factory
         EmptyPage = CreateVisual(0, New Object() {}, 1)
     End Sub
 
@@ -31,7 +33,7 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
     End Function
 
     Public Function CreateVisual(startIndex As Integer, ByVal elements As IEnumerable(Of Object), pageNumber As Integer) As T
-        Dim visual = New T()
+        Dim visual = _factory()
         visual.SetSource(startIndex, elements)
         visual.PageNumber = pageNumber
         Dim page As New FixedPage
@@ -66,7 +68,7 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, New, UserCon
     End Property
 
     Public Overrides Property PageSize As System.Windows.Size
-        
+
     Public Overrides ReadOnly Property Source As IDocumentPaginatorSource
         Get
             'Dim doc As New FixedDocument

@@ -21,15 +21,15 @@ Public Class Competition
     End Sub
 
 
-    Public Shared Function FromXML(dateipfad As String, node As XElement, spielRegeln As SpielRegeln) As Competition
+    Public Shared Function FromXML(dateipfad As String, node As XElement, spielRegeln As SpielRegeln) As Competition        
         Dim c = New Competition(spielRegeln) With
-               {                
+               {
                    .DateiPfad = dateipfad,
                    .StartDatum = node.Attribute("start-date").Value,
-                   .Altersgruppe = node.Attribute("age-group").Value,
-                   .SpielerListe = SpielerListe.FromXML(node.<players>)
+                   .Altersgruppe = node.Attribute("age-group").Value
                 }
-        c.SpielRunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault)
+        c.SpielerListe = SpielerListe.FromXML(node.<players>, c)
+        c.SpielRunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
         If Application.Current IsNot Nothing Then
             Application.Current.MainWindow.Title = node.Attribute("age-group").Value
             Application.Current.Resources("KlassementName") = node.Attribute("age-group").Value
@@ -103,8 +103,8 @@ Public Class Competition
     End Sub
 
     Public Sub SaveExcel()
-        Dim spieler = MainWindow.AktiveCompetition.SpielerListe.ToList
-        ExcelInterface.CreateFile(ExcelPfad, spieler, SpielRunden)
+        Dim spieler = SpielerListe.ToList
+        ExcelInterface.CreateFile(ExcelPfad, spieler, Me)
     End Sub
 
     Public ReadOnly Property ExcelPfad As String
