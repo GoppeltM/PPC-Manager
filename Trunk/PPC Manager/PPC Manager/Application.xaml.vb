@@ -27,7 +27,8 @@ Class Application
             Dim AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, spielRegeln)
 
             Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe
-            Dim window = New MainWindow(AktiveCompetition, AktiveCompetition.Altersgruppe)
+            Dim controller = New MainWindowController(AktiveCompetition)
+            Dim window = New MainWindow(controller)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible
             window.Show()

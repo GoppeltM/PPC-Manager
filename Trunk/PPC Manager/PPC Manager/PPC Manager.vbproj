@@ -140,10 +140,11 @@
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
     <Compile Include="HilfsKlassen.vb" />
-    <Compile Include="ICompetition.vb" />
+    <Compile Include="IController.vb" />
     <Compile Include="LadenNeu.xaml.vb">
       <DependentUpon>LadenNeu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowController.vb" />
     <Compile Include="Model\MittelPaket.vb" />
     <Compile Include="Model\PaarungsContainer.vb" />
     <Compile Include="Model\PaarungsSuche.vb" />

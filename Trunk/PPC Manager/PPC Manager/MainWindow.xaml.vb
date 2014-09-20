@@ -2,16 +2,15 @@
 
 Class MainWindow
 
-
-    Public ReadOnly AktiveCompetition As Competition
-    Private _aktiveCompetition As Competition    
-
-    Sub New(competition As Competition, titel As String)
+    Private ReadOnly _Controller As IController
+    
+    Sub New(controller As IController)
         InitializeComponent()
+        _Controller = controller
+        If controller Is Nothing Then Throw New ArgumentNullException("controller")
 
-        AktiveCompetition = competition
-        Me.DataContext = AktiveCompetition
-        Me.Title = titel
+        Me.DataContext = _Controller.AktiveCompetition
+        Me.Title = controller.AktiveCompetition.Altersgruppe
     End Sub
 
     Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -27,99 +26,34 @@ Class MainWindow
     End Sub
 
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        AktiveCompetition.SaveXML()
+        _Controller.Save()        
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = AktiveCompetition.SpielRunden.Count > 0
+        e.CanExecute = _Controller.AktiveCompetition.SpielRunden.Count > 0
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
             Return
         End If
-        With AktiveCompetition.SpielRunden
-            .Pop()
-            Dim überzählig = (From x In .AusgeschiedeneSpieler Where x.Runde > .Count).ToList
-
-            For Each ausgeschieden In überzählig
-                .AusgeschiedeneSpieler.Remove(ausgeschieden)
-            Next
-        End With
-
+        _Controller.RundeVerwerfen()        
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
-        With AktiveCompetition.SpielRunden
-            If Not .Any Then
-                e.CanExecute = True
-                Return
-            End If
-
-            Dim AktuellePartien = .Peek.ToList
-
-            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(x.Abgeschlossen)
-
-            e.CanExecute = AlleAbgeschlossen
-        End With
-        
+    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)        
+        e.CanExecute = _Controller.NächsteRunde_CanExecute()        
     End Sub
 
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
-                   "Nächste Runde?", MessageBoxButton.YesNo) = MessageBoxResult.Yes Then
-
-            Try
-                If IO.File.Exists(AktiveCompetition.ExcelPfad) Then
-                    Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
-
-                    End Using
-                End If            
-            Catch ex As IO.IOException
-                MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei {0} möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", AktiveCompetition.ExcelPfad),
-                                "Excel offen", MessageBoxButton.OK)
-                Return
-            End Try
-            RundeBerechnen()
+                   "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
+            Return
         End If
 
-    End Sub
-
-    Private Sub RundeBerechnen()
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            AktiveCompetition.SaveXML()
-        End If
-
-        With AktiveCompetition
-            Dim AktiveListe = .SpielerListe.ToList
-            For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
-                AktiveListe.Remove(Ausgeschieden.Spieler)
-            Next
-            Dim RundenName = "Runde " & .SpielRunden.Count + 1
-            Dim begegnungen = New PaketBildung(RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
-            Dim Zeitstempel = Date.Now
-            For Each partie In begegnungen
-                partie.ZeitStempel = Zeitstempel
-            Next
-
-            Dim spielRunde As New SpielRunde
-
-            For Each begegnung In begegnungen
-                spielRunde.Add(begegnung)
-            Next
-            .SpielRunden.Push(spielRunde)
-            Resources("PlayoffAktiv") = False
-        End With
-
-
+        _Controller.NächsteRunde_Execute()
+        Resources("PlayoffAktiv") = False
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            AktiveCompetition.SaveExcel()
-        End If
-
     End Sub
 
 
@@ -129,73 +63,26 @@ Class MainWindow
             Return
         End If
 
-        If CBool(My.Settings.AutoSaveAn) Then
-            AktiveCompetition.SaveXML()
-        End If
+        _Controller.NächstesPlayoff_Execute()
 
-        With AktiveCompetition
-            Dim spielRunde As New SpielRunde
-            .SpielRunden.Push(spielRunde)
-            Resources("PlayoffAktiv") = True
-        End With
-
+        Resources("PlayoffAktiv") = True
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            AktiveCompetition.SaveExcel()
-        End If
     End Sub
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        With New PrintDialog
-            .UserPageRangeEnabled = True
-            If .ShowDialog Then
-                Dim size = New Size(.PrintableAreaWidth, .PrintableAreaHeight)
-
-                Dim neuePaarungenFactory = Function() New NeuePaarungen(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-
-                Dim PaarungenPaginator As New UserControlPaginator(Of NeuePaarungen) _
-                    (From x In AktiveCompetition.SpielRunden.Peek
-                     Where Not TypeOf x Is FreiLosSpiel, size, neuePaarungenFactory)
-
-                Dim SchiriFactory = Function() New SchiedsrichterZettel(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-                Dim SchiriPaginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, size, SchiriFactory)
-                .PrintDocument(New PaginatingPaginator({PaarungenPaginator, SchiriPaginator}), "Neue Begegnungen - Aushang und Schiedsrichterzettel")
-            End If
-        End With
+        Dim p = New PrintDialog
+        p.UserPageRangeEnabled = True
+        If p.ShowDialog Then
+            _Controller.RundenbeginnDrucken(p)
+        End If        
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        With New PrintDialog
-            .UserPageRangeEnabled = True
-            If .ShowDialog Then
-                Dim size = New Size(.PrintableAreaWidth, .PrintableAreaHeight)
-
-                Dim Spielpartien As IEnumerable(Of SpielPartie) = New List(Of SpielPartie)
-                With AktiveCompetition.SpielRunden
-                    If .Any Then
-                        Spielpartien = From x In AktiveCompetition.SpielRunden.Peek Where Not TypeOf x Is FreiLosSpiel
-                    End If
-                End With
-
-                Dim SpielErgebnisseFactory = Function() New SpielErgebnisse(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-                Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size, SpielErgebnisseFactory)
-                Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
-                                                Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
-                                                       Where x.Spieler = s AndAlso x.Runde = 0
-                                                       Into Any()
-                                            End Function
-                Dim l = (From x In AktiveCompetition.SpielerListe
-                        Where Not AusgeschiedenInRunde0(x)
-                        Select x).ToList
-                l.Sort()
-                l.Reverse()
-
-                Dim ranglisteFactory = Function() New RanglisteSeite(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-                Dim RanglistePaginator As New UserControlPaginator(Of RanglisteSeite)(l, size, ranglisteFactory)
-                .PrintDocument(New PaginatingPaginator({ErgebnissePaginator, RanglistePaginator}), "Rundenende - Aushang und Rangliste")
-            End If
-        End With        
+        Dim p = New PrintDialog
+        p.UserPageRangeEnabled = True
+        If p.ShowDialog Then            
+            _Controller.RundenendeDrucken(p)
+        End If
     End Sub
 
     Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -206,23 +93,19 @@ Class MainWindow
 
         With LadenNeu.SpeichernDialog
             .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"
-            .FileName = AktiveCompetition.ExcelPfad
+            .FileName = _Controller.AktiveCompetition.ExcelPfad
             .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
-                Dim spieler = AktiveCompetition.SpielerListe.ToList
-                spieler.Sort()
-                ExcelInterface.CreateFile(.FileName, spieler, AktiveCompetition)
+                _Controller.ExcelExportieren(.FileName)                
             End If
-
         End With
-
     End Sub
 
     Private Sub MyWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles MyWindow.Closing
         Select Case MessageBox.Show("Das Programm wird geschlossen. Sollen Änderungen gespeichert werden?" _
                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
-            Case MessageBoxResult.Yes : AktiveCompetition.SaveXML()
+            Case MessageBoxResult.Yes : _Controller.Save()
         End Select
     End Sub
 
@@ -230,12 +113,11 @@ Class MainWindow
         My.Settings.Save()
     End Sub
 
-    
     Private Sub Drucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = AktiveCompetition.SpielRunden.Any
+        e.CanExecute = _Controller.AktiveCompetition.SpielRunden.Any
     End Sub
 
     Private Sub RanglisteDrucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = AktiveCompetition.SpielerListe.Any
+        e.CanExecute = _Controller.AktiveCompetition.SpielerListe.Any
     End Sub
 End Class
