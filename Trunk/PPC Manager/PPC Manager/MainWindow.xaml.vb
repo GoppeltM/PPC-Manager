@@ -110,6 +110,7 @@ Class MainWindow
                 spielRunde.Add(begegnung)
             Next
             .SpielRunden.Push(spielRunde)
+            Resources("PlayoffAktiv") = False
         End With
 
 
