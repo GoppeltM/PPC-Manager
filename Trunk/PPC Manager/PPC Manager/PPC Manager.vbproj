@@ -122,60 +122,52 @@
     <Compile Include="Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Competition.vb" />
     <Compile Include="DesignData.vb" />
-    <Compile Include="Drucken\PaginatingPaginator.vb" />
-    <Compile Include="Drucken\SpielErgebnisse.xaml.vb">
-      <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Drucken\SchiedsrichterZettel.xaml.vb">
-      <DependentUpon>SchiedsrichterZettel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Drucken\RanglisteSeite.xaml.vb">
-      <DependentUpon>RanglisteSeite.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Drucken\UserControlPaginator.vb" />
-    <Compile Include="ExcelInterface.vb" />
     <Compile Include="Fehler.xaml.vb">
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HilfsKlassen.vb" />
     <Compile Include="IController.vb" />
     <Compile Include="LadenNeu.xaml.vb">
       <DependentUpon>LadenNeu.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowController.vb" />
+    <Compile Include="Model\Ausgeschieden.vb" />
+    <Compile Include="Model\Competition.vb" />
+    <Compile Include="Model\FreilosSpiel.vb" />
     <Compile Include="Model\MittelPaket.vb" />
     <Compile Include="Model\PaarungsContainer.vb" />
     <Compile Include="Model\PaarungsSuche.vb" />
     <Compile Include="Model\Paket.vb" />
     <Compile Include="Model\PaketBildung.vb" />
+    <Compile Include="Model\Satz.vb" />
+    <Compile Include="Model\Spieler.vb" />
+    <Compile Include="Model\SpielPartie.vb" />
+    <Compile Include="Model\SpielRegeln.vb" />
+    <Compile Include="Model\SpielRunde.vb" />
+    <Compile Include="Model\SpielRunden.vb" />
     <Compile Include="NeueSpielPartieDialog.xaml.vb">
       <DependentUpon>NeueSpielPartieDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Spieler.vb" />
-    <Compile Include="SpielPartie.vb" />
+    <Compile Include="Observable.vb" />
+    <Compile Include="Output\ExcelInterface.vb" />
+    <Compile Include="Output\PaginatingPaginator.vb" />
+    <Compile Include="Output\RanglisteSeite.xaml.vb">
+      <DependentUpon>RanglisteSeite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Output\SchiedsrichterZettel.xaml.vb">
+      <DependentUpon>SchiedsrichterZettel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Output\SpielErgebnisse.xaml.vb">
+      <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Output\UserControlPaginator.vb" />
     <Compile Include="SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SpielRegeln.vb" />
-    <Compile Include="SpielRunden.vb" />
     <Compile Include="ValueConverter.vb" />
     <Page Include="Begegnungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Drucken\SpielErgebnisse.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Drucken\SchiedsrichterZettel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Drucken\RanglisteSeite.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Fehler.xaml">
       <SubType>Designer</SubType>
@@ -200,6 +192,18 @@
     <Page Include="NeueSpielPartieDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Output\RanglisteSeite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Output\SchiedsrichterZettel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Output\SpielErgebnisse.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SpielPartienListe.xaml">
       <SubType>Designer</SubType>
