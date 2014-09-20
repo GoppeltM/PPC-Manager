@@ -10,3 +10,5 @@
 /Trunk/PPC Manager/StartlistenEditor/*.user
 
 /Trunk/PPC Manager/PPC Manager Tests/Resources/Protokolle
+/Trunk/PPC Manager/packages/DocumentFormat.OpenXml.2.5
+/Trunk/PPC Manager/packages/Moq.4.2.1409.1722
