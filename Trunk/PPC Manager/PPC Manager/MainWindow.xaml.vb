@@ -9,7 +9,7 @@ Class MainWindow
         _Controller = controller
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
 
-        Me.DataContext = _Controller.AktiveCompetition
+        Me.DataContext = _Controller
         Me.Title = controller.AktiveCompetition.Altersgruppe
     End Sub
 

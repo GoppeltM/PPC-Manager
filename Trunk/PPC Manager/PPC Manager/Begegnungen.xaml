@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:PPC_Manager"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:core="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage">
+      mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage"
+      d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignController}">
     <UserControl.Resources>
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
@@ -14,7 +15,7 @@
         <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
         <ObjectDataProvider x:Key="RanglisteDataProvider"/>
         <local:RanglisteIndexConverter x:Key="RanglisteIndexConverter"/>
-        <CollectionViewSource x:Key="SpielRundenView" Source="{Binding SpielRunden}"
+        <CollectionViewSource x:Key="SpielRundenView" Source="{Binding AktiveCompetition.SpielRunden}"
     		d:DesignSource="{Binding Source={d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielRunden}}}"/>
         <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"                              
     		Source="{Binding /, Source={StaticResource SpielRundenView}, UpdateSourceTrigger=PropertyChanged}">
@@ -24,7 +25,7 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="SpielerView"
     		d:DesignSource="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielerListe}}"
-    		Source="{Binding SpielerListe}" Filter="SpielerView_Filter"/>
+    		Source="{Binding AktiveCompetition.SpielerListe}" Filter="SpielerView_Filter"/>
         <local:HintergrundLinksKonverter x:Key="HintergrundLinksKonverter"/>
         <local:HintergrundRechtsKonverter x:Key="HintergrundRechtsKonverter"/>
     </UserControl.Resources>

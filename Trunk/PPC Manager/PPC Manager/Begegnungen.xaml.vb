@@ -31,15 +31,18 @@ Class Begegnungen
         End Function
     End Class
 
+    Private Property _Controller As IController
     Private Property AktiveCompetition As Competition
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
-        AktiveCompetition = DirectCast(Me.DataContext, Competition)
-        If AktiveCompetition Is Nothing Then Return
+        _Controller = DirectCast(DataContext, IController)
+        If _Controller Is Nothing Then Return
+        AktiveCompetition = _Controller.AktiveCompetition
         Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)        
         res.ObjectInstance = AktiveCompetition.SpielerListe        
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        ViewSource.Source = AktiveCompetition.SpielRunden
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         Dim v = DirectCast(SpielerView.View, ListCollectionView)
         v.CustomSort = New SpielerComparer

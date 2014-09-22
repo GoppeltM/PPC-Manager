@@ -9,6 +9,7 @@ Public Class Spieler
 
     Public Sub New(competition As Competition)
         _Competition = competition
+        If _Competition Is Nothing Then Throw New ArgumentNullException
     End Sub
 
     ''' <summary>
