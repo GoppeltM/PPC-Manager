@@ -32,17 +32,15 @@ Class Begegnungen
     End Class
 
     Private Property _Controller As IController
-    Private Property AktiveCompetition As Competition
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         _Controller = DirectCast(DataContext, IController)
         If _Controller Is Nothing Then Return
-        AktiveCompetition = _Controller.AktiveCompetition
         Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)        
-        res.ObjectInstance = AktiveCompetition.SpielerListe        
+        res.ObjectInstance = _Controller.AktiveCompetition.SpielerListe
         BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        ViewSource.Source = AktiveCompetition.SpielRunden
+        ViewSource.Source = _Controller.AktiveCompetition.SpielRunden
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         Dim v = DirectCast(SpielerView.View, ListCollectionView)
         v.CustomSort = New SpielerComparer
@@ -85,15 +83,14 @@ Class Begegnungen
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim AktuelleRunde = AktiveCompetition.SpielRunden.Peek()
-        Dim AusgewählteSpieler = LifeListe.SelectedItems
         Dim dialog = New NeueSpielPartieDialog
-        dialog.RundenNameTextBox.Text = "Runde " & AktiveCompetition.SpielRunden.Count
+        dialog.RundenNameTextBox.Text = "Runde " & _Controller.AktiveCompetition.SpielRunden.Count
         If Not dialog.ShowDialog Then Return
-
-        Dim neueSpielPartie = New SpielPartie(dialog.RundenNameTextBox.Text, CType(AusgewählteSpieler(0), Spieler), CType(AusgewählteSpieler(1), Spieler), AktiveCompetition.SpielRegeln.Gewinnsätze)
-        neueSpielPartie.ZeitStempel = Date.Now
-        AktuelleRunde.Add(neueSpielPartie)
+        Dim rundenName = dialog.RundenNameTextBox.Text
+        Dim AusgewählteSpieler = LifeListe.SelectedItems
+        Dim spielerA = CType(AusgewählteSpieler(0), Spieler)
+        Dim SpielerB = CType(AusgewählteSpieler(1), Spieler)
+        _Controller.NeuePartie(rundenName, spielerA, SpielerB)        
     End Sub
 
 
@@ -127,12 +124,6 @@ Class Begegnungen
         Punkte.SelectAll()
     End Sub
 
-    Private Function OtherValue(value As Integer) As Integer
-        Dim oValue = 11
-        If value > 9 Then oValue = value + 2
-        Return oValue
-    End Function
-
     Private Sub Satzbearbeiten(inverted As Boolean)
         If Not Integer.TryParse(Punkte.Text, Nothing) Then
             Punkte.Text = "0"
@@ -141,14 +132,9 @@ Class Begegnungen
         End If
 
         Dim value = Integer.Parse(Punkte.Text)
-        Dim oValue = OtherValue(value)
-        If inverted Then
-            Dim temp = value
-            value = oValue
-            oValue = temp
-        End If
-        Dim s = New Satz With {.PunkteLinks = value, .PunkteRechts = oValue}
-        DirectCast(DetailGrid.DataContext, SpielPartie).Add(s)
+        Dim partie = DirectCast(DetailGrid.DataContext, SpielPartie)
+
+        _Controller.SatzEintragen(value, inverted, partie)
 
         SetFocus()
     End Sub
@@ -167,19 +153,11 @@ Class Begegnungen
     End Sub
 
 
-    Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+    Private Sub NeuerSatz_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
 
-        If DetailGrid.DataContext Is Nothing Then
-            e.CanExecute = False
-            Return
-        End If
-
-        Dim s = DirectCast(DetailGrid.DataContext, SpielPartie)
-
-        Dim GewinnLinks = Aggregate x In s Where x.PunkteLinks > x.PunkteRechts Into Count()
-        Dim GewinnRechts = Aggregate x In s Where x.PunkteLinks < x.PunkteRechts Into Count()
-
-        e.CanExecute = Math.Max(GewinnLinks, GewinnRechts) < 3
+        Dim s = TryCast(DetailGrid.DataContext, SpielPartie)
+        If s Is Nothing Then Return
+        e.CanExecute = _Controller.NeuerSatz_CanExecute(s)        
     End Sub
 
     Private WithEvents Begegnungsliste As ListBox
@@ -196,17 +174,8 @@ Class Begegnungen
 
     Private Sub SpielerView_Filter(sender As Object, e As FilterEventArgs)
         Dim s As Spieler = DirectCast(e.Item, Spieler)
-        If AktiveCompetition Is Nothing Then
-            e.Accepted = True
-            Return
-        End If
-        Dim ausgeschiedeneSpieler = AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
-
-        Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
-                            x.Spieler = s Into Any()
-
-        e.Accepted = Not AusgeschiedenVorBeginn
-
+        If _Controller Is Nothing Then Return
+        e.Accepted = _Controller.FilterSpieler(s)        
     End Sub
 End Class
 
@@ -226,98 +195,4 @@ Public Class DoppelbreitenGrid
 
     '    Return New Size(400, 60)
     'End Function
-End Class
-
-Public Class GeschlechtKonverter
-    Implements IValueConverter
-
-    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
-        Dim geschlecht = DirectCast(value, Integer)
-        Select Case geschlecht
-            Case 0 : Return "w"
-            Case 1 : Return "m"
-        End Select
-        Throw New ArgumentException("Unbekanntes geschlecht: " & geschlecht)
-    End Function
-
-    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotImplementedException
-    End Function
-End Class
-
-Public Class SpielKlassenkonverter
-    Implements IValueConverter
-
-    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
-        Dim Geburtsjahr = DirectCast(value, Integer)
-
-        Select Case Date.Now.Year - Geburtsjahr
-            Case Is <= 13 : Return "u13"
-            Case Is <= 15 : Return "u15"
-            Case Is <= 18 : Return "u18"
-            Case Else : Return "Ü18"
-        End Select
-    End Function
-
-    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotImplementedException
-    End Function
-End Class
-
-
-Public Class AusgeschiedenPainter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        If Not targetType Is GetType(Brush) Then
-            Throw New Exception("Must be a brush!")
-        End If
-
-        Dim val = CType(value, Boolean)
-        If val Then
-            Return Brushes.Bisque
-        Else
-            Return Brushes.Transparent
-        End If
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
-        Throw New NotSupportedException
-    End Function
-End Class
-Class HintergrundLinksKonverter
-    Implements IValueConverter
-
-    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
-        With DirectCast(value, Satz)
-            If .PunkteLinks >= 11 AndAlso .PunkteLinks > .PunkteRechts Then
-                Return Brushes.Yellow
-            Else
-                Return Brushes.Transparent
-            End If
-        End With
-    End Function
-
-    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotImplementedException
-    End Function
-End Class
-
-Class HintergrundRechtsKonverter
-    Implements IValueConverter
-
-
-    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
-        With DirectCast(value, Satz)
-            If .PunkteRechts >= 11 AndAlso .PunkteRechts > .PunkteLinks Then
-                Return Brushes.Yellow
-            Else
-                Return Brushes.Transparent
-            End If
-        End With
-    End Function
-
-    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotImplementedException
-    End Function
 End Class

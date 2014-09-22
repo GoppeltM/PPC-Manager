@@ -156,4 +156,50 @@
     Public Sub Save() Implements IController.Save
         AktiveCompetition.SaveXML()
     End Sub
+
+    Public Sub SatzEintragen(value As Integer, inverted As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
+        Dim oValue = OtherValue(value)
+        If inverted Then
+            Dim temp = value
+            value = oValue
+            oValue = temp
+        End If
+        Dim s = New Satz With {.PunkteLinks = value, .PunkteRechts = oValue}
+        partie.Add(s)
+    End Sub
+
+    Private Function OtherValue(value As Integer) As Integer
+        Dim oValue = 11
+        If value > 9 Then oValue = value + 2
+        Return oValue
+    End Function
+
+    Public Function NeuerSatz_CanExecute(s As SpielPartie) As Boolean Implements IController.NeuerSatz_CanExecute
+        If s Is Nothing Then
+            Return False
+        End If
+
+
+        Dim GewinnLinks = Aggregate x In s Where x.PunkteLinks > x.PunkteRechts Into Count()
+        Dim GewinnRechts = Aggregate x In s Where x.PunkteLinks < x.PunkteRechts Into Count()
+
+        Return Math.Max(GewinnLinks, GewinnRechts) < 3
+    End Function
+
+    Public Function FilterSpieler(s As Spieler) As Boolean Implements IController.FilterSpieler
+
+        Dim ausgeschiedeneSpieler = AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+
+        Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
+                            x.Spieler = s Into Any()
+
+        Return Not AusgeschiedenVorBeginn
+    End Function
+
+    Public Sub NeuePartie(rundenName As String, spielerA As Spieler, SpielerB As Spieler) Implements IController.NeuePartie
+        Dim AktuelleRunde = AktiveCompetition.SpielRunden.Peek()
+        Dim neueSpielPartie = New SpielPartie(rundenName, spielerA, SpielerB, AktiveCompetition.SpielRegeln.Gewinnsätze)
+        neueSpielPartie.ZeitStempel = Date.Now
+        AktuelleRunde.Add(neueSpielPartie)
+    End Sub
 End Class

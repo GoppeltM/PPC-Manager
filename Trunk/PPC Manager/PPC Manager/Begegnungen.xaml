@@ -32,8 +32,8 @@
     <UserControl.CommandBindings>
         <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
         <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
-        <CommandBinding Command="BrowseForward" Executed="CommandBinding_Executed" CanExecute="CommandBinding_CanExecute"/>
-        <CommandBinding Command="BrowseBack" Executed="CommandBinding_Executed_1" CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="BrowseForward" Executed="CommandBinding_Executed" CanExecute="NeuerSatz_CanExecute"/>
+        <CommandBinding Command="BrowseBack" Executed="CommandBinding_Executed_1" CanExecute="NeuerSatz_CanExecute"/>
     </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
