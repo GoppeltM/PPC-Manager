@@ -7,23 +7,19 @@ Public Class Spieler
 #Region "Public Properties"
 
 
-    Public Sub New(competition As Competition)
-        _Competition = competition
-        If _Competition Is Nothing Then Throw New ArgumentNullException
+    Public Sub New(spielRunden As SpielRunden, spielRegeln As SpielRegeln)        
+        _SpielRegeln = spielRegeln
+        _SpielRunden = SpielRunden
     End Sub
 
-    ''' <summary>
-    ''' Darf nur einmalig gesetzt werden, und darf nur lesenderweise betreten werden!!
-    ''' Der öffentliche Konstruktor existiert nur deshalb, weil das AddNewItem Event nicht mit unspezifierten Konstruktoren umgehen kann
-    ''' </summary>
-    ''' <remarks></remarks>
     Protected ReadOnly Property SpielRunden As SpielRunden
         Get
-            Return _Competition.SpielRunden
+            Return _SpielRunden
         End Get
     End Property
 
-    Private ReadOnly _Competition As Competition
+    Private ReadOnly _SpielRunden As SpielRunden
+    Private ReadOnly _SpielRegeln As SpielRegeln
     
     Public Property Id As String = "new"
 
@@ -97,7 +93,7 @@ Public Class Spieler
     Private ReadOnly Property MeineGewonnenenSpieleExport As IEnumerable(Of SpielPartie)
         Get
             Dim GewonneneSpiele = From x In VergangenePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
-                             Where Meine >= _Competition.SpielRegeln.Gewinnsätze Select x
+                             Where Meine >= _SpielRegeln.Gewinnsätze Select x
 
             Return GewonneneSpiele.ToList
         End Get
@@ -106,7 +102,7 @@ Public Class Spieler
     Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
         Get
             Dim GewonneneSpiele = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
-                             Where Meine >= _Competition.SpielRegeln.Gewinnsätze Select x
+                             Where Meine >= _SpielRegeln.Gewinnsätze Select x
 
             Return GewonneneSpiele.ToList
         End Get
@@ -280,12 +276,12 @@ Public Class Spieler
         diff = Me.BuchholzPunkte - other.BuchholzPunkte
         If diff <> 0 Then Return diff
 
-        If _Competition.SpielRegeln.SonneBornBerger Then
+        If _SpielRegeln.SonneBornBerger Then
             diff = Me.SonneBornBergerPunkte - other.SonneBornBergerPunkte
             If diff <> 0 Then Return diff
         End If
 
-        If _Competition.SpielRegeln.SatzDifferenz Then
+        If _SpielRegeln.SatzDifferenz Then
             diff = Me.SatzDifferenz - other.SatzDifferenz
             If diff <> 0 Then Return diff
         End If
@@ -312,7 +308,7 @@ Public Class Spieler
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
     Public Shared Function FromXML(ByVal spielerNode As XElement, competition As Competition) As Spieler
-        Dim spieler As New Spieler(competition)        
+        Dim spieler As New Spieler(competition.SpielRunden, competition.SpielRegeln)
         With spieler
             .Id = spielerNode.@id
             Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")

@@ -40,14 +40,24 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     End Sub
 
+    Private Function CreateSpieler(Optional nachname As String = "", Optional vorname As String = "", _
+                                   Optional ttrating As Integer = 0, Optional id As String = "") As Spieler
+        Dim s = New Spieler(c.SpielRunden, c.SpielRegeln)
+        s.Nachname = nachname
+        s.Vorname = vorname
+        s.TTRating = ttrating
+        s.Id = id
+        Return s
+    End Function
+
     <TestMethod>
     Sub Gerade_StandardPaarung()        
         Dim p As New Paket(1, "Runde 1", 3)
         p.SpielerListe = New List(Of Spieler) From
-                {New Spieler(c) With {.Nachname = "Alpha", .TTRating = 50},
-                New Spieler(c) With {.Nachname = "Beta", .TTRating = 40},
-                New Spieler(c) With {.Nachname = "Gamma", .TTRating = 30},
-                New Spieler(c) With {.Nachname = "Delta", .TTRating = 20}}
+                {CreateSpieler(nachname:="Alpha", ttrating:=50),
+                CreateSpieler(nachname:="Beta", ttrating:=40),
+                CreateSpieler(nachname:="Gamma", ttrating:=30),
+                CreateSpieler(nachname:="Delta", ttrating:=20)}
 
         Dim suche = New PaarungsSuche("Runde 1", 3).StandardPaarung(p.SpielerListe, 2, p)
         Assert.IsNotNull(suche)
@@ -60,11 +70,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     Sub Ungerade_StandardPaarung()        
         Dim p As New Paket(1, "Runde xyz", 3)
         p.SpielerListe = New List(Of Spieler) From
-                {New Spieler(c) With {.Nachname = "Alpha", .TTRating = 50},
-                New Spieler(c) With {.Nachname = "Beta", .TTRating = 40},
-                New Spieler(c) With {.Nachname = "Gamma", .TTRating = 30},
-                New Spieler(c) With {.Nachname = "Delta", .TTRating = 20},
-                New Spieler(c) With {.Nachname = "Epsilon", .TTRating = 20}}
+                {CreateSpieler(nachname:="Alpha", ttrating:=50),
+                CreateSpieler(nachname:="Beta", ttrating:=40),
+                CreateSpieler(nachname:="Gamma", ttrating:=30),
+                CreateSpieler(nachname:="Delta", ttrating:=20),
+                CreateSpieler(nachname:="Epsilon", ttrating:=20)}
 
         Dim suche = New PaarungsSuche("Runde xyz", 3).StandardPaarung(p.SpielerListe, 2, p)
         Assert.IsNotNull(suche)
@@ -75,7 +85,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod>
     Sub FreilosSpiel()        
-        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
         Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
         Dim runde = New SpielRunde
         c.SpielRunden.Push(runde)
@@ -91,8 +101,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod>
     Sub HatFreilos()        
-        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
-        Dim SpielerB = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER111"}        
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
+        Dim SpielerB = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER111")
         Dim runde = New SpielRunde
         c.SpielRunden.Push(runde)
         Assert.IsFalse(SpielerA.HatFreilos)
@@ -105,9 +115,9 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod>
     Sub StandardSpiel()        
-        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
-        Dim SpielerB = New Spieler(c) With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}        
-        Dim SpielerC = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}        
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
+        Dim SpielerB = CreateSpieler(vorname:="Hartmut", nachname:="Seiter", id:="PLAYER291")
+        Dim SpielerC = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER150")
         Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteLinks = 11},
@@ -179,9 +189,9 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod>
     Sub Spieler_Ausscheiden()        
-        Dim SpielerA = New Spieler(c) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}        
-        Dim SpielerB = New Spieler(c) With {.Vorname = "Hartmut", .Nachname = "Seiter", .Id = "PLAYER291"}        
-        Dim SpielerC = New Spieler(c) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER150"}        
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
+        Dim SpielerB = CreateSpieler(vorname:="Hartmut", nachname:="Seiter", id:="PLAYER291")
+        Dim SpielerC = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER150")
         Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB, 3) From {
                 New Satz With {.PunkteLinks = 11},
                 New Satz With {.PunkteRechts = 11},

@@ -50,24 +50,6 @@
     End Property
 End Class
 
-Public Class GewonneneSätzeConverter
-    Implements IValueConverter
-
-    Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
-        Dim partie = TryCast(value, SpielPartie)
-        If partie Is Nothing Then Return Nothing
-
-        Dim gewonnenLinks = partie.MeineGewonnenenSätze(partie.SpielerLinks)
-        Dim gewonnenRechts = partie.MeineGewonnenenSätze(partie.SpielerRechts)
-
-        Return String.Format("{0}:{1}", gewonnenLinks.Count, gewonnenRechts.Count)
-    End Function
-
-    Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
-        Throw New NotImplementedException
-    End Function
-End Class
-
 Public Class NeuePaarungen
     Inherits SpielErgebnisse
 

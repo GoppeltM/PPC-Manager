@@ -29,7 +29,11 @@ Public Class Competition
                    .Altersgruppe = node.Attribute("age-group").Value
                 }
         c.SpielerListe = SpielerListe.FromXML(node.<players>, c)
-        c.SpielRunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
+        Dim ParsedSpielrunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
+        For Each runde In ParsedSpielrunden.Reverse
+            c.SpielRunden.Push(runde)
+        Next
+        c.SpielRunden.AusgeschiedeneSpieler = ParsedSpielrunden.AusgeschiedeneSpieler
         Return c
     End Function
 

@@ -4,6 +4,7 @@ Imports System.Runtime.InteropServices
 Imports System.Globalization
 Imports System.Resources
 Imports System.Windows
+Imports System.Runtime.CompilerServices
 
 ' Allgemeine Informationen über eine Assembly werden über die folgenden 
 ' Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
@@ -17,7 +18,7 @@ Imports System.Windows
 <Assembly: AssemblyProduct("PPC Manager")> 
 <Assembly: AssemblyCopyright("Marius Goppelt 2010")> 
 <Assembly: AssemblyTrademark("")> 
-<Assembly: ComVisible(false)>
+<Assembly: ComVisible(False)> 
 
 'Um mit dem Erstellen lokalisierbarer Anwendungen zu beginnen, legen Sie 
 '<UICulture>ImCodeVerwendeteKultur</UICulture> in der VBPROJ-Datei
@@ -37,7 +38,7 @@ Imports System.Windows
 '2. Parameter: Speicherort des generischen Ressourcenwörterbuchs
 '(wird verwendet, wenn eine Ressource auf der Seite, 
 'in der Anwendung sowie in den designspezifischen Ressourcenwörterbüchern nicht gefunden werden kann)
-<Assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)>
+<Assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)> 
 
 
 
@@ -57,3 +58,4 @@ Imports System.Windows
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: InternalsVisibleTo("PPC Manager Tests")> 
