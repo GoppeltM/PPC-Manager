@@ -91,7 +91,6 @@
     <Import Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControllerStub.vb" />
     <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
     <Compile Include="StartListe.vb" />

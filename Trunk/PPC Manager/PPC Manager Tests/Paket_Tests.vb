@@ -130,9 +130,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
         Dim SpielerB = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER111")
         Dim runde = New SpielRunde
-        c.SpielRunden.Push(runde)
-        Assert.IsFalse(SpielerA.HatFreilos)
-        Assert.IsFalse(SpielerB.HatFreilos)
+        c.SpielRunden.Push(runde)        
         Dim Freilos = New FreiLosSpiel("Runde 1", SpielerA, 3)
         runde.Add(Freilos)
         Assert.IsTrue(SpielerA.HatFreilos)

@@ -1,17 +1,44 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
+Imports Moq
 
 <TestClass()>
 Public Class StartListe
 
-    <TestMethod>
     <Ignore>
+    <TestMethod>
     Sub UIDummy_Starten()
-        Dim controller = New ControllerStub()
-        Dim mainWindow As New StartlistenEditor.MainWindow(controller)
+        Dim SpielerListe As StartlistenEditor.SpielerListe = Nothing
+        Dim KlassementListe As StartlistenEditor.KlassementListe = Nothing
+
+        Dim controller = New Mock(Of StartlistenEditor.IStartlistenController)()
+        controller.Setup(Sub(m) m.Initialize(It.IsAny(Of StartlistenEditor.SpielerListe), It.IsAny(Of StartlistenEditor.KlassementListe))) _
+            .Callback(Sub(s As StartlistenEditor.SpielerListe, k As StartlistenEditor.KlassementListe)
+                          SpielerListe = s
+                          KlassementListe = k
+                      End Sub)
+        controller.Setup(Sub(m) m.Öffnend()).Callback(Sub() Öffnend(SpielerListe, KlassementListe))
+        Dim mainWindow As New StartlistenEditor.MainWindow(controller.Object)
         mainWindow.ShowDialog()
     End Sub
+
+    Private Sub Öffnend(sl As StartlistenEditor.SpielerListe, k As StartlistenEditor.KlassementListe)
+        Dim Doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
+        Dim AlleSpieler = StartlistenEditor.StartlistenController.XmlZuSpielerListe(Doc)
+
+        Dim AlleKlassements = (From x In Doc.Root.<competition> Select x.Attribute("age-group").Value).Distinct
+        With k
+            For Each Klassement In AlleKlassements
+                .Add(New StartlistenEditor.KlassementName With {.Name = Klassement})
+            Next
+        End With
+
+        For Each s In AlleSpieler
+            sl.Add(s)
+        Next
+    End Sub
+
 
     <TestMethod> Sub FremdSpieler_Erzeugen()
         Dim XMLKnoten =

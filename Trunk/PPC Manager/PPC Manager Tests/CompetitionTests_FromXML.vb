@@ -9,6 +9,15 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         _reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, _regeln)
     End Sub
 
+    <TestMethod>
+    Sub MainWindowUIDummy()
+        Dim controller = New Moq.Mock(Of IController)
+        controller.Setup(Function(m) m.AktiveCompetition).Returns(_reference)
+        controller.Setup(Function(m) m.FilterSpieler(Moq.It.IsAny(Of Spieler))).Returns(True)
+        Dim window = New MainWindow(controller.Object)
+        window.ShowDialog()
+    End Sub
+
     Private _reference As Competition
     Private _regeln As SpielRegeln
 
