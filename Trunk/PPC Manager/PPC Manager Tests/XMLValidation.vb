@@ -44,46 +44,6 @@ Imports System.Xml
     End Sub
 
     <TestMethod>
-    Public Sub Competition_From_XML()
-        Dim regeln = New SpielRegeln(4, False, False)
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)        
-        With reference
-            Assert.AreEqual("D:\dummy.xml", .DateiPfad)
-            Assert.AreEqual(4, .SpielRegeln.Gewinnsätze)
-            Assert.AreEqual(False, .SpielRegeln.SatzDifferenz)
-            Assert.AreEqual("2012-09-08 11:00", .StartDatum)
-            Assert.AreEqual("Mädchen U 13", .Altersgruppe)
-            Assert.AreEqual(4, .SpielerListe.Count)
-            Assert.AreEqual(2, .SpielRunden.Count)
-            Assert.AreEqual(1, .SpielRunden.Peek.OfType(Of FreiLosSpiel).Count)
-            CollectionAssert.AreEqual({"PLAYER72", "PLAYER126", "PLAYER127", "PLAYER-1"}, (From x In .SpielerListe Select x.Id).ToList)
-        End With
-    End Sub
-
-    <TestMethod>
-    Sub Competition_ErsteRunde_From_XML()
-        Dim regeln = New SpielRegeln(4, False, False)
-        Dim reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, regeln)    
-
-        CollectionAssert.AreEqual({"PLAYER127"}, (From x In reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
-        Dim ersteRunde = reference.SpielRunden.Last
-
-        Assert.AreEqual(2, ersteRunde.Count, "Zwei Spielpartien erwartet")
-
-        With ersteRunde
-            For Each partie In .ToList
-                Assert.AreEqual(3, partie.Count)
-            Next
-        End With
-
-        Dim zweiteRunde = reference.SpielRunden.Peek
-        With zweiteRunde
-            Assert.IsInstanceOfType(zweiteRunde.Single, GetType(FreiLosSpiel))
-        End With
-
-    End Sub
-
-    <TestMethod>
     Sub Spielrunden_From_XML()
         Dim rundenRef = <matches>
                             <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
@@ -108,13 +68,11 @@ Imports System.Xml
 
     <TestMethod>
     Public Sub Spieler_From_XML()
-
-        Dim c = New Competition(New SpielRegeln(3, True, True))
         Dim XNode = <player type="single" id="PLAYER72">
                         <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981"/>
                     </player>
 
-        With Spieler.FromXML(XNode, c)
+        With Spieler.FromXML(XNode, New SpielRunden, New SpielRegeln(3, True, True))
             Assert.AreEqual("Florian", .Vorname)
             Assert.AreEqual("Ewald", .Nachname)
             Assert.AreEqual("TTC Langensteinbach e.V. ", .Vereinsname)

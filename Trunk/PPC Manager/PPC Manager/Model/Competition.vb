@@ -28,7 +28,7 @@ Public Class Competition
                    .StartDatum = node.Attribute("start-date").Value,
                    .Altersgruppe = node.Attribute("age-group").Value
                 }
-        c.SpielerListe = SpielerListe.FromXML(node.<players>, c)
+        c.SpielerListe = SpielerListe.FromXML(node.<players>, c.SpielRunden, spielRegeln)
         Dim ParsedSpielrunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
         For Each runde In ParsedSpielrunden.Reverse
             c.SpielRunden.Push(runde)

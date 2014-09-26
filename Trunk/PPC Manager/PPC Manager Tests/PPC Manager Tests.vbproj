@@ -97,6 +97,7 @@
     <Compile Include="StartListe.vb" />
     <Compile Include="Testturnier.vb" />
     <Compile Include="KonverterTests.vb" />
+    <Compile Include="CompetitionTests_FromXML.vb" />
     <Compile Include="XMLValidation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

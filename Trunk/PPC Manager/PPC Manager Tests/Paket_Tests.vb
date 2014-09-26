@@ -33,7 +33,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
                                 lastname="Goppelt" ttr="1102" licence-nr="-1"/>
                         </ppc:player>
                     </players>        
-        Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x, c)).ToList
+        Dim Spielerliste = (From x In XNode.Elements Select Spieler.FromXML(x, New SpielRunden, New SpielRegeln(3, True, True))).ToList
         Spielerliste.Sort()
         Spielerliste.Reverse()
         CollectionAssert.AreEqual(New String() {"Wolfert", "Westermann", "Goppelt", "Wild"}, (From x In Spielerliste Select x.Nachname).ToList)
@@ -84,16 +84,42 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod>
-    Sub FreilosSpiel()        
+    Sub HatFreilos_FreilosPush_True()
         Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
         Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
         Dim runde = New SpielRunde
         c.SpielRunden.Push(runde)
-        Assert.IsFalse(SpielerA.HatFreilos)
         runde.Add(Partie)
         Assert.IsTrue(SpielerA.HatFreilos)
+    End Sub
+
+    <TestMethod>
+    Sub SpielerLinks_GleichSpielerRechts_GleichSpielerA()
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
+        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
         Assert.AreEqual(Partie.SpielerLinks, SpielerA)
         Assert.AreEqual(Partie.SpielerRechts, SpielerA)
+    End Sub
+
+    <TestMethod>
+    Sub HatFreilos_NormaleRunde_False()
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
+        Dim SpielerB = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER294")
+        Dim runde = New SpielRunde
+        runde.Add(New SpielPartie("Runde 1", SpielerA, SpielerB, 3))
+        c.SpielRunden.Push(runde)
+        Assert.IsFalse(SpielerA.HatFreilos)
+        Assert.IsFalse(SpielerB.HatFreilos)
+    End Sub
+
+    <TestMethod>
+    Sub Punkte_VonFreilos_Gleich1()
+        Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
+        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
+        Dim runde = New SpielRunde
+        runde.Add(Partie)
+        c.SpielRunden.Push(runde)
+        Assert.IsTrue(SpielerA.HatFreilos)
         Assert.AreEqual(1, SpielerA.Punkte)
         Assert.AreEqual(0, SpielerA.SätzeGewonnen)
         Assert.AreEqual(0, SpielerA.SätzeVerloren)

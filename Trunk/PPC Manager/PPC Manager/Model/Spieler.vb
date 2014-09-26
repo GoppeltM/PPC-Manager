@@ -307,8 +307,8 @@ Public Class Spieler
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    Public Shared Function FromXML(ByVal spielerNode As XElement, competition As Competition) As Spieler
-        Dim spieler As New Spieler(competition.SpielRunden, competition.SpielRegeln)
+    Public Shared Function FromXML(ByVal spielerNode As XElement, spielRunden As SpielRunden, spielRegeln As SpielRegeln) As Spieler
+        Dim spieler As New Spieler(spielRunden, spielRegeln)
         With spieler
             .Id = spielerNode.@id
             Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")
