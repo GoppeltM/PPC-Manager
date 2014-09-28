@@ -9,6 +9,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         _reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, _regeln)
     End Sub
 
+    <Ignore>
     <TestMethod>
     Sub MainWindowUIDummy()
         Dim controller = New Moq.Mock(Of IController)
