@@ -16,7 +16,9 @@
 
     Sub ExcelExportieren(p1 As String)
 
-    Sub Save()
+    Sub SaveXML()
+
+    Sub SaveExcel()
 
     Sub SatzEintragen(value As Integer, inverted As Boolean, partie As SpielPartie)
 

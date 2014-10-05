@@ -26,7 +26,7 @@ Class MainWindow
     End Sub
 
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        _Controller.Save()        
+        _Controller.SaveXML()
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
@@ -37,12 +37,12 @@ Class MainWindow
         If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
             Return
         End If
-        _Controller.RundeVerwerfen()        
+        _Controller.RundeVerwerfen()
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)        
-        e.CanExecute = _Controller.NächsteRunde_CanExecute()        
+    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
+        e.CanExecute = _Controller.NächsteRunde_CanExecute()
     End Sub
 
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
@@ -51,11 +51,25 @@ Class MainWindow
             Return
         End If
 
-        _Controller.NächsteRunde_Execute()
+        If CBool(My.Settings.AutoSaveAn) Then
+            _Controller.SaveXML()
+        End If
+
+        Try
+            _Controller.NächsteRunde_Execute()
+        Catch ex As ExcelNichtBeschreibbarException
+            MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei {0} möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", _Controller.AktiveCompetition.ExcelPfad),
+                            "Excel offen", MessageBoxButton.OK)
+            Return
+        End Try
+        
+        If CBool(My.Settings.AutoSaveAn) Then
+            _Controller.SaveExcel()
+        End If
+
         Resources("PlayoffAktiv") = False
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
-
 
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die Playoffs beginnen? Es wird eine leere Runde erzeugt, und die vorigen Ergebnisse können nicht verändert werden.", _
@@ -74,13 +88,13 @@ Class MainWindow
         p.UserPageRangeEnabled = True
         If p.ShowDialog Then
             _Controller.RundenbeginnDrucken(p)
-        End If        
+        End If
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim p = New PrintDialog
         p.UserPageRangeEnabled = True
-        If p.ShowDialog Then            
+        If p.ShowDialog Then
             _Controller.RundenendeDrucken(p)
         End If
     End Sub
@@ -96,7 +110,7 @@ Class MainWindow
             .FileName = _Controller.AktiveCompetition.ExcelPfad
             .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
-                _Controller.ExcelExportieren(.FileName)                
+                _Controller.ExcelExportieren(.FileName)
             End If
         End With
     End Sub
@@ -105,7 +119,7 @@ Class MainWindow
         Select Case MessageBox.Show("Das Programm wird geschlossen. Sollen Änderungen gespeichert werden?" _
                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
-            Case MessageBoxResult.Yes : _Controller.Save()
+            Case MessageBoxResult.Yes : _Controller.SaveXML()
         End Select
     End Sub
 

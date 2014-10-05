@@ -21,7 +21,19 @@ Public Class Competition
     End Sub
 
 
-    Public Shared Function FromXML(dateipfad As String, node As XElement, spielRegeln As SpielRegeln) As Competition        
+    Public Shared Function FromXML(dateipfad As String, node As XElement, spielRegeln As SpielRegeln) As Competition
+        Dim TryBool = Function(x As String) As Boolean
+                          Dim val As Boolean = False
+                          Boolean.TryParse(x, val)
+                          Return val
+                      End Function
+
+        Dim UnbekannterZustand = From x In node...<person> Where Not TryBool(x.@ppc:anwesend) AndAlso Not TryBool(x.@ppc:abwesend)
+
+        If UnbekannterZustand.Any Then
+            Throw New SpielDatenUnvollständigException(UnbekannterZustand.Count)
+        End If
+
         Dim c = New Competition(spielRegeln) With
                {
                    .DateiPfad = dateipfad,
@@ -42,19 +54,7 @@ Public Class Competition
         Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
         ' Syntax Checks
 
-        Dim TryBool = Function(x As String) As Boolean
-                          Dim val As Boolean = False
-                          Boolean.TryParse(x, val)
-                          Return val
-                      End Function
-
-        Dim UnbekannterZustand = From x In competitionXML...<person> Where Not TryBool(x.@ppc:anwesend) AndAlso Not TryBool(x.@ppc:abwesend)
-
-        If UnbekannterZustand.Any Then
-            MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", UnbekannterZustand.Count), _
-                            "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
-            Application.Current.Shutdown()
-        End If
+       
         Return FromXML(dateiPfad, competitionXML, spielRegeln)
     End Function
 

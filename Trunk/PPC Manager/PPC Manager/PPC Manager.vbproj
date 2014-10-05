@@ -123,6 +123,7 @@
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="DesignData.vb" />
+    <Compile Include="Exceptions.vb" />
     <Compile Include="Fehler.xaml.vb">
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>

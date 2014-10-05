@@ -38,12 +38,7 @@
                 <Separator/>
                 <MenuItem Header="Beenden..." Command="ApplicationCommands.Close" Name="Beenden"></MenuItem>
                 
-            </MenuItem>
-            <MenuItem Header="Bearbeiten" IsTabStop="False">
-                <MenuItem Command="ApplicationCommands.Cut" Header="Ausschneiden" />
-                <MenuItem Command="ApplicationCommands.Copy" Header="Kopieren" />
-                <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
-            </MenuItem>
+            </MenuItem>            
             <MenuItem Header="Projekt" IsTabStop="False">                                                               
                 <MenuItem Header="Nächste Runde..." Name="NächsteRunde" Command="NextPage" CommandTarget="{Binding ElementName=Begegnungen}" />
                 <MenuItem Header="Nächstes Playoff..." Name="NächstesPlayoff" Command="GoToPage" CommandTarget="{Binding ElementName=Begegnungen}" />

@@ -3,6 +3,7 @@
 
     Public Sub New(competition As Competition)
         _Competition = competition
+        If _Competition Is Nothing Then Throw New ArgumentNullException("competition")
     End Sub
 
     Private ReadOnly _Competition As Competition
@@ -39,27 +40,7 @@
     End Function
 
     Public Sub NächsteRunde_Execute() Implements IController.NächsteRunde_Execute
-        Try
-            If IO.File.Exists(AktiveCompetition.ExcelPfad) Then
-                Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
-
-                End Using
-            End If
-        Catch ex As IO.IOException
-            MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei {0} möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", AktiveCompetition.ExcelPfad),
-                            "Excel offen", MessageBoxButton.OK)
-            Return
-        End Try
-        RundeBerechnen()
-    End Sub
-
-
-    Private Sub RundeBerechnen()
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            AktiveCompetition.SaveXML()
-        End If
-
+        ExcelBeschreibbar()
         With AktiveCompetition
             Dim AktiveListe = .SpielerListe.ToList
             For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
@@ -80,12 +61,6 @@
             .SpielRunden.Push(spielRunde)
 
         End With
-
-
-        If CBool(My.Settings.AutoSaveAn) Then
-            AktiveCompetition.SaveExcel()
-        End If
-
     End Sub
 
     Public Sub NächstesPlayoff_Execute() Implements IController.NächstesPlayoff_Execute
@@ -153,8 +128,25 @@
         ExcelInterface.CreateFile(dateiName, spieler, AktiveCompetition)
     End Sub
 
-    Public Sub Save() Implements IController.Save
+    Public Sub SaveXML() Implements IController.SaveXML
         AktiveCompetition.SaveXML()
+    End Sub
+
+    Public Sub SaveExcel() Implements IController.SaveExcel
+        
+        AktiveCompetition.SaveExcel()
+    End Sub
+
+    Public Sub ExcelBeschreibbar()
+        Try
+            If IO.File.Exists(AktiveCompetition.ExcelPfad) Then
+                Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
+
+                End Using
+            End If
+        Catch ex As IO.IOException
+            Throw New ExcelNichtBeschreibbarException
+        End Try
     End Sub
 
     Public Sub SatzEintragen(value As Integer, inverted As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
@@ -202,4 +194,6 @@
         neueSpielPartie.ZeitStempel = Date.Now
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
+
+
 End Class

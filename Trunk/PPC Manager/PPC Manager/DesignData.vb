@@ -23,6 +23,7 @@ End Class
 Public Class DesignController
     Implements IController
 
+
     Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
         Get
             Return New Competition(New SpielRegeln(3, True, True))
@@ -57,7 +58,7 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub Save() Implements IController.Save
+    Public Sub Save() Implements IController.SaveXML
 
     End Sub
 
@@ -76,6 +77,11 @@ Public Class DesignController
     Public Sub NeuePartie(rundenName As String, spielerA As Spieler, SpielerB As Spieler) Implements IController.NeuePartie
 
     End Sub
+
+    Public Sub SaveExcel() Implements IController.SaveExcel
+
+    End Sub
+
 End Class
 
 Public Class DesignSpielPartienOhneFreilos

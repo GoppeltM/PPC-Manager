@@ -1,12 +1,17 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 <TestClass()> Public Class CompetitionTests_FromXML
 
     <TestInitialize>
     Public Sub Init()
         _regeln = New SpielRegeln(4, False, False)
-        _reference = Competition.FromXML("D:\dummy.xml", XDocument.Parse(My.Resources.Competition).Root.<competition>.First, _regeln)
+        Dim xml = XDocument.Parse(My.Resources.Competition).Root.<competition>.First
+        For Each Spieler In xml...<person>
+            Spieler.@ppc:anwesend = "true"
+        Next
+        _reference = Competition.FromXML("D:\dummy.xml", xml, _regeln)
     End Sub
 
     <Ignore>
@@ -79,6 +84,20 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     <TestMethod>
     Public Sub SpielRunden_AusgeschiedeneSpieler_HatPlayer127()
         CollectionAssert.AreEqual({"PLAYER127"}, (From x In _reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
+    End Sub
+
+    <TestMethod()>
+    Public Sub NächsteRunde_Execute_OffeneSpieler_SpielDatenUnvollständigException()
+        Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
+        Dim node = (From x In doc.Root.<competition>
+                   Where x.Attribute("age-group").Value = "A-Klasse"
+                   Select x).Single
+        Try
+            Dim c = Competition.FromXML("D:\temp.xml", node, New SpielRegeln(3, True, True))
+            Assert.Fail()
+        Catch ex As SpielDatenUnvollständigException
+
+        End Try
     End Sub
 
 End Class
