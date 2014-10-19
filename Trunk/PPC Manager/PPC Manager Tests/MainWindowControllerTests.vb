@@ -41,6 +41,7 @@ Imports System.Printing
 
     End Sub
 
+    <Ignore>
     <TestMethod>
     Public Sub DruckenUIDummy()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
@@ -51,7 +52,7 @@ Imports System.Printing
         Dim c = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
         Dim Controller = New MainWindowController(c)
         Dim p = New PrintDialog()
-        p.PrintQueue = New PrintQueue(New PrintServer(), "Microsoft XPS Document Writer")        
+        p.PrintQueue = New PrintQueue(New PrintServer(), "Microsoft XPS Document Writer")
         Controller.RundenendeDrucken(p)
     End Sub
 

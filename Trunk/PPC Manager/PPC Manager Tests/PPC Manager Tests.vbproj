@@ -66,6 +66,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -100,6 +101,7 @@
     <Compile Include="KonverterTests.vb" />
     <Compile Include="CompetitionTests_FromXML.vb" />
     <Compile Include="MainWindowControllerTests.vb" />
+    <Compile Include="UserControlPaginatorTests.vb" />
     <Compile Include="XMLValidation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

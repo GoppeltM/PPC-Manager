@@ -16,36 +16,40 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, UserControl}
         _begegnungen = begegnungen
         Me.PageSize = pageSize
         _factory = factory
-        EmptyPage = CreateVisual(0, New Object() {}, 1)
+        EmptyPage = ErzeugeFixedPagedUserControl(0, New Object() {}, 1)
     End Sub
 
 
     Private ReadOnly EmptyPage As T
 
 
-    Public Overrides Function GetPage(ByVal pageNumber As Integer) As System.Windows.Documents.DocumentPage
-        Dim start = pageNumber * ElementsPerPage
-        Dim currentElements = _begegnungen.Skip(start).Take(ElementsPerPage).ToList
-        Dim page = CreateVisual(start, currentElements, pageNumber)
-        Dim visibleArea = New Rect(PageSize)
-        Dim doc = New DocumentPage(page, PageSize, visibleArea, visibleArea)
-        Return doc
+    Public Overrides Function GetPage(ByVal pageNumber As Integer) As DocumentPage
+        Return GetUserControlPage(pageNumber).Item2
     End Function
 
-    Public Function CreateVisual(startIndex As Integer, ByVal elements As IEnumerable(Of Object), pageNumber As Integer) As T
-        Dim visual = _factory()
-        visual.SetSource(startIndex, elements)
-        visual.PageNumber = pageNumber
-        Dim page As New FixedPage
-        page.Width = PageSize.Width
-        page.Height = PageSize.Height
-        visual.Width = page.Width
-        visual.Height = page.Height
-        page.Children.Add(visual)
-        page.Measure(PageSize)
-        page.Arrange(New Rect(New Point(0, 0), PageSize))
-        page.UpdateLayout()
-        Return visual
+    Public Function GetUserControlPage(pageNumber As Integer) As Tuple(Of T, DocumentPage)
+        Dim start = pageNumber * ElementsPerPage
+        Dim currentElements = _begegnungen.Skip(start).Take(ElementsPerPage).ToList
+        Dim page = ErzeugeFixedPagedUserControl(start, currentElements, pageNumber)
+        Dim visibleArea = New Rect(PageSize)
+        Dim doc = New DocumentPage(page, PageSize, visibleArea, visibleArea)        
+        Return Tuple.Create(page, doc)
+    End Function
+
+    Private Function ErzeugeFixedPagedUserControl(startIndex As Integer, ByVal elements As IEnumerable(Of Object), pageNumber As Integer) As T
+        Dim UserControl = _factory()
+        UserControl.SetSource(startIndex, elements)
+        UserControl.PageNumber = pageNumber
+        Dim Page As New FixedPage
+        Page.Width = PageSize.Width
+        Page.Height = PageSize.Height
+        UserControl.Width = Page.Width
+        UserControl.Height = Page.Height
+        Page.Children.Add(UserControl)
+        Page.Measure(PageSize)
+        Page.Arrange(New Rect(New Point(0, 0), PageSize))
+        Page.UpdateLayout()
+        Return UserControl
     End Function
 
 
