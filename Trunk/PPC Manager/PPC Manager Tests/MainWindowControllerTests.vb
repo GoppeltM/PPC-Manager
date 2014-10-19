@@ -1,6 +1,8 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
+Imports System.Windows.Controls
+Imports System.Printing
 
 <TestClass()> Public Class MainWindowControllerTests
 
@@ -12,9 +14,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
             Spieler.@ppc:anwesend = "true"
         Next
 
-        doc.Save("D:\temp.xml")        
-        Dim c = Competition.FromXML("D:\temp.xml", "A-Klasse", New SpielRegeln(3, True, True))
-        Dim cD = Competition.FromXML("D:\temp.xml", "D-Klasse", New SpielRegeln(3, True, True))
+        Dim c = Competition.FromXML("D:\temp.xml", doc, "A-Klasse", New SpielRegeln(3, True, True))
+        Dim cD = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
 
         Dim ControllerA = New MainWindowController(c)
         Dim ControllerD = New MainWindowController(cD)
@@ -40,6 +41,19 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
     End Sub
 
-   
+    <TestMethod>
+    Public Sub DruckenUIDummy()
+        Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
+        For Each Spieler In doc.Root...<person>
+            Spieler.@ppc:anwesend = "true"
+        Next
+
+        Dim c = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim Controller = New MainWindowController(c)
+        Dim p = New PrintDialog()
+        p.PrintQueue = New PrintQueue(New PrintServer(), "Microsoft XPS Document Writer")        
+        Controller.RundenendeDrucken(p)
+    End Sub
+
 
 End Class

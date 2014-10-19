@@ -26,7 +26,8 @@ Class Application
             Dim spielRegeln = New SpielRegeln(.GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
             Dim AktiveCompetition As Competition
             Try
-                AktiveCompetition = Competition.FromXML(.XMLPathText.Text, .CompetitionCombo.SelectedItem.ToString, spielRegeln)
+                Dim doc = XDocument.Load(.XMLPathText.Text)
+                AktiveCompetition = Competition.FromXML(.XMLPathText.Text, doc, .CompetitionCombo.SelectedItem.ToString, spielRegeln)
             Catch ex As SpielDatenUnvollständigException
                 MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount), _
                 "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)

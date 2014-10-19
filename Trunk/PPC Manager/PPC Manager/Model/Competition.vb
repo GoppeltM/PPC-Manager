@@ -49,12 +49,10 @@ Public Class Competition
         Return c
     End Function
 
-    Public Shared Function FromXML(dateiPfad As String, gruppe As String, spielRegeln As SpielRegeln) As Competition
-        Dim doc = XDocument.Load(dateiPfad)
+    Public Shared Function FromXML(dateiPfad As String, doc As XDocument, gruppe As String, spielRegeln As SpielRegeln) As Competition        
         Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
         ' Syntax Checks
 
-       
         Return FromXML(dateiPfad, competitionXML, spielRegeln)
     End Function
 
