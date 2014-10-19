@@ -83,20 +83,12 @@ Class MainWindow
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
-    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim p = New PrintDialog
-        p.UserPageRangeEnabled = True
-        If p.ShowDialog Then
-            _Controller.RundenbeginnDrucken(p)
-        End If
+    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+        _Controller.RundenbeginnDrucken(New Printer)
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim p = New PrintDialog
-        p.UserPageRangeEnabled = True
-        If p.ShowDialog Then
-            _Controller.RundenendeDrucken(p)
-        End If
+        _Controller.RundenendeDrucken(New Printer)        
     End Sub
 
     Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)

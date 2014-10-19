@@ -46,11 +46,11 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub RundenbeginnDrucken(printdialog As PrintDialog) Implements IController.RundenbeginnDrucken
+    Public Sub RundenbeginnDrucken(printdialog As IPrinter) Implements IController.RundenbeginnDrucken
 
     End Sub
 
-    Public Sub RundenendeDrucken(p As PrintDialog) Implements IController.RundenendeDrucken
+    Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
 
     End Sub
 

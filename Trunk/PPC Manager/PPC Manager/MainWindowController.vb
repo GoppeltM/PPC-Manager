@@ -79,7 +79,7 @@
         End If
     End Sub
 
-    Public Sub RundenbeginnDrucken(p As PrintDialog) Implements IController.RundenbeginnDrucken
+    Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
 
         Dim size = New Size(p.PrintableAreaWidth, p.PrintableAreaHeight)
 
@@ -94,7 +94,7 @@
         p.PrintDocument(New PaginatingPaginator({PaarungenPaginator, SchiriPaginator}), "Neue Begegnungen - Aushang und Schiedsrichterzettel")
     End Sub
 
-    Public Sub RundenendeDrucken(p As PrintDialog) Implements IController.RundenendeDrucken
+    Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
         Dim size = New Size(p.PrintableAreaWidth, p.PrintableAreaHeight)
 
         Dim Spielpartien As IEnumerable(Of SpielPartie) = New List(Of SpielPartie)

@@ -10,9 +10,9 @@
 
     Sub NächstesPlayoff_Execute()
 
-    Sub RundenbeginnDrucken(printdialog As PrintDialog)
+    Sub RundenbeginnDrucken(printdialog As IPrinter)
 
-    Sub RundenendeDrucken(p As PrintDialog)
+    Sub RundenendeDrucken(p As IPrinter)
 
     Sub ExcelExportieren(p1 As String)
 

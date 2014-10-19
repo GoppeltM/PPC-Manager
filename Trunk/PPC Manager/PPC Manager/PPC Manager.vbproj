@@ -128,6 +128,7 @@
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
     <Compile Include="IController.vb" />
+    <Compile Include="IPrinter.vb" />
     <Compile Include="Konverter.vb" />
     <Compile Include="LadenNeu.xaml.vb">
       <DependentUpon>LadenNeu.xaml</DependentUpon>

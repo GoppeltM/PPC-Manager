@@ -3,6 +3,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports System.Windows.Controls
 Imports System.Printing
+Imports Moq
+Imports System.Windows.Documents
 
 <TestClass()> Public Class MainWindowControllerTests
 
@@ -41,9 +43,8 @@ Imports System.Printing
 
     End Sub
 
-    <Ignore>
     <TestMethod>
-    Public Sub DruckenUIDummy()
+    Public Sub RundenendeDrucken_DKlasse_2Seiten()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         For Each Spieler In doc.Root...<person>
             Spieler.@ppc:anwesend = "true"
@@ -51,9 +52,15 @@ Imports System.Printing
 
         Dim c = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
         Dim Controller = New MainWindowController(c)
-        Dim p = New PrintDialog()
-        p.PrintQueue = New PrintQueue(New PrintServer(), "Microsoft XPS Document Writer")
-        Controller.RundenendeDrucken(p)
+        Dim DruckenMock = New Mock(Of IPrinter)
+        Dim a = Sub(d As DocumentPaginator, s As String)
+                    Assert.AreEqual(2, d.PageCount)
+                End Sub
+        DruckenMock.Setup(Sub(m) m.PrintDocument(It.IsAny(Of DocumentPaginator), It.IsAny(Of String))).Callback(a).Verifiable()
+        DruckenMock.Setup(Function(m) m.PrintableAreaHeight).Returns(1000.0)
+        DruckenMock.Setup(Function(m) m.PrintableAreaWidth).Returns(800.0)
+        Controller.RundenendeDrucken(DruckenMock.Object)
+        DruckenMock.VerifyAll()
     End Sub
 
 
