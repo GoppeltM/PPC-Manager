@@ -88,7 +88,7 @@
         Dim PaarungenPaginator As New UserControlPaginator(Of NeuePaarungen) _
             (From x In AktiveCompetition.SpielRunden.Peek
              Where Not TypeOf x Is FreiLosSpiel, size, neuePaarungenFactory)
-
+        DruckenTools.SpaltenAngleichen(PaarungenPaginator.Pages, "SpielErgebnisseListe")
         Dim SchiriFactory = Function() New SchiedsrichterZettel(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
         Dim SchiriPaginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, size, SchiriFactory)
         p.PrintDocument(New PaginatingPaginator({PaarungenPaginator, SchiriPaginator}), "Neue Begegnungen - Aushang und Schiedsrichterzettel")
@@ -106,6 +106,7 @@
 
         Dim SpielErgebnisseFactory = Function() New SpielErgebnisse(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
         Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size, SpielErgebnisseFactory)
+        DruckenTools.SpaltenAngleichen(ErgebnissePaginator.Pages, "SpielErgebnisseListe")
         Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
                                         Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
                                                Where x.Spieler = s AndAlso x.Runde = 0
@@ -119,6 +120,7 @@
 
         Dim ranglisteFactory = Function() New RanglisteSeite(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
         Dim RanglistePaginator As New UserControlPaginator(Of RanglisteSeite)(l, size, ranglisteFactory)
+        DruckenTools.SpaltenAngleichen(RanglistePaginator.Pages, "SpielerRangListe")
         p.PrintDocument(New PaginatingPaginator({ErgebnissePaginator, RanglistePaginator}), "Rundenende - Aushang und Rangliste")
     End Sub
 

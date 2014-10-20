@@ -152,6 +152,7 @@
       <DependentUpon>NeueSpielPartieDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Observable.vb" />
+    <Compile Include="Output\DruckenTools.vb" />
     <Compile Include="Output\ExcelInterface.vb" />
     <Compile Include="Output\PaginatingPaginator.vb" />
     <Compile Include="Output\RanglisteSeite.xaml.vb">
