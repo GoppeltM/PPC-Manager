@@ -20,10 +20,9 @@ Public Class Printer
     Public Sub New()
         _PrintDialog = New PrintDialog
         _PrintDialog.UserPageRangeEnabled = True
-        Dim result = _PrintDialog.ShowDialog
+        _Sicherung = _PrintDialog.ShowDialog
         _Height = _PrintDialog.PrintableAreaHeight
         _Width = _PrintDialog.PrintableAreaWidth
-        _Sicherung = _PrintDialog.ShowDialog
     End Sub
 
     Public ReadOnly Property PrintableAreaHeight As Double Implements IPrinter.PrintableAreaHeight
