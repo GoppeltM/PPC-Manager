@@ -120,12 +120,14 @@ Public Class StartListe
         Next
     End Sub
 
-    <Ignore>
+    '<Ignore>
     <TestMethod>
     Sub ExcelExport()
         Dim c = New Competition(New SpielRegeln(0, True, True))
+        c.SpielRunden.Push(New SpielRunde)
+        c.SpielRunden.Push(New SpielRunde)
         Dim s As New Spieler(c.SpielRunden, c.SpielRegeln) With {.Vorname = "Marius", .Nachname = "Goppelt"}
-        ExcelInterface.CreateFile("E:\Skydrive\Dokumente\Repositories\Programme\Trunk\PPC Manager\PPC Manager Tests\Resources\PPC 15 Anmeldungen D-Klasse.xlsx", _
+        TurnierReport.CreateFile("D:\PPC 15 Anmeldungen D-Klasse.xlsx", _
                                   New Spieler() {s}, c)
     End Sub
 

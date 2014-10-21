@@ -101,7 +101,7 @@ Public Class Competition
 
     Public Sub SaveExcel()
         Dim spieler = SpielerListe.ToList
-        ExcelInterface.CreateFile(ExcelPfad, spieler, Me)
+        TurnierReport.CreateFile(ExcelPfad, spieler, Me)
     End Sub
 
     Public ReadOnly Property ExcelPfad As String

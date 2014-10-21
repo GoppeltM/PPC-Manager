@@ -127,7 +127,7 @@
     Public Sub ExcelExportieren(dateiName As String) Implements IController.ExcelExportieren
         Dim spieler = AktiveCompetition.SpielerListe.ToList
         spieler.Sort()
-        ExcelInterface.CreateFile(dateiName, spieler, AktiveCompetition)
+        TurnierReport.CreateFile(dateiName, spieler, AktiveCompetition)
     End Sub
 
     Public Sub SaveXML() Implements IController.SaveXML
