@@ -38,9 +38,9 @@ Public Class TurnierReport
                         sheet = ex._SpreadSheet.GetSheet("erg_rd" & currentName)
                         .WriteRunde(runde, sheet)
                         current += 1
-                    Next
-                    'Dim ss = ._SpreadSheet.GetSheetFromWorksheet(sheet)
-                    '._SpreadSheet.SetActiveSheet(ss.SheetId)
+                    Next                    
+                    ._SpreadSheet.SetActiveSheet(CUInt(ex._SpreadSheet.SheetCount - 1))
+                    ex._SpreadSheet.Save()
                 End With
             End Using
 

@@ -120,7 +120,7 @@ Public Class StartListe
         Next
     End Sub
 
-    '<Ignore>
+    <Ignore>
     <TestMethod>
     Sub ExcelExport()
         Dim c = New Competition(New SpielRegeln(0, True, True))

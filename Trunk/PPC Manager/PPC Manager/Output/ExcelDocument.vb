@@ -48,9 +48,9 @@ Public Class ExcelDocument
 
         ' Add a WorkbookPart to the document.
         Dim workbookpart As WorkbookPart = spreadsheetDocument.AddWorkbookPart
-        workbookpart.Workbook = New Workbook
-        'workbookpart.Workbook.BookViews = New BookViews
-        'workbookpart.Workbook.BookViews.AppendChild(New WorkbookView)
+        workbookpart.Workbook = New Workbook        
+        workbookpart.Workbook.BookViews = New BookViews
+        workbookpart.Workbook.BookViews.AppendChild(New WorkbookView)
 
         Dim stringTablePart = workbookpart.AddNewPart(Of SharedStringTablePart)()
         stringTablePart.SharedStringTable = New SharedStringTable
@@ -58,6 +58,10 @@ Public Class ExcelDocument
         ' Add Sheets to the Workbook.
         Dim sheets As Sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(Of Sheets)(New Sheets())
         Return New ExcelDocument(spreadsheetDocument)
+    End Function
+
+    Public Function SheetCount() As Integer
+        Return doc.WorkbookPart.Workbook.Sheets.Count
     End Function
 
     Public Function GetSheet(sheetName As String) As Worksheet
@@ -100,6 +104,10 @@ Public Class ExcelDocument
         Dim rightSheet = (From x In doc.WorkbookPart.Workbook.Sheets.Elements(Of Sheet)() Where x.Id = workSheetID).Single
         Return rightSheet
     End Function
+
+    Public Sub Save()
+        doc.WorkbookPart.Workbook.Save()
+    End Sub
 
     Private Function GetWorkSheet(sheetName As String) As Worksheet
         For Each Sheet In doc.WorkbookPart.Workbook.Sheets.Elements(Of Sheet)()
