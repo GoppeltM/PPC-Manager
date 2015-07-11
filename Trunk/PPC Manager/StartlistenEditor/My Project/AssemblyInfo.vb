@@ -12,8 +12,8 @@ Imports System.Windows
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("StartlistenEditor")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyDescription("Editor um Turnierbeginn zu organisieren")> 
+<Assembly: AssemblyCompany("Marius Goppelt")> 
 <Assembly: AssemblyProduct("StartlistenEditor")> 
 <Assembly: AssemblyCopyright("Copyright ©  2013")> 
 <Assembly: AssemblyTrademark("")> 

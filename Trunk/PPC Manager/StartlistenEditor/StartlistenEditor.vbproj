@@ -10,27 +10,7 @@
     <RootNamespace>StartlistenEditor</RootNamespace>
     <AssemblyName>StartlistenEditor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <MyType>Custom</MyType>
-    <TargetFrameworkProfile />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\PPC Manager Dropfolder\Startlisteneditor\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ProductName>PPC Startlisten Editor</ProductName>
-    <PublisherName>Marius Goppelt</PublisherName>
-    <SuiteName>PPC Manager</SuiteName>
-    <ApplicationRevision>20</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <MyType>Custom</MyType>    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,18 +51,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-  </PropertyGroup>
+  </PropertyGroup>  
   <PropertyGroup>
-    <ManifestCertificateThumbprint>ABD57030CCF640323C7A835537FB74ACC3CBFC8E</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>StartlistenEditor_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Core" />
@@ -176,15 +147,17 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
-    <None Include="StartlistenEditor_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />

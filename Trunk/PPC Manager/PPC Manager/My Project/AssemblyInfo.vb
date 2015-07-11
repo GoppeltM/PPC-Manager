@@ -14,7 +14,7 @@ Imports System.Runtime.CompilerServices
 
 <Assembly: AssemblyTitle("PPC Manager")> 
 <Assembly: AssemblyDescription("Zum Verwalten und Durchführen des Ping Pong Café")> 
-<Assembly: AssemblyCompany("Microsoft")> 
+<Assembly: AssemblyCompany("Marius Goppelt")> 
 <Assembly: AssemblyProduct("PPC Manager")> 
 <Assembly: AssemblyCopyright("Marius Goppelt 2010")> 
 <Assembly: AssemblyTrademark("")> 
