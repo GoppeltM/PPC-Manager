@@ -5,26 +5,6 @@
     <Setting Name="GewinnPunkte" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">11</Value>
     </Setting>
-    <Setting Name="SpielKlassen" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;Erste Bundesliga&lt;/string&gt;
-  &lt;string&gt;Zweite Bundesliga&lt;/string&gt;
-  &lt;string&gt;Regionalliga&lt;/string&gt;
-  &lt;string&gt;Oberliga&lt;/string&gt;
-  &lt;string&gt;Badenliga&lt;/string&gt;
-  &lt;string&gt;Verbandsliga&lt;/string&gt;
-  &lt;string&gt;Verbandsklasse&lt;/string&gt;
-  &lt;string&gt;Bezirksliga&lt;/string&gt;
-  &lt;string&gt;Bezirksklasse&lt;/string&gt;
-  &lt;string&gt;Kreisliga&lt;/string&gt;
-  &lt;string&gt;Kreisklasse A&lt;/string&gt;
-  &lt;string&gt;Kreisklasse B&lt;/string&gt;
-  &lt;string&gt;Kreisklasse C&lt;/string&gt;
-  &lt;string&gt;Kreisklasse D&lt;/string&gt;
-  &lt;string&gt;Keine Angabe&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
-    </Setting>
     <Setting Name="LetztesVerzeichnis" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

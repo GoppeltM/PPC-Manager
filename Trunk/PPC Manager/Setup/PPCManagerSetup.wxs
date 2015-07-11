@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" UpgradeCode="{297E12FA-81EF-4D38-AFFE-C44A41346506}" Version="1.0.0.0" Language="1031" Name="PPC Manager Setup" Manufacturer="Marius Goppelt">
+    <Package InstallerVersion="300" Compressed="yes"/>
+    <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
+    <!-- Step 1: Define the directory structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Directory Id="ShortCutFolder" Name="PPC Manager" />
+      </Directory>
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="APPLICATIONROOTDIRECTORY" Name="PPC Manager">          
+        </Directory>
+      </Directory>
+    </Directory>    
+    <!-- Step 2: Add files to your installer package -->
+    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+      <Component Id="PPC_Manager" Guid="{06429B6F-EFDD-49C6-847C-82042C339E61}">
+        <File Id="PPC_M_Executable" Name="$(var.PPCManager.TargetFileName)" Source="$(var.PPCManager.TargetPath)" />
+        <File Id="PPC_M_Config" Name="$(var.PPCManager.TargetFileName).config" Source="$(var.PPCManager.TargetDir)\$(var.PPCManager.TargetFileName).config" />
+        <File Id="PPC_M_Debug_Info" Name="$(var.PPCManager.ProjectName).pdb" Source="$(var.PPCManager.TargetDir)$(var.PPCManager.ProjectName).pdb" />
+        <File Id="PPC_M_DocumentFormat.OpenXml.dll" Name="DocumentFormat.OpenXml.dll" Source="$(var.PPCManager.TargetDir)\DocumentFormat.OpenXml.dll" />        
+      </Component>
+      <Component Id="StartlistenEditor" Guid="{7D909842-9FDE-4248-9099-7BC02A6B0293}">
+        <File Id="SL_Executable" Name="$(var.StartlistenEditor.TargetFileName)" Source="$(var.StartlistenEditor.TargetPath)" />
+        <File Id="SL_Config" Name="$(var.StartlistenEditor.TargetFileName).config" Source="$(var.StartlistenEditor.TargetDir)\$(var.StartlistenEditor.TargetFileName).config" />
+        <File Id="SL_Debug_Info" Name="$(var.StartlistenEditor.ProjectName).pdb" Source="$(var.StartlistenEditor.TargetDir)$(var.StartlistenEditor.ProjectName).pdb" />        
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="ShortCutFolder">
+      <Component Id="ShortCuts" Guid="{94898029-DA4D-4D2B-9B1E-C6DF4382789D}">
+        <Shortcut Id="PPCManagerStartMenuShortcut"
+                  Name="PPC Manager"
+                  Description="Startet den PPC Manager zum organisieren von Runden"
+                  Target="[#PPC_M_Executable]"
+                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        <Shortcut Id="StartlisteneditorStartMenuShortcut"
+                  Name="Startlisteneditor"
+                  Description="Startet den Startlisteneditor, um den Turnierbeginn zu organisieren"
+                  Target="[#SL_Executable]"
+                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        <RegistryValue Root="HKCU" Key="Software\Marius Goppelt\PPC Manager" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <RemoveFolder Id="ShortCutFolder" On="uninstall"/>
+      </Component>
+    </DirectoryRef>                  
+    <Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONROOTDIRECTORY" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\..\..\license.rtf" />
+    <UIRef Id="WixUI_InstallDir" />
+    <!-- Step 3: Tell WiX to install the files -->
+    <Feature Id="MainApplication" Title="Main Application" Level="1">
+      <ComponentRef Id="PPC_Manager" />
+      <ComponentRef Id="StartlistenEditor" />
+      <ComponentRef Id="ShortCuts"/>
+    </Feature>    
+  </Product>
+</Wix>

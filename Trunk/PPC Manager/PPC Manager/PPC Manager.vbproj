@@ -27,9 +27,9 @@
     <ProductName>PPC Manager</ProductName>
     <PublisherName>Marius Goppelt</PublisherName>
     <SuiteName>PPC Manager</SuiteName>
+    <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <AutorunEnabled>true</AutorunEnabled>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -84,7 +84,7 @@
     <ManifestKeyFile>PPC Manager_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>

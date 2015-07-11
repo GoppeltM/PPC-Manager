@@ -1,14 +1,8 @@
-
-/Trunk/PPC Manager/PPC Manager/bin
-/Trunk/PPC Manager/PPC Manager/obj
 /Trunk/PPC Manager/TestResults
-/Trunk/PPC Manager/PPC Manager Tests/bin
-/Trunk/PPC Manager/PPC Manager Tests/obj
-/Trunk/PPC Manager/StartlistenEditor/obj
-/Trunk/PPC Manager/StartlistenEditor/bin
 /Trunk/PPC Manager/PPC Manager Tests/Resources/*.xlsx
 /Trunk/PPC Manager/StartlistenEditor/*.user
-
 /Trunk/PPC Manager/PPC Manager Tests/Resources/Protokolle
 /Trunk/PPC Manager/packages/DocumentFormat.OpenXml.2.5
 /Trunk/PPC Manager/packages/Moq.4.2.1409.1722
+bin
+obj
