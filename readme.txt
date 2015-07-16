@@ -92,5 +92,4 @@ Externe Komponenten werden vom Visual Studio Package Manager verwaltet.
 * Wenn Sie an spezifischen Implementierungsdetails und deren Hintergründen interessiert sind, schauen Sie ins Commit Log. Ich habe versucht dort alle Änderungen so sorgfältig es geht zu dokumentieren.
 
 Marius Goppelt
-MGoppelt@outlook.com
 
