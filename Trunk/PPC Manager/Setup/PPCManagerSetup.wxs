@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" UpgradeCode="{297E12FA-81EF-4D38-AFFE-C44A41346506}" Version="1.0.0.0" Language="1031" Name="PPC Manager Setup" Manufacturer="Marius Goppelt">
+  <Product Id="*" UpgradeCode="{297E12FA-81EF-4D38-AFFE-C44A41346506}" Version="1.0.0.4" Language="1031" Name="PPC Manager Setup" Manufacturer="Marius Goppelt">
     <Package InstallerVersion="300" Compressed="yes"/>
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
     <!-- Step 1: Define the directory structure -->
