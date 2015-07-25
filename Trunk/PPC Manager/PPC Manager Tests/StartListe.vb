@@ -1,13 +1,12 @@
 ﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports Moq
 
-<TestClass()>
+<TestFixture()>
 Public Class StartListe
 
     <Ignore>
-    <TestMethod>
+    <Test>
     Sub UIDummy_Starten()
         Dim SpielerListe As StartlistenEditor.SpielerListe = Nothing
         Dim KlassementListe As StartlistenEditor.KlassementListe = Nothing
@@ -40,7 +39,7 @@ Public Class StartListe
     End Sub
 
 
-    <TestMethod> Sub FremdSpieler_Erzeugen()
+    <Test> Sub FremdSpieler_Erzeugen()
         Dim XMLKnoten =
             <tournament>
                 <competition age-group="Herren C">
@@ -89,7 +88,7 @@ Public Class StartListe
         End With
     End Sub
 
-    <TestMethod> Sub Alle_Spieler_Importieren()
+    <Test> Sub Alle_Spieler_Importieren()
         Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
 
         Dim AlleSpieler = StartlistenEditor.StartlistenController.XmlZuSpielerListe(doc)
@@ -107,7 +106,7 @@ Public Class StartListe
 
     End Sub
 
-    <TestMethod> Sub Competition_Importieren()
+    <Test> Sub Competition_Importieren()
         Dim AlleSpieler = StartlistenEditor.StartlistenController.XmlZuSpielerListe(XDocument.Parse(My.Resources.Competition))
         Assert.IsTrue(AlleSpieler.Any)
         Dim Referenz = {New With {.LizenzNr = 53010, .Fremd = False},
@@ -121,7 +120,7 @@ Public Class StartListe
     End Sub
 
     <Ignore>
-    <TestMethod>
+    <Test>
     Sub ExcelExport()
         Dim c = New Competition(New SpielRegeln(0, True, True))
         c.SpielRunden.Push(New SpielRunde)

@@ -1,13 +1,13 @@
 ﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports System.Windows
 Imports System.Windows.Media
 Imports System.Windows.Controls
 
-<TestClass()> Public Class UserControlPaginatorTests
+<TestFixture(), RequiresSTA>
+Public Class UserControlPaginatorTests
 
-    <TestInitialize>
-    Public Sub Init()        
+    <SetUp>
+    Public Sub Init()
     End Sub
 
     Private Function CreateRanglistePaginator(spielerListe As IEnumerable(Of Spieler)) As UserControlPaginator(Of RanglisteSeite)
@@ -17,14 +17,14 @@ Imports System.Windows.Controls
     End Function
 
 
-    <TestMethod()>
+    <Test>
     <ExpectedException(GetType(ArgumentOutOfRangeException))>
     Public Sub GetUserControlPage_Seite0KeinInhalt_ArgumentOutOfRangeException()
         Dim paginator = CreateRanglistePaginator(New List(Of Spieler))
         Dim p1 = paginator.GetUserControlPage(0)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub GetUserControlPage_Seite0EinEintrag_StandardSpaltenBreite()
         Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True))
         s.Id = "-1"
@@ -36,11 +36,11 @@ Imports System.Windows.Controls
         Assert.AreEqual(58.16, width, 0.01)
     End Sub
 
-    <TestMethod()>
-    Public Sub GetUserControlPage_Seite0BreiterVorname_BreiteSpalte()        
+    <Test>
+    Public Sub GetUserControlPage_Seite0BreiterVorname_BreiteSpalte()
         Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True))
         s.Id = "-1"
-        s.Vorname = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"        
+        s.Vorname = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
         Dim paginator = CreateRanglistePaginator(New Spieler() {s})
         Dim p1 = paginator.GetUserControlPage(0)
@@ -49,7 +49,7 @@ Imports System.Windows.Controls
         Assert.AreEqual(219.73, width, 0.01)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub GetUserControlPage_EinBreiterVornameNachname_BeideSeitenGleichBreit()
         Dim Erster As New Spieler(New SpielRunden, New SpielRegeln(3, True, True))
         Erster.Id = "-1"

@@ -1,14 +1,13 @@
 ﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports System.Windows.Controls
 Imports System.Printing
 Imports Moq
 Imports System.Windows.Documents
 
-<TestClass()> Public Class MainWindowControllerTests
+<TestFixture()> Public Class MainWindowControllerTests
 
-    <TestMethod()>
+    <Test>
     Public Sub ZweiController_RundeUndo_Controller2geändert()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
 
@@ -43,7 +42,7 @@ Imports System.Windows.Documents
 
     End Sub
 
-    <TestMethod>
+    <Test, RequiresSTA>
     Public Sub RundenendeDrucken_DKlasse_2Seiten()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         For Each Spieler In doc.Root...<person>

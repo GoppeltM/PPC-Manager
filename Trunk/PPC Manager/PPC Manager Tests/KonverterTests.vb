@@ -1,11 +1,11 @@
 ﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
+Imports NUnit.Framework
 Imports System.Windows.Media
 Imports System.Windows
 
-<TestClass()> Public Class KonverterTests
+<TestFixture()> Public Class KonverterTests
 
-    <TestMethod()>
+    <Test>
     Public Sub GewonneneSätzeConverter_2Gewinnsätze_2zu0()
         Dim converter As New GewonneneSätzeConverter()
         Dim spielRegeln = New SpielRegeln(3, True, True)
@@ -19,35 +19,35 @@ Imports System.Windows
         Assert.AreEqual("2:0", result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub GeschlechtKonverter_0_w()
         Dim converter As New GeschlechtKonverter
         Dim result = converter.Convert(0, Nothing, Nothing, Nothing)
         Assert.AreEqual("w", result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub GeschlechtKonverter_1_m()
         Dim converter As New GeschlechtKonverter
         Dim result = converter.Convert(1, Nothing, Nothing, Nothing)
         Assert.AreEqual("m", result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub AusgeschiedenPainter_true_Bisque()
         Dim converter = New AusgeschiedenPainter
         Dim result = converter.Convert(True, GetType(Brush), Nothing, Nothing)
         Assert.AreEqual(Brushes.Bisque, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub AusgeschiedenPainter_false_Transparent()
         Dim converter = New AusgeschiedenPainter
         Dim result = converter.Convert(False, GetType(Brush), Nothing, Nothing)
         Assert.AreEqual(Brushes.Transparent, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub HintergrundLinksKonverter_LinksGrößer_Yellow()
         Dim converter = New HintergrundLinksKonverter
         Dim satz As New Satz With {.PunkteLinks = 14, .PunkteRechts = 12}
@@ -55,7 +55,7 @@ Imports System.Windows
         Assert.AreEqual(Brushes.Yellow, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub HintergrundLinksKonverter_Unter11_Transparent()
         Dim converter = New HintergrundLinksKonverter
         Dim satz As New Satz With {.PunkteLinks = 7, .PunkteRechts = 5}
@@ -63,7 +63,7 @@ Imports System.Windows
         Assert.AreEqual(Brushes.Transparent, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub HintergrundRechtsKonverter_RechtsKleiner_Transparent()
         Dim converter = New HintergrundRechtsKonverter
         Dim satz As New Satz With {.PunkteLinks = 15, .PunkteRechts = 13}
@@ -71,7 +71,7 @@ Imports System.Windows
         Assert.AreEqual(Brushes.Transparent, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub HintergrundRechtsKonverter_Rechts11_Yellow()
         Dim converter = New HintergrundRechtsKonverter
         Dim satz As New Satz With {.PunkteLinks = 1, .PunkteRechts = 11}
@@ -79,7 +79,7 @@ Imports System.Windows
         Assert.AreEqual(Brushes.Yellow, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub MeineGewonnenenSätze_LVerloren_Hidden()
         Dim converter = New MeineGewonnenenSätze
         Dim satz As New Satz With {.PunkteLinks = 1, .PunkteRechts = 11}
@@ -87,7 +87,7 @@ Imports System.Windows
         Assert.AreEqual(Visibility.Hidden, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub MeineGewonnenenSätze_LGewonnen_Visible()
         Dim converter = New MeineGewonnenenSätze
         Dim satz As New Satz With {.PunkteLinks = 13, .PunkteRechts = 11}
@@ -95,21 +95,21 @@ Imports System.Windows
         Assert.AreEqual(Visibility.Visible, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub OpacityConverter_True_BarelyTransparent()
         Dim converter = New OpacityConverter
         Dim result = converter.Convert(True, Nothing, Nothing, Nothing)
         Assert.AreEqual(0.2, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub OpacityConverter_False_Opaque()
         Dim converter = New OpacityConverter
         Dim result = converter.Convert(False, Nothing, Nothing, Nothing)
         Assert.AreEqual(1.0, result)
     End Sub
 
-    <TestMethod()>
+    <Test>
     Public Sub GewonneneSätzeConverter()
         Dim converter = New GewonneneSätzeConverter
         Dim runden As New SpielRunden

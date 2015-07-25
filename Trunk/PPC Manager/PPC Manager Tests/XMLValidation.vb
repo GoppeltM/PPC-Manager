@@ -1,12 +1,11 @@
 ﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports PPC_Manager
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports System.Collections.ObjectModel
 Imports System.Xml.Schema
 Imports System.Xml
 
-<TestClass()> Public Class XMLValidation
+<TestFixture()> Public Class XMLValidation
 
     Private Function GetSchemaSet() As XmlSchemaSet
         Dim schema As XmlSchema
@@ -25,25 +24,25 @@ Imports System.Xml
     End Function
 
 
-    <TestMethod>
+    <Test>
     Sub Competition_Validieren()
         Dim doc = XDocument.Parse(My.Resources.Competition)
         doc.Validate(GetSchemaSet, Nothing)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub PPC_15_Validieren()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         doc.Validate(GetSchemaSet, Nothing)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Testturnier_Validieren()
         Dim doc = XDocument.Parse(My.Resources.Testturnier)
         doc.Validate(GetSchemaSet, Nothing)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Spielrunden_From_XML()
         Dim rundenRef = <matches>
                             <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
@@ -66,7 +65,7 @@ Imports System.Xml
     End Sub
 
 
-    <TestMethod>
+    <Test>
     Public Sub Spieler_From_XML()
         Dim XNode = <player type="single" id="PLAYER72">
                         <person licence-nr="53010" club-federation-nickname="BaTTV" club-name="TTC Langensteinbach e.V. " sex="1" ttr-match-count="102" lastname="Ewald" ttr="1294" internal-nr="NU440049" club-nr="428" firstname="Florian" birthyear="1981"/>
@@ -82,7 +81,7 @@ Imports System.Xml
         End With
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub NichtZählende_SpielPartie_From_XML()
         Dim MatchXml = <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
                            sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
@@ -105,7 +104,7 @@ Imports System.Xml
         End With
     End Sub
 
-    <TestMethod>
+    <Test>
     Public Sub SpielPartie_From_XML()
         Dim MatchXml = <match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
                            sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="0" set-b-1="5"
@@ -127,7 +126,7 @@ Imports System.Xml
         End With
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runden_To_XML()        
         Dim runden = New SpielRunden
         Dim regeln = New SpielRegeln(4, False, False)
@@ -174,7 +173,7 @@ Imports System.Xml
         End With
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub SpielePartie_To_XML()
         Dim regeln = New SpielRegeln(4, False, False)
         Dim runden = New SpielRunden
@@ -201,7 +200,7 @@ Imports System.Xml
 
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub FremdPartie_To_XML()
         Dim regeln = New SpielRegeln(4, False, False)
         Dim runden = New SpielRunden        
@@ -230,7 +229,7 @@ Imports System.Xml
 
 
 
-    <TestMethod()> Public Sub TTRGültig()
+    <Test> Public Sub TTRGültig()
         Dim doc = XDocument.Parse(My.Resources.Turnierteilnehmer)
         For Each person In doc...<person>
             Assert.IsNotNull(person.@ttr)
@@ -238,7 +237,7 @@ Imports System.Xml
     End Sub
 
     <Ignore>
-    <TestMethod()>
+    <Test>
     Public Sub BereinigeNamespaces()
         Dim doc = XDocument.Load("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test.xml")
         Dim NodesToRemove = From x In doc.Root.Descendants Where x.Name.NamespaceName = "http://www.ttc-langensteinbach.de"
@@ -259,7 +258,7 @@ Imports System.Xml
     End Sub
 
     <Ignore>
-    <TestMethod>
+    <Test>
     Public Sub FügeSchemaHinzu()
         Dim doc = XDocument.Load("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test.xml")
         Dim schema As XmlSchema

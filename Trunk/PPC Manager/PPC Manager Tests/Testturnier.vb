@@ -1,5 +1,4 @@
 ﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports System.Xml.Schema
 
 ''' <summary>
@@ -7,9 +6,9 @@ Imports System.Xml.Schema
 ''' Dies ist quasi der komplexeste Paarungstest. Danke an Flo für die Mühe.
 ''' </summary>
 ''' <remarks></remarks>
-<TestClass()> Public Class Testturnier
+<TestFixture()> Public Class Testturnier
 
-    <TestInitialize>
+    <SetUp>
     Sub CompetitionInit()
         JungenU18 = (From x In XDocument.Parse(My.Resources.Testturnier).Root.<competition>
                            Where x.Attribute("age-group").Value = "Jungen U 18").First
@@ -27,7 +26,7 @@ Imports System.Xml.Schema
     Dim AktuelleCompetition As Competition
     Dim AktiveListe As List(Of Spieler)
 
-    <TestMethod()> Public Sub Schema_Validierung()
+    <Test> Public Sub Schema_Validierung()
         Dim doc = XDocument.Parse(My.Resources.Testturnier)
         Dim schema As XmlSchema
         Dim Pfad = IO.Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly.Location)
@@ -44,68 +43,68 @@ Imports System.Xml.Schema
         doc.Validate(schemaSet, Nothing)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_1()
         NächsteRunde("Runde 1", 0)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_2()
         Jugend_Runde_1()
         NächsteRunde("Runde 2", 1)
     End Sub
 
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_3()
         Jugend_Runde_2()
         NächsteRunde("Runde 3", 2)
     End Sub
 
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_4()
         Jugend_Runde_3()
         NächsteRunde("Runde 4", 3)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_5()
         Jugend_Runde_4()
         NächsteRunde("Runde 5", 4)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_6()
         Jugend_Runde_5()
         NächsteRunde("Runde 6", 5)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_7()
         Jugend_Runde_6()
         NächsteRunde("Runde 7", 6)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_8()
         Jugend_Runde_7()
         NächsteRunde("Runde 8", 7)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_9()
         Jugend_Runde_8()
         NächsteRunde("Runde 9", 8)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_10()
         Jugend_Runde_9()
         NächsteRunde("Runde 10", 9)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Jugend_Runde_11()
         Jugend_Runde_10()
         NächsteRunde("Runde 11", 10)

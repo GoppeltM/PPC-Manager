@@ -1,7 +1,7 @@
-﻿<TestClass>
+﻿<TestFixture>
 Public Class PPC15_Turnier_Klasse_D
 
-    <TestInitialize>
+    <Setup>
     Sub CompetitionInit()
         Dim KlassementD = (From x In XDocument.Parse(My.Resources.PPC_15_Anmeldungen).Root.<competition>
                            Where x.Attribute("age-group").Value = "D-Klasse").First
@@ -11,9 +11,9 @@ Public Class PPC15_Turnier_Klasse_D
 
     Dim AktuelleCompetition As Competition
 
-    <TestMethod>
+    <Test>
     Sub SpielerAnmeldungen()
-        
+
         Assert.AreEqual(56, AktuelleCompetition.SpielerListe.Count)
 
         For Each Spieler In AktuelleCompetition.SpielerListe
@@ -85,7 +85,7 @@ Public Class PPC15_Turnier_Klasse_D
         CollectionAssert.AreEqual(Nachnamen, NachnamenResult)
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runde_1()
         With AktuelleCompetition
             Dim ergebnisse = New PaketBildung("Runde 0", 3).organisierePakete(.SpielerListe.ToList, 0)
@@ -97,7 +97,7 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runde_2()
         Runde_1()
         With AktuelleCompetition
@@ -110,7 +110,7 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runde_3()
         Runde_2()
         With AktuelleCompetition
@@ -123,7 +123,7 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runde_4()
         Runde_3()
         With AktuelleCompetition
@@ -136,7 +136,7 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runde_5()
         Runde_4()
         With AktuelleCompetition
@@ -149,7 +149,7 @@ Public Class PPC15_Turnier_Klasse_D
 
     End Sub
 
-    <TestMethod>
+    <Test>
     Sub Runde_6()
         Runde_5()
         With AktuelleCompetition
