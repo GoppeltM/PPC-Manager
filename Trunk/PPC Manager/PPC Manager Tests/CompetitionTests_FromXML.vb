@@ -14,8 +14,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         _reference = Competition.FromXML("D:\dummy.xml", xml, _regeln)
     End Sub
 
-    <Ignore>
-    <Test>
+
+    <Test, Explicit, RequiresSTA>
     Sub MainWindowUIDummy()
         Dim controller = New Moq.Mock(Of IController)
         controller.Setup(Function(m) m.AktiveCompetition).Returns(_reference)

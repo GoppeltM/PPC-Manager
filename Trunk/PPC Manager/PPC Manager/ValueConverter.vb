@@ -40,17 +40,10 @@ Public Class RanglisteIndexConverter
     Implements IValueConverter
 
     Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        Dim provider = CType(parameter, ObjectDataProvider)
-        If provider Is Nothing Then Return Nothing
-        If provider.ObjectInstance Is Nothing Then Return Nothing
-        Dim myList = CType(provider.ObjectInstance, SpielerListe).ToList
-
-        myList.Sort()
-        If myList IsNot Nothing Then
-            Dim Index = myList.ToList.IndexOf(CType(value, Spieler)) + 1
-            Return Index
-        End If
-        Return Nothing
+        Dim item = TryCast(value, ListViewItem)
+        Dim ListView = DirectCast(ItemsControl.ItemsControlFromItemContainer(item), ListView)
+        Dim index = ListView.ItemContainerGenerator.IndexFromContainer(item)
+        Return (index + 1).ToString()
     End Function
 
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack

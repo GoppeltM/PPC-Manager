@@ -41,7 +41,7 @@
             <RowDefinition Height="378*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="600*" />
+            <ColumnDefinition Width="600*" MinWidth="20" />
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
         <ListView x:Name="LifeListe" SelectedIndex="-1" Margin="10,5,20,5" Grid.RowSpan="2"
@@ -78,7 +78,9 @@
                             <TextBlock Grid.Column="0" Grid.RowSpan="2"
                                    FontSize="20" FontWeight="Bold" Foreground="#FF8D7979"
                                    VerticalAlignment="Center"
-                                   Text="{Binding Converter={StaticResource RanglisteIndexConverter}, ConverterParameter={StaticResource RanglisteDataProvider}}" 
+                                   Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                         AncestorType={x:Type ListViewItem}, AncestorLevel=2},
+                                         Converter={StaticResource RanglisteIndexConverter}}" 
                                    />
                             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Vorname}" HorizontalAlignment="Left" />
                             <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Nachname}" HorizontalAlignment="Left" />
