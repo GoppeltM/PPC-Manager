@@ -42,6 +42,21 @@ Imports System.Windows.Documents
 
     End Sub
 
+    <Test, Explicit, RequiresSTA>
+    Public Sub UIDummy_RundenEndeDrucken_2Seiten()
+        Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
+        For Each Spieler In doc.Root...<person>
+            Spieler.@ppc:anwesend = "true"
+        Next
+
+        Dim c = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim Controller = New MainWindowController(c)
+        Dim window = New Windows.Window
+        window.Show()
+        Controller.RundenendeDrucken(New Printer)
+        window.Close()
+    End Sub
+
     <Test, RequiresSTA>
     Public Sub RundenendeDrucken_DKlasse_2Seiten()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
