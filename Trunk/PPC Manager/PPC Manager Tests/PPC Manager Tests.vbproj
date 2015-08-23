@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
+    <Compile Include="SpielKlassenKonverterTests.vb" />
     <Compile Include="StartListe.vb" />
     <Compile Include="Testturnier.vb" />
     <Compile Include="KonverterTests.vb" />

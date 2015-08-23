@@ -33,7 +33,7 @@ Public Class UserControlPaginatorTests
         Dim p1 = paginator.GetUserControlPage(0)
         Dim datagrid = DruckenTools.FindChild(Of DataGrid)(p1, "SpielerRangListe")
         Dim width = datagrid.Columns(1).ActualWidth
-        Assert.AreEqual(58.16, width, 0.01)
+        Assert.AreEqual(57.4, width, 0.01)
     End Sub
 
     <Test>

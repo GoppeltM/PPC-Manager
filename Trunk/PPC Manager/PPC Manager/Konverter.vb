@@ -20,13 +20,23 @@ End Class
 Public Class SpielKlassenkonverter
     Implements IValueConverter
 
+    Private _AktuellesJahr As Integer
+
+    Public Sub New()
+        _AktuellesJahr = Date.Now.Year
+    End Sub
+
+    Public Sub New(aktuellesJahr As Integer)
+        _AktuellesJahr = aktuellesJahr
+    End Sub
+
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         Dim Geburtsjahr = DirectCast(value, Integer)
 
-        Select Case Date.Now.Year - Geburtsjahr
-            Case Is <= 13 : Return "u13"
-            Case Is <= 15 : Return "u15"
-            Case Is <= 18 : Return "u18"
+        Select Case _AktuellesJahr - Geburtsjahr
+            Case Is < 13 : Return "u13"
+            Case Is < 15 : Return "u15"
+            Case Is < 18 : Return "u18"
             Case Else : Return "Ü18"
         End Select
     End Function
