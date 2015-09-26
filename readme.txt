@@ -20,10 +20,10 @@ The project is far older than the upload in GitHub might suggest, so sorry for a
 External components are managed via Visual Studio package manager.
 
 * Based on VB.NET, .NET 4.0 and WPF
-* Developed with Visual Studio 2012
-* Tested on Windows 7 and Windows 8 (x86 and x64)
+* Developed with Visual Studio 2015
+* Tested on Windows 7, Windows 8 und Windows 10 (x64)
 * Setup built by Wix
-* Unit Tests via Visual Studio Unit Testing (MSTest)
+* Unit Tests via NUnit
 * Implements the swiss-system tournament rules with small deviations and corrections. Allows up to (playercount - 1) rounds.
 * Splitted in two parts:
 ** An application that enables you to register and validate incoming players at the start of a tournament (StartlistenEditor)
@@ -43,7 +43,6 @@ External components are managed via Visual Studio package manager.
 
 
 Marius Goppelt
-MGoppelt@outlook.com
 
 
 ----------------------------------------------------------------------------------------------------------------
@@ -70,10 +69,10 @@ Das Projekt ist weit älter als es der Upload auf GitHub suggeriert. Es war nie a
 Externe Komponenten werden vom Visual Studio Package Manager verwaltet.
 
 * Basiert auf VB.NET, .NET 4.0 und WPF
-* Entwickelt mit Visual Studio 2012
-* Getestet auf Windows 7 und Windows 8 (x86 und x64)
+* Entwickelt mit Visual Studio 2015
+* Getestet auf Windows 7, Windows 8 und Windows 10 (x64)
 * Setup auf Basis der Wix Plattform
-* Unit Tests via Visual Studio Unit Testing (MSTest)
+* Unit Tests via NUnit
 * Implementiert die Regeln des Schweizer Turniersystems, wenn auch mit leichten Anpassungen und Korrekturen. Erlaubt bis zu (Spielerzahl - 1) Runden
 * Aufgeteilt in zwei Bereiche:
 ** Eine Anwendung die Spieleranmeldungen am Turniertag verwaltet und überprüft (StartlistenEditor)
