@@ -1,14 +1,26 @@
 ﻿Public Class SchiedsrichterZettel
     Implements IPaginatibleUserControl
 
+    Public Shared ReadOnly KlassementProperty As DependencyProperty =
+        DependencyProperty.Register("Klassement", GetType(String), GetType(SchiedsrichterZettel),
+                                    New FrameworkPropertyMetadata("MyValue"))
+    Public Property Klassement() As String
+        Get
+            Return CType(GetValue(KlassementProperty), String)
+        End Get
+        Set(ByVal value As String)
+            SetValue(KlassementProperty, value)
+            Dim alt = Klassement
+            OnPropertyChanged(New DependencyPropertyChangedEventArgs(KlassementProperty, alt, value))
+        End Set
+    End Property
+
     Public Sub New(altersgruppe As String, rundenzahl As Integer)
         ' This call is required by the designer.
         InitializeComponent()
-
-        Resources("KlassementName") = KlassementName
+        Klassement = altersgruppe
         Me.AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         Me.RundenNummer.Text = "Runde Nr. " & rundenzahl
-
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub

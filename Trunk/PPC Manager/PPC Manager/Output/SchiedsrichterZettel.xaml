@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SchiedsrichterZettel"
+﻿<UserControl x:Name="userControl" x:Class="SchiedsrichterZettel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,6 @@
              xmlns:local="clr-namespace:PPC_Manager"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:DesignHeight="1287.179" d:DesignWidth="792.507">
-    <UserControl.Resources>
-        <system:String x:Key="KlassementName">Klasse X</system:String>
-    </UserControl.Resources>
     <Grid Name="PageContent" DataContext="{Binding Source=SpielPartien}" d:DataContext="{d:DesignInstance Type=local:DesignSpielPartien, IsDesignTimeCreatable=True}" Margin="20">
         <Grid.Resources>
             <local:SpielPartien x:Key="SpielPartien"/>
@@ -19,7 +16,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock x:Name="AktuellesDatum" Grid.Row="0" Text="14.12.1013" Margin="20,0,0,0"/>
-            <TextBlock x:Name="KlassementName" Grid.Row="0" Text="{Binding Mode=OneWay, Source={StaticResource KlassementName}}" Margin="20,0,0,0"/>
+            <TextBlock x:Name="KlassementName" Grid.Row="0" Text="{Binding Klassement, ElementName=userControl, NotifyOnSourceUpdated=True}" Margin="20,0,0,0"/>
             <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>
             <TextBlock x:Name="Seitennummer" Grid.Row="0" Text="Seite 1" Margin="20,0,0,0" />
         </StackPanel>
@@ -33,7 +30,7 @@
                                 <RowDefinition/>
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{StaticResource KlassementName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
+                            <TextBlock Grid.Row="0" Text="{Binding Klassement, ElementName=userControl}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="1" Text="{Binding Path=RundenName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
                             <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
