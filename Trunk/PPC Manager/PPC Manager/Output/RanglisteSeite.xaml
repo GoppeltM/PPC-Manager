@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PPC_Manager"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:DesignHeight="1123" d:DesignWidth="793">
     <UserControl.Resources>
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <local:SpielerListe x:Key="Spieler"/>
-        <local:IndexConverter x:Key="IndexConverter"/>
+        <local:GridIndexConverter x:Key="GridIndexConverter"/>        
     </UserControl.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -23,9 +24,16 @@
             <TextBlock x:Name="Seitennummer" Grid.Row="0" Text="Seite 1" Margin="20,0,0,0" />
         </StackPanel>
         
-        <DataGrid Grid.Row="1" x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
+        <DataGrid Grid.Row="1" x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NummerColumn" Header="Rang" Binding="{Binding Converter={StaticResource IndexConverter}, ConverterParameter={StaticResource Spieler}}"/>
+                <DataGridTextColumn x:Name="NummerColumn" Header="Rang">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource GridIndexConverter}">
+                            <Binding />
+                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>                                     
                 <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" />
                 <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
                 <DataGridTextColumn Header="ID" Binding="{Binding StartNummer}"/>

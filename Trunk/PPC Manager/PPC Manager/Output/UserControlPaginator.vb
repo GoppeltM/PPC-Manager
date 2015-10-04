@@ -41,7 +41,7 @@ Public Class UserControlPaginator(Of T As {IPaginatibleUserControl, UserControl}
     Public Overrides Function GetPage(ByVal pageNumber As Integer) As DocumentPage
         Dim visibleArea = New Rect(PageSize)
         Dim page = GetUserControlPage(pageNumber)
-        Dim doc = New DocumentPage(Page, PageSize, visibleArea, visibleArea)
+        Dim doc = New DocumentPage(page, PageSize, visibleArea, visibleArea)
         Return doc
     End Function
 

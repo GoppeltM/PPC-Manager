@@ -9,8 +9,7 @@
         <local:GewonneneSätzeConverter x:Key="GewonneneSätzeConverter"/>
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
-        <local:SpielPartien x:Key="Spieler"/>
-        <local:IndexConverter x:Key="IndexConverter"/>
+        <local:SpielPartien x:Key="Spieler"/>        
     </UserControl.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>

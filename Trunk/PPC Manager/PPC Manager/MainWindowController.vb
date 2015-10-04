@@ -118,10 +118,15 @@
         l.Sort()
         l.Reverse()
 
-        Dim ranglisteFactory = Function() New RanglisteSeite(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-        Dim RanglistePaginator As New UserControlPaginator(Of RanglisteSeite)(l, size, ranglisteFactory)
-        DruckenTools.SpaltenAngleichen(RanglistePaginator.Pages, "SpielerRangListe")
-        p.PrintDocument(New PaginatingPaginator({ErgebnissePaginator, RanglistePaginator}), "Rundenende - Aushang und Rangliste")
+        Dim doc = New FixedDocument
+        Dim contentPages = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                           Select New PageContent() With {.Child = x}
+
+        For Each page In contentPages
+            doc.Pages.Add(page)
+        Next
+        p.PrintDocument(ErgebnissePaginator, "Rundenende - Aushang und Rangliste")
+        p.PrintDocument(doc.DocumentPaginator, "Rundenende - Aushang und Rangliste")
     End Sub
 
     Public Sub ExcelExportieren(dateiName As String) Implements IController.ExcelExportieren

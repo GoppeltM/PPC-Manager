@@ -104,6 +104,7 @@
     <Compile Include="Fehler.xaml.vb">
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Output\FixedPageFabrik.vb" />
     <Compile Include="IController.vb" />
     <Compile Include="IPrinter.vb" />
     <Compile Include="Konverter.vb" />

@@ -2,14 +2,21 @@
     Implements IPaginatibleUserControl
 
 
-    Public Sub New(altersgruppe As String, rundenzahl As Integer)
+    Public Sub New(altersgruppe As String, rundenNummer As Integer, seitenNummer As Integer, offset As Integer, elemente As IEnumerable(Of Spieler))
         ' This call is required by the designer.
         InitializeComponent()
+        Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
+        converter.Offset = offset
+        KlassementName.Text = altersgruppe
+        AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
+        Me.RundenNummer.Text = String.Format("Runde Nr. {0}", rundenNummer)
+        Me.Seitennummer.Text = String.Format("Seite {0}", seitenNummer)
 
-        Me.KlassementName.Text = altersgruppe
-        Me.AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
-        Me.RundenNummer.Text = "Runde Nr. " & rundenzahl
-        ' Add any initialization after the InitializeComponent() call.
+
+        Dim res = CType(FindResource("Spieler"), SpielerListe)
+        For Each s In elemente
+            res.Add(s)
+        Next
 
     End Sub
 
@@ -19,7 +26,7 @@
 
         Dim ItemHeight = 20
 
-        Dim Rows = CInt(height - 25) \ CInt(ItemHeight)
+        Dim Rows = CInt(height - 25) \ ItemHeight
 
         If Rows = 0 Then
             Throw New Exception("Seitenformat zu klein! Kann kein Element darauf vollständig drucken!")
@@ -45,24 +52,7 @@
         End Get
         Set(value As Integer)
             _PageNumber = value
-            Me.Seitennummer.Text = "Seite " & value + 1
+            Seitennummer.Text = "Seite " & value + 1
         End Set
     End Property
-End Class
-
-
-Public Class IndexConverter
-    Implements IValueConverter
-
-    Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        If Not TypeOf value Is Spieler Then Return ""
-        Dim spieler = CType(value, Spieler)
-        Dim liste = CType(parameter, IEnumerable(Of Spieler))
-
-        Return liste.ToList.IndexOf(spieler) + 1 + RanglisteSeite.StartIndex
-    End Function
-
-    Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
-        Throw New NotImplementedException
-    End Function
 End Class

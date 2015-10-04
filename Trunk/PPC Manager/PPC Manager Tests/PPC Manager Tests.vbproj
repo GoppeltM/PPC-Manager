@@ -95,8 +95,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FixedPageFabrikTests.vb" />
     <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
+    <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="SchiedsrichterZettelTests.vb" />
     <Compile Include="SpielKlassenKonverterTests.vb" />
     <Compile Include="StartListe.vb" />

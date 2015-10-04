@@ -6,9 +6,9 @@
         ' This call is required by the designer.
         InitializeComponent()
 
-        Me.KlassementName.Text = altersgruppe
-        Me.AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
-        Me.RundenNummer.Text = "Runde Nr. " & rundenzahl
+        KlassementName.Text = altersgruppe
+        AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
+        RundenNummer.Text = "Runde Nr. " & rundenzahl
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub

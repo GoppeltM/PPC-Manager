@@ -11,7 +11,7 @@ Public Class UserControlPaginatorTests
     End Sub
 
     Private Function CreateRanglistePaginator(spielerListe As IEnumerable(Of Spieler)) As UserControlPaginator(Of RanglisteSeite)
-        Dim ranglisteFactory = Function() New RanglisteSeite("Herren D", 3)
+        Dim ranglisteFactory = Function() New RanglisteSeite("Herren D", 3, 4, 42, spielerListe)
         Dim size = New Size() With {.Height = 200, .Width = 300}
         Return New UserControlPaginator(Of RanglisteSeite)(spielerListe, size, ranglisteFactory)
     End Function
