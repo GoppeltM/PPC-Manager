@@ -7,11 +7,11 @@ Imports Moq
 Public Class FixedPageFabrikTests
 
     <Test, STAThread>
-    Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
+    Public Sub ErzeugeRanglisteSeiten_leer_enthält_keine_Seite()
         Dim spielerListe As New List(Of Spieler)
         Dim f As New FixedPageFabrik
         Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(300, 500), "Altersgruppe", 24)
-        Assert.That(seiten.Count, [Is].EqualTo(1))
+        Assert.That(seiten.Count, [Is].EqualTo(0))
     End Sub
 
     <Test, STAThread>
@@ -41,11 +41,38 @@ Public Class FixedPageFabrikTests
     End Sub
 
     <Test, STAThread>
-    Public Sub ErzeugeSchiedsrichterzettel_leer_enthält_eine_Seite()
+    Public Sub ErzeugeSchiedsrichterzettel_leer_enthält_keine_Seite()
         Dim f As New FixedPageFabrik
         Dim spielPartien = New List(Of SpielPartie)
-        Dim seiten As IEnumerable(Of FixedPage) = f.ErzeugeSchiedsrichterZettelSeiten(spielPartien, New Size(300, 500), "AltersGruppe", 3)
-        Assert.That(seiten.Count, [Is].AtLeast(1))
+        Dim seiten = f.ErzeugeSchiedsrichterZettelSeiten(spielPartien, New Size(300, 500), "AltersGruppe", 3)
+        Assert.That(seiten.Count, [Is].EqualTo(0))
+    End Sub
+
+    <Test, STAThread>
+    Public Sub ErzeugeSchiedsrichterzettel_mit_200_Partien_600_mal_1000_enthält_34_Seiten()
+        Dim f As New FixedPageFabrik
+        Dim spielPartien = New List(Of SpielPartie)
+        For Each nummer In Enumerable.Range(1, 200)
+            Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {.Id = "Spieler" & nummer}
+            spielPartien.Add(New FreiLosSpiel("Runde XY", s, 3))
+        Next
+
+        Dim seiten = f.ErzeugeSchiedsrichterZettelSeiten(spielPartien, New Size(600, 1000), "AltersGruppe", 3)
+        Assert.That(seiten.Count, [Is].EqualTo(34))
+    End Sub
+
+    <Test, STAThread>
+    Public Sub ErzeugeSpielergebnisse_keine_Partien_ergibt_0_Seiten()
+        Dim f As New FixedPageFabrik
+        Dim seiten = f.ErzeugeSpielErgebnisse(New List(Of SpielPartie), New Size(300, 500), "AltersGruppe", 3)
+        Assert.That(seiten.Count, [Is].EqualTo(0))
+    End Sub
+
+    <Test, STAThread>
+    Public Sub ErzeugeNeuePaarungen_keine_Partien_ergibt_0_Seiten()
+        Dim f As New FixedPageFabrik
+        Dim seiten = f.ErzeugeNeuePaarungen(New List(Of SpielPartie), New Size(300, 500), "AltersGruppe", 3)
+        Assert.That(seiten.Count, [Is].EqualTo(0))
     End Sub
 
 

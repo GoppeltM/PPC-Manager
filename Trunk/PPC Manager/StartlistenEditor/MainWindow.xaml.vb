@@ -164,13 +164,17 @@ Class MainWindow
         With New PrintDialog
             If .ShowDialog Then
                 Dim CollectionSource = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
-                Dim l As New List(Of Object)
-                For Each item In CollectionSource.View
+                Dim l As New List(Of Spieler)
+                For Each item As Spieler In CollectionSource.View
                     l.Add(item)
                 Next
-                Dim paginator As New UserControlPaginator(Of StartlisteSeite)(l, _
-                                                                             New Size(.PrintableAreaWidth, .PrintableAreaHeight))
-                .PrintDocument(paginator, "Spielerliste - Aktuelle Sicht")
+
+                Dim doc As New FixedDocument
+
+                For Each page In New UserControlPaginator(l, New Size(.PrintableAreaWidth, .PrintableAreaHeight)).ErzeugePageContent
+                    doc.Pages.Add(page)
+                Next
+                .PrintDocument(doc.DocumentPaginator, "Spielerliste - Aktuelle Sicht")
             End If
         End With        
     End Sub

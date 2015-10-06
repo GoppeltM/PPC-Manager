@@ -1,4 +1,6 @@
-﻿Public Class FixedPageFabrik
+﻿Imports PPC_Manager
+
+Public Class FixedPageFabrik
     Friend Function ErzeugeRanglisteSeiten(spielerListe As List(Of Spieler), format As Size,
                                             altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
 
@@ -9,7 +11,7 @@
         Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = spielerListe.ToList
         If Not elemente.Any Then
-            Return New FixedPage() {leerSeite}
+            Return New List(Of FixedPage)
         End If
         Dim maxElemente = leerControl.GetMaxItemCount
 
@@ -17,7 +19,7 @@
         ' DruckenTools.SpaltenAngleichen(content, "SpielerRangListe")
 
         Return pages
-                                 End Function
+    End Function
 
     Private Shared Function ElementePaketieren(Of T)(maxElemente As Integer, format As Size,
                                                      elemente As IEnumerable(Of T),
@@ -61,7 +63,38 @@
         Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = partien.ToList
         If Not elemente.Any Then
-            Return New FixedPage() {leerSeite}
+            Return New List(Of FixedPage)
+        End If
+        Dim maxElemente = leerControl.GetMaxItemCount
+
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        Return pages
+    End Function
+
+    Friend Function ErzeugeNeuePaarungen(partien As IEnumerable(Of SpielPartie), format As Size,
+                                         klassementName As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el, klassementName, rundenNummer, seitenNr)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
+        Dim elemente = partien.ToList
+        If Not elemente.Any Then
+            Return New List(Of FixedPage)
+        End If
+        Dim maxElemente = leerControl.GetMaxItemCount
+
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        Return pages
+    End Function
+
+    Friend Function ErzeugeSpielErgebnisse(partien As IEnumerable(Of SpielPartie), format As Size, klassementName As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el, klassementName, rundenNummer, seitenNr)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
+        Dim elemente = partien.ToList
+        If Not elemente.Any Then
+            Return New List(Of FixedPage)
         End If
         Dim maxElemente = leerControl.GetMaxItemCount
 

@@ -132,7 +132,6 @@
     <Compile Include="Observable.vb" />
     <Compile Include="Output\DruckenTools.vb" />
     <Compile Include="Output\ExcelDocument.vb" />
-    <Compile Include="Output\PaginatingPaginator.vb" />
     <Compile Include="Output\RanglisteSeite.xaml.vb">
       <DependentUpon>RanglisteSeite.xaml</DependentUpon>
     </Compile>
@@ -143,7 +142,6 @@
       <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Output\TurnierReport.vb" />
-    <Compile Include="Output\UserControlPaginator.vb" />
     <Compile Include="SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>

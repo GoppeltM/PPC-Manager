@@ -1,8 +1,18 @@
 ﻿Public Class StartlisteSeite
-    Implements IPaginatibleUserControl
 
+    Public Sub New(spielerListe As IEnumerable(Of Spieler))
 
-    Public Function GetMaxItemCount() As Integer Implements IPaginatibleUserControl.GetMaxItemCount
+        ' Dieser Aufruf ist für den Designer erforderlich.
+        InitializeComponent()
+        Dim res = CType(FindResource("Spieler"), SpielerListe)
+        For Each s In spielerListe
+            res.Add(s)
+        Next
+        ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
+
+    End Sub
+
+    Public Function GetMaxItemCount() As Integer
         Dim width = SpielerRangListe.ActualWidth
         Dim height = SpielerRangListe.ActualHeight - 70 ' Row Headers ausgenommen
 
@@ -16,13 +26,6 @@
         Return Rows
     End Function
 
-    Public Sub SetSource(ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
-        Dim res = CType(FindResource("Spieler"), SpielerListe)
-        For Each s In elements.OfType(Of Spieler)()
-            res.Add(s)
-        Next
-
-    End Sub
 End Class
 
 

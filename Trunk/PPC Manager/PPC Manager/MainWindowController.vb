@@ -65,7 +65,7 @@
 
     Public Sub NächstesPlayoff_Execute() Implements IController.NächstesPlayoff_Execute
 
-        If CBool(My.Settings.AutoSaveAn) Then
+        If My.Settings.AutoSaveAn Then
             AktiveCompetition.SaveXML()
         End If
 
@@ -74,7 +74,7 @@
             .SpielRunden.Push(spielRunde)
         End With
 
-        If CBool(My.Settings.AutoSaveAn) Then
+        If My.Settings.AutoSaveAn Then
             AktiveCompetition.SaveExcel()
         End If
     End Sub
@@ -82,22 +82,23 @@
     Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
 
         Dim size = New Size(p.PrintableAreaWidth, p.PrintableAreaHeight)
-
-        Dim neuePaarungenFactory = Function() New NeuePaarungen(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-
-        Dim PaarungenPaginator As New UserControlPaginator(Of NeuePaarungen) _
-            (From x In AktiveCompetition.SpielRunden.Peek
-             Where Not TypeOf x Is FreiLosSpiel, size, neuePaarungenFactory)
-        DruckenTools.SpaltenAngleichen(PaarungenPaginator.Pages, "SpielErgebnisseListe")
         Dim doc = New FixedDocument
-        Dim contentPages = From x In (New FixedPageFabrik).ErzeugeSchiedsrichterZettelSeiten(AktiveCompetition.SpielRunden.Peek,
+        Dim schiriSeiten = From x In (New FixedPageFabrik).ErzeugeSchiedsrichterZettelSeiten(AktiveCompetition.SpielRunden.Peek,
                                size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
                            Select New PageContent() With {.Child = x}
 
-        For Each page In contentPages
+        For Each page In schiriSeiten
             doc.Pages.Add(page)
         Next
-        p.PrintDocument(PaarungenPaginator, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
+
+        Dim neuePaarungenSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(AktiveCompetition.SpielRunden.Peek,
+                               size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                                  Select New PageContent() With {.Child = x}
+
+        For Each page In neuePaarungenSeiten
+            doc.Pages.Add(page)
+        Next
+
         p.PrintDocument(doc.DocumentPaginator, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
     End Sub
 
@@ -111,9 +112,6 @@
             End If
         End With
 
-        Dim SpielErgebnisseFactory = Function() New SpielErgebnisse(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-        Dim ErgebnissePaginator As New UserControlPaginator(Of SpielErgebnisse)(Spielpartien, size, SpielErgebnisseFactory)
-        DruckenTools.SpaltenAngleichen(ErgebnissePaginator.Pages, "SpielErgebnisseListe")
         Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
                                         Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
                                                Where x.Spieler = s AndAlso x.Runde = 0
@@ -126,13 +124,19 @@
         l.Reverse()
 
         Dim doc = New FixedDocument
-        Dim contentPages = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-                           Select New PageContent() With {.Child = x}
+        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                               Select New PageContent() With {.Child = x}
 
-        For Each page In contentPages
+        Dim spielErgebnisSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(Spielpartien, size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                                  Select New PageContent() With {.Child = x}
+
+        For Each page In spielErgebnisSeiten
             doc.Pages.Add(page)
         Next
-        p.PrintDocument(ErgebnissePaginator, "Rundenende - Aushang und Rangliste")
+
+        For Each page In ranglistenSeiten
+            doc.Pages.Add(page)
+        Next
         p.PrintDocument(doc.DocumentPaginator, "Rundenende - Aushang und Rangliste")
     End Sub
 

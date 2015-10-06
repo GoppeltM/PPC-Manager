@@ -1,7 +1,6 @@
 ﻿Imports PPC_Manager
 
 Public Class SchiedsrichterZettel
-    Implements IPaginatibleUserControl
 
     Public Shared ReadOnly KlassementProperty As DependencyProperty =
         DependencyProperty.Register("Klassement", GetType(String), GetType(SchiedsrichterZettel),
@@ -27,7 +26,7 @@ Public Class SchiedsrichterZettel
         ItemsContainer.ItemsSource = el
     End Sub
 
-    Public Function GetMaxItemCount() As Integer Implements IPaginatibleUserControl.GetMaxItemCount
+    Public Function GetMaxItemCount() As Integer
         Dim width = PageContent.ActualWidth
         Dim height = PageContent.ActualHeight
 
@@ -43,17 +42,4 @@ Public Class SchiedsrichterZettel
         End If
         Return total
     End Function
-
-    Public Sub SetSource(startIndex As Integer, ByVal elements As IEnumerable(Of Object)) Implements IPaginatibleUserControl.SetSource
-        ItemsContainer.ItemsSource = elements
-    End Sub
-
-    Public Property PageNumber As Integer Implements IPaginatibleUserControl.PageNumber
-        Get
-
-        End Get
-        Set(value As Integer)
-            Me.Seitennummer.Text = "Seite " & value + 1
-        End Set
-    End Property
 End Class
