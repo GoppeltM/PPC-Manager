@@ -1,44 +1,71 @@
-﻿Imports PPC_Manager
-
-Public Class FixedPageFabrik
+﻿Public Class FixedPageFabrik
     Friend Function ErzeugeRanglisteSeiten(spielerListe As List(Of Spieler), format As Size,
                                             altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
-        Dim maxElemente = SeiteErstellen(New List(Of Spieler), format, altersGruppe, rundenNummer, 1, 1).Item2.GetMaxItemCount
 
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of Spieler)) _
+                                          New RanglisteSeite(altersGruppe, rundenNummer, seitenNr, eOffset, el)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of Spieler))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = spielerListe.ToList
+        If Not elemente.Any Then
+            Return New FixedPage() {leerSeite}
+        End If
+        Dim maxElemente = leerControl.GetMaxItemCount
 
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        ' DruckenTools.SpaltenAngleichen(content, "SpielerRangListe")
+
+        Return pages
+                                 End Function
+
+    Private Shared Function ElementePaketieren(Of T)(maxElemente As Integer, format As Size,
+                                                     elemente As IEnumerable(Of T),
+                                                     erzeugeUserControl As Func(Of Integer, Integer, IEnumerable(Of T), UserControl)) _
+                                                     As IEnumerable(Of FixedPage)
         Dim pages = New List(Of FixedPage)
-        Dim content = New List(Of IPaginatibleUserControl)
         Dim seitenNummer = 0
         Dim ElementOffset = 0
+
         While elemente.Any
             Dim currentElements = elemente.Take(maxElemente).ToList
-            Dim Erstellen = SeiteErstellen(currentElements, format, altersGruppe, rundenNummer, seitenNummer, ElementOffset)
-            pages.Add(Erstellen.Item1)
-            content.Add(Erstellen.Item2)
+            Dim UserControl = erzeugeUserControl(seitenNummer, ElementOffset, currentElements)
+            Dim Erstellen = SeiteErstellen(UserControl, format)
+            pages.Add(Erstellen)
             elemente = elemente.Skip(maxElemente).ToList
             seitenNummer += 1
             ElementOffset += currentElements.Count
         End While
-
-        ' DruckenTools.SpaltenAngleichen(content, "SpielerRangListe")
-
         Return pages
     End Function
 
-    Private Shared Function SeiteErstellen(spielerListe As List(Of Spieler), format As Size,
-                                           altersGruppe As String, rundenNummer As Integer,
-                                           seitenNummer As Integer, offset As Integer) As Tuple(Of FixedPage, IPaginatibleUserControl)
-        Dim UserControl = New RanglisteSeite(altersGruppe, rundenNummer, seitenNummer, offset, spielerListe)
+
+    Private Shared Function SeiteErstellen(Of T As UserControl)(control As T, format As Size) As FixedPage
         Dim Page As New FixedPage
         Page.Width = format.Width
         Page.Height = format.Height
-        UserControl.Width = Page.Width
-        UserControl.Height = Page.Height
-        Page.Children.Add(UserControl)
+        control.Width = Page.Width
+        control.Height = Page.Height
+        Page.Children.Add(control)
         Page.Measure(format)
         Page.Arrange(New Rect(New Point(0, 0), format))
         Page.UpdateLayout()
-        Return Tuple.Create(Of FixedPage, IPaginatibleUserControl)(Page, UserControl)
+        Return Page
+    End Function
+
+    Friend Function ErzeugeSchiedsrichterZettelSeiten(partien As IEnumerable(Of SpielPartie), format As Size,
+                                                      altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, altersGruppe, rundenNummer, seitenNr)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
+        Dim elemente = partien.ToList
+        If Not elemente.Any Then
+            Return New FixedPage() {leerSeite}
+        End If
+        Dim maxElemente = leerControl.GetMaxItemCount
+
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        Return pages
     End Function
 End Class

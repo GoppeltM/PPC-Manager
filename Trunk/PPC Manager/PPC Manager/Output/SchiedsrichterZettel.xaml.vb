@@ -1,4 +1,6 @@
-﻿Public Class SchiedsrichterZettel
+﻿Imports PPC_Manager
+
+Public Class SchiedsrichterZettel
     Implements IPaginatibleUserControl
 
     Public Shared ReadOnly KlassementProperty As DependencyProperty =
@@ -15,14 +17,14 @@
         End Set
     End Property
 
-    Public Sub New(altersgruppe As String, rundenzahl As Integer)
+    Public Sub New(el As IEnumerable(Of SpielPartie), altersGruppe As String, rundenNummer As Integer, seitenNr As Integer)
         ' This call is required by the designer.
         InitializeComponent()
-        Klassement = altersgruppe
-        Me.AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
-        Me.RundenNummer.Text = "Runde Nr. " & rundenzahl
-        ' Add any initialization after the InitializeComponent() call.
-
+        Klassement = altersGruppe
+        AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
+        Me.RundenNummer.Text = "Runde Nr. " & rundenNummer
+        Seitennummer.Text = "Seite " & seitenNr + 1
+        ItemsContainer.ItemsSource = el
     End Sub
 
     Public Function GetMaxItemCount() As Integer Implements IPaginatibleUserControl.GetMaxItemCount
@@ -46,13 +48,11 @@
         ItemsContainer.ItemsSource = elements
     End Sub
 
-    Private _PageNumber As Integer
     Public Property PageNumber As Integer Implements IPaginatibleUserControl.PageNumber
         Get
-            Return _PageNumber
+
         End Get
         Set(value As Integer)
-            _PageNumber = value
             Me.Seitennummer.Text = "Seite " & value + 1
         End Set
     End Property

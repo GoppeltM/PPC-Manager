@@ -89,9 +89,16 @@
             (From x In AktiveCompetition.SpielRunden.Peek
              Where Not TypeOf x Is FreiLosSpiel, size, neuePaarungenFactory)
         DruckenTools.SpaltenAngleichen(PaarungenPaginator.Pages, "SpielErgebnisseListe")
-        Dim SchiriFactory = Function() New SchiedsrichterZettel(AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
-        Dim SchiriPaginator As New UserControlPaginator(Of SchiedsrichterZettel)(AktiveCompetition.SpielRunden.Peek, size, SchiriFactory)
-        p.PrintDocument(New PaginatingPaginator({PaarungenPaginator, SchiriPaginator}), "Neue Begegnungen - Aushang und Schiedsrichterzettel")
+        Dim doc = New FixedDocument
+        Dim contentPages = From x In (New FixedPageFabrik).ErzeugeSchiedsrichterZettelSeiten(AktiveCompetition.SpielRunden.Peek,
+                               size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                           Select New PageContent() With {.Child = x}
+
+        For Each page In contentPages
+            doc.Pages.Add(page)
+        Next
+        p.PrintDocument(PaarungenPaginator, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
+        p.PrintDocument(doc.DocumentPaginator, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
     End Sub
 
     Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken

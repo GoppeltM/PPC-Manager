@@ -7,35 +7,6 @@ Imports Moq
 Public Class FixedPageFabrikTests
 
     <Test, STAThread>
-    Public Sub DOSth()
-        Dim doc = New FixedDocument
-        Dim content = New PageContent()
-        Dim fixedPage = New FixedPage
-        fixedPage.Children.Add(New TextBlock With {.Text = "Bla"})
-        content.Child = fixedPage
-        doc.Pages.Add(content)
-        Dim w As New Window
-        w.Content = doc.Pages.First.Child
-        w.ShowDialog()
-    End Sub
-
-    <Test, STAThread>
-    Public Sub DoSthElse()
-
-        Dim doc = New FixedDocument
-        Dim content = New PageContent()
-        Dim fixedPage = New FixedPage
-        fixedPage.Children.Add(New TextBlock With {.Text = "Bla"})
-        content.Child = fixedPage
-        doc.Pages.Add(content)
-
-        Dim w As New Window
-        w.Show()
-        Dim printer = New Printer()
-        printer.PrintDocument(doc.DocumentPaginator, "Hello World")
-    End Sub
-
-    <Test, STAThread>
     Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
         Dim spielerListe As New List(Of Spieler)
         Dim f As New FixedPageFabrik
@@ -68,4 +39,14 @@ Public Class FixedPageFabrikTests
         window.Content = seiten(3)
         window.ShowDialog()
     End Sub
+
+    <Test, STAThread>
+    Public Sub ErzeugeSchiedsrichterzettel_leer_enthält_eine_Seite()
+        Dim f As New FixedPageFabrik
+        Dim spielPartien = New List(Of SpielPartie)
+        Dim seiten As IEnumerable(Of FixedPage) = f.ErzeugeSchiedsrichterZettelSeiten(spielPartien, New Size(300, 500), "AltersGruppe", 3)
+        Assert.That(seiten.Count, [Is].AtLeast(1))
+    End Sub
+
+
 End Class
