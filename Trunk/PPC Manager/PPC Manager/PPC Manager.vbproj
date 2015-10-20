@@ -74,8 +74,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -104,6 +106,9 @@
     <Compile Include="Fehler.xaml.vb">
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Output\Druckvorschau.xaml.vb">
+      <DependentUpon>Druckvorschau.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Output\FixedPageFabrik.vb" />
     <Compile Include="IController.vb" />
     <Compile Include="IPrinter.vb" />
@@ -130,7 +135,6 @@
       <DependentUpon>NeueSpielPartieDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Observable.vb" />
-    <Compile Include="Output\DruckenTools.vb" />
     <Compile Include="Output\ExcelDocument.vb" />
     <Compile Include="Output\RanglisteSeite.xaml.vb">
       <DependentUpon>RanglisteSeite.xaml</DependentUpon>
@@ -171,6 +175,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NeueSpielPartieDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Output\Druckvorschau.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

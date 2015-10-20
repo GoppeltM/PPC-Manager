@@ -1,12 +1,16 @@
 ﻿Imports PPC_Manager
 
 Public Class FixedPageFabrik
-    Friend Function ErzeugeRanglisteSeiten(spielerListe As List(Of Spieler), format As Size,
+    Friend Function ErzeugeRanglisteSeiten(spielerListe As IEnumerable(Of Spieler), format As Size,
                                             altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
 
-        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of Spieler)) _
-                                          New RanglisteSeite(altersGruppe, rundenNummer, seitenNr, eOffset, el)
+        Dim grids As New List(Of DataGrid)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer, el As IEnumerable(Of Spieler))
+                                     Dim seite = New RanglisteSeite(altersGruppe, rundenNummer, seitenNr, eOffset, spielerListe)
+                                     grids.Add(seite.SpielerRangListe)
+                                     Return seite
+                                 End Function
+
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of Spieler))
         Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = spielerListe.ToList
@@ -16,10 +20,32 @@ Public Class FixedPageFabrik
         Dim maxElemente = leerControl.GetMaxItemCount
 
         Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
-        ' DruckenTools.SpaltenAngleichen(content, "SpielerRangListe")
+
+        SpaltenAngleichen(grids)
 
         Return pages
     End Function
+
+    Private Shared Sub SpaltenAngleichen(seiten As IEnumerable(Of DataGrid))
+        Dim ColumnsOberesLimit As New Dictionary(Of Integer, Double)
+        For Each seite In seiten
+            For Each column In seite.Columns
+                If Not ColumnsOberesLimit.ContainsKey(column.DisplayIndex) Then
+                    ColumnsOberesLimit.Add(column.DisplayIndex, column.ActualWidth)
+                End If
+                If column.ActualWidth > ColumnsOberesLimit.Item(column.DisplayIndex) Then
+                    ColumnsOberesLimit.Item(column.DisplayIndex) = column.ActualWidth
+                End If
+            Next
+        Next
+
+        For Each seite In seiten
+            For Each column In ColumnsOberesLimit
+                seite.Columns(column.Key).MinWidth = column.Value
+            Next
+            seite.UpdateLayout()
+        Next
+    End Sub
 
     Private Shared Function ElementePaketieren(Of T)(maxElemente As Integer, format As Size,
                                                      elemente As IEnumerable(Of T),

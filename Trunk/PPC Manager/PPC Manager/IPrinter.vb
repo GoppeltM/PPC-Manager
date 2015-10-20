@@ -1,10 +1,10 @@
-﻿Public Interface IPrinter
+﻿Imports PPC_Manager
 
-    ReadOnly Property PrintableAreaWidth As Double
+Public Interface IPrinter
 
-    ReadOnly Property PrintableAreaHeight As Double
+    Function Konfigurieren() As Size
 
-    Sub PrintDocument(paginator As DocumentPaginator, p2 As String)
+    Sub Drucken(doc As FixedDocument, titel As String)
 
 End Interface
 
@@ -12,34 +12,20 @@ Public Class Printer
     Implements IPrinter
 
     Private ReadOnly _PrintDialog As PrintDialog
-    Private ReadOnly _Height As Double
-    Private ReadOnly _Width As Double
-
-    Private _Sicherung As Boolean?
-
+    Private _DialogResult As Boolean?
     Public Sub New()
         _PrintDialog = New PrintDialog
-        _PrintDialog.UserPageRangeEnabled = True
-        _Sicherung = _PrintDialog.ShowDialog
-        _Height = _PrintDialog.PrintableAreaHeight
-        _Width = _PrintDialog.PrintableAreaWidth
+        _PrintDialog.UserPageRangeEnabled = False
     End Sub
 
-    Public ReadOnly Property PrintableAreaHeight As Double Implements IPrinter.PrintableAreaHeight
-        Get
-            Return _Height
-        End Get
-    End Property
+    Public Function Konfigurieren() As Size Implements IPrinter.Konfigurieren
+        _DialogResult = _PrintDialog.ShowDialog()
+        Return New Size(_PrintDialog.PrintableAreaWidth, _PrintDialog.PrintableAreaHeight)
+    End Function
 
-    Public ReadOnly Property PrintableAreaWidth As Double Implements IPrinter.PrintableAreaWidth
-        Get
-            Return _Width
-        End Get
-    End Property
-
-    Public Sub PrintDocument(paginatingPaginator As DocumentPaginator, beschreibung As String) Implements IPrinter.PrintDocument
-        If _Sicherung <> True Then Return
-        _PrintDialog.PrintDocument(paginatingPaginator, beschreibung)
+    Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
+        If _DialogResult <> True Then Return
+        doc.PrintTicket = _PrintDialog.PrintTicket
+        _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
     End Sub
-
 End Class

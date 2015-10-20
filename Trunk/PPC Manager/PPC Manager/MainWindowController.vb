@@ -80,11 +80,11 @@
     End Sub
 
     Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
+        Dim format = p.Konfigurieren()
 
-        Dim size = New Size(p.PrintableAreaWidth, p.PrintableAreaHeight)
         Dim doc = New FixedDocument
         Dim schiriSeiten = From x In (New FixedPageFabrik).ErzeugeSchiedsrichterZettelSeiten(AktiveCompetition.SpielRunden.Peek,
-                               size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                               format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
                            Select New PageContent() With {.Child = x}
 
         For Each page In schiriSeiten
@@ -92,18 +92,18 @@
         Next
 
         Dim neuePaarungenSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(AktiveCompetition.SpielRunden.Peek,
-                               size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+                               format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
                                   Select New PageContent() With {.Child = x}
 
         For Each page In neuePaarungenSeiten
             doc.Pages.Add(page)
         Next
 
-        p.PrintDocument(doc.DocumentPaginator, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
+        p.Drucken(doc, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
     End Sub
 
     Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
-        Dim size = New Size(p.PrintableAreaWidth, p.PrintableAreaHeight)
+        Dim format = p.Konfigurieren()
 
         Dim Spielpartien As IEnumerable(Of SpielPartie) = New List(Of SpielPartie)
         With AktiveCompetition.SpielRunden
@@ -124,10 +124,11 @@
         l.Reverse()
 
         Dim doc = New FixedDocument
-        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+        doc.DocumentPaginator.PageSize = format
+        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
                                Select New PageContent() With {.Child = x}
 
-        Dim spielErgebnisSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(Spielpartien, size, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+        Dim spielErgebnisSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(Spielpartien, format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
                                   Select New PageContent() With {.Child = x}
 
         For Each page In spielErgebnisSeiten
@@ -137,7 +138,7 @@
         For Each page In ranglistenSeiten
             doc.Pages.Add(page)
         Next
-        p.PrintDocument(doc.DocumentPaginator, "Rundenende - Aushang und Rangliste")
+        p.Drucken(doc, "Rundenende - Aushang und Rangliste")
     End Sub
 
     Public Sub ExcelExportieren(dateiName As String) Implements IController.ExcelExportieren

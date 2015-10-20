@@ -35,9 +35,20 @@ Public Class FixedPageFabrikTests
         Next
         Dim f As New FixedPageFabrik
         Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(600, 1000), "Altersgruppe", 24)
-        Dim window = New Window
-        window.Content = seiten(3)
-        window.ShowDialog()
+        Dim vorschau As New Druckvorschau(seiten)
+        vorschau.ShowDialog()
+    End Sub
+
+    <Test, STAThread, Explicit>
+    Public Sub UIDummy_Reales_Layout()
+        Dim doc = XDocument.Load("D:\Turnierteilnehmer_PPC_20150913.xml")
+        Dim spieler = doc.Root.<competition>.First.<players>
+        Dim l = SpielerListe.FromXML(spieler, New SpielRunden, New SpielRegeln(3, True, True))
+
+        Dim f As New FixedPageFabrik
+        Dim seiten = f.ErzeugeRanglisteSeiten(l, New Size(600, 1000), "Altersgruppe", 24)
+        Dim vorschau As New Druckvorschau(seiten)
+        vorschau.ShowDialog()
     End Sub
 
     <Test, STAThread>
