@@ -166,48 +166,31 @@
         Assert.AreEqual(Partie1.SpielerRechts, SpielerB)
         With SpielerA
             Assert.AreEqual(2, .Punkte)
-            Assert.AreEqual(1, .ExportPunkte)
             Assert.AreEqual(1, .BuchholzPunkte)
-            Assert.AreEqual(1, .ExportBHZ)
             Assert.AreEqual(0, .SonneBornBergerPunkte)
-            Assert.AreEqual(0, .ExportSonneborn)
             Assert.AreEqual(3, .SätzeGewonnen)
             Assert.AreEqual(4, .SätzeVerloren)
-            Assert.AreEqual(3, .ExportSätzeGewonnen)
-            Assert.AreEqual(4, .ExportSätzeVerloren)
         End With
 
         With SpielerB
             Assert.AreEqual(1, .Punkte)
-            Assert.AreEqual(1, .ExportPunkte)
             Assert.AreEqual(2, .BuchholzPunkte)
-            Assert.AreEqual(1, .ExportBHZ)
             Assert.AreEqual(0, .SonneBornBergerPunkte)
-            Assert.AreEqual(0, .ExportSonneborn)
             Assert.AreEqual(1, .SätzeGewonnen)
             Assert.AreEqual(4, .SätzeVerloren)
-            Assert.AreEqual(1, .ExportSätzeGewonnen)
-            Assert.AreEqual(3, .ExportSätzeVerloren)
         End With
 
         With SpielerC
             Assert.AreEqual(2, .Punkte)
-            Assert.AreEqual(2, .ExportPunkte)
             Assert.AreEqual(1, .BuchholzPunkte)
-            Assert.AreEqual(1, .ExportBHZ)
             Assert.AreEqual(1, .SonneBornBergerPunkte)
-            Assert.AreEqual(1, .ExportSonneborn)
             Assert.AreEqual(4, .SätzeGewonnen)
             Assert.AreEqual(0, .SätzeVerloren)
-            Assert.AreEqual(3, .ExportSätzeGewonnen)
-            Assert.AreEqual(0, .ExportSätzeVerloren)
         End With
 
         Assert.IsTrue(SpielerC.CompareTo(SpielerB) > 0)
         Assert.IsTrue(SpielerC.CompareTo(SpielerA) > 0)
         Assert.IsTrue(SpielerA.CompareTo(SpielerB) > 0)
-
-
     End Sub
 
     <Test>
@@ -235,7 +218,6 @@
             .Push(New SpielRunde From {Partie1})
             With SpielerB
                 Assert.AreEqual(.Punkte, 1)
-                Assert.AreEqual(.ExportPunkte, 0)
                 Assert.AreEqual(.BuchholzPunkte, 0)
             End With
 
@@ -244,18 +226,14 @@
 
             With SpielerB
                 Assert.AreEqual(.Punkte, 1)
-                Assert.AreEqual(.ExportPunkte, 1)
                 Assert.AreEqual(.BuchholzPunkte, 1)
-                Assert.AreEqual(.ExportBHZ, 0)
             End With
 
             .Push(New SpielRunde From {Partie3})
 
             With SpielerB
                 Assert.AreEqual(.Punkte, 1)
-                Assert.AreEqual(.ExportPunkte, 1)
                 Assert.AreEqual(.BuchholzPunkte, 2)
-                Assert.AreEqual(.ExportBHZ, 1)
             End With
 
         End With

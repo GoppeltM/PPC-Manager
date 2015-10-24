@@ -7,10 +7,32 @@ Public Class Spieler
 #Region "Public Properties"
 
 
-    Public Sub New(spielRunden As SpielRunden, spielRegeln As SpielRegeln)        
+    Public Sub New(spielRunden As SpielRunden, spielRegeln As SpielRegeln)
         _SpielRegeln = spielRegeln
         _SpielRunden = SpielRunden
     End Sub
+
+    Protected Sub New(spieler As Spieler)
+        _SpielRegeln = spieler._SpielRegeln
+        _SpielRunden = spieler.SpielRunden
+        Fremd = spieler.Fremd
+        Geburtsjahr = spieler.Geburtsjahr
+        Geschlecht = spieler.Geschlecht
+        Id = spieler.Id
+        Lizenznummer = spieler.Lizenznummer
+        Nachname = spieler.Nachname
+        TTRating = spieler.TTRating
+        TTRMatchCount = spieler.TTRMatchCount
+        Verbandsspitzname = spieler.Verbandsspitzname
+        Vereinsname = spieler.Vereinsname
+        Vereinsnummer = spieler.Vereinsnummer
+        Vorname = spieler.Vorname
+    End Sub
+
+
+    Private ReadOnly _SpielRunden As SpielRunden
+    Private ReadOnly _SpielRegeln As SpielRegeln
+
 
     Protected ReadOnly Property SpielRunden As SpielRunden
         Get
@@ -18,9 +40,13 @@ Public Class Spieler
         End Get
     End Property
 
-    Private ReadOnly _SpielRunden As SpielRunden
-    Private ReadOnly _SpielRegeln As SpielRegeln
-    
+    Protected ReadOnly Property SpielRegeln As SpielRegeln
+        Get
+            Return _SpielRegeln
+        End Get
+    End Property
+
+
     Public Property Id As String = "new"
 
     Private _Vorname As String = String.Empty
@@ -90,15 +116,6 @@ Public Class Spieler
         End Get
     End Property
 
-    Private ReadOnly Property MeineGewonnenenSpieleExport As IEnumerable(Of SpielPartie)
-        Get
-            Dim GewonneneSpiele = From x In VergangenePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
-                             Where Meine >= _SpielRegeln.Gewinnsätze Select x
-
-            Return GewonneneSpiele.ToList
-        End Get
-    End Property
-
     Private ReadOnly Property MeineGewonnenenSpiele As IEnumerable(Of SpielPartie)
         Get
             Dim GewonneneSpiele = From x In GespieltePartien Let Meine = x.MeineGewonnenenSätze(Me).Count
@@ -107,74 +124,6 @@ Public Class Spieler
             Return GewonneneSpiele.ToList
         End Get
     End Property
-
-    Public ReadOnly Property MeineSpieleDruck As IEnumerable(Of String)
-        Get
-            Dim l As New List(Of String)
-            For Each s In GespieltePartien
-
-                Dim text = s.MeinGegner(Me).StartNummer.ToString
-                If s.Gewonnen(Me) Then
-                    text &= "G"
-                Else
-                    text &= "V"
-                End If
-                l.Add(text)
-            Next
-            Return l
-        End Get
-    End Property
-
-    ' 
-    ' Diese beiden Einträge sind notwendig, weil zum Zeitpunkt der Paarung bereits die aktuellen Buchholzpunkte verändert werden.
-    ' Ergo: ich brauche für den Export nur die Werte der Vergangenheit - exklusive der aktuellen Runde
-#Region "Export Properties"
-
-    Private ReadOnly Property VergangenePartien As IEnumerable(Of SpielPartie)
-        Get
-            Dim r = From x In SpielRunden.Skip(1).Reverse From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
-            Return r.ToList
-        End Get
-    End Property
-
-    Public ReadOnly Property ExportPunkte As Integer
-        Get
-            Return MeineGewonnenenSpieleExport.Count
-        End Get
-    End Property
-
-    Private ReadOnly Property ExportPunkteOhneFreilos As Integer
-        Get
-            Return Aggregate x In MeineGewonnenenSpieleExport Where Not TypeOf x Is FreiLosSpiel Into Count()
-        End Get
-    End Property
-
-    Public ReadOnly Property ExportBHZ As Integer
-        Get
-            Dim _punkte = Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).ExportPunkteOhneFreilos Into Sum(y)
-            Return _punkte
-        End Get
-    End Property
-
-    Public ReadOnly Property ExportSonneborn As Integer
-        Get
-            Dim _punkte = Aggregate x In MeineGewonnenenSpieleExport Where Not TypeOf x Is FreiLosSpiel Let y = x.MeinGegner(Me).ExportPunkteOhneFreilos Into Sum(y)
-            Return _punkte
-        End Get
-    End Property
-
-    Public ReadOnly Property ExportSätzeGewonnen As Integer
-        Get
-            Return Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineGewonnenenSätze(Me).Count)
-        End Get
-    End Property
-
-    Public ReadOnly Property ExportSätzeVerloren As Integer
-        Get
-            Return Aggregate x In VergangenePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineVerlorenenSätze(Me).Count)
-        End Get
-    End Property
-#End Region
 
     Private ReadOnly Property PunkteOhneFreilos As Integer
         Get
@@ -205,7 +154,7 @@ Public Class Spieler
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("BuchholzPunkte"))
     End Sub
 
-    Public ReadOnly Property GespieltePartien As List(Of SpielPartie)
+    Protected ReadOnly Property GespieltePartien As List(Of SpielPartie)
         Get
             Dim r = From x In SpielRunden.Reverse From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
             Return r.ToList

@@ -11,7 +11,7 @@ Public Class TurnierReport
 
 
     Private Sub New(filePath As String)
-        If IO.File.Exists(filePath) Then
+        If File.Exists(filePath) Then
             _SpreadSheet = ExcelDocument.OpenExistingExcelDocument(filePath)
         Else
             _SpreadSheet = ExcelDocument.CreateEmptyExcelDocument(filePath)
@@ -21,16 +21,16 @@ Public Class TurnierReport
     Private ReadOnly _SpreadSheet As ExcelDocument
 
     Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal competition As Competition)
-        Dim s = spieler.ToList
-        s.Sort(New ExportComparer(competition.SpielRegeln.SonneBornBerger, competition.SpielRegeln.SatzDifferenz))
-        s.Reverse()
+        Dim exportSpieler = (From x In spieler Select New ExportSpieler(x)).ToList
+        exportSpieler.Sort(New ExportComparer(competition.SpielRegeln.SonneBornBerger, competition.SpielRegeln.SatzDifferenz))
+        exportSpieler.Reverse()
         Try
 
             Using ex = New TurnierReport(filePath)
                 With ex
                     Dim RundeNr = competition.SpielRunden.Count.ToString.PadLeft(2, "0"c)
                     Dim sheet = ex._SpreadSheet.GetSheet("sp_rd" & RundeNr)
-                    .WriteSpielerSheet(s, sheet)
+                    .WriteSpielerSheet(exportSpieler, sheet)
 
                     Dim current = 1
                     For Each runde In competition.SpielRunden.Reverse
@@ -50,7 +50,7 @@ Public Class TurnierReport
 
     End Sub
 
-    Private Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of Spieler), ByVal sheet As Worksheet)
+    Private Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of ExportSpieler), ByVal sheet As Worksheet)
         Dim Titles = {"Rang", "Vorname", "Nachname", "ID", "Geschlecht", "Geburtsjahr", "Verein", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
                           "Gewonnene Sätze", "Verlorene Sätze", "Ausgeschieden", "Gegnerprofil"}
 
@@ -63,7 +63,6 @@ Public Class TurnierReport
         Dim current = 2UI
 
         For Each s In spieler
-            Dim gegnerProfil = From x In s.GespieltePartien Select x.MeinGegner(s).Id
 
             Dim Geschlecht = Function() As String
                                  Select Case s.Geschlecht
@@ -75,7 +74,7 @@ Public Class TurnierReport
 
             Dim Werte = {(current - 1).ToString, s.Vorname, s.Nachname, s.Id.ToString, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.TTRating.ToString,
                          s.ExportPunkte.ToString, s.ExportBHZ.ToString, s.ExportSonneborn.ToString, s.ExportSätzeGewonnen.ToString,
-                         s.ExportSätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(gegnerProfil)
+                         s.ExportSätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(s.GegnerProfil)
             _SpreadSheet.CreateRow(SheetData, current, Werte)
             current += 1UI
         Next
@@ -102,7 +101,7 @@ Public Class TurnierReport
 
 
     Private Class ExportComparer
-        Implements IComparer(Of Spieler)
+        Implements IComparer(Of ExportSpieler)
 
         Private ReadOnly _Sonneborn As Boolean
         Private ReadOnly _satzDifferenz As Boolean
@@ -112,7 +111,7 @@ Public Class TurnierReport
             _satzDifferenz = satzDifferenz
         End Sub
 
-        Public Function Compare(myself As Spieler, other As Spieler) As Integer Implements IComparer(Of Spieler).Compare
+        Public Function Compare(myself As ExportSpieler, other As ExportSpieler) As Integer Implements IComparer(Of ExportSpieler).Compare
             Dim diff = 0
             diff = other.Ausgeschieden.CompareTo(myself.Ausgeschieden)
             If diff <> 0 Then Return diff

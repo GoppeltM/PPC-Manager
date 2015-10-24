@@ -101,7 +101,9 @@
     <Compile Include="PPC15_Turnier.vb" />
     <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="SchiedsrichterZettelTests.vb" />
+    <Compile Include="SpielerTests.vb" />
     <Compile Include="SpielKlassenKonverterTests.vb" />
+    <Compile Include="SpielRundenTests.vb" />
     <Compile Include="StartListe.vb" />
     <Compile Include="Testturnier.vb" />
     <Compile Include="KonverterTests.vb" />

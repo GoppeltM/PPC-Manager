@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
-        <local:SpielerListe x:Key="Spieler"/>
+        <local:RangListeSpielerListe x:Key="Spieler"/>
         <local:GridIndexConverter x:Key="GridIndexConverter"/>        
     </UserControl.Resources>
     <Grid Margin="20">
