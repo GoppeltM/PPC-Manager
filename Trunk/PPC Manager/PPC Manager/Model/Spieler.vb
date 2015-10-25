@@ -154,7 +154,7 @@ Public Class Spieler
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("BuchholzPunkte"))
     End Sub
 
-    Protected ReadOnly Property GespieltePartien As List(Of SpielPartie)
+    Protected Overridable ReadOnly Property GespieltePartien As IEnumerable(Of SpielPartie)
         Get
             Dim r = From x In SpielRunden.Reverse From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
             Return r.ToList
@@ -216,7 +216,7 @@ Public Class Spieler
     End Function
 
 
-    Public Function CompareTo(ByVal other As Spieler) As Integer Implements System.IComparable(Of Spieler).CompareTo        
+    Public Function CompareTo(ByVal other As Spieler) As Integer Implements IComparable(Of Spieler).CompareTo
         Dim diff As Integer = 0
         diff = other.Ausgeschieden.CompareTo(Me.Ausgeschieden)
         If diff <> 0 Then Return diff

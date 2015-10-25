@@ -1,14 +1,9 @@
-﻿Imports System.Runtime.InteropServices.Marshal
-Imports System.Text
-Imports DocumentFormat.OpenXml
-Imports DocumentFormat.OpenXml.Packaging
-Imports DocumentFormat.OpenXml.Spreadsheet
+﻿Imports DocumentFormat.OpenXml.Spreadsheet
 Imports System.IO
 
 
 Public Class TurnierReport
     Implements IDisposable
-
 
     Private Sub New(filePath As String)
         If File.Exists(filePath) Then
@@ -22,7 +17,7 @@ Public Class TurnierReport
 
     Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal competition As Competition)
         Dim exportSpieler = (From x In spieler Select New ExportSpieler(x)).ToList
-        exportSpieler.Sort(New ExportComparer(competition.SpielRegeln.SonneBornBerger, competition.SpielRegeln.SatzDifferenz))
+        exportSpieler.Sort()
         exportSpieler.Reverse()
         Try
 
@@ -38,7 +33,7 @@ Public Class TurnierReport
                         sheet = ex._SpreadSheet.GetSheet("erg_rd" & currentName)
                         .WriteRunde(runde, sheet)
                         current += 1
-                    Next                    
+                    Next
                     ._SpreadSheet.SetActiveSheet(CUInt(ex._SpreadSheet.SheetCount - 1))
                     ex._SpreadSheet.Save()
                 End With
@@ -73,8 +68,8 @@ Public Class TurnierReport
                              End Function
 
             Dim Werte = {(current - 1).ToString, s.Vorname, s.Nachname, s.Id.ToString, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.TTRating.ToString,
-                         s.ExportPunkte.ToString, s.ExportBHZ.ToString, s.ExportSonneborn.ToString, s.ExportSätzeGewonnen.ToString,
-                         s.ExportSätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(s.GegnerProfil)
+                         s.Punkte.ToString, s.BuchholzPunkte.ToString, s.SonneBornBergerPunkte.ToString, s.SätzeGewonnen.ToString,
+                         s.SätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(s.GegnerProfil)
             _SpreadSheet.CreateRow(SheetData, current, Werte)
             current += 1UI
         Next
@@ -98,49 +93,6 @@ Public Class TurnierReport
         Next
 
     End Sub
-
-
-    Private Class ExportComparer
-        Implements IComparer(Of ExportSpieler)
-
-        Private ReadOnly _Sonneborn As Boolean
-        Private ReadOnly _satzDifferenz As Boolean
-
-        Public Sub New(sonneBornBerger As Boolean, satzDifferenz As Boolean)
-            _Sonneborn = sonneBornBerger
-            _satzDifferenz = satzDifferenz
-        End Sub
-
-        Public Function Compare(myself As ExportSpieler, other As ExportSpieler) As Integer Implements IComparer(Of ExportSpieler).Compare
-            Dim diff = 0
-            diff = other.Ausgeschieden.CompareTo(myself.Ausgeschieden)
-            If diff <> 0 Then Return diff
-            diff = myself.ExportPunkte - other.ExportPunkte
-            If diff <> 0 Then Return diff
-            diff = myself.ExportBHZ - other.ExportBHZ
-            If diff <> 0 Then Return diff
-
-            If _Sonneborn Then
-                diff = myself.ExportSonneborn - other.ExportSonneborn
-                If diff <> 0 Then Return diff
-            End If
-
-            If _satzDifferenz Then
-                diff = (myself.ExportSätzeGewonnen - myself.ExportSätzeVerloren) - (other.ExportSätzeGewonnen - other.ExportSätzeVerloren)
-                If diff <> 0 Then Return diff
-            End If
-            diff = myself.TTRating - other.TTRating
-            If diff <> 0 Then Return diff
-            diff = myself.TTRMatchCount - other.TTRMatchCount
-            If diff <> 0 Then Return diff
-            diff = other.Nachname.CompareTo(myself.Nachname)
-            If diff <> 0 Then Return diff
-            diff = other.Vorname.CompareTo(myself.Vorname)
-            If diff <> 0 Then Return diff
-            Return myself.Lizenznummer - other.Lizenznummer
-        End Function
-    End Class
-
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls

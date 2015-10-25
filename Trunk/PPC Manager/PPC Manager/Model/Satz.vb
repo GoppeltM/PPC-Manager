@@ -31,7 +31,8 @@ Public Class Satz
 
     Public ReadOnly Property Abgeschlossen As Boolean
         Get
-            Return Math.Max(PunkteLinks, PunkteRechts) >= My.Settings.GewinnPunkte
+            Return Math.Max(PunkteLinks, PunkteRechts) >= My.Settings.GewinnPunkte _
+                AndAlso Math.Abs(PunkteLinks - PunkteRechts) >= 2
         End Get
     End Property
 

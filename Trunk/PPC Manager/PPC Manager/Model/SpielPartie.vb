@@ -1,7 +1,5 @@
 ﻿Imports System.ComponentModel
 Imports System.Collections.ObjectModel
-Imports System.Collections.Specialized
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 ''' <summary>
 ''' 
@@ -29,7 +27,7 @@ Public Class SpielPartie
                                          End Sub
     End Sub
 
-    Private ReadOnly _RundenName As String    
+    Private ReadOnly _RundenName As String
     Public ReadOnly Property RundenName As String
         Get
             Return _RundenName
@@ -53,7 +51,7 @@ Public Class SpielPartie
 
     Public Sub Update()
         SpielerLinks.PunkteGeändert()
-        SpielerRechts.PunkteGeändert()        
+        SpielerRechts.PunkteGeändert()
     End Sub
 
     Public Property ZeitStempel As Date
@@ -79,23 +77,21 @@ Public Class SpielPartie
         Get
             If TypeOf Me Is FreiLosSpiel Then Return True
 
-            Dim AbgeschlosseneSätzeLinks = Aggregate x In Me Where x.PunkteLinks >= x.PunkteRechts + 2 _
-                                          And x.PunkteLinks >= My.Settings.GewinnPunkte Into Count()
+            Dim AbgeschlosseneSätzeLinks = Aggregate x In Me Where x.GewonnenLinks Into Count()
 
-            Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where x.PunkteRechts >= x.PunkteLinks + 2 _
-                                          And x.PunkteRechts >= My.Settings.GewinnPunkte Into Count()
-            
+            Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where x.GewonnenRechts Into Count()
+
             Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= _GewinnSätze
         End Get
     End Property
-            
+
     Public Overridable ReadOnly Property MeineVerlorenenSätze(ByVal ich As Spieler) As IList(Of Satz)
         Get
             Dim verlorenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteRechts > x.PunkteLinks
-                           Select x
+                                Select x
 
             Dim verlorenRechts = From x In Me Where x.Abgeschlossen AndAlso x.PunkteLinks > x.PunkteRechts
-                           Select x
+                                 Select x
 
             If SpielerLinks = ich Then
                 Return verlorenLinks.ToList
@@ -158,11 +154,11 @@ Public Class SpielPartie
     End Function
 
 
-    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of PPC_Manager.Spieler), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
+    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
         Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
         Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
-        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB, Gewinnsätze)
+        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB, gewinnsätze)
 
         Dim SätzeA = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-a") Order By x.Name.LocalName Ascending
 
