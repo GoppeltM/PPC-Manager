@@ -7,11 +7,11 @@ Imports Moq
 Public Class FixedPageFabrikTests
 
     <Test, STAThread>
-    Public Sub ErzeugeRanglisteSeiten_leer_enthält_keine_Seite()
+    Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
         Dim spielerListe As New List(Of Spieler)
         Dim f As New FixedPageFabrik
         Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(300, 500), "Altersgruppe", 24)
-        Assert.That(seiten.Count, [Is].EqualTo(0))
+        Assert.That(seiten.Count, [Is].EqualTo(1))
     End Sub
 
     <Test, STAThread>
@@ -34,9 +34,16 @@ Public Class FixedPageFabrikTests
             spielerListe.Add(s)
         Next
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(600, 1000), "Altersgruppe", 24)
-        Dim vorschau As New Druckvorschau(seiten)
-        vorschau.ShowDialog()
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(1000, 600), "Altersgruppe", 24)
+        Dim doc = New FixedDocument
+        For Each seite In seiten
+            doc.Pages.Add(New PageContent() With {.Child = seite})
+        Next
+        Dim w As New Window
+        Dim viewer = New DocumentViewer With {.Document = doc}
+        viewer.UpdateLayout()
+        w.Content = viewer
+        w.ShowDialog()
     End Sub
 
     <Test, STAThread, Explicit>

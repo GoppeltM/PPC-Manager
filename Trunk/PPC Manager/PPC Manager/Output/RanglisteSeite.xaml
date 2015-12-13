@@ -20,8 +20,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock x:Name="AktuellesDatum" Grid.Row="0" Text="14.12.1013" Margin="20,0,0,0"/>
             <TextBlock x:Name="KlassementName" Grid.Row="0" Text="Klasse D" Margin="20,0,0,0"/>
-            <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>
-            <TextBlock x:Name="Seitennummer" Grid.Row="0" Text="Seite 1" Margin="20,0,0,0" />
+            <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>            
         </StackPanel>
         
         <DataGrid Grid.Row="1" x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">

@@ -2,15 +2,12 @@
 
 Public Class RanglisteSeite
 
-    Public Sub New(altersgruppe As String, rundenNummer As Integer, seitenNummer As Integer, offset As Integer, elemente As IEnumerable(Of Spieler))
+    Public Sub New(altersgruppe As String, rundenNummer As Integer, elemente As IEnumerable(Of Spieler))
         ' This call is required by the designer.
         InitializeComponent()
-        Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
-        converter.Offset = offset
         KlassementName.Text = altersgruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         Me.RundenNummer.Text = String.Format("Runde Nr. {0}", rundenNummer)
-        Me.Seitennummer.Text = String.Format("Seite {0}", seitenNummer + 1)
 
         Dim druckSpieler = From x In elemente Select New RangListeSpieler(x)
 
@@ -19,6 +16,22 @@ Public Class RanglisteSeite
             res.Add(s)
         Next
 
+    End Sub
+
+    Public Sub New(seite As RanglisteSeite)
+        InitializeComponent()
+        Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
+        Dim converterAlt = CType(seite.FindResource("GridIndexConverter"), GridIndexConverter)
+        converter.Offset = converterAlt.Offset
+        KlassementName.Text = seite.KlassementName.Text
+        AktuellesDatum.Text = seite.AktuellesDatum.Text
+        Me.RundenNummer.Text = seite.RundenNummer.Text
+
+        Dim res = CType(FindResource("Spieler"), RangListeSpielerListe)
+        Dim resAlt = CType(seite.FindResource("Spieler"), RangListeSpielerListe)
+        For Each s In resAlt
+            res.Add(s)
+        Next
     End Sub
 
     Public Function GetMaxItemCount() As Integer

@@ -61,9 +61,9 @@ Class MainWindow
     ' Click-Through Verhalten adaptiert von
     ' http://wpf.codeplex.com/wikipage?title=Single-Click%20Editing&referringTitle=Tips%20%26%20Tricks&ProjectName=wpf
 
-    Private Sub DataGridCell_PreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
+    Public Sub DataGridCell_PreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
         Dim cell = DirectCast(sender, DataGridCell)
-        If cell Is Nothing OrElse cell.IsEditing OrElse cell.IsReadOnly Then Return        
+        If cell Is Nothing OrElse cell.IsEditing OrElse cell.IsReadOnly Then Return
 
         If Not cell.IsFocused Then
             cell.Focus()
