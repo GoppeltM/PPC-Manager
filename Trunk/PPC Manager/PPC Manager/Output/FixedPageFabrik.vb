@@ -11,22 +11,27 @@
 
         Dim gesamtGröße = seite.DesiredSize
         seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe)
-        Dim b As New VisualBrush(seite) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
+        Return ErzeugeSeiten(seite, gesamtGröße, format)
+    End Function
 
-        Dim pageCount = CInt(gesamtGröße.Height) \ CInt(format.Height)
-        If CInt(gesamtGröße.Height) Mod CInt(format.Height) <> 0 Then
-            pageCount += 1
-        End If
-        Dim pages As New List(Of FixedPage)
-        For Each x In Enumerable.Range(0, pageCount)
-            b.Transform = New TranslateTransform(0, format.Height * x * -1)
-            Dim page = New FixedPage With {.Height = format.Height, .Width = format.Width}
-            Dim canvas As New Canvas With {.Height = gesamtGröße.Height, .Width = gesamtGröße.Width, .Background = b.Clone}
+    Friend Function ErzeugeSeiten(v As Visual, gesamtGröße As Size, seitengröße As Size) As IEnumerable(Of FixedPage)
+        Dim brush As New VisualBrush(v) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
+
+        Dim aktuelleHöhe = 0.0
+        Dim seiten As New List(Of FixedPage)
+
+        While aktuelleHöhe < gesamtGröße.Height
+            brush.Transform = New TranslateTransform(0, aktuelleHöhe * -1)
+            Dim page = New FixedPage With {.Height = seitengröße.Height, .Width = seitengröße.Width}
+            Dim canvas As New Canvas With {.Height = gesamtGröße.Height, .Width = gesamtGröße.Width, .Background = brush.Clone}
             page.Children.Add(canvas)
-            pages.Add(page)
-        Next
-        Return pages
+            seiten.Add(page)
+            aktuelleHöhe += seitengröße.Height
+            ' Wir erzeugen einen zusätzlichen überlappenden Rand, um halb zerschnittene Zeilen zu kompensieren
+            aktuelleHöhe -= 20
+        End While
 
+        Return seiten
     End Function
 
     Private Shared Function ElementePaketieren(Of T)(maxElemente As Integer, format As Size,

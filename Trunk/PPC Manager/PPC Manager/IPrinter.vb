@@ -26,7 +26,8 @@ Public Class Printer
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
         If _DialogResult <> True Then Return
         doc.PrintTicket = _PrintDialog.PrintTicket
-        Dim w As New Window With {.Content = New DocumentViewer() With {.Document = doc}, .Title = titel}
-        w.ShowDialog()
+        _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+        ' Dim w As New Window With {.Content = New DocumentViewer() With {.Document = doc}, .Title = titel}
+        ' w.ShowDialog()
     End Sub
 End Class

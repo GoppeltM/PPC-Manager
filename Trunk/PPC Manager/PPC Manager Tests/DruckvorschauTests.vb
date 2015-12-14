@@ -40,27 +40,21 @@ Public Class DruckvorschauTests
     <Test, STAThread, Explicit>
     Public Sub Druck_Test()
 
-
         Dim document As New FixedDocument
         Dim ellipse = New Ellipse With {.Stroke = Brushes.Black, .Fill = Brushes.Red, .Height = 1300, .Width = 300}
-        Dim b As New VisualBrush(ellipse) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
 
         Dim pageSize = New Size(300, 500)
-        Dim pageCount = CInt(ellipse.Height) \ CInt(pageSize.Height)
-        If CInt(ellipse.Height) Mod CInt(pageSize.Height) <> 0 Then
-            pageCount += 1
-        End If
-        For Each x In Enumerable.Range(0, pageCount)
-            b.Transform = New TranslateTransform(0, pageSize.Height * x * -1)
-            Dim page = New FixedPage With {.Height = pageSize.Height, .Width = pageSize.Width}
-            Dim canvas As New Canvas With {.Height = ellipse.Height, .Width = ellipse.Width, .Background = b.Clone}
-            page.Children.Add(canvas)
-            document.Pages.Add(New PageContent() With {.Child = page})
-        Next
+        Dim höhe = ellipse.Height
 
+        Dim f As New FixedPageFabrik
+        Dim seiten = f.ErzeugeSeiten(ellipse, New Size(300, 1300), pageSize)
+        For Each seite In seiten
+            document.Pages.Add(New PageContent() With {.Child = seite})
+        Next
         Dim docViewer = New DocumentViewer()
         docViewer.Document = document
         Dim w As New Window With {.Content = docViewer}
         w.ShowDialog()
+
     End Sub
 End Class
