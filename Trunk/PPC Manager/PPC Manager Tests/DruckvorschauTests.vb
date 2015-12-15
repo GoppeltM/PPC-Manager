@@ -37,24 +37,5 @@ Public Class DruckvorschauTests
         vorschau.ShowDialog()
     End Sub
 
-    <Test, STAThread, Explicit>
-    Public Sub Druck_Test()
 
-        Dim document As New FixedDocument
-        Dim ellipse = New Ellipse With {.Stroke = Brushes.Black, .Fill = Brushes.Red, .Height = 1300, .Width = 300}
-
-        Dim pageSize = New Size(300, 500)
-        Dim höhe = ellipse.Height
-
-        Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeSeiten(ellipse, New Size(300, 1300), pageSize)
-        For Each seite In seiten
-            document.Pages.Add(New PageContent() With {.Child = seite})
-        Next
-        Dim docViewer = New DocumentViewer()
-        docViewer.Document = document
-        Dim w As New Window With {.Content = docViewer}
-        w.ShowDialog()
-
-    End Sub
 End Class

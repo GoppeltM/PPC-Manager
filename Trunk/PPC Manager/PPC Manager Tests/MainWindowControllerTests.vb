@@ -71,7 +71,11 @@ Imports System.Windows
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)
                 End Sub
-        DruckenMock.Setup(Function(m) m.Konfigurieren()).Returns(New Size(800, 1000))
+        Dim einstellungenMock = New Mock(Of ISeiteneinstellung)()
+        einstellungenMock.SetupAllProperties()
+        einstellungenMock.Object.Breite = 800
+        einstellungenMock.Object.Höhe = 1000
+        DruckenMock.Setup(Function(m) m.Konfigurieren()).Returns(einstellungenMock.Object)
         DruckenMock.Setup(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), It.IsAny(Of String))).Callback(a).Verifiable()
 
         Controller.RundenendeDrucken(DruckenMock.Object)

@@ -2,10 +2,17 @@
 
 Public Interface IPrinter
 
-    Function Konfigurieren() As Size
+    Function Konfigurieren() As ISeiteneinstellung
 
     Sub Drucken(doc As FixedDocument, titel As String)
 
+End Interface
+
+Public Interface ISeiteneinstellung
+    Property Höhe As Double
+    Property Breite As Double
+    Property AbstandX As Double
+    Property AbstandY As Double
 End Interface
 
 Public Class Printer
@@ -18,9 +25,26 @@ Public Class Printer
         _PrintDialog.UserPageRangeEnabled = False
     End Sub
 
-    Public Function Konfigurieren() As Size Implements IPrinter.Konfigurieren
+    Private Class SeitenEinstellung
+        Implements ISeiteneinstellung
+
+        Public Property AbstandX As Double Implements ISeiteneinstellung.AbstandX
+        Public Property AbstandY As Double Implements ISeiteneinstellung.AbstandY
+        Public Property Breite As Double Implements ISeiteneinstellung.Breite
+        Public Property Höhe As Double Implements ISeiteneinstellung.Höhe
+
+    End Class
+
+    Public Function Konfigurieren() As ISeiteneinstellung Implements IPrinter.Konfigurieren
         _DialogResult = _PrintDialog.ShowDialog()
-        Return New Size(_PrintDialog.PrintableAreaWidth, _PrintDialog.PrintableAreaHeight)
+        Dim area = _PrintDialog.PrintQueue.GetPrintCapabilities.PageImageableArea
+        Dim einstellung = New SeitenEinstellung() With {
+            .AbstandX = area.OriginWidth,
+            .AbstandY = area.OriginHeight,
+            .Breite = area.ExtentWidth,
+            .Höhe = area.ExtentHeight}
+
+        Return einstellung
     End Function
 
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken

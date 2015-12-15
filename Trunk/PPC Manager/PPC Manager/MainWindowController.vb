@@ -80,8 +80,8 @@
     End Sub
 
     Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
-        Dim format = p.Konfigurieren()
-
+        Dim seiteneinstellung = p.Konfigurieren()
+        Dim format = New Size(seiteneinstellung.Breite, seiteneinstellung.Höhe)
         Dim doc = New FixedDocument
         Dim schiriSeiten = From x In (New FixedPageFabrik).ErzeugeSchiedsrichterZettelSeiten(AktiveCompetition.SpielRunden.Peek,
                                format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
@@ -103,7 +103,8 @@
     End Sub
 
     Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
-        Dim format = p.Konfigurieren()
+        Dim seiteneinstellung = p.Konfigurieren()
+        Dim format = New Size(seiteneinstellung.Breite, seiteneinstellung.Höhe)
 
         Dim Spielpartien As IEnumerable(Of SpielPartie) = New List(Of SpielPartie)
         With AktiveCompetition.SpielRunden
@@ -124,8 +125,7 @@
         l.Reverse()
 
         Dim doc = New FixedDocument
-        doc.DocumentPaginator.PageSize = format
-        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, seiteneinstellung, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
                                Select New PageContent() With {.Child = x}
 
         Dim spielErgebnisSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(Spielpartien, format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)

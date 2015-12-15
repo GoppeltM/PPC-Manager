@@ -1,32 +1,39 @@
 ﻿Public Class FixedPageFabrik
-    Friend Function ErzeugeRanglisteSeiten(spielerListe As IEnumerable(Of Spieler), format As Size,
+    Friend Function ErzeugeRanglisteSeiten(spielerListe As IEnumerable(Of Spieler), seitenEinstellungen As ISeiteneinstellung,
                                             altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
         Dim seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe)
         With seite
             Dim canvas = New Canvas
             canvas.Children.Add(seite)
-            canvas.Measure(New Size(format.Width, Double.MaxValue))
-            canvas.UpdateLayout()
+            canvas.Measure(New Size(seitenEinstellungen.Breite, Double.MaxValue))
+            canvas.Arrange(New Rect(0, 0, seitenEinstellungen.Breite, Double.MaxValue))
         End With
 
-        Dim gesamtGröße = seite.DesiredSize
+        Dim gesamtLänge = seite.RenderSize.Height
+
         seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe)
-        Return ErzeugeSeiten(seite, gesamtGröße, format)
+        Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
     End Function
 
-    Friend Function ErzeugeSeiten(v As Visual, gesamtGröße As Size, seitengröße As Size) As IEnumerable(Of FixedPage)
+    Friend Function ErzeugeSeiten(v As Visual, gesamtLänge As Double, seitengröße As ISeiteneinstellung) As IEnumerable(Of FixedPage)
         Dim brush As New VisualBrush(v) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
 
         Dim aktuelleHöhe = 0.0
         Dim seiten As New List(Of FixedPage)
 
-        While aktuelleHöhe < gesamtGröße.Height
+        While aktuelleHöhe < gesamtLänge
             brush.Transform = New TranslateTransform(0, aktuelleHöhe * -1)
-            Dim page = New FixedPage With {.Height = seitengröße.Height, .Width = seitengröße.Width}
-            Dim canvas As New Canvas With {.Height = gesamtGröße.Height, .Width = gesamtGröße.Width, .Background = brush.Clone}
+            Dim page = New FixedPage With {
+                .Height = seitengröße.Höhe + (seitengröße.AbstandY * 2),
+                .Width = seitengröße.Breite + (seitengröße.AbstandX * 2),
+                .Margin = New Thickness(seitengröße.AbstandX, seitengröße.AbstandY, seitengröße.AbstandX, seitengröße.AbstandY)}
+            Dim canvas As New Canvas With {
+                .Height = gesamtLänge,
+                .Width = seitengröße.Breite,
+                .Background = brush.Clone}
             page.Children.Add(canvas)
             seiten.Add(page)
-            aktuelleHöhe += seitengröße.Height
+            aktuelleHöhe += seitengröße.Höhe
             ' Wir erzeugen einen zusätzlichen überlappenden Rand, um halb zerschnittene Zeilen zu kompensieren
             aktuelleHöhe -= 20
         End While

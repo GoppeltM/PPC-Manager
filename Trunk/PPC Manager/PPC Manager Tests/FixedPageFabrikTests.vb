@@ -1,16 +1,33 @@
 ﻿Imports System.Windows
 Imports System.Windows.Controls
 Imports System.Windows.Documents
+Imports System.Windows.Media
+Imports System.Windows.Shapes
 Imports Moq
 
 <TestFixture>
 Public Class FixedPageFabrikTests
 
+    <SetUp>
+    Public Sub init()
+        Dim seitenEinstellungen = New Mock(Of ISeiteneinstellung)
+        seitenEinstellungen.SetupAllProperties()
+        With seitenEinstellungen.Object
+            .AbstandX = 30
+            .AbstandY = 30
+            .Breite = 600
+            .Höhe = 1000
+        End With
+        _SeitenEinstellungen = seitenEinstellungen.Object
+    End Sub
+
+    Private _SeitenEinstellungen As ISeiteneinstellung
+
     <Test, STAThread>
     Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
         Dim spielerListe As New List(Of Spieler)
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(300, 500), "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24)
         Assert.That(seiten.Count, [Is].EqualTo(1))
     End Sub
 
@@ -22,7 +39,7 @@ Public Class FixedPageFabrikTests
             spielerListe.Add(s)
         Next
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(300, 500), "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24)
         Assert.That(seiten.Count, [Is].GreaterThan(1))
     End Sub
 
@@ -34,7 +51,7 @@ Public Class FixedPageFabrikTests
             spielerListe.Add(s)
         Next
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, New Size(1000, 600), "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24)
         Dim doc = New FixedDocument
         For Each seite In seiten
             doc.Pages.Add(New PageContent() With {.Child = seite})
@@ -47,13 +64,33 @@ Public Class FixedPageFabrikTests
     End Sub
 
     <Test, STAThread, Explicit>
+    Public Sub Ellipsen_Druck_Test()
+
+        Dim document As New FixedDocument
+        Dim ellipse = New Ellipse With {.Stroke = Brushes.Black, .Fill = Brushes.Red, .Height = 1300, .Width = 300}
+
+        Dim höhe = ellipse.Height
+
+        Dim f As New FixedPageFabrik
+        Dim seiten = f.ErzeugeSeiten(ellipse, 1300, _SeitenEinstellungen)
+        For Each seite In seiten
+            document.Pages.Add(New PageContent() With {.Child = seite})
+        Next
+        Dim docViewer = New DocumentViewer()
+        docViewer.Document = document
+        Dim w As New Window With {.Content = docViewer}
+        w.ShowDialog()
+
+    End Sub
+
+    <Test, STAThread, Explicit>
     Public Sub UIDummy_Reales_Layout()
         Dim doc = XDocument.Load("D:\Turnierteilnehmer_PPC_20150913.xml")
         Dim spieler = doc.Root.<competition>.First.<players>
         Dim l = SpielerListe.FromXML(spieler, New SpielRunden, New SpielRegeln(3, True, True))
 
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(l, New Size(600, 1000), "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(l, _SeitenEinstellungen, "Altersgruppe", 24)
         Dim vorschau As New Druckvorschau(seiten)
         vorschau.ShowDialog()
     End Sub

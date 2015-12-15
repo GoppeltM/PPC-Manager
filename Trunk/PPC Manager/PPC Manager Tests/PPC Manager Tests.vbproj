@@ -99,6 +99,7 @@
     <Compile Include="FixedPageFabrikTests.vb" />
     <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
+    <Compile Include="PrinterTests.vb" />
     <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="SatzTests.vb" />
     <Compile Include="SchiedsrichterZettelTests.vb" />
