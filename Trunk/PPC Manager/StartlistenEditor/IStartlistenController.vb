@@ -2,16 +2,14 @@
 
     Sub Initialize(spielerListe As SpielerListe, klassementListe As KlassementListe)
 
-    Sub Schließend(dataGrid As DataGrid, e As ComponentModel.CancelEventArgs)
+    Sub Öffnend(doc As XDocument, pfad As String)
 
-    Sub Öffnend()
+    Sub NeuerFremdSpieler(neuerTTR As Integer)
 
-    Sub NeuerFremdSpieler(dataGrid As DataGrid)
+    Sub LöscheFremdSpieler(spieler As Spieler)
 
-    Sub LöscheFremdSpieler(dataGrid As DataGrid)
+    Sub EditiereFremdSpieler(aktuellerSpieler As Spieler)
 
-    Sub EditiereFremdSpieler(dataGrid As DataGrid)
-
-    Sub Speichern(dataGrid As DataGrid)
+    Sub Speichern()
 
 End Interface

@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Controls.Primitives
+Imports Microsoft.Win32
 
 Class MainWindow
 
@@ -13,11 +14,26 @@ Class MainWindow
     End Sub
 
     Private Sub MainWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
-        Controller.Schließend(SpielerGrid, e)
+        SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
+        Select Case MessageBox.Show("Dieses Programm wird jetzt geschlossen. Sollen Änderungen gespeichert werden?" _
+                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
+            Case MessageBoxResult.Cancel : e.Cancel = True
+            Case MessageBoxResult.Yes : Controller.Speichern()
+        End Select
     End Sub
 
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        Controller.Öffnend()
+        With New OpenFileDialog
+            .Filter = "Click-TT Turnierdaten|*.xml"
+            If Not .ShowDialog Then
+                Application.Current.Shutdown()
+                Return
+            End If
+
+            Dim doc = XDocument.Load(.FileName)
+            Dim pfad = .FileName
+            Controller.Öffnend(doc, pfad)
+        End With
     End Sub
 
     Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
@@ -29,19 +45,29 @@ Class MainWindow
     End Sub
 
     Private Sub CommandNew_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Controller.NeuerFremdSpieler(SpielerGrid)        
+        Dim neuerTTR = DirectCast(SpielerGrid.SelectedItem, Spieler).TTR - 1
+        SpielerGrid.BeginInit()
+        Controller.NeuerFremdSpieler(neuerTTR)
+        SpielerGrid.EndInit()
     End Sub
 
     Private Sub CommandDelete_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Controller.LöscheFremdSpieler(SpielerGrid)        
+        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
+        If MessageBox.Show("Wollen Sie wirklich diesen Spieler entfernen?", "Löschen?", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) = MessageBoxResult.OK Then
+            Controller.LöscheFremdSpieler(aktuellerSpieler)
+        End If
     End Sub
 
     Private Sub CommandReplace_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Controller.EditiereFremdSpieler(SpielerGrid)        
+        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
+        SpielerGrid.BeginInit()
+        Controller.EditiereFremdSpieler(aktuellerSpieler)
+        SpielerGrid.EndInit()
     End Sub
 
     Private Sub Save_Click(sender As Object, e As RoutedEventArgs)
-        Controller.Speichern(SpielerGrid)
+        SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
+        Controller.Speichern()
     End Sub
 
     Shared Function FindVisualParent(Of T As UIElement)(element As UIElement) As T
@@ -87,10 +113,10 @@ Class MainWindow
         If Suche Is Nothing Then Return
         Dim KlassementButtons = FindVisualChildren(Of ToggleButton)(KlassementFilterListe)
         Dim KlassementFilterAktiv = Aggregate x In KlassementButtons Where x.IsChecked Into Any()
-        
+
         With DirectCast(e.Item, Spieler)
 
-            
+
             If Unbezahlt.IsChecked AndAlso .Bezahlt Then
                 e.Accepted = False
                 Return
@@ -123,7 +149,7 @@ Class MainWindow
             If .Verein.ToLower.Contains(SuchText) Then Return
             If .Klassement.ToLower.Contains(SuchText) Then Return
         End With
-            e.Accepted = False
+        e.Accepted = False
     End Sub
 
     Shared Function FindVisualChildren(Of T As DependencyObject)(parent As DependencyObject) As IEnumerable(Of T)
@@ -139,7 +165,7 @@ Class MainWindow
         Next
         Return Children
     End Function
-	
+
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         Dim View = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
         For Each column In SpielerGrid.Columns
@@ -176,7 +202,7 @@ Class MainWindow
                 Next
                 .PrintDocument(doc.DocumentPaginator, "Spielerliste - Aktuelle Sicht")
             End If
-        End With        
+        End With
     End Sub
 End Class
 

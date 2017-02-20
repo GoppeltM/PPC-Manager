@@ -17,7 +17,7 @@ Public Class StartListe
                           SpielerListe = s
                           KlassementListe = k
                       End Sub)
-        controller.Setup(Sub(m) m.Öffnend()).Callback(Sub() Öffnend(SpielerListe, KlassementListe))
+        controller.Setup(Sub(m) m.Öffnend(It.IsAny(Of XDocument), It.IsAny(Of String))).Callback(Sub() Öffnend(SpielerListe, KlassementListe))
         Dim mainWindow As New StartlistenEditor.MainWindow(controller.Object)
         mainWindow.ShowDialog()
     End Sub
