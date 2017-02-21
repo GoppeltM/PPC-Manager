@@ -5,12 +5,12 @@ Class MainWindow
 
     Private ReadOnly Controller As IStartlistenController
 
-    Public Sub New(controller As IStartlistenController)
+    Public Sub New(controller As IStartlistenController, spielerListe As IEnumerable(Of Spieler),
+                    klassementListe As IEnumerable(Of KlassementName))
+        Resources("SpielerListe") = spielerListe
+        Resources("KlassementListe") = klassementListe
         InitializeComponent()
         Me.Controller = controller
-        Dim spielerListe = DirectCast(Resources("SpielerListe"), SpielerListe)
-        Dim klassementListe = DirectCast(Resources("KlassementListe"), KlassementListe)
-        Me.Controller.Initialize(spielerListe, klassementListe)
     End Sub
 
     Private Sub MainWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing

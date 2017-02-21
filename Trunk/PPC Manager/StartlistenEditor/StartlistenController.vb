@@ -8,51 +8,38 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Public Class StartlistenController
     Implements IStartlistenController
 
-    Private _SpielerListe As SpielerListe
+    Private ReadOnly _SpielerListe As IList(Of Spieler)
+    Private ReadOnly _KlassementListe As IList(Of KlassementName)
 
-    Public ReadOnly Property SpielerListe As SpielerListe
-        Get
-            Return _SpielerListe
-        End Get
-    End Property
-
-    Private _KlassementListe As KlassementListe
-
-    Public ReadOnly Property KlassementListe As KlassementListe
-        Get
-            Return _KlassementListe
-        End Get
-    End Property
-
-    Sub Initialize(spielerListe As SpielerListe, klassementListe As KlassementListe) Implements IStartlistenController.Initialize
+    Public Sub New(spielerListe As IList(Of Spieler), klassementListe As IList(Of KlassementName))
         _SpielerListe = spielerListe
         _KlassementListe = klassementListe
     End Sub
 
-    Public Shared Doc As XDocument
+    Public Doc As XDocument
     Public Pfad As String
 
     Public Sub Öffnend(doc As XDocument, pfad As String) Implements IStartlistenController.Öffnend
-        StartlistenController.Doc = doc
+        Me.Doc = doc
         Me.Pfad = pfad
         Dim AlleSpieler = XmlZuSpielerListe(doc)
 
         Dim AlleKlassements = (From x In doc.Root.<competition> Select x.Attribute("age-group").Value).Distinct
-        With KlassementListe
+        With _KlassementListe
             For Each Klassement In AlleKlassements
                 .Add(New KlassementName With {.Name = Klassement})
             Next
         End With
 
         For Each s In AlleSpieler
-            SpielerListe.Add(s)
+            _SpielerListe.Add(s)
         Next
     End Sub
 
 
     Public Sub Speichern() Implements IStartlistenController.Speichern
         If Pfad Is Nothing Then Return
-        Dim AusgeschiedenKlassements = From x In SpielerListe Group x By x.KlassementNode Into Group
+        Dim AusgeschiedenKlassements = From x In _SpielerListe Group x By x.KlassementNode Into Group
 
         For Each klassement In AusgeschiedenKlassements
 
@@ -75,27 +62,24 @@ Public Class StartlistenController
     End Sub
 
     Public Sub NeuerFremdSpieler(neuerTTR As Integer) Implements IStartlistenController.NeuerFremdSpieler
-        Dim Lizenznummern = (From x In SpielerListe Select x.LizenzNr).ToList
+        Dim Lizenznummern = (From x In _SpielerListe Select x.LizenzNr).ToList
         Dim NeueLizenzNummer = -1
         While Lizenznummern.Contains(NeueLizenzNummer)
             NeueLizenzNummer -= 1
         End While
-        Dim dialog = FremdSpielerDialog.NeuerFremdSpieler(Doc, neuerTTR, NeueLizenzNummer)
-        If dialog.ShowDialog() Then
-            SpielerListe.Add(dialog.Spieler)
+        Dim spieler = FremdSpielerDialog.NeuerFremdSpieler(Doc, neuerTTR, NeueLizenzNummer)
+        If spieler IsNot Nothing Then
+            _SpielerListe.Add(spieler)
         End If
     End Sub
 
     Public Sub LöscheFremdSpieler(aktuellerSpieler As Spieler) Implements IStartlistenController.LöscheFremdSpieler
-        SpielerListe.Remove(aktuellerSpieler)
+        _SpielerListe.Remove(aktuellerSpieler)
         aktuellerSpieler.XmlKnoten.Remove()
     End Sub
 
     Public Sub EditiereFremdSpieler(aktuellerSpieler As Spieler) Implements IStartlistenController.EditiereFremdSpieler
-        Dim dialog = FremdSpielerDialog.EditiereFremdSpieler(Doc, aktuellerSpieler)
-        If Not dialog.ShowDialog() Then
-            aktuellerSpieler.CancelEdit()
-        End If
+        FremdSpielerDialog.EditiereFremdSpieler(Doc, aktuellerSpieler)
     End Sub
 
     Public Shared Function XmlZuSpielerListe(doc As XDocument) As IList(Of Spieler)

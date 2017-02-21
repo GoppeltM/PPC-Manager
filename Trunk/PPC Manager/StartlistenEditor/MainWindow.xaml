@@ -6,10 +6,10 @@
     Title="MainWindow" Height="366" Width="751" Icon="Icon.ico">
     <Window.Resources>
         <local:StringIsEmptyConverter x:Key="StringIsEmptyConverter"/>
-        <local:SpielerListe x:Key="SpielerListe"/>
+        <!--<local:SpielerListe x:Key="SpielerListe"/>-->
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />
-        <local:KlassementListe x:Key="KlassementListe"/>
+        <!--<local:KlassementListe x:Key="KlassementListe"/>-->
     </Window.Resources>
     <Grid>
         <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">

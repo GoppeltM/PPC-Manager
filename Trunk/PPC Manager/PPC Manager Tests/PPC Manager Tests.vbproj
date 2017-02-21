@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="DruckvorschauTests.vb" />
     <Compile Include="FixedPageFabrikTests.vb" />
+    <Compile Include="FremdSpielerDialogTests.vb" />
     <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
     <Compile Include="PrinterTests.vb" />
@@ -107,7 +108,7 @@
     <Compile Include="SpielKlassenKonverterTests.vb" />
     <Compile Include="SpielPartieTests.vb" />
     <Compile Include="SpielRundenTests.vb" />
-    <Compile Include="StartListe.vb" />
+    <Compile Include="StartListeTests.vb" />
     <Compile Include="Testturnier.vb" />
     <Compile Include="KonverterTests.vb" />
     <Compile Include="CompetitionTests_FromXML.vb" />

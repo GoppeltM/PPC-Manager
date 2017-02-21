@@ -4,31 +4,41 @@ Public Class FremdSpielerDialog
 
     Private ReadOnly _Doc As XDocument
 
-    Public Sub New(doc As XDocument)
+    Public Sub New(doc As XDocument, ttr As Integer, lizenzNr As Integer)
         InitializeComponent()
+        _Doc = doc
+        Spieler.TTR = ttr
+        Spieler.LizenzNr = lizenzNr
+        Spieler.ID = "PLAYER" & lizenzNr
+    End Sub
+
+    Public Sub New(doc As XDocument, spieler As Spieler)
+        InitializeComponent()
+        DirectCast(Resources("AktuellerSpieler"), SpielerContainer).Spieler = spieler
+        Klassements.SelectedItem = spieler.Klassement
         _Doc = doc
     End Sub
 
-    Public ReadOnly Property Spieler As Spieler
+    Private ReadOnly Property Spieler As Spieler
         Get
             Return DirectCast(Resources("AktuellerSpieler"), SpielerContainer).Spieler
         End Get
     End Property
 
-    Public Shared Function NeuerFremdSpieler(doc As XDocument, ttr As Integer, lizenzNr As Integer) As FremdSpielerDialog
-        Dim dialog As New FremdSpielerDialog(doc)
-        dialog.Spieler.TTR = ttr
-        dialog.Spieler.LizenzNr = lizenzNr
-        dialog.Spieler.ID = "PLAYER" & lizenzNr
-        Return dialog
+    Public Shared Function NeuerFremdSpieler(doc As XDocument, ttr As Integer, lizenzNr As Integer) As Spieler
+        Dim dialog As New FremdSpielerDialog(doc, ttr, lizenzNr)
+        If dialog.ShowDialog() Then
+            Return dialog.Spieler
+        End If
+        Return Nothing
     End Function
 
-    Public Shared Function EditiereFremdSpieler(doc As XDocument, spieler As Spieler) As FremdSpielerDialog
-        Dim dialog As New FremdSpielerDialog(doc)
-        DirectCast(dialog.Resources("AktuellerSpieler"), SpielerContainer).Spieler = Spieler
-        dialog.Klassements.SelectedItem = Spieler.Klassement
-        Return dialog
-    End Function
+    Public Shared Sub EditiereFremdSpieler(doc As XDocument, spieler As Spieler)
+        Dim dialog As New FremdSpielerDialog(doc, spieler)
+        If Not dialog.ShowDialog() Then
+            spieler.CancelEdit()
+        End If
+    End Sub
 
     Private Sub FremdSpielerDialog_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 

@@ -2,23 +2,17 @@
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports Moq
 
-<TestFixture()>
-Public Class StartListe
+<RequiresSTA>
+Public Class StartListeTests
 
-    <Ignore>
-    <Test>
+    <Explicit, Test>
     Sub UIDummy_Starten()
-        Dim SpielerListe As StartlistenEditor.SpielerListe = Nothing
-        Dim KlassementListe As StartlistenEditor.KlassementListe = Nothing
+        Dim SpielerListe = New StartlistenEditor.SpielerListe
+        Dim KlassementListe = New StartlistenEditor.KlassementListe
 
         Dim controller = New Mock(Of StartlistenEditor.IStartlistenController)()
-        controller.Setup(Sub(m) m.Initialize(It.IsAny(Of StartlistenEditor.SpielerListe), It.IsAny(Of StartlistenEditor.KlassementListe))) _
-            .Callback(Sub(s As StartlistenEditor.SpielerListe, k As StartlistenEditor.KlassementListe)
-                          SpielerListe = s
-                          KlassementListe = k
-                      End Sub)
         controller.Setup(Sub(m) m.Öffnend(It.IsAny(Of XDocument), It.IsAny(Of String))).Callback(Sub() Öffnend(SpielerListe, KlassementListe))
-        Dim mainWindow As New StartlistenEditor.MainWindow(controller.Object)
+        Dim mainWindow As New StartlistenEditor.MainWindow(controller.Object, SpielerListe, KlassementListe)
         mainWindow.ShowDialog()
     End Sub
 
@@ -126,7 +120,7 @@ Public Class StartListe
         c.SpielRunden.Push(New SpielRunde)
         c.SpielRunden.Push(New SpielRunde)
         Dim s As New Spieler(c.SpielRunden, c.SpielRegeln) With {.Vorname = "Marius", .Nachname = "Goppelt"}
-        TurnierReport.CreateFile("D:\PPC 15 Anmeldungen D-Klasse.xlsx", _
+        TurnierReport.CreateFile("D:\PPC 15 Anmeldungen D-Klasse.xlsx",
                                   New Spieler() {s}, c)
     End Sub
 

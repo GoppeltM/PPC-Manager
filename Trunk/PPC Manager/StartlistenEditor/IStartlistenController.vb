@@ -1,7 +1,5 @@
 ﻿Public Interface IStartlistenController
 
-    Sub Initialize(spielerListe As SpielerListe, klassementListe As KlassementListe)
-
     Sub Öffnend(doc As XDocument, pfad As String)
 
     Sub NeuerFremdSpieler(neuerTTR As Integer)
