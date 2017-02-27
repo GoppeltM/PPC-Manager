@@ -1,16 +1,20 @@
 ﻿Imports System.Windows.Controls.Primitives
-Imports Microsoft.Win32
 
 Class MainWindow
 
-    Private ReadOnly Controller As IStartlistenController
+    Private ReadOnly _KlassementListe As IEnumerable(Of String)
+    Private ReadOnly _SpeichernAction As Action
+    Private ReadOnly _SpielerListe As ICollection(Of SpielerInfo)
 
-    Public Sub New(controller As IStartlistenController, spielerListe As IEnumerable(Of Spieler),
-                    klassementListe As IEnumerable(Of KlassementName))
+    Public Sub New(spielerListe As ICollection(Of SpielerInfo),
+                    klassementListe As IEnumerable(Of String), speichernAction As Action)
+        _SpielerListe = spielerListe
+        _KlassementListe = klassementListe
+        _SpeichernAction = speichernAction
         Resources("SpielerListe") = spielerListe
-        Resources("KlassementListe") = klassementListe
+        Dim klassements = (From x In klassementListe Select New KlassementName With {.Name = x}).ToList
+        Resources("KlassementListe") = klassements
         InitializeComponent()
-        Me.Controller = controller
     End Sub
 
     Private Sub MainWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
@@ -18,22 +22,8 @@ Class MainWindow
         Select Case MessageBox.Show("Dieses Programm wird jetzt geschlossen. Sollen Änderungen gespeichert werden?" _
                            , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
-            Case MessageBoxResult.Yes : Controller.Speichern()
+            Case MessageBoxResult.Yes : _SpeichernAction()
         End Select
-    End Sub
-
-    Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        With New OpenFileDialog
-            .Filter = "Click-TT Turnierdaten|*.xml"
-            If Not .ShowDialog Then
-                Application.Current.Shutdown()
-                Return
-            End If
-
-            Dim doc = XDocument.Load(.FileName)
-            Dim pfad = .FileName
-            Controller.Öffnend(doc, pfad)
-        End With
     End Sub
 
     Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
@@ -41,33 +31,41 @@ Class MainWindow
     End Sub
 
     Private Sub CommandFremdSpieler_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing AndAlso DirectCast(SpielerGrid.SelectedItem, Spieler).Fremd
+        e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing AndAlso DirectCast(SpielerGrid.SelectedItem, SpielerInfo).Fremd
     End Sub
 
     Private Sub CommandNew_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim neuerTTR = DirectCast(SpielerGrid.SelectedItem, Spieler).TTR - 1
-        SpielerGrid.BeginInit()
-        Controller.NeuerFremdSpieler(neuerTTR)
-        SpielerGrid.EndInit()
+        Dim neuerTTR = DirectCast(SpielerGrid.SelectedItem, SpielerInfo).TTR - 1
+        Dim dialog As New FremdSpielerDialog(_KlassementListe, New SpielerInfo With {.TTR = neuerTTR})
+        If dialog.ShowDialog() Then
+            SpielerGrid.BeginInit()
+            _SpielerListe.Add(dialog.EditierterSpieler)
+            SpielerGrid.EndInit()
+        End If
     End Sub
 
     Private Sub CommandDelete_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
+        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, SpielerInfo)
         If MessageBox.Show("Wollen Sie wirklich diesen Spieler entfernen?", "Löschen?", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) = MessageBoxResult.OK Then
-            Controller.LöscheFremdSpieler(aktuellerSpieler)
+            _SpielerListe.Remove(aktuellerSpieler)
         End If
     End Sub
 
     Private Sub CommandReplace_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, Spieler)
-        SpielerGrid.BeginInit()
-        Controller.EditiereFremdSpieler(aktuellerSpieler)
-        SpielerGrid.EndInit()
+        Dim aktuellerSpieler = DirectCast(SpielerGrid.SelectedItem, SpielerInfo)
+        Dim dialog As New FremdSpielerDialog(_KlassementListe, New SpielerInfo(aktuellerSpieler))
+        If dialog.ShowDialog() Then
+            SpielerGrid.BeginInit()
+            _SpielerListe.Remove(aktuellerSpieler)
+            _SpielerListe.Add(dialog.EditierterSpieler)
+            SpielerGrid.EndInit()
+        End If
+
     End Sub
 
     Private Sub Save_Click(sender As Object, e As RoutedEventArgs)
         SpielerGrid.CommitEdit(DataGridEditingUnit.Row, True)
-        Controller.Speichern()
+        _SpeichernAction()
     End Sub
 
     Shared Function FindVisualParent(Of T As UIElement)(element As UIElement) As T
@@ -114,7 +112,7 @@ Class MainWindow
         Dim KlassementButtons = FindVisualChildren(Of ToggleButton)(KlassementFilterListe)
         Dim KlassementFilterAktiv = Aggregate x In KlassementButtons Where x.IsChecked Into Any()
 
-        With DirectCast(e.Item, Spieler)
+        With DirectCast(e.Item, SpielerInfo)
 
 
             If Unbezahlt.IsChecked AndAlso .Bezahlt Then
@@ -190,8 +188,8 @@ Class MainWindow
         With New PrintDialog
             If .ShowDialog Then
                 Dim CollectionSource = DirectCast(FindResource("FilteredSpielerListe"), CollectionViewSource)
-                Dim l As New List(Of Spieler)
-                For Each item As Spieler In CollectionSource.View
+                Dim l As New List(Of SpielerInfo)
+                For Each item As SpielerInfo In CollectionSource.View
                     l.Add(item)
                 Next
 

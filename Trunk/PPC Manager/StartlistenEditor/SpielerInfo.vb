@@ -1,8 +1,28 @@
 ﻿Imports System.ComponentModel
-Imports System.Runtime.CompilerServices
 
 Public Class SpielerInfo
-    Implements INotifyPropertyChanged
+    Implements INotifyPropertyChanged, IComparable(Of SpielerInfo)
+
+    Public Sub New()
+
+    End Sub
+
+    Public Sub New(spieler As SpielerInfo)
+        ID = spieler.ID
+        Vorname = spieler.Vorname
+        Nachname = spieler.Nachname
+        Verein = spieler.Verein
+        TTR = spieler.TTR
+        TTRMatchCount = spieler.TTRMatchCount
+        LizenzNr = spieler.LizenzNr
+        Klassement = spieler.Klassement
+        Geschlecht = spieler.Geschlecht
+        Geburtsjahr = spieler.Geburtsjahr
+        Fremd = spieler.Fremd
+        Bezahlt = spieler.Bezahlt
+        Abwesend = spieler.Abwesend
+        Anwesend = spieler.Anwesend
+    End Sub
 
     Public Property ID As String
     Public Property Vorname As String
@@ -21,6 +41,18 @@ Public Class SpielerInfo
     Private Sub NotifyPropertyChanged(ByVal propertyName As String)
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
+
+    Public Function CompareTo(other As SpielerInfo) As Integer Implements IComparable(Of SpielerInfo).CompareTo
+        Dim diff = TTR - other.TTR
+        If diff <> 0 Then Return diff
+        diff = TTRMatchCount - other.TTRMatchCount
+        If diff <> 0 Then Return diff
+        diff = Nachname.CompareTo(other.Nachname)
+        If diff <> 0 Then Return diff
+        diff = Vorname.CompareTo(other.Vorname)
+        If diff <> 0 Then Return diff
+        Return LizenzNr - other.LizenzNr
+    End Function
 
     Private _Bezahlt As Boolean
     Public Property Bezahlt As Boolean

@@ -1,87 +1,45 @@
-﻿Imports System.ComponentModel
+﻿Public Class FremdSpielerDialog
 
-Public Class FremdSpielerDialog
+    Private ReadOnly _Spieler As SpielerInfo
 
-    Private ReadOnly _Doc As XDocument
-
-    Public Sub New(doc As XDocument, ttr As Integer, lizenzNr As Integer)
+    Public Sub New(klassementListe As IEnumerable(Of String),
+                   spieler As SpielerInfo)
         InitializeComponent()
-        _Doc = doc
-        Spieler.TTR = ttr
-        Spieler.LizenzNr = lizenzNr
-        Spieler.ID = "PLAYER" & lizenzNr
-    End Sub
-
-    Public Sub New(doc As XDocument, spieler As Spieler)
-        InitializeComponent()
-        DirectCast(Resources("AktuellerSpieler"), SpielerContainer).Spieler = spieler
+        _Spieler = spieler
+        Me.Vorname.Text = spieler.Vorname
+        Me.Nachname.Text = spieler.Nachname
+        Me.Verein.Text = spieler.Verein
+        Me.TTR.Text = spieler.TTR.ToString
+        Me.TTRMatchCount.Text = spieler.TTRMatchCount.ToString
+        Me.Geschlecht.IsChecked = CType(spieler.Geschlecht, Boolean?)
+        Me.Geburtsjahr.Text = spieler.Geburtsjahr.ToString
+        For Each cat In klassementListe
+            Klassements.Items.Add(cat)
+        Next
         Klassements.SelectedItem = spieler.Klassement
-        _Doc = doc
     End Sub
 
-    Private ReadOnly Property Spieler As Spieler
-        Get
-            Return DirectCast(Resources("AktuellerSpieler"), SpielerContainer).Spieler
-        End Get
-    End Property
 
-    Public Shared Function NeuerFremdSpieler(doc As XDocument, ttr As Integer, lizenzNr As Integer) As Spieler
-        Dim dialog As New FremdSpielerDialog(doc, ttr, lizenzNr)
-        If dialog.ShowDialog() Then
-            Return dialog.Spieler
-        End If
-        Return Nothing
+    Public Function EditierterSpieler() As SpielerInfo
+
+        _Spieler.Fremd = True
+        _Spieler.Vorname = Vorname.Text
+        _Spieler.Nachname = Nachname.Text
+        _Spieler.Verein = Verein.Text
+        _Spieler.TTR = CInt(TTR.Text)
+        _Spieler.TTRMatchCount = CInt(TTRMatchCount.Text)
+        _Spieler.Geschlecht = CInt(Geschlecht.IsChecked)
+        _Spieler.Geburtsjahr = CInt(Geburtsjahr.Text)
+        _Spieler.Klassement = Klassements.SelectedValue.ToString
+
+        Return _Spieler
     End Function
 
-    Public Shared Sub EditiereFremdSpieler(doc As XDocument, spieler As Spieler)
-        Dim dialog As New FremdSpielerDialog(doc, spieler)
-        If Not dialog.ShowDialog() Then
-            spieler.CancelEdit()
-        End If
-    End Sub
-
-    Private Sub FremdSpielerDialog_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-
-        Dim Categories = From x In _Doc.Root.<competition> Select x.Attribute("age-group").Value
-
-        For Each cat In Categories
-            Klassements.Items.Add(cat)
-        Next        
-    End Sub
-
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-
-        If Spieler.XmlKnoten.Ancestors.Any Then
-            Spieler.XmlKnoten.Remove()
-        End If
-
-        Dim SelektiertesKlassement = Klassements.SelectedItem.ToString
-        Dim klassementKnoten = (From x In _Doc.Root.<competition>
-                                Where x.Attribute("age-group").Value = SelektiertesKlassement Select x).Single
-        Dim neuesElement = New XElement(Spieler.XmlKnoten)
-        klassementKnoten.<players>.First.Add(neuesElement)        
-        Spieler.XmlKnoten = neuesElement
         Me.DialogResult = True
         Me.Close()
     End Sub
 
-End Class
-
-Public Class SpielerContainer
-    Implements INotifyPropertyChanged
-
-    Private _Spieler As New Spieler
-    Property Spieler As Spieler
-        Set(value As Spieler)
-            _Spieler = value
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Spieler"))
-        End Set
-        Get
-            Return _Spieler
-        End Get
-    End Property
-
-    Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 End Class
 
 Public Class IsSelectedConverter

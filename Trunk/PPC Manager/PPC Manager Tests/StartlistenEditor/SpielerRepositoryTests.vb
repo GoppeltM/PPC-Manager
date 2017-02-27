@@ -8,21 +8,15 @@ Public Class SpielerRepositoryTests
         _BKlasse = <competition age-group="B-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
                        <players></players>
                    </competition>
-        _Doc = New XDocument(<tournament>
-                                 <competition age-group="A-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
-                                     <players></players>
-                                 </competition>
-                                 <%= _BKlasse %>
-                             </tournament>)
+
     End Sub
 
     Private Property _BKlasse As XElement
-    Private Property _Doc As XDocument
 
     <Test>
     Public Sub Add_fügt_Xml_Knoten_im_richtigen_Klassement_ein()
 
-        Dim r = New SpielerRepository(_Doc)
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
         r.Add(New SpielerInfo With {
                 .ID = "MeineID",
                 .Klassement = "B-Klasse",
@@ -52,7 +46,7 @@ Public Class SpielerRepositoryTests
 
     <Test>
     Public Sub Remove_entfernt_Xml_Knoten_aus_richtigem_Klassement()
-        Dim r = New SpielerRepository(_Doc)
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
         Dim s As New SpielerInfo With {
                 .ID = "MeineId",
                 .Klassement = "B-Klasse",
@@ -80,7 +74,7 @@ Public Class SpielerRepositoryTests
                                              >
                                          </person>
                                      </player>)
-        Dim r = New SpielerRepository(_Doc)
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
 
         ' Act
         r.Sync()
@@ -104,7 +98,7 @@ Public Class SpielerRepositoryTests
     <Test>
     Public Sub Änderung_an_Bezahlt_legt_Xml_property_an()
         ' Arrange
-        Dim r = New SpielerRepository(_Doc)
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
         Dim spieler = New SpielerInfo With {
               .ID = "A12",
               .Fremd = True,
@@ -131,7 +125,7 @@ Public Class SpielerRepositoryTests
     <Test>
     Public Sub Änderung_an_Anwesend_legt_Xml_property_an()
         ' Arrange
-        Dim r = New SpielerRepository(_Doc)
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
         Dim spieler = GetDummySpieler()
         r.Add(spieler)
         ' Act
@@ -145,7 +139,7 @@ Public Class SpielerRepositoryTests
     <Test>
     Public Sub Änderung_an_Abwesend_legt_Xml_property_an()
         ' Arrange
-        Dim r = New SpielerRepository(_Doc)
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
         Dim spieler = GetDummySpieler()
         r.Add(spieler)
         ' Act
@@ -154,5 +148,18 @@ Public Class SpielerRepositoryTests
         ' Assert
         Dim ergebnis = _BKlasse.<players>.<ppc:player>.<person>.First
         Assert.That(ergebnis.@ppc:abwesend, Iz.EqualTo("True"))
+    End Sub
+
+    <Test>
+    Public Sub Wenn_Abwesend_dann_Spieler_ausgeschieden_in_Runde_0()
+        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
+        Dim spieler = GetDummySpieler()
+        r.Add(spieler)
+        ' Act
+        spieler.Abwesend = True
+        ' Assert
+        Dim ergebnis = _BKlasse.<matches>.<ppc:inactivePlayer>.Single
+        Assert.That(ergebnis.@player, Iz.EqualTo("A12"))
+        Assert.That(ergebnis.@group, Iz.EqualTo("0"))
     End Sub
 End Class

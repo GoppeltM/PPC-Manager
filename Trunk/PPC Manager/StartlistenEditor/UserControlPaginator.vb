@@ -1,10 +1,10 @@
 ﻿
 Public Class UserControlPaginator
 
-    Private ReadOnly _Spieler As IEnumerable(Of Spieler)
+    Private ReadOnly _Spieler As IEnumerable(Of SpielerInfo)
     Private ReadOnly _pageSize As Size
 
-    Public Sub New(spieler As IEnumerable(Of Spieler), ByVal pageSize As Size)
+    Public Sub New(spieler As IEnumerable(Of SpielerInfo), ByVal pageSize As Size)
         _Spieler = spieler
         _pageSize = pageSize
     End Sub
@@ -14,7 +14,7 @@ Public Class UserControlPaginator
         If Not elemente.Any Then
             Return New List(Of PageContent)
         End If
-        Dim leerControl = CreateVisual(New List(Of Spieler))
+        Dim leerControl = CreateVisual(New List(Of SpielerInfo))
 
         Dim maxElemente = leerControl.Item2.GetMaxItemCount
         Dim pages = New List(Of PageContent)
@@ -32,7 +32,7 @@ Public Class UserControlPaginator
         Return pages
     End Function
 
-    Private Function CreateVisual(ByVal spielerListe As IEnumerable(Of Spieler)) As Tuple(Of FixedPage, StartlisteSeite)
+    Private Function CreateVisual(ByVal spielerListe As IEnumerable(Of SpielerInfo)) As Tuple(Of FixedPage, StartlisteSeite)
         Dim visual = New StartlisteSeite(spielerListe)
         Dim page As New FixedPage
         page.Width = _pageSize.Width

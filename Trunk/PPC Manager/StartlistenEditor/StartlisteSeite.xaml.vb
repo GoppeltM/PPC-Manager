@@ -1,6 +1,8 @@
-﻿Public Class StartlisteSeite
+﻿Imports System.Collections.ObjectModel
 
-    Public Sub New(spielerListe As IEnumerable(Of Spieler))
+Public Class StartlisteSeite
+
+    Public Sub New(spielerListe As IEnumerable(Of SpielerInfo))
 
         ' Dieser Aufruf ist für den Designer erforderlich.
         InitializeComponent()
@@ -28,14 +30,31 @@
 
 End Class
 
+Public Class SpielerListe
+    Inherits ObservableCollection(Of SpielerInfo)
+
+    Public Sub New()
+
+    End Sub
+
+End Class
+
+Class DesignSpielerListe
+    Inherits SpielerListe
+
+    Sub New()
+        Add(New SpielerInfo)
+    End Sub
+End Class
+
 
 Public Class IndexConverter
     Implements IValueConverter
 
     Public Function Convert(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.Convert
-        If Not TypeOf value Is Spieler Then Return ""
-        Dim spieler = CType(value, Spieler)
-        Dim liste = CType(parameter, IEnumerable(Of Spieler))
+        If Not TypeOf value Is SpielerInfo Then Return ""
+        Dim spieler = CType(value, SpielerInfo)
+        Dim liste = CType(parameter, IEnumerable(Of SpielerInfo))
 
         Return liste.ToList.IndexOf(spieler) + 1
     End Function
@@ -43,12 +62,4 @@ Public Class IndexConverter
     Public Function ConvertBack(ByVal value As Object, ByVal targetType As System.Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements System.Windows.Data.IValueConverter.ConvertBack
         Throw New NotImplementedException
     End Function
-End Class
-
-Class DesignSpielerListe
-    Inherits SpielerListe
-
-    Sub New()
-        Add(New Spieler)
-    End Sub
 End Class

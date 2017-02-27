@@ -77,11 +77,10 @@
     <Compile Include="FremdSpielerDialog.xaml.vb">
       <DependentUpon>FremdSpielerDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IStartlistenController.vb" />
+    <Compile Include="Speicher.vb" />
     <Compile Include="SpielerRepository.vb" />
     <Compile Include="SpielerInfo.vb" />
     <Compile Include="StartlistenController.vb" />
-    <Compile Include="Spieler.vb" />
     <Compile Include="StartlisteSeite.xaml.vb">
       <DependentUpon>StartlisteSeite.xaml</DependentUpon>
     </Compile>
