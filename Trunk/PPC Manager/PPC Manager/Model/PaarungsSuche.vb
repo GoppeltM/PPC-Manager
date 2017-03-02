@@ -1,14 +1,20 @@
 ﻿
+Public Delegate Function HabenGegeneinanderGespielt(Of In T)(a As T, b As T) As Boolean
+
 Public Class PaarungsSuche
 
-    Private Property _rundenName As String
+    Private ReadOnly _rundenName As String
     Private ReadOnly _Gewinnsätze As Integer
+    Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of Spieler)
+
     Public Sub New(rundenName As String, gewinnsätze As Integer)
         _rundenName = rundenName
         _Gewinnsätze = gewinnsätze
     End Sub
 
-    Public Function SuchePaarungen(ByVal spielerListe As List(Of Spieler), ByVal paket As Paket) As PaarungsContainer
+    Public Function SuchePaarungen(ByVal spielerListe As List(Of Spieler),
+                                   ByVal istAltSchwimmer As Predicate(Of Spieler),
+                                   vergleicher As IComparer(Of Spieler)) As PaarungsContainer
         If spielerListe.Count < 2 Then Return Nothing
 
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
@@ -16,16 +22,20 @@ Public Class PaarungsSuche
         'Kopie dieser beiden Vektoren angelegt.
         Dim tempListe As New List(Of Spieler)(spielerListe)
         Dim mitte = tempListe.Count \ 2
-        Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, paket)
+        Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, istAltSchwimmer, vergleicher)
     End Function
 
-    Private Function rekursiveUmtauschung(ByVal anfang As List(Of Spieler), ByVal rest As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
+    Private Function rekursiveUmtauschung(ByVal anfang As List(Of Spieler),
+                                          ByVal rest As List(Of Spieler),
+                                          ByVal mitte As Integer,
+                                          ByVal istAltSchwimmer As Predicate(Of Spieler),
+                                          vergleicher As IComparer(Of Spieler)) As PaarungsContainer
         ' Ist nur noch ein Spieler am Ende da, muss das eine neue Kombination sein
 
         If rest.Count = 1 Then
             Dim kombination = New List(Of Spieler)(anfang)
             kombination.AddRange(rest)
-            Dim isOk As PaarungsContainer = StandardPaarung(kombination, mitte, parent)
+            Dim isOk As PaarungsContainer = StandardPaarung(kombination, mitte, istAltSchwimmer)
             If isOk IsNot Nothing Then
                 Return isOk
             End If
@@ -36,12 +46,12 @@ Public Class PaarungsSuche
                 Dim anfangNeu = New List(Of Spieler)(anfang)
                 Dim tauschSpieler = restNeu(i)
                 Dim NeuerIndex = anfangNeu.Count
-                If NeuerIndex >= mitte Then                    
+                If NeuerIndex >= mitte Then
                     Dim PartnerSpieler = anfangNeu(NeuerIndex - mitte)
                     ' Optimierung 1:
                     '  Wenn ABC <-> DEF, dann prüfe ob D > A. Wenn ja, wurde A gegen D bereits geprüft,
                     ' und alle darauf aufbauenden Kombinationen auch.
-                    If parent.Compare(tauschSpieler, PartnerSpieler) > 0 Then Continue For
+                    If vergleicher.Compare(tauschSpieler, PartnerSpieler) > 0 Then Continue For
                     ' Optimierung 2:
                     ' Wenn ABC <-> DEF, dann prüfe ob D gegen A schonmal gespielt hat.
                     ' Wenn ja, sind eh alle darauf basierenden Kombinationen unmöglich.
@@ -50,7 +60,7 @@ Public Class PaarungsSuche
                 restNeu.Remove(tauschSpieler)
                 anfangNeu.Add(tauschSpieler)
 
-                Dim isOk As PaarungsContainer = rekursiveUmtauschung(anfangNeu, restNeu, mitte, parent)
+                Dim isOk As PaarungsContainer = rekursiveUmtauschung(anfangNeu, restNeu, mitte, istAltSchwimmer, vergleicher)
 
                 If Not isOk Is Nothing Then Return isOk
             Next
@@ -65,12 +75,12 @@ Public Class PaarungsSuche
     '''@param listeRechts - rechte Hälfte der Liste
     '''@return - Paarung erfolgreich
     '''
-    Public Function StandardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal parent As Paket) As PaarungsContainer
+    Public Function StandardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal istAltSchwimmer As Predicate(Of Spieler)) As PaarungsContainer
         ' prüft, ob der potentielle Schwimmer in der rechten Liste eigentlich gar nicht schwimmen kann
 
         If kombination.Count Mod 2 = 1 Then
             Dim potentiellerSchwimmer = kombination.Last
-            If parent.IstAltSchwimmer(potentiellerSchwimmer) Then Return Nothing
+            If istAltSchwimmer(potentiellerSchwimmer) Then Return Nothing
 
         End If
 

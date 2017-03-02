@@ -86,7 +86,7 @@ Public Class Paket
 
     Function SuchePaarungen() As Boolean
         sort()
-        Dim container = New PaarungsSuche(_RundenName, _Gewinnsätze).SuchePaarungen(SpielerListe, Me)
+        Dim container = New PaarungsSuche(_RundenName, _Gewinnsätze).SuchePaarungen(SpielerListe, Function(s) IstAltSchwimmer(s), Me)
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.aktuellerSchwimmer
             Partien.Clear()

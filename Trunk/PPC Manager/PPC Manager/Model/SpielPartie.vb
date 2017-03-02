@@ -73,10 +73,8 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public ReadOnly Property Abgeschlossen() As Boolean
+    Public Overridable ReadOnly Property Abgeschlossen() As Boolean
         Get
-            If TypeOf Me Is FreiLosSpiel Then Return True
-
             Dim AbgeschlosseneSätzeLinks = Aggregate x In Me Where x.GewonnenLinks Into Count()
 
             Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where x.GewonnenRechts Into Count()
