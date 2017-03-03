@@ -7,7 +7,7 @@
                 CreateSpieler(nachname:="Gamma", ttrating:=30),
                 CreateSpieler(nachname:="Delta", ttrating:=20)}
 
-        Dim suche = New PaarungsSuche("Runde 1", 3).StandardPaarung(l, 2, Function(x) False)
+        Dim suche = New PaarungsSuche("Runde 1", 3, Function(a, b) False).StandardPaarung(l, 2, Function(x) False)
         Assert.IsNotNull(suche)
         Assert.IsNull(suche.aktuellerSchwimmer)
         Assert.AreEqual(2, suche.Partien.Count)
@@ -23,7 +23,7 @@
                 CreateSpieler(nachname:="Delta", ttrating:=20),
                 CreateSpieler(nachname:="Epsilon", ttrating:=20)}
 
-        Dim suche = New PaarungsSuche("Runde xyz", 3).StandardPaarung(l, 2, Function(x) False)
+        Dim suche = New PaarungsSuche("Runde xyz", 3, Function(a, b) False).StandardPaarung(l, 2, Function(x) False)
         Assert.IsNotNull(suche)
         Assert.IsNotNull(suche.aktuellerSchwimmer)
         Assert.AreEqual(2, suche.Partien.Count)

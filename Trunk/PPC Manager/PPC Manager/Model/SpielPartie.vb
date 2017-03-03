@@ -14,6 +14,14 @@ Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
     Protected ReadOnly _GewinnSätze As Integer
+    Private ReadOnly Spieler As KeyValuePair(Of Spieler, Spieler)
+    Private ReadOnly _RundenName As String
+    Public ReadOnly Property RundenName As String
+        Get
+            Return _RundenName
+        End Get
+    End Property
+
 
     Public Sub New(rundenName As String, ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, gewinnsätze As Integer)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException
@@ -27,15 +35,8 @@ Public Class SpielPartie
                                          End Sub
     End Sub
 
-    Private ReadOnly _RundenName As String
-    Public ReadOnly Property RundenName As String
-        Get
-            Return _RundenName
-        End Get
-    End Property
 
 
-    Private ReadOnly Spieler As KeyValuePair(Of Spieler, Spieler)
 
     Public ReadOnly Property SpielerLinks As Spieler
         Get

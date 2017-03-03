@@ -7,14 +7,14 @@ Public Class PaarungsSuche
     Private ReadOnly _Gewinnsätze As Integer
     Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of Spieler)
 
-    Public Sub New(rundenName As String, gewinnsätze As Integer)
+    Public Sub New(rundenName As String, gewinnsätze As Integer, habenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of Spieler))
         _rundenName = rundenName
         _Gewinnsätze = gewinnsätze
+        _HabenGegeneinanderGespielt = habenGegeneinanderGespielt
     End Sub
 
     Public Function SuchePaarungen(ByVal spielerListe As List(Of Spieler),
-                                   ByVal istAltSchwimmer As Predicate(Of Spieler),
-                                   vergleicher As IComparer(Of Spieler)) As PaarungsContainer
+                                   ByVal istAltSchwimmer As Predicate(Of Spieler), absteigend As Boolean) As PaarungsContainer
         If spielerListe.Count < 2 Then Return Nothing
 
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
@@ -22,14 +22,14 @@ Public Class PaarungsSuche
         'Kopie dieser beiden Vektoren angelegt.
         Dim tempListe As New List(Of Spieler)(spielerListe)
         Dim mitte = tempListe.Count \ 2
-        Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, istAltSchwimmer, vergleicher)
+        Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, istAltSchwimmer, absteigend)
     End Function
 
     Private Function rekursiveUmtauschung(ByVal anfang As List(Of Spieler),
                                           ByVal rest As List(Of Spieler),
                                           ByVal mitte As Integer,
                                           ByVal istAltSchwimmer As Predicate(Of Spieler),
-                                          vergleicher As IComparer(Of Spieler)) As PaarungsContainer
+                                          absteigend As Boolean) As PaarungsContainer
         ' Ist nur noch ein Spieler am Ende da, muss das eine neue Kombination sein
 
         If rest.Count = 1 Then
@@ -51,16 +51,18 @@ Public Class PaarungsSuche
                     ' Optimierung 1:
                     '  Wenn ABC <-> DEF, dann prüfe ob D > A. Wenn ja, wurde A gegen D bereits geprüft,
                     ' und alle darauf aufbauenden Kombinationen auch.
-                    If vergleicher.Compare(tauschSpieler, PartnerSpieler) > 0 Then Continue For
+                    Dim vergleich = tauschSpieler.CompareTo(PartnerSpieler)
+                    If Not absteigend Then vergleich = vergleich * -1
+                    If vergleich > 0 Then Continue For
                     ' Optimierung 2:
                     ' Wenn ABC <-> DEF, dann prüfe ob D gegen A schonmal gespielt hat.
                     ' Wenn ja, sind eh alle darauf basierenden Kombinationen unmöglich.
-                    If tauschSpieler.HatBereitsGespieltGegen(PartnerSpieler) Then Continue For
+                    If _HabenGegeneinanderGespielt(tauschSpieler, PartnerSpieler) Then Continue For
                 End If
                 restNeu.Remove(tauschSpieler)
                 anfangNeu.Add(tauschSpieler)
 
-                Dim isOk As PaarungsContainer = rekursiveUmtauschung(anfangNeu, restNeu, mitte, istAltSchwimmer, vergleicher)
+                Dim isOk As PaarungsContainer = rekursiveUmtauschung(anfangNeu, restNeu, mitte, istAltSchwimmer, absteigend)
 
                 If Not isOk Is Nothing Then Return isOk
             Next
@@ -92,7 +94,7 @@ Public Class PaarungsSuche
         While listeLinks.Count > 0
             Dim spieler1 = listeLinks.First
             Dim spieler2 = listeRechts.First
-            If spieler1.HatBereitsGespieltGegen(spieler2) Then Return Nothing
+            If _HabenGegeneinanderGespielt(spieler1, spieler2) Then Return Nothing
 
             Dim partie = New SpielPartie(_rundenName, spieler1, spieler2, _Gewinnsätze)
             paarungen.Add(partie)
