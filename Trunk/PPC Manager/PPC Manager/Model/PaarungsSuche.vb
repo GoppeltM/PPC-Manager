@@ -108,8 +108,7 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
         End If
 
         Return New PaarungsContainer(Of T) With
-               {.Partien = paarungen, .SpielerListe = kombination,
-                .aktuellerSchwimmer = aktuellerSchwimmer}
+               {.Partien = paarungen, .Übrig = aktuellerSchwimmer}
     End Function
 
 End Class

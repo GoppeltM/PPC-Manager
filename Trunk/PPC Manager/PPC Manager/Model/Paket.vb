@@ -83,7 +83,7 @@ Public Class Paket
         Dim p = New PaarungsSuche(Of Spieler)(Function(a, b) a.HatBereitsGespieltGegen(b), Function(s) IstAltSchwimmer(s))
         Dim container = p.SuchePaarungen(SpielerListe, Absteigend)
         If container IsNot Nothing Then
-            aktuellerSchwimmer = container.aktuellerSchwimmer
+            aktuellerSchwimmer = container.Übrig
             Partien.Clear()
             Dim spielPartien = From x In container.Partien Select New SpielPartie(RundenName, x.Item1, x.Item2, _Gewinnsätze)
             Partien.AddRange(spielPartien)
