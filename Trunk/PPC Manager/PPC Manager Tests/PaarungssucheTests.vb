@@ -1,49 +1,26 @@
 ﻿Public Class PaarungssucheTests
     <Test>
-    Sub Gerade_StandardPaarung()
-        Dim l = New List(Of Spieler) From
-                {CreateSpieler(nachname:="Alpha", ttrating:=50),
-                CreateSpieler(nachname:="Beta", ttrating:=40),
-                CreateSpieler(nachname:="Gamma", ttrating:=30),
-                CreateSpieler(nachname:="Delta", ttrating:=20)}
+    Sub Gerade_StandardPaarung_hat_keinen_Schwimmer()
+        Dim l = {4, 3, 2, 1}
 
-        Dim suche = New PaarungsSuche("Runde 1", 3, Function(a, b) False).StandardPaarung(l, 2, Function(x) False)
+        Dim suche = New PaarungsSuche(Of Integer)(Function(a, b) False, Function(x) False).SuchePaarungen(l, True)
         Assert.IsNotNull(suche)
-        Assert.IsNull(suche.aktuellerSchwimmer)
+        Assert.That(suche.aktuellerSchwimmer, Iz.EqualTo(0))
         Assert.AreEqual(2, suche.Partien.Count)
-        Assert.AreEqual("Runde 1", suche.Partien.First.RundenName)
+        Assert.That(suche.Partien(0), Iz.EqualTo(Tuple.Create(4, 2)))
+        Assert.That(suche.Partien(1), Iz.EqualTo(Tuple.Create(3, 1)))
     End Sub
 
     <Test>
-    Sub Ungerade_StandardPaarung()
-        Dim l = New List(Of Spieler) From
-                {CreateSpieler(nachname:="Alpha", ttrating:=50),
-                CreateSpieler(nachname:="Beta", ttrating:=40),
-                CreateSpieler(nachname:="Gamma", ttrating:=30),
-                CreateSpieler(nachname:="Delta", ttrating:=20),
-                CreateSpieler(nachname:="Epsilon", ttrating:=20)}
+    Sub Ungerade_StandardPaarung_hat_letzten_Spieler_als_Schwimmer()
+        Dim l = {5, 4, 3, 2, 1}
 
-        Dim suche = New PaarungsSuche("Runde xyz", 3, Function(a, b) False).StandardPaarung(l, 2, Function(x) False)
+        Dim suche = New PaarungsSuche(Of Integer)(Function(a, b) False, Function(x) False).SuchePaarungen(l, True)
         Assert.IsNotNull(suche)
-        Assert.IsNotNull(suche.aktuellerSchwimmer)
+        Assert.That(suche.aktuellerSchwimmer, Iz.EqualTo(1))
         Assert.AreEqual(2, suche.Partien.Count)
-        Assert.AreEqual("Runde xyz", suche.Partien.First.RundenName)
+        Assert.That(suche.Partien(0), Iz.EqualTo(Tuple.Create(5, 3)))
+        Assert.That(suche.Partien(1), Iz.EqualTo(Tuple.Create(4, 2)))
     End Sub
 
-    <SetUp>
-    Sub Init()
-        c = New Competition(New SpielRegeln(3, True, True))
-    End Sub
-
-    Private c As Competition
-
-    Private Function CreateSpieler(Optional nachname As String = "", Optional vorname As String = "",
-                               Optional ttrating As Integer = 0, Optional id As String = "") As Spieler
-        Dim s = New Spieler(c.SpielRunden, c.SpielRegeln)
-        s.Nachname = nachname
-        s.Vorname = vorname
-        s.TTRating = ttrating
-        s.Id = id
-        Return s
-    End Function
 End Class

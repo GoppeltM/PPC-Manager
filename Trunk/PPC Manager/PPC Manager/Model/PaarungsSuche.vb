@@ -1,49 +1,47 @@
 ﻿
 Public Delegate Function HabenGegeneinanderGespielt(Of In T)(a As T, b As T) As Boolean
 
-Public Class PaarungsSuche
+Public Class PaarungsSuche(Of T As IComparable(Of T))
 
-    Private ReadOnly _rundenName As String
-    Private ReadOnly _Gewinnsätze As Integer
-    Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of Spieler)
+    Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T)
+    Private ReadOnly _IstAltSchwimmer As Predicate(Of T)
 
-    Public Sub New(rundenName As String, gewinnsätze As Integer, habenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of Spieler))
-        _rundenName = rundenName
-        _Gewinnsätze = gewinnsätze
+    Public Sub New(habenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T),
+                   ByVal istAltSchwimmer As Predicate(Of T))
+
         _HabenGegeneinanderGespielt = habenGegeneinanderGespielt
+        _IstAltSchwimmer = istAltSchwimmer
     End Sub
 
-    Public Function SuchePaarungen(ByVal spielerListe As List(Of Spieler),
-                                   ByVal istAltSchwimmer As Predicate(Of Spieler), absteigend As Boolean) As PaarungsContainer
+    Public Function SuchePaarungen(ByVal spielerListe As IList(Of T), absteigend As Boolean) As PaarungsContainer(Of T)
         If spielerListe.Count < 2 Then Return Nothing
 
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
         'nachfolgenden Tests NICHT verändert werden! Deshalb wird in jedem Test eine
         'Kopie dieser beiden Vektoren angelegt.
-        Dim tempListe As New List(Of Spieler)(spielerListe)
+        Dim tempListe As New List(Of T)(spielerListe)
         Dim mitte = tempListe.Count \ 2
-        Return rekursiveUmtauschung(New List(Of Spieler), tempListe, mitte, istAltSchwimmer, absteigend)
+        Return rekursiveUmtauschung(New List(Of T), tempListe, mitte, absteigend)
     End Function
 
-    Private Function rekursiveUmtauschung(ByVal anfang As List(Of Spieler),
-                                          ByVal rest As List(Of Spieler),
+    Private Function rekursiveUmtauschung(ByVal anfang As List(Of T),
+                                          ByVal rest As List(Of T),
                                           ByVal mitte As Integer,
-                                          ByVal istAltSchwimmer As Predicate(Of Spieler),
-                                          absteigend As Boolean) As PaarungsContainer
+                                          absteigend As Boolean) As PaarungsContainer(Of T)
         ' Ist nur noch ein Spieler am Ende da, muss das eine neue Kombination sein
 
         If rest.Count = 1 Then
-            Dim kombination = New List(Of Spieler)(anfang)
+            Dim kombination = New List(Of T)(anfang)
             kombination.AddRange(rest)
-            Dim isOk As PaarungsContainer = StandardPaarung(kombination, mitte, istAltSchwimmer)
+            Dim isOk = StandardPaarung(kombination, mitte)
             If isOk IsNot Nothing Then
                 Return isOk
             End If
         Else
             ' bei mehreren wähle immer einen und setze ihn mit an den Anfang
             For i = 0 To rest.Count - 1
-                Dim restNeu = New List(Of Spieler)(rest)
-                Dim anfangNeu = New List(Of Spieler)(anfang)
+                Dim restNeu = New List(Of T)(rest)
+                Dim anfangNeu = New List(Of T)(anfang)
                 Dim tauschSpieler = restNeu(i)
                 Dim NeuerIndex = anfangNeu.Count
                 If NeuerIndex >= mitte Then
@@ -62,7 +60,7 @@ Public Class PaarungsSuche
                 restNeu.Remove(tauschSpieler)
                 anfangNeu.Add(tauschSpieler)
 
-                Dim isOk As PaarungsContainer = rekursiveUmtauschung(anfangNeu, restNeu, mitte, istAltSchwimmer, absteigend)
+                Dim isOk = rekursiveUmtauschung(anfangNeu, restNeu, mitte, absteigend)
 
                 If Not isOk Is Nothing Then Return isOk
             Next
@@ -77,38 +75,39 @@ Public Class PaarungsSuche
     '''@param listeRechts - rechte Hälfte der Liste
     '''@return - Paarung erfolgreich
     '''
-    Public Function StandardPaarung(ByVal kombination As List(Of Spieler), ByVal mitte As Integer, ByVal istAltSchwimmer As Predicate(Of Spieler)) As PaarungsContainer
+    Private Function StandardPaarung(ByVal kombination As List(Of T),
+                                    ByVal mitte As Integer) As PaarungsContainer(Of T)
         ' prüft, ob der potentielle Schwimmer in der rechten Liste eigentlich gar nicht schwimmen kann
 
         If kombination.Count Mod 2 = 1 Then
             Dim potentiellerSchwimmer = kombination.Last
-            If istAltSchwimmer(potentiellerSchwimmer) Then Return Nothing
+            If _IstAltSchwimmer(potentiellerSchwimmer) Then Return Nothing
 
         End If
 
         Dim listeLinks = kombination.GetRange(0, mitte)
         Dim listeRechts = kombination.GetRange(mitte, kombination.Count - mitte)
 
-        Dim paarungen As New List(Of SpielPartie)
+        Dim paarungen As New List(Of Tuple(Of T, T))
 
         While listeLinks.Count > 0
             Dim spieler1 = listeLinks.First
             Dim spieler2 = listeRechts.First
             If _HabenGegeneinanderGespielt(spieler1, spieler2) Then Return Nothing
 
-            Dim partie = New SpielPartie(_rundenName, spieler1, spieler2, _Gewinnsätze)
+            Dim partie = Tuple.Create(spieler1, spieler2)
             paarungen.Add(partie)
             listeLinks.Remove(spieler1)
             listeRechts.Remove(spieler2)
         End While
 
-        Dim aktuellerSchwimmer As Spieler = Nothing
+        Dim aktuellerSchwimmer As T = Nothing
 
         If listeRechts.Count > 0 Then
             aktuellerSchwimmer = listeRechts.First
         End If
 
-        Return New PaarungsContainer With
+        Return New PaarungsContainer(Of T) With
                {.Partien = paarungen, .SpielerListe = kombination,
                 .aktuellerSchwimmer = aktuellerSchwimmer}
     End Function
