@@ -12,6 +12,36 @@
     End Sub
 
     <Test>
+    Sub Wer_bereits_gegeneinander_gespielt_hat_spielt_nicht_erneut()
+        Dim l = {4, 3, 2, 1}
+        Dim habenGespielt = Function(x As Integer, y As Integer) As Boolean
+                                If x = 4 And y = 2 Then Return True
+                                If x = 2 And y = 4 Then Return True
+                                Return False
+                            End Function
+        Dim suche = New PaarungsSuche(Of Integer)(habenGespielt, Function(x) False).SuchePaarungen(l, True)
+        Assert.That(suche.Partien(0), Iz.EqualTo(Tuple.Create(4, 1)))
+        Assert.That(suche.Partien(1), Iz.EqualTo(Tuple.Create(3, 2)))
+    End Sub
+
+    <Test>
+    Sub Keine_Paarung_wenn_alle_möglichen_Schwimmer_Altschwimmer_sind()
+        Dim l = {3, 2, 1}
+        Dim habenGespielt = Function(x As Integer, y As Integer) As Boolean
+                                If x = 3 And y = 2 Then Return True
+                                If x = 2 And y = 3 Then Return True
+                                Return False
+                            End Function
+        Dim altSchwimmer = Function(x As Integer) As Boolean
+                               If x = 3 Then Return True
+                               If x = 2 Then Return True
+                               Return False
+                           End Function
+        Dim suche = New PaarungsSuche(Of Integer)(habenGespielt, altSchwimmer).SuchePaarungen(l, True)
+        Assert.That(suche, Iz.Null)
+    End Sub
+
+    <Test>
     Sub Ungerade_StandardPaarung_hat_letzten_Spieler_als_Schwimmer()
         Dim l = {5, 4, 3, 2, 1}
 

@@ -19,7 +19,7 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
         'nachfolgenden Tests NICHT verändert werden! Deshalb wird in jedem Test eine
         'Kopie dieser beiden Vektoren angelegt.
-        Dim tempListe As New List(Of T)(spielerListe)
+        Dim tempListe = spielerListe.ToList
         Dim mitte = tempListe.Count \ 2
         Return rekursiveUmtauschung(New List(Of T), tempListe, mitte, absteigend)
     End Function
@@ -31,8 +31,7 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
         ' Ist nur noch ein Spieler am Ende da, muss das eine neue Kombination sein
 
         If rest.Count = 1 Then
-            Dim kombination = New List(Of T)(anfang)
-            kombination.AddRange(rest)
+            Dim kombination = anfang.Concat(rest).ToList
             Dim isOk = StandardPaarung(kombination, mitte)
             If isOk IsNot Nothing Then
                 Return isOk
@@ -40,8 +39,8 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
         Else
             ' bei mehreren wähle immer einen und setze ihn mit an den Anfang
             For i = 0 To rest.Count - 1
-                Dim restNeu = New List(Of T)(rest)
-                Dim anfangNeu = New List(Of T)(anfang)
+                Dim restNeu = rest.ToList
+                Dim anfangNeu = anfang.ToList
                 Dim tauschSpieler = restNeu(i)
                 Dim NeuerIndex = anfangNeu.Count
                 If NeuerIndex >= mitte Then
@@ -82,7 +81,6 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
         If kombination.Count Mod 2 = 1 Then
             Dim potentiellerSchwimmer = kombination.Last
             If _IstAltSchwimmer(potentiellerSchwimmer) Then Return Nothing
-
         End If
 
         Dim listeLinks = kombination.GetRange(0, mitte)
