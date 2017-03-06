@@ -1,60 +1,39 @@
-﻿Imports System.Collections.ObjectModel
-Imports System.Collections.Specialized
+﻿Imports System.Collections.Specialized
 Imports System.ComponentModel
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class SpielerRepository
-    Inherits ObservableCollection(Of SpielerInfo)
 
-    Private ReadOnly _Klassements As IEnumerable(Of XElement)
-    Private Syncing As Boolean
+    Private ReadOnly _Speicher As ISpeicher
+    Private ReadOnly _NotifyCollectionChanged As INotifyCollectionChanged
+    Private ReadOnly _Liste As IEnumerable(Of SpielerInfo)
 
-    Public Sub New(klassements As IEnumerable(Of XElement))
-        _Klassements = klassements
+    Private Sub OnSpielerEvent(o As Object, args As PropertyChangedEventArgs)
+        Dim spieler As SpielerInfo = CType(o, SpielerInfo)
+        _Speicher.Speichere(Sub(x) SpielerChanged(x, spieler, args))
     End Sub
 
-    Public Sub Sync()
-        Syncing = True
-        For Each klassement In _Klassements
-
-            Dim neuerSpieler = Function(id As String, fremd As Boolean, person As XElement) As SpielerInfo
-                                   Dim s = New SpielerInfo With {
-                        .ID = id,
-                        .Fremd = fremd,
-                        .Geschlecht = CInt(person.@sex),
-                        .Klassement = klassement.Attribute("age-group").Value,
-                        .LizenzNr = CInt(person.Attribute("licence-nr").Value),
-                        .Nachname = person.@lastname,
-                        .Vorname = person.@firstname,
-                        .TTR = CInt(person.@ttr),
-                        .TTRMatchCount = CInt(person.Attribute("ttr-match-count")),
-                        .Verein = person.Attribute("club-name").Value
-                                    }
-                                   Integer.TryParse(person.@birthyear, s.Geburtsjahr)
-                                   Return s
-                               End Function
-
-            For Each xmlSpieler In klassement.<players>.<player>
-                Dim id = xmlSpieler.@id
-                Dim person = xmlSpieler.<person>.Single
-                Add(neuerSpieler(id, False, person))
-            Next
-            For Each xmlSpieler In klassement.<players>.<ppc:player>
-                Dim id = xmlSpieler.@id
-                Dim person = xmlSpieler.<person>.Single
-                Add(neuerSpieler(id, True, person))
-            Next
+    Public Sub New(speicher As ISpeicher, notifycollectionChanged As INotifyCollectionChanged, list As IEnumerable(Of SpielerInfo))
+        _Speicher = speicher
+        _NotifyCollectionChanged = notifycollectionChanged
+        _Liste = list
+        AddHandler notifycollectionChanged.CollectionChanged, AddressOf OnCollectionChanged
+        For Each el In list
+            AddHandler el.PropertyChanged, AddressOf OnSpielerEvent
         Next
-        Syncing = False
     End Sub
 
-    Protected Overrides Sub ClearItems()
-        Throw New NotSupportedException
+    Public Sub Deregister()
+        RemoveHandler _NotifyCollectionChanged.CollectionChanged, AddressOf OnCollectionChanged
+        For Each s In _Liste
+            RemoveHandler s.PropertyChanged, AddressOf OnSpielerEvent
+        Next
     End Sub
 
-    Private Sub SpielerChanged(o As Object, e As PropertyChangedEventArgs)
-        Dim spieler = DirectCast(o, SpielerInfo)
-        Dim suche = (From klassement In _Klassements
+    Private Shared Sub SpielerChanged(klassements As IEnumerable(Of XElement),
+                                      spieler As SpielerInfo,
+                                      e As PropertyChangedEventArgs)
+        Dim suche = (From klassement In klassements
                      From y In klassement.<players>.<player>.Concat(klassement.<players>.<ppc:player>)
                      Where y.@id = spieler.ID
                      Select y.<person>, klassement).First
@@ -81,47 +60,59 @@ Public Class SpielerRepository
         End Select
     End Sub
 
+    Private Sub FügeKnotenHinzu(neue As IEnumerable(Of SpielerInfo), klassements As IEnumerable(Of XElement))
+        For Each el In neue
+            If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler hinzufügbar")
 
-    Protected Overrides Sub OnCollectionChanged(e As NotifyCollectionChangedEventArgs)
+            Dim klassementNode = (From x In klassements
+                                  Where x.Attribute("age-group").Value = el.Klassement).<players>.Single
+            Dim person = <person
+                             licence-nr=<%= el.LizenzNr %>
+                             club-name=<%= el.Verein %>
+                             sex=<%= el.Geschlecht %>
+                             ttr-match-count=<%= el.TTRMatchCount %>
+                             lastname=<%= el.Nachname %>
+                             ttr=<%= el.TTR %>
+                             firstname=<%= el.Vorname %>
+                             birthyear=<%= el.Geburtsjahr %>>
+                         </person>
+
+            klassementNode.Add(<ppc:player id=<%= el.ID %>>
+                                   <%= person %>
+                               </ppc:player>)
+        Next
+    End Sub
+
+    Private Sub OnCollectionChanged(sender As Object, e As NotifyCollectionChangedEventArgs)
         Dim neue = If(e.NewItems, New List(Of SpielerInfo)).OfType(Of SpielerInfo)
         Dim alte = If(e.OldItems, New List(Of SpielerInfo)).OfType(Of SpielerInfo)
+        Dim evt = Sub(o As Object, args As PropertyChangedEventArgs)
+                      Dim spieler As SpielerInfo = CType(o, SpielerInfo)
+                      _Speicher.Speichere(Sub(x) SpielerChanged(x, spieler, args))
+                  End Sub
         For Each el In neue
-            AddHandler el.PropertyChanged, AddressOf SpielerChanged
+            AddHandler el.PropertyChanged, evt
         Next
-        If Syncing Then Return
+
+        For Each el In alte
+            RemoveHandler el.PropertyChanged, evt
+        Next
+
         Select Case e.Action
             Case NotifyCollectionChangedAction.Add
-                For Each el In neue
-                    If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler hinzufügbar")
-
-                    Dim klassementNode = (From x In _Klassements
-                                          Where x.Attribute("age-group").Value = el.Klassement).<players>.Single
-                    Dim person = <person
-                                     licence-nr=<%= el.LizenzNr %>
-                                     club-name=<%= el.Verein %>
-                                     sex=<%= el.Geschlecht %>
-                                     ttr-match-count=<%= el.TTRMatchCount %>
-                                     lastname=<%= el.Nachname %>
-                                     ttr=<%= el.TTR %>
-                                     firstname=<%= el.Vorname %>
-                                     birthyear=<%= el.Geburtsjahr %>>
-                                 </person>
-
-                    klassementNode.Add(<ppc:player id=<%= el.ID %>>
-                                           <%= person %>
-                                       </ppc:player>)
-                Next
+                _Speicher.Speichere(Sub(klassements) FügeKnotenHinzu(neue, klassements))
             Case NotifyCollectionChangedAction.Remove
-                For Each el In alte
-                    If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler löschbar")
-                    Dim zuLöschen = (From x In _Klassements.<players>.<ppc:player>
-                                     Where x.@id = el.ID).Single
-                    zuLöschen.Remove()
-                Next
+                _Speicher.Speichere(Sub(klassements)
+                                        For Each el In alte
+                                            If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler löschbar")
+                                            Dim zuLöschen = (From x In klassements.<players>.<ppc:player>
+                                                             Where x.@id = el.ID).Single
+                                            zuLöschen.Remove()
+                                        Next
+                                    End Sub)
             Case Else
                 Throw New InvalidOperationException("Nicht unterstützt von dieser Collection")
         End Select
-        MyBase.OnCollectionChanged(e)
     End Sub
 
 

@@ -38,7 +38,7 @@ Public Class Paket
 
     Property Absteigend As Boolean = True
 
-    Property Partien As New List(Of SpielPartie)
+    Property Partien As New List(Of Tuple(Of Spieler, Spieler))
 
     Property SpielerListe As New List(Of Spieler)
 
@@ -85,8 +85,7 @@ Public Class Paket
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.Übrig
             Partien.Clear()
-            Dim spielPartien = From x In container.Partien Select New SpielPartie(RundenName, x.Item1, x.Item2, _Gewinnsätze)
-            Partien.AddRange(spielPartien)
+            Partien.AddRange(container.Partien)
             Return True
         End If
         Return False

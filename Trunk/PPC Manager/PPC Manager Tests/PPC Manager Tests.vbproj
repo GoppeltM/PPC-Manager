@@ -105,6 +105,7 @@
     <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="SatzTests.vb" />
     <Compile Include="SchiedsrichterZettelTests.vb" />
+    <Compile Include="StartlistenEditor\SpeicherTests.vb" />
     <Compile Include="StartlistenEditor\SpielerRepositoryTests.vb" />
     <Compile Include="SpielerTests.vb" />
     <Compile Include="SpielKlassenKonverterTests.vb" />
@@ -112,6 +113,7 @@
     <Compile Include="SpielRundenTests.vb" />
     <Compile Include="StartlistenEditor\StartlisteSpielerTests.vb" />
     <Compile Include="StartlistenEditor\StartListeTests.vb" />
+    <Compile Include="StartlistenEditor\UITests.vb" />
     <Compile Include="Testturnier.vb" />
     <Compile Include="KonverterTests.vb" />
     <Compile Include="CompetitionTests_FromXML.vb" />

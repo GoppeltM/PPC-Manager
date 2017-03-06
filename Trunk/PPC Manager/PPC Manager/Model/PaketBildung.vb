@@ -39,7 +39,7 @@
         If pakete.Count = 1 Then
             Dim paket = pakete.First
             paket.SuchePaarungen()
-            paarungen.AddRange(From x In paket.Partien)
+            paarungen.AddRange(From x In paket.Partien Select New SpielPartie(_Rundenname, x.Item1, x.Item2, _Gewinnsätze))
             AddFreilos()
             Return paarungen
         End If
@@ -75,7 +75,8 @@
         doMittelPaket(oberePakete, unterePakete, mittelPaket)
 
         For Each Paket In pakete
-            paarungen.AddRange(Paket.Partien)
+            Dim spielPartien = From x In Paket.Partien Select New SpielPartie(_Rundenname, x.Item1, x.Item2, _Gewinnsätze)
+            paarungen.AddRange(spielPartien)
         Next
         AddFreilos()
         Return paarungen

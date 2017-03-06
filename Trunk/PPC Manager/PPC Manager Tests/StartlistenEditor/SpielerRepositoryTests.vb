@@ -1,35 +1,46 @@
-﻿Imports StartlistenEditor
+﻿Imports System.Collections.Specialized
+Imports Moq
+Imports StartlistenEditor
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class SpielerRepositoryTests
 
     <SetUp>
     Public Sub DummyDokument()
+        Dim speicher = New Mock(Of ISpeicher)
+        speicher.SetupGet(Function(m) m.KlassementNamen).Returns({"A-Klasse", "B-Klasse"})
+        _Observable = New Mock(Of INotifyCollectionChanged)
+        _Repository = New SpielerRepository(speicher.Object, _Observable.Object, New List(Of SpielerInfo))
         _BKlasse = <competition age-group="B-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
                        <players></players>
                    </competition>
-
+        speicher.Setup(Sub(m) m.Speichere(It.IsAny(Of Veränderung))).Callback(Of Veränderung)(Sub(m) m({_BKlasse}))
     End Sub
 
     Private Property _BKlasse As XElement
+    Private Property _Repository As SpielerRepository
+    Private Property _Observable As Mock(Of INotifyCollectionChanged)
 
     <Test>
     Public Sub Add_fügt_Xml_Knoten_im_richtigen_Klassement_ein()
 
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
-        r.Add(New SpielerInfo With {
-                .ID = "MeineID",
-                .Klassement = "B-Klasse",
-                .LizenzNr = -41,
-                .Verein = "TS Durlach",
-                .Geschlecht = 1,
-                .TTRMatchCount = 123,
-                .TTR = 45,
-                .Nachname = "Mustermann",
-                .Vorname = "Dr. Max",
-                .Geburtsjahr = 1987,
-                .Fremd = True
-              })
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add,
+                 New SpielerInfo With {
+                    .ID = "MeineID",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse",
+                    .LizenzNr = -41,
+                    .Geburtsjahr = 1987,
+                    .Geschlecht = 1,
+                    .Vorname = "Dr. Max",
+                    .Nachname = "Mustermann",
+                    .TTR = 45,
+                    .TTRMatchCount = 123,
+                    .Verein = "TS Durlach"
+                 }))
         Dim xmlSpieler = _BKlasse.<players>.<ppc:player>.First()
         Assert.That(xmlSpieler.<person>.Count(), Iz.EqualTo(1))
         Assert.That(xmlSpieler.Attribute("id").Value, Iz.EqualTo("MeineID"))
@@ -46,65 +57,37 @@ Public Class SpielerRepositoryTests
 
     <Test>
     Public Sub Remove_entfernt_Xml_Knoten_aus_richtigem_Klassement()
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
-        Dim s As New SpielerInfo With {
-                .ID = "MeineId",
-                .Klassement = "B-Klasse",
-                .Fremd = True
-            }
-        r.Add(s)
-        r.Remove(s)
-
+        Dim spieler = New SpielerInfo With {
+                    .ID = "MeineID",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse"
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add,
+                 spieler))
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Remove,
+                 spieler
+))
         Assert.That(_BKlasse.<players>.Elements().Count, Iz.EqualTo(0))
-    End Sub
-
-    <Test>
-    Public Sub Sync_legt_Spieler_für_XML_Daten_an()
-        ' Arrange
-        _BKlasse.<players>.First.Add(<player id="ID123">
-                                         <person
-                                             licence-nr="45"
-                                             club-name="TS Durlach"
-                                             sex="0"
-                                             ttr-match-count="55"
-                                             ttr="12"
-                                             firstname="Max"
-                                             lastname="Mustermann"
-                                             birthyear="1981"
-                                             >
-                                         </person>
-                                     </player>)
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
-
-        ' Act
-        r.Sync()
-
-        ' Assert
-        Assert.That(r.Count, [Is].EqualTo(1))
-        Dim p = r.First()
-        Assert.That(p.Fremd, Iz.EqualTo(False))
-        Assert.That(p.Geburtsjahr, Iz.EqualTo(1981))
-        Assert.That(p.Geschlecht, Iz.EqualTo(0))
-        Assert.That(p.ID, Iz.EqualTo("ID123"))
-        Assert.That(p.Klassement, Iz.EqualTo("B-Klasse"))
-        Assert.That(p.LizenzNr, Iz.EqualTo(45))
-        Assert.That(p.Nachname, Iz.EqualTo("Mustermann"))
-        Assert.That(p.TTR, Iz.EqualTo(12))
-        Assert.That(p.TTRMatchCount, Iz.EqualTo(55))
-        Assert.That(p.Verein, Iz.EqualTo("TS Durlach"))
-        Assert.That(p.Vorname, Iz.EqualTo("Max"))
     End Sub
 
     <Test>
     Public Sub Änderung_an_Bezahlt_legt_Xml_property_an()
         ' Arrange
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
         Dim spieler = New SpielerInfo With {
-              .ID = "A12",
-              .Fremd = True,
-              .Klassement = "B-Klasse"
-              }
-        r.Add(spieler)
+                    .ID = "A12",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse"
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add, spieler))
         ' Act
         spieler.Bezahlt = True
 
@@ -113,21 +96,18 @@ Public Class SpielerRepositoryTests
         Assert.That(ergebnis.@ppc:bezahlt, Iz.EqualTo("True"))
     End Sub
 
-    Private Function GetDummySpieler() As SpielerInfo
-        Dim spieler = New SpielerInfo With {
-              .ID = "A12",
-              .Fremd = True,
-              .Klassement = "B-Klasse"
-              }
-        Return spieler
-    End Function
-
     <Test>
     Public Sub Änderung_an_Anwesend_legt_Xml_property_an()
         ' Arrange
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
-        Dim spieler = GetDummySpieler()
-        r.Add(spieler)
+        Dim spieler = New SpielerInfo With {
+                    .ID = "A12",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse"
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add, spieler))
         ' Act
         spieler.Anwesend = True
 
@@ -139,9 +119,15 @@ Public Class SpielerRepositoryTests
     <Test>
     Public Sub Änderung_an_Abwesend_legt_Xml_property_an()
         ' Arrange
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
-        Dim spieler = GetDummySpieler()
-        r.Add(spieler)
+        Dim spieler = New SpielerInfo With {
+                    .ID = "A12",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse"
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add, spieler))
         ' Act
         spieler.Abwesend = True
 
@@ -152,14 +138,45 @@ Public Class SpielerRepositoryTests
 
     <Test>
     Public Sub Wenn_Abwesend_dann_Spieler_ausgeschieden_in_Runde_0()
-        Dim r = New SpielerRepository(New List(Of XElement) From {_BKlasse})
-        Dim spieler = GetDummySpieler()
-        r.Add(spieler)
+        ' Arrange
+        Dim spieler = New SpielerInfo With {
+                    .ID = "A12",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse"
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add, spieler))
         ' Act
         spieler.Abwesend = True
         ' Assert
         Dim ergebnis = _BKlasse.<matches>.<ppc:inactivePlayer>.Single
         Assert.That(ergebnis.@player, Iz.EqualTo("A12"))
         Assert.That(ergebnis.@group, Iz.EqualTo("0"))
+    End Sub
+
+    <Test>
+    Sub Stammspieler_werden_aktualisiert()
+        Dim speicher = New Mock(Of ISpeicher)
+        speicher.SetupGet(Function(m) m.KlassementNamen).Returns({"A-Klasse", "B-Klasse"})
+        Dim spieler = New SpielerInfo With {
+            .Klassement = "B-Klasse",
+            .ID = "123",
+            .LizenzNr = 123}
+
+        Dim repository = New SpielerRepository(speicher.Object, _Observable.Object,
+                                               New List(Of SpielerInfo) From {spieler})
+        _BKlasse = <competition age-group="B-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
+                       <players>
+                           <player id="123">
+                               <person></person>
+                           </player>
+                       </players>
+                   </competition>
+        speicher.Setup(Sub(m) m.Speichere(It.IsAny(Of Veränderung))).Callback(Of Veränderung)(Sub(m) m({_BKlasse}))
+        spieler.Abwesend = True
+        Dim result = _BKlasse.<players>.<player>.<person>.@ppc:abwesend
+        Assert.That(result, [Is].EqualTo("True"))
     End Sub
 End Class
