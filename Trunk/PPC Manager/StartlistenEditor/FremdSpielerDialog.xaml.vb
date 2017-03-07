@@ -28,7 +28,7 @@
         _Spieler.Verein = Verein.Text
         _Spieler.TTR = CInt(TTR.Text)
         _Spieler.TTRMatchCount = CInt(TTRMatchCount.Text)
-        _Spieler.Geschlecht = CInt(Geschlecht.IsChecked)
+        _Spieler.Geschlecht = If(Geschlecht.IsChecked, 1, 0)
         _Spieler.Geburtsjahr = CInt(Geburtsjahr.Text)
         _Spieler.Klassement = Klassements.SelectedValue.ToString
 

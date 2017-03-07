@@ -1,5 +1,10 @@
 ﻿Imports System.Windows.Controls.Primitives
 
+Public Class MainWindowContext
+    Public Property Spielerliste As ICollection(Of SpielerInfo)
+    Public Property KlassementListe As IEnumerable(Of KlassementName)
+End Class
+
 Class MainWindow
 
     Private ReadOnly _KlassementListe As IEnumerable(Of String)
@@ -11,9 +16,12 @@ Class MainWindow
         _SpielerListe = spielerListe
         _KlassementListe = klassementListe
         _SpeichernAction = speichernAction
-        Resources("SpielerListe") = spielerListe
         Dim klassements = (From x In klassementListe Select New KlassementName With {.Name = x}).ToList
-        Resources("KlassementListe") = klassements
+        DataContext = New MainWindowContext With {
+            .KlassementListe = klassements,
+            .Spielerliste = spielerListe
+        }
+
         InitializeComponent()
     End Sub
 

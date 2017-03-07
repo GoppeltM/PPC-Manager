@@ -1,15 +1,16 @@
 ﻿<Window x:Class="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StartlistenEditor"
-    Title="MainWindow" Height="366" Width="751" Icon="Icon.ico">
+    Title="MainWindow" Height="366" Width="751" Icon="Icon.ico"        
+    d:DataContext="{d:DesignInstance {x:Type local:MainWindowContext}}">
     <Window.Resources>
         <local:StringIsEmptyConverter x:Key="StringIsEmptyConverter"/>
-        <!--<local:SpielerListe x:Key="SpielerListe"/>-->
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
-        <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Source={StaticResource SpielerListe}}" />
-        <!--<local:KlassementListe x:Key="KlassementListe"/>-->
+        <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Spielerliste}" />
     </Window.Resources>
     <Grid>
         <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">
@@ -69,7 +70,7 @@
                 <Separator/>
             </ToolBar>
             <ToolBar x:Name="KlassementFilter" Band="1" BandIndex="2">
-                <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding Mode=OneWay, Source={StaticResource KlassementListe}}">
+                <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding KlassementListe}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
