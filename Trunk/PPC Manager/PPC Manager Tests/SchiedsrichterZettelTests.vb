@@ -33,6 +33,6 @@ Public Class SchiedsrichterZettelTests
 
     <Test, STAThread>
     Public Sub Aktuelles_Datum_ist_wohlgeformt()
-        Assert.That(_Zettel.AktuellesDatum.Text, Iz.StringMatching("\d\d\.\d\d\.\d\d"))
+        Assert.That(_Zettel.AktuellesDatum.Text, Does.Match("\d\d\.\d\d\.\d\d"))
     End Sub
 End Class

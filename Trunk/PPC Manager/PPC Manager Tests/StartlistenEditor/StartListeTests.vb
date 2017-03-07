@@ -2,7 +2,7 @@
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports Moq
 
-<RequiresSTA>
+<Apartment(Threading.ApartmentState.STA)>
 Public Class StartListeTests
 
     <Explicit, Test>

@@ -1,6 +1,6 @@
 ﻿Imports StartlistenEditor
 
-<RequiresSTA>
+<Apartment(Threading.ApartmentState.STA)>
 Public Class FremdSpielerDialogTests
 
 

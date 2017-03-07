@@ -15,7 +15,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
 
-    <Test, Explicit, RequiresSTA>
+    <Test, Explicit, Apartment(Threading.ApartmentState.STA)>
     Sub MainWindowUIDummy()
         Dim controller = New Moq.Mock(Of IController)
         controller.Setup(Function(m) m.AktiveCompetition).Returns(_reference)

@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
 Imports StartlistenEditor
 
-<RequiresSTA, Explicit>
+<Apartment(System.Threading.ApartmentState.STA), Explicit>
 Public Class UITests
     <Test>
     Sub View_Controller_mit_Dummy_Daten()

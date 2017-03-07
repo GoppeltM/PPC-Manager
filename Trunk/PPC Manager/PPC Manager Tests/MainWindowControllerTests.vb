@@ -43,7 +43,7 @@ Imports System.Windows
 
     End Sub
 
-    <Test, Explicit, RequiresSTA>
+    <Test, Explicit, Apartment(System.Threading.ApartmentState.STA)>
     Public Sub UIDummy_RundenEndeDrucken_2Seiten()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         For Each Spieler In doc.Root...<person>
@@ -58,7 +58,7 @@ Imports System.Windows
         window.Close()
     End Sub
 
-    <Test, RequiresSTA>
+    <Test, Apartment(System.Threading.ApartmentState.STA)>
     Public Sub RundenendeDrucken_DKlasse_2Seiten()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         For Each Spieler In doc.Root...<person>
