@@ -256,25 +256,6 @@ Public Class Spieler
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    Public Shared Function FromXML(ByVal spielerNode As XElement, spielRunden As SpielRunden, spielRegeln As SpielRegeln) As Spieler
-        Dim spieler As New Spieler(spielRunden, spielRegeln)
-        With spieler
-            .Id = spielerNode.@id
-            Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")
-            .Fremd = ppc IsNot Nothing AndAlso ppc.NamespaceName = "http://www.ttc-langensteinbach.de/"
-            spielerNode = spielerNode.<person>.First
-            .Vorname = spielerNode.@firstname
-            .Nachname = spielerNode.@lastname
-            .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
-            .Geschlecht = CInt(spielerNode.@sex)
-            .Geburtsjahr = CInt(spielerNode.@birthyear)
-            .Vereinsname = spielerNode.Attribute("club-name").Value
-            .TTRating = CInt(spielerNode.@ttr)
-            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
-        End With
-        Return spieler
-    End Function
-
     Function HatBereitsGespieltGegen(ByVal zuprüfenderSpieler As Spieler) As Boolean
         Dim meineGegner = From x In GespieltePartien Select x.MeinGegner(Me)
 

@@ -13,7 +13,7 @@ Imports System.Xml.Schema
         JungenU18 = (From x In XDocument.Parse(My.Resources.Testturnier).Root.<competition>
                            Where x.Attribute("age-group").Value = "Jungen U 18").First
         Dim regeln = New SpielRegeln(3, True, True)
-        AktuelleCompetition = Competition.FromXML("D:\dummy.xml", JungenU18, regeln)
+        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", JungenU18, regeln)
         AktuelleCompetition.SpielRunden.Clear()
 
         AktiveListe = AktuelleCompetition.SpielerListe.ToList
@@ -115,7 +115,7 @@ Imports System.Xml.Schema
         Dim AktuellePaarungen = New PaketBildung(rundenName, 3).organisierePakete(AktiveListe.ToList, rundenNummer)
 
         Dim XMLPartien = From x In JungenU18.<matches>.Elements Where x.@group = rundenName
-        Dim ErwarteteErgebnisse = From x In SpielRunde.FromXML(AktiveListe, XMLPartien, AktuelleCompetition.SpielRegeln.Gewinnsätze) Order By x.GetType.Name Descending
+        Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(AktiveListe, XMLPartien, AktuelleCompetition.SpielRegeln.Gewinnsätze) Order By x.GetType.Name Descending
 
         Assert.AreEqual(AktuellePaarungen.Count, ErwarteteErgebnisse.Count)
 

@@ -6,7 +6,7 @@ Public Class PPC15_Turnier_Klasse_D
         Dim KlassementD = (From x In XDocument.Parse(My.Resources.PPC_15_Anmeldungen).Root.<competition>
                            Where x.Attribute("age-group").Value = "D-Klasse").First
         Dim regeln = New SpielRegeln(3, True, False)
-        AktuelleCompetition = Competition.FromXML("D:\dummy.xml", KlassementD, regeln)
+        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln)
     End Sub
 
     Dim AktuelleCompetition As Competition

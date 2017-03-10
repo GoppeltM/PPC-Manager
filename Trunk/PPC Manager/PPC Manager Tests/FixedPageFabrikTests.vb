@@ -5,7 +5,7 @@ Imports System.Windows.Media
 Imports System.Windows.Shapes
 Imports Moq
 
-<TestFixture>
+<TestFixture, Apartment(System.Threading.ApartmentState.STA)>
 Public Class FixedPageFabrikTests
 
     <SetUp>
@@ -23,7 +23,7 @@ Public Class FixedPageFabrikTests
 
     Private _SeitenEinstellungen As ISeiteneinstellung
 
-    <Test, STAThread>
+    <Test>
     Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
         Dim spielerListe As New List(Of Spieler)
         Dim f As New FixedPageFabrik
@@ -31,7 +31,7 @@ Public Class FixedPageFabrikTests
         Assert.That(seiten.Count, [Is].EqualTo(1))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub ErzeugeRanglisteSeiten_mit_200_spielern_ergibt_mehrere_Seiten()
         Dim spielerListe As New List(Of Spieler)
         For Each nummer In Enumerable.Range(1, 200)
@@ -43,7 +43,7 @@ Public Class FixedPageFabrikTests
         Assert.That(seiten.Count, [Is].GreaterThan(1))
     End Sub
 
-    <Test, STAThread, Explicit>
+    <Test, Explicit>
     Public Sub UIDummy_ErzeugeRanglisteSeiten_mit_200_Spielern()
         Dim spielerListe As New List(Of Spieler)
         For Each nummer In Enumerable.Range(1, 200)
@@ -63,7 +63,7 @@ Public Class FixedPageFabrikTests
         w.ShowDialog()
     End Sub
 
-    <Test, STAThread, Explicit>
+    <Test, Explicit>
     Public Sub Ellipsen_Druck_Test()
 
         Dim document As New FixedDocument
@@ -83,11 +83,11 @@ Public Class FixedPageFabrikTests
 
     End Sub
 
-    <Test, STAThread, Explicit>
+    <Test, Explicit>
     Public Sub UIDummy_Reales_Layout()
         Dim doc = XDocument.Load("D:\Turnierteilnehmer_PPC_20150913.xml")
         Dim spieler = doc.Root.<competition>.First.<players>
-        Dim l = SpielerListe.FromXML(spieler, New SpielRunden, New SpielRegeln(3, True, True))
+        Dim l = AusXML.SpielerListeFromXML(spieler, New SpielRunden, New SpielRegeln(3, True, True))
 
         Dim f As New FixedPageFabrik
         Dim seiten = f.ErzeugeRanglisteSeiten(l, _SeitenEinstellungen, "Altersgruppe", 24)
@@ -95,7 +95,7 @@ Public Class FixedPageFabrikTests
         vorschau.ShowDialog()
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub ErzeugeSchiedsrichterzettel_leer_enthält_keine_Seite()
         Dim f As New FixedPageFabrik
         Dim spielPartien = New List(Of SpielPartie)
@@ -103,7 +103,7 @@ Public Class FixedPageFabrikTests
         Assert.That(seiten.Count, [Is].EqualTo(0))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub ErzeugeSchiedsrichterzettel_mit_200_Partien_600_mal_1000_enthält_34_Seiten()
         Dim f As New FixedPageFabrik
         Dim spielPartien = New List(Of SpielPartie)
@@ -116,14 +116,14 @@ Public Class FixedPageFabrikTests
         Assert.That(seiten.Count, [Is].EqualTo(34))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub ErzeugeSpielergebnisse_keine_Partien_ergibt_0_Seiten()
         Dim f As New FixedPageFabrik
         Dim seiten = f.ErzeugeSpielErgebnisse(New List(Of SpielPartie), New Size(300, 500), "AltersGruppe", 3)
         Assert.That(seiten.Count, [Is].EqualTo(0))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub ErzeugeNeuePaarungen_keine_Partien_ergibt_0_Seiten()
         Dim f As New FixedPageFabrik
         Dim seiten = f.ErzeugeNeuePaarungen(New List(Of SpielPartie), New Size(300, 500), "AltersGruppe", 3)

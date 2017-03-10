@@ -11,7 +11,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         For Each Spieler In xml...<person>
             Spieler.@ppc:anwesend = "true"
         Next
-        _reference = Competition.FromXML("D:\dummy.xml", xml, _regeln)
+        _reference = AusXML.CompetitionFromXML("D:\dummy.xml", xml, _regeln)
     End Sub
 
 
@@ -93,7 +93,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
                    Where x.Attribute("age-group").Value = "A-Klasse"
                    Select x).Single
         Try
-            Dim c = Competition.FromXML("D:\temp.xml", node, New SpielRegeln(3, True, True))
+            Dim c = AusXML.CompetitionFromXML("D:\temp.xml", node, New SpielRegeln(3, True, True))
             Assert.Fail()
         Catch ex As SpielDatenUnvollständigException
 

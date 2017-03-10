@@ -52,15 +52,7 @@ Public Class Satz
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(name))
     End Sub
 
-
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
-
-    Function ToXML() As XElement
-        Dim node = <Satz PunkteLinks=<%= PunkteLinks %> PunkteRechts=<%= PunkteRechts %>>
-
-                   </Satz>
-        Return node
-    End Function
 
     Public Overrides Function ToString() As String
         Return String.Format("{0}:{1}", PunkteLinks, PunkteRechts)

@@ -102,6 +102,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AusXMLTests.vb" />
     <Compile Include="DruckvorschauTests.vb" />
     <Compile Include="FixedPageFabrikTests.vb" />
     <Compile Include="FremdSpielerDialogTests.vb" />

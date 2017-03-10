@@ -30,10 +30,7 @@ Public Class FreiLosSpiel
         End Get
     End Property
 
-    Overloads Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement, gewinnsätze As Integer) As FreiLosSpiel
-        Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First
-        Return New FreiLosSpiel(xFreilosSpiel.@group, spieler, gewinnsätze)
-    End Function
+
 
     Public Overrides Function ToString() As String
         Return "Freilos für " & Me.SpielerLinks.Nachname

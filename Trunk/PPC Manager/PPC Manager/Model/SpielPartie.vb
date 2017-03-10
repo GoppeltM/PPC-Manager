@@ -35,9 +35,6 @@ Public Class SpielPartie
                                          End Sub
     End Sub
 
-
-
-
     Public ReadOnly Property SpielerLinks As Spieler
         Get
             Return Spieler.Key
@@ -152,26 +149,6 @@ Public Class SpielPartie
         Return node
     End Function
 
-
-    Shared Function FromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
-        Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
-        Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
-
-        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB, gewinnsätze)
-
-        Dim SätzeA = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-a") Order By x.Name.LocalName Ascending
-
-        Dim SätzeB = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-b") Order By x.Name.LocalName Ascending
-
-        For Each Satz In SätzeA.Zip(SätzeB, Function(x, y) New Satz With {.PunkteLinks = CInt(x.Value), .PunkteRechts = CInt(y.Value)}) _
-            .Where(Function(s) s.PunkteLinks <> 0 Or s.PunkteRechts <> 0)
-            partie.Add(Satz)
-        Next
-
-        partie.ZeitStempel = Date.Parse(xSpielPartie.@scheduled)
-
-        Return partie
-    End Function
 
     Public Overrides Function Equals(obj As Object) As Boolean
         Dim other = TryCast(obj, SpielPartie)

@@ -1,4 +1,4 @@
-﻿<TestFixture>
+﻿<TestFixture, Apartment(Threading.ApartmentState.STA)>
 Public Class SchiedsrichterZettelTests
 
     <SetUp>
@@ -11,27 +11,27 @@ Public Class SchiedsrichterZettelTests
 
     Private _Zettel As SchiedsrichterZettel
 
-    <Test, STAThread>
+    <Test>
     Public Sub KlassementName_ist_wie_Konstruktor()
         Assert.That(_Zettel.KlassementName.Text, Iz.EqualTo("MeinKlassementName"))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub Seitennummer_ist_eins_höher_als_gesetzte_Seitenzahl()
         Assert.That(_Zettel.Seitennummer.Text, Iz.EqualTo("Seite 3"))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub RundenNummer_ist_identisch_zu_Konstruktor()
         Assert.That(_Zettel.RundenNummer.Text, [Is].EqualTo("Runde Nr. 5"))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub ListView_enthält_ein_Element()
         Assert.That(_Zettel.ItemsContainer.Items.Count, [Is].EqualTo(1))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub Aktuelles_Datum_ist_wohlgeformt()
         Assert.That(_Zettel.AktuellesDatum.Text, Does.Match("\d\d\.\d\d\.\d\d"))
     End Sub

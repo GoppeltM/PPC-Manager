@@ -21,40 +21,7 @@ Public Class Competition
     End Sub
 
 
-    Public Shared Function FromXML(dateipfad As String, node As XElement, spielRegeln As SpielRegeln) As Competition
-        Dim TryBool = Function(x As String) As Boolean
-                          Dim val As Boolean = False
-                          Boolean.TryParse(x, val)
-                          Return val
-                      End Function
 
-        Dim UnbekannterZustand = From x In node...<person> Where Not TryBool(x.@ppc:anwesend) AndAlso Not TryBool(x.@ppc:abwesend)
-
-        If UnbekannterZustand.Any Then
-            Throw New SpielDatenUnvollständigException(UnbekannterZustand.Count)
-        End If
-
-        Dim c = New Competition(spielRegeln) With
-               {
-                   .DateiPfad = dateipfad,
-                   .StartDatum = node.Attribute("start-date").Value,
-                   .Altersgruppe = node.Attribute("age-group").Value
-                }
-        c.SpielerListe = SpielerListe.FromXML(node.<players>, c.SpielRunden, spielRegeln)
-        Dim ParsedSpielrunden = SpielRunden.FromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
-        For Each runde In ParsedSpielrunden.Reverse
-            c.SpielRunden.Push(runde)
-        Next
-        c.SpielRunden.AusgeschiedeneSpieler = ParsedSpielrunden.AusgeschiedeneSpieler
-        Return c
-    End Function
-
-    Public Shared Function FromXML(dateiPfad As String, doc As XDocument, gruppe As String, spielRegeln As SpielRegeln) As Competition        
-        Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
-        ' Syntax Checks
-
-        Return FromXML(dateiPfad, competitionXML, spielRegeln)
-    End Function
 
 
     Public Sub SaveXML()

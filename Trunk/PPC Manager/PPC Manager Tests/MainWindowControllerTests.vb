@@ -16,8 +16,8 @@ Imports System.Windows
             Spieler.@ppc:anwesend = "true"
         Next
 
-        Dim c = Competition.FromXML("D:\temp.xml", doc, "A-Klasse", New SpielRegeln(3, True, True))
-        Dim cD = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "A-Klasse", New SpielRegeln(3, True, True))
+        Dim cD = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
 
         Dim ControllerA = New MainWindowController(c)
         Dim ControllerD = New MainWindowController(cD)
@@ -50,7 +50,7 @@ Imports System.Windows
             Spieler.@ppc:anwesend = "true"
         Next
 
-        Dim c = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
         Dim Controller = New MainWindowController(c)
         Dim window = New Windows.Window
         window.Show()
@@ -65,7 +65,7 @@ Imports System.Windows
             Spieler.@ppc:anwesend = "true"
         Next
 
-        Dim c = Competition.FromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
         Dim Controller = New MainWindowController(c)
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)

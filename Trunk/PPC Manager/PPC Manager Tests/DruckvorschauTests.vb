@@ -4,15 +4,16 @@ Imports System.Windows.Documents
 Imports System.Windows.Media
 Imports System.Windows.Shapes
 
+<Apartment(System.Threading.ApartmentState.STA)>
 Public Class DruckvorschauTests
 
-    <Test, STAThread>
+    <Test>
     Public Sub Konstruktor_erlaubt_leere_Menge()
         Dim vorschau = New Druckvorschau(New List(Of FixedPage))
         Assert.That(vorschau.Inhalt.Items.Count, [Is].EqualTo(0))
     End Sub
 
-    <Test, STAThread>
+    <Test>
     Public Sub Inhalt_enthält_so_viele_Elemente_wie_initialisiert()
         Dim l = New List(Of FixedPage)
         l.Add(New FixedPage)
@@ -20,7 +21,7 @@ Public Class DruckvorschauTests
         Assert.That(vorschau.Inhalt.Items.Count, [Is].EqualTo(2))
     End Sub
 
-    <Test, STAThread, Explicit>
+    <Test, Explicit>
     Public Sub Layout_Test()
         Dim l = New List(Of FixedPage)
         Dim pageA = New FixedPage

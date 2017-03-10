@@ -106,6 +106,7 @@
     <Compile Include="Fehler.xaml.vb">
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AusXML.vb" />
     <Compile Include="Output\Druckvorschau.xaml.vb">
       <DependentUpon>Druckvorschau.xaml</DependentUpon>
     </Compile>
