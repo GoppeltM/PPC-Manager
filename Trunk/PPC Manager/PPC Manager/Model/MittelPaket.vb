@@ -57,6 +57,4 @@ Class MittelPaket
         Me.SpielerListe.Add(MyPartie.Item2)
     End Sub
 
-
-
 End Class

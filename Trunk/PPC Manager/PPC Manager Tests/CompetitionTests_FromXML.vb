@@ -38,11 +38,6 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
     <Test>
-    Public Sub StartDatum_Gleich_XMLDatum()
-        Assert.AreEqual("2012-09-08 11:00", _reference.StartDatum)
-    End Sub
-
-    <Test>
     Public Sub AltersGruppe_ErsteGleich_MädchenU13()
         Assert.AreEqual("Mädchen U 13", _reference.Altersgruppe)
     End Sub

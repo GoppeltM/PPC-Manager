@@ -118,7 +118,6 @@
     <Compile Include="SpielerTests.vb" />
     <Compile Include="SpielKlassenKonverterTests.vb" />
     <Compile Include="SpielPartieTests.vb" />
-    <Compile Include="SpielRundenTests.vb" />
     <Compile Include="StartlistenEditor\StartlisteSpielerTests.vb" />
     <Compile Include="StartlistenEditor\StartListeTests.vb" />
     <Compile Include="StartlistenEditor\UITests.vb" />
@@ -142,6 +141,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ZuXMLTests.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

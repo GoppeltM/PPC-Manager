@@ -1,12 +1,13 @@
 ﻿Public Class MainWindowController
     Implements IController
 
-    Public Sub New(competition As Competition)
+    Public Sub New(competition As Competition, speichern As Action)
         _Competition = competition
         If _Competition Is Nothing Then Throw New ArgumentNullException("competition")
     End Sub
 
     Private ReadOnly _Competition As Competition
+    Private ReadOnly _Speichern As Action
 
     Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
         Get
@@ -66,7 +67,7 @@
     Public Sub NächstesPlayoff_Execute() Implements IController.NächstesPlayoff_Execute
 
         If My.Settings.AutoSaveAn Then
-            AktiveCompetition.SaveXML()
+            _Speichern()
         End If
 
         With AktiveCompetition
@@ -148,7 +149,7 @@
     End Sub
 
     Public Sub SaveXML() Implements IController.SaveXML
-        AktiveCompetition.SaveXML()
+        _Speichern()
     End Sub
 
     Public Sub SaveExcel() Implements IController.SaveExcel

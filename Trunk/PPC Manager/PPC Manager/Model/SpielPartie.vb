@@ -111,45 +111,6 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Overridable Function ToXML(matchNr As Integer) As XElement
-
-        Dim SätzeLinks = MeineGewonnenenSätze(SpielerLinks).Count
-        Dim SätzeRechts = MeineGewonnenenSätze(SpielerRechts).Count
-
-        Dim GewonnenLinks = 0
-        Dim GewonnenRechts = 0
-        If (SätzeLinks > SätzeRechts) Then GewonnenLinks = 1
-        If (SätzeLinks < SätzeRechts) Then GewonnenRechts = 1
-
-        Dim SatzReihe = Function(ident As String, ergebnisse As IEnumerable(Of Integer)) As IEnumerable(Of XAttribute)
-                            Dim attributes = (From x In Enumerable.Range(1, 7) Select New XAttribute(String.Format("set-{0}-{1}", ident, x), 0)).ToList
-                            Dim current = 0
-                            For Each ergebnis In ergebnisse
-                                attributes(current).Value = ergebnis.ToString
-                                current += 1
-                            Next
-                            Return attributes
-                        End Function
-
-        Dim node = <match player-a=<%= SpielerLinks.Id %> player-b=<%= SpielerRechts.Id %>
-                       games-a=<%= Aggregate x In Me Into Sum(x.PunkteLinks) %> games-b=<%= Aggregate x In Me Into Sum(x.PunkteRechts) %>
-                       sets-a=<%= SätzeLinks %> sets-b=<%= SätzeRechts %>
-                       matches-a=<%= GewonnenLinks %> matches-b=<%= GewonnenRechts %>
-                       scheduled=<%= ZeitStempel.ToString("yyyy-MM-dd HH:mm") %>
-                       group=<%= RundenName %> nr=<%= matchNr %>
-                       <%= SatzReihe("a", From x In Me Select x.PunkteLinks) %>
-                       <%= SatzReihe("b", From x In Me Select x.PunkteRechts) %>
-                   />
-
-        If SpielerLinks.Fremd Or SpielerRechts.Fremd Then
-            Dim ns = XNamespace.Get("http://www.ttc-langensteinbach.de")
-            node.Name = ns + "match"
-            node.Add(New XAttribute(XNamespace.Xmlns + "ppc", ns.NamespaceName))
-        End If
-        Return node
-    End Function
-
-
     Public Overrides Function Equals(obj As Object) As Boolean
         Dim other = TryCast(obj, SpielPartie)
         If other Is Nothing Then Return False

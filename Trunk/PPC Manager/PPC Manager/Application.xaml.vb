@@ -14,29 +14,32 @@ Class Application
                                                                    Dim f As New Fehler
                                                                    f.ExceptionText.Text = args.ExceptionObject.ToString
                                                                    f.ShowDialog()
-                                                               End Sub        
-        Me.ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose
+                                                               End Sub
+        Me.ShutdownMode = ShutdownMode.OnMainWindowClose
         With New LadenNeu
             Me.MainWindow = Nothing
             If Not .ShowDialog() Then
-                Me.Shutdown()
+                Shutdown()
                 Return
             End If
 
             Dim spielRegeln = New SpielRegeln(.GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
+            Dim xmlPfad = .XMLPathText.Text
+            Dim klassement = .CompetitionCombo.SelectedItem.ToString
             Dim AktiveCompetition As Competition
             Try
                 Dim doc = XDocument.Load(.XMLPathText.Text)
-                AktiveCompetition = AusXML.CompetitionFromXML(.XMLPathText.Text, doc, .CompetitionCombo.SelectedItem.ToString, spielRegeln)
+                AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln)
             Catch ex As SpielDatenUnvollständigException
                 MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount), _
                 "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
                 Application.Current.Shutdown()
                 Return
             End Try
-            
-            Application.Current.Resources("KlassementName") = AktiveCompetition.Altersgruppe
-            Dim controller = New MainWindowController(AktiveCompetition)
+
+            Resources("KlassementName") = AktiveCompetition.Altersgruppe
+            Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
+            Dim controller = New MainWindowController(AktiveCompetition, speichern)
             Dim window = New MainWindow(controller)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible

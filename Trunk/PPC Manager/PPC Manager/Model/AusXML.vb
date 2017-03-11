@@ -17,7 +17,6 @@ Public Class AusXML
         Dim c = New Competition(spielRegeln) With
                {
                    .DateiPfad = dateipfad,
-                   .StartDatum = node.Attribute("start-date").Value,
                    .Altersgruppe = node.Attribute("age-group").Value
                 }
         c.SpielerListe = SpielerListeFromXML(node.<players>, c.SpielRunden, spielRegeln)

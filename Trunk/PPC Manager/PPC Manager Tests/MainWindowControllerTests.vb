@@ -19,8 +19,12 @@ Imports System.Windows
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "A-Klasse", New SpielRegeln(3, True, True))
         Dim cD = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
 
-        Dim ControllerA = New MainWindowController(c)
-        Dim ControllerD = New MainWindowController(cD)
+        Dim ControllerA = New MainWindowController(c, Sub()
+
+                                                      End Sub)
+        Dim ControllerD = New MainWindowController(cD, Sub()
+
+                                                       End Sub)
 
         ControllerA.NächsteRunde_Execute()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
@@ -51,8 +55,10 @@ Imports System.Windows
         Next
 
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
-        Dim Controller = New MainWindowController(c)
-        Dim window = New Windows.Window
+        Dim Controller = New MainWindowController(c, Sub()
+
+                                                     End Sub)
+        Dim window = New Window
         window.Show()
         Controller.RundenendeDrucken(New Printer)
         window.Close()
@@ -66,7 +72,9 @@ Imports System.Windows
         Next
 
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
-        Dim Controller = New MainWindowController(c)
+        Dim Controller = New MainWindowController(c, Sub()
+
+                                                     End Sub)
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)
