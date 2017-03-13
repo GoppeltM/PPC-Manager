@@ -11,10 +11,18 @@ Imports System.Xml.Schema
     <SetUp>
     Sub CompetitionInit()
         JungenU18 = (From x In XDocument.Parse(My.Resources.Testturnier).Root.<competition>
-                           Where x.Attribute("age-group").Value = "Jungen U 18").First
+                     Where x.Attribute("age-group").Value = "Jungen U 18").First
+
         Dim regeln = New SpielRegeln(3, True, True)
         AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", JungenU18, regeln)
         AktuelleCompetition.SpielRunden.Clear()
+        Dim spielpartien = AktuelleCompetition.SpielRunden.SelectMany(Function(m) m.AsEnumerable)
+        Dim spielverlauf = New Spielverlauf(spielpartien)
+        Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) spielverlauf.Habengegeneinandergespielt(a, b)
+        _SuchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
+                                  Return Function(spielerliste, absteigend) _
+                                     New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
+                              End Function
 
         AktiveListe = AktuelleCompetition.SpielerListe.ToList
         For Each Ausgeschieden In AktuelleCompetition.SpielRunden.AusgeschiedeneSpieler
@@ -25,6 +33,7 @@ Imports System.Xml.Schema
     Dim JungenU18 As XElement
     Dim AktuelleCompetition As Competition
     Dim AktiveListe As List(Of Spieler)
+    Private _SuchePaarungenFunc As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler))
 
     <Test> Public Sub Schema_Validierung()
         Dim doc = XDocument.Parse(My.Resources.Testturnier)
@@ -112,7 +121,7 @@ Imports System.Xml.Schema
 
     Private Sub NächsteRunde(rundenName As String, rundenNummer As Integer)
 
-        Dim AktuellePaarungen = New PaketBildung(rundenName, 3).organisierePakete(AktiveListe.ToList, rundenNummer)
+        Dim AktuellePaarungen = New PaketBildung(_SuchePaarungenFunc, rundenName, 3).organisierePakete(AktiveListe.ToList, rundenNummer)
 
         Dim XMLPartien = From x In JungenU18.<matches>.Elements Where x.@group = rundenName
         Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(AktiveListe, XMLPartien, AktuelleCompetition.SpielRegeln.Gewinnsätze) Order By x.GetType.Name Descending

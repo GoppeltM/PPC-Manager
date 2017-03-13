@@ -1,8 +1,14 @@
-﻿Public Class PaketBildung
+﻿Imports PPC_Manager
+
+Public Class PaketBildung
 
     Private ReadOnly _Rundenname As String
     Private ReadOnly _Gewinnsätze As Integer
-    Public Sub New(rundenname As String, gewinnsätze As Integer)
+    Private ReadOnly _SuchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler))
+
+    Public Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler)),
+                   rundenname As String, gewinnsätze As Integer)
+        _SuchePaarungenMitAltschwimmer = suchePaarungenMitAltschwimmer
         _Rundenname = rundenname
         _Gewinnsätze = gewinnsätze
     End Sub
@@ -33,7 +39,7 @@
                          End Sub
         End If
 
-        Dim mittelPaket As New MittelPaket(aktuelleRunde, _Rundenname, _Gewinnsätze)
+        Dim mittelPaket As New MittelPaket(_SuchePaarungenMitAltschwimmer, aktuelleRunde)
         Dim pakete = makeEvenPointPackets(_Rundenname, aktiveListe, aktuelleRunde, mittelPaket)
 
         If pakete.Count = 1 Then
@@ -145,7 +151,7 @@
         Dim vorgänger As Paket = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
 
         While vorgänger IsNot Nothing
-            If mittelPaket.SuchePaarungen Then                
+            If mittelPaket.SuchePaarungen Then
                 Return
             End If
 
@@ -242,7 +248,7 @@
         Throw New ArgumentException("Kein Freilosspieler gefunden")
     End Function
 
-  
+
 
     '''
     '''erzeugt Pakete mit Spielern mit gleicher Punktzahl.
@@ -258,7 +264,7 @@
             If i = aktuelleRunde Then
                 pakete.Add(mittelPaket)
             Else
-                pakete.Add(New Paket(i, rundenname, _Gewinnsätze))
+                pakete.Add(New Paket(_SuchePaarungenMitAltschwimmer, i))
             End If
         Next
 

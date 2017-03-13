@@ -48,18 +48,24 @@
                 AktiveListe.Remove(Ausgeschieden.Spieler)
             Next
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
-            Dim begegnungen = New PaketBildung(RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
+            Dim spielpartien = .SpielRunden.SelectMany(Function(m) m.AsEnumerable)
+            Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) New Spielverlauf(spielpartien).Habengegeneinandergespielt(a, b)
+            Dim suchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
+                                         Return Function(spielerliste, absteigend) _
+                                         New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
+                                     End Function
+            Dim begegnungen = New PaketBildung(suchePaarungenFunc, RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
-            For Each partie In begegnungen
-                partie.ZeitStempel = Zeitstempel
-            Next
+                                         For Each partie In begegnungen
+                                             partie.ZeitStempel = Zeitstempel
+                                         Next
 
-            Dim spielRunde As New SpielRunde
+                                         Dim spielRunde As New SpielRunde
 
-            For Each begegnung In begegnungen
-                spielRunde.Add(begegnung)
-            Next
-            .SpielRunden.Push(spielRunde)
+                                         For Each begegnung In begegnungen
+                                             spielRunde.Add(begegnung)
+                                         Next
+                                         .SpielRunden.Push(spielRunde)
 
         End With
     End Sub

@@ -1,8 +1,11 @@
 ﻿
+Imports PPC_Manager
+
 Public Class Paket
     Implements IComparable(Of Paket)
 
     Sub New(ByVal paket As Paket)
+        _SuchePaarungen = paket._SuchePaarungen
         [Set](paket)
     End Sub
 
@@ -19,20 +22,13 @@ Public Class Paket
         InitialNummer = backup.InitialNummer
     End Sub
 
-    Sub New(ByVal initialNummer As Integer, rundenName As String, gewinnsätze As Integer)
+    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler)),
+            ByVal initialNummer As Integer)
+
+        _SuchePaarungen = suchePaarungenMitAltschwimmer(Function(s) IstAltSchwimmer(s))
         Me.InitialNummer = initialNummer
-        _RundenName = rundenName
-        _Gewinnsätze = gewinnsätze
     End Sub
 
-    Private ReadOnly _Gewinnsätze As Integer
-
-    Private _RundenName As String
-    Public ReadOnly Property RundenName As String
-        Get
-            Return _RundenName
-        End Get
-    End Property
 
     Property InitialNummer As Integer
 
@@ -43,7 +39,7 @@ Public Class Paket
     Property SpielerListe As New List(Of Spieler)
 
     Public AltSchwimmer As New List(Of Spieler)
-
+    Private ReadOnly _SuchePaarungen As SuchePaarungen(Of Spieler)
     Public Overridable Property aktuellerSchwimmer As Spieler
 
     Sub sort()
@@ -80,8 +76,7 @@ Public Class Paket
 
     Function SuchePaarungen() As Boolean
         sort()
-        Dim p = New PaarungsSuche(Of Spieler)(Function(a, b) a.HatBereitsGespieltGegen(b), Function(s) IstAltSchwimmer(s))
-        Dim container = p.SuchePaarungen(SpielerListe, Absteigend)
+        Dim container = _SuchePaarungen(SpielerListe, Absteigend)
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.Übrig
             Partien.Clear()

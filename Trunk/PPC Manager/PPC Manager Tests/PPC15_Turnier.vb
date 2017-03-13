@@ -7,9 +7,17 @@ Public Class PPC15_Turnier_Klasse_D
                            Where x.Attribute("age-group").Value = "D-Klasse").First
         Dim regeln = New SpielRegeln(3, True, False)
         AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln)
+        Dim spielpartien = AktuelleCompetition.SpielRunden.SelectMany(Function(m) m.AsEnumerable)
+        Dim spielverlauf As New Spielverlauf(spielpartien)
+        Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) spielverlauf.Habengegeneinandergespielt(a, b)
+        _SuchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
+                                  Return Function(spielerliste, absteigend) _
+                                     New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
+                              End Function
     End Sub
 
     Dim AktuelleCompetition As Competition
+    Private _SuchePaarungenFunc As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler))
 
     <Test>
     Sub SpielerAnmeldungen()
@@ -88,7 +96,7 @@ Public Class PPC15_Turnier_Klasse_D
     <Test>
     Sub Runde_1()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung("Runde 0", 3).organisierePakete(.SpielerListe.ToList, 0)
+            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 0", 3).organisierePakete(.SpielerListe.ToList, 0)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(1)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -101,7 +109,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_2()
         Runde_1()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung("Runde 1", 3).organisierePakete(.SpielerListe.ToList, 1)
+            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 1", 3).organisierePakete(.SpielerListe.ToList, 1)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(2)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -114,7 +122,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_3()
         Runde_2()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung("Runde 2", 3).organisierePakete(.SpielerListe.ToList, 2)
+            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 2", 3).organisierePakete(.SpielerListe.ToList, 2)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(3)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -127,7 +135,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_4()
         Runde_3()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung("Runde 3", 3).organisierePakete(.SpielerListe.ToList, 3)
+            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 3", 3).organisierePakete(.SpielerListe.ToList, 3)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(4)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -140,7 +148,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_5()
         Runde_4()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung("Runde 4", 3).organisierePakete(.SpielerListe.ToList, 4)
+            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 4", 3).organisierePakete(.SpielerListe.ToList, 4)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(5)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -159,7 +167,7 @@ Public Class PPC15_Turnier_Klasse_D
             For Each a In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(a.Spieler)
             Next
-            Dim ergebnisse = New PaketBildung("Runde 5", 3).organisierePakete(AktiveListe.ToList, 5)
+            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 5", 3).organisierePakete(AktiveListe.ToList, 5)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(6)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)

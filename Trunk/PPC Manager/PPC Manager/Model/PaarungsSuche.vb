@@ -1,6 +1,8 @@
 ﻿
 Public Delegate Function HabenGegeneinanderGespielt(Of In T)(a As T, b As T) As Boolean
 
+Public Delegate Function SuchePaarungen(Of T)(spielerliste As IList(Of T), absteigend As Boolean) As PaarungsContainer(Of T)
+
 Public Class PaarungsSuche(Of T As IComparable(Of T))
 
     Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T)

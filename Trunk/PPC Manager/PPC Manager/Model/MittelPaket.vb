@@ -5,8 +5,8 @@ Class MittelPaket
     Private schwimmerVonOben As Spieler
     Private schwimmerVonUnten As Spieler
 
-    Sub New(ByVal aktuelleRunde As Integer, rundenName As String, gewinnsätze As Integer)
-        MyBase.New(aktuelleRunde, rundenName, gewinnsätze)
+    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler)), ByVal aktuelleRunde As Integer)
+        MyBase.New(suchePaarungenMitAltschwimmer, aktuelleRunde)
     End Sub
 
     Sub New(ByVal mittelPaket As MittelPaket)
