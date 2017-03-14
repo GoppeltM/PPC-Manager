@@ -1,7 +1,4 @@
-﻿Imports System.Text
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
-Imports System.Windows.Controls
-Imports System.Printing
+﻿Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 Imports Moq
 Imports System.Windows.Documents
 Imports System.Windows
@@ -21,10 +18,10 @@ Imports System.Windows
 
         Dim ControllerA = New MainWindowController(c, Sub()
 
-                                                      End Sub)
+                                                      End Sub, Mock.Of(Of IReportFactory))
         Dim ControllerD = New MainWindowController(cD, Sub()
 
-                                                       End Sub)
+                                                       End Sub, Mock.Of(Of IReportFactory))
 
         ControllerA.NächsteRunde_Execute()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
@@ -57,7 +54,7 @@ Imports System.Windows
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
         Dim Controller = New MainWindowController(c, Sub()
 
-                                                     End Sub)
+                                                     End Sub, Mock.Of(Of IReportFactory))
         Dim window = New Window
         window.Show()
         Controller.RundenendeDrucken(New Printer)
@@ -74,7 +71,7 @@ Imports System.Windows
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
         Dim Controller = New MainWindowController(c, Sub()
 
-                                                     End Sub)
+                                                     End Sub, Mock.Of(Of IReportFactory))
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)

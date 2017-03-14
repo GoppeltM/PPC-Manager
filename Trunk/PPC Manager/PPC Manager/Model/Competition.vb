@@ -18,11 +18,6 @@ Public Class Competition
         _SpielRegeln = spielRegeln
     End Sub
 
-    Public Sub SaveExcel()
-        Dim spieler = SpielerListe.ToList
-        TurnierReport.CreateFile(ExcelPfad, spieler, Me)
-    End Sub
-
     Public ReadOnly Property ExcelPfad As String
         Get
             Dim DateiName = IO.Path.GetFileNameWithoutExtension(DateiPfad)

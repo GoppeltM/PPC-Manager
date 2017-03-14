@@ -1,13 +1,18 @@
-﻿Public Class MainWindowController
+﻿Imports PPC_Manager
+
+Public Class MainWindowController
     Implements IController
 
-    Public Sub New(competition As Competition, speichern As Action)
+    Public Sub New(competition As Competition, speichern As Action, reportFactory As IReportFactory)
         _Competition = competition
+        _Speichern = speichern
+        _ReportFactory = reportFactory
         If _Competition Is Nothing Then Throw New ArgumentNullException("competition")
     End Sub
 
     Private ReadOnly _Competition As Competition
     Private ReadOnly _Speichern As Action
+    Private ReadOnly _ReportFactory As IReportFactory
 
     Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
         Get
@@ -56,16 +61,16 @@
                                      End Function
             Dim begegnungen = New PaketBildung(suchePaarungenFunc, RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
-                                         For Each partie In begegnungen
-                                             partie.ZeitStempel = Zeitstempel
-                                         Next
+            For Each partie In begegnungen
+                partie.ZeitStempel = Zeitstempel
+            Next
 
-                                         Dim spielRunde As New SpielRunde
+            Dim spielRunde As New SpielRunde
 
-                                         For Each begegnung In begegnungen
-                                             spielRunde.Add(begegnung)
-                                         Next
-                                         .SpielRunden.Push(spielRunde)
+            For Each begegnung In begegnungen
+                spielRunde.Add(begegnung)
+            Next
+            .SpielRunden.Push(spielRunde)
 
         End With
     End Sub
@@ -82,7 +87,7 @@
         End With
 
         If My.Settings.AutoSaveAn Then
-            AktiveCompetition.SaveExcel()
+            _ReportFactory.AutoSave()
         End If
     End Sub
 
@@ -126,8 +131,8 @@
                                                Into Any()
                                     End Function
         Dim l = (From x In AktiveCompetition.SpielerListe
-                Where Not AusgeschiedenInRunde0(x)
-                Select x).ToList
+                 Where Not AusgeschiedenInRunde0(x)
+                 Select x).ToList
         l.Sort()
         l.Reverse()
 
@@ -151,7 +156,7 @@
     Public Sub ExcelExportieren(dateiName As String) Implements IController.ExcelExportieren
         Dim spieler = AktiveCompetition.SpielerListe.ToList
         spieler.Sort()
-        TurnierReport.CreateFile(dateiName, spieler, AktiveCompetition)
+        _ReportFactory.SchreibeReport(dateiName)
     End Sub
 
     Public Sub SaveXML() Implements IController.SaveXML
@@ -159,9 +164,9 @@
     End Sub
 
     Public Sub SaveExcel() Implements IController.SaveExcel
-        
-        AktiveCompetition.SaveExcel()
+        _ReportFactory.AutoSave()
     End Sub
+
 
     Public Sub ExcelBeschreibbar()
         Try

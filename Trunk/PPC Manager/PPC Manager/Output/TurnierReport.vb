@@ -5,7 +5,7 @@ Imports System.IO
 Public Class TurnierReport
     Implements IDisposable
 
-    Private Sub New(filePath As String)
+    Public Sub New(filePath As String)
         If File.Exists(filePath) Then
             _SpreadSheet = ExcelDocument.OpenExistingExcelDocument(filePath)
         Else
@@ -15,37 +15,9 @@ Public Class TurnierReport
 
     Private ReadOnly _SpreadSheet As ExcelDocument
 
-    Public Shared Sub CreateFile(ByVal filePath As String, ByVal spieler As IEnumerable(Of Spieler), ByVal competition As Competition)
-        Dim exportSpieler = (From x In spieler Select New ExportSpieler(x)).ToList
-        exportSpieler.Sort()
-        exportSpieler.Reverse()
-        Try
-
-            Using ex = New TurnierReport(filePath)
-                With ex
-                    Dim RundeNr = competition.SpielRunden.Count.ToString.PadLeft(2, "0"c)
-                    Dim sheet = ex._SpreadSheet.GetSheet("sp_rd" & RundeNr)
-                    .WriteSpielerSheet(exportSpieler, sheet)
-
-                    Dim current = 1
-                    For Each runde In competition.SpielRunden.Reverse
-                        Dim currentName = current.ToString.PadLeft(2, "0"c)
-                        sheet = ex._SpreadSheet.GetSheet("erg_rd" & currentName)
-                        .WriteRunde(runde, sheet)
-                        current += 1
-                    Next
-                    ._SpreadSheet.SetActiveSheet(CUInt(ex._SpreadSheet.SheetCount - 1))
-                    ex._SpreadSheet.Save()
-                End With
-            End Using
-
-        Catch ex As IOException
-            Throw New Exception("Excel Datei konnte nicht geschrieben werden.", ex)
-        End Try
-
-    End Sub
-
-    Private Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of ExportSpieler), ByVal sheet As Worksheet)
+    Public Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of ExportSpieler), rundeNr As Integer)
+        Dim rundeString = rundeNr.ToString.PadLeft(2, "0"c)
+        Dim sheet = _SpreadSheet.GetSheet("sp_rd" & rundeString)
         Dim Titles = {"Rang", "Vorname", "Nachname", "ID", "Geschlecht", "Geburtsjahr", "Verein", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
                           "Gewonnene Sätze", "Verlorene Sätze", "Ausgeschieden", "Gegnerprofil"}
 
@@ -73,11 +45,13 @@ Public Class TurnierReport
             _SpreadSheet.CreateRow(SheetData, current, Werte)
             current += 1UI
         Next
-
+        _SpreadSheet.Save()
     End Sub
 
-    Private Sub WriteRunde(ByVal spielrunde As SpielRunde, ByVal worksheet As Worksheet)
-        Dim SheetData = worksheet.GetFirstChild(Of SheetData)()
+    Public Sub WriteRunde(ByVal spielrunde As SpielRunde, runde As Integer)
+        Dim currentName = runde.ToString.PadLeft(2, "0"c)
+        Dim worksheet = _SpreadSheet.GetSheet("erg_rd" & currentName)
+        Dim SheetData = Worksheet.GetFirstChild(Of SheetData)()
         SheetData.RemoveAllChildren(Of Row)()
 
         Dim Titles = {"Linker Spieler", "Rechter Spieler", "Sätze Links", "Sätze Rechts"}
@@ -91,7 +65,8 @@ Public Class TurnierReport
             _SpreadSheet.CreateRow(SheetData, current, Werte)
             current += 1UI
         Next
-
+        _SpreadSheet.SetActiveSheet(CUInt(_SpreadSheet.SheetCount - 1))
+        _SpreadSheet.Save()
     End Sub
 
 #Region "IDisposable Support"

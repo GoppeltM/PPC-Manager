@@ -39,7 +39,8 @@ Class Application
 
             Resources("KlassementName") = AktiveCompetition.Altersgruppe
             Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
-            Dim controller = New MainWindowController(AktiveCompetition, speichern)
+            Dim r = New ReportFactory(xmlPfad, klassement, AktiveCompetition.SpielerListe, AktiveCompetition.SpielRunden)
+            Dim controller = New MainWindowController(AktiveCompetition, speichern, r)
             Dim window = New MainWindow(controller)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible

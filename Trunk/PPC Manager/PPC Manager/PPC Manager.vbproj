@@ -140,9 +140,11 @@
     </Compile>
     <Compile Include="Observable.vb" />
     <Compile Include="Output\ExcelDocument.vb" />
+    <Compile Include="Output\IReportFactory.vb" />
     <Compile Include="Output\RanglisteSeite.xaml.vb">
       <DependentUpon>RanglisteSeite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Output\ReportFactory.vb" />
     <Compile Include="Output\SchiedsrichterZettel.xaml.vb">
       <DependentUpon>SchiedsrichterZettel.xaml</DependentUpon>
     </Compile>
