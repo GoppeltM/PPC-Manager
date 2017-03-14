@@ -1,5 +1,6 @@
 ﻿Imports System.Text
 Imports System.Xml.Schema
+Imports Moq
 
 ''' <summary>
 ''' Ein Turnier wo jeder gegen jeden spielt, d.h. 11 Spieler mit 11 Runden.
@@ -7,33 +8,22 @@ Imports System.Xml.Schema
 ''' </summary>
 ''' <remarks></remarks>
 <TestFixture()> Public Class Testturnier
+    Private _Controller As MainWindowController
+    Private _JungenU18 As XElement
+    Private _AktiveListe As SpielerListe
 
     <SetUp>
     Sub CompetitionInit()
-        JungenU18 = (From x In XDocument.Parse(My.Resources.Testturnier).Root.<competition>
-                     Where x.Attribute("age-group").Value = "Jungen U 18").First
-
+        _JungenU18 = (From x In XDocument.Parse(My.Resources.Testturnier).Root.<competition>
+                      Where x.Attribute("age-group").Value = "Jungen U 18").First
         Dim regeln = New SpielRegeln(3, True, True)
-        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", JungenU18, regeln)
+        Dim AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", _JungenU18, regeln)
+        _AktiveListe = AktuelleCompetition.SpielerListe
         AktuelleCompetition.SpielRunden.Clear()
-        Dim spielpartien = AktuelleCompetition.SpielRunden.SelectMany(Function(m) m.AsEnumerable)
-        Dim spielverlauf = New Spielverlauf(spielpartien)
-        Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) spielverlauf.Habengegeneinandergespielt(a, b)
-        _SuchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
-                                  Return Function(spielerliste, absteigend) _
-                                     New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
-                              End Function
-
-        AktiveListe = AktuelleCompetition.SpielerListe.ToList
-        For Each Ausgeschieden In AktuelleCompetition.SpielRunden.AusgeschiedeneSpieler
-            AktiveListe.Remove(Ausgeschieden.Spieler)
-        Next
+        _Controller = New MainWindowController(AktuelleCompetition, Sub()
+                                                                    End Sub, Mock.Of(Of IReportFactory))
     End Sub
 
-    Dim JungenU18 As XElement
-    Dim AktuelleCompetition As Competition
-    Dim AktiveListe As List(Of Spieler)
-    Private _SuchePaarungenFunc As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler))
 
     <Test> Public Sub Schema_Validierung()
         Dim doc = XDocument.Parse(My.Resources.Testturnier)
@@ -121,27 +111,27 @@ Imports System.Xml.Schema
 
     Private Sub NächsteRunde(rundenName As String, rundenNummer As Integer)
 
-        Dim AktuellePaarungen = New PaketBildung(_SuchePaarungenFunc, rundenName, 3).organisierePakete(AktiveListe.ToList, rundenNummer)
+        Dim XMLPartien = From x In _JungenU18.<matches>.Elements Where x.@group = rundenName
+        Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(_AktiveListe, XMLPartien, 3) Order By x.GetType.Name Descending
 
-        Dim XMLPartien = From x In JungenU18.<matches>.Elements Where x.@group = rundenName
-        Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(AktiveListe, XMLPartien, AktuelleCompetition.SpielRegeln.Gewinnsätze) Order By x.GetType.Name Descending
+        _Controller.NächsteRunde_Execute()
+        Dim paarungen = _Controller.AktiveCompetition.SpielRunden.First()
 
-        Assert.AreEqual(AktuellePaarungen.Count, ErwarteteErgebnisse.Count)
+        Assert.AreEqual(paarungen.Count, ErwarteteErgebnisse.Count)
 
-        For Each Paar In AktuellePaarungen.Zip(ErwarteteErgebnisse, Function(x, y) New With {.Aktuell = x, .Erwartet = y})
+        For Each Paar In paarungen.Zip(ErwarteteErgebnisse, Function(x, y) New With {.Aktuell = x, .Erwartet = y})
             Assert.AreEqual(Paar.Aktuell.SpielerLinks, Paar.Erwartet.SpielerLinks)
             Assert.AreEqual(Paar.Aktuell.SpielerRechts, Paar.Erwartet.SpielerRechts)
-            For Each Satz In Paar.Erwartet
-                Paar.Aktuell.Add(Satz)
+            For Each satz In Paar.Erwartet
+                If satz.GewonnenLinks Then
+                    _Controller.SatzEintragen(satz.PunkteRechts, True, Paar.Aktuell)
+                End If
+                If satz.GewonnenRechts Then
+                    _Controller.SatzEintragen(satz.PunkteLinks, False, Paar.Aktuell)
+                End If
             Next
         Next
 
-        Dim runde As New SpielRunde
-
-        For Each spielPartie In AktuellePaarungen
-            runde.Add(spielPartie)
-        Next
-        AktuelleCompetition.SpielRunden.Push(runde)
     End Sub
 
 End Class
