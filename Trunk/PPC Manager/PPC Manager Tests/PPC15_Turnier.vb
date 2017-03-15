@@ -1,23 +1,22 @@
-﻿<TestFixture>
+﻿Imports Moq
+
+<TestFixture>
 Public Class PPC15_Turnier_Klasse_D
 
-    <Setup>
+    <SetUp>
     Sub CompetitionInit()
         Dim KlassementD = (From x In XDocument.Parse(My.Resources.PPC_15_Anmeldungen).Root.<competition>
                            Where x.Attribute("age-group").Value = "D-Klasse").First
         Dim regeln = New SpielRegeln(3, True, False)
         AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln)
-        Dim spielpartien = AktuelleCompetition.SpielRunden.SelectMany(Function(m) m.AsEnumerable)
-        Dim spielverlauf As New Spielverlauf(spielpartien)
-        Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) spielverlauf.Habengegeneinandergespielt(a, b)
-        _SuchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
-                                  Return Function(spielerliste, absteigend) _
-                                     New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
-                              End Function
+        _Controller = New MainWindowController(AktuelleCompetition, Sub()
+
+                                                                    End Sub, Mock.Of(Of IReportFactory))
     End Sub
 
     Dim AktuelleCompetition As Competition
     Private _SuchePaarungenFunc As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler))
+    Private _Controller As MainWindowController
 
     <Test>
     Sub SpielerAnmeldungen()
@@ -96,7 +95,8 @@ Public Class PPC15_Turnier_Klasse_D
     <Test>
     Sub Runde_1()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 0", 3).organisierePakete(.SpielerListe.ToList, 0)
+            _Controller.NächsteRunde_Execute()
+            Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(1)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -109,7 +109,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_2()
         Runde_1()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 1", 3).organisierePakete(.SpielerListe.ToList, 1)
+            _Controller.NächsteRunde_Execute()
+            Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(2)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -122,7 +123,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_3()
         Runde_2()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 2", 3).organisierePakete(.SpielerListe.ToList, 2)
+            _Controller.NächsteRunde_Execute()
+            Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(3)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -135,7 +137,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_4()
         Runde_3()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 3", 3).organisierePakete(.SpielerListe.ToList, 3)
+            _Controller.NächsteRunde_Execute()
+            Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(4)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -148,7 +151,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_5()
         Runde_4()
         With AktuelleCompetition
-            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 4", 3).organisierePakete(.SpielerListe.ToList, 4)
+            _Controller.NächsteRunde_Execute()
+            Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(5)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -167,7 +171,8 @@ Public Class PPC15_Turnier_Klasse_D
             For Each a In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(a.Spieler)
             Next
-            Dim ergebnisse = New PaketBildung(_SuchePaarungenFunc, "Runde 5", 3).organisierePakete(AktiveListe.ToList, 5)
+            _Controller.NächsteRunde_Execute()
+            Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(6)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -180,29 +185,22 @@ Public Class PPC15_Turnier_Klasse_D
 
         Dim VollständigeErgebnisse = From spielPartie In ergebnisse Join y In erwartet
            On spielPartie.SpielerLinks.Nachname & spielPartie.SpielerLinks.Vorname Equals y.NachnameLinks & y.VornameLinks
-           Select spielPartie, SätzeLinks = y.SätzeLinks, SätzeRechts = y.SätzeRechts
+                                     Select spielPartie, SätzeLinks = y.SätzeLinks, SätzeRechts = y.SätzeRechts
 
         Assert.IsTrue(VollständigeErgebnisse.Any)
 
         For Each ergebnis In VollständigeErgebnisse
             ergebnis.spielPartie.Clear()
             For Each Satz In Enumerable.Range(0, ergebnis.SätzeLinks)
-                ergebnis.spielPartie.Add(New Satz With {.PunkteLinks = 11})
+                _Controller.SatzEintragen(0, True, ergebnis.spielPartie)
             Next
             For Each Satz In Enumerable.Range(0, ergebnis.SätzeRechts)
-                ergebnis.spielPartie.Add(New Satz With {.PunkteRechts = 11})
+                _Controller.SatzEintragen(0, False, ergebnis.spielPartie)
             Next
         Next
-
-        Dim spielRunde As New SpielRunde
-
-        For Each spielPartie In ergebnisse
-            spielRunde.Add(spielPartie)
-        Next
-            AktuelleCompetition.SpielRunden.Push(spielRunde)
     End Sub
 
-    Private Function BegegnungenZuVergleicher(begegnungen As List(Of SpielPartie)) As IEnumerable(Of BegegnungsVergleicher)
+    Private Function BegegnungenZuVergleicher(begegnungen As IEnumerable(Of SpielPartie)) As IEnumerable(Of BegegnungsVergleicher)
         Return From x In begegnungen Select New BegegnungsVergleicher With {
            .NachnameLinks = x.SpielerLinks.Nachname,
            .NachnameRechts = x.SpielerRechts.Nachname,
@@ -216,14 +214,14 @@ Public Class PPC15_Turnier_Klasse_D
         Dim KlassementD = From x In doc.Root.<Klassement> Where x.@Name = "D" Select x
         Dim AktuelleRunde = From x In KlassementD.<Runde> Where x.@Nummer = runde.ToString
         Dim result = From y In AktuelleRunde.<Ergebnis>
-           Select New BegegnungsVergleicher With {
-               .VornameLinks = y.@VornameA,
-               .VornameRechts = y.@VornameB,
-               .NachnameLinks = y.@SpielerA,
-               .NachnameRechts = y.@SpielerB,
-               .SätzeLinks = Integer.Parse(y.@SätzeA),
-               .SätzeRechts = Integer.Parse(y.@SätzeB)
-        }
+                     Select New BegegnungsVergleicher With {
+                         .VornameLinks = y.@VornameA,
+                         .VornameRechts = y.@VornameB,
+                         .NachnameLinks = y.@SpielerA,
+                         .NachnameRechts = y.@SpielerB,
+                         .SätzeLinks = Integer.Parse(y.@SätzeA),
+                         .SätzeRechts = Integer.Parse(y.@SätzeB)
+                  }
         Dim Freispiel = From x In AktuelleRunde.<Freilos>
                         Select New BegegnungsVergleicher With {
         .VornameLinks = x.@Vorname,

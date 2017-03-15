@@ -22,21 +22,16 @@ Public Class PaketBildung
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
     '''
-    Public Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As List(Of SpielPartie)
+    Public Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of Spieler)
         aktiveListe.Sort()
         aktiveListe.Reverse()
 
-        Dim paarungen As New List(Of SpielPartie)
-        Dim AddFreilos = Sub()
-
-                         End Sub
+        Dim paarungen As New PaarungsContainer(Of Spieler)
 
         If aktiveListe.Count Mod 2 = 1 Then
             Dim freilosSpieler = freilosRegel(aktiveListe)
             aktiveListe.Remove(freilosSpieler)
-            AddFreilos = Sub()
-                             paarungen.Add(New FreiLosSpiel(_Rundenname, freilosSpieler, _Gewinnsätze))
-                         End Sub
+            paarungen.Übrig = freilosSpieler
         End If
 
         Dim mittelPaket As New MittelPaket(_SuchePaarungenMitAltschwimmer, aktuelleRunde)
@@ -45,8 +40,7 @@ Public Class PaketBildung
         If pakete.Count = 1 Then
             Dim paket = pakete.First
             paket.SuchePaarungen()
-            paarungen.AddRange(From x In paket.Partien Select New SpielPartie(_Rundenname, x.Item1, x.Item2, _Gewinnsätze))
-            AddFreilos()
+            paarungen.Partien.AddRange(paket.Partien)
             Return paarungen
         End If
 
@@ -81,10 +75,8 @@ Public Class PaketBildung
         doMittelPaket(oberePakete, unterePakete, mittelPaket)
 
         For Each Paket In pakete
-            Dim spielPartien = From x In Paket.Partien Select New SpielPartie(_Rundenname, x.Item1, x.Item2, _Gewinnsätze)
-            paarungen.AddRange(spielPartien)
+            paarungen.Partien.AddRange(Paket.Partien)
         Next
-        AddFreilos()
         Return paarungen
     End Function
 

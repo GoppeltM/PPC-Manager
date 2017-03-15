@@ -61,15 +61,16 @@ Public Class MainWindowController
                                      End Function
             Dim begegnungen = New PaketBildung(suchePaarungenFunc, RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
-            For Each partie In begegnungen
-                partie.ZeitStempel = Zeitstempel
-            Next
-
             Dim spielRunde As New SpielRunde
 
-            For Each begegnung In begegnungen
-                spielRunde.Add(begegnung)
+            For Each begegnung In begegnungen.Partien
+                spielRunde.Add(
+                    New SpielPartie(RundenName, begegnung.Item1, begegnung.Item2, .SpielRegeln.Gewinnsätze) _
+                    With {.ZeitStempel = Zeitstempel})
             Next
+            If begegnungen.Übrig IsNot Nothing Then
+                spielRunde.Add(New FreiLosSpiel(RundenName, begegnungen.Übrig, .SpielRegeln.Gewinnsätze))
+            End If
             .SpielRunden.Push(spielRunde)
 
         End With
@@ -180,9 +181,9 @@ Public Class MainWindowController
         End Try
     End Sub
 
-    Public Sub SatzEintragen(value As Integer, inverted As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
+    Public Sub SatzEintragen(value As Integer, linksGewonnen As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
         Dim oValue = OtherValue(value)
-        If inverted Then
+        If linksGewonnen Then
             Dim temp = value
             value = oValue
             oValue = temp
