@@ -1,21 +1,22 @@
 ﻿
-Class MittelPaket
-    Inherits Paket
+Class MittelPaket(Of T)
+    Inherits Paket(Of T)
 
-    Private schwimmerVonOben As Spieler
-    Private schwimmerVonUnten As Spieler
+    Private schwimmerVonOben As T
+    Private schwimmerVonUnten As T
 
-    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler)), ByVal aktuelleRunde As Integer)
+    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T)),
+            ByVal aktuelleRunde As Integer)
         MyBase.New(suchePaarungenMitAltschwimmer, aktuelleRunde)
     End Sub
 
-    Sub New(ByVal mittelPaket As MittelPaket)
+    Sub New(ByVal mittelPaket As MittelPaket(Of T))
         MyBase.New(mittelPaket)
         schwimmerVonOben = mittelPaket.schwimmerVonOben
         schwimmerVonUnten = mittelPaket.schwimmerVonUnten
     End Sub
 
-    Public Overrides Property aktuellerSchwimmer As Spieler
+    Public Overrides Property aktuellerSchwimmer As T
         Get
             If Absteigend Then
                 AltSchwimmer.Remove(schwimmerVonOben)
@@ -25,12 +26,12 @@ Class MittelPaket
                 Return schwimmerVonUnten
             End If
         End Get
-        Set(ByVal value As Spieler)
+        Set(ByVal value As T)
             MyBase.aktuellerSchwimmer = value
         End Set
     End Property
 
-    Sub ÜbernimmPaarungen(ByVal vorgänger As Paket)
+    Sub ÜbernimmPaarungen(ByVal vorgänger As Paket(Of T))
         Dim tempPaarungen = vorgänger.Partien.ToList
         tempPaarungen.Reverse()
 

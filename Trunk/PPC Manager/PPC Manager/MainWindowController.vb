@@ -46,20 +46,21 @@ Public Class MainWindowController
     End Function
 
     Public Sub NächsteRunde_Execute() Implements IController.NächsteRunde_Execute
-        ExcelBeschreibbar()
+        _ReportFactory.IstBereit()
         With AktiveCompetition
             Dim AktiveListe = .SpielerListe.ToList
             For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(Ausgeschieden.Spieler)
             Next
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
-            Dim spielpartien = .SpielRunden.SelectMany(Function(m) m.AsEnumerable)
-            Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) New Spielverlauf(spielpartien).Habengegeneinandergespielt(a, b)
+            Dim spielpartien = .SpielRunden.SelectMany(Function(m) m)
+            Dim spielverlauf = New Spielverlauf(spielpartien, .SpielRegeln.Gewinnsätze)
+            Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) spielverlauf.Habengegeneinandergespielt(a, b)
             Dim suchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
                                          Return Function(spielerliste, absteigend) _
                                          New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
                                      End Function
-            Dim begegnungen = New PaketBildung(suchePaarungenFunc, RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
+            Dim begegnungen = New PaketBildung(Of Spieler)(spielverlauf, suchePaarungenFunc, RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
             Dim spielRunde As New SpielRunde
 
@@ -155,8 +156,6 @@ Public Class MainWindowController
     End Sub
 
     Public Sub ExcelExportieren(dateiName As String) Implements IController.ExcelExportieren
-        Dim spieler = AktiveCompetition.SpielerListe.ToList
-        spieler.Sort()
         _ReportFactory.SchreibeReport(dateiName)
     End Sub
 
@@ -166,19 +165,6 @@ Public Class MainWindowController
 
     Public Sub SaveExcel() Implements IController.SaveExcel
         _ReportFactory.AutoSave()
-    End Sub
-
-
-    Public Sub ExcelBeschreibbar()
-        Try
-            If IO.File.Exists(AktiveCompetition.ExcelPfad) Then
-                Using file = IO.File.OpenRead(AktiveCompetition.ExcelPfad)
-
-                End Using
-            End If
-        Catch ex As IO.IOException
-            Throw New ExcelNichtBeschreibbarException
-        End Try
     End Sub
 
     Public Sub SatzEintragen(value As Integer, linksGewonnen As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
@@ -202,7 +188,6 @@ Public Class MainWindowController
         If s Is Nothing Then
             Return False
         End If
-
 
         Dim GewinnLinks = Aggregate x In s Where x.PunkteLinks > x.PunkteRechts Into Count()
         Dim GewinnRechts = Aggregate x In s Where x.PunkteLinks < x.PunkteRechts Into Count()

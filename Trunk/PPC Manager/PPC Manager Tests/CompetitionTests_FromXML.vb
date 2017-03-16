@@ -48,8 +48,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
     <Test>
-    Public Sub SpielRunden_Count_2()
-        Assert.AreEqual(2, _reference.SpielRunden.Count)
+    Public Sub SpielRunden_Count_1()
+        Assert.AreEqual(1, _reference.SpielRunden.Count)
     End Sub
 
     <Test>
@@ -58,9 +58,9 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
     <Test>
-    Public Sub SpielRunden_Peek_GleichRunde2()
+    Public Sub SpielRunden_Peek_GleichRunde1()
         For Each partie In _reference.SpielRunden.Peek
-            Assert.AreEqual("Runde 2", partie.RundenName)
+            Assert.AreEqual("Runde 1", partie.RundenName)
         Next
     End Sub
 

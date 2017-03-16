@@ -43,6 +43,18 @@ Public Class ReportFactory
         End Try
     End Sub
 
+    Public Sub ExcelBeschreibbar() Implements IReportFactory.IstBereit
+        Try
+            If File.Exists(ExcelPfad) Then
+                Using file = IO.File.OpenRead(ExcelPfad)
+
+                End Using
+            End If
+        Catch ex As IOException
+            Throw New ExcelNichtBeschreibbarException
+        End Try
+    End Sub
+
 
     Private ReadOnly Property ExcelPfad As String
         Get

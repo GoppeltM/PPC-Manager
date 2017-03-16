@@ -161,14 +161,6 @@ Public Class Spieler
         End Get
     End Property
 
-    Public ReadOnly Property HatFreilos As Boolean
-        Get
-            Return Aggregate Runde In SpielRunden, Freilos In Runde.OfType(Of FreiLosSpiel)()
-                   Where Freilos.SpielerLinks = Me Or Freilos.SpielerRechts = Me
-                   Into Any()
-        End Get
-    End Property
-
     Public ReadOnly Property SätzeGewonnen As Integer
         Get
             Return Aggregate x In GespieltePartien Where Not TypeOf x Is FreiLosSpiel Into Sum(x.MeineGewonnenenSätze(Me).Count)
@@ -256,10 +248,5 @@ Public Class Spieler
 
     Public Event PropertyChanged(ByVal sender As Object, ByVal e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    Function HatBereitsGespieltGegen(ByVal zuprüfenderSpieler As Spieler) As Boolean
-        Dim meineGegner = From x In GespieltePartien Select x.MeinGegner(Me)
-
-        Return meineGegner.Contains(zuprüfenderSpieler)
-    End Function
 
 End Class

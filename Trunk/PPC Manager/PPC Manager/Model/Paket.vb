@@ -1,16 +1,16 @@
 ﻿
 Imports PPC_Manager
 
-Public Class Paket
-    Implements IComparable(Of Paket)
+Public Class Paket(Of T)
+    Implements IComparable(Of Paket(Of T))
 
-    Sub New(ByVal paket As Paket)
+    Sub New(ByVal paket As Paket(Of T))
         _SuchePaarungen = paket._SuchePaarungen
         [Set](paket)
     End Sub
 
 
-    Sub [Set](ByVal backup As Paket)
+    Sub [Set](ByVal backup As Paket(Of T))
         SpielerListe.Clear()
         SpielerListe.AddRange(backup.SpielerListe)
         Absteigend = backup.Absteigend
@@ -22,7 +22,7 @@ Public Class Paket
         InitialNummer = backup.InitialNummer
     End Sub
 
-    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler)),
+    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T)),
             ByVal initialNummer As Integer)
 
         _SuchePaarungen = suchePaarungenMitAltschwimmer(Function(s) IstAltSchwimmer(s))
@@ -34,20 +34,20 @@ Public Class Paket
 
     Property Absteigend As Boolean = True
 
-    Property Partien As New List(Of Tuple(Of Spieler, Spieler))
+    Property Partien As New List(Of Tuple(Of T, T))
 
-    Property SpielerListe As New List(Of Spieler)
+    Property SpielerListe As New List(Of T)
 
-    Public AltSchwimmer As New List(Of Spieler)
-    Private ReadOnly _SuchePaarungen As SuchePaarungen(Of Spieler)
-    Public Overridable Property aktuellerSchwimmer As Spieler
+    Public AltSchwimmer As New List(Of T)
+    Private ReadOnly _SuchePaarungen As SuchePaarungen(Of T)
+    Public Overridable Property aktuellerSchwimmer As T
 
     Sub sort()
         SpielerListe.Sort()
         If Absteigend Then SpielerListe.Reverse()
     End Sub
 
-    Sub VerschiebeSchwimmer(ByVal paket As Paket)
+    Sub VerschiebeSchwimmer(ByVal paket As Paket(Of T))
         If aktuellerSchwimmer IsNot Nothing Then
             paket.moveAltSchwimmer(aktuellerSchwimmer)
             SpielerListe.Remove(aktuellerSchwimmer)
@@ -55,18 +55,18 @@ Public Class Paket
         aktuellerSchwimmer = Nothing
     End Sub
 
-    Private Sub moveAltSchwimmer(ByVal aktuellerSchwimmer As Spieler)
+    Private Sub moveAltSchwimmer(ByVal aktuellerSchwimmer As T)
         AltSchwimmer.Add(aktuellerSchwimmer)
         SpielerListe.Add(aktuellerSchwimmer)
     End Sub
 
-    Public ReadOnly Property IstAltSchwimmer(ByVal spieler As Spieler) As Boolean
+    Public ReadOnly Property IstAltSchwimmer(ByVal spieler As T) As Boolean
         Get
             Return AltSchwimmer.Contains(spieler)
         End Get
     End Property
 
-    Sub übernimmPaket(ByVal aktuellesPaket As Paket)
+    Sub übernimmPaket(ByVal aktuellesPaket As Paket(Of T))
         AltSchwimmer.AddRange(aktuellesPaket.SpielerListe)
         SpielerListe.AddRange(aktuellesPaket.SpielerListe)
         aktuellesPaket.SpielerListe.Clear()
@@ -86,7 +86,7 @@ Public Class Paket
         Return False
     End Function
 
-    Public Function CompareTo(ByVal other As Paket) As Integer Implements System.IComparable(Of Paket).CompareTo
+    Public Function CompareTo(ByVal other As Paket(Of T)) As Integer Implements System.IComparable(Of Paket(Of T)).CompareTo
         Return InitialNummer - other.InitialNummer
     End Function
 

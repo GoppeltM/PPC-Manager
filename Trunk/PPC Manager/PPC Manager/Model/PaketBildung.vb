@@ -1,16 +1,19 @@
 ﻿Imports PPC_Manager
 
-Public Class PaketBildung
+Public Class PaketBildung(Of T)
 
     Private ReadOnly _Rundenname As String
     Private ReadOnly _Gewinnsätze As Integer
-    Private ReadOnly _SuchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler))
+    Private ReadOnly _SuchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T))
+    Private ReadOnly _Spielverlauf As ISpielverlauf(Of T)
 
-    Public Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of Spieler), SuchePaarungen(Of Spieler)),
+    Public Sub New(spielverlauf As ISpielverlauf(Of T),
+                   suchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T)),
                    rundenname As String, gewinnsätze As Integer)
         _SuchePaarungenMitAltschwimmer = suchePaarungenMitAltschwimmer
         _Rundenname = rundenname
         _Gewinnsätze = gewinnsätze
+        _Spielverlauf = spielverlauf
     End Sub
 
     '''
@@ -22,11 +25,11 @@ Public Class PaketBildung
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
     '''
-    Public Function organisierePakete(ByVal aktiveListe As List(Of Spieler), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of Spieler)
+    Public Function organisierePakete(ByVal aktiveListe As List(Of T), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of T)
         aktiveListe.Sort()
         aktiveListe.Reverse()
 
-        Dim paarungen As New PaarungsContainer(Of Spieler)
+        Dim paarungen As New PaarungsContainer(Of T)
 
         If aktiveListe.Count Mod 2 = 1 Then
             Dim freilosSpieler = freilosRegel(aktiveListe)
@@ -34,7 +37,7 @@ Public Class PaketBildung
             paarungen.Übrig = freilosSpieler
         End If
 
-        Dim mittelPaket As New MittelPaket(_SuchePaarungenMitAltschwimmer, aktuelleRunde)
+        Dim mittelPaket As New MittelPaket(Of T)(_SuchePaarungenMitAltschwimmer, aktuelleRunde)
         Dim pakete = makeEvenPointPackets(_Rundenname, aktiveListe, aktuelleRunde, mittelPaket)
 
         If pakete.Count = 1 Then
@@ -44,8 +47,8 @@ Public Class PaketBildung
             Return paarungen
         End If
 
-        Dim oberePakete = New List(Of Paket)
-        Dim unterePakete = New List(Of Paket)
+        Dim oberePakete = New List(Of Paket(Of T))
+        Dim unterePakete = New List(Of Paket(Of T))
         For i = 0 To pakete.IndexOf(mittelPaket) - 1
             oberePakete.Add(pakete(i))
         Next
@@ -80,15 +83,18 @@ Public Class PaketBildung
         Return paarungen
     End Function
 
-    Private Shared Function SucheNächstesPaket(ByVal oberePakete As List(Of Paket), ByVal unterePakete As List(Of Paket), ByVal mittelPaket As Paket, ByVal prioOben As Boolean) As Paket
+    Private Shared Function SucheNächstesPaket(ByVal oberePakete As List(Of Paket(Of T)),
+                                               ByVal unterePakete As List(Of Paket(Of T)),
+                                               ByVal mittelPaket As Paket(Of T),
+                                               ByVal prioOben As Boolean) As Paket(Of T)
         Dim gesamtListe = oberePakete.ToList
         gesamtListe.Add(mittelPaket)
         gesamtListe.AddRange(unterePakete)
         gesamtListe.Sort()
 
         Dim indexMittelPaket = gesamtListe.IndexOf(mittelPaket)
-        Dim oberesPaket As Paket = Nothing
-        Dim unteresPaket As Paket = Nothing
+        Dim oberesPaket As Paket(Of T) = Nothing
+        Dim unteresPaket As Paket(Of T) = Nothing
         If indexMittelPaket > 0 Then
             oberesPaket = gesamtListe(indexMittelPaket - 1)
         End If
@@ -132,7 +138,9 @@ Public Class PaketBildung
     '''@param unterePakete
     '''@param mittelPaket
     '''
-    Private Shared Sub doMittelPaket(ByVal oberePakete As List(Of Paket), ByVal unterePakete As List(Of Paket), ByVal mittelPaket As MittelPaket)
+    Private Shared Sub doMittelPaket(ByVal oberePakete As List(Of Paket(Of T)),
+                                     ByVal unterePakete As List(Of Paket(Of T)),
+                                     ByVal mittelPaket As MittelPaket(Of T))
         If mittelPaket.SuchePaarungen Then Return
 
         If alternierendeSchwimmer(oberePakete, unterePakete, mittelPaket) Then Return
@@ -140,7 +148,7 @@ Public Class PaketBildung
         ' Angrenzende Paarungen auflösen und dem Mittelpaket zuordnen, bis
         ' eine gültige Paarung zustande kommt
 
-        Dim vorgänger As Paket = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
+        Dim vorgänger = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
 
         While vorgänger IsNot Nothing
             If mittelPaket.SuchePaarungen Then
@@ -158,7 +166,9 @@ Public Class PaketBildung
         Throw New Exception("Es können keine Paarungen mehr gebildet werden. Dies war die letzte Runde")
     End Sub
 
-    Private Shared Function alternierendeSchwimmer(ByVal oberePakete As List(Of Paket), ByVal unterePakete As List(Of Paket), ByVal mittelPaket As MittelPaket) As Boolean
+    Private Shared Function alternierendeSchwimmer(ByVal oberePakete As List(Of Paket(Of T)),
+                                                   ByVal unterePakete As List(Of Paket(Of T)),
+                                                   ByVal mittelPaket As MittelPaket(Of T)) As Boolean
         ' Erstes Paket bearbeiten
         Dim paket = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
         If paket Is Nothing Then Return False
@@ -176,12 +186,13 @@ Public Class PaketBildung
         Return SchwimmerTausch(paket, mittelPaket)
     End Function
 
-    Private Shared Function SchwimmerTausch(ByVal paket As Paket, ByVal mittelPaket As MittelPaket) As Boolean
+    Private Shared Function SchwimmerTausch(ByVal paket As Paket(Of T),
+                                            ByVal mittelPaket As MittelPaket(Of T)) As Boolean
         mittelPaket.Absteigend = paket.Absteigend
         paket.sort()
 
-        Dim backup = New Paket(paket)
-        Dim backupMitte As MittelPaket = New MittelPaket(mittelPaket)
+        Dim backup = New Paket(Of T)(paket)
+        Dim backupMitte = New MittelPaket(Of T)(mittelPaket)
 
         While mittelPaket.aktuellerSchwimmer IsNot Nothing
             mittelPaket.VerschiebeSchwimmer(paket)
@@ -196,10 +207,10 @@ Public Class PaketBildung
         Return False
     End Function
 
-    Private Shared Sub doPaarungen(ByVal pakete As List(Of Paket), ByVal mittelPaket As MittelPaket)
+    Private Shared Sub doPaarungen(ByVal pakete As List(Of Paket(Of T)), ByVal mittelPaket As MittelPaket(Of T))
         For i = 0 To pakete.Count - 1
             Dim aktuellesPaket = pakete(i)
-            Dim nächstesPaket As Paket
+            Dim nächstesPaket As Paket(Of T)
             If i = pakete.Count - 1 Then
                 nächstesPaket = mittelPaket
             Else
@@ -212,7 +223,7 @@ Public Class PaketBildung
             End If
             aktuellesPaket.VerschiebeSchwimmer(nächstesPaket)
         Next
-        Dim toBeRemoved = New List(Of Paket)
+        Dim toBeRemoved = New List(Of Paket(Of T))
         For Each Paket In pakete
             If Not Paket.SpielerListe.Any Then
                 toBeRemoved.Add(Paket)
@@ -230,10 +241,10 @@ Public Class PaketBildung
     '''der ein Freilos erhalten soll.
     '''In der Paketbildung wird dieser Spieler dann ignoriert.
     '''
-    Private Shared Function freilosRegel(ByVal aktiveListe As List(Of Spieler)) As Spieler
+    Private Function freilosRegel(ByVal aktiveListe As List(Of T)) As T
         For i = aktiveListe.Count - 1 To 0 Step -1
             Dim tempSpieler = aktiveListe(i)
-            If Not tempSpieler.HatFreilos Then
+            If Not _Spielverlauf.HatFreilos(tempSpieler) Then
                 Return tempSpieler
             End If
         Next
@@ -247,25 +258,27 @@ Public Class PaketBildung
     '''Dies geschieht solange, bis keine Pakete mehr gebildet werden können.
     '''@return - es konnte ein Paket gebildet werden.
     '''
-    Private Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As List(Of Spieler), ByVal aktuelleRunde As Integer, ByVal mittelPaket As MittelPaket) As List(Of Paket)
+    Private Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As List(Of T),
+                                          ByVal aktuelleRunde As Integer,
+                                          ByVal mittelPaket As MittelPaket(Of T)) As List(Of Paket(Of T))
 
-        Dim pakete As New List(Of Paket)
+        Dim pakete As New List(Of Paket(Of T))
         Dim gesamtPaketzahl = aktuelleRunde * 2 + 1
 
         For i = 0 To gesamtPaketzahl - 1
             If i = aktuelleRunde Then
                 pakete.Add(mittelPaket)
             Else
-                pakete.Add(New Paket(_SuchePaarungenMitAltschwimmer, i))
+                pakete.Add(New Paket(Of T)(_SuchePaarungenMitAltschwimmer, i))
             End If
         Next
 
         For Each Spieler In spielerliste
-            Dim punkte = Spieler.Punkte
+            Dim punkte = _Spielverlauf.BerechnePunkte(Spieler)
             pakete(2 * aktuelleRunde - 2 * punkte).SpielerListe.Add(Spieler)
         Next
 
-        Dim removePakete = New List(Of Paket)
+        Dim removePakete = New List(Of Paket(Of T))
         For Each Paket In pakete
             If Not Paket Is mittelPaket Then
                 If Not Paket.SpielerListe.Any Then
