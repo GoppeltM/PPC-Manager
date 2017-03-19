@@ -1,37 +1,20 @@
 ﻿
 Public Class Competition
 
-    Property Altersgruppe As String
+    ReadOnly Property Altersgruppe As String
 
-    Property SpielRunden As New SpielRunden
-    Property SpielerListe As New SpielerListe
-    Property DateiPfad As String
-
-    Private _SpielRegeln As SpielRegeln
+    ReadOnly Property SpielRunden As SpielRunden
+    ReadOnly Property SpielerListe As SpielerListe
     ReadOnly Property SpielRegeln As SpielRegeln
-        Get
-            Return _SpielRegeln
-        End Get
-    End Property
 
-    Public Sub New(spielRegeln As SpielRegeln)
-        _SpielRegeln = spielRegeln
+    Public Sub New(spielRegeln As SpielRegeln,
+                   spielrunden As SpielRunden,
+                   spielerListe As SpielerListe,
+                   altersgruppe As String)
+        Me.SpielRegeln = spielRegeln
+        Me.SpielerListe = spielerListe
+        Me.SpielRunden = spielrunden
+        Me.Altersgruppe = altersgruppe
     End Sub
-
-    Public ReadOnly Property ExcelPfad As String
-        Get
-            Dim DateiName = IO.Path.GetFileNameWithoutExtension(DateiPfad)
-            DateiName &= "_" & Altersgruppe
-            For Each c In IO.Path.GetInvalidFileNameChars
-                DateiName = DateiName.Replace(c, "_"c)
-            Next
-            DateiName = DateiName.Replace(" "c, "_"c)
-            DateiName &= ".xlsx"
-            Dim Unterpfad = IO.Path.Combine(IO.Path.GetDirectoryName(DateiPfad), "Protokolle")
-            DateiName = IO.Path.Combine(Unterpfad, DateiName)
-            Return DateiName
-        End Get
-    End Property
-
 
 End Class

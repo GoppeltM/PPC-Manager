@@ -14,7 +14,7 @@ Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
     Protected ReadOnly _GewinnSätze As Integer
-    Private ReadOnly Spieler As KeyValuePair(Of Spieler, Spieler)
+    Private ReadOnly Spieler As KeyValuePair(Of SpielerInfo, SpielerInfo)
     Private ReadOnly _RundenName As String
     Public ReadOnly Property RundenName As String
         Get
@@ -23,11 +23,11 @@ Public Class SpielPartie
     End Property
 
 
-    Public Sub New(rundenName As String, ByVal spielerLinks As Spieler, ByVal spielerRechts As Spieler, gewinnsätze As Integer)
+    Public Sub New(rundenName As String, ByVal spielerLinks As SpielerInfo, ByVal spielerRechts As SpielerInfo, gewinnsätze As Integer)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException
         If spielerRechts Is Nothing Then Throw New ArgumentNullException
 
-        Spieler = New KeyValuePair(Of Spieler, Spieler)(spielerLinks, spielerRechts)
+        Spieler = New KeyValuePair(Of SpielerInfo, SpielerInfo)(spielerLinks, spielerRechts)
         _RundenName = rundenName
         _GewinnSätze = gewinnsätze
         AddHandler Me.CollectionChanged, Sub()
@@ -35,26 +35,21 @@ Public Class SpielPartie
                                          End Sub
     End Sub
 
-    Public ReadOnly Property SpielerLinks As Spieler
+    Public ReadOnly Property SpielerLinks As SpielerInfo
         Get
             Return Spieler.Key
         End Get
     End Property
 
-    Public ReadOnly Property SpielerRechts As Spieler
+    Public ReadOnly Property SpielerRechts As SpielerInfo
         Get
             Return Spieler.Value
         End Get
     End Property
 
-    Public Sub Update()
-        SpielerLinks.PunkteGeändert()
-        SpielerRechts.PunkteGeändert()
-    End Sub
-
     Public Property ZeitStempel As Date
 
-    Public ReadOnly Property MeinGegner(ByVal ich As Spieler) As Spieler
+    Public ReadOnly Property MeinGegner(ByVal ich As SpielerInfo) As SpielerInfo
         Get
             If Spieler.Key = ich Then
                 Return Spieler.Value
@@ -64,7 +59,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public ReadOnly Property Gewonnen(ich As Spieler) As Boolean
+    Public ReadOnly Property Gewonnen(ich As SpielerInfo) As Boolean
         Get
             If Abgeschlossen() AndAlso MeineGewonnenenSätze(ich).Count > MeineVerlorenenSätze(ich).Count Then Return True
             Return False
@@ -81,7 +76,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public Overridable ReadOnly Property MeineVerlorenenSätze(ByVal ich As Spieler) As IList(Of Satz)
+    Public Overridable ReadOnly Property MeineVerlorenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
         Get
             Dim verlorenLinks = From x In Me Where x.Abgeschlossen AndAlso x.PunkteRechts > x.PunkteLinks
                                 Select x
@@ -97,7 +92,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
+    Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
         Get
             Dim gewonnenLinks = From x In Me Where x.GewonnenLinks
 

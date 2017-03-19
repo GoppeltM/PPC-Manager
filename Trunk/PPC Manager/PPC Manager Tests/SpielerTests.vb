@@ -9,7 +9,8 @@
 
     <Test>
     Public Sub KopierterSpieler_ist_gleich_zu_Original()
-        Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim s As New Spieler(spielverlauf) With {
             .Id = "949"
         }
 
@@ -19,11 +20,12 @@
 
     <Test>
     Public Sub Spieler_mit_selber_Id_ist_gleich()
-        Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim s As New Spieler(spielverlauf) With {
             .Id = "949"
         }
 
-        Dim neu As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {
+        Dim neu As New Spieler(spielverlauf) With {
             .Id = "949"
         }
 
@@ -32,11 +34,12 @@
 
     <Test>
     Public Sub Spieler_mit_unterschiedlicher_Id_ist_nicht_gleich()
-        Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim s As New Spieler(spielverlauf) With {
             .Id = "949"
         }
 
-        Dim neu As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {
+        Dim neu As New Spieler(spielverlauf) With {
             .Id = "888"
         }
 
@@ -45,7 +48,8 @@
 
     <Test>
     Public Sub KopierterSpieler_enthält_selbe_Attribute_wie_Original()
-        Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim s As New Spieler(Spielverlauf) With {
             .Id = "949",
             .Vorname = "Bob",
             .Nachname = "Builder",

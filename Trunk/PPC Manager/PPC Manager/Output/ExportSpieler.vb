@@ -5,19 +5,16 @@
 Public Class ExportSpieler
     Inherits Spieler
 
-    Sub New(spieler As Spieler)
-        MyBase.New(spieler)
-    End Sub
+    Private ReadOnly _SpielPartien As IEnumerable(Of SpielPartie)
 
-    Protected Overrides ReadOnly Property GespieltePartien As IEnumerable(Of SpielPartie)
-        Get
-            Dim r = From x In SpielRunden.Skip(1).Reverse From y In x Where y.SpielerLinks = Me Or y.SpielerRechts = Me Select y
-            Return r.ToList
-        End Get
-    End Property
+    Sub New(spieler As Spieler, spielpartien As IEnumerable(Of SpielPartie))
+        MyBase.New(spieler)
+        _SpielPartien = spielpartien
+    End Sub
 
     Public ReadOnly Property GegnerProfil As IEnumerable(Of String)
         Get
+            Dim gespieltePartien = From x In _SpielPartien Where x.SpielerLinks = Me Or x.SpielerRechts = Me
             Return From x In GespieltePartien Select x.MeinGegner(Me).Id
         End Get
     End Property

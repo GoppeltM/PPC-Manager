@@ -4,18 +4,23 @@
 
     <SetUp>
     Sub Init()
-        c = New Competition(New SpielRegeln(3, True, True))
         _Runde = New SpielRunde
-        _Spielverlauf = New Spielverlauf(_Runde, 3)
+
+        Dim runden = New SpielRunden
+        runden.Push(_Runde)
+        _Spielverlauf = New Spielverlauf(runden.SelectMany(Function(m) m),
+                                         New List(Of SpielerInfo),
+                                         New SpielRegeln(3, True, True))
+        c = New Competition(New SpielRegeln(3, True, True), runden, New SpielerListe, "Mädchen U18")
     End Sub
 
     Private c As Competition
     Private _Runde As SpielRunde
-    Private _Spielverlauf As Spielverlauf
+    Private _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
     Private Function CreateSpieler(Optional nachname As String = "", Optional vorname As String = "",
                                    Optional ttrating As Integer = 0, Optional id As String = "") As Spieler
-        Dim s = New Spieler(c.SpielRunden, c.SpielRegeln)
+        Dim s = New Spieler(_Spielverlauf)
         s.Nachname = nachname
         s.Vorname = vorname
         s.TTRating = ttrating
@@ -116,7 +121,7 @@
                 Assert.AreEqual(.BuchholzPunkte, 0)
             End With
 
-            .AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = SpielerB, .Runde = 1})
+            .AusgeschiedeneSpieler.Add(New Ausgeschieden(Of Spieler) With {.Spieler = SpielerB, .Runde = 1})
             .Push(New SpielRunde From {Partie2})
 
             With SpielerB

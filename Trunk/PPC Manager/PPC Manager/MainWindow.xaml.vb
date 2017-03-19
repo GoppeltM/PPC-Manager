@@ -1,12 +1,15 @@
 ﻿Imports System.Collections.ObjectModel
+Imports PPC_Manager
 
 Class MainWindow
 
     Private ReadOnly _Controller As IController
-    
-    Sub New(controller As IController)
+    Private ReadOnly _ReportFactory As IReportFactory
+
+    Sub New(controller As IController, reportFactory As IReportFactory)
         InitializeComponent()
         _Controller = controller
+        _ReportFactory = reportFactory
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
 
         Me.DataContext = _Controller
@@ -46,7 +49,7 @@ Class MainWindow
     End Sub
 
     Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.", _
+        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.",
                    "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
             Return
         End If
@@ -58,11 +61,11 @@ Class MainWindow
         Try
             _Controller.NächsteRunde_Execute()
         Catch ex As ExcelNichtBeschreibbarException
-            MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei {0} möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", _Controller.AktiveCompetition.ExcelPfad),
+            MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", _ReportFactory.ExcelPfad),
                             "Excel offen", MessageBoxButton.OK)
             Return
         End Try
-        
+
         If CBool(My.Settings.AutoSaveAn) Then
             _Controller.SaveExcel()
         End If
@@ -72,7 +75,7 @@ Class MainWindow
     End Sub
 
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die Playoffs beginnen? Es wird eine leere Runde erzeugt, und die vorigen Ergebnisse können nicht verändert werden.", _
+        If MessageBox.Show("Wollen Sie wirklich die Playoffs beginnen? Es wird eine leere Runde erzeugt, und die vorigen Ergebnisse können nicht verändert werden.",
                    "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
             Return
         End If
@@ -83,12 +86,12 @@ Class MainWindow
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
-    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)        
+    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         _Controller.RundenbeginnDrucken(New Printer)
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        _Controller.RundenendeDrucken(New Printer)        
+        _Controller.RundenendeDrucken(New Printer)
     End Sub
 
     Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -99,7 +102,7 @@ Class MainWindow
 
         With LadenNeu.SpeichernDialog
             .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"
-            .FileName = _Controller.AktiveCompetition.ExcelPfad
+            .FileName = _ReportFactory.ExcelPfad
             .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
                 _Controller.ExcelExportieren(.FileName)

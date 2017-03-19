@@ -3,8 +3,11 @@ Public Class RanglisteSeiteTests
 
     <SetUp>
     Public Sub Init()
-        Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True))
-        _RangListe = New RanglisteSeite("Altersgruppe", 2, New List(Of Spieler) From {s})
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim s As New Spieler(spielverlauf)
+        _RangListe = New RanglisteSeite("Altersgruppe", 2,
+                                        New List(Of Spieler) From {s},
+                                        New List(Of SpielPartie))
     End Sub
 
     Dim _RangListe As RanglisteSeite

@@ -1,4 +1,6 @@
-﻿Public Interface IController
+﻿Imports PPC_Manager
+
+Public Interface IController
 
     ReadOnly Property AktiveCompetition As Competition
 
@@ -27,5 +29,5 @@
     Function FilterSpieler(s As Spieler) As Boolean
 
     Sub NeuePartie(rundenName As String, spielerA As Spieler, SpielerB As Spieler)
-
+    Sub SpielerAusscheiden(spieler As Spieler)
 End Interface

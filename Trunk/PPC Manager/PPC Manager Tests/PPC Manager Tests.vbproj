@@ -90,6 +90,7 @@
   </Choose>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Moq" />
     <Import Include="nunit.framework" />
     <Import Include="PPC_Manager" />
     <Import Include="System" />

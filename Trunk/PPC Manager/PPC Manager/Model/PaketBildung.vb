@@ -25,9 +25,8 @@ Public Class PaketBildung(Of T)
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
     '''
-    Public Function organisierePakete(ByVal aktiveListe As List(Of T), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of T)
-        aktiveListe.Sort()
-        aktiveListe.Reverse()
+    Public Function organisierePakete(ByVal aktiveListe As IList(Of T), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of T)
+        aktiveListe = (From x In aktiveListe Order By x Descending).ToList
 
         Dim paarungen As New PaarungsContainer(Of T)
 
@@ -241,7 +240,7 @@ Public Class PaketBildung(Of T)
     '''der ein Freilos erhalten soll.
     '''In der Paketbildung wird dieser Spieler dann ignoriert.
     '''
-    Private Function freilosRegel(ByVal aktiveListe As List(Of T)) As T
+    Private Function freilosRegel(ByVal aktiveListe As IEnumerable(Of T)) As T
         For i = aktiveListe.Count - 1 To 0 Step -1
             Dim tempSpieler = aktiveListe(i)
             If Not _Spielverlauf.HatFreilos(tempSpieler) Then
@@ -258,7 +257,7 @@ Public Class PaketBildung(Of T)
     '''Dies geschieht solange, bis keine Pakete mehr gebildet werden können.
     '''@return - es konnte ein Paket gebildet werden.
     '''
-    Private Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As List(Of T),
+    Private Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As IList(Of T),
                                           ByVal aktuelleRunde As Integer,
                                           ByVal mittelPaket As MittelPaket(Of T)) As List(Of Paket(Of T))
 

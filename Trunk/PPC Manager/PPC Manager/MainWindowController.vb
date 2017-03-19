@@ -3,16 +3,21 @@
 Public Class MainWindowController
     Implements IController
 
-    Public Sub New(competition As Competition, speichern As Action, reportFactory As IReportFactory)
+    Public Sub New(competition As Competition,
+                   speichern As Action,
+                   reportFactory As IReportFactory,
+                   spielverlauf As ISpielverlauf(Of SpielerInfo))
         _Competition = competition
         _Speichern = speichern
         _ReportFactory = reportFactory
+        _Spielverlauf = spielverlauf
         If _Competition Is Nothing Then Throw New ArgumentNullException("competition")
     End Sub
 
     Private ReadOnly _Competition As Competition
     Private ReadOnly _Speichern As Action
     Private ReadOnly _ReportFactory As IReportFactory
+    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
     Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
         Get
@@ -53,14 +58,18 @@ Public Class MainWindowController
                 AktiveListe.Remove(Ausgeschieden.Spieler)
             Next
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
-            Dim spielpartien = .SpielRunden.SelectMany(Function(m) m)
-            Dim spielverlauf = New Spielverlauf(spielpartien, .SpielRegeln.Gewinnsätze)
-            Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) spielverlauf.Habengegeneinandergespielt(a, b)
+
+            Dim ausgeschiedeneSpieler = From x In .SpielRunden.AusgeschiedeneSpieler Select x.Spieler
+            Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) _Spielverlauf.Habengegeneinandergespielt(a, b)
             Dim suchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
                                          Return Function(spielerliste, absteigend) _
-                                         New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt, istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
+                                         New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt,
+                                                                       istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
                                      End Function
-            Dim begegnungen = New PaketBildung(Of Spieler)(spielverlauf, suchePaarungenFunc, RundenName, .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
+            Dim begegnungen = New PaketBildung(Of Spieler)(_Spielverlauf,
+                                                               suchePaarungenFunc,
+                                                               RundenName,
+                                                               .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
             Dim spielRunde As New SpielRunde
 
@@ -127,7 +136,7 @@ Public Class MainWindowController
             End If
         End With
 
-        Dim AusgeschiedenInRunde0 = Function(s As Spieler) As Boolean
+        Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
                                         Return Aggregate x In AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
                                                Where x.Spieler = s AndAlso x.Runde = 0
                                                Into Any()
@@ -139,7 +148,13 @@ Public Class MainWindowController
         l.Reverse()
 
         Dim doc = New FixedDocument
-        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l, seiteneinstellung, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+        Dim allePartien = AktiveCompetition.SpielRunden.SelectMany(Function(m) m)
+        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l.OfType(Of Spieler),
+                                   seiteneinstellung,
+                                   AktiveCompetition.Altersgruppe,
+                                   AktiveCompetition.SpielRunden.Count,
+                                   allePartien
+)
                                Select New PageContent() With {.Child = x}
 
         Dim spielErgebnisSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(Spielpartien, format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
@@ -212,5 +227,8 @@ Public Class MainWindowController
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
-
+    Public Sub SpielerAusscheiden(spieler As Spieler) Implements IController.SpielerAusscheiden
+        AktiveCompetition.SpielRunden.AusgeschiedeneSpieler.Add(
+            New Ausgeschieden(Of Spieler) With {.Spieler = spieler, .Runde = AktiveCompetition.SpielRunden.Count})
+    End Sub
 End Class

@@ -27,31 +27,33 @@ Public Class FixedPageFabrikTests
     Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
         Dim spielerListe As New List(Of Spieler)
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24, New List(Of SpielPartie))
         Assert.That(seiten.Count, [Is].EqualTo(1))
     End Sub
 
     <Test>
     Public Sub ErzeugeRanglisteSeiten_mit_200_spielern_ergibt_mehrere_Seiten()
         Dim spielerListe As New List(Of Spieler)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {.Id = "Spieler" & nummer}
+            Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
             spielerListe.Add(s)
         Next
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24, New List(Of SpielPartie))
         Assert.That(seiten.Count, [Is].GreaterThan(1))
     End Sub
 
     <Test, Explicit>
     Public Sub UIDummy_ErzeugeRanglisteSeiten_mit_200_Spielern()
         Dim spielerListe As New List(Of Spieler)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {.Id = "Spieler" & nummer}
+            Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
             spielerListe.Add(s)
         Next
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(spielerListe, _SeitenEinstellungen, "Altersgruppe", 24, New List(Of SpielPartie))
         Dim doc = New FixedDocument
         For Each seite In seiten
             doc.Pages.Add(New PageContent() With {.Child = seite})
@@ -87,10 +89,11 @@ Public Class FixedPageFabrikTests
     Public Sub UIDummy_Reales_Layout()
         Dim doc = XDocument.Load("D:\Turnierteilnehmer_PPC_20150913.xml")
         Dim spieler = doc.Root.<competition>.First.<players>
-        Dim l = AusXML.SpielerListeFromXML(spieler, New SpielRunden, New SpielRegeln(3, True, True))
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim l = From x In AusXML.SpielerListeFromXML(spieler) Select New Spieler(spielverlauf)
 
         Dim f As New FixedPageFabrik
-        Dim seiten = f.ErzeugeRanglisteSeiten(l, _SeitenEinstellungen, "Altersgruppe", 24)
+        Dim seiten = f.ErzeugeRanglisteSeiten(l, _SeitenEinstellungen, "Altersgruppe", 24, New List(Of SpielPartie))
         Dim vorschau As New Druckvorschau(seiten)
         vorschau.ShowDialog()
     End Sub
@@ -107,8 +110,9 @@ Public Class FixedPageFabrikTests
     Public Sub ErzeugeSchiedsrichterzettel_mit_200_Partien_600_mal_1000_enthält_34_Seiten()
         Dim f As New FixedPageFabrik
         Dim spielPartien = New List(Of SpielPartie)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler(New SpielRunden, New SpielRegeln(3, True, True)) With {.Id = "Spieler" & nummer}
+            Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
             spielPartien.Add(New FreiLosSpiel("Runde XY", s, 3))
         Next
 

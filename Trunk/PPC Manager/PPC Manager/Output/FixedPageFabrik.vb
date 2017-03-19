@@ -1,7 +1,8 @@
 ﻿Public Class FixedPageFabrik
     Friend Function ErzeugeRanglisteSeiten(spielerListe As IEnumerable(Of Spieler), seitenEinstellungen As ISeiteneinstellung,
-                                            altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
-        Dim seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe)
+                                            altersGruppe As String, rundenNummer As Integer,
+                                           spielpartien As IEnumerable(Of SpielPartie)) As IEnumerable(Of FixedPage)
+        Dim seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe, spielpartien)
         With seite
             Dim canvas = New Canvas
             canvas.Children.Add(seite)
@@ -11,7 +12,7 @@
 
         Dim gesamtLänge = seite.RenderSize.Height
 
-        seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe)
+        seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe, spielpartien)
         Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
     End Function
 

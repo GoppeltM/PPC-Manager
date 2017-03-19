@@ -14,20 +14,18 @@ Public Class ZuXMLTests
     Sub Runden_To_XML()
         Dim runden = New SpielRunden
         Dim regeln = New SpielRegeln(4, False, False)
-        Dim c = New Competition(regeln)
-        With c
-            .DateiPfad = "D:\dummy.xml"
-            .Altersgruppe = "Mädchen U 13"
-            .SpielerListe = New SpielerListe From {
-                New Spieler(runden, regeln) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
-                New Spieler(runden, regeln) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"},
-                New Spieler(runden, regeln) With {.Vorname = "Alec", .Nachname = "Baldwin", .Id = "PLAYER33"},
-                New Spieler(runden, regeln) With {.Vorname = "Mahatma", .Nachname = "Gandhi", .Id = "PLAYER77"}
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim spieler = New SpielerListe From {
+                New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
+                New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"},
+                New Spieler(spielverlauf) With {.Vorname = "Alec", .Nachname = "Baldwin", .Id = "PLAYER33"},
+                New Spieler(spielverlauf) With {.Vorname = "Mahatma", .Nachname = "Gandhi", .Id = "PLAYER77"}
             }
-            Dim spieler = .SpielerListe
-            .SpielRunden = runden
+        Dim c = New Competition(regeln, runden, spieler, "Mädchen U 13")
+        With c
             With .SpielRunden
-                .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden) From {New Ausgeschieden With {.Spieler = spieler(3), .Runde = 1}}
+                .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden(Of Spieler)) From {
+                    New Ausgeschieden(Of Spieler) With {.Spieler = spieler(3), .Runde = 1}}
                 Dim runde = New SpielRunde
                 Dim Zeitstempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
                 runde.Add(New FreiLosSpiel("Runde 1", spieler(2), c.SpielRegeln.Gewinnsätze) With {.ZeitStempel = Zeitstempel})
@@ -58,11 +56,10 @@ Public Class ZuXMLTests
 
     <Test>
     Sub SpielePartie_To_XML()
-        Dim regeln = New SpielRegeln(4, False, False)
-        Dim runden = New SpielRunden
-        Dim SpielerA = New Spieler(runden, regeln) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler(runden, regeln) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
-        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, regeln.Gewinnsätze)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim SpielerA = New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, 3)
         Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
@@ -85,12 +82,11 @@ Public Class ZuXMLTests
 
     <Test>
     Sub FremdPartie_To_XML()
-        Dim regeln = New SpielRegeln(4, False, False)
-        Dim runden = New SpielRunden
-        Dim SpielerA = New Spieler(runden, regeln) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler(runden, regeln) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim SpielerA = New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
+        Dim SpielerB = New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
 
-        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, regeln.Gewinnsätze)
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, 4)
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})

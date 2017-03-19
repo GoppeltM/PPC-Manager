@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports PPC_Manager
 
 Public Class ReportFactory
     Implements IReportFactory
@@ -6,12 +7,18 @@ Public Class ReportFactory
     Private ReadOnly _Altersgruppe As String
     Private ReadOnly _Spieler As IEnumerable(Of Spieler)
     Private ReadOnly _SpielRunden As IEnumerable(Of SpielRunde)
+    Private ReadOnly _spielRegeln As SpielRegeln
 
-    Public Sub New(dateipfad As String, altersgruppe As String, spieler As IEnumerable(Of Spieler), spielrunden As IEnumerable(Of SpielRunde))
+    Public Sub New(dateipfad As String,
+                   altersgruppe As String,
+                   spieler As IEnumerable(Of Spieler),
+                   spielrunden As IEnumerable(Of SpielRunde),
+                   spielregeln As SpielRegeln)
         _DateiPfad = dateipfad
         _Altersgruppe = altersgruppe
         _Spieler = spieler
         _SpielRunden = spielrunden
+        _spielRegeln = spielregeln
     End Sub
 
     Public Sub AutoSave() Implements IReportFactory.AutoSave
@@ -19,7 +26,9 @@ Public Class ReportFactory
     End Sub
 
     Public Sub SchreibeReport(ByVal filePath As String) Implements IReportFactory.SchreibeReport
-        Dim exportSpieler = (From x In _Spieler Select New ExportSpieler(x)).ToList
+        Dim spielpartien = (From x In _SpielRunden.Skip(1).Reverse Select x).SelectMany(Function(m) m)
+        Dim spielverlauf = New Spielverlauf(spielpartien, New List(Of Spieler), _spielRegeln)
+        Dim exportSpieler = (From x In _Spieler Select New ExportSpieler(x, spielpartien)).ToList
         exportSpieler.Sort()
         exportSpieler.Reverse()
         Try
@@ -56,7 +65,7 @@ Public Class ReportFactory
     End Sub
 
 
-    Private ReadOnly Property ExcelPfad As String
+    Public ReadOnly Property ExcelPfad As String Implements IReportFactory.ExcelPfad
         Get
             Dim DateiName = IO.Path.GetFileNameWithoutExtension(_DateiPfad)
             DateiName &= "_" & _Altersgruppe

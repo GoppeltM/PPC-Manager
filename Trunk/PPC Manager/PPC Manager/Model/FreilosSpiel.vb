@@ -1,11 +1,11 @@
 ﻿Public Class FreiLosSpiel
     Inherits SpielPartie
 
-    Public Sub New(rundenName As String, ByVal freilosSpieler As Spieler, gewinnsätze As Integer)
+    Public Sub New(rundenName As String, ByVal freilosSpieler As SpielerInfo, gewinnsätze As Integer)
         MyBase.New(rundenName, freilosSpieler, freilosSpieler, gewinnsätze)
     End Sub
 
-    Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As Spieler) As IList(Of Satz)
+    Public Overrides ReadOnly Property MeineGewonnenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
         Get
             Dim l As New List(Of Satz)
             For i = 0 To _GewinnSätze - 1

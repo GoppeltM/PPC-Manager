@@ -1,4 +1,5 @@
 ﻿Imports System.Text
+Imports Moq
 Imports NUnit.Framework
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
@@ -11,7 +12,11 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         For Each Spieler In xml...<person>
             Spieler.@ppc:anwesend = "true"
         Next
-        _reference = AusXML.CompetitionFromXML("D:\dummy.xml", xml, _regeln)
+        _reference = AusXML.CompetitionFromXML("D:\dummy.xml",
+                                               xml,
+                                               _regeln,
+                                               Moq.Mock.Of(Of ISpielverlauf(Of SpielerInfo)),
+                                               New SpielRunden)
     End Sub
 
 
@@ -20,17 +25,12 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         Dim controller = New Moq.Mock(Of IController)
         controller.Setup(Function(m) m.AktiveCompetition).Returns(_reference)
         controller.Setup(Function(m) m.FilterSpieler(Moq.It.IsAny(Of Spieler))).Returns(True)
-        Dim window = New MainWindow(controller.Object)
+        Dim window = New MainWindow(controller.Object, Mock.Of(Of IReportFactory))
         window.ShowDialog()
     End Sub
 
     Private _reference As Competition
     Private _regeln As SpielRegeln
-
-    <Test>
-    Public Sub DateiPfad_Is_dummyXML()
-        Assert.AreEqual("D:\dummy.xml", _reference.DateiPfad)
-    End Sub
 
     <Test>
     Public Sub SpielRegeln_SameAsInit()
@@ -85,10 +85,14 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     Public Sub NächsteRunde_Execute_OffeneSpieler_SpielDatenUnvollständigException()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         Dim node = (From x In doc.Root.<competition>
-                   Where x.Attribute("age-group").Value = "A-Klasse"
-                   Select x).Single
+                    Where x.Attribute("age-group").Value = "A-Klasse"
+                    Select x).Single
         Try
-            Dim c = AusXML.CompetitionFromXML("D:\temp.xml", node, New SpielRegeln(3, True, True))
+            Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+            Dim c = AusXML.CompetitionFromXML("D:\temp.xml", node,
+                                              New SpielRegeln(3, True, True),
+                                              spielverlauf,
+                                              New SpielRunden)
             Assert.Fail()
         Catch ex As SpielDatenUnvollständigException
 

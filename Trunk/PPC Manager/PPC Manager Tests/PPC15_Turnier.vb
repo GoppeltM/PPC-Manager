@@ -8,10 +8,16 @@ Public Class PPC15_Turnier_Klasse_D
         Dim KlassementD = (From x In XDocument.Parse(My.Resources.PPC_15_Anmeldungen).Root.<competition>
                            Where x.Attribute("age-group").Value = "D-Klasse").First
         Dim regeln = New SpielRegeln(3, True, False)
-        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln)
+        Dim r As New SpielRunden
+        Dim s As New Spielverlauf(r.SelectMany(Function(m) m),
+                                  New List(Of SpielerInfo),
+                                  regeln)
+        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, s, r)
         _Controller = New MainWindowController(AktuelleCompetition, Sub()
 
-                                                                    End Sub, Mock.Of(Of IReportFactory))
+                                                                    End Sub,
+                                               Mock.Of(Of IReportFactory),
+                                               s)
     End Sub
 
     Dim AktuelleCompetition As Competition
@@ -166,7 +172,7 @@ Public Class PPC15_Turnier_Klasse_D
         Runde_5()
         With AktuelleCompetition
             Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").Single
-            .SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden With {.Spieler = Ausgeschieden, .Runde = 6})
+            .SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden(Of Spieler) With {.Spieler = Ausgeschieden, .Runde = 6})
             Dim AktiveListe = .SpielerListe.ToList
             For Each a In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(a.Spieler)

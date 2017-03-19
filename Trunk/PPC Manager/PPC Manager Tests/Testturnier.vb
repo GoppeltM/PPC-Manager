@@ -17,11 +17,17 @@ Imports Moq
         _JungenU18 = (From x In XDocument.Parse(My.Resources.Testturnier).Root.<competition>
                       Where x.Attribute("age-group").Value = "Jungen U 18").First
         Dim regeln = New SpielRegeln(3, True, True)
-        Dim AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", _JungenU18, regeln)
+        Dim r As New SpielRunden
+        Dim s As New Spielverlauf(r.SelectMany(Function(m) m), New List(Of SpielerInfo), New SpielRegeln(3, True, True))
+        Dim AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml",
+                                                            _JungenU18,
+                                                            regeln, s, r)
         _AktiveListe = AktuelleCompetition.SpielerListe
         AktuelleCompetition.SpielRunden.Clear()
         _Controller = New MainWindowController(AktuelleCompetition, Sub()
-                                                                    End Sub, Mock.Of(Of IReportFactory))
+                                                                    End Sub,
+                                               Mock.Of(Of IReportFactory),
+                                               s)
     End Sub
 
 

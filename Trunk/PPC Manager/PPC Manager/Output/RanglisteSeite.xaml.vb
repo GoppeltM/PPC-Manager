@@ -2,14 +2,14 @@
 
 Public Class RanglisteSeite
 
-    Public Sub New(altersgruppe As String, rundenNummer As Integer, elemente As IEnumerable(Of Spieler))
+    Public Sub New(altersgruppe As String, rundenNummer As Integer, elemente As IEnumerable(Of Spieler), spielpartien As IEnumerable(Of SpielPartie))
         ' This call is required by the designer.
         InitializeComponent()
         KlassementName.Text = altersgruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         Me.RundenNummer.Text = String.Format("Runde Nr. {0}", rundenNummer)
 
-        Dim druckSpieler = From x In elemente Select New RangListeSpieler(x)
+        Dim druckSpieler = From x In elemente Select New RangListeSpieler(x, spielpartien)
 
         Dim res = CType(FindResource("Spieler"), RangListeSpielerListe)
         For Each s In druckSpieler
@@ -53,14 +53,18 @@ End Class
 Public Class RangListeSpieler
     Inherits Spieler
 
-    Public Sub New(spieler As Spieler)
+    Private ReadOnly _Spielpartien As IEnumerable(Of SpielPartie)
+
+    Public Sub New(spieler As Spieler, spielPartien As IEnumerable(Of SpielPartie))
         MyBase.New(spieler)
+        _Spielpartien = spielPartien
     End Sub
 
     Public ReadOnly Property MeineSpieleDruck As IEnumerable(Of String)
         Get
             Dim l As New List(Of String)
-            For Each s In GespieltePartien
+            Dim gespieltePartien = From x In _Spielpartien Where x.SpielerLinks = Me Or x.SpielerRechts = Me
+            For Each s In gespieltePartien
 
                 Dim text = s.MeinGegner(Me).StartNummer.ToString
                 If s.Gewonnen(Me) Then

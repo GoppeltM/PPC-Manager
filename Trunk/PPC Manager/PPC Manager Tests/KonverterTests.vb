@@ -2,17 +2,17 @@
 Imports NUnit.Framework
 Imports System.Windows.Media
 Imports System.Windows
+Imports Moq
 
 <TestFixture()> Public Class KonverterTests
 
     <Test>
     Public Sub GewonneneSätzeConverter_2Gewinnsätze_2zu0()
         Dim converter As New GewonneneSätzeConverter()
-        Dim spielRegeln = New SpielRegeln(3, True, True)
-        Dim runden As New SpielRunden
-        Dim partie As New SpielPartie("Dummy", _
-                                      New Spieler(runden, spielRegeln) With {.Id = "1"}, _
-                                      New Spieler(runden, spielRegeln) With {.Id = "2"}, 3)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim partie As New SpielPartie("Dummy",
+                                      New Spieler(spielverlauf) With {.Id = "1"},
+                                      New Spieler(spielverlauf) With {.Id = "2"}, 3)
         partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         partie.Add(New Satz With {.PunkteLinks = 13, .PunkteRechts = 11})
         Dim result = converter.Convert(partie, Nothing, Nothing, Nothing)
@@ -114,8 +114,10 @@ Imports System.Windows
         Dim converter = New GewonneneSätzeConverter
         Dim runden As New SpielRunden
         Dim regeln As New SpielRegeln(3, True, False)
-        Dim partie As New SpielPartie("Bla", New Spieler(runden, regeln) With {.Id = "1"}, _
-                                      New Spieler(runden, regeln) With {.Id = "2"}, 3)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim partie As New SpielPartie("Bla",
+                                      New Spieler(spielverlauf) With {.Id = "1"},
+                                      New Spieler(spielverlauf) With {.Id = "2"}, 3)
         partie.Add(New Satz() With {.PunkteLinks = 14, .PunkteRechts = 12})
         partie.Add(New Satz() With {.PunkteLinks = 12, .PunkteRechts = 14})
         partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})

@@ -1,7 +1,10 @@
 ﻿Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class AusXML
-    Public Shared Function CompetitionFromXML(dateipfad As String, node As XElement, spielRegeln As SpielRegeln) As Competition
+    Public Shared Function CompetitionFromXML(dateipfad As String, node As XElement,
+                                              spielRegeln As SpielRegeln,
+                                              spielverlauf As ISpielverlauf(Of SpielerInfo),
+                                              spielrunden As SpielRunden) As Competition
         Dim TryBool = Function(x As String) As Boolean
                           Dim val As Boolean = False
                           Boolean.TryParse(x, val)
@@ -13,38 +16,34 @@ Public Class AusXML
         If UnbekannterZustand.Any Then
             Throw New SpielDatenUnvollständigException(UnbekannterZustand.Count)
         End If
-
-        Dim c = New Competition(spielRegeln) With
-               {
-                   .DateiPfad = dateipfad,
-                   .Altersgruppe = node.Attribute("age-group").Value
-                }
-        c.SpielerListe = SpielerListeFromXML(node.<players>, c.SpielRunden, spielRegeln)
-        Dim ParsedSpielrunden = SpielRundenFromXML(c.SpielerListe, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
-        For Each runde In ParsedSpielrunden.Reverse
-            c.SpielRunden.Push(runde)
+        Dim spielerInfos = SpielerListeFromXML(node.<players>)
+        Dim spielerliste = New SpielerListe()
+        For Each s In spielerInfos
+            spielerliste.Add(New Spieler(s, spielverlauf))
         Next
-        c.SpielRunden.AusgeschiedeneSpieler = ParsedSpielrunden.AusgeschiedeneSpieler
-        Return c
+        SpielRundenFromXML(spielrunden, spielerliste, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
+        Dim altersgruppe = node.Attribute("age-group").Value
+
+        Return New Competition(spielRegeln, spielrunden, spielerliste, altersgruppe)
     End Function
 
-    Shared Function SpielerListeFromXML(ByVal xSpielerListe As IEnumerable(Of XElement), spielRunden As SpielRunden, spielRegeln As SpielRegeln) As SpielerListe
-        Dim l = New SpielerListe
+    Shared Function SpielerListeFromXML(ByVal xSpielerListe As IEnumerable(Of XElement)) As IEnumerable(Of SpielerInfo)
+        Dim l = New List(Of SpielerInfo)
 
         For Each xSpieler In xSpielerListe.<player>
-            l.Add(SpielerFromXML(xSpieler, spielRunden, spielRegeln))
+            l.Add(SpielerFromXML(xSpieler))
         Next
 
         For Each xSpieler In xSpielerListe.<ppc:player>
-            Dim s = SpielerFromXML(xSpieler, spielRunden, spielRegeln)
+            Dim s = SpielerFromXML(xSpieler)
             s.Fremd = True
             l.Add(s)
         Next
         Return l
     End Function
 
-    Public Shared Function SpielerFromXML(ByVal spielerNode As XElement, spielRunden As SpielRunden, spielRegeln As SpielRegeln) As Spieler
-        Dim spieler As New Spieler(spielRunden, spielRegeln)
+    Public Shared Function SpielerFromXML(ByVal spielerNode As XElement) As SpielerInfo
+        Dim spieler As New SpielerInfo()
         With spieler
             .Id = spielerNode.@id
             Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")
@@ -62,31 +61,30 @@ Public Class AusXML
         Return spieler
     End Function
 
-    Public Shared Function SpielRundenFromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal matchesKnoten As XElement, gewinnsätze As Integer) As SpielRunden
-        Dim SpielRunden As New SpielRunden
+    Public Shared Sub SpielRundenFromXML(spielRunden As SpielRunden,
+                                              ByVal spielerListe As IEnumerable(Of Spieler),
+                                              ByVal matchesKnoten As XElement, gewinnsätze As Integer)
         If matchesKnoten Is Nothing Then
-            Return SpielRunden
+            Return
         End If
 
         For Each AusgeschiedenerSpieler In matchesKnoten.<ppc:inactiveplayer>
             Dim StartNummer = AusgeschiedenerSpieler.@player
-            Dim ausgeschieden As New Ausgeschieden
+            Dim ausgeschieden As New Ausgeschieden(Of Spieler)
             ausgeschieden.Spieler = (From x In spielerListe Where x.Id = StartNummer Select x).Single
             ausgeschieden.Runde = Integer.Parse(AusgeschiedenerSpieler.@group)
-            SpielRunden.AusgeschiedeneSpieler.Add(ausgeschieden)
+            spielRunden.AusgeschiedeneSpieler.Add(ausgeschieden)
         Next
 
         Dim xSpielPartien = From x In matchesKnoten.Elements.Except(matchesKnoten.<ppc:inactiveplayer>)
                             Group By x.@group Into Runde = Group Order By Date.Parse(Runde.First.@scheduled, Globalization.CultureInfo.GetCultureInfo("de")) Ascending
 
         For Each xRunde In xSpielPartien
-            SpielRunden.Push(SpielRundeFromXML(spielerListe, xRunde.Runde, gewinnsätze))
+            spielRunden.Push(SpielRundeFromXML(spielerListe, xRunde.Runde, gewinnsätze))
         Next
+    End Sub
 
-        Return SpielRunden
-    End Function
-
-    Public Shared Function SpielRundeFromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpiele As IEnumerable(Of XElement), gewinnsätze As Integer) As SpielRunde
+    Public Shared Function SpielRundeFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xSpiele As IEnumerable(Of XElement), gewinnsätze As Integer) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"
             runde.Add(SpielPartieFromXML(spielerListe, xSpielPartie, gewinnsätze))
@@ -99,12 +97,12 @@ Public Class AusXML
         Return runde
     End Function
 
-    Shared Function FreilosFromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xFreilosSpiel As XElement, gewinnsätze As Integer) As FreiLosSpiel
+    Shared Function FreilosFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xFreilosSpiel As XElement, gewinnsätze As Integer) As FreiLosSpiel
         Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First
         Return New FreiLosSpiel(xFreilosSpiel.@group, spieler, gewinnsätze)
     End Function
 
-    Shared Function SpielPartieFromXML(ByVal spielerListe As IEnumerable(Of Spieler), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
+    Shared Function SpielPartieFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
         Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
         Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
@@ -124,10 +122,15 @@ Public Class AusXML
         Return partie
     End Function
 
-    Public Shared Function CompetitionFromXML(dateiPfad As String, doc As XDocument, gruppe As String, spielRegeln As SpielRegeln) As Competition
+    Public Shared Function CompetitionFromXML(dateiPfad As String,
+                                              doc As XDocument,
+                                              gruppe As String,
+                                              spielRegeln As SpielRegeln,
+                                              spielverlauf As ISpielverlauf(Of SpielerInfo),
+                                              spielRunden As SpielRunden) As Competition
         Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
         ' Syntax Checks
 
-        Return CompetitionFromXML(dateiPfad, competitionXML, spielRegeln)
+        Return CompetitionFromXML(dateiPfad, competitionXML, spielRegeln, spielverlauf, spielRunden)
     End Function
 End Class

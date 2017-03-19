@@ -12,16 +12,17 @@ Imports System.Windows
         For Each Spieler In doc.Root...<person>
             Spieler.@ppc:anwesend = "true"
         Next
-
-        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "A-Klasse", New SpielRegeln(3, True, True))
-        Dim cD = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim spielregeln = New SpielRegeln(3, True, True)
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "A-Klasse", spielregeln, spielverlauf, New SpielRunden)
+        Dim cD = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", spielregeln, spielverlauf, New SpielRunden)
 
         Dim ControllerA = New MainWindowController(c, Sub()
 
-                                                      End Sub, Mock.Of(Of IReportFactory))
+                                                      End Sub, Mock.Of(Of IReportFactory), spielverlauf)
         Dim ControllerD = New MainWindowController(cD, Sub()
 
-                                                       End Sub, Mock.Of(Of IReportFactory))
+                                                       End Sub, Mock.Of(Of IReportFactory), spielverlauf)
 
         ControllerA.NächsteRunde_Execute()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
@@ -50,11 +51,14 @@ Imports System.Windows
         For Each Spieler In doc.Root...<person>
             Spieler.@ppc:anwesend = "true"
         Next
-
-        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim c = AusXML.CompetitionFromXML("D:\temp.xml",
+                                          doc,
+                                          "D-Klasse",
+                                          New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
         Dim Controller = New MainWindowController(c, Sub()
 
-                                                     End Sub, Mock.Of(Of IReportFactory))
+                                                     End Sub, Mock.Of(Of IReportFactory), spielverlauf)
         Dim window = New Window
         window.Show()
         Controller.RundenendeDrucken(New Printer)
@@ -67,11 +71,14 @@ Imports System.Windows
         For Each Spieler In doc.Root...<person>
             Spieler.@ppc:anwesend = "true"
         Next
-
-        Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", New SpielRegeln(3, True, True))
+        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim c = AusXML.CompetitionFromXML("D:\temp.xml",
+                                          doc,
+                                          "D-Klasse",
+                                          New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
         Dim Controller = New MainWindowController(c, Sub()
 
-                                                     End Sub, Mock.Of(Of IReportFactory))
+                                                     End Sub, Mock.Of(Of IReportFactory), spielverlauf)
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)

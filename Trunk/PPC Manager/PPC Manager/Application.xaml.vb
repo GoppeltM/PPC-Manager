@@ -27,11 +27,15 @@ Class Application
             Dim xmlPfad = .XMLPathText.Text
             Dim klassement = .CompetitionCombo.SelectedItem.ToString
             Dim AktiveCompetition As Competition
+            Dim spielRunden = New SpielRunden
+            Dim spielpartien = spielRunden.SelectMany(Function(m) m)
+            Dim ausgeschiedeneSpieler = From x In spielRunden.AusgeschiedeneSpieler Select x.Spieler
+            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneSpieler, spielRegeln)
             Try
                 Dim doc = XDocument.Load(.XMLPathText.Text)
-                AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln)
+                AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielverlauf, spielRunden)
             Catch ex As SpielDatenUnvollständigException
-                MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount), _
+                MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount),
                 "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
                 Application.Current.Shutdown()
                 Return
@@ -39,9 +43,13 @@ Class Application
 
             Resources("KlassementName") = AktiveCompetition.Altersgruppe
             Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
-            Dim r = New ReportFactory(xmlPfad, klassement, AktiveCompetition.SpielerListe, AktiveCompetition.SpielRunden)
-            Dim controller = New MainWindowController(AktiveCompetition, speichern, r)
-            Dim window = New MainWindow(controller)
+            Dim r = New ReportFactory(xmlPfad,
+                                      klassement,
+                                      AktiveCompetition.SpielerListe,
+                                      AktiveCompetition.SpielRunden,
+                                      spielRegeln)
+            Dim controller = New MainWindowController(AktiveCompetition, speichern, r, spielverlauf)
+            Dim window = New MainWindow(controller, r)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible
             window.Show()
