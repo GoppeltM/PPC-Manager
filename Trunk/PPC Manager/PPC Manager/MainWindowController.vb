@@ -60,13 +60,17 @@ Public Class MainWindowController
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
 
             Dim ausgeschiedeneSpieler = From x In .SpielRunden.AusgeschiedeneSpieler Select x.Spieler
-            Dim habenGegeinanderGespielt = Function(a As Spieler, b As Spieler) _Spielverlauf.Habengegeneinandergespielt(a, b)
-            Dim suchePaarungenFunc = Function(istAltschwimmer As Predicate(Of Spieler)) As SuchePaarungen(Of Spieler)
+            Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) _Spielverlauf.Habengegeneinandergespielt(a, b)
+            Dim comparer = New SpielerInfoComparer(_Spielverlauf)
+            AktiveListe.Sort(comparer)
+            AktiveListe.Reverse()
+            Dim suchePaarungenFunc = Function(istAltschwimmer As Predicate(Of SpielerInfo)) As SuchePaarungen(Of SpielerInfo)
                                          Return Function(spielerliste, absteigend) _
-                                         New PaarungsSuche(Of Spieler)(habenGegeinanderGespielt,
+                                         New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare,
+                                                                       habenGegeinanderGespielt,
                                                                        istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
                                      End Function
-            Dim begegnungen = New PaketBildung(Of Spieler)(_Spielverlauf,
+            Dim begegnungen = New PaketBildung(Of SpielerInfo)(_Spielverlauf,
                                                                suchePaarungenFunc,
                                                                RundenName,
                                                                .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)

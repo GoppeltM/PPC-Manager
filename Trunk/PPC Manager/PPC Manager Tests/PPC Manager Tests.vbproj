@@ -114,6 +114,7 @@
     <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="SatzTests.vb" />
     <Compile Include="SchiedsrichterZettelTests.vb" />
+    <Compile Include="SpielerInfoComparerTests.vb" />
     <Compile Include="SpielverlaufTests.vb" />
     <Compile Include="StartlistenEditor\SpeicherTests.vb" />
     <Compile Include="StartlistenEditor\SpielerRepositoryTests.vb" />

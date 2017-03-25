@@ -2,7 +2,7 @@
 
 Public Class PrinterTests
 
-    <Test, Explicit, STAThread>
+    <Test, Explicit, Apartment(System.Threading.ApartmentState.STA)>
     Public Sub DruckerEinstellungen()
         Dim w As New Window
         w.Show()

@@ -40,12 +40,8 @@ Public Class Paket(Of T)
 
     Public AltSchwimmer As New List(Of T)
     Private ReadOnly _SuchePaarungen As SuchePaarungen(Of T)
-    Public Overridable Property aktuellerSchwimmer As T
 
-    Sub sort()
-        SpielerListe.Sort()
-        If Absteigend Then SpielerListe.Reverse()
-    End Sub
+    Public Overridable Property aktuellerSchwimmer As T
 
     Sub VerschiebeSchwimmer(ByVal paket As Paket(Of T))
         If aktuellerSchwimmer IsNot Nothing Then
@@ -75,7 +71,6 @@ Public Class Paket(Of T)
     End Sub
 
     Function SuchePaarungen() As Boolean
-        sort()
         Dim container = _SuchePaarungen(SpielerListe, Absteigend)
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.Übrig

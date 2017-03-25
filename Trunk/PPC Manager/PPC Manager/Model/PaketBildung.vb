@@ -24,10 +24,11 @@ Public Class PaketBildung(Of T)
     '''1) Bildung von Paketen aus gleichen Punkten
     '''2) nacheinander für jedes Paket: Schwimmerbewegungen durchführen
     '''3) nacheinander für jedes Paket: Paarungen finden
-    '''
-    Public Function organisierePakete(ByVal aktiveListe As IList(Of T), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of T)
-        aktiveListe = (From x In aktiveListe Order By x Descending).ToList
+    '''<param name="l">Absteigend sortierte Liste aller Spieler</param>    
+    '''<param name="aktuelleRunde">Die Nummer der aktuellen Runde</param>
+    Public Function organisierePakete(ByVal l As IEnumerable(Of T), ByVal aktuelleRunde As Integer) As PaarungsContainer(Of T)
 
+        Dim aktiveListe = l.ToList
         Dim paarungen As New PaarungsContainer(Of T)
 
         If aktiveListe.Count Mod 2 = 1 Then
@@ -188,7 +189,6 @@ Public Class PaketBildung(Of T)
     Private Shared Function SchwimmerTausch(ByVal paket As Paket(Of T),
                                             ByVal mittelPaket As MittelPaket(Of T)) As Boolean
         mittelPaket.Absteigend = paket.Absteigend
-        paket.sort()
 
         Dim backup = New Paket(Of T)(paket)
         Dim backupMitte = New MittelPaket(Of T)(mittelPaket)

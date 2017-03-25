@@ -3,15 +3,18 @@ Public Delegate Function HabenGegeneinanderGespielt(Of In T)(a As T, b As T) As 
 
 Public Delegate Function SuchePaarungen(Of T)(spielerliste As IList(Of T), absteigend As Boolean) As PaarungsContainer(Of T)
 
-Public Class PaarungsSuche(Of T As IComparable(Of T))
+Public Class PaarungsSuche(Of T)
 
     Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T)
     Private ReadOnly _IstAltSchwimmer As Predicate(Of T)
+    Private ReadOnly _GrößerAls As Comparison(Of T)
 
-    Public Sub New(habenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T),
+    Public Sub New(größerAls As Comparison(Of T),
+                  HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T),
                    ByVal istAltSchwimmer As Predicate(Of T))
 
-        _HabenGegeneinanderGespielt = habenGegeneinanderGespielt
+        _GrößerAls = größerAls
+        _HabenGegeneinanderGespielt = HabenGegeneinanderGespielt
         _IstAltSchwimmer = istAltSchwimmer
     End Sub
 
@@ -21,7 +24,12 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
         'nachfolgenden Tests NICHT verändert werden! Deshalb wird in jedem Test eine
         'Kopie dieser beiden Vektoren angelegt.
+
         Dim tempListe = spielerListe.ToList
+        tempListe.Sort(_GrößerAls)
+        If absteigend Then
+            tempListe.Reverse
+        End If
         Dim mitte = tempListe.Count \ 2
         Return rekursiveUmtauschung(New List(Of T), tempListe, mitte, absteigend)
     End Function
@@ -50,7 +58,7 @@ Public Class PaarungsSuche(Of T As IComparable(Of T))
                     ' Optimierung 1:
                     '  Wenn ABC <-> DEF, dann prüfe ob D > A. Wenn ja, wurde A gegen D bereits geprüft,
                     ' und alle darauf aufbauenden Kombinationen auch.
-                    Dim vergleich = tauschSpieler.CompareTo(PartnerSpieler)
+                    Dim vergleich = _GrößerAls(tauschSpieler, PartnerSpieler)
                     If Not absteigend Then vergleich = vergleich * -1
                     If vergleich > 0 Then Continue For
                     ' Optimierung 2:
