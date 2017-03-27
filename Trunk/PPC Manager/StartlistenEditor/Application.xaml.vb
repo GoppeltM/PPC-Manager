@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.Windows.Threading
 Imports Microsoft.Win32
 
 Class Application
@@ -8,14 +9,20 @@ Class Application
 
     Private repository As SpielerRepository
 
+
     Private Sub Application_Exit(sender As Object, e As ExitEventArgs) Handles Me.[Exit]
         repository.Deregister()
     End Sub
 
     Private Sub Application_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
-
+        AddHandler AppDomain.CurrentDomain.UnhandledException, Sub(sender2 As Object, args As UnhandledExceptionEventArgs)
+                                                                   Dim f As New Fehler
+                                                                   f.ExceptionText.Text = args.ExceptionObject.ToString
+                                                                   f.ShowDialog()
+                                                               End Sub
         Dim pfad = ÖffneDialog()
-        Dim speicher As New Speicher(pfad)
+        Dim dateiSystem = New Dateisystem(pfad)
+        Dim speicher As New Speicher(dateiSystem)
         Dim cache As New SpeicherCache(speicher)
         Dim observable = New StartlistenController(speicher.LeseSpieler())
         repository = New SpielerRepository(cache, observable, observable)

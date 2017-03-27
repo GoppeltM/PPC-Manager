@@ -99,6 +99,14 @@
         Assert.That(_SpielerInfoComparer.Compare(_A, _B), [Is].GreaterThan(0))
     End Sub
 
+    <Test>
+    Public Sub Keine_Exception_wenn_sehr_große_Differenz_bei_Lizenznummern()
+        _A.Lizenznummer = Long.MaxValue
+        _B.Lizenznummer = 0L
+
+        Assert.That(_SpielerInfoComparer.Compare(_A, _B), [Is].GreaterThan(0))
+    End Sub
+
 
     <Test>
     Public Sub Gleich_wenn_alles_gleich()

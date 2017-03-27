@@ -36,7 +36,7 @@ Public Class SpielerInfo
 
     Public Property Verbandsspitzname As String
 
-    Public Property Lizenznummer As Integer
+    Public Property Lizenznummer As Long
 
     Public ReadOnly Property StartNummer As Integer
         Get

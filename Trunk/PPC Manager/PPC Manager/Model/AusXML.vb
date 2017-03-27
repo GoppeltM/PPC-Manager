@@ -51,13 +51,13 @@ Public Class AusXML
             spielerNode = spielerNode.<person>.First
             .Vorname = spielerNode.@firstname
             .Nachname = spielerNode.@lastname
-            .TTRMatchCount = CInt(spielerNode.Attribute("ttr-match-count").Value)
-            .Geschlecht = CInt(spielerNode.@sex)
-            .Geburtsjahr = CInt(spielerNode.@birthyear)
+            .TTRMatchCount = Integer.Parse(spielerNode.Attribute("ttr-match-count").Value)
+            .Geschlecht = Integer.Parse(spielerNode.@sex)
             .Vereinsname = spielerNode.Attribute("club-name").Value
-            .TTRating = CInt(spielerNode.@ttr)
-            .Lizenznummer = CInt(spielerNode.Attribute("licence-nr").Value)
+            .TTRating = Integer.Parse(spielerNode.@ttr)
+            .Lizenznummer = Long.Parse(spielerNode.Attribute("licence-nr").Value)
         End With
+        Integer.TryParse(spielerNode.@birthyear, spieler.Geburtsjahr)
         Return spieler
     End Function
 

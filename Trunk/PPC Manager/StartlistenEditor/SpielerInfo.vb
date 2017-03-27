@@ -30,7 +30,7 @@ Public Class SpielerInfo
     Public Property Verein As String
     Public Property TTR As Integer
     Public Property TTRMatchCount As Integer
-    Public Property LizenzNr As Integer
+    Public Property LizenzNr As Long
     Public Property Klassement As String
     Public Property Geschlecht As Integer
     Public Property Geburtsjahr As Integer
@@ -51,7 +51,10 @@ Public Class SpielerInfo
         If diff <> 0 Then Return diff
         diff = Vorname.CompareTo(other.Vorname)
         If diff <> 0 Then Return diff
-        Return LizenzNr - other.LizenzNr
+        Dim longDiff = LizenzNr - other.LizenzNr
+        If longDiff > 0 Then Return 1
+        If longDiff < 0 Then Return -1
+        Return 0
     End Function
 
     Private _Bezahlt As Boolean

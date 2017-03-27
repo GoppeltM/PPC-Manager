@@ -22,7 +22,7 @@ Public Class AusXMLTests
                         </player>
                         <ppc:player xmlns:ppc="http://www.ttc-langensteinbach.de/" id="PLAYER-1">
                             <person club-name="TTC Langensteinbach" sex="1" ttr-match-count="0" firstname="Marius"
-                                lastname="Goppelt" ttr="1102" licence-nr="-1"/>
+                                lastname="Goppelt" ttr="1102" birthyear="1993" licence-nr="-1"/>
                         </ppc:player>
                     </players>
 
