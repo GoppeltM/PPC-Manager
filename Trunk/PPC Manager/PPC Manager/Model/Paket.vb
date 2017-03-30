@@ -22,10 +22,10 @@ Public Class Paket(Of T)
         InitialNummer = backup.InitialNummer
     End Sub
 
-    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T)),
+    Sub New(suchePaarungen As SuchePaarungen(Of T),
             ByVal initialNummer As Integer)
 
-        _SuchePaarungen = suchePaarungenMitAltschwimmer(Function(s) IstAltSchwimmer(s))
+        _SuchePaarungen = suchePaarungen
         Me.InitialNummer = initialNummer
     End Sub
 
@@ -71,7 +71,7 @@ Public Class Paket(Of T)
     End Sub
 
     Function SuchePaarungen() As Boolean
-        Dim container = _SuchePaarungen(SpielerListe, Absteigend)
+        Dim container = _SuchePaarungen(Function(x) IstAltSchwimmer(x), SpielerListe, Absteigend)
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.Übrig
             Partien.Clear()

@@ -4,13 +4,13 @@ Public Class PaketBildung(Of T)
 
     Private ReadOnly _Rundenname As String
     Private ReadOnly _Gewinnsätze As Integer
-    Private ReadOnly _SuchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T))
+    Private ReadOnly _SuchePaarungen As SuchePaarungen(Of T)
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of T)
 
     Public Sub New(spielverlauf As ISpielverlauf(Of T),
-                   suchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T)),
+                   suchePaarungen As SuchePaarungen(Of T),
                    rundenname As String, gewinnsätze As Integer)
-        _SuchePaarungenMitAltschwimmer = suchePaarungenMitAltschwimmer
+        _SuchePaarungen = suchePaarungen
         _Rundenname = rundenname
         _Gewinnsätze = gewinnsätze
         _Spielverlauf = spielverlauf
@@ -37,7 +37,7 @@ Public Class PaketBildung(Of T)
             paarungen.Übrig = freilosSpieler
         End If
 
-        Dim mittelPaket As New MittelPaket(Of T)(_SuchePaarungenMitAltschwimmer, aktuelleRunde)
+        Dim mittelPaket As New MittelPaket(Of T)(_SuchePaarungen, aktuelleRunde)
         Dim pakete = makeEvenPointPackets(_Rundenname, aktiveListe, aktuelleRunde, mittelPaket)
 
         If pakete.Count = 1 Then
@@ -268,7 +268,7 @@ Public Class PaketBildung(Of T)
             If i = aktuelleRunde Then
                 pakete.Add(mittelPaket)
             Else
-                pakete.Add(New Paket(Of T)(_SuchePaarungenMitAltschwimmer, i))
+                pakete.Add(New Paket(Of T)(_SuchePaarungen, i))
             End If
         Next
 

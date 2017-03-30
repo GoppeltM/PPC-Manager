@@ -1,24 +1,24 @@
 ﻿
 Public Delegate Function HabenGegeneinanderGespielt(Of In T)(a As T, b As T) As Boolean
 
-Public Delegate Function SuchePaarungen(Of T)(spielerliste As IList(Of T), absteigend As Boolean) As PaarungsContainer(Of T)
+Public Delegate Function SuchePaarungen(Of T)(istAltschwimmer As Predicate(Of T),
+                                              spielerliste As IList(Of T),
+                                              absteigend As Boolean) As PaarungsContainer(Of T)
 
 Public Class PaarungsSuche(Of T)
 
     Private ReadOnly _HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T)
-    Private ReadOnly _IstAltSchwimmer As Predicate(Of T)
     Private ReadOnly _GrößerAls As Comparison(Of T)
 
     Public Sub New(größerAls As Comparison(Of T),
-                  HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T),
-                   ByVal istAltSchwimmer As Predicate(Of T))
-
+                  HabenGegeneinanderGespielt As HabenGegeneinanderGespielt(Of T))
         _GrößerAls = größerAls
         _HabenGegeneinanderGespielt = HabenGegeneinanderGespielt
-        _IstAltSchwimmer = istAltSchwimmer
     End Sub
 
-    Public Function SuchePaarungen(ByVal spielerListe As IList(Of T), absteigend As Boolean) As PaarungsContainer(Of T)
+    Public Function SuchePaarungen(istAltschwimmer As Predicate(Of T),
+                                   ByVal spielerListe As IList(Of T),
+                                   absteigend As Boolean) As PaarungsContainer(Of T)
         If spielerListe.Count < 2 Then Return Nothing
 
         ' Erzeugung der linken und rechten Liste. Diese dürfen durch die
@@ -28,13 +28,14 @@ Public Class PaarungsSuche(Of T)
         Dim tempListe = spielerListe.ToList
         tempListe.Sort(_GrößerAls)
         If absteigend Then
-            tempListe.Reverse
+            tempListe.Reverse()
         End If
         Dim mitte = tempListe.Count \ 2
-        Return rekursiveUmtauschung(New List(Of T), tempListe, mitte, absteigend)
+        Return rekursiveUmtauschung(istAltschwimmer, New List(Of T), tempListe, mitte, absteigend)
     End Function
 
-    Private Function rekursiveUmtauschung(ByVal anfang As List(Of T),
+    Private Function rekursiveUmtauschung(istAltschwimmer As Predicate(Of T),
+                                          ByVal anfang As List(Of T),
                                           ByVal rest As List(Of T),
                                           ByVal mitte As Integer,
                                           absteigend As Boolean) As PaarungsContainer(Of T)
@@ -42,7 +43,7 @@ Public Class PaarungsSuche(Of T)
 
         If rest.Count = 1 Then
             Dim kombination = anfang.Concat(rest).ToList
-            Dim isOk = StandardPaarung(kombination, mitte)
+            Dim isOk = StandardPaarung(istAltschwimmer, kombination, mitte)
             If isOk IsNot Nothing Then
                 Return isOk
             End If
@@ -69,7 +70,7 @@ Public Class PaarungsSuche(Of T)
                 restNeu.Remove(tauschSpieler)
                 anfangNeu.Add(tauschSpieler)
 
-                Dim isOk = rekursiveUmtauschung(anfangNeu, restNeu, mitte, absteigend)
+                Dim isOk = rekursiveUmtauschung(istAltschwimmer, anfangNeu, restNeu, mitte, absteigend)
 
                 If Not isOk Is Nothing Then Return isOk
             Next
@@ -84,13 +85,14 @@ Public Class PaarungsSuche(Of T)
     '''@param listeRechts - rechte Hälfte der Liste
     '''@return - Paarung erfolgreich
     '''
-    Private Function StandardPaarung(ByVal kombination As List(Of T),
+    Private Function StandardPaarung(istAltschwimmer As Predicate(Of T),
+                                     ByVal kombination As List(Of T),
                                     ByVal mitte As Integer) As PaarungsContainer(Of T)
         ' prüft, ob der potentielle Schwimmer in der rechten Liste eigentlich gar nicht schwimmen kann
 
         If kombination.Count Mod 2 = 1 Then
             Dim potentiellerSchwimmer = kombination.Last
-            If _IstAltSchwimmer(potentiellerSchwimmer) Then Return Nothing
+            If istAltschwimmer(potentiellerSchwimmer) Then Return Nothing
         End If
 
         Dim listeLinks = kombination.GetRange(0, mitte)

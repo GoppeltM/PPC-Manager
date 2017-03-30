@@ -64,14 +64,9 @@ Public Class MainWindowController
             Dim comparer = New SpielerInfoComparer(_Spielverlauf)
             AktiveListe.Sort(comparer)
             AktiveListe.Reverse()
-            Dim suchePaarungenFunc = Function(istAltschwimmer As Predicate(Of SpielerInfo)) As SuchePaarungen(Of SpielerInfo)
-                                         Return Function(spielerliste, absteigend) _
-                                         New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare,
-                                                                       habenGegeinanderGespielt,
-                                                                       istAltschwimmer).SuchePaarungen(spielerliste, absteigend)
-                                     End Function
+            Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
             Dim begegnungen = New PaketBildung(Of SpielerInfo)(_Spielverlauf,
-                                                               suchePaarungenFunc,
+                                                               AddressOf paarungsSuche.SuchePaarungen,
                                                                RundenName,
                                                                .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now

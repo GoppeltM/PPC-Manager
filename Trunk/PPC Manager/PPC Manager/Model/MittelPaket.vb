@@ -5,9 +5,9 @@ Class MittelPaket(Of T)
     Private schwimmerVonOben As T
     Private schwimmerVonUnten As T
 
-    Sub New(suchePaarungenMitAltschwimmer As Func(Of Predicate(Of T), SuchePaarungen(Of T)),
+    Sub New(suchePaarungen As SuchePaarungen(Of T),
             ByVal aktuelleRunde As Integer)
-        MyBase.New(suchePaarungenMitAltschwimmer, aktuelleRunde)
+        MyBase.New(suchePaarungen, aktuelleRunde)
     End Sub
 
     Sub New(ByVal mittelPaket As MittelPaket(Of T))
