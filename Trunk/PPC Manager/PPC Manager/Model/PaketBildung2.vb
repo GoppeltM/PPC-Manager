@@ -25,9 +25,10 @@ Public Class PaketBildung2(Of T)
 
         Dim aktiveListe As IEnumerable(Of T) = l.ToList
         Dim paarungen = New Stack(Of Tuple(Of T, T))
-        Dim mitte = aktuelleRunde \ 2
-        Dim hochzählen = Enumerable.Range(0, mitte).GetEnumerator
-        Dim runterzählen = Enumerable.Range(mitte, aktuelleRunde - mitte).Reverse.GetEnumerator
+        Dim mitte = aktuelleRunde \ 2 + (aktuelleRunde Mod 2)
+        Dim hochzählenListe = Enumerable.Range(0, mitte)
+        Dim hochzählen = hochzählenListe.GetEnumerator
+        Dim runterzählen = hochzählenListe.Select(Function(m) m + mitte).Reverse.GetEnumerator
         Dim altSchwimmer = New List(Of T)
         Dim istAltschwimmer = Function(x As T) altSchwimmer.Contains(x)
         Dim freilosSpieler As T = Nothing
@@ -36,38 +37,42 @@ Public Class PaketBildung2(Of T)
             aktiveListe = aktiveListe.Except(New T() {freilosSpieler})
         End If
 
-        Dim pushStack = Sub(paarungsContainer As PaarungsContainer(Of T))
-                            If paarungsContainer IsNot Nothing Then
-                                For Each p In paarungsContainer.Partien
+        Dim pushStack = Sub(spielerListe As IList(Of T), absteigend As Boolean)
+                            Dim paarung = _SuchePaarungen(istAltschwimmer, spielerListe, True)
+                            If paarung IsNot Nothing Then
+                                For Each p In paarung.Partien
                                     paarungen.Push(p)
                                     aktiveListe = aktiveListe.Except(New T() {p.Item1, p.Item2})
                                 Next
-                                If paarungsContainer.Übrig IsNot Nothing Then
-                                    altSchwimmer.Add(paarungsContainer.Übrig)
+                                If paarung.Übrig IsNot Nothing Then
+                                    altSchwimmer.Add(paarung.Übrig)
                                 End If
+                            Else
+                                For Each s In spielerListe
+                                    altSchwimmer.Add(s)
+                                Next
                             End If
+
                         End Sub
 
         While runterzählen.MoveNext
             With runterzählen
-                Dim spielerPaket = aktiveListe.Where(Function(x) _Spielverlauf.BerechnePunkte(x) >= hochzählen.Current).ToList
-                Dim paarung = _SuchePaarungen(istAltschwimmer, spielerPaket, True)
-                pushStack(paarung)
+                Dim spielerPaket = aktiveListe.Where(Function(x) _Spielverlauf.BerechnePunkte(x) >= runterzählen.Current).ToList
+                pushStack(spielerPaket, True)
             End With
+        End While
 
-            While hochzählen.MoveNext
-                With hochzählen
-                    Dim spielerPaket = aktiveListe.Where(Function(x) _Spielverlauf.BerechnePunkte(x) <= hochzählen.Current).ToList
-                    Dim paarung = _SuchePaarungen(istAltschwimmer, spielerPaket, False)
-                    pushStack(paarung)
-                End With
-            End While
+        While hochzählen.MoveNext
+            With hochzählen
+                Dim spielerPaket = aktiveListe.Where(Function(x) _Spielverlauf.BerechnePunkte(x) <= hochzählen.Current).ToList
+                pushStack(spielerPaket, False)
+            End With
         End While
 
         Dim abwärts = True
         While aktiveListe.Any
             Dim paarung = _SuchePaarungen(istAltschwimmer, aktiveListe.ToList, abwärts)
-            pushStack(paarung)
+            pushStack(aktiveListe.ToList, abwärts)
             If paarung Is Nothing Then
                 Dim p = paarungen.Pop
                 aktiveListe = aktiveListe.Concat(New T() {p.Item1, p.Item2})

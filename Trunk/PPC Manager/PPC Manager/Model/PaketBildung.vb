@@ -2,17 +2,12 @@
 
 Public Class PaketBildung(Of T)
 
-    Private ReadOnly _Rundenname As String
-    Private ReadOnly _Gewinnsätze As Integer
     Private ReadOnly _SuchePaarungen As SuchePaarungen(Of T)
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of T)
 
     Public Sub New(spielverlauf As ISpielverlauf(Of T),
-                   suchePaarungen As SuchePaarungen(Of T),
-                   rundenname As String, gewinnsätze As Integer)
+                   suchePaarungen As SuchePaarungen(Of T))
         _SuchePaarungen = suchePaarungen
-        _Rundenname = rundenname
-        _Gewinnsätze = gewinnsätze
         _Spielverlauf = spielverlauf
     End Sub
 
@@ -38,14 +33,7 @@ Public Class PaketBildung(Of T)
         End If
 
         Dim mittelPaket As New MittelPaket(Of T)(_SuchePaarungen, aktuelleRunde)
-        Dim pakete = makeEvenPointPackets(_Rundenname, aktiveListe, aktuelleRunde, mittelPaket)
-
-        If pakete.Count = 1 Then
-            Dim paket = pakete.First
-            paket.SuchePaarungen()
-            paarungen.Partien.AddRange(paket.Partien)
-            Return paarungen
-        End If
+        Dim pakete = makeEvenPointPackets(aktiveListe, aktuelleRunde, mittelPaket)
 
         Dim oberePakete = New List(Of Paket(Of T))
         Dim unterePakete = New List(Of Paket(Of T))
@@ -257,7 +245,7 @@ Public Class PaketBildung(Of T)
     '''Dies geschieht solange, bis keine Pakete mehr gebildet werden können.
     '''@return - es konnte ein Paket gebildet werden.
     '''
-    Private Function makeEvenPointPackets(rundenname As String, ByVal spielerliste As IList(Of T),
+    Private Function makeEvenPointPackets(ByVal spielerliste As IList(Of T),
                                           ByVal aktuelleRunde As Integer,
                                           ByVal mittelPaket As MittelPaket(Of T)) As List(Of Paket(Of T))
 

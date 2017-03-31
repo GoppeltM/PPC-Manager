@@ -66,9 +66,8 @@ Public Class MainWindowController
             AktiveListe.Reverse()
             Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
             Dim begegnungen = New PaketBildung(Of SpielerInfo)(_Spielverlauf,
-                                                               AddressOf paarungsSuche.SuchePaarungen,
-                                                               RundenName,
-                                                               .SpielRegeln.Gewinnsätze).organisierePakete(AktiveListe, .SpielRunden.Count)
+                                                               AddressOf paarungsSuche.SuchePaarungen).
+                                                               organisierePakete(AktiveListe, .SpielRunden.Count)
             Dim Zeitstempel = Date.Now
             Dim spielRunde As New SpielRunde
 
