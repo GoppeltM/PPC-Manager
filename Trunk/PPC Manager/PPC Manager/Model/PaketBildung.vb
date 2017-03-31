@@ -4,12 +4,22 @@ Public Class PaketBildung(Of T)
 
     Private ReadOnly _SuchePaarungen As SuchePaarungen(Of T)
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of T)
+    Private ReadOnly _AltSchwimmerliste As IList(Of T)
 
     Public Sub New(spielverlauf As ISpielverlauf(Of T),
                    suchePaarungen As SuchePaarungen(Of T))
         _SuchePaarungen = suchePaarungen
         _Spielverlauf = spielverlauf
+        _AltSchwimmerliste = New List(Of T)
     End Sub
+
+    Private Sub SetzeAltschwimmer(t As T)
+        _AltSchwimmerliste.Add(t)
+    End Sub
+
+    Private Function IstAltschwimmer(t As T) As Boolean
+        Return _AltSchwimmerliste.Contains(t)
+    End Function
 
     '''
     '''Stellt sicher dass alle Pakete in der richtigen Form vorliegen und alle
@@ -32,7 +42,7 @@ Public Class PaketBildung(Of T)
             paarungen.Übrig = freilosSpieler
         End If
 
-        Dim mittelPaket As New MittelPaket(Of T)(_SuchePaarungen, aktuelleRunde)
+        Dim mittelPaket As New MittelPaket(Of T)(_SuchePaarungen, aktuelleRunde, AddressOf IstAltschwimmer, AddressOf SetzeAltschwimmer)
         Dim pakete = makeEvenPointPackets(aktiveListe, aktuelleRunde, mittelPaket)
 
         Dim oberePakete = New List(Of Paket(Of T))
@@ -256,7 +266,7 @@ Public Class PaketBildung(Of T)
             If i = aktuelleRunde Then
                 pakete.Add(mittelPaket)
             Else
-                pakete.Add(New Paket(Of T)(_SuchePaarungen, i))
+                pakete.Add(New Paket(Of T)(_SuchePaarungen, i, AddressOf IstAltschwimmer, AddressOf SetzeAltschwimmer))
             End If
         Next
 

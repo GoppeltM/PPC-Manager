@@ -14,8 +14,6 @@ Public Class Paket(Of T)
         SpielerListe.Clear()
         SpielerListe.AddRange(backup.SpielerListe)
         Absteigend = backup.Absteigend
-        AltSchwimmer.Clear()
-        AltSchwimmer.AddRange(backup.AltSchwimmer)
         aktuellerSchwimmer = backup.aktuellerSchwimmer
         Partien.Clear()
         Partien.AddRange(backup.Partien)
@@ -23,9 +21,14 @@ Public Class Paket(Of T)
     End Sub
 
     Sub New(suchePaarungen As SuchePaarungen(Of T),
-            ByVal initialNummer As Integer)
+            ByVal initialNummer As Integer,
+            istAltschwimmer As Predicate(Of T),
+            setzeAltschwimmer As Action(Of T)
+            )
 
         _SuchePaarungen = suchePaarungen
+        _IstAltschwimmer = istAltschwimmer
+        _SetzeAltschwimmer = setzeAltschwimmer
         Me.InitialNummer = initialNummer
     End Sub
 
@@ -38,9 +41,9 @@ Public Class Paket(Of T)
 
     Property SpielerListe As New List(Of T)
 
-    Public AltSchwimmer As New List(Of T)
     Private ReadOnly _SuchePaarungen As SuchePaarungen(Of T)
-
+    Protected ReadOnly _IstAltschwimmer As Predicate(Of T)
+    Protected ReadOnly _SetzeAltschwimmer As Action(Of T)
     Public Overridable Property aktuellerSchwimmer As T
 
     Sub VerschiebeSchwimmer(ByVal paket As Paket(Of T))
@@ -52,26 +55,21 @@ Public Class Paket(Of T)
     End Sub
 
     Private Sub moveAltSchwimmer(ByVal aktuellerSchwimmer As T)
-        AltSchwimmer.Add(aktuellerSchwimmer)
+        _SetzeAltschwimmer(aktuellerSchwimmer)
         SpielerListe.Add(aktuellerSchwimmer)
     End Sub
 
-    Public ReadOnly Property IstAltSchwimmer(ByVal spieler As T) As Boolean
-        Get
-            Return AltSchwimmer.Contains(spieler)
-        End Get
-    End Property
-
     Sub übernimmPaket(ByVal aktuellesPaket As Paket(Of T))
-        AltSchwimmer.AddRange(aktuellesPaket.SpielerListe)
+        For Each s In aktuellesPaket.SpielerListe
+            _SetzeAltschwimmer(s)
+        Next
         SpielerListe.AddRange(aktuellesPaket.SpielerListe)
         aktuellesPaket.SpielerListe.Clear()
-        aktuellesPaket.AltSchwimmer.Clear()
         aktuellesPaket.aktuellerSchwimmer = Nothing
     End Sub
 
     Function SuchePaarungen() As Boolean
-        Dim container = _SuchePaarungen(Function(x) IstAltSchwimmer(x), SpielerListe, Absteigend)
+        Dim container = _SuchePaarungen(Function(x) _IstAltschwimmer(x), SpielerListe, Absteigend)
         If container IsNot Nothing Then
             aktuellerSchwimmer = container.Übrig
             Partien.Clear()

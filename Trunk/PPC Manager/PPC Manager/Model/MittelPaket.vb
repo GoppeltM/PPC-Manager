@@ -6,8 +6,10 @@ Class MittelPaket(Of T)
     Private schwimmerVonUnten As T
 
     Sub New(suchePaarungen As SuchePaarungen(Of T),
-            ByVal aktuelleRunde As Integer)
-        MyBase.New(suchePaarungen, aktuelleRunde)
+            ByVal aktuelleRunde As Integer,
+            istAltschwimmer As Predicate(Of T),
+            setzeAltschwimmer As Action(Of T))
+        MyBase.New(suchePaarungen, aktuelleRunde, istAltschwimmer, setzeAltschwimmer)
     End Sub
 
     Sub New(ByVal mittelPaket As MittelPaket(Of T))
@@ -19,10 +21,8 @@ Class MittelPaket(Of T)
     Public Overrides Property aktuellerSchwimmer As T
         Get
             If Absteigend Then
-                AltSchwimmer.Remove(schwimmerVonOben)
                 Return schwimmerVonOben
             Else
-                AltSchwimmer.Remove(schwimmerVonUnten)
                 Return schwimmerVonUnten
             End If
         End Get
@@ -38,8 +38,8 @@ Class MittelPaket(Of T)
         For Each partie In tempPaarungen
             Dim spielerL = partie.Item1
             Dim spielerR = partie.Item2
-            If Not vorgänger.AltSchwimmer.Contains(spielerL) Then
-                If Not vorgänger.AltSchwimmer.Contains(spielerR) Then
+            If Not _IstAltschwimmer(spielerL) Then
+                If Not _IstAltschwimmer(spielerR) Then
                     vorgänger.Partien.Remove(partie)
                     vorgänger.SpielerListe.Remove(spielerL)
                     vorgänger.SpielerListe.Remove(spielerR)
