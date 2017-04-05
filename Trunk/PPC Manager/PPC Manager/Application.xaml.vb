@@ -51,11 +51,12 @@ Class Application
             Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) spielverlauf.Habengegeneinandergespielt(a, b)
 
             Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
-                                        Dim comparer = New SpielerInfoComparer(spielverlauf)
-                                        Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf Comparer.Compare, habenGegeinanderGespielt)
-                                        Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlauf, AddressOf paarungsSuche.SuchePaarungen)
+                                        Dim spielverlaufCache = New SpielverlaufCache(spielverlauf)
+                                        Dim comparer = New SpielerInfoComparer(spielverlaufCache)
+                                        Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
+                                        Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
                                         Dim l = spielerListe.ToList()
-                                        l.Sort(Comparer)
+                                        l.Sort(comparer)
                                         l.Reverse()
                                         Return begegnungen.organisierePakete(l, spielrunde)
                                     End Function

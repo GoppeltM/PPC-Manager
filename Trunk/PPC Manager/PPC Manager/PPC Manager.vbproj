@@ -112,6 +112,7 @@
     <Compile Include="Model\SpielerInfo.vb" />
     <Compile Include="Model\SpielerInfoComparer.vb" />
     <Compile Include="Model\Spielverlauf.vb" />
+    <Compile Include="Model\SpielverlaufCache.vb" />
     <Compile Include="Model\ZuXML.vb" />
     <Compile Include="Output\Druckvorschau.xaml.vb">
       <DependentUpon>Druckvorschau.xaml</DependentUpon>

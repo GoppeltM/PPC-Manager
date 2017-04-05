@@ -15,9 +15,10 @@ Public Class PPC15_Turnier_Klasse_D
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
         Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
-                                    Dim comparer = New SpielerInfoComparer(s)
+                                    Dim spielverlaufCache = New SpielverlaufCache(s)
+                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache)
                                     Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
-                                    Dim begegnungen = New PaketBildung(Of SpielerInfo)(s, AddressOf paarungsSuche.SuchePaarungen)
+                                    Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
                                     Dim l = spielerListe.ToList()
                                     l.Sort(comparer)
                                     l.Reverse()

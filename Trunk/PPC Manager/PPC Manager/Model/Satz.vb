@@ -28,10 +28,11 @@ Public Class Satz
     End Property
 
     Public Property MySelf As Satz = Me
+    Private GewinnPunkte As Integer = My.Settings.GewinnPunkte
 
     Public ReadOnly Property Abgeschlossen As Boolean
         Get
-            Return Math.Max(PunkteLinks, PunkteRechts) >= My.Settings.GewinnPunkte _
+            Return Math.Max(PunkteLinks, PunkteRechts) >= GewinnPunkte _
                 AndAlso Math.Abs(PunkteLinks - PunkteRechts) >= 2
         End Get
     End Property
