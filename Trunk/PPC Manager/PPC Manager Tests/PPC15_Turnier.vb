@@ -12,12 +12,23 @@ Public Class PPC15_Turnier_Klasse_D
         Dim s As New Spielverlauf(r.SelectMany(Function(m) m),
                                   New List(Of SpielerInfo),
                                   regeln)
+        Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
+
+        Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
+                                    Dim comparer = New SpielerInfoComparer(s)
+                                    Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
+                                    Dim begegnungen = New PaketBildung(Of SpielerInfo)(s, AddressOf paarungsSuche.SuchePaarungen)
+                                    Dim l = spielerListe.ToList()
+                                    l.Sort(comparer)
+                                    l.Reverse()
+                                    Return begegnungen.organisierePakete(l, spielrunde)
+                                End Function
         AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, s, r)
         _Controller = New MainWindowController(AktuelleCompetition, Sub()
 
                                                                     End Sub,
                                                Mock.Of(Of IReportFactory),
-                                               s)
+                                               OrganisierePakete)
     End Sub
 
     Dim AktuelleCompetition As Competition

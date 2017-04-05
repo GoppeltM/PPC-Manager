@@ -48,11 +48,22 @@ Class Application
                                       AktiveCompetition.SpielerListe,
                                       AktiveCompetition.SpielRunden,
                                       spielRegeln)
-            Dim controller = New MainWindowController(AktiveCompetition, speichern, r, spielverlauf)
+            Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) spielverlauf.Habengegeneinandergespielt(a, b)
+
+            Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
+                                        Dim comparer = New SpielerInfoComparer(spielverlauf)
+                                        Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf Comparer.Compare, habenGegeinanderGespielt)
+                                        Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlauf, AddressOf paarungsSuche.SuchePaarungen)
+                                        Dim l = spielerListe.ToList()
+                                        l.Sort(Comparer)
+                                        l.Reverse()
+                                        Return begegnungen.organisierePakete(l, spielrunde)
+                                    End Function
+            Dim controller = New MainWindowController(AktiveCompetition, speichern, r, OrganisierePakete)
             Dim window = New MainWindow(controller, r)
-            Me.MainWindow = window
-            window.Visibility = Visibility.Visible
-            window.Show()
+                                                      Me.MainWindow = window
+                                                      window.Visibility = Visibility.Visible
+                                                      window.Show()
         End With
 
     End Sub

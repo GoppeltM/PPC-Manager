@@ -19,10 +19,10 @@ Imports System.Windows
 
         Dim ControllerA = New MainWindowController(c, Sub()
 
-                                                      End Sub, Mock.Of(Of IReportFactory), spielverlauf)
+                                                      End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
         Dim ControllerD = New MainWindowController(cD, Sub()
 
-                                                       End Sub, Mock.Of(Of IReportFactory), spielverlauf)
+                                                       End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
 
         ControllerA.NächsteRunde_Execute()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
@@ -58,7 +58,7 @@ Imports System.Windows
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
         Dim Controller = New MainWindowController(c, Sub()
 
-                                                     End Sub, Mock.Of(Of IReportFactory), spielverlauf)
+                                                     End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
         Dim window = New Window
         window.Show()
         Controller.RundenendeDrucken(New Printer)
@@ -78,7 +78,7 @@ Imports System.Windows
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
         Dim Controller = New MainWindowController(c, Sub()
 
-                                                     End Sub, Mock.Of(Of IReportFactory), spielverlauf)
+                                                     End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)

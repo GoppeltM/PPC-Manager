@@ -1,23 +1,26 @@
 ﻿Imports PPC_Manager
 
+Public Delegate Function OrganisierePakete(spielerliste As IEnumerable(Of SpielerInfo), runde As Integer) As PaarungsContainer(Of SpielerInfo)
+
 Public Class MainWindowController
     Implements IController
 
     Public Sub New(competition As Competition,
                    speichern As Action,
                    reportFactory As IReportFactory,
-                   spielverlauf As ISpielverlauf(Of SpielerInfo))
+                   organisierePakete As OrganisierePakete
+                   )
         _Competition = competition
         _Speichern = speichern
         _ReportFactory = reportFactory
-        _Spielverlauf = spielverlauf
+        _OrganisierePakete = organisierePakete
         If _Competition Is Nothing Then Throw New ArgumentNullException("competition")
     End Sub
 
     Private ReadOnly _Competition As Competition
     Private ReadOnly _Speichern As Action
     Private ReadOnly _ReportFactory As IReportFactory
-    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
+    Private ReadOnly _OrganisierePakete As OrganisierePakete
 
     Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
         Get
@@ -59,15 +62,8 @@ Public Class MainWindowController
             Next
             Dim RundenName = "Runde " & .SpielRunden.Count + 1
 
-            Dim ausgeschiedeneSpieler = From x In .SpielRunden.AusgeschiedeneSpieler Select x.Spieler
-            Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) _Spielverlauf.Habengegeneinandergespielt(a, b)
-            Dim comparer = New SpielerInfoComparer(_Spielverlauf)
-            AktiveListe.Sort(comparer)
-            AktiveListe.Reverse()
-            Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
-            Dim begegnungen = New PaketBildung(Of SpielerInfo)(_Spielverlauf,
-                                                               AddressOf paarungsSuche.SuchePaarungen).
-                                                               organisierePakete(AktiveListe, .SpielRunden.Count)
+            Dim begegnungen = _OrganisierePakete(AktiveListe, .SpielRunden.Count)
+
             Dim Zeitstempel = Date.Now
             Dim spielRunde As New SpielRunde
 

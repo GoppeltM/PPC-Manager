@@ -19,6 +19,17 @@ Imports Moq
         Dim regeln = New SpielRegeln(3, True, True)
         Dim r As New SpielRunden
         Dim s As New Spielverlauf(r.SelectMany(Function(m) m), New List(Of SpielerInfo), New SpielRegeln(3, True, True))
+        Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
+
+        Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
+                                    Dim comparer = New SpielerInfoComparer(s)
+                                    Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
+                                    Dim begegnungen = New PaketBildung(Of SpielerInfo)(s, AddressOf paarungsSuche.SuchePaarungen)
+                                    Dim l = spielerListe.ToList()
+                                    l.Sort(comparer)
+                                    l.Reverse()
+                                    Return begegnungen.organisierePakete(l, spielrunde)
+                                End Function
         Dim AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml",
                                                             _JungenU18,
                                                             regeln, s, r)
@@ -27,7 +38,7 @@ Imports Moq
         _Controller = New MainWindowController(AktuelleCompetition, Sub()
                                                                     End Sub,
                                                Mock.Of(Of IReportFactory),
-                                               s)
+                                               OrganisierePakete)
     End Sub
 
 

@@ -6,3 +6,5 @@
 !/Trunk/PPC Manager/packages/repositories.config
 bin
 obj
+*.psess
+*.vspx
