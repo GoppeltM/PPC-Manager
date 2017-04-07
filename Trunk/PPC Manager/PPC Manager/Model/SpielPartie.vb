@@ -59,13 +59,6 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public ReadOnly Property Gewonnen(ich As SpielerInfo) As Boolean
-        Get
-            If Abgeschlossen() AndAlso MeineGewonnenenSätze(ich).Count > MeineVerlorenenSätze(ich).Count Then Return True
-            Return False
-        End Get
-    End Property
-
     Public Overridable ReadOnly Property Abgeschlossen() As Boolean
         Get
             Dim AbgeschlosseneSätzeLinks = Aggregate x In Me Where x.GewonnenLinks Into Count()

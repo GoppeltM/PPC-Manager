@@ -2,7 +2,10 @@
 
 Public Class RanglisteSeite
 
-    Public Sub New(altersgruppe As String, rundenNummer As Integer, elemente As IEnumerable(Of Spieler), spielpartien As IEnumerable(Of SpielPartie))
+    Public Sub New(altersgruppe As String,
+                   rundenNummer As Integer,
+                   elemente As IEnumerable(Of Spieler),
+                   spielpartien As IEnumerable(Of SpielPartie))
         ' This call is required by the designer.
         InitializeComponent()
         KlassementName.Text = altersgruppe
@@ -67,7 +70,7 @@ Public Class RangListeSpieler
             For Each s In gespieltePartien
 
                 Dim text = s.MeinGegner(Me).StartNummer.ToString
-                If s.Gewonnen(Me) Then
+                If Gewonnen(s) Then
                     text &= "G"
                 Else
                     text &= "V"
@@ -75,6 +78,14 @@ Public Class RangListeSpieler
                 l.Add(text)
             Next
             Return l
+        End Get
+    End Property
+
+    Public ReadOnly Property Gewonnen(p As SpielPartie) As Boolean
+        Get
+            If p.Abgeschlossen() AndAlso p.MeineGewonnenenSätze(Me).Count _
+                > p.MeineVerlorenenSätze(Me).Count Then Return True
+            Return False
         End Get
     End Property
 

@@ -108,7 +108,6 @@
     </Compile>
     <Compile Include="Model\AusXML.vb" />
     <Compile Include="Model\ISpielverlauf.vb" />
-    <Compile Include="Model\PaketBildung2.vb" />
     <Compile Include="Model\SpielerInfo.vb" />
     <Compile Include="Model\SpielerInfoComparer.vb" />
     <Compile Include="Model\Spielverlauf.vb" />
