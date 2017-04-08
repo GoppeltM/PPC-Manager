@@ -31,6 +31,18 @@ Public Class DesignController
         End Get
     End Property
 
+    Public ReadOnly Property HatRunden As Boolean Implements IController.HatRunden
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Public Sub ExcelExportieren(p1 As String) Implements IController.ExcelExportieren
 
     End Sub

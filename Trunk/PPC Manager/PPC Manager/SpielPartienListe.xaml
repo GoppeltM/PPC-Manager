@@ -26,20 +26,20 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0" >
-                    <local:DoppelbreitenGrid Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
-                        <local:DoppelbreitenGrid.RowDefinitions>
+                    <Grid Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
+                        <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                        </local:DoppelbreitenGrid.RowDefinitions>
-                        <local:DoppelbreitenGrid.ColumnDefinitions>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="122" />
-                        </local:DoppelbreitenGrid.ColumnDefinitions>
-                        <local:DoppelbreitenGrid.Resources>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
                             <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
-                        </local:DoppelbreitenGrid.Resources>
+                        </Grid.Resources>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" />
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=SpielerRechts.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" Margin="0,5,0,0" />
@@ -84,7 +84,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </local:DoppelbreitenGrid>
+                    </Grid>
                 </Border>
             </DataTemplate>
         </ListBox.Resources>

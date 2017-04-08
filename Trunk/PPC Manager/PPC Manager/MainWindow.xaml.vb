@@ -1,15 +1,10 @@
-﻿Imports System.Collections.ObjectModel
-Imports PPC_Manager
-
-Class MainWindow
+﻿Class MainWindow
 
     Private ReadOnly _Controller As IController
-    Private ReadOnly _ReportFactory As IReportFactory
 
-    Sub New(controller As IController, reportFactory As IReportFactory)
+    Sub New(controller As IController)
         InitializeComponent()
         _Controller = controller
-        _ReportFactory = reportFactory
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
 
         Me.DataContext = _Controller
@@ -33,7 +28,7 @@ Class MainWindow
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Controller.AktiveCompetition.SpielRunden.Count > 0
+        e.CanExecute = _Controller.HatRunden
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
@@ -61,7 +56,9 @@ Class MainWindow
         Try
             _Controller.NächsteRunde_Execute()
         Catch ex As ExcelNichtBeschreibbarException
-            MessageBox.Show(String.Format("Kein Schreibzugriff auf Excel Datei möglich. Bitte Excel vor Beginn der nächsten Runde schließen!", _ReportFactory.ExcelPfad),
+            MessageBox.Show(
+                String.Format("Kein Schreibzugriff auf Excel Datei möglich. Bitte Excel vor Beginn der nächsten Runde schließen!",
+                              _Controller.ExcelPfad),
                             "Excel offen", MessageBoxButton.OK)
             Return
         End Try
@@ -102,7 +99,7 @@ Class MainWindow
 
         With LadenNeu.SpeichernDialog
             .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"
-            .FileName = _ReportFactory.ExcelPfad
+            .FileName = _Controller.ExcelPfad
             .InitialDirectory = My.Settings.LetztesVerzeichnis
             If .ShowDialog Then
                 _Controller.ExcelExportieren(.FileName)
@@ -123,10 +120,10 @@ Class MainWindow
     End Sub
 
     Private Sub Drucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Controller.AktiveCompetition.SpielRunden.Any
+        e.CanExecute = _Controller.HatRunden
     End Sub
 
     Private Sub RanglisteDrucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Controller.AktiveCompetition.SpielerListe.Any
+        e.CanExecute = True
     End Sub
 End Class

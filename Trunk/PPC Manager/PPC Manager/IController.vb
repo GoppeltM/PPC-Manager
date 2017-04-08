@@ -3,7 +3,8 @@
 Public Interface IController
 
     ReadOnly Property AktiveCompetition As Competition
-
+    ReadOnly Property HatRunden As Boolean
+    ReadOnly Property ExcelPfad As String
     Sub RundeVerwerfen()
 
     Function NächsteRunde_CanExecute() As Boolean

@@ -24,8 +24,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     Sub MainWindowUIDummy()
         Dim controller = New Moq.Mock(Of IController)
         controller.Setup(Function(m) m.AktiveCompetition).Returns(_reference)
-        controller.Setup(Function(m) m.FilterSpieler(Moq.It.IsAny(Of Spieler))).Returns(True)
-        Dim window = New MainWindow(controller.Object, Mock.Of(Of IReportFactory))
+        controller.Setup(Function(m) m.FilterSpieler(It.IsAny(Of Spieler))).Returns(True)
+        Dim window = New MainWindow(controller.Object)
         window.ShowDialog()
     End Sub
 

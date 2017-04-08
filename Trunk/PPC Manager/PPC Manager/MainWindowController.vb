@@ -28,6 +28,18 @@ Public Class MainWindowController
         End Get
     End Property
 
+    Public ReadOnly Property HatRunden As Boolean Implements IController.HatRunden
+        Get
+            Return AktiveCompetition.SpielRunden.Any
+        End Get
+    End Property
+
+    Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
+        Get
+            Return _ReportFactory.ExcelPfad
+        End Get
+    End Property
+
     Public Sub RundeVerwerfen() Implements IController.RundeVerwerfen
         With AktiveCompetition.SpielRunden
             .Pop()

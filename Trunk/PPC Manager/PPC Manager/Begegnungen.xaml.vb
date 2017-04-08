@@ -54,7 +54,7 @@ Class Begegnungen
         Begegnungsliste = SpielPartienListe.SpielPartienView
     End Sub
 
-    Private Sub Ausscheiden_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+    Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
         If LifeListe.SelectedIndex <> -1 Then
             Dim Spieler = CType(LifeListe.SelectedItem, Spieler)
             If Not Spieler.Ausgeschieden Then
@@ -95,8 +95,14 @@ Class Begegnungen
     End Sub
 
 
-    Private Sub RefreshView()
+    Private Sub Refresh_Executed(sender As Object, e As ExecutedRoutedEventArgs)        
+        If DirectCast(FindResource("PlayoffAktiv"), Boolean) Then
+            LifeListe.SelectionMode = SelectionMode.Extended
+        Else
+            LifeListe.SelectionMode = SelectionMode.Single
+        End If
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+
         'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
         ' dass die View aktualisiert wird bevor die Position verschoben wird.
         ' Weiß die Hölle warum das so ist
@@ -104,15 +110,6 @@ Class Begegnungen
         ViewSource.View.MoveCurrentToFirst()
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         SpielerView.View.Refresh()
-    End Sub
-
-    Private Sub Refresh_Executed(sender As Object, e As ExecutedRoutedEventArgs)        
-        If DirectCast(FindResource("PlayoffAktiv"), Boolean) Then
-            LifeListe.SelectionMode = SelectionMode.Extended
-        Else
-            LifeListe.SelectionMode = SelectionMode.Single
-        End If
-        RefreshView()
     End Sub
 
     Private Sub CommandBinding_Executed(sender As Object, e As ExecutedRoutedEventArgs)
@@ -178,22 +175,4 @@ Class Begegnungen
         If _Controller Is Nothing Then Return
         e.Accepted = _Controller.FilterSpieler(s)        
     End Sub
-End Class
-
-
-
-Public Class DoppelbreitenGrid
-    Inherits Grid
-
-    'Protected Overrides Function MeasureOverride(constraint As Size) As Size
-    '    MyBase.MeasureOverride(constraint)
-
-    '    Return New Size(400, 60)
-    'End Function
-
-    'Protected Overrides Function ArrangeOverride(arrangeSize As Size) As Size
-    '    Dim size = MyBase.ArrangeOverride(arrangeSize)
-
-    '    Return New Size(400, 60)
-    'End Function
 End Class
