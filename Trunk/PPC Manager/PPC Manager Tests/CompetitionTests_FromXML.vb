@@ -20,15 +20,6 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
 
-    <Test, Explicit, Apartment(Threading.ApartmentState.STA)>
-    Sub MainWindowUIDummy()
-        Dim controller = New Moq.Mock(Of IController)
-        controller.Setup(Function(m) m.AktiveCompetition).Returns(_reference)
-        controller.Setup(Function(m) m.FilterSpieler(It.IsAny(Of Spieler))).Returns(True)
-        Dim window = New MainWindow(controller.Object)
-        window.ShowDialog()
-    End Sub
-
     Private _reference As Competition
     Private _regeln As SpielRegeln
 

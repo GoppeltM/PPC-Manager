@@ -121,7 +121,7 @@
                 Assert.AreEqual(.BuchholzPunkte, 0)
             End With
 
-            .AusgeschiedeneSpieler.Add(New Ausgeschieden(Of Spieler) With {.Spieler = SpielerB, .Runde = 1})
+            .AusgeschiedeneSpieler.Add(New Ausgeschieden(Of SpielerInfo) With {.Spieler = SpielerB, .Runde = 1})
             .Push(New SpielRunde From {Partie2})
 
             With SpielerB

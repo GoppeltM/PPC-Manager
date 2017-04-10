@@ -24,8 +24,8 @@ Public Class ZuXMLTests
         Dim c = New Competition(regeln, runden, spieler, "Mädchen U 13")
         With c
             With .SpielRunden
-                .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden(Of Spieler)) From {
-                    New Ausgeschieden(Of Spieler) With {.Spieler = spieler(3), .Runde = 1}}
+                .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden(Of SpielerInfo)) From {
+                    New Ausgeschieden(Of SpielerInfo) With {.Spieler = spieler(3), .Runde = 1}}
                 Dim runde = New SpielRunde
                 Dim Zeitstempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
                 runde.Add(New FreiLosSpiel("Runde 1", spieler(2), c.SpielRegeln.Gewinnsätze) With {.ZeitStempel = Zeitstempel})

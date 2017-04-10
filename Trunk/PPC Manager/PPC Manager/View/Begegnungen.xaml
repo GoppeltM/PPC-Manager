@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Begegnungen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:PPC_Manager"
+      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:core="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage"
+      d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignController}">
+    <UserControl.Resources>
+        <local:StringFormatter x:Key="StringFormatter" />
+        <ObjectDataProvider x:Key="RanglisteDataProvider"/>
+        <CollectionViewSource x:Key="SpielRundenView" Source="{Binding AktiveCompetition.SpielRunden}"
+    		d:DesignSource="{Binding Source={d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type local:DesignSpielRunden}}}"/>
+        <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"                              
+    		Source="{Binding /, Source={StaticResource SpielRundenView}, UpdateSourceTrigger=PropertyChanged}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="RundenName"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
+        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
+    </UserControl.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="96" />
+            <RowDefinition Height="378*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600*" MinWidth="20" />
+            <ColumnDefinition Width="858*" />
+        </Grid.ColumnDefinitions>
+        <local:LiveListe x:Name="LiveListe" Margin="10,5,20,5" Grid.RowSpan="2" Grid.Column="0" TextBlock.FontSize="20" />
+        <GridSplitter Grid.Column ="0" Background="Blue" Width="5"
+                HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.RowSpan="2" Margin="0,5,5,5" />
+
+        <local:SpielPartieDetail Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,5" 
+              x:Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" 
+                             MinWidth="500" Width="587" />
+        <local:SpielPartienListe x:Name="SpielPartienListe" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                 Grid.Column="1" Grid.Row="1" DataContext="{Binding Source={StaticResource PartieView}}" />
+    </Grid>
+</UserControl>

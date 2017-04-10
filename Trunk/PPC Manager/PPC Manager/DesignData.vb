@@ -14,7 +14,7 @@ Public Class DesignSpielRunden
         Dim verlauf = New DesignSpielverlauf
         SpielRunde.Add(New FreiLosSpiel("Runde 1", New Spieler(verlauf) With {.Id = "999", .Nachname = "MisterX", .Vorname = "Max"}, 3))
 
-        AusgeschiedeneSpieler.Add(New Ausgeschieden(Of Spieler) With {.Spieler = spielerListe.Last, .Runde = 1})
+        AusgeschiedeneSpieler.Add(New Ausgeschieden(Of SpielerInfo) With {.Spieler = spielerListe.Last, .Runde = 1})
         Me.Push(SpielRunde)
     End Sub
 
@@ -83,11 +83,7 @@ Public Class DesignController
         Return True
     End Function
 
-    Public Function FilterSpieler(s As Spieler) As Boolean Implements IController.FilterSpieler
-        Return True
-    End Function
-
-    Public Sub NeuePartie(rundenName As String, spielerA As Spieler, SpielerB As Spieler) Implements IController.NeuePartie
+    Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
 
     End Sub
 
@@ -95,7 +91,7 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub SpielerAusscheiden(spieler As Spieler) Implements IController.SpielerAusscheiden
+    Public Sub SpielerAusscheiden(spieler As SpielerInfo) Implements IController.SpielerAusscheiden
         Throw New NotImplementedException()
     End Sub
 End Class

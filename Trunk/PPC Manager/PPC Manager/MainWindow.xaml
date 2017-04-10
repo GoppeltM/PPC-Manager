@@ -19,6 +19,8 @@
         <KeyBinding Key="OemMinus" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
     </Window.InputBindings>
     <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Delete" Executed="Ausscheiden_Executed" />
+        <CommandBinding Command="ApplicationCommands.New" Executed="NeuePartie_Executed" />
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        
         <CommandBinding Command="Print" CanExecute="Drucken_CanExecute" Executed="Drucken_Executed"/>

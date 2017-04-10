@@ -68,7 +68,7 @@ Public Class MainWindowController
     Public Sub NächsteRunde_Execute() Implements IController.NächsteRunde_Execute
         _ReportFactory.IstBereit()
         With AktiveCompetition
-            Dim AktiveListe = .SpielerListe.ToList
+            Dim AktiveListe = .SpielerListe.OfType(Of SpielerInfo).ToList
             For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(Ausgeschieden.Spieler)
             Next
@@ -216,25 +216,15 @@ Public Class MainWindowController
         Return Math.Max(GewinnLinks, GewinnRechts) < 3
     End Function
 
-    Public Function FilterSpieler(s As Spieler) As Boolean Implements IController.FilterSpieler
-
-        Dim ausgeschiedeneSpieler = AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
-
-        Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
-                            x.Spieler = s Into Any()
-
-        Return Not AusgeschiedenVorBeginn
-    End Function
-
-    Public Sub NeuePartie(rundenName As String, spielerA As Spieler, SpielerB As Spieler) Implements IController.NeuePartie
+    Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
         Dim AktuelleRunde = AktiveCompetition.SpielRunden.Peek()
         Dim neueSpielPartie = New SpielPartie(rundenName, spielerA, SpielerB, AktiveCompetition.SpielRegeln.Gewinnsätze)
         neueSpielPartie.ZeitStempel = Date.Now
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
-    Public Sub SpielerAusscheiden(spieler As Spieler) Implements IController.SpielerAusscheiden
+    Public Sub SpielerAusscheiden(spieler As SpielerInfo) Implements IController.SpielerAusscheiden
         AktiveCompetition.SpielRunden.AusgeschiedeneSpieler.Add(
-            New Ausgeschieden(Of Spieler) With {.Spieler = spieler, .Runde = AktiveCompetition.SpielRunden.Count})
+            New Ausgeschieden(Of SpielerInfo) With {.Spieler = spieler, .Runde = AktiveCompetition.SpielRunden.Count})
     End Sub
 End Class

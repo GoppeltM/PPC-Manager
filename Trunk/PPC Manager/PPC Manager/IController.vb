@@ -27,8 +27,6 @@ Public Interface IController
 
     Function NeuerSatz_CanExecute(s As SpielPartie) As Boolean
 
-    Function FilterSpieler(s As Spieler) As Boolean
-
-    Sub NeuePartie(rundenName As String, spielerA As Spieler, SpielerB As Spieler)
-    Sub SpielerAusscheiden(spieler As Spieler)
+    Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo)
+    Sub SpielerAusscheiden(spieler As SpielerInfo)
 End Interface

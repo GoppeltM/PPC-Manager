@@ -70,7 +70,7 @@ Public Class AusXML
 
         For Each AusgeschiedenerSpieler In matchesKnoten.<ppc:inactiveplayer>
             Dim StartNummer = AusgeschiedenerSpieler.@player
-            Dim ausgeschieden As New Ausgeschieden(Of Spieler)
+            Dim ausgeschieden As New Ausgeschieden(Of SpielerInfo)
             ausgeschieden.Spieler = (From x In spielerListe Where x.Id = StartNummer Select x).Single
             ausgeschieden.Runde = Integer.Parse(AusgeschiedenerSpieler.@group)
             spielRunden.AusgeschiedeneSpieler.Add(ausgeschieden)

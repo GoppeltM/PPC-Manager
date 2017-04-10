@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PPC_Manager</RootNamespace>
     <AssemblyName>PPC Manager</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -25,6 +25,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +38,7 @@
     <DocumentationFile>PPC Manager.xml</DocumentationFile>
     <NoWarn>42314</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -50,6 +52,7 @@
     <DocumentationFile>PPC Manager.xml</DocumentationFile>
     <NoWarn>42314</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -98,7 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Begegnungen.xaml.vb">
+    <Compile Include="View\Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="DesignData.vb" />
@@ -160,7 +163,13 @@
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverter.vb" />
-    <Page Include="Begegnungen.xaml">
+    <Compile Include="View\LiveListe.xaml.vb">
+      <DependentUpon>LiveListe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SpielPartieDetail.xaml.vb">
+      <DependentUpon>SpielPartieDetail.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\Begegnungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,6 +214,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SpielPartienListe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LiveListe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SpielPartieDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

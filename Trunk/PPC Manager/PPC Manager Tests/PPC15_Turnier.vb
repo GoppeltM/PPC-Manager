@@ -184,8 +184,8 @@ Public Class PPC15_Turnier_Klasse_D
         Runde_5()
         With AktuelleCompetition
             Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").Single
-            .SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden(Of Spieler) With {.Spieler = Ausgeschieden, .Runde = 6})
-            Dim AktiveListe = .SpielerListe.ToList
+            .SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden(Of SpielerInfo) With {.Spieler = Ausgeschieden, .Runde = 6})
+            Dim AktiveListe = .SpielerListe.OfType(Of SpielerInfo).ToList
             For Each a In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(a.Spieler)
             Next

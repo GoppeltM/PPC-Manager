@@ -6,10 +6,18 @@
         InitializeComponent()
         _Controller = controller
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
-
+        Me.Begegnungen.LiveListe.DataContext = _Controller.AktiveCompetition.SpielerListe.Select(AddressOf FilterSpieler)
         Me.DataContext = _Controller
         Me.Title = controller.AktiveCompetition.Altersgruppe
     End Sub
+
+    Public Function FilterSpieler(s As SpielerInfo) As Boolean
+        Dim ausgeschiedeneSpieler = _Controller.AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+        Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
+                            x.Spieler = s Into Any()
+
+        Return Not AusgeschiedenVorBeginn
+    End Function
 
     Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
         e.CanExecute = True
@@ -39,11 +47,28 @@
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
-    Private Sub NächsteRunde_CanExecute(ByVal sender As System.Object, ByVal e As CanExecuteRoutedEventArgs)
+    Private Sub NächsteRunde_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
         e.CanExecute = _Controller.NächsteRunde_CanExecute()
     End Sub
 
-    Private Sub NächsteRunde_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+    Private Sub Ausscheiden_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        Dim Spieler = CType(e.Parameter, SpielerInfo)
+        _Controller.SpielerAusscheiden(Spieler)
+    End Sub
+
+    Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim dialog = New NeueSpielPartieDialog
+        dialog.RundenNameTextBox.Text = "Runde " & _Controller.AktiveCompetition.SpielRunden.Count
+        If Not dialog.ShowDialog Then Return
+        Dim rundenName = dialog.RundenNameTextBox.Text
+
+        Dim AusgewählteSpieler = CType(e.Parameter, IEnumerable(Of SpielerInfo))
+        Dim spielerA = AusgewählteSpieler(0)
+        Dim SpielerB = AusgewählteSpieler(1)
+        _Controller.NeuePartie(rundenName, spielerA, SpielerB)
+    End Sub
+
+    Private Sub NächsteRunde_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
         If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.",
                    "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
             Return
@@ -126,4 +151,5 @@
     Private Sub RanglisteDrucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = True
     End Sub
+
 End Class
