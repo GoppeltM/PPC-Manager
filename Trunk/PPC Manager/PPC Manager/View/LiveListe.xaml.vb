@@ -23,10 +23,10 @@ Public Class LiveListe
             LiveListe.SelectionMode = SelectionMode.Single
             PartieErstellenMenu.IsEnabled = False
         End If
-        'Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
-        'Dim v = DirectCast(SpielerView.View, ListCollectionView)
-        'v.CustomSort = New SpielerComparer
-        'SpielerView?.View?.Refresh()
+        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
+        Dim v = DirectCast(SpielerView.View, ListCollectionView)
+        v.CustomSort = New SpielerComparer
+        SpielerView?.View?.Refresh()
     End Sub
 
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
@@ -57,4 +57,22 @@ Public Class LiveListe
         c.Execute(spieler, Me)
     End Sub
 
+    Private Sub PartieErstellenMenu_Click(sender As Object, e As RoutedEventArgs) Handles PartieErstellenMenu.Click
+        Dim spieler = LiveListe.SelectedItems.OfType(Of SpielerInfo)
+        Dim c = ApplicationCommands.[New]
+        c.Execute(Spieler, Me)
+    End Sub
+
+    Private Sub LiveListe_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles LiveListe.SelectionChanged
+        Dim liste = LiveListe.SelectedItems.OfType(Of Spieler)
+        AusscheidenMenu.IsEnabled = False
+        PartieErstellenMenu.IsEnabled = False
+        If liste.Count = 1 Then
+            AusscheidenMenu.IsEnabled = Not liste.First.Ausgeschieden
+        End If
+        If liste.Count = 2 Then
+            PartieErstellenMenu.IsEnabled = PlayoffAktiv
+        End If
+
+    End Sub
 End Class

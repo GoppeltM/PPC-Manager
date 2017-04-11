@@ -17,9 +17,6 @@
     </UserControl.CommandBindings>
     <ListView x:Name="LiveListe" SelectedIndex="-1" 
                       ItemsSource="{Binding Source={StaticResource SpielerView}}">
-        <ListView.CommandBindings>
-            <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute"/>
-        </ListView.CommandBindings>
         <ListView.ContextMenu>
             <ContextMenu>
                 <ContextMenu.Items>

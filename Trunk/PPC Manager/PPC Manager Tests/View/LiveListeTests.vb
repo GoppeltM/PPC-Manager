@@ -35,13 +35,15 @@ Public Class LiveListeTests
     <Test>
     Public Sub PlayoffMode_UITest()
         Dim command = New CommandBinding(ApplicationCommands.[New], Sub(o, e)
-                                                                        MessageBox.Show(e.Parameter.ToString)
+                                                                        Dim liste = CType(e.Parameter, IEnumerable(Of SpielerInfo))
+                                                                        MessageBox.Show(liste.First.ToString + ":" + liste.Last.ToString)
                                                                     End Sub)
         Dim l = New LiveListe
         l.PlayoffAktiv = True
         l.DataContext = _SpielerListe
         Dim w As New Window
         w.Content = l
+        w.CommandBindings.Add(command)
         w.ShowDialog()
     End Sub
 End Class
