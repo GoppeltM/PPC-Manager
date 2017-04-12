@@ -75,14 +75,6 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub SatzEintragen(value As Integer, inverted As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
-
-    End Sub
-
-    Public Function NeuerSatz_CanExecute(s As SpielPartie) As Boolean Implements IController.NeuerSatz_CanExecute
-        Return True
-    End Function
-
     Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
 
     End Sub

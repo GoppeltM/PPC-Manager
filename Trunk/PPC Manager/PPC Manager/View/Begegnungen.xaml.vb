@@ -24,23 +24,19 @@ Class Begegnungen
     End Sub
 
 
-    Private Property _Controller As IController
 
     Private Sub Begegnungen_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
-        _Controller = DirectCast(DataContext, IController)
-        DetailGrid.Controller = _Controller
-        If _Controller Is Nothing Then Return
-        Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)        
-        res.ObjectInstance = _Controller.AktiveCompetition.SpielerListe
-        BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
-        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
-        ViewSource.Source = _Controller.AktiveCompetition.SpielRunden
-        ViewSource.View.Refresh()
-        Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
-        ' dass die View aktualisiert wird bevor die Position verschoben wird.
-        ' Weiß die Hölle warum das so ist.
-        ViewSource.View.MoveCurrentToFirst()
-        Begegnungsliste = SpielPartienListe.SpielPartienView
+        'Dim res = CType(FindResource("RanglisteDataProvider"), ObjectDataProvider)
+        'res.ObjectInstance = _Controller.AktiveCompetition.SpielerListe
+        'BegegnungenView = CType(FindResource("PartieView"), CollectionViewSource)
+        'Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+        'ViewSource.Source = _Controller.AktiveCompetition.SpielRunden
+        'ViewSource.View.Refresh()
+        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        '' dass die View aktualisiert wird bevor die Position verschoben wird.
+        '' Weiß die Hölle warum das so ist.
+        'ViewSource.View.MoveCurrentToFirst()
+        'Begegnungsliste = SpielPartienListe.SpielPartienView
     End Sub
 
 

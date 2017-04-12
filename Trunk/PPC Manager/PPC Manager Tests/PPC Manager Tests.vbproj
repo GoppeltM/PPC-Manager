@@ -131,6 +131,7 @@
     <Compile Include="MainWindowControllerTests.vb" />
     <Compile Include="View\LiveListeTests.vb" />
     <Compile Include="View\MainWindowTests.vb" />
+    <Compile Include="View\SpielPartieDetailTests.vb" />
     <Compile Include="XMLValidation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

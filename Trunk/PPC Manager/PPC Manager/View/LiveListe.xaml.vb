@@ -34,7 +34,7 @@ Public Class LiveListe
     End Sub
 
     Private Sub LiveListe_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        Refresh_Executed(Nothing, Nothing)
+        ' Refresh_Executed(Nothing, Nothing)
     End Sub
 
     Private Class SpielerComparer

@@ -10,6 +10,12 @@
         <local:HintergrundLinksKonverter x:Key="HintergrundLinksKonverter"/>
         <local:HintergrundRechtsKonverter x:Key="HintergrundRechtsKonverter"/>
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Add" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
+        <KeyBinding Key="OemPlus" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
+        <KeyBinding Key="Subtract" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
+        <KeyBinding Key="OemMinus" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
+    </UserControl.InputBindings>
     <UserControl.CommandBindings>
         <CommandBinding Command="BrowseForward" Executed="CommandBinding_Executed" CanExecute="NeuerSatz_CanExecute"/>
         <CommandBinding Command="BrowseBack" Executed="CommandBinding_Executed_1" CanExecute="NeuerSatz_CanExecute"/>

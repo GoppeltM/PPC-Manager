@@ -12,12 +12,6 @@
     <Window.Resources>
         <core:Boolean x:Key="PlayoffAktiv"/>
     </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Key="Add" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
-        <KeyBinding Key="OemPlus" Command="BrowseForward" CommandTarget="{Binding ElementName=Begegnungen}"/>
-        <KeyBinding Key="Subtract" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
-        <KeyBinding Key="OemMinus" Command="BrowseBack" CommandTarget="{Binding ElementName=Begegnungen}"/>
-    </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Delete" Executed="Ausscheiden_Executed" />
         <CommandBinding Command="ApplicationCommands.New" Executed="NeuePartie_Executed" />
@@ -28,31 +22,22 @@
         <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
         <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
         <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />
-        <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>                
+        <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>
+        <CommandBinding Command="NavigationCommands.NavigateJournal" Executed="Exportieren_Executed" />
     </Window.CommandBindings>
     <Grid>
-        <Menu Height="23" HorizontalAlignment="Stretch" Name="Menu1" VerticalAlignment="Top">            
-            <MenuItem Header="Datei" IsTabStop="False">
-                <MenuItem Header="Öffnen..." Name="Öffnen" Command="ApplicationCommands.Open" />
-                <MenuItem Command="ApplicationCommands.Save" Header="Speichern" Name="Speichern" />
-                <MenuItem Command="ApplicationCommands.SaveAs" Header="Speichern Unter..." Name="SpeichernUnter" />
-                <MenuItem Header="Exportieren..." Name="Exportieren" />
-                <Separator/>
-                <MenuItem Header="Beenden..." Command="ApplicationCommands.Close" Name="Beenden"></MenuItem>
-                
-            </MenuItem>            
-            <MenuItem Header="Projekt" IsTabStop="False">                                                               
-                <MenuItem Header="Nächste Runde..." Name="NächsteRunde" Command="NextPage" CommandTarget="{Binding ElementName=Begegnungen}" />
-                <MenuItem Header="Nächstes Playoff..." Name="NächstesPlayoff" Command="GoToPage" CommandTarget="{Binding ElementName=Begegnungen}" />
-                <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" Command="NavigationCommands.Favorites" CommandTarget="{Binding ElementName=Begegnungen}" />
-                <Separator/>
-                <MenuItem Header="Aktuelle Runde Verwerfen" Name="RundeVerwerfen" Command="Undo" />
-            </MenuItem>
-            <MenuItem Header="Drucken" IsTabStop="False">
-                <MenuItem Header="Runde Beginn... (neue Partien)" Command="Print" />
-                <MenuItem Header="Runde Ende... (Ergebnisse)" Command="PrintPreview" />
-            </MenuItem>
-        </Menu>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600*" MinWidth="20" />
+            <ColumnDefinition Width="858*" />
+        </Grid.ColumnDefinitions>
+        <local:Hauptmenü Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <local:LiveListe Grid.Column="0" Grid.Row="1" x:Name="LiveListe" Margin="10,5,20,5" TextBlock.FontSize="20" />
+        <GridSplitter Grid.Column ="0" Grid.Row="1"  Background="Blue" Width="5"
+                HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />
         <local:Begegnungen x:Name="Begegnungen" Margin="0,28,0,0" />        
     </Grid>
 </Window>

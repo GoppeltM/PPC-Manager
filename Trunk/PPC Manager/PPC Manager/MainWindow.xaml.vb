@@ -1,18 +1,25 @@
-﻿Class MainWindow
+﻿Imports PPC_Manager
+
+Class MainWindow
 
     Private ReadOnly _Controller As IController
+    Private ReadOnly _Spielrunden As SpielRunden
 
-    Sub New(controller As IController)
+    Sub New(controller As IController,
+            spielerliste As IEnumerable(Of Spieler),
+            spielrunden As SpielRunden,
+            titel As String)
         InitializeComponent()
         _Controller = controller
+        _Spielrunden = spielrunden
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
-        Me.Begegnungen.LiveListe.DataContext = _Controller.AktiveCompetition.SpielerListe.Select(AddressOf FilterSpieler)
-        Me.DataContext = _Controller
-        Me.Title = controller.AktiveCompetition.Altersgruppe
+        Me.LiveListe.DataContext = spielerliste.Select(AddressOf FilterSpieler)
+        Me.Begegnungen.DataContext = spielrunden
+        Me.Title = titel
     End Sub
 
     Public Function FilterSpieler(s As SpielerInfo) As Boolean
-        Dim ausgeschiedeneSpieler = _Controller.AktiveCompetition.SpielRunden.AusgeschiedeneSpieler
+        Dim ausgeschiedeneSpieler = _Spielrunden.AusgeschiedeneSpieler
         Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
                             x.Spieler = s Into Any()
 
@@ -58,7 +65,7 @@
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim dialog = New NeueSpielPartieDialog
-        dialog.RundenNameTextBox.Text = "Runde " & _Controller.AktiveCompetition.SpielRunden.Count
+        dialog.RundenNameTextBox.Text = "Runde " & _Spielrunden.Count
         If Not dialog.ShowDialog Then Return
         Dim rundenName = dialog.RundenNameTextBox.Text
 
@@ -120,7 +127,7 @@
         e.CanExecute = True
     End Sub
 
-    Private Sub Exportieren_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Exportieren.Click
+    Private Sub Exportieren_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
 
         With LadenNeu.SpeichernDialog
             .Filter = "Excel 2007 (oder höher) Dateien|*.xlsx"

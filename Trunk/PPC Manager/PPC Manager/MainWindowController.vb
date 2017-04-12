@@ -188,33 +188,7 @@ Public Class MainWindowController
         _ReportFactory.AutoSave()
     End Sub
 
-    Public Sub SatzEintragen(value As Integer, linksGewonnen As Boolean, partie As SpielPartie) Implements IController.SatzEintragen
-        Dim oValue = OtherValue(value)
-        If linksGewonnen Then
-            Dim temp = value
-            value = oValue
-            oValue = temp
-        End If
-        Dim s = New Satz With {.PunkteLinks = value, .PunkteRechts = oValue}
-        partie.Add(s)
-    End Sub
 
-    Private Function OtherValue(value As Integer) As Integer
-        Dim oValue = 11
-        If value > 9 Then oValue = value + 2
-        Return oValue
-    End Function
-
-    Public Function NeuerSatz_CanExecute(s As SpielPartie) As Boolean Implements IController.NeuerSatz_CanExecute
-        If s Is Nothing Then
-            Return False
-        End If
-
-        Dim GewinnLinks = Aggregate x In s Where x.PunkteLinks > x.PunkteRechts Into Count()
-        Dim GewinnRechts = Aggregate x In s Where x.PunkteLinks < x.PunkteRechts Into Count()
-
-        Return Math.Max(GewinnLinks, GewinnRechts) < 3
-    End Function
 
     Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
         Dim AktuelleRunde = AktiveCompetition.SpielRunden.Peek()

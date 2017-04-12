@@ -210,10 +210,10 @@ Public Class PPC15_Turnier_Klasse_D
         For Each ergebnis In VollständigeErgebnisse
             ergebnis.spielPartie.Clear()
             For Each Satz In Enumerable.Range(0, ergebnis.SätzeLinks)
-                _Controller.SatzEintragen(0, True, ergebnis.spielPartie)
+                ergebnis.spielPartie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             Next
             For Each Satz In Enumerable.Range(0, ergebnis.SätzeRechts)
-                _Controller.SatzEintragen(0, False, ergebnis.spielPartie)
+                ergebnis.spielPartie.Add(New Satz() With {.PunkteLinks = 0, .PunkteRechts = 11})
             Next
         Next
     End Sub

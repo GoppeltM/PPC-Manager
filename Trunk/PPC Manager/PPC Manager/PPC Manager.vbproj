@@ -163,6 +163,9 @@
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverter.vb" />
+    <Compile Include="View\Hauptmenü.xaml.vb">
+      <DependentUpon>Hauptmenü.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LiveListe.xaml.vb">
       <DependentUpon>LiveListe.xaml</DependentUpon>
     </Compile>
@@ -214,6 +217,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SpielPartienListe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Hauptmenü.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

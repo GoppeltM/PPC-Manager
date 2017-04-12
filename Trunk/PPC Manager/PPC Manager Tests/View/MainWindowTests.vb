@@ -4,7 +4,7 @@
         Dim controller = New Moq.Mock(Of IController)
         Dim c As New Competition(New SpielRegeln(3, True, True), New SpielRunden, New SpielerListe, "B-Klasse")
         controller.Setup(Function(m) m.AktiveCompetition).Returns(c)
-        Dim window = New MainWindow(controller.Object)
+        Dim window = New MainWindow(controller.Object, c.SpielerListe, c.SpielRunden, "Hallo Welt")
         window.ShowDialog()
     End Sub
 End Class

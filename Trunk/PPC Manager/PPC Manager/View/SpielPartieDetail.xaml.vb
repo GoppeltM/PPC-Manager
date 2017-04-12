@@ -2,8 +2,6 @@
 
 Public Class SpielPartieDetail
 
-    Public Property Controller As IController = New DesignController
-
     Public Sub New()
 
         ' Dieser Aufruf ist für den Designer erforderlich.
@@ -18,7 +16,6 @@ Public Class SpielPartieDetail
         Punkte.SelectAll()
     End Sub
 
-
     Private Sub SpielPartieDetail_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
     End Sub
 
@@ -32,16 +29,33 @@ Public Class SpielPartieDetail
         Dim value = Integer.Parse(Punkte.Text)
         Dim partie = DirectCast(DataContext, SpielPartie)
 
-        _Controller.SatzEintragen(value, inverted, partie)
+        SatzEintragen(value, inverted, partie)
 
         SetFocus()
     End Sub
+
+    Public Sub SatzEintragen(value As Integer, linksGewonnen As Boolean, partie As SpielPartie)
+        Dim oValue = OtherValue(value)
+        If linksGewonnen Then
+            Dim temp = value
+            value = oValue
+            oValue = temp
+        End If
+        Dim s = New Satz With {.PunkteLinks = value, .PunkteRechts = oValue}
+        partie.Add(s)
+    End Sub
+
+    Private Function OtherValue(value As Integer) As Integer
+        Dim oValue = 11
+        If value > 9 Then oValue = value + 2
+        Return oValue
+    End Function
 
     Private Sub NeuerSatz_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
 
         Dim s = TryCast(DataContext, SpielPartie)
         If s Is Nothing Then Return
-        e.CanExecute = _Controller.NeuerSatz_CanExecute(s)
+        e.CanExecute = Not s.Abgeschlossen
     End Sub
 
     Private Sub CommandBinding_Executed_1(sender As Object, e As ExecutedRoutedEventArgs)

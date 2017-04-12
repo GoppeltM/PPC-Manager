@@ -23,10 +23,6 @@ Public Interface IController
 
     Sub SaveExcel()
 
-    Sub SatzEintragen(value As Integer, inverted As Boolean, partie As SpielPartie)
-
-    Function NeuerSatz_CanExecute(s As SpielPartie) As Boolean
-
     Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo)
     Sub SpielerAusscheiden(spieler As SpielerInfo)
 End Interface

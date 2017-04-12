@@ -61,7 +61,7 @@ Class Application
                                         Return begegnungen.organisierePakete(l, spielrunde)
                                     End Function
             Dim controller = New MainWindowController(AktiveCompetition, speichern, r, OrganisierePakete)
-            Dim window = New MainWindow(controller)
+            Dim window = New MainWindow(controller, AktiveCompetition.SpielerListe, spielRunden, klassement)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible
             window.Show()

@@ -141,12 +141,7 @@ Imports Moq
             Assert.AreEqual(Paar.Aktuell.SpielerLinks, Paar.Erwartet.SpielerLinks)
             Assert.AreEqual(Paar.Aktuell.SpielerRechts, Paar.Erwartet.SpielerRechts)
             For Each satz In Paar.Erwartet
-                If satz.GewonnenLinks Then
-                    _Controller.SatzEintragen(satz.PunkteRechts, True, Paar.Aktuell)
-                End If
-                If satz.GewonnenRechts Then
-                    _Controller.SatzEintragen(satz.PunkteLinks, False, Paar.Aktuell)
-                End If
+                Paar.Aktuell.Add(satz)
             Next
         Next
 

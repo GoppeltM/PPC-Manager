@@ -26,15 +26,15 @@ Imports System.Windows
 
         ControllerA.NächsteRunde_Execute()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
-            ControllerA.SatzEintragen(11, True, partie)
-            ControllerA.SatzEintragen(11, True, partie)
-            ControllerA.SatzEintragen(11, True, partie)
+            partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
+            partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
+            partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
         Next
         ControllerD.NächsteRunde_Execute()
         For Each partie In ControllerD.AktiveCompetition.SpielRunden.Last
-            ControllerD.SatzEintragen(11, True, partie)
-            ControllerD.SatzEintragen(11, True, partie)
-            ControllerD.SatzEintragen(11, True, partie)
+            partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
+            partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
+            partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
         Next
         ControllerA.NächsteRunde_Execute()
         ControllerD.NächsteRunde_Execute()
