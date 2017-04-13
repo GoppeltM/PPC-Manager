@@ -24,20 +24,20 @@ Imports System.Windows
 
                                                        End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
 
-        ControllerA.NächsteRunde_Execute()
+        ControllerA.NächsteRunde()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
         Next
-        ControllerD.NächsteRunde_Execute()
+        ControllerD.NächsteRunde()
         For Each partie In ControllerD.AktiveCompetition.SpielRunden.Last
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
         Next
-        ControllerA.NächsteRunde_Execute()
-        ControllerD.NächsteRunde_Execute()
+        ControllerA.NächsteRunde()
+        ControllerD.NächsteRunde()
         ControllerD.RundeVerwerfen()
 
         Assert.AreEqual(2, ControllerA.AktiveCompetition.SpielRunden.Count)

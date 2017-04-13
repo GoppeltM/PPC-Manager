@@ -22,15 +22,9 @@ Public Class MainWindowController
     Private ReadOnly _ReportFactory As IReportFactory
     Private ReadOnly _OrganisierePakete As OrganisierePakete
 
-    Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
+    Public ReadOnly Property AktiveCompetition As Competition
         Get
             Return _Competition
-        End Get
-    End Property
-
-    Public ReadOnly Property HatRunden As Boolean Implements IController.HatRunden
-        Get
-            Return AktiveCompetition.SpielRunden.Any
         End Get
     End Property
 
@@ -51,21 +45,7 @@ Public Class MainWindowController
         End With
     End Sub
 
-    Public Function NächsteRunde_CanExecute() As Boolean Implements IController.NächsteRunde_CanExecute
-        With AktiveCompetition.SpielRunden
-            If Not .Any Then
-                Return True
-            End If
-
-            Dim AktuellePartien = .Peek.ToList
-
-            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(x.Abgeschlossen)
-
-            Return AlleAbgeschlossen
-        End With
-    End Function
-
-    Public Sub NächsteRunde_Execute() Implements IController.NächsteRunde_Execute
+    Public Sub NächsteRunde() Implements IController.NächsteRunde
         _ReportFactory.IstBereit()
         With AktiveCompetition
             Dim AktiveListe = .SpielerListe.OfType(Of SpielerInfo).ToList
@@ -92,7 +72,7 @@ Public Class MainWindowController
         End With
     End Sub
 
-    Public Sub NächstesPlayoff_Execute() Implements IController.NächstesPlayoff_Execute
+    Public Sub NächstesPlayoff() Implements IController.NächstesPlayoff
 
         If My.Settings.AutoSaveAn Then
             _Speichern()

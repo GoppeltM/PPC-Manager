@@ -43,7 +43,7 @@ Class MainWindow
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Controller.HatRunden
+        e.CanExecute = _Spielrunden.Any
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
@@ -55,7 +55,17 @@ Class MainWindow
     End Sub
 
     Private Sub NächsteRunde_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Controller.NächsteRunde_CanExecute()
+        With _Spielrunden
+            If Not .Any Then
+                e.CanExecute = True
+                Return
+            End If
+
+            Dim AktuellePartien = .Peek.ToList
+            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(x.Abgeschlossen)
+
+            e.CanExecute = AlleAbgeschlossen
+        End With
     End Sub
 
     Private Sub Ausscheiden_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
@@ -86,7 +96,7 @@ Class MainWindow
         End If
 
         Try
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
         Catch ex As ExcelNichtBeschreibbarException
             MessageBox.Show(
                 String.Format("Kein Schreibzugriff auf Excel Datei möglich. Bitte Excel vor Beginn der nächsten Runde schließen!",
@@ -109,7 +119,7 @@ Class MainWindow
             Return
         End If
 
-        _Controller.NächstesPlayoff_Execute()
+        _Controller.NächstesPlayoff()
 
         Resources("PlayoffAktiv") = True
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
@@ -152,7 +162,7 @@ Class MainWindow
     End Sub
 
     Private Sub Drucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Controller.HatRunden
+        e.CanExecute = _Spielrunden.Any
     End Sub
 
     Private Sub RanglisteDrucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)

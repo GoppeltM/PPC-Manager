@@ -113,7 +113,7 @@ Public Class PPC15_Turnier_Klasse_D
     <Test>
     Sub Runde_1()
         With AktuelleCompetition
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(1)
@@ -127,7 +127,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_2()
         Runde_1()
         With AktuelleCompetition
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(2)
@@ -141,7 +141,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_3()
         Runde_2()
         With AktuelleCompetition
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(3)
@@ -155,7 +155,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_4()
         Runde_3()
         With AktuelleCompetition
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(4)
@@ -169,7 +169,7 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_5()
         Runde_4()
         With AktuelleCompetition
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(5)
@@ -189,7 +189,7 @@ Public Class PPC15_Turnier_Klasse_D
             For Each a In .SpielRunden.AusgeschiedeneSpieler
                 AktiveListe.Remove(a.Spieler)
             Next
-            _Controller.NächsteRunde_Execute()
+            _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(6)

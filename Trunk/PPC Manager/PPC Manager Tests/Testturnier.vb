@@ -132,7 +132,7 @@ Imports Moq
         Dim XMLPartien = From x In _JungenU18.<matches>.Elements Where x.@group = rundenName
         Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(_AktiveListe, XMLPartien, 3) Order By x.GetType.Name Descending
 
-        _Controller.NächsteRunde_Execute()
+        _Controller.NächsteRunde()
         Dim paarungen = _Controller.AktiveCompetition.SpielRunden.First()
 
         Assert.AreEqual(paarungen.Count, ErwarteteErgebnisse.Count)

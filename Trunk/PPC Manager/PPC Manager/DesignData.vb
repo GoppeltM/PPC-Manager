@@ -24,19 +24,6 @@ End Class
 Public Class DesignController
     Implements IController
 
-
-    Public ReadOnly Property AktiveCompetition As Competition Implements IController.AktiveCompetition
-        Get
-            Return New Competition(New SpielRegeln(3, True, True), New SpielRunden, New SpielerListe, "Gruppe-b")
-        End Get
-    End Property
-
-    Public ReadOnly Property HatRunden As Boolean Implements IController.HatRunden
-        Get
-            Throw New NotImplementedException()
-        End Get
-    End Property
-
     Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
         Get
             Throw New NotImplementedException()
@@ -47,15 +34,11 @@ Public Class DesignController
 
     End Sub
 
-    Public Function NächsteRunde_CanExecute() As Boolean Implements IController.NächsteRunde_CanExecute
-        Return True
-    End Function
-
-    Public Sub NächsteRunde_Execute() Implements IController.NächsteRunde_Execute
+    Public Sub NächsteRunde() Implements IController.NächsteRunde
 
     End Sub
 
-    Public Sub NächstesPlayoff_Execute() Implements IController.NächstesPlayoff_Execute
+    Public Sub NächstesPlayoff() Implements IController.NächstesPlayoff
 
     End Sub
 
