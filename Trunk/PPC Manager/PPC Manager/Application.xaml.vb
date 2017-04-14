@@ -60,7 +60,7 @@ Class Application
                                         l.Reverse()
                                         Return begegnungen.organisierePakete(l, spielrunde)
                                     End Function
-            Dim controller = New MainWindowController(AktiveCompetition, speichern, r, OrganisierePakete)
+            Dim controller = New MainWindowController(spielRunden, AktiveCompetition, speichern, r, OrganisierePakete)
             Dim window = New MainWindow(controller, AktiveCompetition.SpielerListe, spielRunden, klassement)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible
