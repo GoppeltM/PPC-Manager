@@ -5,14 +5,16 @@ Public Delegate Function OrganisierePakete(spielerliste As IEnumerable(Of Spiele
 Public Class MainWindowController
     Implements IController
 
-    Public Sub New(spielrunden As SpielRunden,
-                  competition As Competition,
+    Public Sub New(spielerliste As IEnumerable(Of Spieler),
+                  spielrunden As SpielRunden,
+                  Competition As Competition,
                    speichern As Action,
                    reportFactory As IReportFactory,
                    organisierePakete As OrganisierePakete
                    )
+        _Spielerliste = spielerliste
         _Spielrunden = spielrunden
-        _Competition = competition
+        _Competition = Competition
         _Speichern = speichern
         _ReportFactory = reportFactory
         _OrganisierePakete = organisierePakete
@@ -24,6 +26,7 @@ Public Class MainWindowController
     Private ReadOnly _ReportFactory As IReportFactory
     Private ReadOnly _OrganisierePakete As OrganisierePakete
     Private ReadOnly _Spielrunden As SpielRunden
+    Private ReadOnly _Spielerliste As IEnumerable(Of Spieler)
 
     Public ReadOnly Property AktiveCompetition As Competition
         Get
@@ -90,18 +93,19 @@ Public Class MainWindowController
 
     Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
         Dim seiteneinstellung = p.Konfigurieren()
-        Dim format = New Size(seiteneinstellung.Breite, seiteneinstellung.Höhe)
         Dim doc = New FixedDocument
-        Dim schiriSeiten = From x In (New FixedPageFabrik).ErzeugeSchiedsrichterZettelSeiten(AktiveCompetition.SpielRunden.Peek,
-                               format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+        Dim schiriSeiten = From x In (New FixedPageFabrik(_Spielerliste,
+                               _Spielrunden,
+                               AktiveCompetition.Altersgruppe).ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung))
                            Select New PageContent() With {.Child = x}
 
         For Each page In schiriSeiten
             doc.Pages.Add(page)
         Next
 
-        Dim neuePaarungenSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(AktiveCompetition.SpielRunden.Peek,
-                               format, AktiveCompetition.Altersgruppe, AktiveCompetition.SpielRunden.Count)
+        Dim neuePaarungenSeiten = From x In (New FixedPageFabrik(_Spielerliste,
+                                      _Spielrunden,
+                                      AktiveCompetition.Altersgruppe).ErzeugeSpielErgebnisse(seiteneinstellung))
                                   Select New PageContent() With {.Child = x}
 
         For Each page In neuePaarungenSeiten
@@ -113,41 +117,14 @@ Public Class MainWindowController
 
     Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
         Dim seiteneinstellung = p.Konfigurieren()
-        Dim format = New Size(seiteneinstellung.Breite, seiteneinstellung.Höhe)
-
-        Dim Spielpartien As IEnumerable(Of SpielPartie) = New List(Of SpielPartie)
-        With _Spielrunden
-            If .Any Then
-                Spielpartien = From x In .Peek Where Not TypeOf x Is FreiLosSpiel
-            End If
-        End With
-
-        Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
-                                        Return Aggregate x In _Spielrunden.AusgeschiedeneSpieler
-                                               Where x.Spieler = s AndAlso x.Runde = 0
-                                               Into Any()
-                                    End Function
-        Dim l = (From x In AktiveCompetition.SpielerListe
-                 Where Not AusgeschiedenInRunde0(x)
-                 Select x).ToList
-        l.Sort()
-        l.Reverse()
 
         Dim doc = New FixedDocument
-        Dim allePartien = _Spielrunden.SelectMany(Function(m) m)
-        Dim ranglistenSeiten = From x In (New FixedPageFabrik).ErzeugeRanglisteSeiten(l.OfType(Of Spieler),
-                                   seiteneinstellung,
-                                   AktiveCompetition.Altersgruppe,
-                                   _Spielrunden.Count,
-                                   allePartien
-)
+        Dim ranglistenSeiten = From x In (New FixedPageFabrik(_Spielerliste, _Spielrunden, AktiveCompetition.Altersgruppe).ErzeugeRanglisteSeiten(
+                                   seiteneinstellung))
                                Select New PageContent() With {.Child = x}
 
-        Dim spielErgebnisSeiten = From x In (New FixedPageFabrik).ErzeugeSpielErgebnisse(
-                                      Spielpartien,
-                                      format,
-                                      AktiveCompetition.Altersgruppe,
-                                      _Spielrunden.Count)
+        Dim spielErgebnisSeiten = From x In (New FixedPageFabrik(_Spielerliste, _Spielrunden, AktiveCompetition.Altersgruppe).ErzeugeSpielErgebnisse(
+                                      seiteneinstellung))
                                   Select New PageContent() With {.Child = x}
 
         For Each page In spielErgebnisSeiten

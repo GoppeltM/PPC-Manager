@@ -15,6 +15,16 @@ Public Interface ISeiteneinstellung
     Property AbstandY As Double
 End Interface
 
+Public Class SeitenEinstellung
+    Implements ISeiteneinstellung
+
+    Public Property AbstandX As Double Implements ISeiteneinstellung.AbstandX
+    Public Property AbstandY As Double Implements ISeiteneinstellung.AbstandY
+    Public Property Breite As Double Implements ISeiteneinstellung.Breite
+    Public Property Höhe As Double Implements ISeiteneinstellung.Höhe
+
+End Class
+
 Public Class Printer
     Implements IPrinter
 
@@ -24,16 +34,6 @@ Public Class Printer
         _PrintDialog = New PrintDialog
         _PrintDialog.UserPageRangeEnabled = False
     End Sub
-
-    Private Class SeitenEinstellung
-        Implements ISeiteneinstellung
-
-        Public Property AbstandX As Double Implements ISeiteneinstellung.AbstandX
-        Public Property AbstandY As Double Implements ISeiteneinstellung.AbstandY
-        Public Property Breite As Double Implements ISeiteneinstellung.Breite
-        Public Property Höhe As Double Implements ISeiteneinstellung.Höhe
-
-    End Class
 
     Public Function Konfigurieren() As ISeiteneinstellung Implements IPrinter.Konfigurieren
         _DialogResult = _PrintDialog.ShowDialog()
@@ -51,7 +51,5 @@ Public Class Printer
         If _DialogResult <> True Then Return
         doc.PrintTicket = _PrintDialog.PrintTicket
         _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
-        ' Dim w As New Window With {.Content = New DocumentViewer() With {.Document = doc}, .Title = titel}
-        ' w.ShowDialog()
     End Sub
 End Class

@@ -1,8 +1,31 @@
-﻿Public Class FixedPageFabrik
-    Friend Function ErzeugeRanglisteSeiten(spielerListe As IEnumerable(Of Spieler), seitenEinstellungen As ISeiteneinstellung,
-                                            altersGruppe As String, rundenNummer As Integer,
-                                           spielpartien As IEnumerable(Of SpielPartie)) As IEnumerable(Of FixedPage)
-        Dim seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe, spielpartien)
+﻿Imports PPC_Manager
+
+Public Class FixedPageFabrik
+    Private ReadOnly _Spielerliste As IEnumerable(Of Spieler)
+    Private ReadOnly _SpielRunden As SpielRunden
+    Private ReadOnly _KlassementName As String
+
+    Public Sub New(spielerliste As IEnumerable(Of Spieler),
+                   spielRunden As SpielRunden,
+                   klassementName As String)
+        _Spielerliste = spielerliste
+        _SpielRunden = spielRunden
+        _KlassementName = klassementName
+    End Sub
+
+    Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+        Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
+                                        Return Aggregate x In _SpielRunden.AusgeschiedeneSpieler
+                                               Where x.Spieler = s AndAlso x.Runde = 0
+                                               Into Any()
+                                    End Function
+        Dim l = (From x In _Spielerliste
+                 Where Not AusgeschiedenInRunde0(x)
+                 Select x).ToList
+        l.Sort()
+        l.Reverse()
+        Dim spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel)
+        Dim seite = New RanglisteSeite(_KlassementName, _SpielRunden.Count, l, spielPartien)
         With seite
             Dim canvas = New Canvas
             canvas.Children.Add(seite)
@@ -12,11 +35,45 @@
 
         Dim gesamtLänge = seite.RenderSize.Height
 
-        seite = New RanglisteSeite(altersGruppe, rundenNummer, spielerListe, spielpartien)
+        seite = New RanglisteSeite(_KlassementName,
+                                   _SpielRunden.Count, l, spielPartien)
         Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
     End Function
 
-    Friend Function ErzeugeSeiten(v As Visual, gesamtLänge As Double, seitengröße As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+    Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+        Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count, seitenNr)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
+        Dim elemente = _SpielRunden.Peek.ToList
+        If Not elemente.Any Then
+            Return New List(Of FixedPage)
+        End If
+        Dim maxElemente = leerControl.GetMaxItemCount
+
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        Return pages
+    End Function
+
+    Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+        Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el, _KlassementName, _SpielRunden.Count, seitenNr)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
+        Dim elemente = _SpielRunden.Peek.ToList
+        If Not elemente.Any Then
+            Return New List(Of FixedPage)
+        End If
+        Dim maxElemente = leerControl.GetMaxItemCount
+
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        Return pages
+    End Function
+
+    Private Function ErzeugeSeiten(v As Visual, gesamtLänge As Double,
+                                   seitengröße As ISeiteneinstellung) As IEnumerable(Of FixedPage)
         Dim brush As New VisualBrush(v) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
 
         Dim aktuelleHöhe = 0.0
@@ -76,50 +133,5 @@
         Return Page
     End Function
 
-    Friend Function ErzeugeSchiedsrichterZettelSeiten(partien As IEnumerable(Of SpielPartie), format As Size,
-                                                      altersGruppe As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
-        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, altersGruppe, rundenNummer, seitenNr)
-        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
-        Dim leerSeite = SeiteErstellen(leerControl, format)
-        Dim elemente = partien.ToList
-        If Not elemente.Any Then
-            Return New List(Of FixedPage)
-        End If
-        Dim maxElemente = leerControl.GetMaxItemCount
 
-        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
-        Return pages
-    End Function
-
-    Friend Function ErzeugeNeuePaarungen(partien As IEnumerable(Of SpielPartie), format As Size,
-                                         klassementName As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
-        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el, klassementName, rundenNummer, seitenNr)
-        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
-        Dim leerSeite = SeiteErstellen(leerControl, format)
-        Dim elemente = partien.ToList
-        If Not elemente.Any Then
-            Return New List(Of FixedPage)
-        End If
-        Dim maxElemente = leerControl.GetMaxItemCount
-
-        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
-        Return pages
-    End Function
-
-    Friend Function ErzeugeSpielErgebnisse(partien As IEnumerable(Of SpielPartie), format As Size, klassementName As String, rundenNummer As Integer) As IEnumerable(Of FixedPage)
-        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el, klassementName, rundenNummer, seitenNr)
-        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
-        Dim leerSeite = SeiteErstellen(leerControl, format)
-        Dim elemente = partien.ToList
-        If Not elemente.Any Then
-            Return New List(Of FixedPage)
-        End If
-        Dim maxElemente = leerControl.GetMaxItemCount
-
-        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
-        Return pages
-    End Function
 End Class

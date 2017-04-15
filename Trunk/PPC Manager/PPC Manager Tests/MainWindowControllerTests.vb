@@ -17,12 +17,12 @@ Imports System.Windows
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "A-Klasse", spielregeln, spielverlauf, New SpielRunden)
         Dim cD = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", spielregeln, spielverlauf, New SpielRunden)
 
-        Dim ControllerA = New MainWindowController(c.SpielRunden, c, Sub()
+        Dim ControllerA = New MainWindowController(c.SpielerListe, c.SpielRunden, c, Sub()
 
-                                                                     End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
-        Dim ControllerD = New MainWindowController(cD.SpielRunden, cD, Sub()
+                                                                                     End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+        Dim ControllerD = New MainWindowController(cD.SpielerListe, cD.SpielRunden, cD, Sub()
 
-                                                                       End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+                                                                                        End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
 
         ControllerA.NächsteRunde()
         For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
@@ -56,9 +56,9 @@ Imports System.Windows
                                           doc,
                                           "D-Klasse",
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
-        Dim Controller = New MainWindowController(c.SpielRunden, c, Sub()
+        Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, c, Sub()
 
-                                                                    End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+                                                                                    End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
         Dim window = New Window
         window.Show()
         Controller.RundenendeDrucken(New Printer)
@@ -76,9 +76,9 @@ Imports System.Windows
                                           doc,
                                           "D-Klasse",
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
-        Dim Controller = New MainWindowController(c.SpielRunden, c, Sub()
+        Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, c, Sub()
 
-                                                                    End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+                                                                                    End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)

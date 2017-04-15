@@ -25,9 +25,9 @@ Public Class PPC15_Turnier_Klasse_D
                                     Return begegnungen.organisierePakete(l, spielrunde)
                                 End Function
         AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, s, r)
-        _Controller = New MainWindowController(r, AktuelleCompetition, Sub()
+        _Controller = New MainWindowController(AktuelleCompetition.SpielerListe, r, AktuelleCompetition, Sub()
 
-                                                                       End Sub,
+                                                                                                         End Sub,
                                                Mock.Of(Of IReportFactory),
                                                OrganisierePakete)
     End Sub

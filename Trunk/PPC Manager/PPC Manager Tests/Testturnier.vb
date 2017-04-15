@@ -36,8 +36,8 @@ Imports Moq
                                                             regeln, s, r)
         _AktiveListe = AktuelleCompetition.SpielerListe
         AktuelleCompetition.SpielRunden.Clear()
-        _Controller = New MainWindowController(r, AktuelleCompetition, Sub()
-                                                                       End Sub,
+        _Controller = New MainWindowController(AktuelleCompetition.SpielerListe, r, AktuelleCompetition, Sub()
+                                                                                                         End Sub,
                                                Mock.Of(Of IReportFactory),
                                                OrganisierePakete)
     End Sub
