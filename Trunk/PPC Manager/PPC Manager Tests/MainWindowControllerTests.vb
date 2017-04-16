@@ -17,21 +17,29 @@ Imports System.Windows
         Dim c = AusXML.CompetitionFromXML("D:\temp.xml", doc, "A-Klasse", spielregeln, spielverlauf, New SpielRunden)
         Dim cD = AusXML.CompetitionFromXML("D:\temp.xml", doc, "D-Klasse", spielregeln, spielverlauf, New SpielRunden)
 
-        Dim ControllerA = New MainWindowController(c.SpielerListe, c.SpielRunden, c, Sub()
 
-                                                                                     End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
-        Dim ControllerD = New MainWindowController(cD.SpielerListe, cD.SpielRunden, cD, Sub()
+        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
+        Dim ControllerA = New MainWindowController(c.SpielerListe, c.SpielRunden, Sub()
 
-                                                                                        End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+                                                                                  End Sub,
+                                                   Mock.Of(Of IReportFactory),
+                                                   Function() New PaarungsContainer(Of SpielerInfo),
+                                                   druckFabrik, 3)
+        Dim ControllerD = New MainWindowController(cD.SpielerListe, cD.SpielRunden, Sub()
+
+                                                                                    End Sub,
+                                                   Mock.Of(Of IReportFactory),
+                                                   Function() New PaarungsContainer(Of SpielerInfo),
+                                                   druckFabrik, 3)
 
         ControllerA.NächsteRunde()
-        For Each partie In ControllerA.AktiveCompetition.SpielRunden.Last
+        For Each partie In c.SpielRunden.Last
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
         Next
         ControllerD.NächsteRunde()
-        For Each partie In ControllerD.AktiveCompetition.SpielRunden.Last
+        For Each partie In cD.SpielRunden.Last
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
@@ -40,8 +48,8 @@ Imports System.Windows
         ControllerD.NächsteRunde()
         ControllerD.RundeVerwerfen()
 
-        Assert.AreEqual(2, ControllerA.AktiveCompetition.SpielRunden.Count)
-        Assert.AreEqual(1, ControllerD.AktiveCompetition.SpielRunden.Count)
+        Assert.AreEqual(2, c.SpielRunden.Count)
+        Assert.AreEqual(1, c.SpielRunden.Count)
 
     End Sub
 
@@ -56,9 +64,13 @@ Imports System.Windows
                                           doc,
                                           "D-Klasse",
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
-        Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, c, Sub()
+        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
+        Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, Sub()
 
-                                                                                    End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+                                                                                 End Sub,
+                                                  Mock.Of(Of IReportFactory),
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  druckFabrik, 3)
         Dim window = New Window
         window.Show()
         Controller.RundenendeDrucken(New Printer)
@@ -76,9 +88,13 @@ Imports System.Windows
                                           doc,
                                           "D-Klasse",
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
-        Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, c, Sub()
+        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
+        Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, Sub()
 
-                                                                                    End Sub, Mock.Of(Of IReportFactory), Function() New PaarungsContainer(Of SpielerInfo))
+                                                                                 End Sub,
+                                                  Mock.Of(Of IReportFactory),
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  druckFabrik, 3)
         Dim DruckenMock = New Mock(Of IPrinter)
         Dim a = Sub(d As FixedDocument, s As String)
                     Assert.AreEqual(2, d.DocumentPaginator.PageCount)

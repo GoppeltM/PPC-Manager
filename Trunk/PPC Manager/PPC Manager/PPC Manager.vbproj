@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Output\IFixedPageFabrik.vb" />
     <Compile Include="View\Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>

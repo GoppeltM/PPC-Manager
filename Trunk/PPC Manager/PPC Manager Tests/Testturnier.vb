@@ -11,6 +11,7 @@ Imports Moq
     Private _Controller As MainWindowController
     Private _JungenU18 As XElement
     Private _AktiveListe As SpielerListe
+    Private _SpielRunden As SpielRunden
 
     <SetUp>
     Sub CompetitionInit()
@@ -35,11 +36,14 @@ Imports Moq
                                                             _JungenU18,
                                                             regeln, s, r)
         _AktiveListe = AktuelleCompetition.SpielerListe
+        _SpielRunden = AktuelleCompetition.SpielRunden
         AktuelleCompetition.SpielRunden.Clear()
-        _Controller = New MainWindowController(AktuelleCompetition.SpielerListe, r, AktuelleCompetition, Sub()
-                                                                                                         End Sub,
+        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
+        _Controller = New MainWindowController(AktuelleCompetition.SpielerListe, r, Sub()
+                                                                                    End Sub,
                                                Mock.Of(Of IReportFactory),
-                                               OrganisierePakete)
+                                               OrganisierePakete,
+                                               druckFabrik, 3)
     End Sub
 
 
@@ -133,7 +137,7 @@ Imports Moq
         Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(_AktiveListe, XMLPartien, 3) Order By x.GetType.Name Descending
 
         _Controller.NächsteRunde()
-        Dim paarungen = _Controller.AktiveCompetition.SpielRunden.First()
+        Dim paarungen = _SpielRunden.First()
 
         Assert.AreEqual(paarungen.Count, ErwarteteErgebnisse.Count)
 

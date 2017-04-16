@@ -60,7 +60,18 @@ Class Application
                                         l.Reverse()
                                         Return begegnungen.organisierePakete(l, spielrunde)
                                     End Function
-            Dim controller = New MainWindowController(AktiveCompetition.SpielerListe, spielRunden, AktiveCompetition, speichern, r, OrganisierePakete)
+            Dim druckFabrik = New FixedPageFabrik(
+                AktiveCompetition.SpielerListe,
+                spielRunden,
+                spielverlauf,
+                klassement)
+            Dim controller = New MainWindowController(AktiveCompetition.SpielerListe,
+                                                      spielRunden,
+                                                      speichern,
+                                                      r,
+                                                      OrganisierePakete,
+                                                      druckFabrik,
+                                                      spielRegeln.Gewinnsätze)
             Dim window = New MainWindow(controller, AktiveCompetition.SpielerListe, spielRunden, klassement)
             Me.MainWindow = window
             window.Visibility = Visibility.Visible

@@ -5,34 +5,30 @@ Public Delegate Function OrganisierePakete(spielerliste As IEnumerable(Of Spiele
 Public Class MainWindowController
     Implements IController
 
-    Public Sub New(spielerliste As IEnumerable(Of Spieler),
+    Public Sub New(spielerListe As IEnumerable(Of SpielerInfo),
                   spielrunden As SpielRunden,
-                  Competition As Competition,
                    speichern As Action,
                    reportFactory As IReportFactory,
-                   organisierePakete As OrganisierePakete
+                   organisierePakete As OrganisierePakete,
+                   druckFabrik As IFixedPageFabrik,
+                   gewinnSätze As Integer
                    )
-        _Spielerliste = spielerliste
+        _SpielerListe = spielerListe
         _Spielrunden = spielrunden
-        _Competition = Competition
         _Speichern = speichern
         _ReportFactory = reportFactory
         _OrganisierePakete = organisierePakete
-        If _Competition Is Nothing Then Throw New ArgumentNullException("competition")
+        _DruckFabrik = druckFabrik
+        _GewinnSätze = gewinnSätze
     End Sub
 
-    Private ReadOnly _Competition As Competition
     Private ReadOnly _Speichern As Action
     Private ReadOnly _ReportFactory As IReportFactory
     Private ReadOnly _OrganisierePakete As OrganisierePakete
     Private ReadOnly _Spielrunden As SpielRunden
-    Private ReadOnly _Spielerliste As IEnumerable(Of Spieler)
-
-    Public ReadOnly Property AktiveCompetition As Competition
-        Get
-            Return _Competition
-        End Get
-    End Property
+    Private ReadOnly _DruckFabrik As IFixedPageFabrik
+    Private ReadOnly _GewinnSätze As Integer
+    Private ReadOnly _SpielerListe As IEnumerable(Of SpielerInfo)
 
     Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
         Get
@@ -53,29 +49,28 @@ Public Class MainWindowController
 
     Public Sub NächsteRunde() Implements IController.NächsteRunde
         _ReportFactory.IstBereit()
-        With AktiveCompetition
-            Dim AktiveListe = .SpielerListe.OfType(Of SpielerInfo).ToList
-            For Each Ausgeschieden In .SpielRunden.AusgeschiedeneSpieler
-                AktiveListe.Remove(Ausgeschieden.Spieler)
-            Next
-            Dim RundenName = "Runde " & .SpielRunden.Count + 1
 
-            Dim begegnungen = _OrganisierePakete(AktiveListe, .SpielRunden.Count)
+        Dim AktiveListe = _SpielerListe.ToList
+        For Each Ausgeschieden In _Spielrunden.AusgeschiedeneSpieler
+            AktiveListe.Remove(Ausgeschieden.Spieler)
+        Next
+        Dim RundenName = "Runde " & _Spielrunden.Count + 1
 
-            Dim Zeitstempel = Date.Now
+        Dim begegnungen = _OrganisierePakete(AktiveListe, _Spielrunden.Count)
+
+        Dim Zeitstempel = Date.Now
             Dim spielRunde As New SpielRunde
 
             For Each begegnung In begegnungen.Partien
                 spielRunde.Add(
-                    New SpielPartie(RundenName, begegnung.Item1, begegnung.Item2, .SpielRegeln.Gewinnsätze) _
+                    New SpielPartie(RundenName, begegnung.Item1, begegnung.Item2, _GewinnSätze) _
                     With {.ZeitStempel = Zeitstempel})
             Next
             If begegnungen.Übrig IsNot Nothing Then
-                spielRunde.Add(New FreiLosSpiel(RundenName, begegnungen.Übrig, .SpielRegeln.Gewinnsätze))
+                spielRunde.Add(New FreiLosSpiel(RundenName, begegnungen.Übrig, _GewinnSätze))
             End If
-            .SpielRunden.Push(spielRunde)
+        _Spielrunden.Push(spielRunde)
 
-        End With
     End Sub
 
     Public Sub NächstesPlayoff() Implements IController.NächstesPlayoff
@@ -85,7 +80,6 @@ Public Class MainWindowController
         End If
         _Spielrunden.Push(New SpielRunde)
 
-
         If My.Settings.AutoSaveAn Then
             _ReportFactory.AutoSave()
         End If
@@ -94,18 +88,14 @@ Public Class MainWindowController
     Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
         Dim seiteneinstellung = p.Konfigurieren()
         Dim doc = New FixedDocument
-        Dim schiriSeiten = From x In (New FixedPageFabrik(_Spielerliste,
-                               _Spielrunden,
-                               AktiveCompetition.Altersgruppe).ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung))
+        Dim schiriSeiten = From x In _DruckFabrik.ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung)
                            Select New PageContent() With {.Child = x}
 
         For Each page In schiriSeiten
             doc.Pages.Add(page)
         Next
 
-        Dim neuePaarungenSeiten = From x In (New FixedPageFabrik(_Spielerliste,
-                                      _Spielrunden,
-                                      AktiveCompetition.Altersgruppe).ErzeugeSpielErgebnisse(seiteneinstellung))
+        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 
         For Each page In neuePaarungenSeiten
@@ -119,12 +109,12 @@ Public Class MainWindowController
         Dim seiteneinstellung = p.Konfigurieren()
 
         Dim doc = New FixedDocument
-        Dim ranglistenSeiten = From x In (New FixedPageFabrik(_Spielerliste, _Spielrunden, AktiveCompetition.Altersgruppe).ErzeugeRanglisteSeiten(
-                                   seiteneinstellung))
+        Dim ranglistenSeiten = From x In _DruckFabrik.ErzeugeRanglisteSeiten(
+                                   seiteneinstellung)
                                Select New PageContent() With {.Child = x}
 
-        Dim spielErgebnisSeiten = From x In (New FixedPageFabrik(_Spielerliste, _Spielrunden, AktiveCompetition.Altersgruppe).ErzeugeSpielErgebnisse(
-                                      seiteneinstellung))
+        Dim spielErgebnisSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(
+                                      seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 
         For Each page In spielErgebnisSeiten
@@ -156,13 +146,13 @@ Public Class MainWindowController
         Dim neueSpielPartie = New SpielPartie(rundenName,
                                               spielerA,
                                               SpielerB,
-                                              AktiveCompetition.SpielRegeln.Gewinnsätze)
+                                              _GewinnSätze)
         neueSpielPartie.ZeitStempel = Date.Now
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
     Public Sub SpielerAusscheiden(spieler As SpielerInfo) Implements IController.SpielerAusscheiden
         _Spielrunden.AusgeschiedeneSpieler.Add(
-            New Ausgeschieden(Of SpielerInfo) With {.Spieler = spieler, .Runde = AktiveCompetition.SpielRunden.Count})
+            New Ausgeschieden(Of SpielerInfo) With {.Spieler = spieler, .Runde = _Spielrunden.Count})
     End Sub
 End Class

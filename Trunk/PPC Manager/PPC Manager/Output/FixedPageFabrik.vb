@@ -1,19 +1,23 @@
 ﻿Imports PPC_Manager
 
 Public Class FixedPageFabrik
-    Private ReadOnly _Spielerliste As IEnumerable(Of Spieler)
+    Implements IFixedPageFabrik
+    Private ReadOnly _Spielerliste As IEnumerable(Of SpielerInfo)
     Private ReadOnly _SpielRunden As SpielRunden
     Private ReadOnly _KlassementName As String
+    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
-    Public Sub New(spielerliste As IEnumerable(Of Spieler),
+    Public Sub New(spielerliste As IEnumerable(Of SpielerInfo),
                    spielRunden As SpielRunden,
+                   spielverlauf As ISpielverlauf(Of SpielerInfo),
                    klassementName As String)
         _Spielerliste = spielerliste
         _SpielRunden = spielRunden
+        _Spielverlauf = spielverlauf
         _KlassementName = klassementName
     End Sub
 
-    Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+    Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
         Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
                                         Return Aggregate x In _SpielRunden.AusgeschiedeneSpieler
                                                Where x.Spieler = s AndAlso x.Runde = 0
@@ -21,7 +25,7 @@ Public Class FixedPageFabrik
                                     End Function
         Dim l = (From x In _Spielerliste
                  Where Not AusgeschiedenInRunde0(x)
-                 Select x).ToList
+                 Select New Spieler(x, _Spielverlauf)).ToList
         l.Sort()
         l.Reverse()
         Dim spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel)
@@ -40,7 +44,7 @@ Public Class FixedPageFabrik
         Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
     End Function
 
-    Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+    Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSchiedsrichterZettelSeiten
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count, seitenNr)
@@ -56,7 +60,7 @@ Public Class FixedPageFabrik
         Return pages
     End Function
 
-    Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+    Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSpielErgebnisse
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el, _KlassementName, _SpielRunden.Count, seitenNr)

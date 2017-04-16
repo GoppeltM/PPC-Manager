@@ -20,7 +20,7 @@ Public Class FixedPageFabrikTests
         End With
         _SeitenEinstellungen = seitenEinstellungen.Object
         Dim spielerListe As New List(Of Spieler)
-        f = New FixedPageFabrik(spielerListe, New SpielRunden, "Altersgruppe")
+        f = New FixedPageFabrik(spielerListe, New SpielRunden, Mock.Of(Of ISpielverlauf(Of SpielerInfo)), "Altersgruppe")
     End Sub
 
     Private _SeitenEinstellungen As ISeiteneinstellung
