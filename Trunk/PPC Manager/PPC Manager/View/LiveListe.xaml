@@ -12,18 +12,20 @@
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <CollectionViewSource x:Key="SpielerView" Source="{Binding Mode=OneWay}" />
     </UserControl.Resources>
-    <UserControl.CommandBindings>
-        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
-    </UserControl.CommandBindings>
     <ListView x:Name="LiveListe" SelectedIndex="-1" 
                       ItemsSource="{Binding Source={StaticResource SpielerView}}">
+        <ListView.CommandBindings>
+            <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
+            <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
+            <CommandBinding Command="ApplicationCommands.Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Execute" />
+        </ListView.CommandBindings>
         <ListView.ContextMenu>
             <ContextMenu>
                 <ContextMenu.Items>
                     <MenuItem Header="Spieler ausscheiden" 
-                              Name="AusscheidenMenu"/>
+                              Name="AusscheidenMenu" Command="ApplicationCommands.Delete" CommandTarget="{Binding ElementName=LiveListe}" />
                     <MenuItem Header="Spielpartie erstellen" 
-                              Name="PartieErstellenMenu" />
+                              Name="PartieErstellenMenu" Command="ApplicationCommands.New" CommandTarget="{Binding ElementName=LiveListe}" />
                 </ContextMenu.Items>
             </ContextMenu>
         </ListView.ContextMenu>

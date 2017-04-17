@@ -129,6 +129,7 @@
     <Compile Include="KonverterTests.vb" />
     <Compile Include="CompetitionTests_FromXML.vb" />
     <Compile Include="MainWindowControllerTests.vb" />
+    <Compile Include="View\BegegnungenTests.vb" />
     <Compile Include="View\LiveListeTests.vb" />
     <Compile Include="View\MainWindowTests.vb" />
     <Compile Include="View\SpielPartieDetailTests.vb" />

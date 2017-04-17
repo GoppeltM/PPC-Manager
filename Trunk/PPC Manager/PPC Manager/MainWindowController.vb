@@ -139,8 +139,6 @@ Public Class MainWindowController
         _ReportFactory.AutoSave()
     End Sub
 
-
-
     Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
         Dim AktuelleRunde = _Spielrunden.Peek()
         Dim neueSpielPartie = New SpielPartie(rundenName,

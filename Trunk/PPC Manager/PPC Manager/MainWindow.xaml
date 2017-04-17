@@ -9,10 +9,8 @@
     Height="448" Width="1035" Icon="/PPC%20Manager;component/Icon.ico"
     d:DataContext="{d:DesignInstance local:DesignController, IsDesignTimeCreatable=True}"    
     >
-    <Window.Resources>
-        <core:Boolean x:Key="PlayoffAktiv"/>
-    </Window.Resources>
     <Window.CommandBindings>
+        <CommandBinding Command="local:MeineCommands.Playoff" CanExecute="PlayoffAktiv" />
         <CommandBinding Command="ApplicationCommands.Delete" Executed="Ausscheiden_Executed" />
         <CommandBinding Command="ApplicationCommands.New" Executed="NeuePartie_Executed" />
         <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>

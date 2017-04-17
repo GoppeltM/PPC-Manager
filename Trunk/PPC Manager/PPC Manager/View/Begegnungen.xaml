@@ -7,13 +7,12 @@
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:core="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage"
-      d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignSpielRunden}">
+      d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignSpielPartien}">
     <UserControl.Resources>
         <local:StringFormatter x:Key="StringFormatter" />
         <ObjectDataProvider x:Key="RanglisteDataProvider"/>
-        <CollectionViewSource x:Key="SpielRundenView" Source="{Binding}" />
         <CollectionViewSource x:Key="PartieView" Filter="BegegnungenListView_Filter"                              
-    		Source="{Binding /, Source={StaticResource SpielRundenView}, UpdateSourceTrigger=PropertyChanged}">
+    		Source="{Binding}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="RundenName"/>
             </CollectionViewSource.GroupDescriptions>

@@ -1,9 +1,22 @@
 ﻿Imports PPC_Manager
 
+Public Class PlayoffCommand
+    Inherits RoutedCommand
+End Class
+
+Public Class MeineCommands
+
+    Public Shared ReadOnly Property Playoff As RoutedUICommand = New RoutedUICommand("Überprüft ob Playoff aktiv ist",
+                                                                                     "Playoff",
+                                                                                     GetType(MeineCommands))
+End Class
+
 Class MainWindow
 
     Private ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
+
+    Private Property PlayoffIstAktiv As Boolean = False
 
     Sub New(controller As IController,
             spielerliste As IEnumerable(Of Spieler),
@@ -14,7 +27,15 @@ Class MainWindow
         _Spielrunden = spielrunden
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
         Me.LiveListe.DataContext = spielerliste.Select(AddressOf FilterSpieler)
-        Me.Begegnungen.DataContext = spielrunden
+        Dim iterator = Iterator Function() As IEnumerable(Of SpielPartie)
+                           If Not _Spielrunden.Any Then
+                               Return
+                           End If
+                           For Each s In _Spielrunden.Peek
+                               Yield s
+                           Next
+                       End Function
+        Me.Begegnungen.DataContext = iterator
         Me.Title = titel
     End Sub
 
@@ -109,7 +130,7 @@ Class MainWindow
             _Controller.SaveExcel()
         End If
 
-        Resources("PlayoffAktiv") = False
+        PlayoffIstAktiv = False
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
@@ -121,7 +142,7 @@ Class MainWindow
 
         _Controller.NächstesPlayoff()
 
-        Resources("PlayoffAktiv") = True
+        PlayoffIstAktiv = True
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
@@ -169,4 +190,7 @@ Class MainWindow
         e.CanExecute = True
     End Sub
 
+    Private Sub PlayoffAktiv(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = PlayoffIstAktiv
+    End Sub
 End Class

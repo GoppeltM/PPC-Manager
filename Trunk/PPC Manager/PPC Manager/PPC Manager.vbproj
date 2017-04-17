@@ -160,7 +160,7 @@
       <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Output\TurnierReport.vb" />
-    <Compile Include="SpielPartienListe.xaml.vb">
+    <Compile Include="View\SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverter.vb" />
@@ -217,7 +217,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SpielPartienListe.xaml">
+    <Page Include="View\SpielPartienListe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

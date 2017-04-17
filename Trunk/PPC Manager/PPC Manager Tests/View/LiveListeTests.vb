@@ -39,11 +39,16 @@ Public Class LiveListeTests
                                                                         MessageBox.Show(liste.First.ToString + ":" + liste.Last.ToString)
                                                                     End Sub)
         Dim l = New LiveListe
-        l.PlayoffAktiv = True
         l.DataContext = _SpielerListe
         Dim w As New Window
         w.Content = l
         w.CommandBindings.Add(command)
+        w.CommandBindings.Add(New CommandBinding(MeineCommands.Playoff, Sub(o, e)
+
+                                                                        End Sub,
+                                                 Sub(o, e)
+                                                     e.CanExecute = True
+                                                 End Sub))
         w.ShowDialog()
     End Sub
 End Class

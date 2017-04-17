@@ -1,8 +1,4 @@
-﻿Imports System.Globalization
-
-Public Class LiveListe
-
-    Public Property PlayoffAktiv As Boolean = False
+﻿Public Class LiveListe
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
         If LiveListe.SelectedIndex <> -1 Then
@@ -16,7 +12,7 @@ Public Class LiveListe
     End Sub
 
     Private Sub Refresh_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        If PlayoffAktiv Then
+        If MeineCommands.Playoff.CanExecute(Nothing, Me) Then
             LiveListe.SelectionMode = SelectionMode.Extended
             PartieErstellenMenu.IsEnabled = True
         Else
@@ -29,9 +25,6 @@ Public Class LiveListe
         SpielerView?.View?.Refresh()
     End Sub
 
-    Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = PlayoffAktiv AndAlso LiveListe.SelectedItems.Count = 2
-    End Sub
 
     Private Sub LiveListe_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         ' Refresh_Executed(Nothing, Nothing)
@@ -45,7 +38,21 @@ Public Class LiveListe
         End Function
     End Class
 
-    Private Sub AusscheidenMenu_Click(sender As Object, e As RoutedEventArgs) Handles AusscheidenMenu.Click
+    Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        If Not MeineCommands.Playoff.CanExecute(Nothing, Me) Then
+            e.CanExecute = False
+            Return
+        End If
+        e.CanExecute = LiveListe.SelectedItems.Count = 2
+    End Sub
+
+    Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim spieler = LiveListe.SelectedItems.OfType(Of SpielerInfo)
+        Dim c = ApplicationCommands.[New]
+        c.Execute(spieler, Me)
+    End Sub
+
+    Private Sub Ausscheiden_Execute(sender As Object, e As ExecutedRoutedEventArgs)
         Dim spieler = CType(LiveListe.SelectedItem, SpielerInfo)
         If Not MessageBox.Show(
             String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
@@ -55,24 +62,5 @@ Public Class LiveListe
         End If
         Dim c = ApplicationCommands.Delete()
         c.Execute(spieler, Me)
-    End Sub
-
-    Private Sub PartieErstellenMenu_Click(sender As Object, e As RoutedEventArgs) Handles PartieErstellenMenu.Click
-        Dim spieler = LiveListe.SelectedItems.OfType(Of SpielerInfo)
-        Dim c = ApplicationCommands.[New]
-        c.Execute(Spieler, Me)
-    End Sub
-
-    Private Sub LiveListe_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles LiveListe.SelectionChanged
-        Dim liste = LiveListe.SelectedItems.OfType(Of Spieler)
-        AusscheidenMenu.IsEnabled = False
-        PartieErstellenMenu.IsEnabled = False
-        If liste.Count = 1 Then
-            AusscheidenMenu.IsEnabled = Not liste.First.Ausgeschieden
-        End If
-        If liste.Count = 2 Then
-            PartieErstellenMenu.IsEnabled = PlayoffAktiv
-        End If
-
     End Sub
 End Class
