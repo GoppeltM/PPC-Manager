@@ -132,7 +132,11 @@
     <Compile Include="View\BegegnungenTests.vb" />
     <Compile Include="View\LiveListeTests.vb" />
     <Compile Include="View\MainWindowTests.vb" />
+    <Compile Include="View\Sandbox.vb" />
     <Compile Include="View\SpielPartieDetailTests.vb" />
+    <Compile Include="View\Test.xaml.vb">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XMLValidation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -215,6 +219,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="View\Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -75,6 +75,25 @@ Class MainWindow
         NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
     End Sub
 
+    Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If LiveListe.LiveListe.SelectedIndex <> -1 Then
+            Dim Spieler = CType(LiveListe.LiveListe.SelectedItem, Spieler)
+            If Not Spieler.Ausgeschieden Then
+                e.CanExecute = True
+                Return
+            End If
+        End If
+        e.CanExecute = False
+    End Sub
+
+    Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        If Not MeineCommands.Playoff.CanExecute(Nothing, Me) Then
+            e.CanExecute = False
+            Return
+        End If
+        e.CanExecute = LiveListe.LiveListe.SelectedItems.Count = 2
+    End Sub
+
     Private Sub NächsteRunde_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
         With _Spielrunden
             If Not .Any Then
@@ -89,9 +108,15 @@ Class MainWindow
         End With
     End Sub
 
-    Private Sub Ausscheiden_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
-        Dim Spieler = CType(e.Parameter, SpielerInfo)
-        _Controller.SpielerAusscheiden(Spieler)
+    Private Sub Ausscheiden_Execute(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        Dim spieler = CType(LiveListe.LiveListe.SelectedItem, SpielerInfo)
+        If Not MessageBox.Show(
+            String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+                          spieler.Nachname),
+                        "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
+            Return
+        End If
+        _Controller.SpielerAusscheiden(spieler)
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)

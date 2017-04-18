@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PPC_Manager"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance {x:Type local:DesignSpielerListe}, IsDesignTimeCreatable=True}">
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance {x:Type local:DesignSpielerListe}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <local:RanglisteIndexConverter x:Key="RanglisteIndexConverter"/>
         <local:AusgeschiedenPainter x:Key="AusgeschiedenPainter"/>
@@ -16,19 +17,7 @@
                       ItemsSource="{Binding Source={StaticResource SpielerView}}">
         <ListView.CommandBindings>
             <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
-            <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
-            <CommandBinding Command="ApplicationCommands.Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Execute" />
         </ListView.CommandBindings>
-        <ListView.ContextMenu>
-            <ContextMenu>
-                <ContextMenu.Items>
-                    <MenuItem Header="Spieler ausscheiden" 
-                              Name="AusscheidenMenu" Command="ApplicationCommands.Delete" CommandTarget="{Binding ElementName=LiveListe}" />
-                    <MenuItem Header="Spielpartie erstellen" 
-                              Name="PartieErstellenMenu" Command="ApplicationCommands.New" CommandTarget="{Binding ElementName=LiveListe}" />
-                </ContextMenu.Items>
-            </ContextMenu>
-        </ListView.ContextMenu>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">

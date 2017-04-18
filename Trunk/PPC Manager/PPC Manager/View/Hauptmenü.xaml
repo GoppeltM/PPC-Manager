@@ -21,6 +21,10 @@
             <MenuItem Header="Nur Offene Begegnungen" Name="OffeneBegegnungen" IsCheckable="True" IsChecked="{Binding Source={x:Static local:MySettings.Default}, Path=BegegnungenFiltern}" Command="NavigationCommands.Favorites" CommandTarget="{Binding ElementName=Begegnungen}" />
             <Separator/>
             <MenuItem Header="Aktuelle Runde Verwerfen" Name="RundeVerwerfen" Command="ApplicationCommands.Undo" />
+            <MenuItem Header="Spieler ausscheiden" 
+                              Name="AusscheidenMenu" Command="ApplicationCommands.Delete"/>
+            <MenuItem Header="Spielpartie erstellen" 
+                              Name="PartieErstellenMenu" Command="ApplicationCommands.New"/>
         </MenuItem>
         <MenuItem Header="Drucken" IsTabStop="False">
             <MenuItem Header="Runde Beginn... (neue Partien)" Command="ApplicationCommands.Print" />
