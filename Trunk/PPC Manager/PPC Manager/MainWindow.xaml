@@ -13,11 +13,11 @@
         <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
         <CommandBinding Command="ApplicationCommands.Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Execute" />
         <CommandBinding Command="local:MeineCommands.Playoff" CanExecute="PlayoffAktiv" />
-        <CommandBinding Command="Close" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
-        <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>        
+        <CommandBinding Command="Close" CanExecute="Ja" Executed="Close_Executed"/>
+        <CommandBinding Command="Save" CanExecute="Ja" Executed="Save_Executed"/>        
         <CommandBinding Command="Print" CanExecute="Drucken_CanExecute" Executed="Drucken_Executed"/>
-        <CommandBinding Command="PrintPreview" CanExecute="RanglisteDrucken_CanExecute" Executed="RanglisteDrucken_Executed"/>
-        <CommandBinding Command="Favorites" CanExecute="BegegnungenFiltern_CanExecute"/>
+        <CommandBinding Command="PrintPreview" CanExecute="Ja" Executed="RanglisteDrucken_Executed"/>
+        <CommandBinding Command="Favorites" CanExecute="Ja"/>
         <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
         <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />
         <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>
@@ -33,9 +33,9 @@
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
         <local:Hauptmenü Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <local:LiveListe Grid.Column="0" Grid.Row="1" x:Name="LiveListe" Margin="10,5,20,5" TextBlock.FontSize="20" />
-        <GridSplitter Grid.Column ="0" Grid.Row="1"  Background="Blue" Width="5"
+        <local:LiveListe Grid.Row="1" Grid.Column="0" x:Name="LiveListe" Margin="10,5,20,5" TextBlock.FontSize="20" />
+        <GridSplitter Grid.Row="1" Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />
-        <local:Begegnungen x:Name="Begegnungen" Margin="0,28,0,0" />        
+        <local:Begegnungen Grid.Row="1" Grid.Column="1"  x:Name="Begegnungen" Margin="0,28,0,0" />        
     </Grid>
 </Window>

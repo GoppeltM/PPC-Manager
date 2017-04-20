@@ -3,7 +3,6 @@
 Public Interface IController
 
     ReadOnly Property ExcelPfad As String
-    Sub RundeVerwerfen()
     Sub NächsteRunde()
     Sub NächstesPlayoff()
     Sub RundenbeginnDrucken(printdialog As IPrinter)

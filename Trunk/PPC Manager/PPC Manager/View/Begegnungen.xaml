@@ -18,10 +18,6 @@
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>
-    <UserControl.CommandBindings>
-        <CommandBinding Command="Favorites" Executed="BegegnungenFiltern_Executed"/>
-        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
-    </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="96" />

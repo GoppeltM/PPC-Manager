@@ -46,7 +46,7 @@ Imports System.Windows
         Next
         ControllerA.NächsteRunde()
         ControllerD.NächsteRunde()
-        ControllerD.RundeVerwerfen()
+        cD.SpielRunden.Pop()
 
         Assert.AreEqual(2, c.SpielRunden.Count)
         Assert.AreEqual(1, c.SpielRunden.Count)

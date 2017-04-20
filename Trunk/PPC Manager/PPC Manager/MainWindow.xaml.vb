@@ -25,18 +25,18 @@ Class MainWindow
         InitializeComponent()
         _Controller = controller
         _Spielrunden = spielrunden
-        If controller Is Nothing Then Throw New ArgumentNullException("controller")
-        Me.LiveListe.DataContext = spielerliste.Select(AddressOf FilterSpieler)
-        Dim iterator = Iterator Function() As IEnumerable(Of SpielPartie)
-                           If Not _Spielrunden.Any Then
-                               Return
-                           End If
-                           For Each s In _Spielrunden.Peek
-                               Yield s
-                           Next
-                       End Function
-        Me.Begegnungen.DataContext = iterator
         Me.Title = titel
+        If controller Is Nothing Then Throw New ArgumentNullException("controller")
+        Me.LiveListe.DataContext = spielerliste.Where(AddressOf FilterSpieler)
+        AktualisiereDaten()
+    End Sub
+
+    Private Sub AktualisiereDaten()
+        If Not _Spielrunden.Any Then
+            Me.Begegnungen.DataContext = New List(Of SpielPartie)
+            Return
+        End If
+        Me.Begegnungen.DataContext = _Spielrunden.Peek
     End Sub
 
     Public Function FilterSpieler(s As SpielerInfo) As Boolean
@@ -47,16 +47,12 @@ Class MainWindow
         Return Not AusgeschiedenVorBeginn
     End Function
 
-    Private Sub Close_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+    Private Sub Ja(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
         e.CanExecute = True
     End Sub
 
     Private Sub Close_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         My.Application.MainWindow.Close()
-    End Sub
-
-    Private Sub Save_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
-        e.CanExecute = True
     End Sub
 
     Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
@@ -71,8 +67,15 @@ Class MainWindow
         If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
             Return
         End If
-        _Controller.RundeVerwerfen()
-        NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
+        With _Spielrunden
+            .Pop()
+            Dim überzählig = (From x In .AusgeschiedeneSpieler Where x.Runde > .Count).ToList
+
+            For Each ausgeschieden In überzählig
+                .AusgeschiedeneSpieler.Remove(ausgeschieden)
+            Next
+        End With
+        AktualisiereDaten()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
@@ -156,7 +159,7 @@ Class MainWindow
         End If
 
         PlayoffIstAktiv = False
-        NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
+        AktualisiereDaten()
     End Sub
 
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)
@@ -168,7 +171,7 @@ Class MainWindow
         _Controller.NächstesPlayoff()
 
         PlayoffIstAktiv = True
-        NavigationCommands.Refresh.Execute(Nothing, Begegnungen)
+        AktualisiereDaten()
     End Sub
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
@@ -177,10 +180,6 @@ Class MainWindow
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         _Controller.RundenendeDrucken(New Printer)
-    End Sub
-
-    Private Sub BegegnungenFiltern_CanExecute(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
-        e.CanExecute = True
     End Sub
 
     Private Sub Exportieren_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
@@ -209,10 +208,6 @@ Class MainWindow
 
     Private Sub Drucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = _Spielrunden.Any
-    End Sub
-
-    Private Sub RanglisteDrucken_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = True
     End Sub
 
     Private Sub PlayoffAktiv(sender As Object, e As CanExecuteRoutedEventArgs)

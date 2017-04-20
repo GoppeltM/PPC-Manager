@@ -36,17 +36,6 @@ Public Class MainWindowController
         End Get
     End Property
 
-    Public Sub RundeVerwerfen() Implements IController.RundeVerwerfen
-        With _Spielrunden
-            .Pop()
-            Dim überzählig = (From x In .AusgeschiedeneSpieler Where x.Runde > .Count).ToList
-
-            For Each ausgeschieden In überzählig
-                .AusgeschiedeneSpieler.Remove(ausgeschieden)
-            Next
-        End With
-    End Sub
-
     Public Sub NächsteRunde() Implements IController.NächsteRunde
         _ReportFactory.IstBereit()
 

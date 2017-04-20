@@ -13,7 +13,7 @@ Public Class LiveListeTests
         _SpielerListe = New List(Of Spieler) From {
             New Spieler(s) With {.Id = "1", .Nachname = "Bla"},
             New Spieler(s) With {.Id = "2", .Nachname = "Blubb"},
-            New Spieler(s) With {.Id = "3", .Nachname = "Mustermann"}
+            New Spieler(s) With {.Id = "3", .Nachname = "Mustermann", .Vorname = "Max"}
             }
     End Sub
 

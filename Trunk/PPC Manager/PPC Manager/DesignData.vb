@@ -50,10 +50,6 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub RundeVerwerfen() Implements IController.RundeVerwerfen
-
-    End Sub
-
     Public Sub Save() Implements IController.SaveXML
 
     End Sub
