@@ -1,10 +1,11 @@
 ﻿Imports System.Globalization
 
 Public Class SpielPartienListe
+
+
     Private Sub SpielPartie_Löschen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = MeineCommands.Playoff.CanExecute(Nothing, Me) AndAlso SpielPartienView.SelectedItem IsNot Nothing
     End Sub
-
 
     Private Sub Refresh_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)

@@ -9,6 +9,9 @@ Public Class MeineCommands
     Public Shared ReadOnly Property Playoff As RoutedUICommand = New RoutedUICommand("Überprüft ob Playoff aktiv ist",
                                                                                      "Playoff",
                                                                                      GetType(MeineCommands))
+
+    Public Shared ReadOnly Property BegegnungenFilter As RoutedCommand = New RoutedUICommand("Wird gefeuert wenn der Begegnungenfilter sich ändert",
+                                                                                             "BegegnungenFilter", GetType(MeineCommands))
 End Class
 
 Class MainWindow
@@ -212,5 +215,11 @@ Class MainWindow
 
     Private Sub PlayoffAktiv(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = PlayoffIstAktiv
+    End Sub
+
+    Private Sub BegegnungenFiltergeändert_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim filtern = CBool(e.Parameter)
+        Begegnungen.BegegnungenFiltern = filtern
+        Begegnungen.Update()
     End Sub
 End Class

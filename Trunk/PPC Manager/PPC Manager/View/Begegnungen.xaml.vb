@@ -2,6 +2,9 @@
 
 Class Begegnungen
 
+
+    Public Property BegegnungenFiltern As Boolean = False
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -10,7 +13,7 @@ Class Begegnungen
     End Sub
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
-        If Not My.Settings.BegegnungenFiltern Then
+        If Not BegegnungenFiltern Then
             e.Accepted = True
             Return
         End If
@@ -28,4 +31,8 @@ Class Begegnungen
         DetailGrid.SetFocus()
     End Sub
 
+    Friend Sub Update()
+        Dim c = CType(FindResource("PartieView"), CollectionViewSource)
+        c.View.Refresh()
+    End Sub
 End Class

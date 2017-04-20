@@ -17,7 +17,7 @@
         <CommandBinding Command="Save" CanExecute="Ja" Executed="Save_Executed"/>        
         <CommandBinding Command="Print" CanExecute="Drucken_CanExecute" Executed="Drucken_Executed"/>
         <CommandBinding Command="PrintPreview" CanExecute="Ja" Executed="RanglisteDrucken_Executed"/>
-        <CommandBinding Command="Favorites" CanExecute="Ja"/>
+        <CommandBinding Command="local:MeineCommands.BegegnungenFilter" CanExecute="Ja" Executed="BegegnungenFiltergeändert_Executed" />
         <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
         <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />
         <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>
@@ -32,7 +32,7 @@
             <ColumnDefinition Width="600*" MinWidth="20" />
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
-        <local:Hauptmenü Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <local:LiveListe Grid.Row="1" Grid.Column="0" x:Name="LiveListe" Margin="10,5,20,5" TextBlock.FontSize="20" />
         <GridSplitter Grid.Row="1" Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />
