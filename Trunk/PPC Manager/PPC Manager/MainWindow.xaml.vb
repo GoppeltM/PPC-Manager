@@ -10,8 +10,10 @@ Public Class MeineCommands
                                                                                      "Playoff",
                                                                                      GetType(MeineCommands))
 
-    Public Shared ReadOnly Property BegegnungenFilter As RoutedCommand = New RoutedUICommand("Wird gefeuert wenn der Begegnungenfilter sich ändert",
+    Public Shared ReadOnly Property BegegnungenFilter As RoutedUICommand = New RoutedUICommand("Wird gefeuert wenn der Begegnungenfilter sich ändert",
                                                                                              "BegegnungenFilter", GetType(MeineCommands))
+
+    Public Shared ReadOnly Property PartieAusgewählt As RoutedUICommand = New RoutedUICommand("Wird gefeuert wenn eine Partie ausgewählt wird", "PartieAusgewählt", GetType(MeineCommands))
 End Class
 
 Class MainWindow
@@ -40,6 +42,7 @@ Class MainWindow
             Return
         End If
         Me.Begegnungen.DataContext = _Spielrunden.Peek
+        Me.Begegnungen.DetailGrid.DataContext = Nothing
     End Sub
 
     Public Function FilterSpieler(s As SpielerInfo) As Boolean

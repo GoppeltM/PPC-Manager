@@ -15,9 +15,9 @@ Class Application
                                                                    f.ExceptionText.Text = args.ExceptionObject.ToString
                                                                    f.ShowDialog()
                                                                End Sub
-        Me.ShutdownMode = ShutdownMode.OnMainWindowClose
+        Me.ShutdownMode = ShutdownMode.OnExplicitShutdown
         With New LadenNeu
-            Me.MainWindow = Nothing
+
             If Not .ShowDialog() Then
                 Shutdown()
                 Return
@@ -37,7 +37,7 @@ Class Application
             Catch ex As SpielDatenUnvollständigException
                 MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount),
                 "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
-                Application.Current.Shutdown()
+                Shutdown()
                 Return
             End Try
 
@@ -73,9 +73,9 @@ Class Application
                                                       druckFabrik,
                                                       spielRegeln.Gewinnsätze)
             Dim window = New MainWindow(controller, AktiveCompetition.SpielerListe, spielRunden, klassement)
-            Me.MainWindow = window
-            window.Visibility = Visibility.Visible
+            MainWindow = window
             window.Show()
+            ShutdownMode = ShutdownMode.OnMainWindowClose
         End With
 
     End Sub

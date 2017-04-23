@@ -28,7 +28,10 @@ Public Class FixedPageFabrik
                  Select New Spieler(x, _Spielverlauf)).ToList
         l.Sort()
         l.Reverse()
-        Dim spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel)
+        Dim spielPartien = New List(Of SpielPartie)
+        If _SpielRunden.Any Then
+            spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel).ToList
+        End If
         Dim seite = New RanglisteSeite(_KlassementName, _SpielRunden.Count, l, spielPartien)
         With seite
             Dim canvas = New Canvas
@@ -50,6 +53,23 @@ Public Class FixedPageFabrik
                                           el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count, seitenNr)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
         Dim leerSeite = SeiteErstellen(leerControl, format)
+
+        If Not _SpielRunden.Any Then
+            Return New List(Of FixedPage)
+        End If
+        Dim elemente = _SpielRunden.Peek.ToList
+        Dim maxElemente = leerControl.GetMaxItemCount
+
+        Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
+        Return pages
+    End Function
+
+    Friend Function ErzeugePaarungen(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugePaarungen
+        Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
+        Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
+                                          el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el, _KlassementName, _SpielRunden.Count, seitenNr)
+        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = _SpielRunden.Peek.ToList
         If Not elemente.Any Then
             Return New List(Of FixedPage)
@@ -66,10 +86,11 @@ Public Class FixedPageFabrik
                                           el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el, _KlassementName, _SpielRunden.Count, seitenNr)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
         Dim leerSeite = SeiteErstellen(leerControl, format)
-        Dim elemente = _SpielRunden.Peek.ToList
-        If Not elemente.Any Then
+
+        If Not _SpielRunden.Any Then
             Return New List(Of FixedPage)
         End If
+        Dim elemente = _SpielRunden.Peek.ToList
         Dim maxElemente = leerControl.GetMaxItemCount
 
         Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)

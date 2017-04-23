@@ -84,7 +84,7 @@ Public Class MainWindowController
             doc.Pages.Add(page)
         Next
 
-        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(seiteneinstellung)
+        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugePaarungen(seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 
         For Each page In neuePaarungenSeiten

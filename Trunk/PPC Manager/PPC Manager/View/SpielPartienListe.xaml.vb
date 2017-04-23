@@ -22,5 +22,9 @@ Public Class SpielPartienListe
         Dim list As ListCollectionView = CType(box.ItemsSource, ListCollectionView)
         list.Remove(box.SelectedItem)
     End Sub
+
+    Private Sub SpielPartienView_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles SpielPartienView.SelectionChanged
+        MeineCommands.PartieAusgewählt.Execute(SpielPartienView.SelectedItem, Me)
+    End Sub
 End Class
 

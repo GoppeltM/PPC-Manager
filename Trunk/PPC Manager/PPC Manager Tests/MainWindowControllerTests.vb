@@ -49,7 +49,7 @@ Imports System.Windows
         cD.SpielRunden.Pop()
 
         Assert.AreEqual(2, c.SpielRunden.Count)
-        Assert.AreEqual(1, c.SpielRunden.Count)
+        Assert.AreEqual(1, cD.SpielRunden.Count)
 
     End Sub
 
@@ -78,7 +78,7 @@ Imports System.Windows
     End Sub
 
     <Test, Apartment(System.Threading.ApartmentState.STA)>
-    Public Sub RundenendeDrucken_DKlasse_2Seiten()
+    Public Sub RundenendeDrucken_druckt_Ranglisten_und_Spielergebnisse()
         Dim doc = XDocument.Parse(My.Resources.PPC_15_Anmeldungen)
         For Each Spieler In doc.Root...<person>
             Spieler.@ppc:anwesend = "true"
@@ -88,26 +88,18 @@ Imports System.Windows
                                           doc,
                                           "D-Klasse",
                                           New SpielRegeln(3, True, True), spielverlauf, New SpielRunden)
-        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
+        Dim druckFabrik = New Mock(Of IFixedPageFabrik)
         Dim Controller = New MainWindowController(c.SpielerListe, c.SpielRunden, Sub()
 
                                                                                  End Sub,
                                                   Mock.Of(Of IReportFactory),
                                                   Function() New PaarungsContainer(Of SpielerInfo),
-                                                  druckFabrik, 3)
+                                                  druckFabrik.Object, 3)
         Dim DruckenMock = New Mock(Of IPrinter)
-        Dim a = Sub(d As FixedDocument, s As String)
-                    Assert.AreEqual(2, d.DocumentPaginator.PageCount)
-                End Sub
-        Dim einstellungenMock = New Mock(Of ISeiteneinstellung)()
-        einstellungenMock.SetupAllProperties()
-        einstellungenMock.Object.Breite = 800
-        einstellungenMock.Object.Höhe = 1000
-        DruckenMock.Setup(Function(m) m.Konfigurieren()).Returns(einstellungenMock.Object)
-        DruckenMock.Setup(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), It.IsAny(Of String))).Callback(a).Verifiable()
-
         Controller.RundenendeDrucken(DruckenMock.Object)
-        DruckenMock.VerifyAll()
+        druckFabrik.Verify(Sub(m) m.ErzeugeRanglisteSeiten(It.IsAny(Of ISeiteneinstellung)), Times.Once)
+        druckFabrik.Verify(Sub(m) m.ErzeugeSpielErgebnisse(It.IsAny(Of ISeiteneinstellung)), Times.Once)
+        DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Rundenende - Aushang und Rangliste"))
     End Sub
 
 

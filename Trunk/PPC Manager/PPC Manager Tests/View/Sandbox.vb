@@ -1,6 +1,6 @@
 ﻿Imports System.Windows
 
-<Apartment(System.Threading.ApartmentState.STA)>
+<Apartment(System.Threading.ApartmentState.STA), Explicit>
 Public Class Sandbox
 
     <Test>

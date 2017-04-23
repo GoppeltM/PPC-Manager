@@ -8,6 +8,9 @@
       xmlns:core="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage"
       d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignSpielPartien}">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="local:MeineCommands.PartieAusgewählt" Executed="PartieAusgewählt_Execute" />
+    </UserControl.CommandBindings>
     <UserControl.Resources>
         <local:StringFormatter x:Key="StringFormatter" />
         <ObjectDataProvider x:Key="RanglisteDataProvider"/>

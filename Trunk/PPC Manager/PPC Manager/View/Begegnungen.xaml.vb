@@ -24,15 +24,13 @@ Class Begegnungen
 
     Private WithEvents Begegnungsliste As ListBox
 
-    Private Sub NeuePartieAusgewählt(sender As Object, args As EventArgs) Handles Begegnungsliste.SelectionChanged, Begegnungsliste.MouseDown
-
-        Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
-        SpielerView.View.Refresh()
-        DetailGrid.SetFocus()
-    End Sub
-
     Friend Sub Update()
         Dim c = CType(FindResource("PartieView"), CollectionViewSource)
         c.View.Refresh()
+    End Sub
+
+    Private Sub PartieAusgewählt_Execute(sender As Object, e As ExecutedRoutedEventArgs)
+        DetailGrid.DataContext = e.Parameter
+        DetailGrid.SetFocus()
     End Sub
 End Class

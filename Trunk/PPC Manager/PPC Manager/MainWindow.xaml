@@ -32,7 +32,7 @@
             <ColumnDefinition Width="600*" MinWidth="20" />
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
-        <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <local:LiveListe Grid.Row="1" Grid.Column="0" x:Name="LiveListe" Margin="10,5,20,5" TextBlock.FontSize="20" />
         <GridSplitter Grid.Row="1" Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />

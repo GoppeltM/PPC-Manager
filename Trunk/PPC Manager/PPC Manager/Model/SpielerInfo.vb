@@ -26,15 +26,15 @@ Public Class SpielerInfo
 
     Public Property Id As String = "new"
 
-    Public Property Vorname As String
+    Public Property Vorname As String = ""
 
-    Public Property Nachname As String
+    Public Property Nachname As String = ""
 
-    Public Property Vereinsname As String
+    Public Property Vereinsname As String = ""
 
     Public Property Vereinsnummer As Integer
 
-    Public Property Verbandsspitzname As String
+    Public Property Verbandsspitzname As String = ""
 
     Public Property Lizenznummer As Long
 

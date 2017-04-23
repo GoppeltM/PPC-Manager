@@ -19,12 +19,15 @@ Public Class FixedPageFabrikTests
             .Höhe = 1000
         End With
         _SeitenEinstellungen = seitenEinstellungen.Object
-        Dim spielerListe As New List(Of Spieler)
-        f = New FixedPageFabrik(spielerListe, New SpielRunden, Mock.Of(Of ISpielverlauf(Of SpielerInfo)), "Altersgruppe")
+        _SpielerListe = New List(Of Spieler)
+        _Runden = New SpielRunden
+        f = New FixedPageFabrik(_SpielerListe, _Runden, Mock.Of(Of ISpielverlauf(Of SpielerInfo)), "Altersgruppe")
     End Sub
 
     Private _SeitenEinstellungen As ISeiteneinstellung
     Private f As FixedPageFabrik
+    Private _SpielerListe As IList(Of Spieler)
+    Private _Runden As SpielRunden
 
     <Test>
     Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
@@ -34,11 +37,11 @@ Public Class FixedPageFabrikTests
 
     <Test>
     Public Sub ErzeugeRanglisteSeiten_mit_200_spielern_ergibt_mehrere_Seiten()
-        Dim spielerListe As New List(Of Spieler)
+        
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
             Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
-            spielerListe.Add(s)
+            _SpielerListe.Add(s)
         Next
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
         Assert.That(seiten.Count, [Is].GreaterThan(1))
@@ -46,11 +49,10 @@ Public Class FixedPageFabrikTests
 
     <Test, Explicit>
     Public Sub UIDummy_ErzeugeRanglisteSeiten_mit_200_Spielern()
-        Dim spielerListe As New List(Of Spieler)
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
             Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
-            spielerListe.Add(s)
+            _SpielerListe.Add(s)
         Next
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
         Dim doc = New FixedDocument
@@ -86,12 +88,13 @@ Public Class FixedPageFabrikTests
 
     <Test>
     Public Sub ErzeugeSchiedsrichterzettel_mit_200_Partien_600_mal_1000_enthält_34_Seiten()
-        Dim spielPartien = New List(Of SpielPartie)
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim r = New SpielRunde
         For Each nummer In Enumerable.Range(1, 200)
             Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
-            spielPartien.Add(New FreiLosSpiel("Runde XY", s, 3))
+            r.Add(New FreiLosSpiel("Runde XY", s, 3))
         Next
+        _Runden.Push(r)
         Dim e As New SeitenEinstellung With {.Höhe = 1000, .Breite = 600}
         Dim seiten = f.ErzeugeSchiedsrichterZettelSeiten(e)
         Assert.That(seiten.Count, [Is].EqualTo(34))
