@@ -4,67 +4,46 @@ Imports DocumentFormat.OpenXml.Spreadsheet
 
 Public Class ExcelDocument
     Implements IDisposable
+    Implements IExcelDokument
 
     Private Property doc As SpreadsheetDocument
 
-    Private Sub New(doc As SpreadsheetDocument)
+    Public Sub New(doc As SpreadsheetDocument)
         Me.doc = doc
     End Sub
 
-    Public Shared Function OpenExistingExcelDocument(path As String) As ExcelDocument
-        Dim MissCount = 0
-        Dim spreadsheetDocument As SpreadsheetDocument = Nothing
-        While spreadsheetDocument Is Nothing
-            Try
-                spreadsheetDocument = spreadsheetDocument.Open(path, True)
-                Exit While
-            Catch ex As Exception When Not MissCount >= 20
-                MissCount += 1
-                System.Threading.Thread.Sleep(200)
-            End Try
-        End While
-        Return New ExcelDocument(spreadsheetDocument)
-    End Function
+    Public Sub Speichern() Implements IExcelDokument.Speichern
+        SetActiveSheet(CUInt(SheetCount() - 1))
+        doc.WorkbookPart.Workbook.Save()
+    End Sub
 
-    Public Shared Function CreateEmptyExcelDocument(path As String) As ExcelDocument
-        ' Create a spreadsheet document by supplying the filepath.
-        ' By default, AutoSave = true, Editable = true, and Type = xlsx.
-        Dim spreadsheetDocument As SpreadsheetDocument = Nothing
-        Dim MissCount = 0
-        Dim folder = IO.Path.GetDirectoryName(path)
-        If Not IO.Directory.Exists(folder) Then
-            IO.Directory.CreateDirectory(folder)
-        End If
-        While spreadsheetDocument Is Nothing
-            Try
-                spreadsheetDocument = spreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook, True)
-                Exit While
-            Catch ex As Exception When Not MissCount >= 20
-                MissCount += 1
-                System.Threading.Thread.Sleep(200)
-            End Try
-        End While
+    Public Sub NeueZeile(sheetName As String, zeilenIndex As UInteger, Zellen As IEnumerable(Of String)) Implements IExcelDokument.NeueZeile
+        Dim sheet = GetSheet(sheetName)
+        Dim SheetData = sheet.GetFirstChild(Of SheetData)()
+        Dim row = New Row
+        row.RowIndex = zeilenIndex
+        SheetData.Append(row)
+        Dim AValue = Convert.ToInt32("A"c)
+        Dim ValueCells = Zellen.Zip(Enumerable.Range(AValue, Integer.MaxValue - AValue), Function(x, y) New With {x, .y = Convert.ToChar(y)})
+        For Each Value In ValueCells
+            Dim CachedCellValue = InsertSharedStringItem(Value.x, doc.WorkbookPart.SharedStringTablePart)
+            Dim CellName = Value.y & row.RowIndex.Value
+            row.AppendChild(New Cell With {.CellValue = New CellValue(CachedCellValue.ToString),
+                            .CellReference = CellName, .DataType = New EnumValue(Of CellValues)(CellValues.SharedString)})
+        Next
+    End Sub
 
+    Public Sub LeereBlatt(sheetName As String) Implements IExcelDokument.LeereBlatt
+        Dim sheet = GetSheet(sheetName)
+        Dim SheetData = sheet.GetFirstChild(Of SheetData)()
+        SheetData.RemoveAllChildren(Of Row)()
+    End Sub
 
-        ' Add a WorkbookPart to the document.
-        Dim workbookpart As WorkbookPart = spreadsheetDocument.AddWorkbookPart
-        workbookpart.Workbook = New Workbook        
-        workbookpart.Workbook.BookViews = New BookViews
-        workbookpart.Workbook.BookViews.AppendChild(New WorkbookView)
-
-        Dim stringTablePart = workbookpart.AddNewPart(Of SharedStringTablePart)()
-        stringTablePart.SharedStringTable = New SharedStringTable
-
-        ' Add Sheets to the Workbook.
-        Dim sheets As Sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(Of Sheets)(New Sheets())
-        Return New ExcelDocument(spreadsheetDocument)
-    End Function
-
-    Public Function SheetCount() As Integer
+    Private Function SheetCount() As Integer
         Return doc.WorkbookPart.Workbook.Sheets.Count
     End Function
 
-    Public Function GetSheet(sheetName As String) As Worksheet
+    Private Function GetSheet(sheetName As String) As Worksheet
         Dim Sheets = doc.WorkbookPart.Workbook.Sheets
         Dim MySheet = (From x In Sheets.Elements(Of Sheet)() Where x.Name = sheetName).FirstOrDefault
         If MySheet IsNot Nothing Then
@@ -93,20 +72,10 @@ Public Class ExcelDocument
         Return WorkSheetPart.Worksheet
     End Function
 
-    Public Sub SetActiveSheet(id As UInteger)
-        Dim bookViews = doc.WorkbookPart.Workbook.BookViews        
+    Private Sub SetActiveSheet(id As UInteger)
+        Dim bookViews = doc.WorkbookPart.Workbook.BookViews
         Dim view = bookViews.ChildElements.First(Of WorkbookView)()
         view.ActiveTab = id
-    End Sub
-
-    Public Function GetSheetFromWorksheet(workSheet As Worksheet) As Sheet
-        Dim workSheetID = doc.WorkbookPart.GetIdOfPart(workSheet.WorksheetPart)
-        Dim rightSheet = (From x In doc.WorkbookPart.Workbook.Sheets.Elements(Of Sheet)() Where x.Id = workSheetID).Single
-        Return rightSheet
-    End Function
-
-    Public Sub Save()
-        doc.WorkbookPart.Workbook.Save()
     End Sub
 
     Private Function GetWorkSheet(sheetName As String) As Worksheet
@@ -140,19 +109,6 @@ Public Class ExcelDocument
     End Function
 
 
-    Public Sub CreateRow(sheetdata As SheetData, rowIndex As UInteger, entries As IEnumerable(Of String))
-        Dim row = New Row
-        row.RowIndex = rowIndex
-        sheetdata.Append(row)
-        Dim AValue = Convert.ToInt32("A"c)
-        Dim ValueCells = entries.Zip(Enumerable.Range(AValue, Integer.MaxValue - AValue), Function(x, y) New With {x, .y = Convert.ToChar(y)})
-        For Each Value In ValueCells
-            Dim CachedCellValue = InsertSharedStringItem(Value.x, doc.WorkbookPart.SharedStringTablePart)
-            Dim CellName = Value.y & row.RowIndex.Value
-            row.AppendChild(Of Cell)(New Cell With {.CellValue = New CellValue(CachedCellValue.ToString),
-                            .CellReference = CellName, .DataType = New EnumValue(Of CellValues)(CellValues.SharedString)})
-        Next
-    End Sub
 
 
 #Region "IDisposable Support"

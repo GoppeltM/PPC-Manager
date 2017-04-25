@@ -1,31 +1,24 @@
-﻿Imports DocumentFormat.OpenXml.Spreadsheet
-Imports System.IO
+﻿Imports System.IO
 
 
 Public Class TurnierReport
     Implements IDisposable
+    Implements ITurnierReport
 
-    Public Sub New(filePath As String)
-        If File.Exists(filePath) Then
-            _SpreadSheet = ExcelDocument.OpenExistingExcelDocument(filePath)
-        Else
-            _SpreadSheet = ExcelDocument.CreateEmptyExcelDocument(filePath)
-        End If
+    Public Sub New(dokument As IExcelDokument)
+        _SpreadSheet = dokument
     End Sub
 
-    Private ReadOnly _SpreadSheet As ExcelDocument
+    Private ReadOnly _SpreadSheet As IExcelDokument
 
-    Public Sub WriteSpielerSheet(ByVal spieler As IEnumerable(Of ExportSpieler), rundeNr As Integer)
+    Public Sub SchreibeRangliste(ByVal spieler As IEnumerable(Of ExportSpieler), rundeNr As Integer) Implements ITurnierReport.SchreibeRangliste
         Dim rundeString = rundeNr.ToString.PadLeft(2, "0"c)
-        Dim sheet = _SpreadSheet.GetSheet("sp_rd" & rundeString)
+        Dim sheetName = "sp_rd" & rundeString
         Dim Titles = {"Rang", "Vorname", "Nachname", "ID", "Geschlecht", "Geburtsjahr", "Verein", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
                           "Gewonnene Sätze", "Verlorene Sätze", "Ausgeschieden", "Gegnerprofil"}
 
-
-        Dim SheetData = sheet.GetFirstChild(Of SheetData)()
-        SheetData.RemoveAllChildren(Of Row)()
-
-        _SpreadSheet.CreateRow(SheetData, 1, Titles)
+        _SpreadSheet.LeereBlatt(sheetName)
+        _SpreadSheet.NeueZeile(sheetName, 1, Titles)
 
         Dim current = 2UI
 
@@ -42,31 +35,27 @@ Public Class TurnierReport
             Dim Werte = {(current - 1).ToString, s.Vorname, s.Nachname, s.Id.ToString, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.TTRating.ToString,
                          s.Punkte.ToString, s.BuchholzPunkte.ToString, s.SonneBornBergerPunkte.ToString, s.SätzeGewonnen.ToString,
                          s.SätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(s.GegnerProfil)
-            _SpreadSheet.CreateRow(SheetData, current, Werte)
+            _SpreadSheet.NeueZeile(sheetName, current, Werte)
             current += 1UI
         Next
-        _SpreadSheet.Save()
+        _SpreadSheet.Speichern()
     End Sub
 
-    Public Sub WriteRunde(ByVal spielrunde As SpielRunde, runde As Integer)
+    Public Sub SchreibeNeuePartien(spielPartien As IEnumerable(Of SpielPartie), runde As Integer) Implements ITurnierReport.SchreibeNeuePartien
         Dim currentName = runde.ToString.PadLeft(2, "0"c)
-        Dim worksheet = _SpreadSheet.GetSheet("erg_rd" & currentName)
-        Dim SheetData = Worksheet.GetFirstChild(Of SheetData)()
-        SheetData.RemoveAllChildren(Of Row)()
-
+        _SpreadSheet.LeereBlatt(currentName)
         Dim Titles = {"Linker Spieler", "Rechter Spieler", "Sätze Links", "Sätze Rechts"}
-        _SpreadSheet.CreateRow(SheetData, 1, Titles)
+        _SpreadSheet.NeueZeile(currentName, 1, Titles)
 
         Dim current = 2UI
 
-        For Each ergebnis In spielrunde
+        For Each ergebnis In spielPartien
             Dim Werte = {ergebnis.SpielerLinks.Id, ergebnis.SpielerRechts.Id, ergebnis.MeineGewonnenenSätze(ergebnis.SpielerLinks).Count.ToString,
                          ergebnis.MeineGewonnenenSätze(ergebnis.SpielerRechts).Count.ToString}
-            _SpreadSheet.CreateRow(SheetData, current, Werte)
+            _SpreadSheet.NeueZeile(currentName, current, Werte)
             current += 1UI
         Next
-        _SpreadSheet.SetActiveSheet(CUInt(_SpreadSheet.SheetCount - 1))
-        _SpreadSheet.Save()
+        _SpreadSheet.Speichern()
     End Sub
 
 #Region "IDisposable Support"

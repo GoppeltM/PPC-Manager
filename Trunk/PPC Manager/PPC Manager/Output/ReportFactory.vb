@@ -8,17 +8,20 @@ Public Class ReportFactory
     Private ReadOnly _Spieler As IEnumerable(Of Spieler)
     Private ReadOnly _SpielRunden As IEnumerable(Of SpielRunde)
     Private ReadOnly _spielRegeln As SpielRegeln
+    Private ReadOnly _HoleDokument As Func(Of String, ITurnierReport)
 
     Public Sub New(dateipfad As String,
                    altersgruppe As String,
                    spieler As IEnumerable(Of Spieler),
                    spielrunden As IEnumerable(Of SpielRunde),
-                   spielregeln As SpielRegeln)
+                   spielregeln As SpielRegeln,
+                   holeDokument As Func(Of String, ITurnierReport))
         _DateiPfad = dateipfad
         _Altersgruppe = altersgruppe
         _Spieler = spieler
         _SpielRunden = spielrunden
         _spielRegeln = spielregeln
+        _HoleDokument = holeDokument
     End Sub
 
     Public Sub AutoSave() Implements IReportFactory.AutoSave
@@ -33,15 +36,15 @@ Public Class ReportFactory
         exportSpieler.Reverse()
         Try
 
-            Using ex = New TurnierReport(filePath)
+            Using ex = _HoleDokument(filePath)
                 With ex
                     Dim RundeNr = _SpielRunden.Count
-                    .WriteSpielerSheet(exportSpieler, RundeNr)
+                    .SchreibeRangliste(exportSpieler, RundeNr)
 
                     Dim current = 1
                     For Each runde In _SpielRunden.Reverse
                         Dim currentName = current.ToString.PadLeft(2, "0"c)
-                        .WriteRunde(runde, current)
+                        .SchreibeNeuePartien(runde, current)
                         current += 1
                     Next
                 End With

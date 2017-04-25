@@ -43,11 +43,13 @@ Class Application
 
             Resources("KlassementName") = AktiveCompetition.Altersgruppe
             Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
+            Dim excelFabrik = New ExcelFabrik()
             Dim r = New ReportFactory(xmlPfad,
                                       klassement,
                                       AktiveCompetition.SpielerListe,
                                       AktiveCompetition.SpielRunden,
-                                      spielRegeln)
+                                      spielRegeln,
+                                      AddressOf excelFabrik.HoleDokument)
             Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) spielverlauf.Habengegeneinandergespielt(a, b)
 
             Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)

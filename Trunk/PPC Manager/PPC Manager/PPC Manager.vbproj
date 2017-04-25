@@ -101,7 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Output\ExcelFabrik.vb" />
+    <Compile Include="Output\IExcelDokument.vb" />
     <Compile Include="Output\IFixedPageFabrik.vb" />
+    <Compile Include="Output\ITurnierReport.vb" />
     <Compile Include="View\Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
