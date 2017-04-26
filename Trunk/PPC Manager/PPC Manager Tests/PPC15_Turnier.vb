@@ -10,7 +10,7 @@ Public Class PPC15_Turnier_Klasse_D
         Dim regeln = New SpielRegeln(3, True, False)
         Dim r As New SpielRunden
         Dim s As New Spielverlauf(r.SelectMany(Function(m) m),
-                                  New List(Of SpielerInfo),
+                                  r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
                                   regeln)
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
@@ -186,11 +186,7 @@ Public Class PPC15_Turnier_Klasse_D
         Runde_5()
         With AktuelleCompetition
             Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").Single
-            .SpielRunden.AusgeschiedeneSpieler.Add(New Ausgeschieden(Of SpielerInfo) With {.Spieler = Ausgeschieden, .Runde = 6})
-            Dim AktiveListe = .SpielerListe.OfType(Of SpielerInfo).ToList
-            For Each a In .SpielRunden.AusgeschiedeneSpieler
-                AktiveListe.Remove(a.Spieler)
-            Next
+            _Controller.SpielerAusscheiden(Ausgeschieden)
             _Controller.NächsteRunde()
             Dim ergebnisse = .SpielRunden.First
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)

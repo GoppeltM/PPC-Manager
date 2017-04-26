@@ -39,13 +39,15 @@ Public Class MainWindowController
     Public Sub NächsteRunde() Implements IController.NächsteRunde
         _ReportFactory.IstBereit()
 
-        Dim AktiveListe = _SpielerListe.ToList
-        For Each Ausgeschieden In _Spielrunden.AusgeschiedeneSpieler
-            AktiveListe.Remove(Ausgeschieden.Spieler)
-        Next
+        Dim ausgeschiedeneSpieler = From x In _Spielrunden
+                                    From y In x.AusgeschiedeneSpielerIDs
+                                    Join a In _SpielerListe
+                                        On a.Id Equals y
+                                    Select a
+        Dim AktiveListe = _SpielerListe.Except(ausgeschiedeneSpieler).ToList
         Dim RundenName = "Runde " & _Spielrunden.Count + 1
 
-        Dim begegnungen = _OrganisierePakete(AktiveListe, _Spielrunden.Count)
+        Dim begegnungen = _OrganisierePakete(AktiveListe, _Spielrunden.Count - 1)
 
         Dim Zeitstempel = Date.Now
             Dim spielRunde As New SpielRunde
@@ -139,7 +141,6 @@ Public Class MainWindowController
     End Sub
 
     Public Sub SpielerAusscheiden(spieler As SpielerInfo) Implements IController.SpielerAusscheiden
-        _Spielrunden.AusgeschiedeneSpieler.Add(
-            New Ausgeschieden(Of SpielerInfo) With {.Spieler = spieler, .Runde = _Spielrunden.Count})
+        _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Add(spieler.Id)
     End Sub
 End Class

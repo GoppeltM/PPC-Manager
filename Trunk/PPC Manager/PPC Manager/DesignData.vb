@@ -13,8 +13,7 @@ Public Class DesignSpielRunden
         Next
         Dim verlauf = New DesignSpielverlauf
         SpielRunde.Add(New FreiLosSpiel("Runde 1", New Spieler(verlauf) With {.Id = "999", .Nachname = "MisterX", .Vorname = "Max"}, 3))
-
-        AusgeschiedeneSpieler.Add(New Ausgeschieden(Of SpielerInfo) With {.Spieler = spielerListe.Last, .Runde = 1})
+        SpielRunde.AusgeschiedeneSpielerIDs.Add("999")
         Me.Push(SpielRunde)
     End Sub
 

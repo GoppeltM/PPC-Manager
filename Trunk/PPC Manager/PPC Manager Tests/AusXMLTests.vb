@@ -37,7 +37,7 @@ Public Class AusXMLTests
     End Sub
 
     <Test>
-    Sub Spielrunden_From_XML()
+    Sub SpielrundenFromXML_hat_4Spieler_und_1_ausgeschieden_in_Runde_1()
         Dim rundenRef = <matches>
                             <ppc:match games-b="23" matches-b="0" sets-b="0" games-a="33" matches-a="1"
                                 sets-a="3" set-b-7="0" set-b-6="0" set-b-5="0" set-b-4="0" set-b-3="9" set-b-2="9" set-b-1="5"
@@ -57,9 +57,7 @@ Public Class AusXMLTests
                                                   New Spieler(spielverlauf) With {.Id = "PLAYER126"},
                                                   New Spieler(spielverlauf) With {.Id = "PLAYER72"},
                                                   New Spieler(spielverlauf) With {.Id = "PLAYER-1"}}, rundenRef, 3)
-        With RundenRes
-            CollectionAssert.AreEqual({"PLAYER127"}.ToList, (From x In .AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
-        End With
+        Assert.That(RundenRes.Reverse.ElementAt(1).AusgeschiedeneSpielerIDs, Contains.Item("PLAYER127"))
     End Sub
 
 

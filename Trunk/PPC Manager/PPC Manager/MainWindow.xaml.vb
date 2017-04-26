@@ -46,11 +46,7 @@ Class MainWindow
     End Sub
 
     Public Function FilterSpieler(s As SpielerInfo) As Boolean
-        Dim ausgeschiedeneSpieler = _Spielrunden.AusgeschiedeneSpieler
-        Dim AusgeschiedenVorBeginn = Aggregate x In ausgeschiedeneSpieler Where x.Runde = 0 And
-                            x.Spieler = s Into Any()
-
-        Return Not AusgeschiedenVorBeginn
+        Return Not _Spielrunden.First.AusgeschiedeneSpielerIDs.Contains(s.Id)
     End Function
 
     Private Sub Ja(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
@@ -75,11 +71,6 @@ Class MainWindow
         End If
         With _Spielrunden
             .Pop()
-            Dim überzählig = (From x In .AusgeschiedeneSpieler Where x.Runde > .Count).ToList
-
-            For Each ausgeschieden In überzählig
-                .AusgeschiedeneSpieler.Remove(ausgeschieden)
-            Next
         End With
         AktualisiereDaten()
     End Sub

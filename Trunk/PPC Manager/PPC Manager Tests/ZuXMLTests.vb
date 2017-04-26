@@ -24,9 +24,8 @@ Public Class ZuXMLTests
         Dim c = New Competition(regeln, runden, spieler, "Mädchen U 13")
         With c
             With .SpielRunden
-                .AusgeschiedeneSpieler = New ObservableCollection(Of Ausgeschieden(Of SpielerInfo)) From {
-                    New Ausgeschieden(Of SpielerInfo) With {.Spieler = spieler(3), .Runde = 1}}
                 Dim runde = New SpielRunde
+                runde.AusgeschiedeneSpielerIDs.Add(spieler(3).Id)
                 Dim Zeitstempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
                 runde.Add(New FreiLosSpiel("Runde 1", spieler(2), c.SpielRegeln.Gewinnsätze) With {.ZeitStempel = Zeitstempel})
                 runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1), c.SpielRegeln.Gewinnsätze) With {.ZeitStempel = Zeitstempel})
@@ -43,13 +42,13 @@ Public Class ZuXMLTests
             Assert.AreEqual("PLAYER293", Dummy.<match>.Single.Attribute("player-a").Value)
             Assert.AreEqual("PLAYER299", Dummy.<match>.Single.Attribute("player-b").Value)
 
-            Assert.AreEqual(spielPartien(0).ToString, <ppc:freematch player="PLAYER33" group="Runde 1" scheduled="2013-05-22 21:17"/>.ToString)
-            Assert.AreEqual(spielPartien(1).ToString, <match player-a="PLAYER293" player-b="PLAYER299"
-                                                          games-a="0" games-b="0" sets-a="0" sets-b="0"
-                                                          matches-a="0" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="2"
-                                                          set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
-                                                          set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString)
-            Assert.AreEqual(spielPartien(2).ToString, <ppc:inactiveplayer player="PLAYER77" group="1"/>.ToString)
+            Assert.That(spielPartien(0).ToString, [Is].EqualTo(<ppc:freematch player="PLAYER33" group="Runde 1" scheduled="2013-05-22 21:17"/>.ToString))
+            Assert.That(spielPartien(1).ToString, [Is].EqualTo(<match player-a="PLAYER293" player-b="PLAYER299"
+                                                                   games-a="0" games-b="0" sets-a="0" sets-b="0"
+                                                                   matches-a="0" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="2"
+                                                                   set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
+                                                                   set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString))
+            Assert.That(spielPartien(2).ToString, [Is].EqualTo(<ppc:inactiveplayer player="PLAYER77" group="0"/>.ToString))
 
         End With
     End Sub

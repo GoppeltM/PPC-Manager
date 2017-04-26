@@ -19,7 +19,7 @@ Imports Moq
                       Where x.Attribute("age-group").Value = "Jungen U 18").First
         Dim regeln = New SpielRegeln(3, True, True)
         Dim r As New SpielRunden
-        Dim s As New Spielverlauf(r.SelectMany(Function(m) m), New List(Of SpielerInfo), New SpielRegeln(3, True, True))
+        Dim s As New Spielverlauf(r.SelectMany(Function(m) m), r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs), New SpielRegeln(3, True, True))
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
         Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
@@ -37,7 +37,11 @@ Imports Moq
                                                             regeln, s, r)
         _AktiveListe = AktuelleCompetition.SpielerListe
         _SpielRunden = AktuelleCompetition.SpielRunden
-        AktuelleCompetition.SpielRunden.Clear()
+
+        For Each i In Enumerable.Range(0, 11)
+            _SpielRunden.Pop()
+        Next
+
         Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
         _Controller = New MainWindowController(AktuelleCompetition.SpielerListe, r, Sub()
                                                                                     End Sub,
@@ -66,72 +70,72 @@ Imports Moq
 
     <Test>
     Sub Jugend_Runde_1()
-        NächsteRunde("Runde 1", 0)
+        NächsteRunde("Runde 1")
     End Sub
 
     <Test>
     Sub Jugend_Runde_2()
         Jugend_Runde_1()
-        NächsteRunde("Runde 2", 1)
+        NächsteRunde("Runde 2")
     End Sub
 
 
     <Test>
     Sub Jugend_Runde_3()
         Jugend_Runde_2()
-        NächsteRunde("Runde 3", 2)
+        NächsteRunde("Runde 3")
     End Sub
 
 
     <Test>
     Sub Jugend_Runde_4()
         Jugend_Runde_3()
-        NächsteRunde("Runde 4", 3)
+        NächsteRunde("Runde 4")
     End Sub
 
     <Test>
     Sub Jugend_Runde_5()
         Jugend_Runde_4()
-        NächsteRunde("Runde 5", 4)
+        NächsteRunde("Runde 5")
     End Sub
 
     <Test>
     Sub Jugend_Runde_6()
         Jugend_Runde_5()
-        NächsteRunde("Runde 6", 5)
+        NächsteRunde("Runde 6")
     End Sub
 
     <Test>
     Sub Jugend_Runde_7()
         Jugend_Runde_6()
-        NächsteRunde("Runde 7", 6)
+        NächsteRunde("Runde 7")
     End Sub
 
     <Test>
     Sub Jugend_Runde_8()
         Jugend_Runde_7()
-        NächsteRunde("Runde 8", 7)
+        NächsteRunde("Runde 8")
     End Sub
 
     <Test>
     Sub Jugend_Runde_9()
         Jugend_Runde_8()
-        NächsteRunde("Runde 9", 8)
+        NächsteRunde("Runde 9")
     End Sub
 
     <Test>
     Sub Jugend_Runde_10()
         Jugend_Runde_9()
-        NächsteRunde("Runde 10", 9)
+        NächsteRunde("Runde 10")
     End Sub
 
     <Test>
     Sub Jugend_Runde_11()
         Jugend_Runde_10()
-        NächsteRunde("Runde 11", 10)
+        NächsteRunde("Runde 11")
     End Sub
 
-    Private Sub NächsteRunde(rundenName As String, rundenNummer As Integer)
+    Private Sub NächsteRunde(rundenName As String)
 
         Dim XMLPartien = From x In _JungenU18.<matches>.Elements Where x.@group = rundenName
         Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(_AktiveListe, XMLPartien, 3) Order By x.GetType.Name Descending

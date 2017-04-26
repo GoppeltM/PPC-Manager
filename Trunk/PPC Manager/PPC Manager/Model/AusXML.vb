@@ -68,19 +68,28 @@ Public Class AusXML
             Return
         End If
 
-        For Each AusgeschiedenerSpieler In matchesKnoten.<ppc:inactiveplayer>
-            Dim StartNummer = AusgeschiedenerSpieler.@player
-            Dim ausgeschieden As New Ausgeschieden(Of SpielerInfo)
-            ausgeschieden.Spieler = (From x In spielerListe Where x.Id = StartNummer Select x).Single
-            ausgeschieden.Runde = Integer.Parse(AusgeschiedenerSpieler.@group)
-            spielRunden.AusgeschiedeneSpieler.Add(ausgeschieden)
-        Next
 
         Dim xSpielPartien = From x In matchesKnoten.Elements.Except(matchesKnoten.<ppc:inactiveplayer>)
-                            Group By x.@group Into Runde = Group Order By Date.Parse(Runde.First.@scheduled, Globalization.CultureInfo.GetCultureInfo("de")) Ascending
+                            Group By x.@group Into Runde = Group
+                            Order By Date.Parse(Runde.First.@scheduled, Globalization.CultureInfo.GetCultureInfo("de")) Ascending
 
+        Dim rundeNull = New SpielRunde
+        spielRunden.Push(rundeNull)
         For Each xRunde In xSpielPartien
             spielRunden.Push(SpielRundeFromXML(spielerListe, xRunde.Runde, gewinnsätze))
+        Next
+
+        Dim ausgeschiedeneSpieler = From x In matchesKnoten.<ppc:inactiveplayer>
+                                    Select ID = x.@player, Runde = Integer.Parse(x.@group)
+
+        For Each i In Enumerable.Range(0, spielRunden.Count)
+            Dim a = From x In ausgeschiedeneSpieler Where x.Runde = i
+                    Select x.ID
+
+            Dim spielrunde = spielRunden.Reverse().ElementAt(i)
+            For Each x In a
+                spielrunde.AusgeschiedeneSpielerIDs.Add(x)
+            Next
         Next
     End Sub
 

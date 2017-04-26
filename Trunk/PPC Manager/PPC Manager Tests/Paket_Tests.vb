@@ -9,7 +9,7 @@
         Dim runden = New SpielRunden
         runden.Push(_Runde)
         _Spielverlauf = New Spielverlauf(runden.SelectMany(Function(m) m),
-                                         New List(Of SpielerInfo),
+                                         New List(Of String),
                                          New SpielRegeln(3, True, True))
         c = New Competition(New SpielRegeln(3, True, True), runden, New SpielerListe, "Mädchen U18")
     End Sub
@@ -115,13 +115,13 @@
                 New Satz With {.PunkteLinks = 11}}
 
         With c.SpielRunden
-            .Push(New SpielRunde From {Partie1})
+            Dim r = New SpielRunde From {Partie1}
+            r.AusgeschiedeneSpielerIDs.Add(SpielerB.Id)
+            .Push(r)
             With SpielerB
                 Assert.AreEqual(.Punkte, 1)
                 Assert.AreEqual(.BuchholzPunkte, 0)
             End With
-
-            .AusgeschiedeneSpieler.Add(New Ausgeschieden(Of SpielerInfo) With {.Spieler = SpielerB, .Runde = 1})
             .Push(New SpielRunde From {Partie2})
 
             With SpielerB

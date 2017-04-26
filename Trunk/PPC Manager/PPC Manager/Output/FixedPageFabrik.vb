@@ -19,9 +19,8 @@ Public Class FixedPageFabrik
 
     Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
         Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
-                                        Return Aggregate x In _SpielRunden.AusgeschiedeneSpieler
-                                               Where x.Spieler = s AndAlso x.Runde = 0
-                                               Into Any()
+                                        Return Aggregate x In _SpielRunden.First.AusgeschiedeneSpielerIDs
+                                               Where x = s.Id Into Any()
                                     End Function
         Dim l = (From x In _Spielerliste
                  Where Not AusgeschiedenInRunde0(x)
@@ -53,10 +52,6 @@ Public Class FixedPageFabrik
                                           el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count, seitenNr)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
         Dim leerSeite = SeiteErstellen(leerControl, format)
-
-        If Not _SpielRunden.Any Then
-            Return New List(Of FixedPage)
-        End If
         Dim elemente = _SpielRunden.Peek.ToList
         Dim maxElemente = leerControl.GetMaxItemCount
 

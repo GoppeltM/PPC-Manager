@@ -29,8 +29,8 @@ Class Application
             Dim AktiveCompetition As Competition
             Dim spielRunden = New SpielRunden
             Dim spielpartien = spielRunden.SelectMany(Function(m) m)
-            Dim ausgeschiedeneSpieler = From x In spielRunden.AusgeschiedeneSpieler Select x.Spieler
-            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneSpieler, spielRegeln)
+            Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
+            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielRegeln)
             Try
                 Dim doc = XDocument.Load(.XMLPathText.Text)
                 AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielverlauf, spielRunden)

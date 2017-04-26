@@ -39,8 +39,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
     <Test>
-    Public Sub SpielRunden_Count_1()
-        Assert.AreEqual(1, _reference.SpielRunden.Count)
+    Public Sub Hat_nullte_und_erste_Spielrunde()
+        Assert.AreEqual(2, _reference.SpielRunden.Count)
     End Sub
 
     <Test>
@@ -68,8 +68,8 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
     End Sub
 
     <Test>
-    Public Sub SpielRunden_AusgeschiedeneSpieler_HatPlayer127()
-        CollectionAssert.AreEqual({"PLAYER127"}, (From x In _reference.SpielRunden.AusgeschiedeneSpieler Select x.Spieler.Id).ToList)
+    Public Sub Nullte_Runde_hat_einen_ausgeschiedenen_Spieler()
+        Assert.That(_reference.SpielRunden.First.AusgeschiedeneSpielerIDs, Contains.Item("PLAYER127"))
     End Sub
 
     <Test>

@@ -48,8 +48,8 @@ Imports System.Windows
         ControllerD.NächsteRunde()
         cD.SpielRunden.Pop()
 
-        Assert.AreEqual(2, c.SpielRunden.Count)
-        Assert.AreEqual(1, cD.SpielRunden.Count)
+        Assert.AreEqual(3, c.SpielRunden.Count)
+        Assert.AreEqual(2, cD.SpielRunden.Count)
 
     End Sub
 

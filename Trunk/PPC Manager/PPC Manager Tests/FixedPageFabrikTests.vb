@@ -21,6 +21,7 @@ Public Class FixedPageFabrikTests
         _SeitenEinstellungen = seitenEinstellungen.Object
         _SpielerListe = New List(Of Spieler)
         _Runden = New SpielRunden
+        _Runden.Push(New SpielRunde)
         f = New FixedPageFabrik(_SpielerListe, _Runden, Mock.Of(Of ISpielverlauf(Of SpielerInfo)), "Altersgruppe")
     End Sub
 
@@ -81,7 +82,7 @@ Public Class FixedPageFabrikTests
     <Test>
     Public Sub ErzeugeSchiedsrichterzettel_leer_enthält_keine_Seite()
         Dim spielPartien = New List(Of SpielPartie)
-        Dim s As New SeitenEinstellung With {.Höhe = 500, .Breite = 300}
+        Dim s As New SeitenEinstellung With {.Höhe = 300, .Breite = 500}
         Dim seiten = f.ErzeugeSchiedsrichterZettelSeiten(s)
         Assert.That(seiten.Count, [Is].EqualTo(0))
     End Sub

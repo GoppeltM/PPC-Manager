@@ -1,12 +1,14 @@
 ﻿Public Class SpielverlaufTests
     Private _Partien As List(Of SpielPartie)
     Private _S As Spielverlauf
+    Private _Ausgeschieden As List(Of String)
 
     <SetUp>
     Public Sub Init()
         _Partien = New List(Of SpielPartie)
+        _Ausgeschieden = New List(Of String)
         _S = New Spielverlauf(_Partien,
-                              New List(Of SpielerInfo),
+                              _Ausgeschieden,
                               New SpielRegeln(3, True, True))
     End Sub
 

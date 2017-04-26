@@ -5,14 +5,14 @@ Public Class Spielverlauf
 
     Private ReadOnly _Spielregeln As SpielRegeln
     Private ReadOnly _Spielpartien As IEnumerable(Of SpielPartie)
-    Private ReadOnly _AusgeschiedeneSpieler As IEnumerable(Of SpielerInfo)
+    Private ReadOnly _AusgeschiedeneIDs As IEnumerable(Of String)
 
     Public Sub New(spielpartien As IEnumerable(Of SpielPartie),
-                   ausgeschiedeneSpieler As IEnumerable(Of SpielerInfo),
-                   spielRegeln As SpielRegeln)
+                   ausgeschiedeneIDs As IEnumerable(Of String),
+                   SpielRegeln As SpielRegeln)
         _Spielpartien = spielpartien
-        _Spielregeln = spielRegeln
-        _AusgeschiedeneSpieler = ausgeschiedeneSpieler
+        _AusgeschiedeneIDs = ausgeschiedeneIDs
+        _Spielregeln = SpielRegeln
     End Sub
 
     Public Function BerechnePunkte(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechnePunkte
@@ -87,7 +87,7 @@ Public Class Spielverlauf
     End Function
 
     Public Function IstAusgeschieden(t As SpielerInfo) As Boolean Implements ISpielverlauf(Of SpielerInfo).IstAusgeschieden
-        Return Aggregate x In _AusgeschiedeneSpieler Where x = t Into Any()
+        Return Aggregate x In _AusgeschiedeneIDs Where x = t.Id Into Any()
     End Function
 
     Public Function BerechneGewonneneSätze(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneGewonneneSätze

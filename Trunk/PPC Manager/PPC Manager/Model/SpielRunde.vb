@@ -7,7 +7,7 @@ Public Class SpielRunde
         OnCollectionChanged(New Specialized.NotifyCollectionChangedEventArgs(Specialized.NotifyCollectionChangedAction.Reset, Items))
     End Sub
 
-
+    Public ReadOnly Property AusgeschiedeneSpielerIDs As ICollection(Of String) = New List(Of String)
 
     Public Overrides Function ToString() As String
         Return "SpielRunde"

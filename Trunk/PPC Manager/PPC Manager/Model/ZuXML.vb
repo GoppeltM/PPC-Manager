@@ -38,8 +38,11 @@ Public Class ZuXML
             Next
         Next
 
-        For Each s In runden.AusgeschiedeneSpieler
-            xSpielRunden.Add(<ppc:inactiveplayer player=<%= s.Spieler.Id %> group=<%= s.Runde %>/>)
+        For Each i In Enumerable.Range(0, runden.Count)
+            Dim runde = runden(i)
+            For Each x In runde.AusgeschiedeneSpielerIDs
+                xSpielRunden.Add(<ppc:inactiveplayer player=<%= x %> group=<%= i %>/>)
+            Next
         Next
 
         Return xSpielRunden

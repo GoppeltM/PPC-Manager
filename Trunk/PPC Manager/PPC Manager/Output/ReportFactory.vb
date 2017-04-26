@@ -30,7 +30,7 @@ Public Class ReportFactory
 
     Public Sub SchreibeReport(ByVal filePath As String) Implements IReportFactory.SchreibeReport
         Dim spielpartien = (From x In _SpielRunden.Skip(1).Reverse Select x).SelectMany(Function(m) m)
-        Dim spielverlauf = New Spielverlauf(spielpartien, New List(Of Spieler), _spielRegeln)
+        Dim spielverlauf = New Spielverlauf(spielpartien, _SpielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs), _spielRegeln)
         Dim exportSpieler = (From x In _Spieler Select New ExportSpieler(x, spielpartien)).ToList
         exportSpieler.Sort()
         exportSpieler.Reverse()
