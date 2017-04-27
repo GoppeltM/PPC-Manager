@@ -17,6 +17,7 @@ Public Class SpielPartieDetail
     End Sub
 
     Private Sub SpielPartieDetail_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+
     End Sub
 
     Private Sub Satzbearbeiten(inverted As Boolean)

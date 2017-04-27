@@ -1,20 +1,16 @@
 ﻿Imports PPC_Manager
 
-Public Delegate Function OrganisierePakete(spielerliste As IEnumerable(Of SpielerInfo), runde As Integer) As PaarungsContainer(Of SpielerInfo)
+Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
 
 Public Class MainWindowController
     Implements IController
 
-    Public Sub New(spielerListe As IEnumerable(Of SpielerInfo),
-                  spielrunden As SpielRunden,
-                   speichern As Action,
+    Public Sub New(speichern As Action,
                    reportFactory As IReportFactory,
                    organisierePakete As OrganisierePakete,
                    druckFabrik As IFixedPageFabrik,
                    gewinnSätze As Integer
                    )
-        _SpielerListe = spielerListe
-        _Spielrunden = spielrunden
         _Speichern = speichern
         _ReportFactory = reportFactory
         _OrganisierePakete = organisierePakete
@@ -25,10 +21,8 @@ Public Class MainWindowController
     Private ReadOnly _Speichern As Action
     Private ReadOnly _ReportFactory As IReportFactory
     Private ReadOnly _OrganisierePakete As OrganisierePakete
-    Private ReadOnly _Spielrunden As SpielRunden
     Private ReadOnly _DruckFabrik As IFixedPageFabrik
     Private ReadOnly _GewinnSätze As Integer
-    Private ReadOnly _SpielerListe As IEnumerable(Of SpielerInfo)
 
     Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
         Get
@@ -36,45 +30,25 @@ Public Class MainWindowController
         End Get
     End Property
 
-    Public Sub NächsteRunde() Implements IController.NächsteRunde
+    Public Function NächsteRunde(rundenName As String) As SpielRunde Implements IController.NächsteRunde
         _ReportFactory.IstBereit()
 
-        Dim ausgeschiedeneSpieler = From x In _Spielrunden
-                                    From y In x.AusgeschiedeneSpielerIDs
-                                    Join a In _SpielerListe
-                                        On a.Id Equals y
-                                    Select a
-        Dim AktiveListe = _SpielerListe.Except(ausgeschiedeneSpieler).ToList
-        Dim RundenName = "Runde " & _Spielrunden.Count + 1
-
-        Dim begegnungen = _OrganisierePakete(AktiveListe, _Spielrunden.Count - 1)
+        Dim begegnungen = _OrganisierePakete()
 
         Dim Zeitstempel = Date.Now
-            Dim spielRunde As New SpielRunde
+        Dim spielRunde As New SpielRunde
 
-            For Each begegnung In begegnungen.Partien
-                spielRunde.Add(
-                    New SpielPartie(RundenName, begegnung.Item1, begegnung.Item2, _GewinnSätze) _
-                    With {.ZeitStempel = Zeitstempel})
-            Next
-            If begegnungen.Übrig IsNot Nothing Then
-                spielRunde.Add(New FreiLosSpiel(RundenName, begegnungen.Übrig, _GewinnSätze))
-            End If
-        _Spielrunden.Push(spielRunde)
-
-    End Sub
-
-    Public Sub NächstesPlayoff() Implements IController.NächstesPlayoff
-
-        If My.Settings.AutoSaveAn Then
-            _Speichern()
+        For Each begegnung In begegnungen.Partien
+            spielRunde.Add(
+                New SpielPartie(RundenName, begegnung.Item1, begegnung.Item2, _GewinnSätze) _
+                With {.ZeitStempel = Zeitstempel})
+        Next
+        If begegnungen.Übrig IsNot Nothing Then
+            spielRunde.Add(New FreiLosSpiel(RundenName, begegnungen.Übrig, _GewinnSätze))
         End If
-        _Spielrunden.Push(New SpielRunde)
+        Return spielRunde
 
-        If My.Settings.AutoSaveAn Then
-            _ReportFactory.AutoSave()
-        End If
-    End Sub
+    End Function
 
     Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
         Dim seiteneinstellung = p.Konfigurieren()
@@ -130,17 +104,4 @@ Public Class MainWindowController
         _ReportFactory.AutoSave()
     End Sub
 
-    Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
-        Dim AktuelleRunde = _Spielrunden.Peek()
-        Dim neueSpielPartie = New SpielPartie(rundenName,
-                                              spielerA,
-                                              SpielerB,
-                                              _GewinnSätze)
-        neueSpielPartie.ZeitStempel = Date.Now
-        AktuelleRunde.Add(neueSpielPartie)
-    End Sub
-
-    Public Sub SpielerAusscheiden(spieler As SpielerInfo) Implements IController.SpielerAusscheiden
-        _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Add(spieler.Id)
-    End Sub
 End Class

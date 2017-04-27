@@ -14,21 +14,26 @@ Public Class PPC15_Turnier_Klasse_D
                                   regeln)
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
-        Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
+        Dim ausgeschiedeneSpielerIds = r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
+        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, s, r)
+        Dim AktiveListe = From x In AktuelleCompetition.SpielerListe
+                          Where Not ausgeschiedeneSpielerIds.Contains(x.Id)
+                          Select x
+        Dim OrganisierePakete = Function()
                                     Dim spielverlaufCache = New SpielverlaufCache(s)
                                     Dim comparer = New SpielerInfoComparer(spielverlaufCache)
                                     Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
                                     Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
-                                    Dim l = spielerListe.ToList()
+                                    Dim l = AktiveListe.ToList()
                                     l.Sort(comparer)
                                     l.Reverse()
-                                    Return begegnungen.organisierePakete(l, spielrunde)
+                                    Return begegnungen.organisierePakete(l, r.Count - 1)
                                 End Function
-        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, s, r)
-        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
-        _Controller = New MainWindowController(AktuelleCompetition.SpielerListe, r, Sub()
 
-                                                                                    End Sub,
+        Dim druckFabrik = Mock.Of(Of IFixedPageFabrik)
+        _Controller = New MainWindowController(Sub()
+
+                                               End Sub,
                                                Mock.Of(Of IReportFactory),
                                                OrganisierePakete,
                                                druckFabrik, 3)
@@ -115,8 +120,8 @@ Public Class PPC15_Turnier_Klasse_D
     <Test>
     Sub Runde_1()
         With AktuelleCompetition
-            _Controller.NächsteRunde()
-            Dim ergebnisse = .SpielRunden.First
+            Dim ergebnisse = _Controller.NächsteRunde("Runde 1")
+            .SpielRunden.Push(ergebnisse)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(1)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -129,8 +134,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_2()
         Runde_1()
         With AktuelleCompetition
-            _Controller.NächsteRunde()
-            Dim ergebnisse = .SpielRunden.First
+            Dim ergebnisse = _Controller.NächsteRunde("Runde 2")
+            .SpielRunden.Push(ergebnisse)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(2)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -143,8 +148,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_3()
         Runde_2()
         With AktuelleCompetition
-            _Controller.NächsteRunde()
-            Dim ergebnisse = .SpielRunden.First
+            Dim ergebnisse = _Controller.NächsteRunde("Runde 3")
+            .SpielRunden.Push(ergebnisse)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(3)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -157,8 +162,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_4()
         Runde_3()
         With AktuelleCompetition
-            _Controller.NächsteRunde()
-            Dim ergebnisse = .SpielRunden.First
+            Dim ergebnisse = _Controller.NächsteRunde("Runde 4")
+            .SpielRunden.Push(ergebnisse)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(4)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -171,8 +176,8 @@ Public Class PPC15_Turnier_Klasse_D
     Sub Runde_5()
         Runde_4()
         With AktuelleCompetition
-            _Controller.NächsteRunde()
-            Dim ergebnisse = .SpielRunden.First
+            Dim ergebnisse = _Controller.NächsteRunde("Runde 5")
+            .SpielRunden.Push(ergebnisse)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(5)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)
@@ -186,9 +191,9 @@ Public Class PPC15_Turnier_Klasse_D
         Runde_5()
         With AktuelleCompetition
             Dim Ausgeschieden = (From x In AktuelleCompetition.SpielerListe Where x.Nachname = "Haug").Single
-            _Controller.SpielerAusscheiden(Ausgeschieden)
-            _Controller.NächsteRunde()
-            Dim ergebnisse = .SpielRunden.First
+            .SpielRunden.Peek.AusgeschiedeneSpielerIDs.Add(Ausgeschieden.Id)
+            Dim ergebnisse = _Controller.NächsteRunde("Runde 6")
+            .SpielRunden.Push(ergebnisse)
             Dim tatsächlich = BegegnungenZuVergleicher(ergebnisse)
             Dim erwartet = XmlRundezuVergleicher(6)
             CollectionAssert.AreEquivalent(erwartet.ToList, tatsächlich.ToList)

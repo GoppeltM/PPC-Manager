@@ -50,35 +50,38 @@ Class Application
                                       AktiveCompetition.SpielRunden,
                                       spielRegeln,
                                       AddressOf excelFabrik.HoleDokument)
-            Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) spielverlauf.Habengegeneinandergespielt(a, b)
+            Dim ausgeschiedeneSpielerIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
 
-            Dim OrganisierePakete = Function(spielerListe As IEnumerable(Of SpielerInfo), spielrunde As Integer)
+            Dim AktiveListe = From x In AktiveCompetition.SpielerListe
+                              Where Not ausgeschiedeneSpielerIds.Contains(x.Id)
+                              Select x
+            Dim OrganisierePakete = Function()
                                         Dim spielverlaufCache = New SpielverlaufCache(spielverlauf)
                                         Dim comparer = New SpielerInfoComparer(spielverlaufCache)
-                                        Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
+                                        Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, AddressOf spielverlaufCache.Habengegeneinandergespielt)
                                         Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
-                                        Dim l = spielerListe.ToList()
+                                        Dim l = AktiveListe.ToList()
                                         l.Sort(comparer)
                                         l.Reverse()
-                                        Return begegnungen.organisierePakete(l, spielrunde)
+                                        Return begegnungen.organisierePakete(l, spielRunden.Count - 1)
                                     End Function
             Dim druckFabrik = New FixedPageFabrik(
                 AktiveCompetition.SpielerListe,
                 spielRunden,
                 spielverlauf,
                 klassement)
-            Dim controller = New MainWindowController(AktiveCompetition.SpielerListe,
-                                                      spielRunden,
-                                                      speichern,
+            Dim controller = New MainWindowController(speichern,
                                                       r,
                                                       OrganisierePakete,
                                                       druckFabrik,
                                                       spielRegeln.Gewinnsätze)
-            Dim window = New MainWindow(controller, AktiveCompetition.SpielerListe, spielRunden, klassement)
+            Dim window = New MainWindow(controller,
+                                        AktiveCompetition.SpielerListe,
+                                        spielRunden,
+                                        klassement, spielRegeln.Gewinnsätze)
             MainWindow = window
             window.Show()
             ShutdownMode = ShutdownMode.OnMainWindowClose
         End With
-
     End Sub
 End Class

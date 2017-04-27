@@ -20,16 +20,18 @@ Class MainWindow
 
     Private ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
-
+    Private ReadOnly _Gewinnsätze As Integer
     Private Property PlayoffIstAktiv As Boolean = False
 
     Sub New(controller As IController,
             spielerliste As IEnumerable(Of Spieler),
             spielrunden As SpielRunden,
-            titel As String)
+            titel As String,
+            gewinnsätze As Integer)
         InitializeComponent()
         _Controller = controller
         _Spielrunden = spielrunden
+        _Gewinnsätze = gewinnsätze
         Me.Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
         Me.LiveListe.DataContext = spielerliste.Where(AddressOf FilterSpieler)
@@ -116,7 +118,7 @@ Class MainWindow
                         "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
             Return
         End If
-        _Controller.SpielerAusscheiden(spieler)
+        _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Add(spieler.Id)
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)
@@ -128,7 +130,13 @@ Class MainWindow
         Dim AusgewählteSpieler = CType(e.Parameter, IEnumerable(Of SpielerInfo))
         Dim spielerA = AusgewählteSpieler(0)
         Dim SpielerB = AusgewählteSpieler(1)
-        _Controller.NeuePartie(rundenName, spielerA, SpielerB)
+        Dim AktuelleRunde = _Spielrunden.Peek()
+        Dim neueSpielPartie = New SpielPartie(rundenName,
+                                              spielerA,
+                                              SpielerB,
+                                              _GewinnSätze)
+        neueSpielPartie.ZeitStempel = Date.Now
+        AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
     Private Sub NächsteRunde_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
@@ -137,12 +145,14 @@ Class MainWindow
             Return
         End If
 
-        If CBool(My.Settings.AutoSaveAn) Then
+        If My.Settings.AutoSaveAn Then
             _Controller.SaveXML()
         End If
 
         Try
-            _Controller.NächsteRunde()
+            Dim rundenName = "Runde " & _Spielrunden.Count + 1
+            Dim runde = _Controller.NächsteRunde(rundenName)
+            _Spielrunden.Push(runde)
         Catch ex As ExcelNichtBeschreibbarException
             MessageBox.Show(
                 String.Format("Kein Schreibzugriff auf Excel Datei möglich. Bitte Excel vor Beginn der nächsten Runde schließen!",
@@ -151,7 +161,7 @@ Class MainWindow
             Return
         End Try
 
-        If CBool(My.Settings.AutoSaveAn) Then
+        If My.Settings.AutoSaveAn Then
             _Controller.SaveExcel()
         End If
 
@@ -165,7 +175,14 @@ Class MainWindow
             Return
         End If
 
-        _Controller.NächstesPlayoff()
+        If My.Settings.AutoSaveAn Then
+            _Controller.SaveXML()
+        End If
+        _Spielrunden.Push(New SpielRunde)
+
+        If My.Settings.AutoSaveAn Then
+            _Controller.SaveExcel()
+        End If
 
         PlayoffIstAktiv = True
         AktualisiereDaten()

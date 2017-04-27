@@ -33,14 +33,6 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub NächsteRunde() Implements IController.NächsteRunde
-
-    End Sub
-
-    Public Sub NächstesPlayoff() Implements IController.NächstesPlayoff
-
-    End Sub
-
     Public Sub RundenbeginnDrucken(printdialog As IPrinter) Implements IController.RundenbeginnDrucken
 
     End Sub
@@ -53,17 +45,13 @@ Public Class DesignController
 
     End Sub
 
-    Public Sub NeuePartie(rundenName As String, spielerA As SpielerInfo, SpielerB As SpielerInfo) Implements IController.NeuePartie
-
-    End Sub
-
     Public Sub SaveExcel() Implements IController.SaveExcel
 
     End Sub
 
-    Public Sub SpielerAusscheiden(spieler As SpielerInfo) Implements IController.SpielerAusscheiden
+    Public Function NächsteRunde(rundenName As String) As SpielRunde Implements IController.NächsteRunde
         Throw New NotImplementedException()
-    End Sub
+    End Function
 End Class
 
 Public Class DesignSpielPartienOhneFreilos

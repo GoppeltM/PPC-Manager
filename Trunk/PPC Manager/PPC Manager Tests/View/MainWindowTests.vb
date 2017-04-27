@@ -19,7 +19,7 @@ Public Class MainWindowTests
                                     New SpielPartie("Runde 2",
                                                     New SpielerInfo With {.Vorname = "Rick"},
                                                     New SpielerInfo With {.Vorname = "Gerard"}, 3)})
-        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt")
+        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", 3)
     End Sub
 
     <Test>
