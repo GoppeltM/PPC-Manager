@@ -20,11 +20,10 @@
 
     Private Function CreateSpieler(Optional nachname As String = "", Optional vorname As String = "",
                                    Optional ttrating As Integer = 0, Optional id As String = "") As Spieler
-        Dim s = New Spieler(_Spielverlauf)
+        Dim s = New Spieler(id, _Spielverlauf)
         s.Nachname = nachname
         s.Vorname = vorname
         s.TTRating = ttrating
-        s.Id = id
         Return s
     End Function
 

@@ -10,15 +10,15 @@ Public Class MainWindowTests
         _Controller = New Moq.Mock(Of IController)
         Dim s = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim l = New SpielerListe From {
-            New Spieler(s) With {.Nachname = "Goppelt", .Vorname = "Marius"}
+            New Spieler("1", s) With {.Nachname = "Goppelt", .Vorname = "Marius"}
             }
         Dim r = New SpielRunden
         r.Push(New SpielRunde() From {New SpielPartie("Runde 2",
-                                                      New SpielerInfo With {.Vorname = "Marius"},
-                                                      New SpielerInfo With {.Vorname = "Stefan"}, 3),
+                                                      New SpielerInfo("1") With {.Vorname = "Marius"},
+                                                      New SpielerInfo("2") With {.Vorname = "Stefan"}, 3),
                                     New SpielPartie("Runde 2",
-                                                    New SpielerInfo With {.Vorname = "Rick"},
-                                                    New SpielerInfo With {.Vorname = "Gerard"}, 3)})
+                                                    New SpielerInfo("3") With {.Vorname = "Rick"},
+                                                    New SpielerInfo("4") With {.Vorname = "Gerard"}, 3)})
         _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", 3)
     End Sub
 

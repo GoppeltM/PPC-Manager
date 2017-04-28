@@ -9,16 +9,16 @@ Public Class BegegnungenTests
         Dim b = New Begegnungen
         Dim prev = New List(Of SpielPartie) From {
             New SpielPartie("Runde 1",
-                            New SpielerInfo With {.Id = "1", .Vorname = "Marius"},
-                            New SpielerInfo With {.Id = "2", .Vorname = "Flo"}, 3),
+                            New SpielerInfo("1") With {.Vorname = "Marius"},
+                            New SpielerInfo("2") With {.Vorname = "Flo"}, 3),
             New SpielPartie("Runde 1",
-                            New SpielerInfo With {.Id = "3", .Vorname = "Gerard"},
-                            New SpielerInfo With {.Id = "4", .Vorname = "Rick"}, 3)
+                            New SpielerInfo("3") With {.Vorname = "Gerard"},
+                            New SpielerInfo("4") With {.Vorname = "Rick"}, 3)
             }
         Dim n = New List(Of SpielPartie) From {
             New SpielPartie("Runde 2",
-                            New SpielerInfo With {.Id = "5", .Vorname = "Hartmut"},
-                            New SpielerInfo With {.Id = "6", .Vorname = "Stefan"}, 3)
+                            New SpielerInfo("5") With {.Vorname = "Hartmut"},
+                            New SpielerInfo("6") With {.Vorname = "Stefan"}, 3)
             }
         b.DataContext = prev
         Dim w = New Window

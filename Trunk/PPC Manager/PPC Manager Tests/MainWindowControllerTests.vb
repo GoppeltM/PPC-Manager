@@ -6,8 +6,26 @@ Imports System.Windows
 <TestFixture()> Public Class MainWindowControllerTests
 
     <Test>
-    Public Sub NächsteRunde()
+    Public Sub NächsteRunde_verpackt_organisierePakete()
+        Dim a = New SpielerInfo("A")
+        Dim b = New SpielerInfo("B")
+        Dim c = New SpielerInfo("C")
+        Dim organisierePakete = Function() New PaarungsContainer(Of SpielerInfo) With {
+                                    .Partien = New List(Of Tuple(Of SpielerInfo, SpielerInfo)) _
+                                        From {Tuple.Create(a, b)},
+                                    .Übrig = c
+            }
+        Dim controller = New MainWindowController(Sub()
 
+                                                  End Sub,
+                                         Mock.Of(Of IReportFactory),
+                                         organisierePakete,
+                                         Mock.Of(Of IFixedPageFabrik), 3)
+        Dim result = controller.NächsteRunde("Runde 3")
+        Assert.That(result.First.SpielerLinks, [Is].EqualTo(a))
+        Assert.That(result.First.SpielerRechts, [Is].EqualTo(b))
+        Assert.That(result.Last.SpielerLinks, [Is].EqualTo(c))
+        Assert.That(result.Last.GetType(), [Is].EqualTo(GetType(FreiLosSpiel)))
     End Sub
 
     <Test, Apartment(System.Threading.ApartmentState.STA)>

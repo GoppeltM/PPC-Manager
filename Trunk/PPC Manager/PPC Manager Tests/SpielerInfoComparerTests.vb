@@ -8,8 +8,8 @@
     Public Sub Init()
         _Spielverlauf = New Mock(Of ISpielverlauf(Of SpielerInfo))
         _SpielerInfoComparer = New SpielerInfoComparer(_Spielverlauf.Object)
-        _A = New SpielerInfo() With {.Nachname = "X", .Vorname = "Y", .Id = "1"}
-        _B = New SpielerInfo() With {.Nachname = "X", .Vorname = "Y", .Id = "2"}
+        _A = New SpielerInfo("1") With {.Nachname = "X", .Vorname = "Y"}
+        _B = New SpielerInfo("2") With {.Nachname = "X", .Vorname = "Y"}
     End Sub
 
     <Test>

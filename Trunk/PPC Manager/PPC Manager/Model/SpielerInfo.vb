@@ -5,8 +5,8 @@ Public Class SpielerInfo
 
 #Region "Public Properties"
 
-    Public Sub New()
-
+    Public Sub New(id As String)
+        Me.Id = id
     End Sub
 
     Protected Sub New(spieler As SpielerInfo)
@@ -24,7 +24,7 @@ Public Class SpielerInfo
         Vorname = spieler.Vorname
     End Sub
 
-    Public Property Id As String = "new"
+    Public ReadOnly Property Id As String
 
     Public Property Vorname As String = ""
 

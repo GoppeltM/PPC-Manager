@@ -43,9 +43,8 @@ Public Class AusXML
     End Function
 
     Public Shared Function SpielerFromXML(ByVal spielerNode As XElement) As SpielerInfo
-        Dim spieler As New SpielerInfo()
+        Dim spieler As New SpielerInfo(spielerNode.@id)
         With spieler
-            .Id = spielerNode.@id
             Dim ppc = spielerNode.GetNamespaceOfPrefix("ppc")
             .Fremd = ppc IsNot Nothing AndAlso ppc.NamespaceName = "http://www.ttc-langensteinbach.de/"
             spielerNode = spielerNode.<person>.First

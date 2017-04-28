@@ -10,9 +10,7 @@
     <Test>
     Public Sub KopierterSpieler_ist_gleich_zu_Original()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim s As New Spieler(spielverlauf) With {
-            .Id = "949"
-        }
+        Dim s As New Spieler("949", spielverlauf)
 
         Dim neu As New SubSpieler(s)
         Assert.That(neu, [Is].EqualTo(s))
@@ -21,36 +19,24 @@
     <Test>
     Public Sub Spieler_mit_selber_Id_ist_gleich()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim s As New Spieler(spielverlauf) With {
-            .Id = "949"
-        }
+        Dim s As New Spieler("949", spielverlauf)
 
-        Dim neu As New Spieler(spielverlauf) With {
-            .Id = "949"
-        }
-
+        Dim neu As New Spieler("949", spielverlauf)
         Assert.That(neu, [Is].EqualTo(s))
     End Sub
 
     <Test>
     Public Sub Spieler_mit_unterschiedlicher_Id_ist_nicht_gleich()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim s As New Spieler(spielverlauf) With {
-            .Id = "949"
-        }
-
-        Dim neu As New Spieler(spielverlauf) With {
-            .Id = "888"
-        }
-
+        Dim s As New Spieler("949", spielverlauf)
+        Dim neu As New Spieler("888", spielverlauf)
         Assert.That(neu, [Is].Not.EqualTo(s))
     End Sub
 
     <Test>
     Public Sub KopierterSpieler_enthält_selbe_Attribute_wie_Original()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim s As New Spieler(Spielverlauf) With {
-            .Id = "949",
+        Dim s As New Spieler("949", spielverlauf) With {
             .Vorname = "Bob",
             .Nachname = "Builder",
             .Lizenznummer = 1234,

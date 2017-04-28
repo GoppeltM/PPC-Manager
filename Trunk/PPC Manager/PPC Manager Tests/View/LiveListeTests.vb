@@ -11,9 +11,9 @@ Public Class LiveListeTests
             Function(x) x.IstAusgeschieden(It.Is(Of SpielerInfo)(
             Function(y) y.Id = "3")) = True)
         _SpielerListe = New List(Of Spieler) From {
-            New Spieler(s) With {.Id = "1", .Nachname = "Bla"},
-            New Spieler(s) With {.Id = "2", .Nachname = "Blubb"},
-            New Spieler(s) With {.Id = "3", .Nachname = "Mustermann", .Vorname = "Max"}
+            New Spieler("1", s) With {.Nachname = "Bla"},
+            New Spieler("2", s) With {.Nachname = "Blubb"},
+            New Spieler("3", s) With {.Nachname = "Mustermann", .Vorname = "Max"}
             }
     End Sub
 

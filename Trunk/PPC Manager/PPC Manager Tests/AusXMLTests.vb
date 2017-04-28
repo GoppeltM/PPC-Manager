@@ -53,10 +53,10 @@ Public Class AusXMLTests
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim RundenRes = New SpielRunden
         AusXML.SpielRundenFromXML(RundenRes, New SpielerListe From {
-                                                  New Spieler(spielverlauf) With {.Id = "PLAYER127"},
-                                                  New Spieler(spielverlauf) With {.Id = "PLAYER126"},
-                                                  New Spieler(spielverlauf) With {.Id = "PLAYER72"},
-                                                  New Spieler(spielverlauf) With {.Id = "PLAYER-1"}}, rundenRef, 3)
+                                                  New Spieler("PLAYER127", spielverlauf),
+                                                  New Spieler("PLAYER126", spielverlauf),
+                                                  New Spieler("PLAYER72", spielverlauf),
+                                                  New Spieler("PLAYER-1", spielverlauf)}, rundenRef, 3)
         Assert.That(RundenRes.Reverse.ElementAt(1).AusgeschiedeneSpielerIDs, Contains.Item("PLAYER127"))
     End Sub
 
@@ -87,8 +87,8 @@ Public Class AusXMLTests
                            player-b="PLAYER72" player-a="PLAYER-1" scheduled="22.05.2013 21:17:45" group="Runde 1" nr="1"/>
 
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim SpielerA = New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER-1", .Fremd = True}
-        Dim SpielerB = New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER72"}
+        Dim SpielerA = New Spieler("PLAYER-1", spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Fremd = True}
+        Dim SpielerB = New Spieler("PLAYER72", spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald"}
 
         Dim Partie = AusXML.SpielPartieFromXML(New Spieler() {SpielerA, SpielerB}, MatchXml, 3)
         With Partie
@@ -108,8 +108,8 @@ Public Class AusXMLTests
                            set-a-7="0" set-a-6="0" set-a-5="0" set-a-4="0" set-a-3="11" set-a-2="11" set-a-1="11"
                            player-b="PLAYER299" player-a="PLAYER293" scheduled="22.05.2013 21:17:45" group=" Gruppe 01" nr="5"/>
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim SpielerA = New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
+        Dim SpielerA = New Spieler("PLAYER293", spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald"}
+        Dim SpielerB = New Spieler("PLAYER299", spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt"}
 
         Dim Partie = AusXML.SpielPartieFromXML(New Spieler() {SpielerA, SpielerB}, MatchXml, 3)
         With Partie

@@ -41,7 +41,7 @@ Public Class FixedPageFabrikTests
         
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
+            Dim s As New Spieler("Spieler" & nummer, spielverlauf)
             _SpielerListe.Add(s)
         Next
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
@@ -52,7 +52,7 @@ Public Class FixedPageFabrikTests
     Public Sub UIDummy_ErzeugeRanglisteSeiten_mit_200_Spielern()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
+            Dim s As New Spieler("Spieler" & nummer, spielverlauf)
             _SpielerListe.Add(s)
         Next
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
@@ -72,7 +72,7 @@ Public Class FixedPageFabrikTests
         Dim doc = XDocument.Load("D:\Turnierteilnehmer_PPC_20150913.xml")
         Dim spieler = doc.Root.<competition>.First.<players>
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim l = From x In AusXML.SpielerListeFromXML(spieler) Select New Spieler(spielverlauf)
+        Dim l = From x In AusXML.SpielerListeFromXML(spieler) Select New Spieler(x.Id, spielverlauf)
 
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
         Dim vorschau As New Druckvorschau(seiten)
@@ -92,7 +92,7 @@ Public Class FixedPageFabrikTests
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim r = New SpielRunde
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler(spielverlauf) With {.Id = "Spieler" & nummer}
+            Dim s As New Spieler("Spieler" & nummer, spielverlauf)
             r.Add(New FreiLosSpiel("Runde XY", s, 3))
         Next
         _Runden.Push(r)

@@ -16,10 +16,10 @@ Public Class ZuXMLTests
         Dim regeln = New SpielRegeln(4, False, False)
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim spieler = New SpielerListe From {
-                New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"},
-                New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"},
-                New Spieler(spielverlauf) With {.Vorname = "Alec", .Nachname = "Baldwin", .Id = "PLAYER33"},
-                New Spieler(spielverlauf) With {.Vorname = "Mahatma", .Nachname = "Gandhi", .Id = "PLAYER77"}
+                New Spieler("PLAYER293", spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald"},
+                New Spieler("PLAYER299", spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt"},
+                New Spieler("PLAYER33", spielverlauf) With {.Vorname = "Alec", .Nachname = "Baldwin"},
+                New Spieler("PLAYER77", spielverlauf) With {.Vorname = "Mahatma", .Nachname = "Gandhi"}
             }
         Dim c = New Competition(regeln, runden, spieler, "Mädchen U 13")
         With c
@@ -56,8 +56,8 @@ Public Class ZuXMLTests
     <Test>
     Sub SpielePartie_To_XML()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim SpielerA = New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299"}
+        Dim SpielerA = New Spieler("PLAYER293", spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald"}
+        Dim SpielerB = New Spieler("PLAYER299", spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt"}
         Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, 3)
         Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
@@ -82,8 +82,8 @@ Public Class ZuXMLTests
     <Test>
     Sub FremdPartie_To_XML()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim SpielerA = New Spieler(spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald", .Id = "PLAYER293"}
-        Dim SpielerB = New Spieler(spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Id = "PLAYER299", .Fremd = True}
+        Dim SpielerA = New Spieler("PLAYER293", spielverlauf) With {.Vorname = "Florian", .Nachname = "Ewald"}
+        Dim SpielerB = New Spieler("PLAYER299", spielverlauf) With {.Vorname = "Marius", .Nachname = "Goppelt", .Fremd = True}
 
         Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, 4)
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})

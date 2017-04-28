@@ -9,7 +9,8 @@ Public Class Spieler
     Protected ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
     Private ReadOnly _Comparer As SpielerInfoComparer
 
-    Public Sub New(spielverlauf As ISpielverlauf(Of SpielerInfo))
+    Public Sub New(id As String, spielverlauf As ISpielverlauf(Of SpielerInfo))
+        MyBase.New(id)
         _Spielverlauf = spielverlauf
         _Comparer = New SpielerInfoComparer(_Spielverlauf)
     End Sub

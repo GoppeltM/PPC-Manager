@@ -9,10 +9,9 @@ Imports Moq
     <Test>
     Public Sub GewonneneSätzeConverter_2Gewinnsätze_2zu0()
         Dim converter As New GewonneneSätzeConverter()
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim partie As New SpielPartie("Dummy",
-                                      New Spieler(spielverlauf) With {.Id = "1"},
-                                      New Spieler(spielverlauf) With {.Id = "2"}, 3)
+                                      New SpielerInfo("1"),
+                                      New SpielerInfo("2"), 3)
         partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         partie.Add(New Satz With {.PunkteLinks = 13, .PunkteRechts = 11})
         Dim result = converter.Convert(partie, Nothing, Nothing, Nothing)
@@ -112,12 +111,9 @@ Imports Moq
     <Test>
     Public Sub GewonneneSätzeConverter()
         Dim converter = New GewonneneSätzeConverter
-        Dim runden As New SpielRunden
-        Dim regeln As New SpielRegeln(3, True, False)
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim partie As New SpielPartie("Bla",
-                                      New Spieler(spielverlauf) With {.Id = "1"},
-                                      New Spieler(spielverlauf) With {.Id = "2"}, 3)
+                                      New SpielerInfo("1"),
+                                      New SpielerInfo("2"), 3)
         partie.Add(New Satz() With {.PunkteLinks = 14, .PunkteRechts = 12})
         partie.Add(New Satz() With {.PunkteLinks = 12, .PunkteRechts = 14})
         partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
