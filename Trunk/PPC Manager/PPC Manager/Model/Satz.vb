@@ -28,26 +28,6 @@ Public Class Satz
     End Property
 
     Public Property MySelf As Satz = Me
-    Private GewinnPunkte As Integer = My.Settings.GewinnPunkte
-
-    Public ReadOnly Property Abgeschlossen As Boolean
-        Get
-            Return Math.Max(PunkteLinks, PunkteRechts) >= GewinnPunkte _
-                AndAlso Math.Abs(PunkteLinks - PunkteRechts) >= 2
-        End Get
-    End Property
-
-    Public ReadOnly Property GewonnenLinks As Boolean
-        Get
-            Return Abgeschlossen AndAlso PunkteLinks > PunkteRechts
-        End Get
-    End Property
-
-    Public ReadOnly Property GewonnenRechts As Boolean
-        Get
-            Return Abgeschlossen AndAlso PunkteLinks < PunkteRechts
-        End Get
-    End Property
 
     Private Sub OnPropertyChanged(name As String)
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(name))

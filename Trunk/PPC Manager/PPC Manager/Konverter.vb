@@ -130,6 +130,8 @@ End Class
 Public Class OpacityConverter
     Implements IValueConverter
 
+    Public Property IstAusgeschieden As Predicate(Of SpielPartie)
+
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         If DirectCast(value, Boolean) Then
             Return 0.2
