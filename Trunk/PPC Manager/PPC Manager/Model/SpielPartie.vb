@@ -84,7 +84,7 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Public Overridable ReadOnly Property MeineVerlorenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
+    Public ReadOnly Property MeineVerlorenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
         Get
             Dim verlorenLinks = From x In Me Where SatzAbgeschlossen(x) AndAlso x.PunkteRechts > x.PunkteLinks
                                 Select x

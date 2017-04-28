@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Spielstand.vb" />
     <Compile Include="Output\ExcelFabrik.vb" />
     <Compile Include="Output\IExcelDokument.vb" />
     <Compile Include="Output\IFixedPageFabrik.vb" />
