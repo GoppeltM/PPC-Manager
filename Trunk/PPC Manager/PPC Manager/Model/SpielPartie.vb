@@ -123,6 +123,13 @@ Public Class SpielPartie
         Return True
     End Function
 
+    Public ReadOnly Property MySelf As SpielPartie
+        Get
+            Return Me
+        End Get
+    End Property
+
+
     Public Overrides Function GetHashCode() As Integer
         Return SpielerLinks.GetHashCode Xor SpielerRechts.GetHashCode Xor RundenName.GetHashCode
     End Function

@@ -35,6 +35,7 @@ Class MainWindow
         Me.Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
         Me.LiveListe.DataContext = spielerliste.Where(AddressOf FilterSpieler)
+        Me.Begegnungen.SpielPartienListe.IstAbgeschlossen = Function(x) x.Abgeschlossen
         AktualisiereDaten()
     End Sub
 

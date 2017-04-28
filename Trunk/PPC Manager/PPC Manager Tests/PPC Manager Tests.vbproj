@@ -134,6 +134,7 @@
     <Compile Include="View\MainWindowTests.vb" />
     <Compile Include="View\Sandbox.vb" />
     <Compile Include="View\SpielPartieDetailTests.vb" />
+    <Compile Include="View\SpielPartienListeTests.vb" />
     <Compile Include="View\Test.xaml.vb">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>

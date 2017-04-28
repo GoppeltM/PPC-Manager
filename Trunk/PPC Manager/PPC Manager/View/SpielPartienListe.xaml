@@ -8,6 +8,9 @@
              d:DesignHeight="300" d:DesignWidth="700"
              d:DataContext="{d:DesignInstance local:DesignSpielPartien, IsDesignTimeCreatable=True}"
              >
+    <UserControl.Resources>
+        <local:OpacityConverter x:Key="OpacityConverter"/>
+    </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
     </UserControl.CommandBindings>
@@ -15,7 +18,6 @@
                  ItemsSource="{Binding Mode=OneWay}" IsSynchronizedWithCurrentItem="True"
                  VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
         <ListBox.Resources>
-            <local:OpacityConverter x:Key="OpacityConverter"/>
             <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
                     <StackPanel Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}">
@@ -26,7 +28,8 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0" >
-                    <Grid Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" Opacity="{Binding Path=Abgeschlossen, Converter={StaticResource OpacityConverter}}">
+                    <Grid Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" 
+                          Opacity="{Binding Path=MySelf, Converter={StaticResource OpacityConverter}}">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
