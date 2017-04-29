@@ -19,15 +19,18 @@ Public Class FixedPageFabrikTests
             .Höhe = 1000
         End With
         _SeitenEinstellungen = seitenEinstellungen.Object
-        _SpielerListe = New List(Of Spieler)
+        _SpielerListe = New List(Of SpielerInfo)
         _Runden = New SpielRunden
         _Runden.Push(New SpielRunde)
-        f = New FixedPageFabrik(_SpielerListe, _Runden, Mock.Of(Of ISpielverlauf(Of SpielerInfo)), "Altersgruppe")
+        f = New FixedPageFabrik(_SpielerListe,
+                                _Runden,
+                                Mock.Of(Of ISpielverlauf(Of SpielerInfo)),
+                                "Altersgruppe", New Spielstand(3))
     End Sub
 
     Private _SeitenEinstellungen As ISeiteneinstellung
     Private f As FixedPageFabrik
-    Private _SpielerListe As IList(Of Spieler)
+    Private _SpielerListe As IList(Of SpielerInfo)
     Private _Runden As SpielRunden
 
     <Test>
@@ -38,10 +41,9 @@ Public Class FixedPageFabrikTests
 
     <Test>
     Public Sub ErzeugeRanglisteSeiten_mit_200_spielern_ergibt_mehrere_Seiten()
-        
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler("Spieler" & nummer, spielverlauf)
+            Dim s As New SpielerInfo("Spieler" & nummer)
             _SpielerListe.Add(s)
         Next
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
@@ -50,9 +52,8 @@ Public Class FixedPageFabrikTests
 
     <Test, Explicit>
     Public Sub UIDummy_ErzeugeRanglisteSeiten_mit_200_Spielern()
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler("Spieler" & nummer, spielverlauf)
+            Dim s As New SpielerInfo("Spieler" & nummer)
             _SpielerListe.Add(s)
         Next
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
@@ -71,8 +72,7 @@ Public Class FixedPageFabrikTests
     Public Sub UIDummy_Reales_Layout()
         Dim doc = XDocument.Load("D:\Turnierteilnehmer_PPC_20150913.xml")
         Dim spieler = doc.Root.<competition>.First.<players>
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim l = From x In AusXML.SpielerListeFromXML(spieler) Select New Spieler(x.Id, spielverlauf)
+        Dim l = From x In AusXML.SpielerListeFromXML(spieler) Select New SpielerInfo(x.Id)
 
         Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
         Dim vorschau As New Druckvorschau(seiten)
@@ -89,10 +89,9 @@ Public Class FixedPageFabrikTests
 
     <Test>
     Public Sub ErzeugeSchiedsrichterzettel_mit_200_Partien_600_mal_1000_enthält_34_Seiten()
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim r = New SpielRunde
         For Each nummer In Enumerable.Range(1, 200)
-            Dim s As New Spieler("Spieler" & nummer, spielverlauf)
+            Dim s As New SpielerInfo("Spieler" & nummer)
             r.Add(New FreiLosSpiel("Runde XY", s, 3))
         Next
         _Runden.Push(r)

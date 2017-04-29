@@ -31,7 +31,7 @@ Public Class SpielPartie
         _RundenName = rundenName
         _GewinnSätze = gewinnsätze
         AddHandler Me.CollectionChanged, Sub()
-                                             Me.OnPropertyChanged(New PropertyChangedEventArgs("Abgeschlossen"))
+                                             Me.OnPropertyChanged(New PropertyChangedEventArgs("MySelf"))
                                          End Sub
     End Sub
 
@@ -100,6 +100,7 @@ Public Class SpielPartie
         End Get
     End Property
 
+    <Obsolete("Spielstand stattdessen")>
     Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
         Get
             Dim gewonnenLinks = From x In Me Where SatzLinksGewonnen(x)

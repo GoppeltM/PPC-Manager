@@ -52,7 +52,7 @@
         _P.Add(satz2)
         _P.Add(satz3)
         _P.Add(satz4)
-        Assert.That(s.MeineGewonnenenSätze(_P, _SpielerA), [Is].EquivalentTo({satz1, satz2}))
+        Assert.That(s.MeineGewonnenenSätze(_P, _SpielerA), [Is].EqualTo(2))
     End Sub
 
     <Test>

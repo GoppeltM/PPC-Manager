@@ -3,8 +3,7 @@ Public Class SchiedsrichterZettelTests
 
     <SetUp>
     Public Sub Init()
-        Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim s As New Spieler("A", spielverlauf)
+        Dim s As New SpielerInfo("A")
         _Zettel = New SchiedsrichterZettel(New List(Of SpielPartie) _
                                            From {New FreiLosSpiel("Runde X", s, 3)},
                                            "MeinKlassementName", 5, 2)

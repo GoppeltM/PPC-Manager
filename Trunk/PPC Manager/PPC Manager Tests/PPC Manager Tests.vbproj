@@ -109,13 +109,13 @@
     <Compile Include="FremdSpielerDialogTests.vb" />
     <Compile Include="PaarungssucheTests.vb" />
     <Compile Include="PaketbildungTests.vb" />
-    <Compile Include="Paket_Tests.vb" />
     <Compile Include="PPC15_Turnier.vb" />
     <Compile Include="PrinterTests.vb" />
     <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="SatzTests.vb" />
     <Compile Include="SchiedsrichterZettelTests.vb" />
     <Compile Include="SpielerInfoComparerTests.vb" />
+    <Compile Include="SpielerInfoTests.vb" />
     <Compile Include="SpielstandTests.vb" />
     <Compile Include="SpielverlaufTests.vb" />
     <Compile Include="StartlistenEditor\SpeicherTests.vb" />

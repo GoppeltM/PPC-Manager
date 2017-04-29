@@ -1,11 +1,12 @@
 ﻿Public Class Spielstand
+    Implements ISpielstand
     Private ReadOnly _GewinnSätze As Integer
 
     Public Sub New(gewinnsätze As Integer)
         _GewinnSätze = gewinnsätze
     End Sub
 
-    Public Function IstAbgeschlossen(spielPartie As SpielPartie) As Boolean
+    Public Function IstAbgeschlossen(spielPartie As SpielPartie) As Boolean Implements ISpielstand.IstAbgeschlossen
         If TypeOf spielPartie Is FreiLosSpiel Then
             Return True
         End If
@@ -16,7 +17,7 @@
         Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= _GewinnSätze
     End Function
 
-    Public Function MeineVerlorenenSätze(partie As SpielPartie, ich As SpielerInfo) As IList(Of Satz)
+    Public Function MeineVerlorenenSätze(partie As SpielPartie, ich As SpielerInfo) As IList(Of Satz) Implements ISpielstand.MeineVerlorenenSätze
         Dim verlorenLinks = From x In partie Where SatzAbgeschlossen(x) AndAlso x.PunkteRechts > x.PunkteLinks
                             Select x
 
@@ -30,20 +31,20 @@
         End If
     End Function
 
-    Public Function MeineGewonnenenSätze(partie As SpielPartie, ByVal ich As SpielerInfo) As IList(Of Satz)
+    Public Function MeineGewonnenenSätze(partie As SpielPartie, ByVal ich As SpielerInfo) As Integer Implements ISpielstand.MeineGewonnenenSätze
         If TypeOf partie Is FreiLosSpiel Then
             Dim sätze = From x In Enumerable.Range(0, _GewinnSätze)
                         Select New Satz() With {.PunkteLinks = 11}
-            Return sätze.ToList
+            Return sätze.Count
         End If
         Dim gewonnenLinks = From x In partie Where SatzLinksGewonnen(x)
 
         Dim gewonnenRechts = From x In partie Where (SatzRechtsGewonnen(x))
 
         If partie.SpielerLinks = ich Then
-            Return gewonnenLinks.ToList
+            Return gewonnenLinks.Count
         Else
-            Return gewonnenRechts.ToList
+            Return gewonnenRechts.Count
         End If
     End Function
 

@@ -61,7 +61,7 @@ Public Class AusXML
     End Function
 
     Public Shared Sub SpielRundenFromXML(spielRunden As SpielRunden,
-                                              ByVal spielerListe As IEnumerable(Of Spieler),
+                                              ByVal spielerListe As IEnumerable(Of SpielerInfo),
                                               ByVal matchesKnoten As XElement, gewinnsätze As Integer)
         If matchesKnoten Is Nothing Then
             Return

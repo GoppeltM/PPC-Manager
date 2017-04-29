@@ -6,19 +6,22 @@ Public Class Spielverlauf
     Private ReadOnly _Spielregeln As SpielRegeln
     Private ReadOnly _Spielpartien As IEnumerable(Of SpielPartie)
     Private ReadOnly _AusgeschiedeneIDs As IEnumerable(Of String)
+    Private ReadOnly _Spielstand As ISpielstand
 
     Public Sub New(spielpartien As IEnumerable(Of SpielPartie),
                    ausgeschiedeneIDs As IEnumerable(Of String),
-                   SpielRegeln As SpielRegeln)
+                   SpielRegeln As SpielRegeln,
+                   spielstand As ISpielstand)
         _Spielpartien = spielpartien
         _AusgeschiedeneIDs = ausgeschiedeneIDs
         _Spielregeln = SpielRegeln
+        _Spielstand = spielstand
     End Sub
 
     Public Function BerechnePunkte(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechnePunkte
         Dim GewonneneSpiele = From x In _Spielpartien
                               Where x.SpielerLinks = t Or x.SpielerRechts = t
-                              Let Meine = x.MeineGewonnenenSätze(t).Count
+                              Let Meine = _Spielstand.MeineGewonnenenSätze(x, t)
                               Where Meine >= _Spielregeln.Gewinnsätze Select x
 
         Return GewonneneSpiele.Count()
@@ -28,7 +31,7 @@ Public Class Spielverlauf
         Dim GewonneneSpiele = From x In _Spielpartien
                               Where Not TypeOf x Is FreiLosSpiel
                               Where x.SpielerLinks = t Or x.SpielerRechts = t
-                              Let Meine = x.MeineGewonnenenSätze(t).Count
+                              Let Meine = _Spielstand.MeineGewonnenenSätze(x, t)
                               Where Meine >= _Spielregeln.Gewinnsätze Select x
 
         Return GewonneneSpiele.Count()
@@ -57,7 +60,7 @@ Public Class Spielverlauf
         If Not _Spielregeln.SonneBornBerger Then Return 0
         Dim GewonneneSpiele = From x In _Spielpartien
                               Where Not TypeOf x Is FreiLosSpiel
-                              Let Meine = x.MeineGewonnenenSätze(t).Count
+                              Let Meine = _Spielstand.MeineGewonnenenSätze(x, t)
                               Where Meine >= _Spielregeln.Gewinnsätze Select x
         Dim gegner = From x In GewonneneSpiele
                      Where x.SpielerLinks = t
@@ -94,7 +97,7 @@ Public Class Spielverlauf
         Return Aggregate x In _Spielpartien
                    Where x.SpielerLinks = t Or x.SpielerRechts = t
                    Where Not TypeOf x Is FreiLosSpiel
-                       Into Sum(x.MeineGewonnenenSätze(t).Count)
+                       Into Sum(_Spielstand.MeineGewonnenenSätze(x, t))
     End Function
 
     Public Function BerechneVerloreneSätze(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneVerloreneSätze

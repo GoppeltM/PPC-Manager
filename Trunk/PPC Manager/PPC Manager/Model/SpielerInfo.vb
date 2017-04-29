@@ -9,7 +9,7 @@ Public Class SpielerInfo
         Me.Id = id
     End Sub
 
-    Protected Sub New(spieler As SpielerInfo)
+    Public Sub New(spieler As SpielerInfo)
         Fremd = spieler.Fremd
         Geburtsjahr = spieler.Geburtsjahr
         Geschlecht = spieler.Geschlecht

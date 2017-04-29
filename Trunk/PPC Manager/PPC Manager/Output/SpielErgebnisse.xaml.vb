@@ -3,10 +3,16 @@
 Public Class SpielErgebnisse
 
 
-    Public Sub New(partien As IEnumerable(Of SpielPartie), altersGruppe As String, rundenNr As Integer, seitenNr As Integer)
+    Public Sub New(partien As IEnumerable(Of SpielPartie),
+                   altersGruppe As String,
+                   rundenNr As Integer,
+                   seitenNr As Integer,
+                   spielstand As ISpielstand)
         ' This call is required by the designer.
         InitializeComponent()
-
+        With CType(Resources("GewonneneSätzeConverter"), GewonneneSätzeConverter)
+            .MeineGewonnenenSätze = AddressOf spielstand.MeineGewonnenenSätze
+        End With
         KlassementName.Text = altersGruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         RundenNummer.Text = String.Format("Runde Nr. {0}", rundenNr)
@@ -35,8 +41,12 @@ End Class
 Public Class NeuePaarungen
     Inherits SpielErgebnisse
 
-    Public Sub New(partien As IEnumerable(Of SpielPartie), altersgruppe As String, rundenzahl As Integer, seitenNr As Integer)
-        MyBase.New(partien, altersgruppe, rundenzahl, seitenNr)
+    Public Sub New(partien As IEnumerable(Of SpielPartie),
+                   altersgruppe As String,
+                   rundenzahl As Integer,
+                   seitenNr As Integer,
+                   spielstand As ISpielstand)
+        MyBase.New(partien, altersgruppe, rundenzahl, seitenNr, spielstand)
         ErgebnisSpalte.Visibility = Visibility.Collapsed
     End Sub
 

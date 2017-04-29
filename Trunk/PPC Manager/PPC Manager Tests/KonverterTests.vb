@@ -7,18 +7,6 @@ Imports Moq
 <TestFixture()> Public Class KonverterTests
 
     <Test>
-    Public Sub GewonneneSätzeConverter_2Gewinnsätze_2zu0()
-        Dim converter As New GewonneneSätzeConverter()
-        Dim partie As New SpielPartie("Dummy",
-                                      New SpielerInfo("1"),
-                                      New SpielerInfo("2"), 3)
-        partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
-        partie.Add(New Satz With {.PunkteLinks = 13, .PunkteRechts = 11})
-        Dim result = converter.Convert(partie, Nothing, Nothing, Nothing)
-        Assert.AreEqual("2:0", result)
-    End Sub
-
-    <Test>
     Public Sub GeschlechtKonverter_0_w()
         Dim converter As New GeschlechtKonverter
         Dim result = converter.Convert(0, Nothing, Nothing, Nothing)
@@ -113,12 +101,18 @@ Imports Moq
     <Test>
     Public Sub GewonneneSätzeConverter()
         Dim converter = New GewonneneSätzeConverter
-        Dim partie As New SpielPartie("Bla",
-                                      New SpielerInfo("1"),
-                                      New SpielerInfo("2"), 3)
-        partie.Add(New Satz() With {.PunkteLinks = 14, .PunkteRechts = 12})
-        partie.Add(New Satz() With {.PunkteLinks = 12, .PunkteRechts = 14})
-        partie.Add(New Satz() With {.PunkteLinks = 11, .PunkteRechts = 0})
+        Dim spieler1 = New SpielerInfo("1")
+        Dim spieler2 = New SpielerInfo("2")
+        converter.MeineGewonnenenSätze = Function(x, y) As Integer
+                                             If y = spieler1 Then
+                                                 Return 2
+                                             End If
+                                             If y = spieler2 Then
+                                                 Return 1
+                                             End If
+                                             Throw New InvalidOperationException
+                                         End Function
+        Dim partie As New SpielPartie("Bla", spieler1, spieler2, 3)
         Dim result = converter.Convert(partie, Nothing, Nothing, Nothing)
         Assert.AreEqual("2:1", result)
     End Sub

@@ -11,7 +11,7 @@ Public Class PPC15_Turnier_Klasse_D
         Dim r As New SpielRunden
         Dim s As New Spielverlauf(r.SelectMany(Function(m) m),
                                   r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
-                                  regeln)
+                                  regeln, New Spielstand(3))
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
         Dim ausgeschiedeneSpielerIds = r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)

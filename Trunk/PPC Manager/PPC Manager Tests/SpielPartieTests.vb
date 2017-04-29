@@ -11,4 +11,12 @@
         Assert.That(p.Abgeschlossen, [Is].True)
     End Sub
 
+    <Test>
+    Sub SpielerLinks_GleichSpielerRechts_GleichSpielerA()
+        Dim SpielerA = New SpielerInfo("PLAYER293") With {.Vorname = "Florian", .Nachname = "Ewald"}
+        Dim Partie = New FreiLosSpiel("Runde 1", SpielerA, 3)
+        Assert.AreEqual(Partie.SpielerLinks, SpielerA)
+        Assert.AreEqual(Partie.SpielerRechts, SpielerA)
+    End Sub
+
 End Class

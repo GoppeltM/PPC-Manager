@@ -30,7 +30,8 @@ Class Application
             Dim spielRunden = New SpielRunden
             Dim spielpartien = spielRunden.SelectMany(Function(m) m)
             Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
-            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielRegeln)
+            Dim spielstand = New Spielstand(spielRegeln.Gewinnsätze)
+            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielRegeln, spielstand)
             Try
                 Dim doc = XDocument.Load(.XMLPathText.Text)
                 AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielverlauf, spielRunden)
@@ -49,7 +50,7 @@ Class Application
                                       AktiveCompetition.SpielerListe,
                                       AktiveCompetition.SpielRunden,
                                       spielRegeln,
-                                      AddressOf excelFabrik.HoleDokument)
+                                      AddressOf excelFabrik.HoleDokument, New Spielstand(spielRegeln.Gewinnsätze))
             Dim ausgeschiedeneSpielerIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
 
             Dim AktiveListe = From x In AktiveCompetition.SpielerListe
@@ -65,11 +66,13 @@ Class Application
                                         l.Reverse()
                                         Return begegnungen.organisierePakete(l, spielRunden.Count - 1)
                                     End Function
+
             Dim druckFabrik = New FixedPageFabrik(
                 AktiveCompetition.SpielerListe,
                 spielRunden,
                 spielverlauf,
-                klassement)
+                klassement,
+                spielstand)
             Dim controller = New MainWindowController(speichern,
                                                       r,
                                                       OrganisierePakete,

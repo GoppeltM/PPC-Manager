@@ -6,15 +6,18 @@ Public Class FixedPageFabrik
     Private ReadOnly _SpielRunden As SpielRunden
     Private ReadOnly _KlassementName As String
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
+    Private ReadOnly _Spielstand As ISpielstand
 
     Public Sub New(spielerliste As IEnumerable(Of SpielerInfo),
                    spielRunden As SpielRunden,
                    spielverlauf As ISpielverlauf(Of SpielerInfo),
-                   klassementName As String)
+                   klassementName As String,
+                   spielstand As ISpielstand)
         _Spielerliste = spielerliste
         _SpielRunden = spielRunden
         _Spielverlauf = spielverlauf
         _KlassementName = klassementName
+        _Spielstand = spielstand
     End Sub
 
     Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
@@ -62,7 +65,11 @@ Public Class FixedPageFabrik
     Friend Function ErzeugePaarungen(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugePaarungen
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el, _KlassementName, _SpielRunden.Count, seitenNr)
+                                          el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el,
+                                                                                               _KlassementName,
+                                                                                               _SpielRunden.Count,
+                                                                                               seitenNr,
+                                                                                               _Spielstand)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
         Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = _SpielRunden.Peek.ToList
@@ -78,7 +85,11 @@ Public Class FixedPageFabrik
     Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSpielErgebnisse
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el, _KlassementName, _SpielRunden.Count, seitenNr)
+                                          el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el,
+                                                                                                 _KlassementName,
+                                                                                                 _SpielRunden.Count,
+                                                                                                 seitenNr,
+                                                                                                 _Spielstand)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
         Dim leerSeite = SeiteErstellen(leerControl, format)
 

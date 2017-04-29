@@ -149,14 +149,16 @@ End Class
 Public Class GewonneneSätzeConverter
     Implements IValueConverter
 
+    Public Property MeineGewonnenenSätze As Func(Of SpielPartie, SpielerInfo, Integer)
+
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
         Dim partie = TryCast(value, SpielPartie)
         If partie Is Nothing Then Return Nothing
 
-        Dim gewonnenLinks = partie.MeineGewonnenenSätze(partie.SpielerLinks)
-        Dim gewonnenRechts = partie.MeineGewonnenenSätze(partie.SpielerRechts)
+        Dim gewonnenLinks = MeineGewonnenenSätze(partie, partie.SpielerLinks)
+        Dim gewonnenRechts = MeineGewonnenenSätze(partie, partie.SpielerRechts)
 
-        Return String.Format("{0}:{1}", gewonnenLinks.Count, gewonnenRechts.Count)
+        Return String.Format("{0}:{1}", gewonnenLinks, gewonnenRechts)
     End Function
 
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
