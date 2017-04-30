@@ -7,7 +7,7 @@
     <SetUp>
     Public Sub Init()
         _Spielverlauf = New Mock(Of ISpielverlauf(Of SpielerInfo))
-        _SpielerInfoComparer = New SpielerInfoComparer(_Spielverlauf.Object)
+        _SpielerInfoComparer = New SpielerInfoComparer(_Spielverlauf.Object, True, True)
         _A = New SpielerInfo("1") With {.Nachname = "X", .Vorname = "Y"}
         _B = New SpielerInfo("2") With {.Nachname = "X", .Vorname = "Y"}
     End Sub
@@ -31,6 +31,15 @@
     End Sub
 
     <Test>
+    Public Sub Größer_wenn_weniger_Sonnebornbergerpunkte_aber_Sonneborn_inaktiv()
+        _Spielverlauf.Setup(Function(x) x.BerechneSonnebornBergerPunkte(_A)).Returns(3)
+        _Spielverlauf.Setup(Function(x) x.BerechneSonnebornBergerPunkte(_B)).Returns(5)
+        Dim comparer = New SpielerInfoComparer(_Spielverlauf.Object, True, False)
+        _A.TTRating = 55
+        Assert.That(comparer.Compare(_A, _B), [Is].GreaterThan(0))
+    End Sub
+
+    <Test>
     Public Sub Größer_wenn_mehr_Sonnebornbergerpunkte()
 
         _Spielverlauf.Setup(Function(x) x.BerechneSonnebornBergerPunkte(_A)).Returns(5)
@@ -46,6 +55,15 @@
         _Spielverlauf.Setup(Function(x) x.IstAusgeschieden(_B)).Returns(True)
 
         Assert.That(_SpielerInfoComparer.Compare(_A, _B), [Is].GreaterThan(0))
+    End Sub
+
+    <Test>
+    Public Sub Größer_wenn_weniger_Satzdifferenz_aber_Satzdifferenz_inaktiv()
+        _Spielverlauf.Setup(Function(x) x.BerechneSatzDifferenz(_A)).Returns(3)
+        _Spielverlauf.Setup(Function(x) x.BerechneSatzDifferenz(_B)).Returns(5)
+        Dim comparer = New SpielerInfoComparer(_Spielverlauf.Object, False, True)
+        _A.TTRating = 55
+        Assert.That(comparer.Compare(_A, _B), [Is].GreaterThan(0))
     End Sub
 
     <Test>

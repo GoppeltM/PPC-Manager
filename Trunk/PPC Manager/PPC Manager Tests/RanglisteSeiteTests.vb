@@ -4,7 +4,7 @@ Public Class RanglisteSeiteTests
     <SetUp>
     Public Sub Init()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim s As New Spieler("A", spielverlauf)
+        Dim s As New Spieler(New SpielerInfo("A"), spielverlauf, Mock.Of(Of IComparer(Of SpielerInfo)))
         _RangListe = New RanglisteSeite("Altersgruppe", 2,
                                         {s},
                                         New List(Of SpielPartie))

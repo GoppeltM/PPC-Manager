@@ -10,7 +10,7 @@ Imports Moq
 <TestFixture()> Public Class Testturnier
     Private _Controller As MainWindowController
     Private _JungenU18 As XElement
-    Private _AktiveListe As SpielerListe
+    Private _AktiveListe As IEnumerable(Of SpielerInfo)
     Private _SpielRunden As SpielRunden
 
     <SetUp>
@@ -27,13 +27,13 @@ Imports Moq
         Dim ausgeschiedeneSpielerIds = r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
         Dim AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml",
                                                             _JungenU18,
-                                                            regeln, s, r)
+                                                            regeln, r)
         Dim AktiveListe = From x In AktuelleCompetition.SpielerListe
                           Where Not ausgeschiedeneSpielerIds.Contains(x.Id)
                           Select x
         Dim OrganisierePakete = Function()
                                     Dim spielverlaufCache = New SpielverlaufCache(s)
-                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache)
+                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache, regeln.SatzDifferenz, regeln.SonneBornBerger)
                                     Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
                                     Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
                                     Dim l = AktiveListe.ToList()

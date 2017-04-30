@@ -19,12 +19,11 @@ Public Class Spielverlauf
     End Sub
 
     Public Function BerechnePunkte(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechnePunkte
-        Dim GewonneneSpiele = From x In _Spielpartien
-                              Where x.SpielerLinks = t Or x.SpielerRechts = t
-                              Let Meine = _Spielstand.MeineGewonnenenSätze(x, t)
-                              Where Meine >= _Spielregeln.Gewinnsätze Select x
+        Dim GewonneneSpiele = Aggregate x In _Spielpartien
+                              Where _Spielstand.HatPartieGewonnen(x, t)
+                                  Into Count
 
-        Return GewonneneSpiele.Count()
+        Return GewonneneSpiele
     End Function
 
     Private Function BerechnePunkteOhneFreilos(t As SpielerInfo) As Integer
@@ -57,7 +56,6 @@ Public Class Spielverlauf
     End Function
 
     Public Function BerechneSonnebornBergerPunkte(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneSonnebornBergerPunkte
-        If Not _Spielregeln.SonneBornBerger Then Return 0
         Dim GewonneneSpiele = From x In _Spielpartien
                               Where Not TypeOf x Is FreiLosSpiel
                               Let Meine = _Spielstand.MeineGewonnenenSätze(x, t)
@@ -108,7 +106,6 @@ Public Class Spielverlauf
     End Function
 
     Public Function BerechneSatzDifferenz(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneSatzDifferenz
-        If Not _Spielregeln.SatzDifferenz Then Return 0
         Return BerechneGewonneneSätze(t) - BerechneVerloreneSätze(t)
     End Function
 End Class

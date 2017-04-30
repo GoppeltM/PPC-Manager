@@ -10,10 +10,11 @@ Public Class LiveListeTests
         Dim s = Mock.Of(Of ISpielverlauf(Of SpielerInfo))(
             Function(x) x.IstAusgeschieden(It.Is(Of SpielerInfo)(
             Function(y) y.Id = "3")) = True)
+        Dim c = Mock.Of(Of IComparer(Of SpielerInfo))
         _SpielerListe = New List(Of Spieler) From {
-            New Spieler("1", s) With {.Nachname = "Bla"},
-            New Spieler("2", s) With {.Nachname = "Blubb"},
-            New Spieler("3", s) With {.Nachname = "Mustermann", .Vorname = "Max"}
+            New Spieler(New SpielerInfo("1"), s, c) With {.Nachname = "Bla"},
+            New Spieler(New SpielerInfo("2"), s, c) With {.Nachname = "Blubb"},
+            New Spieler(New SpielerInfo("3"), s, c) With {.Nachname = "Mustermann", .Vorname = "Max"}
             }
     End Sub
 

@@ -34,7 +34,7 @@ Class Application
             Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielRegeln, spielstand)
             Try
                 Dim doc = XDocument.Load(.XMLPathText.Text)
-                AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielverlauf, spielRunden)
+                AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielRunden)
             Catch ex As SpielDatenUnvollständigException
                 MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount),
                 "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -45,9 +45,12 @@ Class Application
             Resources("KlassementName") = AktiveCompetition.Altersgruppe
             Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
             Dim excelFabrik = New ExcelFabrik()
+            Dim vergleicher = New SpielerInfoComparer(spielverlauf, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
+            Dim spielerWrapped = From x In AktiveCompetition.SpielerListe
+                                 Select New Spieler(x, spielverlauf, vergleicher)
             Dim r = New ReportFactory(xmlPfad,
                                       klassement,
-                                      AktiveCompetition.SpielerListe,
+                                      spielerWrapped,
                                       AktiveCompetition.SpielRunden,
                                       spielRegeln,
                                       AddressOf excelFabrik.HoleDokument, New Spielstand(spielRegeln.Gewinnsätze))
@@ -58,7 +61,7 @@ Class Application
                               Select x
             Dim OrganisierePakete = Function()
                                         Dim spielverlaufCache = New SpielverlaufCache(spielverlauf)
-                                        Dim comparer = New SpielerInfoComparer(spielverlaufCache)
+                                        Dim comparer = New SpielerInfoComparer(spielverlaufCache, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
                                         Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, AddressOf spielverlaufCache.Habengegeneinandergespielt)
                                         Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
                                         Dim l = AktiveListe.ToList()
@@ -68,9 +71,8 @@ Class Application
                                     End Function
 
             Dim druckFabrik = New FixedPageFabrik(
-                AktiveCompetition.SpielerListe,
+                spielerWrapped,
                 spielRunden,
-                spielverlauf,
                 klassement,
                 spielstand)
             Dim controller = New MainWindowController(speichern,
@@ -79,7 +81,7 @@ Class Application
                                                       druckFabrik,
                                                       spielRegeln.Gewinnsätze)
             Dim window = New MainWindow(controller,
-                                        AktiveCompetition.SpielerListe,
+                                        spielerWrapped,
                                         spielRunden,
                                         klassement, spielRegeln.Gewinnsätze)
             MainWindow = window

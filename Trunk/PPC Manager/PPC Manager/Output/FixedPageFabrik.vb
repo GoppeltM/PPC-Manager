@@ -2,20 +2,17 @@
 
 Public Class FixedPageFabrik
     Implements IFixedPageFabrik
-    Private ReadOnly _Spielerliste As IEnumerable(Of SpielerInfo)
+    Private ReadOnly _Spielerliste As IEnumerable(Of Spieler)
     Private ReadOnly _SpielRunden As SpielRunden
     Private ReadOnly _KlassementName As String
-    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
     Private ReadOnly _Spielstand As ISpielstand
 
-    Public Sub New(spielerliste As IEnumerable(Of SpielerInfo),
+    Public Sub New(spielerliste As IEnumerable(Of Spieler),
                    spielRunden As SpielRunden,
-                   spielverlauf As ISpielverlauf(Of SpielerInfo),
                    klassementName As String,
                    spielstand As ISpielstand)
         _Spielerliste = spielerliste
         _SpielRunden = spielRunden
-        _Spielverlauf = spielverlauf
         _KlassementName = klassementName
         _Spielstand = spielstand
     End Sub
@@ -27,7 +24,7 @@ Public Class FixedPageFabrik
                                     End Function
         Dim l = (From x In _Spielerliste
                  Where Not AusgeschiedenInRunde0(x)
-                 Select New Spieler(x, _Spielverlauf)).ToList
+                 Select x).ToList
         l.Sort()
         l.Reverse()
         Dim spielPartien = New List(Of SpielPartie)

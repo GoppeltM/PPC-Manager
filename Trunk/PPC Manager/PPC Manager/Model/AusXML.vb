@@ -3,7 +3,6 @@
 Public Class AusXML
     Public Shared Function CompetitionFromXML(dateipfad As String, node As XElement,
                                               spielRegeln As SpielRegeln,
-                                              spielverlauf As ISpielverlauf(Of SpielerInfo),
                                               spielrunden As SpielRunden) As Competition
         Dim TryBool = Function(x As String) As Boolean
                           Dim val As Boolean = False
@@ -17,9 +16,9 @@ Public Class AusXML
             Throw New SpielDatenUnvollständigException(UnbekannterZustand.Count)
         End If
         Dim spielerInfos = SpielerListeFromXML(node.<players>)
-        Dim spielerliste = New SpielerListe()
+        Dim spielerliste = New List(Of SpielerInfo)
         For Each s In spielerInfos
-            spielerliste.Add(New Spieler(s, spielverlauf))
+            spielerliste.Add(s)
         Next
         SpielRundenFromXML(spielrunden, spielerliste, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
         Dim altersgruppe = node.Attribute("age-group").Value
@@ -134,11 +133,10 @@ Public Class AusXML
                                               doc As XDocument,
                                               gruppe As String,
                                               spielRegeln As SpielRegeln,
-                                              spielverlauf As ISpielverlauf(Of SpielerInfo),
                                               spielRunden As SpielRunden) As Competition
         Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
         ' Syntax Checks
 
-        Return CompetitionFromXML(dateiPfad, competitionXML, spielRegeln, spielverlauf, spielRunden)
+        Return CompetitionFromXML(dateiPfad, competitionXML, spielRegeln, spielRunden)
     End Function
 End Class

@@ -9,8 +9,9 @@ Public Class MainWindowTests
     Public Sub Init()
         _Controller = New Moq.Mock(Of IController)
         Dim s = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
+        Dim c = Mock.Of(Of IComparer(Of SpielerInfo))
         Dim l = New SpielerListe From {
-            New Spieler("1", s) With {.Nachname = "Goppelt", .Vorname = "Marius"}
+            New Spieler(New SpielerInfo("1"), s, c) With {.Nachname = "Goppelt", .Vorname = "Marius"}
             }
         Dim r = New SpielRunden
         r.Push(New SpielRunde() From {New SpielPartie("Runde 2",

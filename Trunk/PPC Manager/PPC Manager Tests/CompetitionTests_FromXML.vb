@@ -15,7 +15,6 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         _reference = AusXML.CompetitionFromXML("D:\dummy.xml",
                                                xml,
                                                _regeln,
-                                               Moq.Mock.Of(Of ISpielverlauf(Of SpielerInfo)),
                                                New SpielRunden)
     End Sub
 
@@ -78,11 +77,9 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
         Dim node = (From x In doc.Root.<competition>
                     Where x.Attribute("age-group").Value = "A-Klasse"
                     Select x).Single
-        Dim s = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Assert.That(Sub()
                         Dim x = AusXML.CompetitionFromXML("D:\temp.xml", node,
                                               New SpielRegeln(3, True, True),
-                                              s,
                                               New SpielRunden)
                     End Sub, Throws.InstanceOf(Of SpielDatenUnvollständigException))
 

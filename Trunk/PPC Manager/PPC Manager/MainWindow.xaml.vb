@@ -34,7 +34,11 @@ Class MainWindow
         _Gewinnsätze = gewinnsätze
         Me.Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
-        Me.LiveListe.DataContext = spielerliste.Where(AddressOf FilterSpieler)
+        Dim s = New SpielerListe
+        For Each spieler In spielerliste.Where(AddressOf FilterSpieler)
+            s.Add(spieler)
+        Next
+        Me.LiveListe.DataContext = s
         Me.Begegnungen.SpielPartienListe.IstAbgeschlossen = Function(x) x.Abgeschlossen
         AktualisiereDaten()
     End Sub

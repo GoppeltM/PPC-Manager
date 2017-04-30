@@ -66,7 +66,23 @@
         _P.Add(satz2)
         _P.Add(satz3)
         _P.Add(satz4)
-        Assert.That(s.MeineVerlorenenSätze(_P, _SpielerB), [Is].EquivalentTo({satz1, satz2}))
+        Assert.That(s.MeineVerlorenenSätze(_P, _SpielerB), [Is].EqualTo(2))
+    End Sub
+
+    <Test>
+    Public Sub HatPartieGewonnen_false_wenn_Spieler_nicht_Teil_der_Partie()
+        Dim s = New Spielstand(3)
+        Assert.That(s.HatPartieGewonnen(_P, New SpielerInfo("C")), [Is].False)
+    End Sub
+
+    <Test>
+    Public Sub HatPartieGewonnen_true_wenn_Spieler_hat_alle_Gewinnsätze()
+        Dim s = New Spielstand(3)
+        Dim satz1 = New Satz With {.PunkteLinks = 11, .PunkteRechts = 0}
+        _P.Add(satz1)
+        _P.Add(satz1)
+        _P.Add(satz1)
+        Assert.That(s.HatPartieGewonnen(_P, _SpielerA), [Is].True)
     End Sub
 End Class
 

@@ -3,10 +3,16 @@
 Public Class SpielerInfoComparer
     Implements IComparer(Of SpielerInfo)
 
+    Private ReadOnly _BeachteSatzverhältnis As Boolean
+    Private ReadOnly _BeachteSonnebornBergerPunkte As Boolean
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
-    Public Sub New(spielverlauf As ISpielverlauf(Of SpielerInfo))
+    Public Sub New(spielverlauf As ISpielverlauf(Of SpielerInfo),
+                   beachteSatzverhältnis As Boolean,
+                   beachteSonnebornBergerPunkte As Boolean)
         _Spielverlauf = spielverlauf
+        _BeachteSatzverhältnis = beachteSatzverhältnis
+        _BeachteSonnebornBergerPunkte = beachteSonnebornBergerPunkte
     End Sub
 
     Public Function Compare(x As SpielerInfo, y As SpielerInfo) As Integer Implements IComparer(Of SpielerInfo).Compare
@@ -17,11 +23,15 @@ Public Class SpielerInfoComparer
         If diff <> 0 Then Return diff
         diff = _Spielverlauf.BerechneBuchholzPunkte(x) - _Spielverlauf.BerechneBuchholzPunkte(y)
         If diff <> 0 Then Return diff
+        If _BeachteSonnebornBergerPunkte Then
+            diff = _Spielverlauf.BerechneSonnebornBergerPunkte(x) - _Spielverlauf.BerechneSonnebornBergerPunkte(y)
+            If diff <> 0 Then Return diff
+        End If
+        If _BeachteSatzverhältnis Then
+            diff = _Spielverlauf.BerechneSatzDifferenz(x) - _Spielverlauf.BerechneSatzDifferenz(y)
+            If diff <> 0 Then Return diff
+        End If
 
-        diff = _Spielverlauf.BerechneSonnebornBergerPunkte(x) - _Spielverlauf.BerechneSonnebornBergerPunkte(y)
-        If diff <> 0 Then Return diff
-        diff = _Spielverlauf.BerechneSatzDifferenz(x) - _Spielverlauf.BerechneSatzDifferenz(y)
-        If diff <> 0 Then Return diff
         diff = x.TTRating - y.TTRating
         If diff <> 0 Then Return diff
         diff = x.TTRMatchCount - y.TTRMatchCount

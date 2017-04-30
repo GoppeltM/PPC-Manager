@@ -1,4 +1,6 @@
-﻿Public Class Spielstand
+﻿Imports PPC_Manager
+
+Public Class Spielstand
     Implements ISpielstand
     Private ReadOnly _GewinnSätze As Integer
 
@@ -17,7 +19,7 @@
         Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= _GewinnSätze
     End Function
 
-    Public Function MeineVerlorenenSätze(partie As SpielPartie, ich As SpielerInfo) As IList(Of Satz) Implements ISpielstand.MeineVerlorenenSätze
+    Public Function MeineVerlorenenSätze(partie As SpielPartie, ich As SpielerInfo) As Integer Implements ISpielstand.MeineVerlorenenSätze
         Dim verlorenLinks = From x In partie Where SatzAbgeschlossen(x) AndAlso x.PunkteRechts > x.PunkteLinks
                             Select x
 
@@ -25,10 +27,13 @@
                              Select x
 
         If partie.SpielerLinks = ich Then
-            Return verlorenLinks.ToList
-        Else
-            Return verlorenRechts.ToList
+            Return verlorenLinks.Count
         End If
+
+        If partie.SpielerRechts = ich Then
+            Return verlorenRechts.Count
+        End If
+        Return 0
     End Function
 
     Public Function MeineGewonnenenSätze(partie As SpielPartie, ByVal ich As SpielerInfo) As Integer Implements ISpielstand.MeineGewonnenenSätze
@@ -43,9 +48,12 @@
 
         If partie.SpielerLinks = ich Then
             Return gewonnenLinks.Count
-        Else
+        End If
+
+        If partie.SpielerRechts = ich Then
             Return gewonnenRechts.Count
         End If
+        Return 0
     End Function
 
     Private Function SatzLinksGewonnen(s As Satz) As Boolean
@@ -63,4 +71,15 @@
             AndAlso Math.Abs(s.PunkteLinks - s.PunkteRechts) >= 2
     End Function
 
+    Public Function HatPartieGewonnen(x As SpielPartie, t As SpielerInfo) As Boolean Implements ISpielstand.HatPartieGewonnen
+        If x.SpielerLinks <> t And x.SpielerRechts <> t Then
+            Return False
+        End If
+        Dim gewonnen = MeineGewonnenenSätze(x, t)
+        Dim verloren = MeineVerlorenenSätze(x, t)
+        If gewonnen >= _GewinnSätze AndAlso gewonnen > verloren Then
+            Return True
+        End If
+        Return False
+    End Function
 End Class

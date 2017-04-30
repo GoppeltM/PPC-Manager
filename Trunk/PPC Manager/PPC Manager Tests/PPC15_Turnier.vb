@@ -15,13 +15,13 @@ Public Class PPC15_Turnier_Klasse_D
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
         Dim ausgeschiedeneSpielerIds = r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
-        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, s, r)
+        AktuelleCompetition = AusXML.CompetitionFromXML("D:\dummy.xml", KlassementD, regeln, r)
         Dim AktiveListe = From x In AktuelleCompetition.SpielerListe
                           Where Not ausgeschiedeneSpielerIds.Contains(x.Id)
                           Select x
         Dim OrganisierePakete = Function()
                                     Dim spielverlaufCache = New SpielverlaufCache(s)
-                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache)
+                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache, regeln.SatzDifferenz, regeln.SonneBornBerger)
                                     Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, habenGegeinanderGespielt)
                                     Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
                                     Dim l = AktiveListe.ToList()
@@ -111,10 +111,8 @@ Public Class PPC15_Turnier_Klasse_D
         "Wild"
         }
         Dim tatsächlich = AktuelleCompetition.SpielerListe.ToList
-        tatsächlich.Sort()
-        tatsächlich.Reverse()
-        Dim NachnamenResult = (From x In tatsächlich Select x.Nachname).ToList
-        CollectionAssert.AreEqual(Nachnamen, NachnamenResult)
+        Dim NachnamenResult = (From x In tatsächlich Order By x.Nachname Descending Select x.Nachname).ToList
+        Assert.That(Nachnamen, [Is].EquivalentTo(NachnamenResult))
     End Sub
 
     <Test>

@@ -7,24 +7,20 @@ Public Class Spieler
 #Region "Public Properties"
 
     Protected ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
-    Private ReadOnly _Comparer As SpielerInfoComparer
+    Private ReadOnly _Comparer As IComparer(Of SpielerInfo)
 
-    Public Sub New(id As String, spielverlauf As ISpielverlauf(Of SpielerInfo))
-        MyBase.New(id)
-        _Spielverlauf = spielverlauf
-        _Comparer = New SpielerInfoComparer(_Spielverlauf)
-    End Sub
-
-    Public Sub New(spieler As SpielerInfo, spielverlauf As ISpielverlauf(Of SpielerInfo))
+    Public Sub New(spieler As SpielerInfo,
+                   spielverlauf As ISpielverlauf(Of SpielerInfo),
+                   vergleicher As IComparer(Of SpielerInfo))
         MyBase.New(spieler)
         _Spielverlauf = spielverlauf
-        _Comparer = New SpielerInfoComparer(_Spielverlauf)
+        _Comparer = vergleicher
     End Sub
 
     Public Sub New(spieler As Spieler)
         MyBase.New(spieler)
         _Spielverlauf = spieler._Spielverlauf
-        _Comparer = New SpielerInfoComparer(_Spielverlauf)
+        _Comparer = spieler._Comparer
     End Sub
 
     Public ReadOnly Property Punkte As Integer
