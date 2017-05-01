@@ -124,6 +124,14 @@ Public Class SpielPartie
         Return True
     End Function
 
+    Public Shared Operator <>(ByVal left As SpielPartie, ByVal right As SpielPartie) As Boolean
+        Return Not left = right
+    End Operator
+
+    Public Shared Operator =(ByVal left As SpielPartie, ByVal right As SpielPartie) As Boolean
+        Return left.Equals(right)
+    End Operator
+
     Public ReadOnly Property MySelf As SpielPartie
         Get
             Return Me

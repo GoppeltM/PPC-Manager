@@ -19,4 +19,18 @@
         Assert.AreEqual(Partie.SpielerRechts, SpielerA)
     End Sub
 
+    <Test>
+    Sub Unterschiedliche_Partien_sind_ungleich()
+        Dim partieA = New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B"), 3)
+        Dim partieB = New SpielPartie("Runde 2", New SpielerInfo("A"), New SpielerInfo("B"), 3)
+        Assert.That(partieA <> partieB)
+    End Sub
+
+    <Test>
+    Sub Gleiche_Partien_sind_gleich()
+        Dim partieA = New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B"), 3)
+        Dim partieB = New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B"), 3)
+        Assert.That(partieA, [Is].EqualTo(partieB))
+    End Sub
+
 End Class

@@ -21,7 +21,7 @@ Imports Moq
         Dim r As New SpielRunden
         Dim s As New Spielverlauf(r.SelectMany(Function(m) m),
                                   r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
-                                  New SpielRegeln(3, True, True), New Spielstand(3))
+                                  New Spielstand(3))
         Dim habenGegeinanderGespielt = Function(a As SpielerInfo, b As SpielerInfo) s.Habengegeneinandergespielt(a, b)
 
         Dim ausgeschiedeneSpielerIds = r.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)

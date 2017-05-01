@@ -31,7 +31,7 @@ Class Application
             Dim spielpartien = spielRunden.SelectMany(Function(m) m)
             Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
             Dim spielstand = New Spielstand(spielRegeln.Gewinnsätze)
-            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielRegeln, spielstand)
+            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielstand)
             Try
                 Dim doc = XDocument.Load(.XMLPathText.Text)
                 AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielRunden)
@@ -52,7 +52,6 @@ Class Application
                                       klassement,
                                       spielerWrapped,
                                       AktiveCompetition.SpielRunden,
-                                      spielRegeln,
                                       AddressOf excelFabrik.HoleDokument, New Spielstand(spielRegeln.Gewinnsätze))
             Dim ausgeschiedeneSpielerIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
 

@@ -7,7 +7,6 @@ Public Class ReportFactory
     Private ReadOnly _Altersgruppe As String
     Private ReadOnly _Spieler As IEnumerable(Of Spieler)
     Private ReadOnly _SpielRunden As IEnumerable(Of SpielRunde)
-    Private ReadOnly _spielRegeln As SpielRegeln
     Private ReadOnly _HoleDokument As Func(Of String, ITurnierReport)
     Private ReadOnly _Spielstand As ISpielstand
 
@@ -15,14 +14,12 @@ Public Class ReportFactory
                    altersgruppe As String,
                    spieler As IEnumerable(Of Spieler),
                    spielrunden As IEnumerable(Of SpielRunde),
-                   spielregeln As SpielRegeln,
                    holeDokument As Func(Of String, ITurnierReport),
                    spielstand As ISpielstand)
         _DateiPfad = dateipfad
         _Altersgruppe = altersgruppe
         _Spieler = spieler
         _SpielRunden = spielrunden
-        _spielRegeln = spielregeln
         _HoleDokument = holeDokument
         _Spielstand = spielstand
     End Sub
@@ -35,7 +32,7 @@ Public Class ReportFactory
         Dim spielpartien = (From x In _SpielRunden.Skip(1).Reverse Select x).SelectMany(Function(m) m)
         Dim spielverlauf = New Spielverlauf(spielpartien,
                                             _SpielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
-                                            _spielRegeln, _Spielstand)
+                                            _Spielstand)
         Dim exportSpieler = (From x In _Spieler Select New ExportSpieler(x, spielpartien)).ToList
         exportSpieler.Sort()
         exportSpieler.Reverse()
