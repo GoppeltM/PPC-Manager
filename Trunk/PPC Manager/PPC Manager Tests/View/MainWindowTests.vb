@@ -20,7 +20,7 @@ Public Class MainWindowTests
                                     New SpielPartie("Runde 2",
                                                     New SpielerInfo("3") With {.Vorname = "Rick"},
                                                     New SpielerInfo("4") With {.Vorname = "Gerard"}, 3)})
-        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", 3)
+        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", 3, Mock.Of(Of ISpielstand))
     End Sub
 
     <Test>

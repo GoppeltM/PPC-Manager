@@ -16,6 +16,8 @@ Public Class SpielPartieDetail
         Punkte.SelectAll()
     End Sub
 
+    Public Property IstAbgeschlossen As Predicate(Of SpielPartie) = Function(x) False
+
     Private Sub SpielPartieDetail_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
     End Sub
@@ -56,7 +58,7 @@ Public Class SpielPartieDetail
 
         Dim s = TryCast(DataContext, SpielPartie)
         If s Is Nothing Then Return
-        e.CanExecute = Not s.Abgeschlossen
+        e.CanExecute = Not IstAbgeschlossen(s)
     End Sub
 
     Private Sub CommandBinding_Executed_1(sender As Object, e As ExecutedRoutedEventArgs)

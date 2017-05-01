@@ -21,17 +21,20 @@ Class MainWindow
     Private ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
     Private ReadOnly _Gewinnsätze As Integer
+    Private ReadOnly _Spielstand As ISpielstand
     Private Property PlayoffIstAktiv As Boolean = False
 
     Sub New(controller As IController,
             spielerliste As IEnumerable(Of Spieler),
             spielrunden As SpielRunden,
             titel As String,
-            gewinnsätze As Integer)
+            gewinnsätze As Integer,
+            spielstand As ISpielstand)
         InitializeComponent()
         _Controller = controller
         _Spielrunden = spielrunden
         _Gewinnsätze = gewinnsätze
+        _Spielstand = spielstand
         Me.Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
         Dim s = New SpielerListe
@@ -39,7 +42,9 @@ Class MainWindow
             s.Add(spieler)
         Next
         Me.LiveListe.DataContext = s
-        Me.Begegnungen.SpielPartienListe.IstAbgeschlossen = Function(x) x.Abgeschlossen
+        Me.Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        Me.Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        Me.Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         AktualisiereDaten()
     End Sub
 
@@ -109,7 +114,7 @@ Class MainWindow
             End If
 
             Dim AktuellePartien = .Peek.ToList
-            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(x.Abgeschlossen)
+            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(_Spielstand.IstAbgeschlossen(x))
 
             e.CanExecute = AlleAbgeschlossen
         End With

@@ -4,6 +4,7 @@ Class Begegnungen
 
 
     Public Property BegegnungenFiltern As Boolean = False
+    Public Property IstAbgeschlossen As Predicate(Of SpielPartie) = Function(x) False
 
     Public Sub New()
 
@@ -19,7 +20,7 @@ Class Begegnungen
         End If
 
         Dim partie As SpielPartie = CType(e.Item, SpielPartie)
-        e.Accepted = Not partie.Abgeschlossen
+        e.Accepted = Not IstAbgeschlossen(partie)
     End Sub
 
     Private WithEvents Begegnungsliste As ListBox

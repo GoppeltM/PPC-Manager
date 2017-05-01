@@ -2,8 +2,14 @@
 Imports DocumentFormat.OpenXml
 Imports DocumentFormat.OpenXml.Packaging
 Imports DocumentFormat.OpenXml.Spreadsheet
+Imports PPC_Manager
 
 Public Class ExcelFabrik
+    Private ReadOnly _Spielstand As ISpielstand
+
+    Public Sub New(spielstand As ISpielstand)
+        _Spielstand = spielstand
+    End Sub
 
     Public Function HoleDokument(pfad As String) As ITurnierReport
         Dim doc As IExcelDokument
@@ -12,7 +18,7 @@ Public Class ExcelFabrik
         Else
             doc = CreateEmptyExcelDocument(pfad)
         End If
-        Return New TurnierReport(doc)
+        Return New TurnierReport(doc, _Spielstand)
     End Function
 
     Private Shared Function OpenExistingExcelDocument(path As String) As IExcelDokument

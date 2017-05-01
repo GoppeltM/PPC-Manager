@@ -1,12 +1,13 @@
 ﻿Imports System.IO
-
+Imports PPC_Manager
 
 Public Class TurnierReport
     Implements IDisposable
     Implements ITurnierReport
 
-    Public Sub New(dokument As IExcelDokument)
+    Public Sub New(dokument As IExcelDokument, spielstand As ISpielstand)
         _SpreadSheet = dokument
+        _Spielstand = spielstand
     End Sub
 
     Private ReadOnly _SpreadSheet As IExcelDokument
@@ -50,8 +51,9 @@ Public Class TurnierReport
         Dim current = 2UI
 
         For Each ergebnis In spielPartien
-            Dim Werte = {ergebnis.SpielerLinks.Id, ergebnis.SpielerRechts.Id, ergebnis.MeineGewonnenenSätze(ergebnis.SpielerLinks).Count.ToString,
-                         ergebnis.MeineGewonnenenSätze(ergebnis.SpielerRechts).Count.ToString}
+            Dim Werte = {ergebnis.SpielerLinks.Id, ergebnis.SpielerRechts.Id,
+                _Spielstand.MeineGewonnenenSätze(ergebnis, ergebnis.SpielerLinks).ToString,
+                         _Spielstand.MeineGewonnenenSätze(ergebnis, ergebnis.SpielerRechts).ToString}
             _SpreadSheet.NeueZeile(currentName, current, Werte)
             current += 1UI
         Next
@@ -60,6 +62,7 @@ Public Class TurnierReport
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls
+    Private ReadOnly _Spielstand As ISpielstand
 
     ' IDisposable
     Protected Overridable Sub Dispose(disposing As Boolean)

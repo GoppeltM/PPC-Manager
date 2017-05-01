@@ -59,62 +59,6 @@ Public Class SpielPartie
         End Get
     End Property
 
-    Private GewinnPunkte As Integer = My.Settings.GewinnPunkte
-
-    Private Function SatzAbgeschlossen(s As Satz) As Boolean
-        Return Math.Max(s.PunkteLinks, s.PunkteRechts) >= GewinnPunkte _
-            AndAlso Math.Abs(s.PunkteLinks - s.PunkteRechts) >= 2
-    End Function
-
-    Private Function SatzLinksGewonnen(s As Satz) As Boolean
-        Return SatzAbgeschlossen(s) AndAlso s.PunkteLinks > s.PunkteRechts
-    End Function
-
-    Private Function SatzRechtsGewonnen(s As Satz) As Boolean
-        Return SatzAbgeschlossen(s) AndAlso s.PunkteLinks < s.PunkteRechts
-    End Function
-
-    Public Overridable ReadOnly Property Abgeschlossen() As Boolean
-        Get
-            Dim AbgeschlosseneSätzeLinks = Aggregate x In Me Where SatzLinksGewonnen(x) Into Count()
-
-            Dim AbgeschlosseneSätzeRechts = Aggregate x In Me Where SatzRechtsGewonnen(x) Into Count()
-
-            Return Math.Max(AbgeschlosseneSätzeLinks, AbgeschlosseneSätzeRechts) >= _GewinnSätze
-        End Get
-    End Property
-
-    Public ReadOnly Property MeineVerlorenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
-        Get
-            Dim verlorenLinks = From x In Me Where SatzAbgeschlossen(x) AndAlso x.PunkteRechts > x.PunkteLinks
-                                Select x
-
-            Dim verlorenRechts = From x In Me Where SatzAbgeschlossen(x) AndAlso x.PunkteLinks > x.PunkteRechts
-                                 Select x
-
-            If SpielerLinks = ich Then
-                Return verlorenLinks.ToList
-            Else
-                Return verlorenRechts.ToList
-            End If
-        End Get
-    End Property
-
-    <Obsolete("Spielstand stattdessen")>
-    Public Overridable ReadOnly Property MeineGewonnenenSätze(ByVal ich As SpielerInfo) As IList(Of Satz)
-        Get
-            Dim gewonnenLinks = From x In Me Where SatzLinksGewonnen(x)
-
-            Dim gewonnenRechts = From x In Me Where (SatzRechtsGewonnen(x))
-
-            If SpielerLinks = ich Then
-                Return gewonnenLinks.ToList
-            Else
-                Return gewonnenRechts.ToList
-            End If
-        End Get
-    End Property
-
     Public Overrides Function Equals(obj As Object) As Boolean
         Dim other = TryCast(obj, SpielPartie)
         If other Is Nothing Then Return False

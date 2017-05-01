@@ -5,7 +5,7 @@ Public Class ZuXMLTests
     <Test>
     Public Sub ToXML_mit_leeren_SpielRunden_ist_leer()
         Dim s As New SpielRunden()
-        Dim ergebnis = ZuXML.ToXML(s)
+        Dim ergebnis = ZuXML.ToXML(s, Mock.Of(Of ISpielstand))
         Assert.That(ergebnis, [Is].Empty)
     End Sub
 
@@ -29,7 +29,7 @@ Public Class ZuXMLTests
         runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1), 3) With {.ZeitStempel = Zeitstempel})
         runden.Push(runde)
 
-        Dim spielPartien As IEnumerable(Of XElement) = ZuXML.ToXML(runden)
+        Dim spielPartien As IEnumerable(Of XElement) = ZuXML.ToXML(runden, Mock.Of(Of ISpielstand))
         Dim Dummy = <Dummy xmlns:ppc="http://www.ttc-langensteinbach.de">
                         <%= spielPartien %>
                     </Dummy>
@@ -65,12 +65,14 @@ Public Class ZuXMLTests
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
 
-        Dim result = ZuXML.PartieZuXML(Partie, 5)
+        Dim spielstand = Mock.Of(Of ISpielstand)(Function(x) x.MeineGewonnenenSätze(Partie, Partie.SpielerLinks) = 2 _
+                                                     AndAlso x.MeineGewonnenenSätze(Partie, Partie.SpielerRechts) = 1)
+        Dim result = ZuXML.PartieZuXML(Partie, spielstand, 5)
 
         Assert.AreEqual("Runde 1", result.@group)
         Assert.AreEqual("19", result.Attribute("games-b").Value)
         Assert.AreEqual("2", result.Attribute("sets-a").Value)
-        Assert.IsTrue(XNode.DeepEquals(MatchXml, result))
+        Assert.That(XNode.DeepEquals(MatchXml, result))
 
     End Sub
 
@@ -89,8 +91,10 @@ Public Class ZuXMLTests
                            matches-a="1" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="5" set-a-1="11" set-a-2="6"
                            set-a-3="11" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0" set-b-1="5"
                            set-b-2="11" set-b-3="3" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>
+        Dim spielstand = Mock.Of(Of ISpielstand)(Function(x) x.MeineGewonnenenSätze(Partie, Partie.SpielerLinks) = 2 _
+                                                     AndAlso x.MeineGewonnenenSätze(Partie, Partie.SpielerRechts) = 1)
 
-        Dim result = ZuXML.PartieZuXML(Partie, 5)
+        Dim result = ZuXML.PartieZuXML(Partie, spielstand, 5)
 
         Assert.AreEqual("Runde 1", result.@group)
         Assert.AreEqual("19", result.Attribute("games-b").Value)

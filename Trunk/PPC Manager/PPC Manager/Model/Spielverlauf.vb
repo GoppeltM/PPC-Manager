@@ -97,7 +97,7 @@ Public Class Spielverlauf
         Return Aggregate x In _Spielpartien
                    Where x.SpielerLinks = t Or x.SpielerRechts = t
                    Where Not TypeOf x Is FreiLosSpiel
-                       Into Sum(x.MeineVerlorenenSätze(t).Count)
+                       Into Sum(_Spielstand.MeineVerlorenenSätze(x, t))
     End Function
 
     Public Function BerechneSatzDifferenz(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneSatzDifferenz

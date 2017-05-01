@@ -44,7 +44,7 @@ Class Application
 
             Resources("KlassementName") = AktiveCompetition.Altersgruppe
             Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
-            Dim excelFabrik = New ExcelFabrik()
+            Dim excelFabrik = New ExcelFabrik(spielstand)
             Dim vergleicher = New SpielerInfoComparer(spielverlauf, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
             Dim spielerWrapped = From x In AktiveCompetition.SpielerListe
                                  Select New Spieler(x, spielverlauf, vergleicher)
@@ -82,7 +82,9 @@ Class Application
             Dim window = New MainWindow(controller,
                                         spielerWrapped,
                                         spielRunden,
-                                        klassement, spielRegeln.Gewinnsätze)
+                                        klassement,
+                                        spielRegeln.Gewinnsätze,
+                                        spielstand)
             MainWindow = window
             window.Show()
             ShutdownMode = ShutdownMode.OnMainWindowClose

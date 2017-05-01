@@ -1,18 +1,20 @@
 ﻿Imports System.Collections.ObjectModel
+Imports PPC_Manager
 
 Public Class RanglisteSeite
 
     Public Sub New(altersgruppe As String,
                    rundenNummer As Integer,
                    elemente As IEnumerable(Of Spieler),
-                   spielpartien As IEnumerable(Of SpielPartie))
+                   spielpartien As IEnumerable(Of SpielPartie),
+                   spielstand As ISpielstand)
         ' This call is required by the designer.
         InitializeComponent()
         KlassementName.Text = altersgruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         Me.RundenNummer.Text = String.Format("Runde Nr. {0}", rundenNummer)
 
-        Dim druckSpieler = From x In elemente Select New RangListeSpieler(x, spielpartien)
+        Dim druckSpieler = From x In elemente Select New RangListeSpieler(x, spielpartien, spielstand)
 
         Dim res = CType(FindResource("Spieler"), RangListeSpielerListe)
         For Each s In druckSpieler
@@ -57,10 +59,15 @@ Public Class RangListeSpieler
     Inherits Spieler
 
     Private ReadOnly _Spielpartien As IEnumerable(Of SpielPartie)
+    Private ReadOnly _Spielstand As ISpielstand
 
-    Public Sub New(spieler As Spieler, spielPartien As IEnumerable(Of SpielPartie))
+    Public Sub New(spieler As Spieler,
+                   spielPartien As IEnumerable(Of SpielPartie),
+                   spielstand As ISpielstand)
         MyBase.New(spieler)
         _Spielpartien = spielPartien
+        _Spielstand = spielstand
+
     End Sub
 
     Public ReadOnly Property MeineSpieleDruck As IEnumerable(Of String)
@@ -70,7 +77,7 @@ Public Class RangListeSpieler
             For Each s In gespieltePartien
 
                 Dim text = s.MeinGegner(Me).StartNummer.ToString
-                If Gewonnen(s) Then
+                If _Spielstand.HatPartieGewonnen(s, Me) Then
                     text &= "G"
                 Else
                     text &= "V"
@@ -80,15 +87,6 @@ Public Class RangListeSpieler
             Return l
         End Get
     End Property
-
-    Public ReadOnly Property Gewonnen(p As SpielPartie) As Boolean
-        Get
-            If p.Abgeschlossen() AndAlso p.MeineGewonnenenSätze(Me).Count _
-                > p.MeineVerlorenenSätze(Me).Count Then Return True
-            Return False
-        End Get
-    End Property
-
 End Class
 
 Public Class RangListeSpielerListe

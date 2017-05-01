@@ -3,13 +3,17 @@
 Public Class ZuXML
 
 
-    Public Shared Sub SaveXML(dateipfad As String, spielregeln As SpielRegeln, altersgruppe As String, spielrunden As SpielRunden)
+    Public Shared Sub SaveXML(dateipfad As String,
+                              spielregeln As SpielRegeln,
+                              altersgruppe As String,
+                              spielrunden As SpielRunden)
         Dim doc = XDocument.Load(dateipfad)
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = altersgruppe).Single
         CompetitionNode.@ppc:satzdifferenz = spielregeln.SatzDifferenz.ToString.ToLower
         CompetitionNode.@ppc:gewinnsätze = spielregeln.Gewinnsätze.ToString
         CompetitionNode.@ppc:sonnebornberger = spielregeln.SonneBornBerger.ToString.ToLower
-        Dim runden = ToXML(spielrunden)
+        Dim spielstand = New Spielstand(spielregeln.Gewinnsätze)
+        Dim runden = ToXML(spielrunden, spielstand)
         CompetitionNode.<matches>.Remove()
         CompetitionNode.Add(<matches>
                                 <%= runden %>
@@ -23,17 +27,17 @@ Public Class ZuXML
         BereinigtesDoc.Save(ClickTTPfad)
     End Sub
 
-    Public Shared Function ToXML(runden As SpielRunden) As IEnumerable(Of XElement)
+    Public Shared Function ToXML(runden As SpielRunden, spielstand As ISpielstand) As IEnumerable(Of XElement)
 
         Dim xSpielRunden As New List(Of XElement)
 
         For Each SpielRunde In runden.Reverse
             Dim matchNr = 0
             For Each Match In From x In SpielRunde
-                              Let y = PartieZuXML(x, Function() As Integer
-                                                         matchNr += 1
-                                                         Return matchNr
-                                                     End Function()) Select y
+                              Let y = PartieZuXML(x, spielstand, Function() As Integer
+                                                                     matchNr += 1
+                                                                     Return matchNr
+                                                                 End Function()) Select y
                 xSpielRunden.Add(Match)
             Next
         Next
@@ -71,14 +75,14 @@ Public Class ZuXML
     End Sub
 
 
-    Shared Function PartieZuXML(partie As SpielPartie, matchNr As Integer) As XElement
+    Shared Function PartieZuXML(partie As SpielPartie, spielstand As ISpielstand, matchNr As Integer) As XElement
         If TypeOf partie Is FreiLosSpiel Then
             Dim freilos = CType(partie, FreiLosSpiel)
             Return <ppc:freematch player=<%= freilos.SpielerLinks.Id %> group=<%= freilos.RundenName %>
                        scheduled=<%= freilos.ZeitStempel.ToString("yyyy-MM-dd HH:mm") %>/>
         End If
-        Dim SätzeLinks = partie.MeineGewonnenenSätze(partie.SpielerLinks).Count
-        Dim SätzeRechts = partie.MeineGewonnenenSätze(partie.SpielerRechts).Count
+        Dim SätzeLinks = spielstand.MeineGewonnenenSätze(partie, partie.SpielerLinks)
+        Dim SätzeRechts = spielstand.MeineGewonnenenSätze(partie, partie.SpielerRechts)
 
         Dim GewonnenLinks = 0
         Dim GewonnenRechts = 0

@@ -57,8 +57,6 @@ Public Class AusXMLTests
 
         Dim Partie = AusXML.SpielPartieFromXML({SpielerA, SpielerB}, MatchXml, 3)
         With Partie
-            Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
-            Assert.AreEqual(0, .MeineGewonnenenSätze(SpielerB).Count)
             CollectionAssert.AreEqual({5, 9, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
             Assert.AreEqual(SpielerB, .MeinGegner(SpielerA))
@@ -78,8 +76,6 @@ Public Class AusXMLTests
 
         Dim Partie = AusXML.SpielPartieFromXML({SpielerA, SpielerB}, MatchXml, 3)
         With Partie
-            Assert.AreEqual(3, .MeineGewonnenenSätze(SpielerA).Count)
-            Assert.AreEqual(0, .MeineGewonnenenSätze(SpielerB).Count)
             CollectionAssert.AreEqual({5, 0, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
             Assert.AreEqual(SpielerB, .MeinGegner(SpielerA))
