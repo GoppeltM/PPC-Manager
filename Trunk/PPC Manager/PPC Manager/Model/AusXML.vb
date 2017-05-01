@@ -20,7 +20,7 @@ Public Class AusXML
         For Each s In spielerInfos
             spielerliste.Add(s)
         Next
-        SpielRundenFromXML(spielrunden, spielerliste, node.<matches>.SingleOrDefault, spielRegeln.Gewinnsätze)
+        SpielRundenFromXML(spielrunden, spielerliste, node.<matches>.SingleOrDefault)
         Dim altersgruppe = node.Attribute("age-group").Value
 
         Return New Competition(spielRegeln, spielrunden, spielerliste, altersgruppe)
@@ -61,7 +61,7 @@ Public Class AusXML
 
     Public Shared Sub SpielRundenFromXML(spielRunden As SpielRunden,
                                               ByVal spielerListe As IEnumerable(Of SpielerInfo),
-                                              ByVal matchesKnoten As XElement, gewinnsätze As Integer)
+                                              ByVal matchesKnoten As XElement)
         If matchesKnoten Is Nothing Then
             Return
         End If
@@ -74,7 +74,7 @@ Public Class AusXML
         Dim rundeNull = New SpielRunde
         spielRunden.Push(rundeNull)
         For Each xRunde In xSpielPartien
-            spielRunden.Push(SpielRundeFromXML(spielerListe, xRunde.Runde, gewinnsätze))
+            spielRunden.Push(SpielRundeFromXML(spielerListe, xRunde.Runde))
         Next
 
         Dim ausgeschiedeneSpieler = From x In matchesKnoten.<ppc:inactiveplayer>
@@ -91,29 +91,30 @@ Public Class AusXML
         Next
     End Sub
 
-    Public Shared Function SpielRundeFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xSpiele As IEnumerable(Of XElement), gewinnsätze As Integer) As SpielRunde
+    Public Shared Function SpielRundeFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo),
+                                             ByVal xSpiele As IEnumerable(Of XElement)) As SpielRunde
         Dim runde As New SpielRunde
         For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"
-            runde.Add(SpielPartieFromXML(spielerListe, xSpielPartie, gewinnsätze))
+            runde.Add(SpielPartieFromXML(spielerListe, xSpielPartie))
         Next
         Dim xFreilos = (From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de") + "freematch").SingleOrDefault
         If xFreilos IsNot Nothing Then
-            runde.Add(FreilosFromXML(spielerListe, xFreilos, gewinnsätze))
+            runde.Add(FreilosFromXML(spielerListe, xFreilos))
         End If
 
         Return runde
     End Function
 
-    Shared Function FreilosFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xFreilosSpiel As XElement, gewinnsätze As Integer) As FreiLosSpiel
+    Shared Function FreilosFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xFreilosSpiel As XElement) As FreiLosSpiel
         Dim spieler = (From x In spielerListe Where x.Id = xFreilosSpiel.@player Select x).First
-        Return New FreiLosSpiel(xFreilosSpiel.@group, spieler, gewinnsätze)
+        Return New FreiLosSpiel(xFreilosSpiel.@group, spieler)
     End Function
 
-    Shared Function SpielPartieFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xSpielPartie As XElement, gewinnsätze As Integer) As SpielPartie
+    Shared Function SpielPartieFromXML(ByVal spielerListe As IEnumerable(Of SpielerInfo), ByVal xSpielPartie As XElement) As SpielPartie
         Dim spielerA = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-a").Value Select x).First
         Dim spielerB = (From x In spielerListe Where x.Id = xSpielPartie.Attribute("player-b").Value Select x).First
 
-        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB, gewinnsätze)
+        Dim partie As New SpielPartie(xSpielPartie.@group, spielerA, spielerB)
 
         Dim SätzeA = From x In xSpielPartie.Attributes Where x.Name.LocalName.Contains("set-a") Order By x.Name.LocalName Ascending
 

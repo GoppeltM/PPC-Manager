@@ -54,7 +54,7 @@ Imports Moq
                                                End Sub,
                                                Mock.Of(Of IReportFactory),
                                                OrganisierePakete,
-                                               druckFabrik, 3)
+                                               druckFabrik)
     End Sub
 
 
@@ -145,7 +145,7 @@ Imports Moq
     Private Sub NächsteRunde(rundenName As String)
 
         Dim XMLPartien = From x In _JungenU18.<matches>.Elements Where x.@group = rundenName
-        Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(_AktiveListe, XMLPartien, 3) Order By x.GetType.Name Descending
+        Dim ErwarteteErgebnisse = From x In AusXML.SpielRundeFromXML(_AktiveListe, XMLPartien) Order By x.GetType.Name Descending
 
 
         Dim paarungen = _Controller.NächsteRunde(rundenName)

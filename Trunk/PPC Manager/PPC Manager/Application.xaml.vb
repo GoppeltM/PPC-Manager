@@ -77,13 +77,11 @@ Class Application
             Dim controller = New MainWindowController(speichern,
                                                       r,
                                                       OrganisierePakete,
-                                                      druckFabrik,
-                                                      spielRegeln.Gewinnsätze)
+                                                      druckFabrik)
             Dim window = New MainWindow(controller,
                                         spielerWrapped,
                                         spielRunden,
                                         klassement,
-                                        spielRegeln.Gewinnsätze,
                                         spielstand)
             MainWindow = window
             window.Show()

@@ -95,7 +95,7 @@ Public Class FixedPageFabrikTests
         Dim r = New SpielRunde
         For Each nummer In Enumerable.Range(1, 200)
             Dim s As New SpielerInfo("Spieler" & nummer)
-            r.Add(New FreiLosSpiel("Runde XY", s, 3))
+            r.Add(New FreiLosSpiel("Runde XY", s))
         Next
         _Runden.Push(r)
         Dim e As New SeitenEinstellung With {.Höhe = 1000, .Breite = 600}

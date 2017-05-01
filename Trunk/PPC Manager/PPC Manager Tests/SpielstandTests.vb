@@ -7,7 +7,7 @@
     Public Sub Init()
         _SpielerA = New SpielerInfo("A")
         _SpielerB = New SpielerInfo("B")
-        _P = New SpielPartie("Runde 1", _SpielerA, _SpielerB, 3)
+        _P = New SpielPartie("Runde 1", _SpielerA, _SpielerB)
     End Sub
 
     <Test>
@@ -37,14 +37,14 @@
     <Test>
     Public Sub IstAbgeschlossen_ist_true_wenn_Freilos()
         Dim s = New Spielstand(3)
-        Dim f = New FreiLosSpiel("Runde 1", New SpielerInfo("A"), 3)
+        Dim f = New FreiLosSpiel("Runde 1", New SpielerInfo("A"))
         Assert.That(s.IstAbgeschlossen(f), [Is].True)
     End Sub
 
     <Test>
     Public Sub MeineGewonnenenSätze_sind_immer_Maximum_wenn_Freilos()
         Dim s = New Spielstand(3)
-        Dim f = New FreiLosSpiel("Runde 1", New SpielerInfo("A"), 3)
+        Dim f = New FreiLosSpiel("Runde 1", New SpielerInfo("A"))
         Assert.That(s.MeineGewonnenenSätze(f, New SpielerInfo("A")), [Is].EqualTo(3))
     End Sub
     <Test>

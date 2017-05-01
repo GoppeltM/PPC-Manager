@@ -20,7 +20,7 @@ Imports System.Windows
                                                   End Sub,
                                          Mock.Of(Of IReportFactory),
                                          organisierePakete,
-                                         Mock.Of(Of IFixedPageFabrik), 3)
+                                         Mock.Of(Of IFixedPageFabrik))
         Dim result = controller.NächsteRunde("Runde 3")
         Assert.That(result.First.SpielerLinks, [Is].EqualTo(a))
         Assert.That(result.First.SpielerRechts, [Is].EqualTo(b))
@@ -36,7 +36,7 @@ Imports System.Windows
                                                   End Sub,
                                                   Mock.Of(Of IReportFactory),
                                                   Function() New PaarungsContainer(Of SpielerInfo),
-                                                  druckFabrik.Object, 3)
+                                                  druckFabrik.Object)
         Dim DruckenMock = New Mock(Of IPrinter)
         Controller.RundenendeDrucken(DruckenMock.Object)
         druckFabrik.Verify(Sub(m) m.ErzeugeRanglisteSeiten(It.IsAny(Of ISeiteneinstellung)), Times.Once)

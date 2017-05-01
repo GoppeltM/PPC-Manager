@@ -16,11 +16,11 @@ Public Class MainWindowTests
         Dim r = New SpielRunden
         r.Push(New SpielRunde() From {New SpielPartie("Runde 2",
                                                       New SpielerInfo("1") With {.Vorname = "Marius"},
-                                                      New SpielerInfo("2") With {.Vorname = "Stefan"}, 3),
+                                                      New SpielerInfo("2") With {.Vorname = "Stefan"}),
                                     New SpielPartie("Runde 2",
                                                     New SpielerInfo("3") With {.Vorname = "Rick"},
-                                                    New SpielerInfo("4") With {.Vorname = "Gerard"}, 3)})
-        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", 3, Mock.Of(Of ISpielstand))
+                                                    New SpielerInfo("4") With {.Vorname = "Gerard"})})
+        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", Mock.Of(Of ISpielstand))
     End Sub
 
     <Test>

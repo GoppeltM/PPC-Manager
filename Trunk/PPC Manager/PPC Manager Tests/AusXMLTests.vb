@@ -22,7 +22,7 @@ Public Class AusXMLTests
                                                   New SpielerInfo("PLAYER127"),
                                                   New SpielerInfo("PLAYER126"),
                                                   New SpielerInfo("PLAYER72"),
-                                                  New SpielerInfo("PLAYER-1")}, rundenRef, 3)
+                                                  New SpielerInfo("PLAYER-1")}, rundenRef)
         Assert.That(RundenRes.Reverse.ElementAt(1).AusgeschiedeneSpielerIDs, Contains.Item("PLAYER127"))
     End Sub
 
@@ -55,7 +55,7 @@ Public Class AusXMLTests
         Dim SpielerA = New SpielerInfo("PLAYER-1") With {.Vorname = "Marius", .Nachname = "Goppelt", .Fremd = True}
         Dim SpielerB = New SpielerInfo("PLAYER72") With {.Vorname = "Florian", .Nachname = "Ewald"}
 
-        Dim Partie = AusXML.SpielPartieFromXML({SpielerA, SpielerB}, MatchXml, 3)
+        Dim Partie = AusXML.SpielPartieFromXML({SpielerA, SpielerB}, MatchXml)
         With Partie
             CollectionAssert.AreEqual({5, 9, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
@@ -74,7 +74,7 @@ Public Class AusXMLTests
         Dim SpielerA = New SpielerInfo("PLAYER293") With {.Vorname = "Florian", .Nachname = "Ewald"}
         Dim SpielerB = New SpielerInfo("PLAYER299") With {.Vorname = "Marius", .Nachname = "Goppelt"}
 
-        Dim Partie = AusXML.SpielPartieFromXML({SpielerA, SpielerB}, MatchXml, 3)
+        Dim Partie = AusXML.SpielPartieFromXML({SpielerA, SpielerB}, MatchXml)
         With Partie
             CollectionAssert.AreEqual({5, 0, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)

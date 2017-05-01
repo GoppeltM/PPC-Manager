@@ -20,7 +20,6 @@ Class MainWindow
 
     Private ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
-    Private ReadOnly _Gewinnsätze As Integer
     Private ReadOnly _Spielstand As ISpielstand
     Private Property PlayoffIstAktiv As Boolean = False
 
@@ -28,12 +27,10 @@ Class MainWindow
             spielerliste As IEnumerable(Of Spieler),
             spielrunden As SpielRunden,
             titel As String,
-            gewinnsätze As Integer,
             spielstand As ISpielstand)
         InitializeComponent()
         _Controller = controller
         _Spielrunden = spielrunden
-        _Gewinnsätze = gewinnsätze
         _Spielstand = spielstand
         Me.Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
@@ -74,7 +71,8 @@ Class MainWindow
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = _Spielrunden.Any
+        Dim nullteRunde = 1
+        e.CanExecute = _Spielrunden.Count > nullteRunde
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
@@ -143,8 +141,7 @@ Class MainWindow
         Dim AktuelleRunde = _Spielrunden.Peek()
         Dim neueSpielPartie = New SpielPartie(rundenName,
                                               spielerA,
-                                              SpielerB,
-                                              _GewinnSätze)
+                                              SpielerB)
         neueSpielPartie.ZeitStempel = Date.Now
         AktuelleRunde.Add(neueSpielPartie)
     End Sub

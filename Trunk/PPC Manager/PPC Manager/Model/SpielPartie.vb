@@ -13,7 +13,6 @@ Imports System.Collections.ObjectModel
 Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
-    Protected ReadOnly _GewinnSätze As Integer
     Private ReadOnly Spieler As KeyValuePair(Of SpielerInfo, SpielerInfo)
     Private ReadOnly _RundenName As String
     Public ReadOnly Property RundenName As String
@@ -23,13 +22,12 @@ Public Class SpielPartie
     End Property
 
 
-    Public Sub New(rundenName As String, ByVal spielerLinks As SpielerInfo, ByVal spielerRechts As SpielerInfo, gewinnsätze As Integer)
+    Public Sub New(rundenName As String, ByVal spielerLinks As SpielerInfo, ByVal spielerRechts As SpielerInfo)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException
         If spielerRechts Is Nothing Then Throw New ArgumentNullException
 
         Spieler = New KeyValuePair(Of SpielerInfo, SpielerInfo)(spielerLinks, spielerRechts)
         _RundenName = rundenName
-        _GewinnSätze = gewinnsätze
         AddHandler Me.CollectionChanged, Sub()
                                              Me.OnPropertyChanged(New PropertyChangedEventArgs("MySelf"))
                                          End Sub

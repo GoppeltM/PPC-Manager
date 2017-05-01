@@ -36,7 +36,7 @@ Public Class PPC15_Turnier_Klasse_D
                                                End Sub,
                                                Mock.Of(Of IReportFactory),
                                                OrganisierePakete,
-                                               druckFabrik, 3)
+                                               druckFabrik)
     End Sub
 
     Dim AktuelleCompetition As Competition

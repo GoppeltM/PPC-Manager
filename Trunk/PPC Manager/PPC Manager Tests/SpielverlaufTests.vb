@@ -28,12 +28,12 @@
         Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
         Dim SpielerB = CreateSpieler(vorname:="Hartmut", nachname:="Seiter", id:="PLAYER291")
         Dim SpielerC = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER150")
-        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB, 3)
+        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB)
         _Spielstand.Setup(Function(m) m.HatPartieGewonnen(It.Is(Of SpielPartie)(Function(a) a = Partie1), SpielerB)).Returns(True)
-        Dim Partie2 = New SpielPartie("Runde 2", SpielerA, SpielerC, 3)
+        Dim Partie2 = New SpielPartie("Runde 2", SpielerA, SpielerC)
         _Spielstand.Setup(Function(m) m.HatPartieGewonnen(It.Is(Of SpielPartie)(Function(a) a = Partie2), SpielerA)).Returns(True)
 
-        Dim Partie3 = New SpielPartie("Runde 3", SpielerA, SpielerC, 3)
+        Dim Partie3 = New SpielPartie("Runde 3", SpielerA, SpielerC)
         _Spielstand.Setup(Function(m) m.HatPartieGewonnen(It.Is(Of SpielPartie)(Function(a) a = Partie3), SpielerA)).Returns(True)
 
         _Partien.Add(Partie1)
@@ -58,17 +58,17 @@
         Dim SpielerA = CreateSpieler(vorname:="Florian", nachname:="Ewald", id:="PLAYER293")
         Dim SpielerB = CreateSpieler(vorname:="Hartmut", nachname:="Seiter", id:="PLAYER291")
         Dim SpielerC = CreateSpieler(vorname:="Marius", nachname:="Goppelt", id:="PLAYER150")
-        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB, 3)
+        Dim Partie1 = New SpielPartie("Runde 1", SpielerA, SpielerB)
         _Spielstand.Setup(Function(m) m.HatPartieGewonnen(It.Is(Of SpielPartie)(Function(a) a = Partie1), SpielerA)).Returns(True)
 
-        Dim Partie2 = New SpielPartie("Runde 2", SpielerC, SpielerA, 3)
+        Dim Partie2 = New SpielPartie("Runde 2", SpielerC, SpielerA)
         _Spielstand.Setup(Function(m) m.HatPartieGewonnen(It.Is(Of SpielPartie)(Function(a) a = Partie2), SpielerC)).Returns(True)
 
-        Dim Partie3 = New SpielPartie("Runde 3", SpielerC, SpielerB, 3)
+        Dim Partie3 = New SpielPartie("Runde 3", SpielerC, SpielerB)
 
-        Dim f1 = New FreiLosSpiel("Runde 1", SpielerC, 3)
-        Dim f2 = New FreiLosSpiel("Runde 2", SpielerB, 3)
-        Dim f3 = New FreiLosSpiel("Runde 3", SpielerA, 3)
+        Dim f1 = New FreiLosSpiel("Runde 1", SpielerC)
+        Dim f2 = New FreiLosSpiel("Runde 2", SpielerB)
+        Dim f3 = New FreiLosSpiel("Runde 3", SpielerA)
         _Partien.AddRange({Partie1, f1,
                           Partie2, f2,
                           Partie3, f3})
@@ -103,7 +103,7 @@
         Dim spielerA = New SpielerInfo("A")
         Dim spielerB = New SpielerInfo("B")
         Dim spielerC = New SpielerInfo("C")
-        _Partien.Add(New SpielPartie("Runde 1", spielerA, spielerB, 3))
+        _Partien.Add(New SpielPartie("Runde 1", spielerA, spielerB))
         Dim result = _S.Habengegeneinandergespielt(spielerA, spielerC)
         Dim result2 = _S.Habengegeneinandergespielt(spielerC, spielerA)
         Assert.That(result, [Is].False)
@@ -115,7 +115,7 @@
         Dim spielerA = New SpielerInfo("A")
         Dim spielerB = New SpielerInfo("B")
         Dim spielerC = New SpielerInfo("C")
-        _Partien.Add(New SpielPartie("Runde 1", spielerA, spielerB, 3))
+        _Partien.Add(New SpielPartie("Runde 1", spielerA, spielerB))
 
         Dim result = _S.Habengegeneinandergespielt(spielerA, spielerB)
         Assert.That(result, [Is].True)
@@ -124,7 +124,7 @@
     <Test>
     Public Sub HatFreilos_ist_wahr_wenn_Freilos_von_Spieler_in_Spielpartien()
         Dim spielerA = New SpielerInfo("A")
-        _Partien.Add(New FreiLosSpiel("Runde 1", spielerA, 3))
+        _Partien.Add(New FreiLosSpiel("Runde 1", spielerA))
 
         Dim result = _S.HatFreilos(spielerA)
         Assert.That(result, Iz.True)
@@ -134,8 +134,8 @@
     Public Sub HatFreilos_ist_falsch_wenn_Freilos_anderen_Spieler_hat()
         Dim spielerA = New SpielerInfo("A")
         Dim spielerB = New SpielerInfo("B")
-        _Partien.Add(New FreiLosSpiel("Runde 1", spielerA, 3))
-        _Partien.Add(New SpielPartie("Runde 1", spielerA, spielerB, 3))
+        _Partien.Add(New FreiLosSpiel("Runde 1", spielerA))
+        _Partien.Add(New SpielPartie("Runde 1", spielerA, spielerB))
         Dim result = _S.HatFreilos(spielerB)
         Assert.That(result, Iz.False)
     End Sub
@@ -144,7 +144,7 @@
     Public Sub BerechnePunkte_ignoriert_nicht_abgeschlossene_Partien()
         Dim spielerA = New SpielerInfo("A")
         Dim spielerB = New SpielerInfo("B")
-        Dim p = New SpielPartie("Runde 1", spielerA, spielerB, 3) From {
+        Dim p = New SpielPartie("Runde 1", spielerA, spielerB) From {
             New Satz With {.PunkteLinks = 11},
             New Satz With {.PunkteLinks = 11}
             }
@@ -157,7 +157,7 @@
     Public Sub BerechnePunkte_berücksichtigt_abgeschlossene_Partien()
         Dim spielerA = New SpielerInfo("A")
         Dim spielerB = New SpielerInfo("B")
-        Dim p = New SpielPartie("Runde 1", spielerA, spielerB, 3)
+        Dim p = New SpielPartie("Runde 1", spielerA, spielerB)
         _Partien.Add(p)
         _Spielstand.Setup(Function(x) x.HatPartieGewonnen(p, spielerA)).Returns(True)
         Dim punkte = _S.BerechnePunkte(spielerA)

@@ -12,7 +12,8 @@ Public Class DesignSpielRunden
             SpielRunde.Add(partie)
         Next
         Dim verlauf = New DesignSpielverlauf
-        SpielRunde.Add(New FreiLosSpiel("Runde 1", New SpielerInfo("999") With {.Nachname = "MisterX", .Vorname = "Max"}, 3))
+        SpielRunde.Add(New FreiLosSpiel("Runde 1",
+                                        New SpielerInfo("999") With {.Nachname = "MisterX", .Vorname = "Max"}))
         SpielRunde.AusgeschiedeneSpielerIDs.Add("999")
         Me.Push(SpielRunde)
     End Sub
@@ -60,7 +61,7 @@ Public Class DesignSpielPartienOhneFreilos
     Public Sub New()
         Dim spielerListe = New DesignSpielerListe()
         For i = 1 To spielerListe.Count - 1 Step 2
-            Dim partie = New SpielPartie("Runde 2", spielerListe(i - 1), spielerListe(i), 3)
+            Dim partie = New SpielPartie("Runde 2", spielerListe(i - 1), spielerListe(i))
             partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
             partie.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
@@ -84,7 +85,7 @@ Public Class DesignSpielPartien
 
     Public Sub New()
         Dim spielverlauf = New DesignSpielverlauf
-        Me.Add(New FreiLosSpiel("Runde 2", New SpielerInfo("PLAYER255") With {.Vorname = "Günther", .Nachname = "Netzer"}, 3))
+        Me.Add(New FreiLosSpiel("Runde 2", New SpielerInfo("PLAYER255") With {.Vorname = "Günther", .Nachname = "Netzer"}))
     End Sub
 
 End Class

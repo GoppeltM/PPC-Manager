@@ -25,8 +25,8 @@ Public Class ZuXMLTests
         Dim runde = New SpielRunde
         runde.AusgeschiedeneSpielerIDs.Add(spieler(3).Id)
         Dim Zeitstempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
-        runde.Add(New FreiLosSpiel("Runde 1", spieler(2), 3) With {.ZeitStempel = Zeitstempel})
-        runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1), 3) With {.ZeitStempel = Zeitstempel})
+        runde.Add(New FreiLosSpiel("Runde 1", spieler(2)) With {.ZeitStempel = Zeitstempel})
+        runde.Add(New SpielPartie("Runde 1", spieler(0), spieler(1)) With {.ZeitStempel = Zeitstempel})
         runden.Push(runde)
 
         Dim spielPartien As IEnumerable(Of XElement) = ZuXML.ToXML(runden, Mock.Of(Of ISpielstand))
@@ -53,7 +53,7 @@ Public Class ZuXMLTests
     Sub SpielePartie_To_XML()
         Dim SpielerA = New SpielerInfo("PLAYER293") With {.Vorname = "Florian", .Nachname = "Ewald"}
         Dim SpielerB = New SpielerInfo("PLAYER299") With {.Vorname = "Marius", .Nachname = "Goppelt"}
-        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, 3)
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB)
         Partie.ZeitStempel = Date.Parse("22.05.2013 21:17:45", Globalization.CultureInfo.GetCultureInfo("de"))
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
@@ -81,7 +81,7 @@ Public Class ZuXMLTests
         Dim SpielerA = New SpielerInfo("PLAYER293") With {.Vorname = "Florian", .Nachname = "Ewald"}
         Dim SpielerB = New SpielerInfo("PLAYER299") With {.Vorname = "Marius", .Nachname = "Goppelt", .Fremd = True}
 
-        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB, 4)
+        Dim Partie = New SpielPartie("Runde 1", SpielerA, SpielerB)
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
         Partie.Add(New Satz With {.PunkteLinks = 6, .PunkteRechts = 11})
         Partie.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 3})

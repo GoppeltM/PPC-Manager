@@ -8,14 +8,12 @@ Public Class MainWindowController
     Public Sub New(speichern As Action,
                    reportFactory As IReportFactory,
                    organisierePakete As OrganisierePakete,
-                   druckFabrik As IFixedPageFabrik,
-                   gewinnSätze As Integer
+                   druckFabrik As IFixedPageFabrik
                    )
         _Speichern = speichern
         _ReportFactory = reportFactory
         _OrganisierePakete = organisierePakete
         _DruckFabrik = druckFabrik
-        _GewinnSätze = gewinnSätze
     End Sub
 
     Private ReadOnly _Speichern As Action
@@ -40,11 +38,11 @@ Public Class MainWindowController
 
         For Each begegnung In begegnungen.Partien
             spielRunde.Add(
-                New SpielPartie(RundenName, begegnung.Item1, begegnung.Item2, _GewinnSätze) _
+                New SpielPartie(rundenName, begegnung.Item1, begegnung.Item2) _
                 With {.ZeitStempel = Zeitstempel})
         Next
         If begegnungen.Übrig IsNot Nothing Then
-            spielRunde.Add(New FreiLosSpiel(RundenName, begegnungen.Übrig, _GewinnSätze))
+            spielRunde.Add(New FreiLosSpiel(rundenName, begegnungen.Übrig))
         End If
         Return spielRunde
 

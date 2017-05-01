@@ -86,7 +86,7 @@ Imports Moq
     Public Sub OpacityConverter_ist_transparent_wenn_SpielPartie_istAbgeschlossen()
         Dim converter = New OpacityConverter
         converter.IstAbgeschlossen = Function(x) True
-        Dim result = converter.Convert(New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B"), 3), Nothing, Nothing, Nothing)
+        Dim result = converter.Convert(New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B")), Nothing, Nothing, Nothing)
         Assert.AreEqual(0.2, result)
     End Sub
 
@@ -94,7 +94,7 @@ Imports Moq
     Public Sub OpacityConverter_ist_intransparent_wenn_SpielPartie_nicht_istAbgeschlossen()
         Dim converter = New OpacityConverter
         converter.IstAbgeschlossen = Function(x) False
-        Dim result = converter.Convert(New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B"), 3), Nothing, Nothing, Nothing)
+        Dim result = converter.Convert(New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B")), Nothing, Nothing, Nothing)
         Assert.AreEqual(1.0, result)
     End Sub
 
@@ -112,7 +112,7 @@ Imports Moq
                                              End If
                                              Throw New InvalidOperationException
                                          End Function
-        Dim partie As New SpielPartie("Bla", spieler1, spieler2, 3)
+        Dim partie As New SpielPartie("Bla", spieler1, spieler2)
         Dim result = converter.Convert(partie, Nothing, Nothing, Nothing)
         Assert.AreEqual("2:1", result)
     End Sub

@@ -5,7 +5,7 @@ Public Class SchiedsrichterZettelTests
     Public Sub Init()
         Dim s As New SpielerInfo("A")
         _Zettel = New SchiedsrichterZettel(New List(Of SpielPartie) _
-                                           From {New FreiLosSpiel("Runde X", s, 3)},
+                                           From {New FreiLosSpiel("Runde X", s)},
                                            "MeinKlassementName", 5, 2)
     End Sub
 

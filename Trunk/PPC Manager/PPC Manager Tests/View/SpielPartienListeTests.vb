@@ -9,11 +9,11 @@ Public Class SpielPartienListeTests
 
         Dim partieA = New SpielPartie("Runde 1",
                             New SpielerInfo("A") With {.Vorname = "Horst"},
-                            New SpielerInfo("B") With {.Vorname = "Gérome"}, 3)
+                            New SpielerInfo("B") With {.Vorname = "Gérome"})
 
         Dim partieB = New SpielPartie("Runde 1",
                             New SpielerInfo("A") With {.Vorname = "Marius"},
-                            New SpielerInfo("B") With {.Vorname = "Flo"}, 3)
+                            New SpielerInfo("B") With {.Vorname = "Flo"})
 
         s.IstAbgeschlossen = Function(x) As Boolean
                                  If x Is partieA Then Return True
