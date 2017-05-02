@@ -97,6 +97,10 @@ Public Class DesignSpielverlauf
         Return 42
     End Function
 
+    Public Function BerechneGegnerProfil(s As SpielerInfo) As IEnumerable(Of String) Implements ISpielverlauf(Of SpielerInfo).BerechneGegnerProfil
+        Return {"1", "2"}
+    End Function
+
     Public Function BerechneGewonneneSätze(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneGewonneneSätze
         Return 42
     End Function

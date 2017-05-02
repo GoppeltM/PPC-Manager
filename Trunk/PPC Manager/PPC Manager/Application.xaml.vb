@@ -44,15 +44,16 @@ Class Application
 
             Resources("KlassementName") = AktiveCompetition.Altersgruppe
             Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, spielRegeln, klassement, AktiveCompetition.SpielRunden)
-            Dim excelFabrik = New ExcelFabrik(spielstand)
-            Dim vergleicher = New SpielerInfoComparer(spielverlauf, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
-            Dim spielerWrapped = From x In AktiveCompetition.SpielerListe
-                                 Select New Spieler(x, spielverlauf, vergleicher)
+            Dim excelVerlauf = New Spielverlauf(spielRunden.Skip(1).Reverse.SelectMany(Function(m) m),
+                                            spielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
+                                            spielstand)
+            Dim excelFabrik = New ExcelFabrik(spielstand, excelVerlauf)
+
             Dim r = New ReportFactory(xmlPfad,
                                       klassement,
-                                      spielerWrapped,
+                                      AktiveCompetition.SpielerListe,
                                       AktiveCompetition.SpielRunden,
-                                      AddressOf excelFabrik.HoleDokument, New Spielstand(spielRegeln.Gewinnsätze))
+                                      AddressOf excelFabrik.HoleDokument)
             Dim ausgeschiedeneSpielerIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
 
             Dim AktiveListe = From x In AktiveCompetition.SpielerListe
@@ -68,7 +69,9 @@ Class Application
                                         l.Reverse()
                                         Return begegnungen.organisierePakete(l, spielRunden.Count - 1)
                                     End Function
-
+            Dim vergleicher = New SpielerInfoComparer(spielverlauf, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
+            Dim spielerWrapped = From x In AktiveCompetition.SpielerListe
+                                 Select New Spieler(x, spielverlauf, vergleicher)
             Dim druckFabrik = New FixedPageFabrik(
                 spielerWrapped,
                 spielRunden,

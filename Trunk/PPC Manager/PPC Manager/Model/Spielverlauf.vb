@@ -103,4 +103,10 @@ Public Class Spielverlauf
     Public Function BerechneSatzDifferenz(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneSatzDifferenz
         Return BerechneGewonneneSätze(t) - BerechneVerloreneSätze(t)
     End Function
+
+    Public Function BerechneGegnerProfil(s As SpielerInfo) As IEnumerable(Of String) Implements ISpielverlauf(Of SpielerInfo).BerechneGegnerProfil
+        Dim gespieltePartien = From x In _Spielpartien
+                               Where x.SpielerLinks = s Or x.SpielerRechts = s
+        Return From x In gespieltePartien Select x.MeinGegner(s).Id
+    End Function
 End Class

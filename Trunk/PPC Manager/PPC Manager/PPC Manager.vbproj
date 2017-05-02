@@ -125,7 +125,6 @@
     <Compile Include="Output\Druckvorschau.xaml.vb">
       <DependentUpon>Druckvorschau.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Output\ExportSpieler.vb" />
     <Compile Include="Output\FixedPageFabrik.vb" />
     <Compile Include="IController.vb" />
     <Compile Include="IPrinter.vb" />
@@ -190,7 +189,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -198,7 +197,7 @@
       <DependentUpon>Application.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.vb">
+    <Compile Include="View\MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

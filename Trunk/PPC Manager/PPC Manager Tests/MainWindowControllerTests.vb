@@ -44,5 +44,64 @@ Imports System.Windows
         DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Rundenende - Aushang und Rangliste"))
     End Sub
 
+    <Test>
+    Public Sub SaveXML_ruft_Speichern_Delegate()
+        Dim aufgerufen = False
+        Dim Controller = New MainWindowController(Sub()
+                                                      aufgerufen = True
+                                                  End Sub,
+                                                  Mock.Of(Of IReportFactory),
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  Mock.Of(Of IFixedPageFabrik))
+        Controller.SaveXML()
+        Assert.That(aufgerufen, [Is].True)
+    End Sub
+
+    <Test>
+    Public Sub SaveExcel_ruft_ReportFactory()
+        Dim reportFactory = New Mock(Of IReportFactory)
+        Dim Controller = New MainWindowController(Sub()
+
+                                                  End Sub,
+                                                  reportFactory.Object,
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  Mock.Of(Of IFixedPageFabrik))
+        Controller.SaveExcel()
+        reportFactory.Verify(Sub(m) m.AutoSave(), Times.Once)
+    End Sub
+
+    <Test>
+    Public Sub RundenbeginnDrucken_druckt_Paarungen_und_SchiriZettel()
+        Dim reportFactory = New Mock(Of IReportFactory)
+        Dim fixedPage = New Mock(Of IFixedPageFabrik)
+        Dim Controller = New MainWindowController(Sub()
+
+                                                  End Sub,
+                                                  reportFactory.Object,
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  fixedPage.Object)
+        Dim seitenEinstellung = Mock.Of(Of ISeiteneinstellung)
+        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.Konfigurieren Is seitenEinstellung)
+        Controller.RundenbeginnDrucken(drucker)
+        fixedPage.Verify(Sub(m) m.ErzeugePaarungen(seitenEinstellung), Times.Once)
+        fixedPage.Verify(Sub(m) m.ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung), Times.Once)
+    End Sub
+
+    <Test>
+    Public Sub RundenEndeDrucken_druckt_Rangliste_und_Ergebnisse()
+        Dim reportFactory = New Mock(Of IReportFactory)
+        Dim fixedPage = New Mock(Of IFixedPageFabrik)
+        Dim Controller = New MainWindowController(Sub()
+
+                                                  End Sub,
+                                                  reportFactory.Object,
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  fixedPage.Object)
+        Dim seitenEinstellung = Mock.Of(Of ISeiteneinstellung)
+        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.Konfigurieren Is seitenEinstellung)
+        Controller.RundenendeDrucken(drucker)
+        fixedPage.Verify(Sub(m) m.ErzeugeSpielErgebnisse(seitenEinstellung), Times.Once)
+        fixedPage.Verify(Sub(m) m.ErzeugeRanglisteSeiten(seitenEinstellung), Times.Once)
+    End Sub
 
 End Class

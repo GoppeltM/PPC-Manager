@@ -122,6 +122,16 @@
     End Sub
 
     <Test>
+    Public Sub BerechneGegnerprofil_zeigt_alle_vergangenen_Gegner()
+        Dim spielerA = New SpielerInfo("A")
+        _Partien.Add(New SpielPartie("Runde 1", spielerA, New SpielerInfo("B")))
+        _Partien.Add(New SpielPartie("Runde 1", New SpielerInfo("C"), New SpielerInfo("E")))
+        _Partien.Add(New SpielPartie("Runde 2", spielerA, New SpielerInfo("D")))
+        Dim result = _S.BerechneGegnerProfil(spielerA)
+        Assert.That(result, [Is].EquivalentTo({"B", "D"}))
+    End Sub
+
+    <Test>
     Public Sub HatFreilos_ist_wahr_wenn_Freilos_von_Spieler_in_Spielpartien()
         Dim spielerA = New SpielerInfo("A")
         _Partien.Add(New FreiLosSpiel("Runde 1", spielerA))

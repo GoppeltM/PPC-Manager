@@ -5,23 +5,20 @@ Public Class ReportFactory
     Implements IReportFactory
     Private ReadOnly _DateiPfad As String
     Private ReadOnly _Altersgruppe As String
-    Private ReadOnly _Spieler As IEnumerable(Of Spieler)
+    Private ReadOnly _Spieler As IEnumerable(Of SpielerInfo)
     Private ReadOnly _SpielRunden As IEnumerable(Of SpielRunde)
     Private ReadOnly _HoleDokument As Func(Of String, ITurnierReport)
-    Private ReadOnly _Spielstand As ISpielstand
 
     Public Sub New(dateipfad As String,
                    altersgruppe As String,
-                   spieler As IEnumerable(Of Spieler),
+                   spieler As IEnumerable(Of SpielerInfo),
                    spielrunden As IEnumerable(Of SpielRunde),
-                   holeDokument As Func(Of String, ITurnierReport),
-                   spielstand As ISpielstand)
+                   holeDokument As Func(Of String, ITurnierReport))
         _DateiPfad = dateipfad
         _Altersgruppe = altersgruppe
         _Spieler = spieler
         _SpielRunden = spielrunden
         _HoleDokument = holeDokument
-        _Spielstand = spielstand
     End Sub
 
     Public Sub AutoSave() Implements IReportFactory.AutoSave
@@ -29,11 +26,7 @@ Public Class ReportFactory
     End Sub
 
     Public Sub SchreibeReport(ByVal filePath As String) Implements IReportFactory.SchreibeReport
-        Dim spielpartien = (From x In _SpielRunden.Skip(1).Reverse Select x).SelectMany(Function(m) m)
-        Dim spielverlauf = New Spielverlauf(spielpartien,
-                                            _SpielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
-                                            _Spielstand)
-        Dim exportSpieler = (From x In _Spieler Select New ExportSpieler(x, spielpartien)).ToList
+        Dim exportSpieler = _Spieler.ToList
         exportSpieler.Sort()
         exportSpieler.Reverse()
         Try

@@ -52,4 +52,8 @@ Public Class SpielverlaufCache
     Public Function IstAusgeschieden(t As SpielerInfo) As Boolean Implements ISpielverlauf(Of SpielerInfo).IstAusgeschieden
         Return _Spielverlauf.IstAusgeschieden(t)
     End Function
+
+    Public Function BerechneGegnerProfil(s As SpielerInfo) As IEnumerable(Of String) Implements ISpielverlauf(Of SpielerInfo).BerechneGegnerProfil
+        Return _Spielverlauf.BerechneGegnerProfil(s)
+    End Function
 End Class

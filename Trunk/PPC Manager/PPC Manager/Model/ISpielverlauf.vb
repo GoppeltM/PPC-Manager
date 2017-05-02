@@ -17,5 +17,5 @@ Public Interface ISpielverlauf(Of In T)
     Function BerechneSatzDifferenz(t As T) As Integer
 
     Function Habengegeneinandergespielt(a As T, b As T) As Boolean
-
+    Function BerechneGegnerProfil(s As T) As IEnumerable(Of String)
 End Interface

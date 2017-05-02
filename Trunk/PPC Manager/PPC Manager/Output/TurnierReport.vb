@@ -5,23 +5,26 @@ Public Class TurnierReport
     Implements IDisposable
     Implements ITurnierReport
 
-    Public Sub New(dokument As IExcelDokument, spielstand As ISpielstand)
+    Public Sub New(dokument As IExcelDokument,
+                   spielstand As ISpielstand,
+                   spielverlauf As ISpielverlauf(Of SpielerInfo))
         _SpreadSheet = dokument
         _Spielstand = spielstand
+        _Spielverlauf = spielverlauf
     End Sub
 
     Private ReadOnly _SpreadSheet As IExcelDokument
 
-    Public Sub SchreibeRangliste(ByVal spieler As IEnumerable(Of ExportSpieler), rundeNr As Integer) Implements ITurnierReport.SchreibeRangliste
+    Public Sub SchreibeRangliste(ByVal spieler As IEnumerable(Of SpielerInfo), rundeNr As Integer) Implements ITurnierReport.SchreibeRangliste
         Dim rundeString = rundeNr.ToString.PadLeft(2, "0"c)
         Dim sheetName = "sp_rd" & rundeString
         Dim Titles = {"Rang", "Vorname", "Nachname", "ID", "Geschlecht", "Geburtsjahr", "Verein", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
                           "Gewonnene Sätze", "Verlorene Sätze", "Ausgeschieden", "Gegnerprofil"}
 
         _SpreadSheet.LeereBlatt(sheetName)
-        _SpreadSheet.NeueZeile(sheetName, 1, Titles)
+        _SpreadSheet.NeueZeile(sheetName, Titles)
 
-        Dim current = 2UI
+        Dim current = 1UI
 
         For Each s In spieler
 
@@ -33,10 +36,15 @@ Public Class TurnierReport
                                  End Select
                              End Function
 
-            Dim Werte = {(current - 1).ToString, s.Vorname, s.Nachname, s.Id.ToString, Geschlecht(), s.Geburtsjahr.ToString, s.Vereinsname, s.TTRating.ToString,
-                         s.Punkte.ToString, s.BuchholzPunkte.ToString, s.SonneBornBergerPunkte.ToString, s.SätzeGewonnen.ToString,
-                         s.SätzeVerloren.ToString, s.Ausgeschieden.ToString}.Concat(s.GegnerProfil)
-            _SpreadSheet.NeueZeile(sheetName, current, Werte)
+            Dim Werte = {current.ToString, s.Vorname, s.Nachname,
+                s.Id.ToString, Geschlecht(), s.Geburtsjahr.ToString,
+                s.Vereinsname, s.TTRating.ToString,
+                       _Spielverlauf.BerechnePunkte(s).ToString, _Spielverlauf.BerechneBuchholzPunkte(s).ToString,
+                       _Spielverlauf.BerechneSonnebornBergerPunkte(s).ToString,
+                       _Spielverlauf.BerechneGewonneneSätze(s).ToString,
+                       _Spielverlauf.BerechneVerloreneSätze(s).ToString,
+                       _Spielverlauf.IstAusgeschieden(s).ToString}.Concat(_Spielverlauf.BerechneGegnerProfil(s))
+            _SpreadSheet.NeueZeile(sheetName, Werte)
             current += 1UI
         Next
         _SpreadSheet.Speichern()
@@ -46,16 +54,14 @@ Public Class TurnierReport
         Dim currentName = runde.ToString.PadLeft(2, "0"c)
         _SpreadSheet.LeereBlatt(currentName)
         Dim Titles = {"Linker Spieler", "Rechter Spieler", "Sätze Links", "Sätze Rechts"}
-        _SpreadSheet.NeueZeile(currentName, 1, Titles)
-
-        Dim current = 2UI
+        _SpreadSheet.NeueZeile(currentName, Titles)
 
         For Each ergebnis In spielPartien
             Dim Werte = {ergebnis.SpielerLinks.Id, ergebnis.SpielerRechts.Id,
                 _Spielstand.MeineGewonnenenSätze(ergebnis, ergebnis.SpielerLinks).ToString,
                          _Spielstand.MeineGewonnenenSätze(ergebnis, ergebnis.SpielerRechts).ToString}
-            _SpreadSheet.NeueZeile(currentName, current, Werte)
-            current += 1UI
+            _SpreadSheet.NeueZeile(currentName, Werte)
+
         Next
         _SpreadSheet.Speichern()
     End Sub
@@ -63,6 +69,7 @@ Public Class TurnierReport
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls
     Private ReadOnly _Spielstand As ISpielstand
+    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
     ' IDisposable
     Protected Overridable Sub Dispose(disposing As Boolean)

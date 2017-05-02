@@ -6,9 +6,11 @@ Imports PPC_Manager
 
 Public Class ExcelFabrik
     Private ReadOnly _Spielstand As ISpielstand
+    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
-    Public Sub New(spielstand As ISpielstand)
+    Public Sub New(spielstand As ISpielstand, spielverlauf As ISpielverlauf(Of SpielerInfo))
         _Spielstand = spielstand
+        _Spielverlauf = spielverlauf
     End Sub
 
     Public Function HoleDokument(pfad As String) As ITurnierReport
@@ -18,7 +20,7 @@ Public Class ExcelFabrik
         Else
             doc = CreateEmptyExcelDocument(pfad)
         End If
-        Return New TurnierReport(doc, _Spielstand)
+        Return New TurnierReport(doc, _Spielstand, _Spielverlauf)
     End Function
 
     Private Shared Function OpenExistingExcelDocument(path As String) As IExcelDokument

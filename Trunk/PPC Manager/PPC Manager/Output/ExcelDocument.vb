@@ -17,11 +17,11 @@ Public Class ExcelDocument
         doc.WorkbookPart.Workbook.Save()
     End Sub
 
-    Public Sub NeueZeile(sheetName As String, zeilenIndex As UInteger, Zellen As IEnumerable(Of String)) Implements IExcelDokument.NeueZeile
+    Public Sub NeueZeile(sheetName As String, Zellen As IEnumerable(Of String)) Implements IExcelDokument.NeueZeile
         Dim sheet = GetSheet(sheetName)
         Dim SheetData = sheet.GetFirstChild(Of SheetData)()
         Dim row = New Row
-        row.RowIndex = zeilenIndex
+        row.RowIndex = CType(SheetData.ChildElements.Count + 1, UInt32Value)
         SheetData.Append(row)
         Dim AValue = Convert.ToInt32("A"c)
         Dim ValueCells = Zellen.Zip(Enumerable.Range(AValue, Integer.MaxValue - AValue), Function(x, y) New With {x, .y = Convert.ToChar(y)})
