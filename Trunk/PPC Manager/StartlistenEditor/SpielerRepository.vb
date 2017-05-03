@@ -52,7 +52,7 @@ Public Class SpielerRepository
                     If Not suche.klassement.<matches>.Any Then
                         suche.klassement.Add(<matches/>)
                     End If
-                    suche.klassement.<matches>.Single.Add(<ppc:inactivePlayer player=<%= spieler.ID %> group="0"/>)
+                    suche.klassement.<matches>.Single.Add(<ppc:inactiveplayer player=<%= spieler.ID %> group="0"/>)
                 Else
                     inaktivKnoten.Remove
                 End If

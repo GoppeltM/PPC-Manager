@@ -151,7 +151,7 @@ Public Class SpielerRepositoryTests
         ' Act
         spieler.Abwesend = True
         ' Assert
-        Dim ergebnis = _BKlasse.<matches>.<ppc:inactivePlayer>.Single
+        Dim ergebnis = _BKlasse.<matches>.<ppc:inactiveplayer>.Single
         Assert.That(ergebnis.@player, Iz.EqualTo("A12"))
         Assert.That(ergebnis.@group, Iz.EqualTo("0"))
     End Sub
