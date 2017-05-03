@@ -77,6 +77,6 @@ Public Class SpielerInfo
     End Function
 
     Public Overrides Function ToString() As String
-        Return String.Format("{0} {1}", Vorname, Nachname)
+        Return Id
     End Function
 End Class

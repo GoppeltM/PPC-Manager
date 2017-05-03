@@ -8,16 +8,19 @@ Public Class ReportFactory
     Private ReadOnly _Spieler As IEnumerable(Of SpielerInfo)
     Private ReadOnly _SpielRunden As IEnumerable(Of SpielRunde)
     Private ReadOnly _HoleDokument As Func(Of String, ITurnierReport)
+    Private ReadOnly _Vergleicher As IComparer(Of SpielerInfo)
 
     Public Sub New(dateipfad As String,
                    altersgruppe As String,
                    spieler As IEnumerable(Of SpielerInfo),
-                   spielrunden As IEnumerable(Of SpielRunde),
+                   vergleicher As IComparer(Of SpielerInfo),
+                   SpielRunden As IEnumerable(Of SpielRunde),
                    holeDokument As Func(Of String, ITurnierReport))
         _DateiPfad = dateipfad
         _Altersgruppe = altersgruppe
         _Spieler = spieler
-        _SpielRunden = spielrunden
+        _Vergleicher = vergleicher
+        _SpielRunden = SpielRunden
         _HoleDokument = holeDokument
     End Sub
 
@@ -27,7 +30,7 @@ Public Class ReportFactory
 
     Public Sub SchreibeReport(ByVal filePath As String) Implements IReportFactory.SchreibeReport
         Dim exportSpieler = _Spieler.ToList
-        exportSpieler.Sort()
+        exportSpieler.Sort(_Vergleicher)
         exportSpieler.Reverse()
         Try
 

@@ -48,10 +48,11 @@ Class Application
                                             spielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
                                             spielstand)
             Dim excelFabrik = New ExcelFabrik(spielstand, excelVerlauf)
-
+            Dim vergleicher = New SpielerInfoComparer(spielverlauf, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
             Dim r = New ReportFactory(xmlPfad,
                                       klassement,
                                       AktiveCompetition.SpielerListe,
+                                      vergleicher,
                                       AktiveCompetition.SpielRunden,
                                       AddressOf excelFabrik.HoleDokument)
             Dim ausgeschiedeneSpielerIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
@@ -69,7 +70,7 @@ Class Application
                                         l.Reverse()
                                         Return begegnungen.organisierePakete(l, spielRunden.Count - 1)
                                     End Function
-            Dim vergleicher = New SpielerInfoComparer(spielverlauf, spielRegeln.SatzDifferenz, spielRegeln.SonneBornBerger)
+
             Dim spielerWrapped = From x In AktiveCompetition.SpielerListe
                                  Select New Spieler(x, spielverlauf, vergleicher)
             Dim druckFabrik = New FixedPageFabrik(
