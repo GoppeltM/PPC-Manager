@@ -38,7 +38,6 @@ Public Class ReportFactory
 
                     Dim current = 1
                     For Each runde In _SpielRunden.Reverse
-                        Dim currentName = current.ToString.PadLeft(2, "0"c)
                         .SchreibeNeuePartien(runde, current)
                         current += 1
                     Next

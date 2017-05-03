@@ -8,7 +8,8 @@ Public Class ExcelFabrik
     Private ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
-    Public Sub New(spielstand As ISpielstand, spielverlauf As ISpielverlauf(Of SpielerInfo))
+    Public Sub New(spielstand As ISpielstand,
+                   spielverlauf As ISpielverlauf(Of SpielerInfo))
         _Spielstand = spielstand
         _Spielverlauf = spielverlauf
     End Sub

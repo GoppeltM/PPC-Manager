@@ -104,10 +104,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AusXMLTests.vb" />
+    <Compile Include="Output\ReportFactoryTests.vb" />
     <Compile Include="Output\TurnierReportTests.vb" />
     <Compile Include="View\DruckvorschauTests.vb" />
     <Compile Include="FixedPageFabrikTests.vb" />
-    <Compile Include="FremdSpielerDialogTests.vb" />
+    <Compile Include="View\FremdSpielerDialogTests.vb" />
     <Compile Include="PaarungssucheTests.vb" />
     <Compile Include="PaketbildungTests.vb" />
     <Compile Include="Integration\PPC15_Turnier.vb" />

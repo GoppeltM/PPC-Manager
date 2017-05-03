@@ -1,6 +1,4 @@
-﻿Imports PPC_Manager
-
-Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
+﻿Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
 
 Public Class MainWindowController
     Implements IController

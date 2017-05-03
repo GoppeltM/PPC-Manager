@@ -14,6 +14,8 @@ Public Class TurnierReport
     End Sub
 
     Private ReadOnly _SpreadSheet As IExcelDokument
+    Private ReadOnly _Spielstand As ISpielstand
+    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
     Public Sub SchreibeRangliste(ByVal spieler As IEnumerable(Of SpielerInfo), rundeNr As Integer) Implements ITurnierReport.SchreibeRangliste
         Dim rundeString = rundeNr.ToString.PadLeft(2, "0"c)
@@ -68,8 +70,7 @@ Public Class TurnierReport
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls
-    Private ReadOnly _Spielstand As ISpielstand
-    Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
+
 
     ' IDisposable
     Protected Overridable Sub Dispose(disposing As Boolean)
