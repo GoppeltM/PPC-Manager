@@ -175,7 +175,7 @@ Class MainWindow
         End If
 
         Try
-            Dim rundenName = "Runde " & _Spielrunden.Count + 1
+            Dim rundenName = "Runde " & _Spielrunden.Count
             Dim runde = _Controller.NächsteRunde(rundenName)
             _Spielrunden.Push(runde)
         Catch ex As ExcelNichtBeschreibbarException

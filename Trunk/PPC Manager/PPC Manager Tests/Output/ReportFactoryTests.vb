@@ -1,7 +1,7 @@
 ﻿Public Class ReportFactoryTests
 
     <Test>
-    Public Sub SchreibeReport_schreibt_Rangliste_umgedreht_und_jede_Runde_und_disposed()
+    Public Sub SchreibeReport_schreibt_Rangliste_umgedreht_und_jede_Runde_bis_auf_nullte_und_disposed()
         Dim s = {New SpielerInfo("A"), New SpielerInfo("B")}
         Dim partie1 = New SpielPartie("Runde 1", New SpielerInfo("B"), New SpielerInfo("C"))
         Dim partie2 = New SpielPartie("Runde 2", New SpielerInfo("D"), New SpielerInfo("E"))
@@ -11,7 +11,8 @@
             },
             New SpielRunde() From {
                 partie1
-            }
+            },
+            New SpielRunde
         }
 
         Dim dokument = New Mock(Of ITurnierReport)

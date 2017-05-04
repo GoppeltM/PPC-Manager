@@ -10,6 +10,7 @@
         End If
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         Dim v = DirectCast(SpielerView.View, ListCollectionView)
+        If v Is Nothing Then Return
         v.CustomSort = SpielerComparer
         SpielerView?.View?.Refresh()
     End Sub

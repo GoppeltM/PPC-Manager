@@ -18,18 +18,29 @@ Public Class LiveListeTests
             }
     End Sub
 
+    Private Class RandomVergleicher
+        Implements IComparer
+
+        Private R As New Random
+
+        Public Function Compare(x As Object, y As Object) As Integer Implements IComparer.Compare
+            Return R.Next(-10, 10)
+        End Function
+    End Class
     <Test>
     Public Sub SchweizerMode_UITest()
         Dim command = New CommandBinding(ApplicationCommands.Delete, Sub(o, e)
                                                                          MessageBox.Show(e.Parameter.ToString)
                                                                      End Sub)
         Dim l = New LiveListe
+        l.InputBindings.Add(New KeyBinding(NavigationCommands.Refresh, New KeyGesture(Key.N, ModifierKeys.Control)))
 
+        l.SpielerComparer = New RandomVergleicher
         l.DataContext = _SpielerListe
         Dim w As New Window
         w.Content = l
 
-        w.CommandBindings.Add(Command)
+        w.CommandBindings.Add(command)
         w.ShowDialog()
     End Sub
 
@@ -40,6 +51,8 @@ Public Class LiveListeTests
                                                                         MessageBox.Show(liste.First.ToString + ":" + liste.Last.ToString)
                                                                     End Sub)
         Dim l = New LiveListe
+        l.InputBindings.Add(New KeyBinding(NavigationCommands.Refresh, New KeyGesture(Key.N, ModifierKeys.Control)))
+        l.SpielerComparer = New RandomVergleicher
         l.DataContext = _SpielerListe
         Dim w As New Window
         w.Content = l

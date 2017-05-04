@@ -36,11 +36,11 @@ Public Class ReportFactory
 
             Using ex = _HoleDokument(filePath)
                 With ex
-                    Dim RundeNr = _SpielRunden.Count
+                    Dim RundeNr = _SpielRunden.Count - 1
                     .SchreibeRangliste(exportSpieler, RundeNr)
 
                     Dim current = 1
-                    For Each runde In _SpielRunden.Reverse
+                    For Each runde In _SpielRunden.Reverse.Skip(1)
                         .SchreibeNeuePartien(runde, current)
                         current += 1
                     Next
