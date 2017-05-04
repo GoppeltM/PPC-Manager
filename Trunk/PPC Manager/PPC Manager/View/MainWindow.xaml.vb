@@ -153,7 +153,7 @@ Class MainWindow
         If Not dialog.ShowDialog Then Return
         Dim rundenName = dialog.RundenNameTextBox.Text
 
-        Dim AusgewählteSpieler = CType(e.Parameter, IEnumerable(Of SpielerInfo))
+        Dim AusgewählteSpieler = LiveListe.LiveListe.SelectedItems.OfType(Of SpielerInfo)
         Dim spielerA = AusgewählteSpieler(0)
         Dim SpielerB = AusgewählteSpieler(1)
         Dim AktuelleRunde = _Spielrunden.Peek()
