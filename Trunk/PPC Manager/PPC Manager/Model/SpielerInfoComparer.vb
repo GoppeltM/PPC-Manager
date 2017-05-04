@@ -1,7 +1,7 @@
 ﻿Imports PPC_Manager
 
 Public Class SpielerInfoComparer
-    Implements IComparer(Of SpielerInfo)
+    Implements IComparer(Of SpielerInfo), IComparer
 
     Private ReadOnly _BeachteSatzverhältnis As Boolean
     Private ReadOnly _BeachteSonnebornBergerPunkte As Boolean
@@ -14,6 +14,10 @@ Public Class SpielerInfoComparer
         _BeachteSatzverhältnis = beachteSatzverhältnis
         _BeachteSonnebornBergerPunkte = beachteSonnebornBergerPunkte
     End Sub
+
+    Public Function Compare1(x As Object, y As Object) As Integer Implements IComparer.Compare
+        Return Compare(DirectCast(x, SpielerInfo), DirectCast(y, SpielerInfo))
+    End Function
 
     Public Function Compare(x As SpielerInfo, y As SpielerInfo) As Integer Implements IComparer(Of SpielerInfo).Compare
         Dim diff As Integer = 0

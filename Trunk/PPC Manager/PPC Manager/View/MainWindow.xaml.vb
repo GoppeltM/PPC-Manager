@@ -27,7 +27,8 @@ Class MainWindow
             spielerliste As IEnumerable(Of Spieler),
             spielrunden As SpielRunden,
             titel As String,
-            spielstand As ISpielstand)
+            spielstand As ISpielstand,
+            spielerVergleicher As IComparer)
         InitializeComponent()
         _Controller = controller
         _Spielrunden = spielrunden
@@ -39,11 +40,26 @@ Class MainWindow
             s.Add(spieler)
         Next
         Me.LiveListe.DataContext = s
+        Me.LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
         Me.Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Me.Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Me.Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         AktualisiereDaten()
     End Sub
+
+    Private Class InvertComparer
+        Implements IComparer
+
+        Private ReadOnly _Comparer As IComparer
+
+        Public Sub New(comparer As IComparer)
+            _Comparer = comparer
+        End Sub
+
+        Public Function Compare(x As Object, y As Object) As Integer Implements IComparer.Compare
+            Return _Comparer.Compare(y, x)
+        End Function
+    End Class
 
     Private Sub AktualisiereDaten()
         If Not _Spielrunden.Any Then
@@ -52,6 +68,7 @@ Class MainWindow
         End If
         Me.Begegnungen.DataContext = _Spielrunden.Peek
         Me.Begegnungen.DetailGrid.DataContext = Nothing
+        NavigationCommands.Refresh.Execute(Nothing, LiveListe)
     End Sub
 
     Public Function FilterSpieler(s As SpielerInfo) As Boolean
@@ -127,6 +144,7 @@ Class MainWindow
             Return
         End If
         _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Add(spieler.Id)
+        NavigationCommands.Refresh.Execute(Nothing, LiveListe)
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)

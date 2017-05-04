@@ -13,11 +13,11 @@
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <CollectionViewSource x:Key="SpielerView" Source="{Binding Mode=OneWay}" />
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
+    </UserControl.CommandBindings>
     <ListView x:Name="LiveListe" SelectedIndex="-1" 
                       ItemsSource="{Binding Source={StaticResource SpielerView}}">
-        <ListView.CommandBindings>
-            <CommandBinding Command="Refresh" Executed="Refresh_Executed" />
-        </ListView.CommandBindings>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ListViewItem Background="{Binding Path=Ausgeschieden, Converter={StaticResource AusgeschiedenPainter}}" IsHitTestVisible="False">

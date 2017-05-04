@@ -28,9 +28,23 @@
                   ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding SpielerLinks.StartNummer}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding SpielerLinks}"/>
+                <DataGridTextColumn Header="Name">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="SpielerLinks.Vorname"/>
+                            <Binding Path="SpielerLinks.Nachname"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="ID" Binding="{Binding SpielerRechts.StartNummer}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding SpielerRechts}" />                
+                <DataGridTextColumn Header="Name">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="SpielerRechts.Vorname"/>
+                            <Binding Path="SpielerRechts.Nachname"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>                
                 <DataGridTextColumn x:Name="ErgebnisSpalte" Header="Ergebnis" Binding="{Binding Converter={StaticResource GewonneneSätzeConverter}}"/>                
             </DataGrid.Columns>
         </DataGrid>

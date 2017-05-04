@@ -149,7 +149,7 @@ End Class
 Public Class GewonneneSätzeConverter
     Implements IValueConverter
 
-    Public Property MeineGewonnenenSätze As Func(Of SpielPartie, SpielerInfo, Integer)
+    Public Property MeineGewonnenenSätze As Func(Of SpielPartie, SpielerInfo, Integer) = Function(x, y) 0
 
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.Convert
         Dim partie = TryCast(value, SpielPartie)

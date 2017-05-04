@@ -86,7 +86,8 @@ Class Application
                                         spielerWrapped,
                                         spielRunden,
                                         klassement,
-                                        spielstand)
+                                        spielstand,
+                                        vergleicher)
             MainWindow = window
             window.Show()
             ShutdownMode = ShutdownMode.OnMainWindowClose

@@ -46,8 +46,22 @@
                 </Setter>
             </Style>
         </Grid.Resources>
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=SpielerLinks}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="26" />
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=SpielerRechts}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="27" />
+        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="26">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1}">
+                    <Binding Path="SpielerLinks.Vorname"/>
+                    <Binding Path="SpielerLinks.Nachname"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="27">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1}">
+                    <Binding Path="SpielerRechts.Vorname"/>
+                    <Binding Path="SpielerRechts.Nachname"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
         <ListBox x:Name="Sätze" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}" Margin="0" VerticalContentAlignment="Stretch">
             <ListBox.ContextMenu>
                 <ContextMenu>
