@@ -214,11 +214,22 @@ Class MainWindow
     End Sub
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        _Controller.RundenbeginnDrucken(New Printer)
+        Dim dialog = New PrintDialog
+        If dialog.ShowDialog Then
+            Dim p = New Printer(dialog)
+            _Controller.DruckeNeuePaarungen(p)
+            _Controller.DruckeSchiedsrichterzettel(p)
+        End If
+
     End Sub
 
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        _Controller.RundenendeDrucken(New Printer)
+        Dim dialog = New PrintDialog
+        If dialog.ShowDialog Then
+            Dim p = New Printer(dialog)
+            _Controller.DruckeRangliste(p)
+            _Controller.DruckeSpielergebnisse(p)
+        End If
     End Sub
 
     Private Sub Exportieren_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)

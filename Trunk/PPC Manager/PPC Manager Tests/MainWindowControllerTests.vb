@@ -29,7 +29,7 @@ Imports System.Windows
     End Sub
 
     <Test, Apartment(System.Threading.ApartmentState.STA)>
-    Public Sub RundenendeDrucken_druckt_Ranglisten_und_Spielergebnisse()
+    Public Sub DruckeRangliste_ruft_Fabrik_mit_Seiteneinstellungen_und_druckt()
         Dim druckFabrik = New Mock(Of IFixedPageFabrik)
         Dim Controller = New MainWindowController(Sub()
 
@@ -38,10 +38,24 @@ Imports System.Windows
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   druckFabrik.Object)
         Dim DruckenMock = New Mock(Of IPrinter)
-        Controller.RundenendeDrucken(DruckenMock.Object)
+        Controller.DruckeRangliste(DruckenMock.Object)
         druckFabrik.Verify(Sub(m) m.ErzeugeRanglisteSeiten(It.IsAny(Of ISeiteneinstellung)), Times.Once)
+        DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Rangliste"))
+    End Sub
+
+    <Test, Apartment(System.Threading.ApartmentState.STA)>
+    Public Sub DruckeSpielergebnisse_ruft_Fabrik_mit_Seiteneinstellungen_und_druckt()
+        Dim druckFabrik = New Mock(Of IFixedPageFabrik)
+        Dim Controller = New MainWindowController(Sub()
+
+                                                  End Sub,
+                                                  Mock.Of(Of IReportFactory),
+                                                  Function() New PaarungsContainer(Of SpielerInfo),
+                                                  druckFabrik.Object)
+        Dim DruckenMock = New Mock(Of IPrinter)
+        Controller.DruckeSpielergebnisse(DruckenMock.Object)
         druckFabrik.Verify(Sub(m) m.ErzeugeSpielErgebnisse(It.IsAny(Of ISeiteneinstellung)), Times.Once)
-        DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Rundenende - Aushang und Rangliste"))
+        DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Spielergebnisse"))
     End Sub
 
     <Test>
@@ -71,7 +85,7 @@ Imports System.Windows
     End Sub
 
     <Test>
-    Public Sub RundenbeginnDrucken_druckt_Paarungen_und_SchiriZettel()
+    Public Sub DruckeNeuePaarungen_druckt_Paarungen()
         Dim reportFactory = New Mock(Of IReportFactory)
         Dim fixedPage = New Mock(Of IFixedPageFabrik)
         Dim Controller = New MainWindowController(Sub()
@@ -81,14 +95,13 @@ Imports System.Windows
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   fixedPage.Object)
         Dim seitenEinstellung = Mock.Of(Of ISeiteneinstellung)
-        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.Konfigurieren Is seitenEinstellung)
-        Controller.RundenbeginnDrucken(drucker)
+        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.LeseKonfiguration Is seitenEinstellung)
+        Controller.DruckeNeuePaarungen(drucker)
         fixedPage.Verify(Sub(m) m.ErzeugePaarungen(seitenEinstellung), Times.Once)
-        fixedPage.Verify(Sub(m) m.ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung), Times.Once)
     End Sub
 
     <Test>
-    Public Sub RundenEndeDrucken_druckt_Rangliste_und_Ergebnisse()
+    Public Sub DruckeSchiedsrichterZettel_druckt_Schiedsrichterzettel()
         Dim reportFactory = New Mock(Of IReportFactory)
         Dim fixedPage = New Mock(Of IFixedPageFabrik)
         Dim Controller = New MainWindowController(Sub()
@@ -98,10 +111,9 @@ Imports System.Windows
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   fixedPage.Object)
         Dim seitenEinstellung = Mock.Of(Of ISeiteneinstellung)
-        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.Konfigurieren Is seitenEinstellung)
-        Controller.RundenendeDrucken(drucker)
-        fixedPage.Verify(Sub(m) m.ErzeugeSpielErgebnisse(seitenEinstellung), Times.Once)
-        fixedPage.Verify(Sub(m) m.ErzeugeRanglisteSeiten(seitenEinstellung), Times.Once)
+        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.LeseKonfiguration Is seitenEinstellung)
+        Controller.DruckeSchiedsrichterzettel(drucker)
+        fixedPage.Verify(Sub(m) m.ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung), Times.Once)
     End Sub
 
 End Class

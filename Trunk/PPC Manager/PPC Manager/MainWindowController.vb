@@ -1,4 +1,6 @@
-﻿Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
+﻿Imports PPC_Manager
+
+Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
 
 Public Class MainWindowController
     Implements IController
@@ -46,48 +48,6 @@ Public Class MainWindowController
 
     End Function
 
-    Public Sub RundenbeginnDrucken(p As IPrinter) Implements IController.RundenbeginnDrucken
-        Dim seiteneinstellung = p.Konfigurieren()
-        Dim doc = New FixedDocument
-        Dim schiriSeiten = From x In _DruckFabrik.ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung)
-                           Select New PageContent() With {.Child = x}
-
-        For Each page In schiriSeiten
-            doc.Pages.Add(page)
-        Next
-
-        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugePaarungen(seiteneinstellung)
-                                  Select New PageContent() With {.Child = x}
-
-        For Each page In neuePaarungenSeiten
-            doc.Pages.Add(page)
-        Next
-
-        p.Drucken(doc, "Neue Begegnungen - Aushang und Schiedsrichterzettel")
-    End Sub
-
-    Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
-        Dim seiteneinstellung = p.Konfigurieren()
-
-        Dim doc = New FixedDocument
-        Dim ranglistenSeiten = From x In _DruckFabrik.ErzeugeRanglisteSeiten(
-                                   seiteneinstellung)
-                               Select New PageContent() With {.Child = x}
-
-        Dim spielErgebnisSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(
-                                      seiteneinstellung)
-                                  Select New PageContent() With {.Child = x}
-
-        For Each page In spielErgebnisSeiten
-            doc.Pages.Add(page)
-        Next
-
-        For Each page In ranglistenSeiten
-            doc.Pages.Add(page)
-        Next
-        p.Drucken(doc, "Rundenende - Aushang und Rangliste")
-    End Sub
-
     Public Sub ExcelExportieren(dateiName As String) Implements IController.ExcelExportieren
         _ReportFactory.SchreibeReport(dateiName)
     End Sub
@@ -100,4 +60,54 @@ Public Class MainWindowController
         _ReportFactory.AutoSave()
     End Sub
 
+    Public Sub DruckeSchiedsrichterzettel(drucker As IPrinter) Implements IController.DruckeSchiedsrichterzettel
+        Dim seiteneinstellung = drucker.LeseKonfiguration()
+        Dim doc = New FixedDocument
+        Dim schiriSeiten = From x In _DruckFabrik.ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung)
+                           Select New PageContent() With {.Child = x}
+
+        For Each page In schiriSeiten
+            doc.Pages.Add(page)
+        Next
+        drucker.Drucken(doc, "Schiedsrichterzettel")
+    End Sub
+
+    Public Sub DruckeNeuePaarungen(drucker As IPrinter) Implements IController.DruckeNeuePaarungen
+        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugePaarungen(drucker.LeseKonfiguration)
+                                  Select New PageContent() With {.Child = x}
+
+        Dim doc = New FixedDocument
+
+        For Each page In neuePaarungenSeiten
+            doc.Pages.Add(page)
+        Next
+
+        drucker.Drucken(doc, "Neue Begegnungen - Aushang")
+    End Sub
+
+    Public Sub DruckeRangliste(drucker As IPrinter) Implements IController.DruckeRangliste
+        Dim seiteneinstellung = drucker.LeseKonfiguration()
+
+        Dim doc = New FixedDocument
+        Dim ranglistenSeiten = From x In _DruckFabrik.ErzeugeRanglisteSeiten(
+                                   seiteneinstellung)
+                               Select New PageContent() With {.Child = x}
+
+        For Each page In ranglistenSeiten
+            doc.Pages.Add(page)
+        Next
+        drucker.Drucken(doc, "Rangliste")
+    End Sub
+
+    Public Sub DruckeSpielergebnisse(drucker As IPrinter) Implements IController.DruckeSpielergebnisse
+        Dim spielErgebnisSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(
+                                      drucker.LeseKonfiguration)
+                                  Select New PageContent() With {.Child = x}
+
+        Dim doc = New FixedDocument
+        For Each page In spielErgebnisSeiten
+            doc.Pages.Add(page)
+        Next
+        drucker.Drucken(doc, "Spielergebnisse")
+    End Sub
 End Class

@@ -2,7 +2,7 @@
 
 Public Interface IPrinter
 
-    Function Konfigurieren() As ISeiteneinstellung
+    Function LeseKonfiguration() As ISeiteneinstellung
 
     Sub Drucken(doc As FixedDocument, titel As String)
 
@@ -29,14 +29,11 @@ Public Class Printer
     Implements IPrinter
 
     Private ReadOnly _PrintDialog As PrintDialog
-    Private _DialogResult As Boolean?
-    Public Sub New()
-        _PrintDialog = New PrintDialog
-        _PrintDialog.UserPageRangeEnabled = False
+    Public Sub New(printDialog As PrintDialog)
+        _PrintDialog = printDialog
     End Sub
 
-    Public Function Konfigurieren() As ISeiteneinstellung Implements IPrinter.Konfigurieren
-        _DialogResult = _PrintDialog.ShowDialog()
+    Public Function LeseKonfiguration() As ISeiteneinstellung Implements IPrinter.LeseKonfiguration
         Dim area = _PrintDialog.PrintQueue.GetPrintCapabilities.PageImageableArea
         Dim einstellung = New SeitenEinstellung() With {
             .AbstandX = area.OriginWidth,
@@ -48,7 +45,6 @@ Public Class Printer
     End Function
 
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
-        If _DialogResult <> True Then Return
         doc.PrintTicket = _PrintDialog.PrintTicket
         _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
     End Sub

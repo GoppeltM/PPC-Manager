@@ -6,7 +6,7 @@ Public Class PrinterTests
     Public Sub DruckerEinstellungen()
         Dim w As New Window
         w.Show()
-        Dim p As New Printer
-        Dim result = p.Konfigurieren()
+        Dim p As New Printer(New Controls.PrintDialog)
+        Dim result = p.LeseKonfiguration()
     End Sub
 End Class

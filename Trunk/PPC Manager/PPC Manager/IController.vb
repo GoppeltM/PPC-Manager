@@ -4,8 +4,10 @@ Public Interface IController
 
     ReadOnly Property ExcelPfad As String
     Function NächsteRunde(rundenName As String) As SpielRunde
-    Sub RundenbeginnDrucken(printdialog As IPrinter)
-    Sub RundenendeDrucken(p As IPrinter)
+    Sub DruckeSchiedsrichterzettel(drucker As IPrinter)
+    Sub DruckeNeuePaarungen(drucker As IPrinter)
+    Sub DruckeRangliste(drucker As IPrinter)
+    Sub DruckeSpielergebnisse(drucker As IPrinter)
     Sub ExcelExportieren(p1 As String)
     Sub SaveXML()
     Sub SaveExcel()

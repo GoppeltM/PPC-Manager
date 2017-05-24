@@ -21,40 +21,6 @@ Public Class DesignSpielRunden
 
 End Class
 
-Public Class DesignController
-    Implements IController
-
-    Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
-        Get
-            Throw New NotImplementedException()
-        End Get
-    End Property
-
-    Public Sub ExcelExportieren(p1 As String) Implements IController.ExcelExportieren
-
-    End Sub
-
-    Public Sub RundenbeginnDrucken(printdialog As IPrinter) Implements IController.RundenbeginnDrucken
-
-    End Sub
-
-    Public Sub RundenendeDrucken(p As IPrinter) Implements IController.RundenendeDrucken
-
-    End Sub
-
-    Public Sub Save() Implements IController.SaveXML
-
-    End Sub
-
-    Public Sub SaveExcel() Implements IController.SaveExcel
-
-    End Sub
-
-    Public Function NächsteRunde(rundenName As String) As SpielRunde Implements IController.NächsteRunde
-        Throw New NotImplementedException()
-    End Function
-End Class
-
 Public Class DesignSpielPartienOhneFreilos
     Inherits SpielPartien
 
