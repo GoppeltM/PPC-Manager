@@ -106,6 +106,7 @@
     <Compile Include="AusXMLTests.vb" />
     <Compile Include="Output\ReportFactoryTests.vb" />
     <Compile Include="Output\TurnierReportTests.vb" />
+    <Compile Include="View\DruckEinstellungenDialogTests.vb" />
     <Compile Include="View\DruckvorschauTests.vb" />
     <Compile Include="FixedPageFabrikTests.vb" />
     <Compile Include="View\FremdSpielerDialogTests.vb" />
@@ -115,6 +116,7 @@
     <Compile Include="PrinterTests.vb" />
     <Compile Include="RanglisteSeiteTests.vb" />
     <Compile Include="Model\SatzTests.vb" />
+    <Compile Include="View\PrintDialogZuStringConverterTests.vb" />
     <Compile Include="View\SchiedsrichterZettelTests.vb" />
     <Compile Include="Model\SpielerInfoComparerTests.vb" />
     <Compile Include="Model\SpielerInfoTests.vb" />

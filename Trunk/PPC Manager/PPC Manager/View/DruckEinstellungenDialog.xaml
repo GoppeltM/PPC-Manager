@@ -1,0 +1,60 @@
+﻿<Window x:Class="DruckEinstellungenDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PPC_Manager"
+        mc:Ignorable="d"
+        Title="Druck Einstellungen" Height="268.747" Width="545.069" d:DataContext="{d:DesignInstance {x:Type local:DruckEinstellungen}, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.Resources>
+            <local:PrintDialogZuStringConverter x:Key="PrintDialogZuStringConverter" />
+            <local:AnyMultiValueConverter x:Key="AnyMultiConverter" />
+            <Style x:Key="ToggleButtonStyle" TargetType="ToggleButton" >
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="Margin" Value="3" />
+            </Style>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="3" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="68*"/>
+        </Grid.RowDefinitions>
+        <ToggleButton x:Name="NeuePaarungen" Content="Neue Paarungen" Grid.Row="1" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeNeuePaarungen}"/>
+        <ToggleButton x:Name="Schiedsrichterzettel" Content="Schiedsrichterzettel" Grid.Row="2" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeSchiedsrichterzettel}"/>
+        <ToggleButton x:Name="Spielergebnisse" Content="Spielergebnisse" Grid.Row="3" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeSpielergebnisse}"/>
+        <ToggleButton x:Name="Rangliste" Content="Rangliste" Grid.Row="4" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeRangliste}"/>
+        <Button x:Name="NeuePaarungenEinstellungen" Grid.Row="1" Grid.Column="1" Content="{Binding EinstellungenNeuePaarungen, Converter={StaticResource PrintDialogZuStringConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
+        <Button x:Name="SchiedsrichterzettelEinstelllungen" Grid.Row="2" Grid.Column="1" Content="{Binding EinstellungenSchiedsrichterzettel, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
+        <Button x:Name="SpielergebnisseEinstellungen" Grid.Row="3" Grid.Column="1" Content="{Binding EinstellungenSpielergebnisse, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
+        <Button x:Name="RanglisteEinstellungen" Grid.Row="4" Grid.Column="1" Content="{Binding EinstellungenRangliste, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
+        <Button x:Name="Drucken" Content="Drucken" 
+                Margin="0,0,10,6" Grid.Row="5" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Grid.Column="1" IsDefault="True">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource AnyMultiConverter}">
+                    <Binding ElementName="NeuePaarungen" Path="IsChecked" />
+                    <Binding ElementName="Schiedsrichterzettel" Path="IsChecked" />
+                    <Binding ElementName="Spielergebnisse" Path="IsChecked" />
+                    <Binding ElementName="Rangliste" Path="IsChecked" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+        <Button x:Name="Schließen" Content="Schließen" HorizontalAlignment="Left" 
+                Margin="10,0,0,6" Width="75" Grid.Row="5" Height="20" VerticalAlignment="Bottom" IsCancel="True"/>
+        
+    </Grid>
+</Window>

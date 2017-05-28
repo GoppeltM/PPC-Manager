@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d"         
     Height="448" Width="1035" Icon="/PPC%20Manager;component/Icon.ico"
-    d:DataContext="{d:DesignInstance local:DesignController, IsDesignTimeCreatable=True}"    
     >
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />

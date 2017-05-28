@@ -81,6 +81,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
+    <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -91,6 +92,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -107,6 +109,7 @@
     <Compile Include="Output\IExcelDokument.vb" />
     <Compile Include="Output\IFixedPageFabrik.vb" />
     <Compile Include="Output\ITurnierReport.vb" />
+    <Compile Include="View\AnyMultiValueConverter.vb" />
     <Compile Include="View\Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,11 @@
       <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Output\TurnierReport.vb" />
+    <Compile Include="View\DruckEinstellungen.vb" />
+    <Compile Include="View\DruckEinstellungenDialog.xaml.vb">
+      <DependentUpon>DruckEinstellungenDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PrintDialogZuStringConverter.vb" />
     <Compile Include="View\SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>
@@ -186,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LadenNeu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DruckEinstellungenDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
