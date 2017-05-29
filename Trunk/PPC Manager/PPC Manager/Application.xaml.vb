@@ -87,7 +87,7 @@ Class Application
                                         spielRunden,
                                         klassement,
                                         spielstand,
-                                        vergleicher)
+                                        vergleicher, New DruckerFabrik)
             MainWindow = window
             window.Show()
             ShutdownMode = ShutdownMode.OnMainWindowClose

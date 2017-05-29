@@ -1,4 +1,6 @@
-﻿Public Class PlayoffCommand
+﻿Imports PPC_Manager
+
+Public Class PlayoffCommand
     Inherits RoutedCommand
 End Class
 
@@ -20,6 +22,7 @@ Class MainWindow
     Private ReadOnly _Spielrunden As SpielRunden
     Private ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _DruckEinstellungen As DruckEinstellungen
+    Private ReadOnly _DruckerFabrik As IDruckerFabrik
     Private Property PlayoffIstAktiv As Boolean = False
 
     Sub New(controller As IController,
@@ -27,11 +30,13 @@ Class MainWindow
             spielrunden As SpielRunden,
             titel As String,
             spielstand As ISpielstand,
-            spielerVergleicher As IComparer)
+            spielerVergleicher As IComparer,
+            druckerFabrik As IDruckerFabrik)
         InitializeComponent()
         _Controller = controller
         _Spielrunden = spielrunden
         _Spielstand = spielstand
+        _DruckerFabrik = druckerFabrik
         _DruckEinstellungen = New DruckEinstellungen
         Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
@@ -221,22 +226,22 @@ Class MainWindow
         End If
         With _DruckEinstellungen
             If .DruckeNeuePaarungen Then
-                Dim p = New Printer(.EinstellungenNeuePaarungen)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenNeuePaarungen)
                 Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
                 p.Drucken(doc, "Neue Begegnungen - Aushang")
             End If
             If .DruckeRangliste Then
-                Dim p = New Printer(.EinstellungenRangliste)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenRangliste)
                 Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
                 p.Drucken(doc, "Rangliste")
             End If
             If .DruckeSchiedsrichterzettel Then
-                Dim p = New Printer(.EinstellungenSchiedsrichterzettel)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenSchiedsrichterzettel)
                 Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
                 p.Drucken(doc, "Schiedsrichterzettel")
             End If
             If .DruckeSpielergebnisse Then
-                Dim p = New Printer(.EinstellungenSpielergebnisse)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenSpielergebnisse)
                 Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
                 p.Drucken(doc, "Spielergebnisse")
             End If
@@ -246,7 +251,7 @@ Class MainWindow
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Dim dialog = New PrintDialog
         If dialog.ShowDialog Then
-            Dim p = New Printer(dialog)
+            Dim p = _DruckerFabrik.Neu(dialog)
             Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
             Dim doc2 = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
             p.Drucken(doc, "Neue Begegnungen - Aushang")
@@ -258,7 +263,7 @@ Class MainWindow
     Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
         Dim dialog = New PrintDialog
         If dialog.ShowDialog Then
-            Dim p = New Printer(dialog)
+            Dim p = _DruckerFabrik.Neu(dialog)
             Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
             Dim doc2 = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
             p.Drucken(doc, "Rangliste")

@@ -1,4 +1,5 @@
 ﻿Imports System.Windows
+Imports System.Windows.Controls
 
 <Explicit, Apartment(System.Threading.ApartmentState.STA)>
 Public Class MainWindowTests
@@ -20,7 +21,10 @@ Public Class MainWindowTests
                                     New SpielPartie("Runde 2",
                                                     New SpielerInfo("3") With {.Vorname = "Rick"},
                                                     New SpielerInfo("4") With {.Vorname = "Gerard"})})
-        _Window = New MainWindow(_Controller.Object, l, r, "Hallo Welt", Mock.Of(Of ISpielstand), Mock.Of(Of IComparer))
+        Dim d = Mock.Of(Of IDruckerFabrik)(Function(m) m.Neu(It.IsAny(Of PrintDialog)) Is Mock.Of(Of IPrinter))
+        _Window = New MainWindow(
+            _Controller.Object, l, r,
+            "Hallo Welt", Mock.Of(Of ISpielstand), Mock.Of(Of IComparer), d)
     End Sub
 
     <Test>

@@ -103,6 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DruckerFabrik.vb" />
     <Compile Include="Model\ISpielstand.vb" />
     <Compile Include="Model\Spielstand.vb" />
     <Compile Include="Output\ExcelFabrik.vb" />
@@ -171,6 +172,7 @@
     <Compile Include="View\DruckEinstellungenDialog.xaml.vb">
       <DependentUpon>DruckEinstellungenDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\IDruckerFabrik.vb" />
     <Compile Include="View\PrintDialogZuStringConverter.vb" />
     <Compile Include="View\SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
