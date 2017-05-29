@@ -17,7 +17,7 @@ Public Class FixedPageFabrik
         _Spielstand = spielstand
     End Sub
 
-    Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
+    Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
         Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
                                         Return Aggregate x In _SpielRunden.First.AusgeschiedeneSpielerIDs
                                                Where x = s.Id Into Any()
@@ -46,7 +46,7 @@ Public Class FixedPageFabrik
         Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
     End Function
 
-    Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSchiedsrichterZettelSeiten
+    Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSchiedsrichterZettelSeiten
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count, seitenNr)
@@ -59,7 +59,7 @@ Public Class FixedPageFabrik
         Return pages
     End Function
 
-    Friend Function ErzeugePaarungen(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugePaarungen
+    Friend Function ErzeugePaarungen(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugePaarungen
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el,
@@ -79,7 +79,7 @@ Public Class FixedPageFabrik
         Return pages
     End Function
 
-    Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As ISeiteneinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSpielErgebnisse
+    Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSpielErgebnisse
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el,
@@ -101,7 +101,7 @@ Public Class FixedPageFabrik
     End Function
 
     Private Function ErzeugeSeiten(v As Visual, gesamtLänge As Double,
-                                   seitengröße As ISeiteneinstellung) As IEnumerable(Of FixedPage)
+                                   seitengröße As SeitenEinstellung) As IEnumerable(Of FixedPage)
         Dim brush As New VisualBrush(v) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
 
         Dim aktuelleHöhe = 0.0

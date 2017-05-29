@@ -10,15 +10,14 @@ Public Class FixedPageFabrikTests
 
     <SetUp>
     Public Sub init()
-        Dim seitenEinstellungen = New Mock(Of ISeiteneinstellung)
-        seitenEinstellungen.SetupAllProperties()
-        With seitenEinstellungen.Object
+        _SeitenEinstellungen = New SeitenEinstellung
+        With _SeitenEinstellungen
             .AbstandX = 30
             .AbstandY = 30
             .Breite = 600
             .Höhe = 1000
         End With
-        _SeitenEinstellungen = seitenEinstellungen.Object
+
         _SpielerListe = New List(Of SpielerInfo)
         Dim spielerWrapped = From x In _SpielerListe
                              Select New Spieler(x,
@@ -31,7 +30,7 @@ Public Class FixedPageFabrikTests
                                 "Altersgruppe", New Spielstand(3))
     End Sub
 
-    Private _SeitenEinstellungen As ISeiteneinstellung
+    Private _SeitenEinstellungen As SeitenEinstellung
     Private f As FixedPageFabrik
     Private _SpielerListe As IList(Of SpielerInfo)
     Private _Runden As SpielRunden

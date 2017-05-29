@@ -32,13 +32,13 @@ Public Class MainWindowTests
     Sub Mit_dummy_Controller()
         _Controller.Setup(Sub(m) m.ExcelExportieren(It.IsAny(Of String))) _
             .Callback(Of String)(Sub(x) MessageBox.Show(x))
-        _Controller.Setup(Sub(m) m.DruckeNeuePaarungen(It.IsAny(Of IPrinter))) _
+        _Controller.Setup(Function(m) m.DruckeNeuePaarungen(It.IsAny(Of SeitenEinstellung))) _
             .Callback(Of IPrinter)(Sub(m) MessageBox.Show(m.ToString))
-        _Controller.Setup(Sub(m) m.DruckeRangliste(It.IsAny(Of IPrinter))) _
+        _Controller.Setup(Function(m) m.DruckeRangliste(It.IsAny(Of SeitenEinstellung))) _
             .Callback(Of IPrinter)(Sub(m) MessageBox.Show(m.ToString))
-        _Controller.Setup(Sub(m) m.DruckeSchiedsrichterzettel(It.IsAny(Of IPrinter))) _
+        _Controller.Setup(Function(m) m.DruckeSchiedsrichterzettel(It.IsAny(Of SeitenEinstellung))) _
             .Callback(Of IPrinter)(Sub(m) MessageBox.Show(m.ToString))
-        _Controller.Setup(Sub(m) m.DruckeSpielergebnisse(It.IsAny(Of IPrinter))) _
+        _Controller.Setup(Function(m) m.DruckeSpielergebnisse(It.IsAny(Of SeitenEinstellung))) _
             .Callback(Of IPrinter)(Sub(m) MessageBox.Show(m.ToString))
         _Window.ShowDialog()
     End Sub

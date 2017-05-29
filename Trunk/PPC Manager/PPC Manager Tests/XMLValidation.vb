@@ -44,7 +44,7 @@
         Next
     End Sub
 
-    <Ignore("Manuell")>
+    <Explicit("Manuell")>
     <Test>
     Public Sub BereinigeNamespaces()
         Dim doc = XDocument.Load("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test.xml")
@@ -65,7 +65,7 @@
 
     End Sub
 
-    <Ignore("Manuell")>
+    <Explicit("Manuell")>
     <Test>
     Public Sub FügeSchemaHinzu()
         Dim doc = XDocument.Load("D:\Eigene Dateien - Marius\Desktop\Turnierteilnehmer_mu13_2013_test.xml")

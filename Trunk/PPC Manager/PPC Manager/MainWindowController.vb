@@ -60,8 +60,7 @@ Public Class MainWindowController
         _ReportFactory.AutoSave()
     End Sub
 
-    Public Sub DruckeSchiedsrichterzettel(drucker As IPrinter) Implements IController.DruckeSchiedsrichterzettel
-        Dim seiteneinstellung = drucker.LeseKonfiguration()
+    Public Function DruckeSchiedsrichterzettel(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeSchiedsrichterzettel
         Dim doc = New FixedDocument
         Dim schiriSeiten = From x In _DruckFabrik.ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung)
                            Select New PageContent() With {.Child = x}
@@ -69,11 +68,11 @@ Public Class MainWindowController
         For Each page In schiriSeiten
             doc.Pages.Add(page)
         Next
-        drucker.Drucken(doc, "Schiedsrichterzettel")
-    End Sub
+        Return doc
+    End Function
 
-    Public Sub DruckeNeuePaarungen(drucker As IPrinter) Implements IController.DruckeNeuePaarungen
-        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugePaarungen(drucker.LeseKonfiguration)
+    Public Function DruckeNeuePaarungen(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeNeuePaarungen
+        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugePaarungen(seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 
         Dim doc = New FixedDocument
@@ -81,13 +80,10 @@ Public Class MainWindowController
         For Each page In neuePaarungenSeiten
             doc.Pages.Add(page)
         Next
+        Return doc
+    End Function
 
-        drucker.Drucken(doc, "Neue Begegnungen - Aushang")
-    End Sub
-
-    Public Sub DruckeRangliste(drucker As IPrinter) Implements IController.DruckeRangliste
-        Dim seiteneinstellung = drucker.LeseKonfiguration()
-
+    Public Function DruckeRangliste(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeRangliste
         Dim doc = New FixedDocument
         Dim ranglistenSeiten = From x In _DruckFabrik.ErzeugeRanglisteSeiten(
                                    seiteneinstellung)
@@ -96,18 +92,18 @@ Public Class MainWindowController
         For Each page In ranglistenSeiten
             doc.Pages.Add(page)
         Next
-        drucker.Drucken(doc, "Rangliste")
-    End Sub
+        Return doc
+    End Function
 
-    Public Sub DruckeSpielergebnisse(drucker As IPrinter) Implements IController.DruckeSpielergebnisse
+    Public Function DruckeSpielergebnisse(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeSpielergebnisse
         Dim spielErgebnisSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(
-                                      drucker.LeseKonfiguration)
+                                      seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 
         Dim doc = New FixedDocument
         For Each page In spielErgebnisSeiten
             doc.Pages.Add(page)
         Next
-        drucker.Drucken(doc, "Spielergebnisse")
-    End Sub
+        Return doc
+    End Function
 End Class

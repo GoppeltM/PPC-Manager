@@ -1,6 +1,4 @@
-﻿Imports PPC_Manager
-
-Public Class PlayoffCommand
+﻿Public Class PlayoffCommand
     Inherits RoutedCommand
 End Class
 
@@ -21,6 +19,7 @@ Class MainWindow
     Private ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
     Private ReadOnly _Spielstand As ISpielstand
+    Private ReadOnly _DruckEinstellungen As DruckEinstellungen
     Private Property PlayoffIstAktiv As Boolean = False
 
     Sub New(controller As IController,
@@ -33,17 +32,18 @@ Class MainWindow
         _Controller = controller
         _Spielrunden = spielrunden
         _Spielstand = spielstand
-        Me.Title = titel
+        _DruckEinstellungen = New DruckEinstellungen
+        Title = titel
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
         Dim s = New SpielerListe
         For Each spieler In spielerliste.Where(AddressOf FilterSpieler)
             s.Add(spieler)
         Next
-        Me.LiveListe.DataContext = s
-        Me.LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
-        Me.Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
-        Me.Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
-        Me.Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        LiveListe.DataContext = s
+        LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
+        Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         AktualisiereDaten()
     End Sub
 
@@ -75,15 +75,15 @@ Class MainWindow
         Return Not _Spielrunden.First.AusgeschiedeneSpielerIDs.Contains(s.Id)
     End Function
 
-    Private Sub Ja(ByVal sender As System.Object, ByVal e As System.Windows.Input.CanExecuteRoutedEventArgs)
+    Private Sub Ja(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
         e.CanExecute = True
     End Sub
 
-    Private Sub Close_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+    Private Sub Close_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
         My.Application.MainWindow.Close()
     End Sub
 
-    Private Sub Save_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
+    Private Sub Save_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
         _Controller.SaveXML()
     End Sub
 
@@ -213,12 +213,44 @@ Class MainWindow
         AktualisiereDaten()
     End Sub
 
+    Private Sub AllesDrucken_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        Dim dialog = New DruckEinstellungenDialog
+        dialog.DataContext = _DruckEinstellungen
+        If Not dialog.ShowDialog Then
+            Return
+        End If
+        With _DruckEinstellungen
+            If .DruckeNeuePaarungen Then
+                Dim p = New Printer(.EinstellungenNeuePaarungen)
+                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                p.Drucken(doc, "Neue Begegnungen - Aushang")
+            End If
+            If .DruckeRangliste Then
+                Dim p = New Printer(.EinstellungenRangliste)
+                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                p.Drucken(doc, "Rangliste")
+            End If
+            If .DruckeSchiedsrichterzettel Then
+                Dim p = New Printer(.EinstellungenSchiedsrichterzettel)
+                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                p.Drucken(doc, "Schiedsrichterzettel")
+            End If
+            If .DruckeSpielergebnisse Then
+                Dim p = New Printer(.EinstellungenSpielergebnisse)
+                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                p.Drucken(doc, "Spielergebnisse")
+            End If
+        End With
+    End Sub
+
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
         Dim dialog = New PrintDialog
         If dialog.ShowDialog Then
             Dim p = New Printer(dialog)
-            _Controller.DruckeNeuePaarungen(p)
-            _Controller.DruckeSchiedsrichterzettel(p)
+            Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+            Dim doc2 = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
+            p.Drucken(doc, "Neue Begegnungen - Aushang")
+            p.Drucken(doc2, "Schiedsrichterzettel")
         End If
 
     End Sub
@@ -227,8 +259,10 @@ Class MainWindow
         Dim dialog = New PrintDialog
         If dialog.ShowDialog Then
             Dim p = New Printer(dialog)
-            _Controller.DruckeRangliste(p)
-            _Controller.DruckeSpielergebnisse(p)
+            Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
+            Dim doc2 = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
+            p.Drucken(doc, "Rangliste")
+            p.Drucken(doc2, "Spielergebnisse")
         End If
     End Sub
 

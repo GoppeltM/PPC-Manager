@@ -37,10 +37,9 @@ Imports System.Windows
                                                   Mock.Of(Of IReportFactory),
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   druckFabrik.Object)
-        Dim DruckenMock = New Mock(Of IPrinter)
-        Controller.DruckeRangliste(DruckenMock.Object)
-        druckFabrik.Verify(Sub(m) m.ErzeugeRanglisteSeiten(It.IsAny(Of ISeiteneinstellung)), Times.Once)
-        DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Rangliste"))
+        Dim seiteneinstellung = New SeitenEinstellung
+        Controller.DruckeRangliste(seiteneinstellung)
+        druckFabrik.Verify(Sub(m) m.ErzeugeRanglisteSeiten(seiteneinstellung), Times.Once)
     End Sub
 
     <Test, Apartment(System.Threading.ApartmentState.STA)>
@@ -52,10 +51,9 @@ Imports System.Windows
                                                   Mock.Of(Of IReportFactory),
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   druckFabrik.Object)
-        Dim DruckenMock = New Mock(Of IPrinter)
-        Controller.DruckeSpielergebnisse(DruckenMock.Object)
-        druckFabrik.Verify(Sub(m) m.ErzeugeSpielErgebnisse(It.IsAny(Of ISeiteneinstellung)), Times.Once)
-        DruckenMock.Verify(Sub(m) m.Drucken(It.IsAny(Of FixedDocument), "Spielergebnisse"))
+        Dim seiteneinstellung = New SeitenEinstellung
+        Controller.DruckeSpielergebnisse(seiteneinstellung)
+        druckFabrik.Verify(Sub(m) m.ErzeugeSpielErgebnisse(seiteneinstellung), Times.Once)
     End Sub
 
     <Test>
@@ -94,9 +92,8 @@ Imports System.Windows
                                                   reportFactory.Object,
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   fixedPage.Object)
-        Dim seitenEinstellung = Mock.Of(Of ISeiteneinstellung)
-        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.LeseKonfiguration Is seitenEinstellung)
-        Controller.DruckeNeuePaarungen(drucker)
+        Dim seitenEinstellung = New SeitenEinstellung
+        Controller.DruckeNeuePaarungen(seitenEinstellung)
         fixedPage.Verify(Sub(m) m.ErzeugePaarungen(seitenEinstellung), Times.Once)
     End Sub
 
@@ -110,9 +107,8 @@ Imports System.Windows
                                                   reportFactory.Object,
                                                   Function() New PaarungsContainer(Of SpielerInfo),
                                                   fixedPage.Object)
-        Dim seitenEinstellung = Mock.Of(Of ISeiteneinstellung)
-        Dim drucker = Mock.Of(Of IPrinter)(Function(m) m.LeseKonfiguration Is seitenEinstellung)
-        Controller.DruckeSchiedsrichterzettel(drucker)
+        Dim seitenEinstellung = New SeitenEinstellung
+        Controller.DruckeSchiedsrichterzettel(seitenEinstellung)
         fixedPage.Verify(Sub(m) m.ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung), Times.Once)
     End Sub
 
