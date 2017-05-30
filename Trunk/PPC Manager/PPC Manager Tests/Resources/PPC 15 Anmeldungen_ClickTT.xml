@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tournament end-date="2012-09-09" start-date="2012-09-08" name="15. Turnier nach Schweizer Art " tournament-id="Fp12HjV93pTyQlVex23%2FfGT919cb58I9">
+  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="A-Klasse" type="Einzel">
+    <players />
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="B-Klasse" type="Einzel">
+    <players />
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="C-Klasse" type="Einzel">
+    <players />
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="D-Klasse" type="Einzel">
+    <players />
+    <matches />
+  </competition>
+  <competition start-date="2012-09-09 8:00" ttr-remarks="-" age-group="J-Klasse" type="Einzel">
+    <players />
+    <matches />
+  </competition>
+</tournament>

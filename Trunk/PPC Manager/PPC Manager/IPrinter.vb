@@ -39,6 +39,9 @@ Public Class Printer
 
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
         doc.PrintTicket = _PrintDialog.PrintTicket
-        _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+        If doc.Pages.Any Then
+            _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+        End If
+
     End Sub
 End Class

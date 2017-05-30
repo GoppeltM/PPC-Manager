@@ -251,17 +251,17 @@ Class MainWindow
             End If
             If .DruckeRangliste Then
                 Dim p = _DruckerFabrik.Neu(.EinstellungenRangliste)
-                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
                 p.Drucken(doc, "Rangliste")
             End If
             If .DruckeSchiedsrichterzettel Then
                 Dim p = _DruckerFabrik.Neu(.EinstellungenSchiedsrichterzettel)
-                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                Dim doc = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
                 p.Drucken(doc, "Schiedsrichterzettel")
             End If
             If .DruckeSpielergebnisse Then
                 Dim p = _DruckerFabrik.Neu(.EinstellungenSpielergebnisse)
-                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                Dim doc = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
                 p.Drucken(doc, "Spielergebnisse")
             End If
         End With

@@ -31,8 +31,7 @@
                               Name="PartieErstellenMenu" Command="ApplicationCommands.New"/>
         </MenuItem>
         <MenuItem Header="Drucken" IsTabStop="False">
-            <MenuItem Header="Runde Beginn... (neue Partien)" Command="ApplicationCommands.Print" />
-            <MenuItem Header="Runde Ende... (Ergebnisse)" Command="ApplicationCommands.PrintPreview" />
+            <MenuItem Header="Drucken..." Command="ApplicationCommands.Print" />
         </MenuItem>
     </Menu>
 </UserControl>

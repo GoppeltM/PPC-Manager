@@ -4,7 +4,7 @@ Class Begegnungen
 
 
     Public Property BegegnungenFiltern As Boolean = False
-    Public Property IstAbgeschlossen As Predicate(Of SpielPartie) = Function(x) False
+    Public IstAbgeschlossen As Predicate(Of SpielPartie) = Function(x) False
 
     Public Sub New()
 

@@ -13,9 +13,8 @@
         <CommandBinding Command="ApplicationCommands.Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Execute" />
         <CommandBinding Command="local:MeineCommands.Playoff" CanExecute="PlayoffAktiv" />
         <CommandBinding Command="Close" CanExecute="Ja" Executed="Close_Executed"/>
-        <CommandBinding Command="Save" CanExecute="Ja" Executed="Save_Executed"/>        
-        <CommandBinding Command="Print" CanExecute="Drucken_CanExecute" Executed="Drucken_Executed"/>
-        <CommandBinding Command="PrintPreview" CanExecute="Ja" Executed="RanglisteDrucken_Executed"/>
+        <CommandBinding Command="Save" CanExecute="Ja" Executed="Save_Executed"/>
+        <CommandBinding Command="Print" CanExecute="Ja" Executed="AllesDrucken_Executed"/>
         <CommandBinding Command="local:MeineCommands.BegegnungenFilter" CanExecute="Ja" Executed="BegegnungenFiltergeändert_Executed" />
         <CommandBinding Command="NextPage" CanExecute="NächsteRunde_CanExecute" Executed="NächsteRunde_Executed" />
         <CommandBinding Command="GoToPage" CanExecute="NächsteRunde_CanExecute" Executed="PlayOff_Executed" />
