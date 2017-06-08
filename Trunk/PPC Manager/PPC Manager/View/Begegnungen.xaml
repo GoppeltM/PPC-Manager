@@ -27,8 +27,7 @@
             <RowDefinition Height="378*" />
         </Grid.RowDefinitions>
         <local:SpielPartieDetail Grid.Row="0" HorizontalAlignment="Left" Margin="5,0,0,5" 
-              x:Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" 
-                             MinWidth="500" Width="587" />
+              x:Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" />
         <local:SpielPartienListe x:Name="SpielPartienListe" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                  Grid.Row="1" DataContext="{Binding Source={StaticResource PartieView}}" />
     </Grid>
