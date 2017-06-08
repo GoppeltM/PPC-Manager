@@ -5,32 +5,55 @@
     mc:Ignorable="d"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StartlistenEditor"
-    Title="MainWindow" Height="366" Width="751" Icon="Icon.ico"        
+    Title="MainWindow" Height="366" Width="900" Icon="Icon.ico"        
     d:DataContext="{d:DesignInstance {x:Type local:MainWindowContext}}">
     <Window.Resources>
         <local:StringIsEmptyConverter x:Key="StringIsEmptyConverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <CollectionViewSource x:Key="FilteredSpielerListe" Filter="SuchFilter" Source="{Binding Spielerliste}" />
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" CanExecute="CommandBinding_CanExecute" Executed="CommandNew_Executed" />
+        <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandDelete_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Replace" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandReplace_Executed"/>
+    </Window.CommandBindings>
     <Grid>
+        <ToolBarTray x:Name="ToolbarLeiste" HorizontalAlignment="Stretch" Height="35" Margin="10,10,10,0" VerticalAlignment="Top">
+            <ToolBar Band="1" BandIndex="1">
+                <Button Content="Sortieren" Click="Button_Click" ToolTip="Sortiert die Liste nach TTR und TTR Match Count"/>
+                <Button Content="Speichern" Click="Save_Click" ToolTip="Speichert aktuelle Änderungen in der XML"/>
+                <Button Content="Drucken..." Click="Drucken_Click" ToolTip="Druckt die aktuell gefilterte und sortierte Liste"/>
+                <Separator/>
+                <ToggleButton x:Name="Unbezahlt" Content="Unbezahlt" Click="UpdateFilter" ToolTip="Filtert nach Spielern die noch nicht bezahlt haben"/>
+                <ToggleButton x:Name="NichtAnwesend" Content="Nicht anwesend" Click="UpdateFilter" ToolTip="Filtert nach Spielern die noch nicht als anwesend gemeldet wurden"/>
+                <Separator/>
+                <Button Content="Neu" Command="ApplicationCommands.New" ToolTip="Neue Nachmeldung" />
+                <Button Content="Bearbeiten" Command="ApplicationCommands.Delete" ToolTip="Diesen nachgemeldeten Spieler entfernen"/>
+                <Button Content="Löschen" Command="ApplicationCommands.Replace" ToolTip="Diesen nachgemeldeten Spieler bearbeiten"/>
+            </ToolBar>
+            <ToolBar x:Name="KlassementFilter" Band="1" BandIndex="2">
+                <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding KlassementListe}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton x:Name="KlassementButton" Content="{Binding Path=Name}" Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}" Click="UpdateFilter"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ToolBar>
+        </ToolBarTray>
+        <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" TextChanged="UpdateFilter"/>
+        <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>
         <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDown"></EventSetter>
                 </Style>
             </DataGrid.Resources>
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Neue Nachmeldung" Command="ApplicationCommands.New" />
-                    <MenuItem Header="Diesen nachgemeldeten Spieler entfernen" Command="ApplicationCommands.Delete"/>
-                    <MenuItem Header="Diesen nachgemeldeten Spieler bearbeiten" Command="ApplicationCommands.Replace"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-            <DataGrid.CommandBindings>
-                <CommandBinding Command="ApplicationCommands.New" CanExecute="CommandBinding_CanExecute" Executed="CommandNew_Executed"/>
-                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandDelete_Executed"/>
-                <CommandBinding Command="ApplicationCommands.Replace" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandReplace_Executed"/>
-            </DataGrid.CommandBindings>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -57,32 +80,5 @@
                 <DataGridCheckBoxColumn Binding="{Binding Abwesend}" Header="Abwesend"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" TextChanged="UpdateFilter"/>
-        <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>
-        <ToolBarTray x:Name="ToolbarLeiste" HorizontalAlignment="Stretch" Height="35" Margin="10,10,10,0" VerticalAlignment="Top">
-            <ToolBar Band="1" BandIndex="1">
-                <Button Content="Sortieren" Click="Button_Click"/>
-                <Button Content="Speichern" Click="Save_Click"/>
-                <Button Content="Drucken..." Click="Drucken_Click"/>
-                <Separator/>
-                <ToggleButton x:Name="Unbezahlt" Content="Unbezahlt" Click="UpdateFilter"/>
-                <ToggleButton x:Name="NichtAnwesend" Content="Nicht anwesend" Click="UpdateFilter"/>
-                <Separator/>
-            </ToolBar>
-            <ToolBar x:Name="KlassementFilter" Band="1" BandIndex="2">
-                <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding KlassementListe}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <ToggleButton x:Name="KlassementButton" Content="{Binding Path=Name}" Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}" Click="UpdateFilter"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ToolBar>
-        </ToolBarTray>
     </Grid>
 </Window>

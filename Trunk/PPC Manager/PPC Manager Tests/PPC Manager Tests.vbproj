@@ -106,6 +106,7 @@
     <Compile Include="AusXMLTests.vb" />
     <Compile Include="Output\ReportFactoryTests.vb" />
     <Compile Include="Output\TurnierReportTests.vb" />
+    <Compile Include="StartlistenEditor\MainWindowTests.vb" />
     <Compile Include="View\DruckEinstellungenDialogTests.vb" />
     <Compile Include="View\DruckvorschauTests.vb" />
     <Compile Include="FixedPageFabrikTests.vb" />

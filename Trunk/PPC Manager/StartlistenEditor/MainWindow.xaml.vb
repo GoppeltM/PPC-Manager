@@ -35,15 +35,20 @@ Class MainWindow
     End Sub
 
     Private Sub CommandBinding_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing
+        e.CanExecute = True
     End Sub
 
     Private Sub CommandFremdSpieler_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
-        e.CanExecute = SpielerGrid.SelectedItem IsNot Nothing AndAlso DirectCast(SpielerGrid.SelectedItem, SpielerInfo).Fremd
+        e.CanExecute = SpielerGrid?.SelectedItem IsNot Nothing AndAlso DirectCast(SpielerGrid.SelectedItem, SpielerInfo).Fremd
     End Sub
 
     Private Sub CommandNew_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim neuerTTR = DirectCast(SpielerGrid.SelectedItem, SpielerInfo).TTR - 1
+
+        Dim neuerTTR As Integer = 0
+        If SpielerGrid.SelectedItem IsNot Nothing Then
+            neuerTTR = DirectCast(SpielerGrid.SelectedItem, SpielerInfo).TTR - 1
+        End If
+
         Dim dialog As New FremdSpielerDialog(_KlassementListe, New SpielerInfo With {.TTR = neuerTTR})
         If dialog.ShowDialog() Then
             SpielerGrid.BeginInit()
