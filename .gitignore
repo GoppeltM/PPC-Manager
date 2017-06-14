@@ -8,3 +8,4 @@ bin
 obj
 *.psess
 *.vspx
+/.vs/slnx.sqlite
