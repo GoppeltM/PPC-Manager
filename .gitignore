@@ -3,10 +3,10 @@
 /Trunk/PPC Manager/PPC Manager Tests/Resources/Protokolle
 /Trunk/PPC Manager/packages/**
 !/Trunk/PPC Manager/packages/repositories.config
+/.vs/**
 bin
 obj
 *.psess
 *.vspx
-/.vs/slnx.sqlite
 *.user
 *.suo

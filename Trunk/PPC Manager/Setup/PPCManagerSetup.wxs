@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" RequiredVersion="3.5.1315.0">  
-  <Product Id="*" UpgradeCode="{297E12FA-81EF-4D38-AFFE-C44A41346506}" Version="1.1.1" Language="1031" Name="PPC Manager Setup" Manufacturer="Marius Goppelt">    
+  <Product Id="*" UpgradeCode="{297E12FA-81EF-4D38-AFFE-C44A41346506}" Version="1.1.2" Language="1031" Name="PPC Manager Setup" Manufacturer="Marius Goppelt">    
     <Package InstallerVersion="300" Compressed="yes"/>
     <MajorUpgrade DowngradeErrorMessage="Es ist bereits eine aktuelle Version von [ProductName] installiert. Das Setup wird jetzt beendet." />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />

@@ -1,7 +1,4 @@
-﻿Imports System.Collections.ObjectModel
-Imports System.Windows.Threading
-Imports Microsoft.Win32
-Imports StartlistenEditor
+﻿Imports Microsoft.Win32
 
 Class Application
 
@@ -21,7 +18,7 @@ Class Application
                                                                    f.ExceptionText.Text = args.ExceptionObject.ToString
                                                                    f.ShowDialog()
                                                                End Sub
-        Me.ShutdownMode = ShutdownMode.OnExplicitShutdown
+        ShutdownMode = ShutdownMode.OnExplicitShutdown
         Dim d = New ProgrammStart
         If Not d.ShowDialog Then
             Shutdown()
@@ -49,7 +46,7 @@ Class Application
         Dim mainWindow As New MainWindow(observable,
                                       cache.KlassementNamen, AddressOf cache.SpeichereAlles)
         mainWindow.Show()
-        Me.ShutdownMode = ShutdownMode.OnLastWindowClose
+        ShutdownMode = ShutdownMode.OnLastWindowClose
     End Sub
 
     Private Sub SpeichereTurnier(neuesTurnierKontext As NeuesTurnierKontext)
