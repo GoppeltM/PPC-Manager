@@ -1,0 +1,19 @@
+﻿<Window x:Class="ProgrammStart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StartlistenEditor"
+        mc:Ignorable="d"
+        Title="Programm Start" Height="160" Width="200">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+        <Button Content="Neues Turnier..." Style="{StaticResource ButtonStyle}" Click="Button_Click"></Button>
+        <Button Content="Turnier öffnen..." Style="{StaticResource ButtonStyle}" Click="Button_Click_1"></Button>
+    </StackPanel>
+</Window>

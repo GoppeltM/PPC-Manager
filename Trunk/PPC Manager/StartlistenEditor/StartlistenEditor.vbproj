@@ -77,10 +77,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Fehler.xaml.vb">
+    <Compile Include="View\Konverter.vb" />
+    <Compile Include="View\NeuesTurnierDialog.xaml.vb">
+      <DependentUpon>NeuesTurnierDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NeuesTurnierKontext.vb" />
+    <Compile Include="View\Fehler.xaml.vb">
       <DependentUpon>Fehler.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FremdSpielerDialog.xaml.vb">
+    <Compile Include="View\FremdSpielerDialog.xaml.vb">
       <DependentUpon>FremdSpielerDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dateisystem.vb" />
@@ -95,15 +100,22 @@
       <DependentUpon>StartlisteSeite.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControlPaginator.vb" />
-    <Page Include="Fehler.xaml">
+    <Compile Include="View\ProgrammStart.xaml.vb">
+      <DependentUpon>ProgrammStart.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\NeuesTurnierDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FremdSpielerDialog.xaml">
+    <Page Include="View\Fehler.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FremdSpielerDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -111,11 +123,15 @@
       <DependentUpon>Application.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.vb">
+    <Compile Include="View\MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="StartlisteSeite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProgrammStart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
