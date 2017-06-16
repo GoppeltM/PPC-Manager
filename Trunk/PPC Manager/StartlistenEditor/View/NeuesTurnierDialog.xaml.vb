@@ -35,4 +35,8 @@ Public Class NeuesTurnierDialog
             NeuesTurnierKontext.Dateiname = d.FileName
         End If
     End Sub
+
+    Private Sub AbbrechenButton_Click(sender As Object, e As RoutedEventArgs) Handles AbbrechenButton.Click
+        DialogResult = False
+    End Sub
 End Class
