@@ -10,9 +10,11 @@ Public Class MainWindowTests
     Public Sub Init()
         _Controller = New Moq.Mock(Of IController)
         Dim s = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
-        Dim c = Mock.Of(Of IComparer(Of SpielerInfo))
+        Dim c = New SpielerInfoComparer(s, False, False)
         Dim l = New SpielerListe From {
-            New Spieler(New SpielerInfo("1"), s, c) With {.Nachname = "Goppelt", .Vorname = "Marius"}
+            New Spieler(New SpielerInfo("1"), s, c) With {.Nachname = "Goppelt", .Vorname = "Marius", .TTRating = 45},
+            New Spieler(New SpielerInfo("2"), s, c) With {.Nachname = "Ewald", .Vorname = "Florian", .TTRating = 24},
+            New Spieler(New SpielerInfo("2"), s, c) With {.Nachname = "Mustermann", .Vorname = "Max", .TTRating = 33}
             }
         Dim r = New SpielRunden
         r.Push(New SpielRunde() From {New SpielPartie("Runde 2",
@@ -24,7 +26,7 @@ Public Class MainWindowTests
         Dim d = Mock.Of(Of IDruckerFabrik)(Function(m) m.Neu(It.IsAny(Of PrintDialog)) Is Mock.Of(Of IPrinter))
         _Window = New MainWindow(
             _Controller.Object, l, r,
-            "Hallo Welt", Mock.Of(Of ISpielstand), Mock.Of(Of IComparer), d)
+            "Hallo Welt", Mock.Of(Of ISpielstand), c, d)
     End Sub
 
     <Test>

@@ -49,6 +49,9 @@ Class MainWindow
         Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+    End Sub
+
+    Private Sub MyWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles MyWindow.Loaded
         AktualisiereDaten()
     End Sub
 
@@ -327,4 +330,6 @@ Class MainWindow
         Begegnungen.BegegnungenFiltern = filtern
         Begegnungen.Update()
     End Sub
+
+
 End Class

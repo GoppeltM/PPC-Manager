@@ -10,15 +10,8 @@
         End If
         Dim SpielerView = CType(FindResource("SpielerView"), CollectionViewSource)
         Dim v = DirectCast(SpielerView.View, ListCollectionView)
-        If v Is Nothing Then Return
         v.CustomSort = SpielerComparer
-        SpielerView?.View?.Refresh()
+        v.Refresh()
     End Sub
-
-
-    Private Sub LiveListe_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        ' Refresh_Executed(Nothing, Nothing)
-    End Sub
-
 
 End Class

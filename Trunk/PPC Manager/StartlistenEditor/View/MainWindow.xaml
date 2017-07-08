@@ -28,8 +28,8 @@
                 <ToggleButton x:Name="NichtAnwesend" Content="Nicht anwesend" Click="UpdateFilter" ToolTip="Filtert nach Spielern die noch nicht als anwesend gemeldet wurden"/>
                 <Separator/>
                 <Button Content="Neu" Command="ApplicationCommands.New" ToolTip="Neue Nachmeldung" />
-                <Button Content="Bearbeiten" Command="ApplicationCommands.Delete" ToolTip="Diesen nachgemeldeten Spieler entfernen"/>
-                <Button Content="Löschen" Command="ApplicationCommands.Replace" ToolTip="Diesen nachgemeldeten Spieler bearbeiten"/>
+                <Button Content="Bearbeiten" Command="ApplicationCommands.Replace" ToolTip="Diesen nachgemeldeten Spieler bearbeiten"/>
+                <Button Content="Löschen" Command="ApplicationCommands.Delete" ToolTip="Diesen nachgemeldeten Spieler entfernen"/>
             </ToolBar>
             <ToolBar x:Name="KlassementFilter" Band="1" BandIndex="2">
                 <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding KlassementListe}">
