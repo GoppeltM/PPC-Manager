@@ -14,7 +14,7 @@
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" CanExecute="CommandBinding_CanExecute" Executed="CommandNew_Executed" />
-        <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandDelete_Executed"/>
+        <CommandBinding Command="local:MeineCommands.FremdSpielerLöschen" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandDelete_Executed"/>
         <CommandBinding Command="ApplicationCommands.Replace" CanExecute="CommandFremdSpieler_CanExecute" Executed="CommandReplace_Executed"/>
     </Window.CommandBindings>
     <Grid>
@@ -29,7 +29,7 @@
                 <Separator/>
                 <Button Content="Neu" Command="ApplicationCommands.New" ToolTip="Neue Nachmeldung" />
                 <Button Content="Bearbeiten" Command="ApplicationCommands.Replace" ToolTip="Diesen nachgemeldeten Spieler bearbeiten"/>
-                <Button Content="Löschen" Command="ApplicationCommands.Delete" ToolTip="Diesen nachgemeldeten Spieler entfernen"/>
+                <Button Content="Löschen" Command="local:MeineCommands.FremdSpielerLöschen" ToolTip="Diesen nachgemeldeten Spieler entfernen"/>
             </ToolBar>
             <ToolBar x:Name="KlassementFilter" Band="1" BandIndex="2">
                 <ItemsControl x:Name="KlassementFilterListe" ItemsSource="{Binding KlassementListe}">
@@ -48,7 +48,10 @@
         </ToolBarTray>
         <TextBox x:Name="Suche" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" TextChanged="UpdateFilter"/>
         <Label Content="Suche nach..." HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.808" Foreground="#FFD1D1D1" Visibility="{Binding Text, Converter={StaticResource StringIsEmptyConverter}, ElementName=Suche}" IsHitTestVisible="False"/>
-        <DataGrid x:Name="SpielerGrid" ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">
+        <DataGrid x:Name="SpielerGrid" 
+                  ItemsSource="{Binding Source={StaticResource FilteredSpielerListe}}" 
+                  AutoGenerateColumns="False" CanUserAddRows="False" 
+                  CanUserDeleteRows="False" SelectionMode="Single" Margin="0,95,0,0">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDown"></EventSetter>

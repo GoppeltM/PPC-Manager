@@ -5,6 +5,14 @@ Public Class MainWindowContext
     Public Property KlassementListe As IEnumerable(Of KlassementName)
 End Class
 
+Public Class MeineCommands
+
+    Public Shared ReadOnly Property FremdSpielerLöschen As RoutedUICommand = New RoutedUICommand("Löscht ausschließlich Fremdspieler",
+                                                                                     "Löschen",
+                                                                                     GetType(MeineCommands))
+
+End Class
+
 Class MainWindow
 
     Private ReadOnly _KlassementListe As IEnumerable(Of String)
@@ -215,6 +223,8 @@ Class MainWindow
             End If
         End With
     End Sub
+
+    
 End Class
 
 Class StringIsEmptyConverter
