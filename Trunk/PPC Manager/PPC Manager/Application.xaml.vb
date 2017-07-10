@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.IO
 
 Class Application
 
@@ -9,12 +10,20 @@ Class Application
         My.Settings.Save()
     End Sub
 
+    Public Sub CrashBehandeln(sender As Object, args As UnhandledExceptionEventArgs)
+        Dim nachricht = ""
+        If TypeOf args.ExceptionObject Is FileNotFoundException Then
+            Dim x = CType(args.ExceptionObject, FileNotFoundException)
+            nachricht += x.FusionLog
+        End If
+        nachricht += args.ExceptionObject.ToString
+        Dim f As New Fehler
+        f.ExceptionText.Text = nachricht
+        f.ShowDialog()
+    End Sub
+
     Private Sub Application_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
-        AddHandler AppDomain.CurrentDomain.UnhandledException, Sub(sender2 As Object, args As UnhandledExceptionEventArgs)
-                                                                   Dim f As New Fehler
-                                                                   f.ExceptionText.Text = args.ExceptionObject.ToString
-                                                                   f.ShowDialog()
-                                                               End Sub
+        AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf CrashBehandeln
         Me.ShutdownMode = ShutdownMode.OnExplicitShutdown
         With New LadenNeu
 
