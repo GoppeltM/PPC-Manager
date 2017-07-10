@@ -105,6 +105,7 @@
     <Compile Include="Output\TurnierReportTests.vb" />
     <Compile Include="StartlistenEditor\MainWindowTests.vb" />
     <Compile Include="StartlistenEditor\NeuesTurnierDialogTests.vb" />
+    <Compile Include="StartlistenEditor\SpeicherCacheTests.vb" />
     <Compile Include="View\DruckEinstellungenDialogTests.vb" />
     <Compile Include="View\DruckvorschauTests.vb" />
     <Compile Include="FixedPageFabrikTests.vb" />

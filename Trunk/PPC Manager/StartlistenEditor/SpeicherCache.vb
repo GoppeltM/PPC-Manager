@@ -28,5 +28,6 @@ Public Class SpeicherCache
                          Next
                      End Sub
         _Speicher.Speichere(action)
+        _Speicheraufrufe.Clear()
     End Sub
 End Class

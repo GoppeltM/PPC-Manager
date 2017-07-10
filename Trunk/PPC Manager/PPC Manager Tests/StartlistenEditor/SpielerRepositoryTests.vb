@@ -4,17 +4,20 @@ Imports StartlistenEditor
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class SpielerRepositoryTests
+    Private _Spielerliste As List(Of SpielerInfo)
+    Private _Speicher As Mock(Of ISpeicher)
 
     <SetUp>
     Public Sub DummyDokument()
-        Dim speicher = New Mock(Of ISpeicher)
-        speicher.SetupGet(Function(m) m.KlassementNamen).Returns({"A-Klasse", "B-Klasse"})
+        _Speicher = New Mock(Of ISpeicher)
+        _Speicher.SetupGet(Function(m) m.KlassementNamen).Returns({"A-Klasse", "B-Klasse"})
         _Observable = New Mock(Of INotifyCollectionChanged)
-        _Repository = New SpielerRepository(speicher.Object, _Observable.Object, New List(Of SpielerInfo))
+        _Spielerliste = New List(Of SpielerInfo)
+        _Repository = New SpielerRepository(_Speicher.Object, _Observable.Object, _Spielerliste)
         _BKlasse = <competition age-group="B-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
                        <players></players>
                    </competition>
-        speicher.Setup(Sub(m) m.Speichere(It.IsAny(Of Veränderung))).Callback(Of Veränderung)(Sub(m) m({_BKlasse}))
+        _Speicher.Setup(Sub(m) m.Speichere(It.IsAny(Of Veränderung))).Callback(Of Veränderung)(Sub(m) m({_BKlasse}))
     End Sub
 
     Private Property _BKlasse As XElement
@@ -56,6 +59,27 @@ Public Class SpielerRepositoryTests
     End Sub
 
     <Test>
+    Public Sub Abwesend_auf_true_macht_ihn_ausgeschieden_in_Runde_0()
+        ' Arrange
+        Dim s = New SpielerInfo With {
+                    .ID = "MeineID",
+                    .Abwesend = False,
+                    .Klassement = "B-Klasse"
+                 }
+        _Spielerliste.Add(s)
+        _BKlasse.<players>.First().Add(<player id="MeineID">
+                                           <person></person>
+                                       </player>)
+        _Repository = New SpielerRepository(_Speicher.Object, _Observable.Object, _Spielerliste)
+
+        ' Act
+        s.Abwesend = True
+        Dim xmlSpieler = _BKlasse.<matches>.<ppc:inactiveplayer>.First()
+        Assert.That(xmlSpieler.@player, Iz.EqualTo("MeineID"))
+        Assert.That(xmlSpieler.@group, Iz.EqualTo("0"))
+    End Sub
+
+    <Test>
     Public Sub Remove_entfernt_Xml_Knoten_aus_richtigem_Klassement()
         Dim spieler = New SpielerInfo With {
                     .ID = "MeineID",
@@ -74,6 +98,31 @@ Public Class SpielerRepositoryTests
                  spieler
 ))
         Assert.That(_BKlasse.<players>.Elements().Count, Iz.EqualTo(0))
+    End Sub
+
+    <Test>
+    Public Sub Remove_entfernt_ausgeschiedene_Spieler()
+        ' Arrange
+        Dim s = New SpielerInfo With {
+                    .ID = "MeineID",
+                    .Abwesend = False,
+                    .Klassement = "B-Klasse",
+                    .Fremd = True
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add,
+                 s))
+
+        ' Act
+        s.Abwesend = True
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Remove,
+                 s))
+        Assert.That(_BKlasse.<matches>.Elements().Count, Iz.EqualTo(0))
     End Sub
 
     <Test>
