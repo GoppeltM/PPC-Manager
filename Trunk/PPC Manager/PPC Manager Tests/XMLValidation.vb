@@ -1,13 +1,11 @@
-﻿Imports System.Xml.Schema
+﻿Imports System.IO
+Imports System.Xml.Schema
 
 <TestFixture()> Public Class XMLValidation
 
     Private Function GetSchemaSet() As XmlSchemaSet
         Dim schema As XmlSchema
-        Dim AktuellerPfad = Reflection.Assembly.GetCallingAssembly.Location
-        AktuellerPfad = IO.Path.GetDirectoryName(AktuellerPfad)
-        AktuellerPfad &= "..\..\..\..\PPC Manager\SpeicherStandSchema.xsd"
-        Using stream = New IO.FileStream(AktuellerPfad, IO.FileMode.Open)
+        Using stream = New StringReader(My.Resources.SpeicherStandSchema)
             schema = XmlSchema.Read(stream, Nothing)
         End Using
 

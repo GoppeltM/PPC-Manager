@@ -1,4 +1,5 @@
-﻿Imports System.Text
+﻿Imports System.IO
+Imports System.Text
 Imports System.Xml.Schema
 Imports Moq
 
@@ -61,9 +62,7 @@ Imports Moq
     <Test> Public Sub Schema_Validierung()
         Dim doc = XDocument.Parse(My.Resources.Testturnier)
         Dim schema As XmlSchema
-        Dim Pfad = IO.Path.GetDirectoryName(Reflection.Assembly.GetExecutingAssembly.Location)
-        Pfad &= "\..\..\..\PPC Manager\SpeicherStandSchema.xsd"
-        Using stream = New IO.FileStream(Pfad, IO.FileMode.Open)
+        Using stream = New StringReader(My.Resources.SpeicherStandSchema)
             schema = XmlSchema.Read(stream, Nothing)
         End Using
 

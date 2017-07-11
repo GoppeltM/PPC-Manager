@@ -107,6 +107,24 @@ Namespace My.Resources
         
         '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        '''&lt;xs:schema attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; 
+        '''           xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;         
+        '''           targetNamespace=&quot;http://www.ttc-langensteinbach.de&quot;&gt;
+        '''
+        '''  &lt;xs:attribute name=&quot;satzdifferenz&quot; type=&quot;xs:boolean&quot;/&gt;
+        '''  &lt;xs:attribute name=&quot;sonnebornberger&quot; type=&quot;xs:boolean&quot;/&gt;
+        '''  &lt;xs:attribute name=&quot;anwesend&quot; type=&quot;xs:boolean&quot;/&gt;
+        '''  &lt;xs:attribute name=&quot;abwesend&quot; type=&quot;xs:boolean&quot;/&gt;
+        '''  &lt;xs:attribute name=&quot;bezahlt&quot; type=&quot; [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        '''</summary>
+        Friend ReadOnly Property SpeicherStandSchema() As String
+            Get
+                Return ResourceManager.GetString("SpeicherStandSchema", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         '''&lt;!DOCTYPE tournament SYSTEM &quot;http://www.datenautomaten.nu/dtd/nuLiga/TournamentPortal.dtd&quot;[]&gt;
         '''&lt;tournament end-date=&quot;2012-09-09&quot; start-date=&quot;2012-09-08&quot; name=&quot;15. Turnier nach Schweizer Art &quot; tournament-id=&quot;4MGSAgWpFNN%2FCGskx1WKbLUQRB6iFN7s&quot;&gt;
         '''  &lt;competition start-date=&quot;2012-09-08 11:00&quot; ttr-remarks=&quot;-&quot; age-group=&quot;Mädchen U 13&quot; type=&quot;Einzel&quot;&gt;

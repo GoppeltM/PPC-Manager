@@ -204,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\SpeicherStandSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\Turnierteilnehmer.xml">
       <SubType>Designer</SubType>
     </None>

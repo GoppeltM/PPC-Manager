@@ -86,16 +86,13 @@ Public Class SpielerRepository
     Private Sub OnCollectionChanged(sender As Object, e As NotifyCollectionChangedEventArgs)
         Dim neue = If(e.NewItems, New List(Of SpielerInfo)).OfType(Of SpielerInfo)
         Dim alte = If(e.OldItems, New List(Of SpielerInfo)).OfType(Of SpielerInfo)
-        Dim evt = Sub(o As Object, args As PropertyChangedEventArgs)
-                      Dim spieler As SpielerInfo = CType(o, SpielerInfo)
-                      _Speicher.Speichere(Sub(x) SpielerChanged(x, spieler, args))
-                  End Sub
+
         For Each el In neue
-            AddHandler el.PropertyChanged, evt
+            AddHandler el.PropertyChanged, AddressOf OnSpielerEvent
         Next
 
         For Each el In alte
-            RemoveHandler el.PropertyChanged, evt
+            RemoveHandler el.PropertyChanged, AddressOf OnSpielerEvent
         Next
 
         Select Case e.Action
@@ -105,10 +102,16 @@ Public Class SpielerRepository
                 _Speicher.Speichere(Sub(klassements)
                                         For Each el In alte
                                             If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler löschbar")
-                                            el.Abwesend = False
-                                            Dim zuLöschen = (From x In klassements.<players>.<ppc:player>
-                                                             Where x.@id = el.ID).Single
+                                            Dim klassement = (From x In klassements Where x.Attribute("age-group").Value = el.Klassement).First
+                                            Dim zuLöschen = (From x In klassement.<players>.<ppc:player>
+                                                             Where x.@id = el.ID)
                                             zuLöschen.Remove()
+                                            Dim inaktivKnoten = (From x In klassement.<matches>.<ppc:inactiveplayer>
+                                                                 Where x.@player = el.ID).FirstOrDefault
+                                            If inaktivKnoten IsNot Nothing Then
+                                                inaktivKnoten.Remove()
+                                            End If
+
                                         Next
                                     End Sub)
             Case Else

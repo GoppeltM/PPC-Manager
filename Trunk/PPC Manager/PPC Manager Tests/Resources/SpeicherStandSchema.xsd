@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"         
+           targetNamespace="http://www.ttc-langensteinbach.de">
+
+  <xs:attribute name="satzdifferenz" type="xs:boolean"/>
+  <xs:attribute name="sonnebornberger" type="xs:boolean"/>
+  <xs:attribute name="anwesend" type="xs:boolean"/>
+  <xs:attribute name="abwesend" type="xs:boolean"/>
+  <xs:attribute name="bezahlt" type="xs:boolean"/>
+  <xs:attribute name="gewinnsätze" type="xs:int"/>
+
+  <xs:complexType name="player">
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="freematch">
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+  
+  <xs:complexType name="match">
+    <xs:attribute name="player-a" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>

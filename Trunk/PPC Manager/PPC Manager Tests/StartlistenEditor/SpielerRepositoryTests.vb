@@ -99,6 +99,25 @@ Public Class SpielerRepositoryTests
 ))
         Assert.That(_BKlasse.<players>.Elements().Count, Iz.EqualTo(0))
     End Sub
+    <Test>
+    Public Sub Remove_speichert_ein_mal()
+        Dim spieler = New SpielerInfo With {
+                    .ID = "MeineID",
+                    .Fremd = True,
+                    .Klassement = "B-Klasse"
+                 }
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Add,
+                 spieler))
+        _Observable.Raise(
+        Sub(m) AddHandler m.CollectionChanged, Nothing,
+                 New NotifyCollectionChangedEventArgs(
+                 NotifyCollectionChangedAction.Remove,
+                 spieler))
+        _Speicher.Verify(Sub(m) m.Speichere(It.IsAny(Of Veränderung)), Times.Exactly(2))
+    End Sub
 
     <Test>
     Public Sub Remove_entfernt_ausgeschiedene_Spieler()
