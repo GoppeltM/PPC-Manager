@@ -1,6 +1,39 @@
 ﻿Imports StartlistenEditor
 
 Public Class SpeicherTests
+
+    <Test>
+    Public Sub LeseSpieler_setzt_fehlende_TTR_Daten_auf_Null()
+        ' Arrange
+        Dim _BKlasse = <competition age-group="B-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
+                           <players>
+                               <player id="ID123">
+                                   <person
+                                       licence-nr="45"
+                                       club-name="TS Durlach"
+                                       sex="0"
+                                       firstname="Max"
+                                       lastname="Mustermann"
+                                       birthyear="1981"
+                                       >
+                                   </person>
+                               </player>
+                           </players>
+                       </competition>
+        Dim dateisystem = Mock.Of(Of IDateisystem)(
+                Function(m) m.LadeXml() Is New XDocument(<root>
+                                                             <%= _BKlasse %>
+                                                         </root>)
+            )
+
+        Dim r = New Speicher(dateisystem)
+        ' Act
+        Dim l = r.LeseSpieler
+        ' Assert
+        Assert.That(l.First.TTR, [Is].EqualTo(0))
+        Assert.That(l.First.TTRMatchCount, [Is].EqualTo(0))
+    End Sub
+
     <Test>
     Public Sub LeseSpieler_parst_alle_Spielerdaten()
         ' Arrange

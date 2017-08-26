@@ -23,9 +23,31 @@ Public Class AusXMLTests
                                                   New SpielerInfo("PLAYER126"),
                                                   New SpielerInfo("PLAYER72"),
                                                   New SpielerInfo("PLAYER-1")}, rundenRef)
+        Assert.That(RundenRes.Reverse.ElementAt(0).Count, [Is].EqualTo(0))
+        Assert.That(RundenRes.Reverse.ElementAt(1).Count, [Is].EqualTo(2))
+        Assert.That(RundenRes.Reverse.ElementAt(2).Count, [Is].EqualTo(1))
         Assert.That(RundenRes.Reverse.ElementAt(1).AusgeschiedeneSpielerIDs, Contains.Item("PLAYER127"))
     End Sub
 
+    <Test>
+    Public Sub SpielerFromXML_nimmt_TTR_0_wenn_nicht_vorhanden()
+        Dim XNode = <player type="single" id="PLAYER72">
+                        <person licence-nr="53010" club-federation-nickname="BaTTV"
+                            club-name="TTC Langensteinbach e.V. " sex="1"
+                            lastname="Ewald"
+                            internal-nr="NU440049" club-nr="428" firstname="Florian"
+                            birthyear="1981"/>
+                    </player>
+
+        With AusXML.SpielerFromXML(XNode)
+            Assert.AreEqual("Florian", .Vorname)
+            Assert.AreEqual("Ewald", .Nachname)
+            Assert.AreEqual("TTC Langensteinbach e.V. ", .Vereinsname)
+            Assert.AreEqual(53010, .Lizenznummer)
+            Assert.AreEqual(1981, .Geburtsjahr)
+            Assert.AreEqual(1, .Geschlecht)
+        End With
+    End Sub
 
     <Test>
     Public Sub Spieler_From_XML()

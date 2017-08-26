@@ -20,7 +20,7 @@ Public Class AusXML
         For Each s In spielerInfos
             spielerliste.Add(s)
         Next
-        SpielRundenFromXML(spielrunden, spielerliste, node.<matches>.SingleOrDefault)
+        SpielRundenFromXML(spielrunden, spielerliste, If(node.<matches>.SingleOrDefault, New XElement("matches")))
         Dim altersgruppe = node.Attribute("age-group").Value
 
         Return New Competition(spielRegeln, spielrunden, spielerliste, altersgruppe)
@@ -49,13 +49,13 @@ Public Class AusXML
             spielerNode = spielerNode.<person>.First
             .Vorname = spielerNode.@firstname
             .Nachname = spielerNode.@lastname
-            .TTRMatchCount = Integer.Parse(spielerNode.Attribute("ttr-match-count").Value)
             .Geschlecht = Integer.Parse(spielerNode.@sex)
             .Vereinsname = spielerNode.Attribute("club-name").Value
-            .TTRating = Integer.Parse(spielerNode.@ttr)
             .Lizenznummer = Long.Parse(spielerNode.Attribute("licence-nr").Value)
         End With
         Integer.TryParse(spielerNode.@birthyear, spieler.Geburtsjahr)
+        Integer.TryParse(spielerNode.@ttr, spieler.TTRating)
+        Integer.TryParse(spielerNode.Attribute("ttr-match-count")?.Value, spieler.TTRMatchCount)
         Return spieler
     End Function
 
@@ -63,9 +63,8 @@ Public Class AusXML
                                               ByVal spielerListe As IEnumerable(Of SpielerInfo),
                                               ByVal matchesKnoten As XElement)
         If matchesKnoten Is Nothing Then
-            Return
+            Throw New ArgumentNullException
         End If
-
 
         Dim xSpielPartien = From x In matchesKnoten.Elements.Except(matchesKnoten.<ppc:inactiveplayer>)
                             Group By x.@group Into Runde = Group

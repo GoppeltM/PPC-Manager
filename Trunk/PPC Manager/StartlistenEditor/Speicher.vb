@@ -48,14 +48,14 @@ Public Class Speicher
                                         .LizenzNr = Long.Parse(person.Attribute("licence-nr").Value),
                                         .Nachname = person.@lastname,
                                         .Vorname = person.@firstname,
-                                        .TTR = Integer.Parse(person.@ttr),
-                                        .TTRMatchCount = Integer.Parse(person.Attribute("ttr-match-count").Value),
                                         .Verein = person.Attribute("club-name").Value
                                     }
                                    Boolean.TryParse(person.@ppc:abwesend, s.Abwesend)
                                    Boolean.TryParse(person.@ppc:anwesend, s.Anwesend)
                                    Boolean.TryParse(person.@ppc:bezahlt, s.Bezahlt)
                                    Integer.TryParse(person.@birthyear, s.Geburtsjahr)
+                                   Integer.TryParse(person.@ttr, s.TTR)
+                                   Integer.TryParse(person.Attribute("ttr-match-count")?.Value, s.TTRMatchCount)
                                    Return s
                                End Function
 
@@ -64,6 +64,8 @@ Public Class Speicher
                 Dim person = xmlSpieler.<person>.Single
                 Try
                     l.Add(neuerSpieler(id, False, person))
+                Catch ex As ArgumentNullException
+                    Throw New UngültigeSpielerXmlException(xmlSpieler, ex)
                 Catch ex As FormatException
                     Throw New UngültigeSpielerXmlException(xmlSpieler, ex)
                 End Try
