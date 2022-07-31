@@ -80,7 +80,7 @@ Class MainWindow
     End Sub
 
     Public Function FilterSpieler(s As SpielerInfo) As Boolean
-        Return Not _Spielrunden.First.AusgeschiedeneSpielerIDs.Contains(s.Id)
+        Return Not _Spielrunden.Last.AusgeschiedeneSpielerIDs.Contains(s.Id)
     End Function
 
     Private Sub Ja(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
