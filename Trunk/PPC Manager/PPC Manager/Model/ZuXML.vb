@@ -44,8 +44,14 @@ Public Class ZuXML
 
         For Each i In Enumerable.Range(0, runden.Count)
             Dim runde = runden(i)
+            Dim rundenname = 0
+            If runde.Count > 0 Then
+                Dim match = runde(0)
+                rundenname = Integer.Parse(match.RundenName.Substring(match.RundenName.IndexOf(" ")))
+            End If
+
             For Each x In runde.AusgeschiedeneSpielerIDs
-                xSpielRunden.Add(<ppc:inactiveplayer player=<%= x %> group=<%= i %>/>)
+                xSpielRunden.Add(<ppc:inactiveplayer player=<%= x %> group=<%= rundenname %>/>)
             Next
         Next
 
