@@ -2,7 +2,7 @@ See below for german text
 
 # Summary
 
-The "Ping-Pong Café Manager" was developed as a tool to help a german table-tennis club (http://ttc-langensteinbach.de) to manage its yearly tournament, the "Ping-Pong-Café".
+The "Ping-Pong CafÃ© Manager" was developed as a tool to help a german table-tennis club (http://ttc-langensteinbach.de) to manage its yearly tournament, the "Ping-Pong-CafÃ©".
 They decided to implement the Swiss-system tournament (see http://en.wikipedia.org/wiki/Swiss-system_tournament) for several reasons:
 
 * Unlike classical K.O. systems, no player drops out due to an early lost game. Everyone plays the same amount of rounds
@@ -20,7 +20,7 @@ The project is far older than the upload in GitHub might suggest, so sorry for a
 External components are managed via Visual Studio package manager.
 
 * Based on VB.NET, .NET 4.0 and WPF
-* Developed with Visual Studio 2015
+* Developed with Visual Studio 2017
 * Tested on Windows 7, Windows 8 und Windows 10 (x64)
 * Setup built by Wix
 * Unit Tests via NUnit
@@ -48,47 +48,47 @@ Marius Goppelt
 ----------------------------------------------------------------------------------------------------------------
 
 
-# Überblick
+# Ãœberblick
 
-Der "Ping-Pong Café Manager" wurde im Auftrag eines deutschen Tischtennisvereins entwickelt (http://ttc-langensteinbach.de), um den Ablauf des jährlichen "Ping-Pong-Café" Turniers zu organisieren.
-Das Turnier versucht das Schweizer Turnier System (see http://en.wikipedia.org/wiki/Swiss-system_tournament) zu adaptieren, und zwar aus mehreren Gründen:
+Der "Ping-Pong CafÃ© Manager" wurde im Auftrag eines deutschen Tischtennisvereins entwickelt (http://ttc-langensteinbach.de), um den Ablauf des jÃ¤hrlichen "Ping-Pong-CafÃ©" Turniers zu organisieren.
+Das Turnier versucht das Schweizer Turnier System (see http://en.wikipedia.org/wiki/Swiss-system_tournament) zu adaptieren, und zwar aus mehreren GrÃ¼nden:
 
 * Anders wie klassische K.O. Systeme steigt kein Spieler vorzeitig aufgrund eines verlorenen Spiels aus. Jeder spielt die selbe Rundenzahl
 * Anders als Turniersysteme in denen jeder gegen jeden spielt, hat man nach einer limitierten Anzahl von Runden einen eindeutigen Gewinner
-* Anders wie Gruppenspiele (wie z.B. die Gruppenspiele der FIFA Weltmeisterschaft) unterliegt die Gruppenzusammensetzung nicht nur dem Zufall. Die meiste Spielzeit spielt jeder in Gruppen mit vergleichbarer Gegnerstärke
+* Anders wie Gruppenspiele (wie z.B. die Gruppenspiele der FIFA Weltmeisterschaft) unterliegt die Gruppenzusammensetzung nicht nur dem Zufall. Die meiste Spielzeit spielt jeder in Gruppen mit vergleichbarer GegnerstÃ¤rke
 
-Der größte Nachteil dieses Systems ist, dass es für Menschen kaum verständlich ist, und innerhalb des engen Zeitrahmens zwischen zwei Runden es fast unmöglich ist die Paarungen von Hand auszurechnen. Daher habe ich die Spielregeln in diesem Programm umgesetzt.
+Der grÃ¶ÃŸte Nachteil dieses Systems ist, dass es fÃ¼r Menschen kaum verstÃ¤ndlich ist, und innerhalb des engen Zeitrahmens zwischen zwei Runden es fast unmÃ¶glich ist die Paarungen von Hand auszurechnen. Daher habe ich die Spielregeln in diesem Programm umgesetzt.
 
-## Warum eine Veröffentlichung dieses Projektes auf GitHub?
+## Warum eine VerÃ¶ffentlichung dieses Projektes auf GitHub?
 Mir ist bewusst, dass dieses Projekt sehr speziell auf die Anforderungen des genannten Tischtennisvereins zugeschnitten ist. Soweit wir wissen, gibt es deutschlandweit niemanden der Tischtennis mit genau diesem Regelsatz spielt.
-In den letzten paar Jahren wurde das Turnier zunehmend bekannter, und der Landesverband wurde auf diesen Erfolg aufmerksam. Daher möchte ich anderen Tischtennisvereinen die Möglichkeit geben dieses Projekt als Beispiel und Vorlage für eigene Turnierformen zu benutzen.
-Das Projekt ist weit älter als es der Upload auf GitHub suggeriert. Es war nie als internationales Projekt gedacht, daher bitte ich zu entschuldigen dass Kommentare und Code nur auf deutsch verfügbar sind.
+In den letzten paar Jahren wurde das Turnier zunehmend bekannter, und der Landesverband wurde auf diesen Erfolg aufmerksam. Daher mÃ¶chte ich anderen Tischtennisvereinen die MÃ¶glichkeit geben dieses Projekt als Beispiel und Vorlage fÃ¼r eigene Turnierformen zu benutzen.
+Das Projekt ist weit Ã¤lter als es der Upload auf GitHub suggeriert. Es war nie als internationales Projekt gedacht, daher bitte ich zu entschuldigen dass Kommentare und Code nur auf deutsch verfÃ¼gbar sind.
 
 
 # Merkmale und Anforderungen
 Externe Komponenten werden vom Visual Studio Package Manager verwaltet.
 
 * Basiert auf VB.NET, .NET 4.0 und WPF
-* Entwickelt mit Visual Studio 2015
+* Entwickelt mit Visual Studio 2017
 * Getestet auf Windows 7, Windows 8 und Windows 10 (x64)
 * Setup auf Basis der Wix Plattform
 * Unit Tests via NUnit
 * Implementiert die Regeln des Schweizer Turniersystems, wenn auch mit leichten Anpassungen und Korrekturen. Erlaubt bis zu (Spielerzahl - 1) Runden
 * Aufgeteilt in zwei Bereiche:
-	* Eine Anwendung die Spieleranmeldungen am Turniertag verwaltet und überprüft (StartlistenEditor)
-	* Eine Anwendung die separat die Ergebnisse und Paarungen jeder Turnierklasse verwaltet (unterstützt mehrere Parallelinstanzen)
-* Versteht und arbeitet nativ im XML Export Schema der Baden-Württembergischen Tischtennisverbände (http://ttvbw.click-tt.de)
+	* Eine Anwendung die Spieleranmeldungen am Turniertag verwaltet und Ã¼berprÃ¼ft (StartlistenEditor)
+	* Eine Anwendung die separat die Ergebnisse und Paarungen jeder Turnierklasse verwaltet (unterstÃ¼tzt mehrere Parallelinstanzen)
+* Versteht und arbeitet nativ im XML Export Schema der Baden-WÃ¼rttembergischen TischtennisverbÃ¤nde (http://ttvbw.click-tt.de)
 * Alle Turnierdaten sind gesammelt in einer XML Datei
-* Unterstützt diverse Druckaufträge via XPS
-* Erlaubt Datenexporte von Turnierdaten zu Microsoft Excel (2007 oder höher) via OpenXML
+* UnterstÃ¼tzt diverse DruckauftrÃ¤ge via XPS
+* Erlaubt Datenexporte von Turnierdaten zu Microsoft Excel (2007 oder hÃ¶her) via OpenXML
 * Erlaubt einzelne Runden speziell als "Playoff" zu spielen, um Schweizer-System und z.B. K.O. System Runden zu mischen
-* Erlaubt diverse Anpassungen des Turniermodus, wie z.B. Anpassung der Gewinnsätze, Berücksichtigung des Satzverhältnisses, und 
+* Erlaubt diverse Anpassungen des Turniermodus, wie z.B. Anpassung der GewinnsÃ¤tze, BerÃ¼cksichtigung des SatzverhÃ¤ltnisses, und 
 
 # Wo anfangen?
 * Wenn Sie an den Paarungsregeln des Schweizer Systems interessiert sind, schauen Sie im Ordner unter "PPC Manager\Model"
 * Wenn Sie Interesse am Drucken haben, schauen Sie unter "PPC Manager\Output"
 * Wenn Sie Interesse am verwendeten Datenformat haben, werfen Sie einen Blick auf SpeicherStandSchema.xsd und TournamentPortal.dtd
-* Wenn Sie an spezifischen Implementierungsdetails und deren Hintergründen interessiert sind, schauen Sie ins Commit Log. Ich habe versucht dort alle Änderungen so sorgfältig es geht zu dokumentieren.
+* Wenn Sie an spezifischen Implementierungsdetails und deren HintergrÃ¼nden interessiert sind, schauen Sie ins Commit Log. Ich habe versucht dort alle Ã„nderungen so sorgfÃ¤ltig es geht zu dokumentieren.
 
 Marius Goppelt
 
