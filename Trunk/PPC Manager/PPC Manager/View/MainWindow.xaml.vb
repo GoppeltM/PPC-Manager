@@ -75,7 +75,6 @@ Class MainWindow
             Return
         End If
         Me.Begegnungen.DataContext = _Spielrunden.Peek
-        Me.Begegnungen.DetailGrid.DataContext = Nothing
         NavigationCommands.Refresh.Execute(Nothing, LiveListe)
     End Sub
 
