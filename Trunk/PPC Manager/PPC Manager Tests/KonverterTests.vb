@@ -87,7 +87,7 @@ Imports Moq
         Dim converter = New OpacityConverter
         converter.IstAbgeschlossen = Function(x) True
         Dim result = converter.Convert(New SpielPartie("Runde 1", New SpielerInfo("A"), New SpielerInfo("B")), Nothing, Nothing, Nothing)
-        Assert.AreEqual(0.2, result)
+        Assert.AreEqual(0.4, result)
     End Sub
 
     <Test>
