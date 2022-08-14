@@ -31,7 +31,7 @@ Public Class FixedPageFabrik
         If _SpielRunden.Any Then
             spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel).ToList
         End If
-        Dim seite = New RanglisteSeite(_KlassementName, _SpielRunden.Count, l, spielPartien, _Spielstand)
+        Dim seite = New RanglisteSeite(_KlassementName, _SpielRunden.Count - 1, l, spielPartien, _Spielstand)
         With seite
             Dim canvas = New Canvas
             canvas.Children.Add(seite)
@@ -41,15 +41,13 @@ Public Class FixedPageFabrik
 
         Dim gesamtLänge = seite.RenderSize.Height
 
-        seite = New RanglisteSeite(_KlassementName,
-                                   _SpielRunden.Count, l, spielPartien, _Spielstand)
         Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
     End Function
 
     Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSchiedsrichterZettelSeiten
         Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
-                                          el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count, seitenNr)
+                                          el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count - 1, seitenNr)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
         Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = _SpielRunden.Peek.ToList
@@ -64,7 +62,7 @@ Public Class FixedPageFabrik
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el,
                                                                                                _KlassementName,
-                                                                                               _SpielRunden.Count,
+                                                                                               _SpielRunden.Count - 1,
                                                                                                seitenNr,
                                                                                                _Spielstand)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
@@ -84,7 +82,7 @@ Public Class FixedPageFabrik
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el,
                                                                                                  _KlassementName,
-                                                                                                 _SpielRunden.Count,
+                                                                                                 _SpielRunden.Count - 1,
                                                                                                  seitenNr,
                                                                                                  _Spielstand)
         Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
