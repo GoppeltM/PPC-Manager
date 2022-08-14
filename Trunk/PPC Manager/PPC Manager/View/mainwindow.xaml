@@ -23,17 +23,19 @@
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="23" />
+            <RowDefinition Height="18" />
             <RowDefinition />
+            <RowDefinition Height="18" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="600*" MinWidth="20" />
             <ColumnDefinition Width="858*" />
         </Grid.ColumnDefinitions>
-        <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <local:LiveListe Grid.Row="1" Grid.Column="0" x:Name="LiveListe" Margin="10,5,20,5" TextBlock.FontSize="20" />
+        <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="18" />
+        <local:LiveListe Grid.Row="1" Grid.Column="0" x:Name="LiveListe" Margin="5,5,15,3" TextBlock.FontSize="20" />
         <GridSplitter Grid.Row="1" Grid.Column ="0" Background="Blue" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />
-        <local:Begegnungen Grid.Row="1" Grid.Column="1"  x:Name="Begegnungen" Margin="0,28,0,0" />        
+        <local:Begegnungen Grid.Row="1" Grid.Column="1"  x:Name="Begegnungen" Margin="0,28,5,3" />
+        <TextBlock x:Name="versionNumber" HorizontalAlignment="Left" Margin="5,0,5,2" Grid.Row="2" TextWrapping="Wrap" Text="Version 1.2" VerticalAlignment="Center" Opacity="0.8" Height="16"/>
     </Grid>
 </Window>
