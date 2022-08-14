@@ -35,7 +35,7 @@ Public Class SpielerRepositoryTests
                     .ID = "MeineID",
                     .Fremd = True,
                     .Klassement = "B-Klasse",
-                    .LizenzNr = -41,
+                    .LizenzNr = "-41",
                     .Geburtsjahr = 1987,
                     .Geschlecht = 1,
                     .Vorname = "Dr. Max",
@@ -231,7 +231,7 @@ Public Class SpielerRepositoryTests
         Dim spieler = New SpielerInfo With {
             .Klassement = "B-Klasse",
             .ID = "123",
-            .LizenzNr = 123}
+            .LizenzNr = "123"}
 
         Dim repository = New SpielerRepository(speicher.Object, _Observable.Object,
                                                New List(Of SpielerInfo) From {spieler})

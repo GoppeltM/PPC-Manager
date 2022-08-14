@@ -28,7 +28,7 @@
         Dim s As New SpielerInfo("949") With {
             .Vorname = "Bob",
             .Nachname = "Builder",
-            .Lizenznummer = 1234,
+            .Lizenznummer = "1234",
             .Geburtsjahr = 1984,
             .TTRating = 520,
             .TTRMatchCount = 23,
@@ -40,7 +40,7 @@
         Assert.That(neu.Id, [Is].EqualTo("949"))
         Assert.That(neu.Vorname, [Is].EqualTo("Bob"))
         Assert.That(neu.Nachname, [Is].EqualTo("Builder"))
-        Assert.That(neu.Lizenznummer, [Is].EqualTo(1234))
+        Assert.That(neu.Lizenznummer, [Is].EqualTo("1234"))
         Assert.That(neu.Geburtsjahr, [Is].EqualTo(1984))
         Assert.That(neu.TTRating, [Is].EqualTo(520))
         Assert.That(neu.TTRMatchCount, [Is].EqualTo(23))

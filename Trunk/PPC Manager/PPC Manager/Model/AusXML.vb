@@ -51,7 +51,7 @@ Public Class AusXML
             .Nachname = spielerNode.@lastname
             .Geschlecht = Integer.Parse(spielerNode.@sex)
             .Vereinsname = spielerNode.Attribute("club-name").Value
-            .Lizenznummer = Long.Parse(spielerNode.Attribute("licence-nr").Value)
+            .Lizenznummer = spielerNode.Attribute("licence-nr").Value
         End With
         Integer.TryParse(spielerNode.@birthyear, spieler.Geburtsjahr)
         Integer.TryParse(spielerNode.@ttr, spieler.TTRating)
