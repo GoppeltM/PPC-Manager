@@ -25,15 +25,23 @@
                 <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                     <Border BorderThickness="1" BorderBrush="Black" CornerRadius="8" Margin="2">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
-                                <RowDefinition Height="2*"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="{Binding Klassement, ElementName=userControl}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
                             <TextBlock Grid.Row="1" Text="{Binding Path=RundenName}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" />
-                            <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
-                            <TextBlock Grid.Row="2" Text="{Binding Path=SpielerLinks}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="Freilosspiel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=SpielerLinks.Nachname}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=SpielerLinks.Vorname}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
