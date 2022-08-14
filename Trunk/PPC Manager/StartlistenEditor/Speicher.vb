@@ -45,7 +45,7 @@ Public Class Speicher
                                         .Fremd = fremd,
                                         .Geschlecht = Integer.Parse(person.@sex),
                                         .Klassement = klassement.Attribute("age-group").Value,
-                                        .LizenzNr = Long.Parse(person.Attribute("licence-nr").Value),
+                                        .LizenzNr = person.Attribute("licence-nr").Value,
                                         .Nachname = person.@lastname,
                                         .Vorname = person.@firstname,
                                         .Verein = person.Attribute("club-name").Value

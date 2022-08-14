@@ -16,13 +16,13 @@ Public Class StartlistenController
     End Sub
 
     Protected Overrides Sub InsertItem(index As Integer, item As SpielerInfo)
-        If item.LizenzNr = 0 Then
+        If item.LizenzNr = "" Then
             Dim Lizenznummern = (From x In Me Select x.LizenzNr).ToList
             Dim NeueLizenzNummer = -1
-            While Lizenznummern.Contains(NeueLizenzNummer)
+            While Lizenznummern.Contains(NeueLizenzNummer & "")
                 NeueLizenzNummer -= 1
             End While
-            item.LizenzNr = NeueLizenzNummer
+            item.LizenzNr = NeueLizenzNummer & ""
             item.ID = "PLAYER" & NeueLizenzNummer
         End If
         MyBase.InsertItem(index, item)

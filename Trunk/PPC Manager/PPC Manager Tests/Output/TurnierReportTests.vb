@@ -35,7 +35,7 @@
                 .Geschlecht = 1,
                 .Geburtsjahr = 1472,
                 .Fremd = True,
-                .Lizenznummer = 12345,
+                .Lizenznummer = "12345",
                 .TTRating = 999,
                 .TTRMatchCount = 22,
                 .Verbandsspitzname = "Hello",

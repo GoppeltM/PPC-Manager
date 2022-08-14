@@ -44,9 +44,8 @@ Public Class SpielerInfoComparer
         If diff <> 0 Then Return diff
         diff = y.Vorname.CompareTo(x.Vorname)
         If diff <> 0 Then Return diff
-        Dim longDiff = x.Lizenznummer - y.Lizenznummer
-        If longDiff > 0 Then Return 1
-        If longDiff < 0 Then Return -1
+        diff = x.Lizenznummer.CompareTo(y.Lizenznummer)
+        If diff <> 0 Then Return diff
         Return 0
     End Function
 End Class

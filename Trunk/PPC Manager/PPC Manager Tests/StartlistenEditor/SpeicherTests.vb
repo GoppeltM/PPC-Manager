@@ -72,7 +72,7 @@ Public Class SpeicherTests
         Assert.That(p.Geschlecht, Iz.EqualTo(0))
         Assert.That(p.ID, Iz.EqualTo("ID123"))
         Assert.That(p.Klassement, Iz.EqualTo("B-Klasse"))
-        Assert.That(p.LizenzNr, Iz.EqualTo(45))
+        Assert.That(p.LizenzNr, Iz.EqualTo("45"))
         Assert.That(p.Nachname, Iz.EqualTo("Mustermann"))
         Assert.That(p.TTR, Iz.EqualTo(12))
         Assert.That(p.TTRMatchCount, Iz.EqualTo(55))
@@ -80,7 +80,7 @@ Public Class SpeicherTests
         Assert.That(p.Vorname, Iz.EqualTo("Max"))
     End Sub
 
-    <Test>
+    <Test, Ignore("Licence-NR Format wird nicht geprüft, jeder String ist gültig")>
     Public Sub LeseSpieler_wirft_UngültigeSpielerException_bei_falscher_LizenzNr()
         ' Arrange
         Dim _BKlasse = <competition age-group="B-Klasse" xmlns:ppc="http://www.ttc-langensteinbach.de">
@@ -140,6 +140,6 @@ Public Class SpeicherTests
         Dim r = New Speicher(dateisystem)
         ' Act / Assert
         Dim s = r.LeseSpieler.First
-        Assert.That(s.LizenzNr, [Is].EqualTo(1234567890123456789L))
+        Assert.That(s.LizenzNr, [Is].EqualTo("1234567890123456789"))
     End Sub
 End Class

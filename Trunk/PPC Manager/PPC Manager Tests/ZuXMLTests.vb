@@ -45,7 +45,7 @@ Public Class ZuXMLTests
                                                                matches-a="0" matches-b="0" scheduled="2013-05-22 21:17" group="Runde 1" nr="2"
                                                                set-a-1="0" set-a-2="0" set-a-3="0" set-a-4="0" set-a-5="0" set-a-6="0" set-a-7="0"
                                                                set-b-1="0" set-b-2="0" set-b-3="0" set-b-4="0" set-b-5="0" set-b-6="0" set-b-7="0"/>.ToString))
-        Assert.That(spielPartien(2).ToString, [Is].EqualTo(<ppc:inactiveplayer player="PLAYER77" group="0"/>.ToString))
+        Assert.That(spielPartien(2).ToString, [Is].EqualTo(<ppc:inactiveplayer player="PLAYER77" group="1"/>.ToString))
 
     End Sub
 
