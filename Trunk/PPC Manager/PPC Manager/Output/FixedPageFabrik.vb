@@ -19,7 +19,7 @@ Public Class FixedPageFabrik
 
     Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
         Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
-                                        Return Aggregate x In _SpielRunden.First.AusgeschiedeneSpielerIDs
+                                        Return Aggregate x In _SpielRunden.Last.AusgeschiedeneSpielerIDs
                                                Where x = s.Id Into Any()
                                     End Function
         Dim l = (From x In _Spielerliste
