@@ -3,6 +3,8 @@
 /Trunk/PPC Manager/PPC Manager Tests/Resources/Protokolle
 /Trunk/PPC Manager/packages/**
 !/Trunk/PPC Manager/packages/repositories.config
+/Trunk/PPC Manager/UpgradeLog.htm
+/Trunk/PPC Manager/.vs/**
 /.vs/**
 bin
 obj
