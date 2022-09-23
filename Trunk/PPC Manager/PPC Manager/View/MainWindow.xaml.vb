@@ -247,35 +247,11 @@ Class MainWindow
 
         End With
 
-        Dim dialog = New DruckEinstellungenDialog With {
+        Dim dialog = New DruckEinstellungenDialog(_Controller, _DruckerFabrik) With {
             .DataContext = _DruckEinstellungen
         }
 
-        If Not dialog.ShowDialog Then
-            Return
-        End If
-        With _DruckEinstellungen
-            If .DruckeNeuePaarungen Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenNeuePaarungen)
-                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
-                p.Drucken(doc, "Neue Begegnungen - Aushang")
-            End If
-            If .DruckeRangliste Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenRangliste)
-                Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
-                p.Drucken(doc, "Rangliste")
-            End If
-            If .DruckeSchiedsrichterzettel Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenSchiedsrichterzettel)
-                Dim doc = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
-                p.Drucken(doc, "Schiedsrichterzettel")
-            End If
-            If .DruckeSpielergebnisse Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenSpielergebnisse)
-                Dim doc = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
-                p.Drucken(doc, "Spielergebnisse")
-            End If
-        End With
+        dialog.ShowDialog()
     End Sub
 
     Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)

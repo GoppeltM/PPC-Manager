@@ -8,7 +8,6 @@ Public Interface IPrinter
 
 End Interface
 
-
 Public Class SeitenEinstellung
 
     Public Property AbstandX As Double
@@ -28,14 +27,12 @@ Public Class Printer
 
     Public Function LeseKonfiguration() As SeitenEinstellung Implements IPrinter.LeseKonfiguration
         Dim area = _PrintDialog.PrintQueue.GetPrintCapabilities.PageImageableArea
-        Dim einstellung = New SeitenEinstellung() With {
+        Return New SeitenEinstellung() With {
             .AbstandX = area.OriginWidth,
             .AbstandY = area.OriginHeight,
             .Breite = area.ExtentWidth,
             .Höhe = area.ExtentHeight
         }
-
-        Return einstellung
     End Function
 
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
@@ -43,6 +40,5 @@ Public Class Printer
         If doc.Pages.Any Then
             _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
         End If
-
     End Sub
 End Class

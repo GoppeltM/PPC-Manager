@@ -1,4 +1,15 @@
-﻿Public Class DruckEinstellungenDialog
+﻿Imports PPC_Manager
+
+Public Class DruckEinstellungenDialog
+
+    Private ReadOnly _Controller As IController
+    Private ReadOnly _DruckerFabrik As IDruckerFabrik
+
+    Public Sub New(Controller As IController, DruckerFabrik As IDruckerFabrik)
+        _Controller = Controller
+        _DruckerFabrik = DruckerFabrik
+        InitializeComponent()
+    End Sub
 
     Public ReadOnly Property Einstellungen As DruckEinstellungen
         Get
@@ -39,7 +50,58 @@
                 Return
             End If
         End With
+        PrintSelectedDocuments()
         DialogResult = True
         Close()
+    End Sub
+
+    Private Sub PrintSelectedDocuments()
+        With Einstellungen
+            If .DruckeNeuePaarungen Then
+                _Focus(NeuePaarungen)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenNeuePaarungen)
+                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
+                p.Drucken(doc, "Neue Begegnungen - Aushang")
+                _Blur(NeuePaarungen)
+            End If
+            If .DruckeSchiedsrichterzettel Then
+                _Focus(Schiedsrichterzettel)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenSchiedsrichterzettel)
+                Dim doc = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
+                p.Drucken(doc, "Schiedsrichterzettel")
+                _Blur(Schiedsrichterzettel)
+            End If
+            If .DruckeSpielergebnisse Then
+                _Focus(Spielergebnisse)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenSpielergebnisse)
+                Dim doc = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
+                p.Drucken(doc, "Spielergebnisse")
+                _Blur(Spielergebnisse)
+            End If
+            If .DruckeRangliste Then
+                _Focus(Rangliste)
+                Dim p = _DruckerFabrik.Neu(.EinstellungenRangliste)
+                Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
+                p.Drucken(doc, "Rangliste")
+                _Blur(Rangliste)
+            End If
+        End With
+    End Sub
+
+    Private _OriginalContent As Object
+
+    Private Sub _Focus(Button As Primitives.ToggleButton)
+        With Button
+            _OriginalContent = .Content
+            .Content = "→ " + .Content.ToString()
+            .FontWeight = FontWeights.Bold
+        End With
+    End Sub
+
+    Private Sub _Blur(Button As Primitives.ToggleButton)
+        With Button
+            .Content = _OriginalContent
+            .FontWeight = FontWeights.Normal
+        End With
     End Sub
 End Class
