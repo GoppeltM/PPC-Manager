@@ -32,7 +32,8 @@ Public Class Printer
             .AbstandX = area.OriginWidth,
             .AbstandY = area.OriginHeight,
             .Breite = area.ExtentWidth,
-            .Höhe = area.ExtentHeight}
+            .Höhe = area.ExtentHeight
+        }
 
         Return einstellung
     End Function

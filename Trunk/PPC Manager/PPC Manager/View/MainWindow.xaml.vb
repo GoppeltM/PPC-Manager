@@ -222,26 +222,35 @@ Class MainWindow
 
     Private Sub AllesDrucken_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
 
+        Dim defaultPrintSettings = New PrintDialog
+
         Dim AktuellePartien = _Spielrunden.Peek.ToList
         Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(_Spielstand.IstAbgeschlossen(x))
 
-        If AlleAbgeschlossen Then
-            With _DruckEinstellungen
+        With _DruckEinstellungen
+            If AlleAbgeschlossen Then
                 .DruckeNeuePaarungen = False
                 .DruckeRangliste = True
                 .DruckeSchiedsrichterzettel = False
                 .DruckeSpielergebnisse = True
-            End With
-        Else
-            With _DruckEinstellungen
+            Else
                 .DruckeNeuePaarungen = True
                 .DruckeRangliste = False
                 .DruckeSchiedsrichterzettel = True
                 .DruckeSpielergebnisse = False
-            End With
-        End If
-        Dim dialog = New DruckEinstellungenDialog
-        dialog.DataContext = _DruckEinstellungen
+            End If
+
+            .EinstellungenNeuePaarungen = defaultPrintSettings
+            .EinstellungenRangliste = defaultPrintSettings
+            .EinstellungenSchiedsrichterzettel = defaultPrintSettings
+            .EinstellungenSpielergebnisse = defaultPrintSettings
+
+        End With
+
+        Dim dialog = New DruckEinstellungenDialog With {
+            .DataContext = _DruckEinstellungen
+        }
+
         If Not dialog.ShowDialog Then
             Return
         End If
