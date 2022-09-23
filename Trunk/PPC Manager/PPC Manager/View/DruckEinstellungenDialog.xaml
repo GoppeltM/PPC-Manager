@@ -38,10 +38,10 @@
         <ToggleButton x:Name="Schiedsrichterzettel" Content="Schiedsrichterzettel" Grid.Row="2" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeSchiedsrichterzettel}"/>
         <ToggleButton x:Name="Spielergebnisse" Content="Spielergebnisse" Grid.Row="3" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeSpielergebnisse}"/>
         <ToggleButton x:Name="Rangliste" Content="Rangliste" Grid.Row="4" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding DruckeRangliste}"/>
-        <Button x:Name="NeuePaarungenEinstellungen" Grid.Row="1" Grid.Column="1" Content="{Binding EinstellungenNeuePaarungen, Converter={StaticResource PrintDialogZuStringConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
-        <Button x:Name="SchiedsrichterzettelEinstelllungen" Grid.Row="2" Grid.Column="1" Content="{Binding EinstellungenSchiedsrichterzettel, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
-        <Button x:Name="SpielergebnisseEinstellungen" Grid.Row="3" Grid.Column="1" Content="{Binding EinstellungenSpielergebnisse, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
-        <Button x:Name="RanglisteEinstellungen" Grid.Row="4" Grid.Column="1" Content="{Binding EinstellungenRangliste, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="Button_Click" />
+        <Button x:Name="NeuePaarungenEinstellungen" Grid.Row="1" Grid.Column="1" Content="{Binding EinstellungenNeuePaarungen, Converter={StaticResource PrintDialogZuStringConverter}, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ButtonStyle}" Click="PrintSettingsClick" />
+        <Button x:Name="SchiedsrichterzettelEinstelllungen" Grid.Row="2" Grid.Column="1" Content="{Binding EinstellungenSchiedsrichterzettel, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="PrintSettingsClick" />
+        <Button x:Name="SpielergebnisseEinstellungen" Grid.Row="3" Grid.Column="1" Content="{Binding EinstellungenSpielergebnisse, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="PrintSettingsClick" />
+        <Button x:Name="RanglisteEinstellungen" Grid.Row="4" Grid.Column="1" Content="{Binding EinstellungenRangliste, Converter={StaticResource PrintDialogZuStringConverter}}" Style="{StaticResource ButtonStyle}" Click="PrintSettingsClick" />
         <Button x:Name="Drucken" Content="Drucken" 
                 Margin="0,0,10,6" Grid.Row="5" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Grid.Column="1" IsDefault="True">
             <Button.IsEnabled>

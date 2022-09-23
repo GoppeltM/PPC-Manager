@@ -7,7 +7,7 @@
     End Property
 
 
-    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub PrintSettingsClick(sender As Object, e As RoutedEventArgs)
         Dim p = New PrintDialog
         If p.ShowDialog Then
             Dim b = CType(sender, Button)
@@ -28,11 +28,11 @@
 
     Private Sub Drucken_Click(sender As Object, e As RoutedEventArgs) Handles Drucken.Click
         With Einstellungen
-            If .EinstellungenNeuePaarungen Is Nothing _
-                Or .EinstellungenRangliste Is Nothing _
-                Or .EinstellungenSchiedsrichterzettel Is Nothing _
-                Or .EinstellungenSpielergebnisse Is Nothing Then
-                MessageBox.Show("Es wurden noch nicht für alle Druckansichten Einstellungen gewählt",
+            If .DruckeNeuePaarungen And .EinstellungenNeuePaarungen Is Nothing _
+                Or .DruckeRangliste And .EinstellungenRangliste Is Nothing _
+                Or .DruckeSchiedsrichterzettel And .EinstellungenSchiedsrichterzettel Is Nothing _
+                Or .DruckeSpielergebnisse And .EinstellungenSpielergebnisse Is Nothing Then
+                MessageBox.Show("Es wurden noch nicht für alle ausgewählten Druckansichten Einstellungen gewählt",
                                 "Fehlende Einstellungen",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation)
