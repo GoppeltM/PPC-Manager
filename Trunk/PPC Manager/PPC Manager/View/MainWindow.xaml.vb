@@ -49,6 +49,10 @@ Class MainWindow
         Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        With My.Application.Info.Version
+            versionNumber.Text = String.Format("Version: {0}.{1}", .Major, .Minor)
+            buildNumber.Text = String.Format("(Build: {0}.{1})", .Build, .Revision)
+        End With
     End Sub
 
     Private Sub MyWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles MyWindow.Loaded
