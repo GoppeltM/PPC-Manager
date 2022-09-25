@@ -10,7 +10,7 @@
         <local:SpielKlassenkonverter x:Key="SpielKlassenkonverter"/>
         <local:GeschlechtKonverter x:Key="GeschlechtKonverter"/>
         <local:RangListeSpielerListe x:Key="Spieler"/>
-        <local:GridIndexConverter x:Key="GridIndexConverter"/>        
+        <local:GridIndexConverter x:Key="GridIndexConverter"/>
     </UserControl.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -18,12 +18,28 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <TextBlock x:Name="AktuellesDatum" Grid.Row="0" Text="14.12.1013" Margin="20,0,0,0"/>
+            <TextBlock x:Name="AktuellesDatum" Grid.Row="0" Text="14.12.1013"/>
+            <TextBlock Text="Rangliste" Margin="20,0,0,0" FontWeight="Bold"/>
             <TextBlock x:Name="KlassementName" Grid.Row="0" Text="Klasse D" Margin="20,0,0,0"/>
-            <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>            
+            <TextBlock x:Name="RundenNummer" Grid.Row="0" Text="Runde Nr. 4" Margin="20,0,0,0"/>
         </StackPanel>
-        
-        <DataGrid Grid.Row="1" x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+
+        <DataGrid Grid.Row="1" x:Name="SpielerRangListe" DataContext="{StaticResource Spieler}" d:DataContext="{d:DesignInstance Type=local:DesignSpielerListe, IsDesignTimeCreatable=True}" ItemsSource="{Binding}" RowHeight="20" HeadersVisibility="Column" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="False" Grid.RowSpan="2">
+            <DataGrid.Resources>
+                <Style x:Name="Rotate270" x:Key="Rotate270" 
+               TargetType="{x:Type DataGridColumnHeader}" >
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="270"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NummerColumn" Header="Rang">
                     <DataGridTextColumn.Binding>
@@ -32,17 +48,23 @@
                             <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
-                </DataGridTextColumn>                                     
-                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" />
-                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
-                <DataGridTextColumn Header="ID" Binding="{Binding StartNummer}"/>
-                <DataGridTextColumn Header="Geschl." Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}"/>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Name">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}, {1}" >
+                            <Binding Path="Nachname"/>
+                            <Binding Path="Vorname"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Binding="{Binding StartNummer}" />
+                <DataGridTextColumn Header="Geschl." Binding="{Binding Geschlecht, Converter={StaticResource GeschlechtKonverter}}" HeaderStyle="{StaticResource Rotate270}"/>
                 <DataGridTextColumn Header="Verein" Binding="{Binding Vereinsname}"/>
-                <DataGridTextColumn Header="Tn Kl." Binding="{Binding Geburtsjahr, Converter={StaticResource SpielKlassenkonverter}}"/>
-                <DataGridTextColumn Header="Punkte" Binding="{Binding Punkte}"/>
-                <DataGridTextColumn Header="BHP" Binding="{Binding BuchholzPunkte}"/>
-                <DataGridTextColumn Header="SBP" Binding="{Binding SonneBornBergerPunkte}"/>
-                <DataGridTextColumn Header="Satzdiff" Binding="{Binding SatzDifferenz}"/>                
+                <DataGridTextColumn Header="Klasse" Binding="{Binding Geburtsjahr, Converter={StaticResource SpielKlassenkonverter}}" HeaderStyle="{StaticResource Rotate270}"/>
+                <DataGridTextColumn Header="Punkte" Binding="{Binding Punkte}" HeaderStyle="{StaticResource Rotate270}"/>
+                <DataGridTextColumn Header="BHP" Binding="{Binding BuchholzPunkte}" HeaderStyle="{StaticResource Rotate270}"/>
+                <DataGridTextColumn Header="SBP" Binding="{Binding SonneBornBergerPunkte}" HeaderStyle="{StaticResource Rotate270}"/>
+                <DataGridTextColumn Header="Satzdiff." Binding="{Binding SatzDifferenz}" HeaderStyle="{StaticResource Rotate270}"/>
                 <DataGridTemplateColumn Header="Gegnerprofil">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -57,10 +79,10 @@
                                         <TextBlock Text="{Binding}" Margin="0,0,5,0"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
-                            </ItemsControl>                            
+                            </ItemsControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>                
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

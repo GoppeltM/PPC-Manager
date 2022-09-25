@@ -6,8 +6,8 @@ Public Class GeschlechtKonverter
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         Dim geschlecht = DirectCast(value, Integer)
         Select Case geschlecht
-            Case 0 : Return "w"
-            Case 1 : Return "m"
+            Case 0 : Return "W"
+            Case 1 : Return "M"
         End Select
         Throw New ArgumentException("Unbekanntes geschlecht: " & geschlecht)
     End Function
