@@ -230,21 +230,20 @@ Class MainWindow
         With _DruckEinstellungen
             If AlleAbgeschlossen Then
                 .DruckeNeuePaarungen = False
-                .DruckeRangliste = True
                 .DruckeSchiedsrichterzettel = False
                 .DruckeSpielergebnisse = True
+                .DruckeRangliste = True
             Else
                 .DruckeNeuePaarungen = True
-                .DruckeRangliste = False
                 .DruckeSchiedsrichterzettel = True
                 .DruckeSpielergebnisse = False
+                .DruckeRangliste = False
             End If
 
             .EinstellungenNeuePaarungen = defaultPrintSettings
             .EinstellungenRangliste = defaultPrintSettings
             .EinstellungenSchiedsrichterzettel = defaultPrintSettings
             .EinstellungenSpielergebnisse = defaultPrintSettings
-
         End With
 
         Dim dialog = New DruckEinstellungenDialog(_Controller, _DruckerFabrik) With {
@@ -314,6 +313,5 @@ Class MainWindow
         Begegnungen.BegegnungenFiltern = filtern
         Begegnungen.Update()
     End Sub
-
 
 End Class

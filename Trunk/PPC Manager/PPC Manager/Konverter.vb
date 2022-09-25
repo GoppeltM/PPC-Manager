@@ -155,10 +155,16 @@ Public Class GewonneneSätzeConverter
         Dim partie = TryCast(value, SpielPartie)
         If partie Is Nothing Then Return Nothing
 
-        Dim gewonnenLinks = MeineGewonnenenSätze(partie, partie.SpielerLinks)
-        Dim gewonnenRechts = MeineGewonnenenSätze(partie, partie.SpielerRechts)
+        With partie
+            If .SpielerLinks Is .SpielerRechts Then
+                Return "Freilos"
+            End If
 
-        Return String.Format("{0}:{1}", gewonnenLinks, gewonnenRechts)
+            Dim gewonnenLinks = MeineGewonnenenSätze(partie, .SpielerLinks)
+            Dim gewonnenRechts = MeineGewonnenenSätze(partie, .SpielerRechts)
+
+            Return String.Format("{0}:{1}", gewonnenLinks, gewonnenRechts)
+        End With
     End Function
 
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
