@@ -41,7 +41,7 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NummerColumn" Header="Rang">
+                <DataGridTextColumn x:Name="NummerColumn" Header="Rang" HeaderStyle="{StaticResource Rotate270}">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource GridIndexConverter}">
                             <Binding />
@@ -68,7 +68,7 @@
                 <DataGridTemplateColumn Header="Gegnerprofil">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ItemsControl  ItemsSource="{Binding Path=MeineSpieleDruck}">
+                            <ItemsControl ItemsSource="{Binding Path=GegnerProfil}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel Orientation="Horizontal"/>

@@ -107,6 +107,6 @@ Public Class Spielverlauf
     Public Function BerechneGegnerProfil(s As SpielerInfo) As IEnumerable(Of String) Implements ISpielverlauf(Of SpielerInfo).BerechneGegnerProfil
         Dim gespieltePartien = From x In _Spielpartien
                                Where x.SpielerLinks = s Or x.SpielerRechts = s
-        Return From x In gespieltePartien Select x.MeinGegner(s).Id
+        Return From x In gespieltePartien Select x.GegnerVon(s).Id
     End Function
 End Class

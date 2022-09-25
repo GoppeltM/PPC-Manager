@@ -5,9 +5,10 @@ Public Class RanglisteSeiteTests
     Public Sub Init()
         Dim spielverlauf = Mock.Of(Of ISpielverlauf(Of SpielerInfo))
         Dim s As New Spieler(New SpielerInfo("A"), spielverlauf, Mock.Of(Of IComparer(Of SpielerInfo)))
-        _RangListe = New RanglisteSeite("Altersgruppe", 2,
+        _RangListe = New RanglisteSeite("Altersgruppe",
                                         {s},
-                                        New List(Of SpielPartie), Mock.Of(Of ISpielstand))
+                                        New List(Of SpielRunde)({Mock.Of(Of SpielRunde), Mock.Of(Of SpielRunde)}),
+                                        Mock.Of(Of ISpielstand))
     End Sub
 
     Dim _RangListe As RanglisteSeite
@@ -19,7 +20,7 @@ Public Class RanglisteSeiteTests
 
     <Test>
     Public Sub Rundennummer_steht_im_Textfeld()
-        Assert.That(_RangListe.RundenNummer.Text, [Is].EqualTo("Runde Nr. 2"))
+        Assert.That(_RangListe.RundenNummer.Text, [Is].EqualTo("Runde Nr. 1"))
     End Sub
 
     <Test>

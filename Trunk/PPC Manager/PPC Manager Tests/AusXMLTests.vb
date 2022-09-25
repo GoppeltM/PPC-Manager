@@ -81,8 +81,8 @@ Public Class AusXMLTests
         With Partie
             CollectionAssert.AreEqual({5, 9, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
-            Assert.AreEqual(SpielerB, .MeinGegner(SpielerA))
-            Assert.AreEqual(SpielerA, .MeinGegner(SpielerB))
+            Assert.AreEqual(SpielerB, .GegnerVon(SpielerA))
+            Assert.AreEqual(SpielerA, .GegnerVon(SpielerB))
         End With
     End Sub
 
@@ -100,8 +100,8 @@ Public Class AusXMLTests
         With Partie
             CollectionAssert.AreEqual({5, 0, 9}, .Select(Function(x) x.PunkteRechts).ToList)
             CollectionAssert.AreEqual({11, 11, 11}, .Select(Function(x) x.PunkteLinks).ToList)
-            Assert.AreEqual(SpielerB, .MeinGegner(SpielerA))
-            Assert.AreEqual(SpielerA, .MeinGegner(SpielerB))
+            Assert.AreEqual(SpielerB, .GegnerVon(SpielerA))
+            Assert.AreEqual(SpielerA, .GegnerVon(SpielerB))
         End With
     End Sub
 End Class

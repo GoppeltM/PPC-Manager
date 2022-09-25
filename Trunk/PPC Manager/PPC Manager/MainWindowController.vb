@@ -8,18 +8,18 @@ Public Class MainWindowController
     Public Sub New(speichern As Action,
                    reportFactory As IReportFactory,
                    organisierePakete As OrganisierePakete,
-                   druckFabrik As IFixedPageFabrik
+                   pageFabrik As IFixedPageFabrik
                    )
         _Speichern = speichern
         _ReportFactory = reportFactory
         _OrganisierePakete = organisierePakete
-        _DruckFabrik = druckFabrik
+        _PageFabrik = pageFabrik
     End Sub
 
     Private ReadOnly _Speichern As Action
     Private ReadOnly _ReportFactory As IReportFactory
     Private ReadOnly _OrganisierePakete As OrganisierePakete
-    Private ReadOnly _DruckFabrik As IFixedPageFabrik
+    Private ReadOnly _PageFabrik As IFixedPageFabrik
     Private ReadOnly _GewinnSätze As Integer
 
     Public ReadOnly Property ExcelPfad As String Implements IController.ExcelPfad
@@ -62,7 +62,7 @@ Public Class MainWindowController
 
     Public Function DruckeSchiedsrichterzettel(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeSchiedsrichterzettel
         Dim doc = New FixedDocument
-        Dim schiriSeiten = From x In _DruckFabrik.ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung)
+        Dim schiriSeiten = From x In _PageFabrik.ErzeugeSchiedsrichterZettelSeiten(seiteneinstellung)
                            Select New PageContent() With {.Child = x}
 
         For Each page In schiriSeiten
@@ -72,7 +72,7 @@ Public Class MainWindowController
     End Function
 
     Public Function DruckeNeuePaarungen(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeNeuePaarungen
-        Dim neuePaarungenSeiten = From x In _DruckFabrik.ErzeugePaarungen(seiteneinstellung)
+        Dim neuePaarungenSeiten = From x In _PageFabrik.ErzeugePaarungen(seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 
         Dim doc = New FixedDocument
@@ -85,7 +85,7 @@ Public Class MainWindowController
 
     Public Function DruckeRangliste(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeRangliste
         Dim doc = New FixedDocument
-        Dim ranglistenSeiten = From x In _DruckFabrik.ErzeugeRanglisteSeiten(
+        Dim ranglistenSeiten = From x In _PageFabrik.ErzeugeRanglisteSeiten(
                                    seiteneinstellung)
                                Select New PageContent() With {.Child = x}
 
@@ -96,7 +96,7 @@ Public Class MainWindowController
     End Function
 
     Public Function DruckeSpielergebnisse(seiteneinstellung As SeitenEinstellung) As FixedDocument Implements IController.DruckeSpielergebnisse
-        Dim spielErgebnisSeiten = From x In _DruckFabrik.ErzeugeSpielErgebnisse(
+        Dim spielErgebnisSeiten = From x In _PageFabrik.ErzeugeSpielErgebnisse(
                                       seiteneinstellung)
                                   Select New PageContent() With {.Child = x}
 

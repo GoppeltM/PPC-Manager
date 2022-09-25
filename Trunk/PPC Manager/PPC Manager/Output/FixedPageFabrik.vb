@@ -31,7 +31,7 @@ Public Class FixedPageFabrik
         If _SpielRunden.Any Then
             spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel).ToList
         End If
-        Dim seite = New RanglisteSeite(_KlassementName, _SpielRunden.Count - 1, l, spielPartien, _Spielstand)
+        Dim seite = New RanglisteSeite(_KlassementName, l, _SpielRunden, _Spielstand)
         With seite
             Dim canvas = New Canvas
             canvas.Children.Add(seite)
