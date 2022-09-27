@@ -38,6 +38,7 @@ Public Class DruckEinstellungenDialog
     End Sub
 
     Private Sub Drucken_Click(sender As Object, e As RoutedEventArgs) Handles Drucken.Click
+
         With Einstellungen
             If .DruckeNeuePaarungen And .EinstellungenNeuePaarungen Is Nothing _
                 Or .DruckeRangliste And .EinstellungenRangliste Is Nothing _
@@ -50,6 +51,8 @@ Public Class DruckEinstellungenDialog
                 Return
             End If
         End With
+
+        CType(FindName("Drucken"), Button).IsEnabled = False 'Verhindert doppelklicken, da das Drucken eine Sekunde oder so dauert
         PrintSelectedDocuments()
         DialogResult = True
         Close()
