@@ -8,7 +8,8 @@ Public Class RanglisteSeiteTests
         _RangListe = New RanglisteSeite("Altersgruppe",
                                         {s},
                                         New List(Of SpielRunde)({Mock.Of(Of SpielRunde), Mock.Of(Of SpielRunde)}),
-                                        Mock.Of(Of ISpielstand))
+                                        Mock.Of(Of ISpielstand),
+                                        Mock.Of(Of SeitenEinstellung))
     End Sub
 
     Dim _RangListe As RanglisteSeite

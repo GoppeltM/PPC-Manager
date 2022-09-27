@@ -257,29 +257,6 @@ Class MainWindow
         dialog.ShowDialog()
     End Sub
 
-    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim dialog = New PrintDialog
-        If dialog.ShowDialog Then
-            Dim p = _DruckerFabrik.Neu(dialog)
-            Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
-            Dim doc2 = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
-            p.Drucken(doc, "Neue Begegnungen - Aushang")
-            p.Drucken(doc2, "Schiedsrichterzettel")
-        End If
-
-    End Sub
-
-    Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim dialog = New PrintDialog
-        If dialog.ShowDialog Then
-            Dim p = _DruckerFabrik.Neu(dialog)
-            Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
-            Dim doc2 = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
-            p.Drucken(doc, "Rangliste")
-            p.Drucken(doc2, "Spielergebnisse")
-        End If
-    End Sub
-
     Private Sub Exportieren_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
 
         With LadenNeu.SpeichernDialog

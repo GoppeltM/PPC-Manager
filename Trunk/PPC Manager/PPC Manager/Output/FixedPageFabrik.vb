@@ -17,31 +17,71 @@ Public Class FixedPageFabrik
         _Spielstand = spielstand
     End Sub
 
+    Function GetDataGridRows(grid As DataGrid) As IList(Of DataGridRow)
+        Dim items = grid.ItemsSource
+        Dim rows As IList(Of DataGridRow) = New List(Of DataGridRow)
+        For Each row In items
+            rows.Add(CType(grid.ItemContainerGenerator.ContainerFromItem(row), DataGridRow))
+        Next
+        Return rows
+    End Function
+
     Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
         Dim AusgeschiedenInRunde0 = Function(s As SpielerInfo) As Boolean
                                         Return Aggregate x In _SpielRunden.Last.AusgeschiedeneSpielerIDs
                                                Where x = s.Id Into Any()
                                     End Function
-        Dim l = (From x In _Spielerliste
-                 Where Not AusgeschiedenInRunde0(x)
-                 Select x).ToList
-        l.Sort()
-        l.Reverse()
-        Dim spielPartien = New List(Of SpielPartie)
-        If _SpielRunden.Any Then
-            spielPartien = _SpielRunden.Peek.Where(Function(m) Not TypeOf m Is FreiLosSpiel).ToList
-        End If
-        Dim seite = New RanglisteSeite(_KlassementName, l, _SpielRunden, _Spielstand)
-        With seite
-            Dim canvas = New Canvas
-            canvas.Children.Add(seite)
-            canvas.Measure(New Size(seitenEinstellungen.Breite, Double.MaxValue))
-            canvas.Arrange(New Rect(0, 0, seitenEinstellungen.Breite, Double.MaxValue))
-        End With
+        Dim AlleSpieler = (From x In _Spielerliste
+                           Where Not AusgeschiedenInRunde0(x)
+                           Select x).ToList
+        AlleSpieler.Sort()
+        AlleSpieler.Reverse()
 
-        Dim gesamtLänge = seite.RenderSize.Height
+        Dim seite = New RanglisteSeite(_KlassementName, AlleSpieler, _SpielRunden, _Spielstand, seitenEinstellungen)
+        Dim pageContent As New PageContent()
+        Dim fixedPage As New FixedPage()
+        Dim sz As New Size(seitenEinstellungen.Breite, seitenEinstellungen.Höhe)
 
-        Return ErzeugeSeiten(seite, gesamtLänge, seitenEinstellungen)
+        fixedPage.Width = seitenEinstellungen.Breite
+        fixedPage.Height = seitenEinstellungen.Höhe
+        FixedPage.SetLeft(fixedPage, seitenEinstellungen.AbstandX)
+        FixedPage.SetTop(fixedPage, seitenEinstellungen.AbstandY)
+        fixedPage.Children.Add(seite)
+
+        fixedPage.Measure(sz)
+        fixedPage.Arrange(New Rect(New Point(), sz))
+        fixedPage.UpdateLayout()
+
+        'Diese Action erzwingt dass alle anstehen asynchronen Actions wie zB UpdateLayout ausgeführt werden, wodurch wir anschließend
+        'korrekte Messungen in der FixedPage vornehmen können
+        Threading.Dispatcher.CurrentDispatcher.Invoke(New Action(Function() As Boolean
+                                                                     Return True
+                                                                 End Function), Threading.DispatcherPriority.ContextIdle)
+
+        Dim liste = CType(seite.FindName("SpielerRangListe"), DataGrid)
+        Dim rows = GetDataGridRows(liste)
+        Dim seiten = New List(Of FixedPage)
+
+        Dim row = 0
+        While (row < AlleSpieler.Count)
+            Dim spielerAktuellSeite = New List(Of Spieler)
+            Dim contentHeight = 80.0 'Höhe von Rand und Header + 30 Puffer
+            While (row < rows.Count AndAlso rows.ElementAt(row).ActualHeight + contentHeight < liste.ActualHeight)
+                contentHeight += rows.ElementAt(row).ActualHeight
+                spielerAktuellSeite.Add(AlleSpieler.ElementAt(row))
+                row += 1
+            End While
+
+            Dim page = New FixedPage
+            page.Children.Add(New RanglisteSeite(_KlassementName, spielerAktuellSeite, _SpielRunden, _Spielstand, seitenEinstellungen))
+            page.Height = seitenEinstellungen.Höhe
+            page.Width = seitenEinstellungen.Breite
+            FixedPage.SetLeft(page, seitenEinstellungen.AbstandX)
+            FixedPage.SetTop(page, seitenEinstellungen.AbstandY)
+            seiten.Add(page)
+        End While
+
+        Return seiten.AsEnumerable
     End Function
 
     Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSchiedsrichterZettelSeiten
@@ -96,33 +136,6 @@ Public Class FixedPageFabrik
 
         Dim pages = ElementePaketieren(maxElemente, format, elemente, ErzeugeUserControl)
         Return pages
-    End Function
-
-    Private Function ErzeugeSeiten(v As Visual, gesamtLänge As Double,
-                                   seitengröße As SeitenEinstellung) As IEnumerable(Of FixedPage)
-        Dim brush As New VisualBrush(v) With {.Stretch = Stretch.None, .AlignmentX = AlignmentX.Left, .AlignmentY = AlignmentY.Top}
-
-        Dim aktuelleHöhe = 0.0
-        Dim seiten As New List(Of FixedPage)
-
-        While aktuelleHöhe < gesamtLänge
-            brush.Transform = New TranslateTransform(0, aktuelleHöhe * -1)
-            Dim page = New FixedPage With {
-                .Height = seitengröße.Höhe + (seitengröße.AbstandY * 2),
-                .Width = seitengröße.Breite + (seitengröße.AbstandX * 2),
-                .Margin = New Thickness(seitengröße.AbstandX, seitengröße.AbstandY, seitengröße.AbstandX, seitengröße.AbstandY)}
-            Dim canvas As New Canvas With {
-                .Height = gesamtLänge,
-                .Width = seitengröße.Breite,
-                .Background = brush.Clone}
-            page.Children.Add(canvas)
-            seiten.Add(page)
-            aktuelleHöhe += seitengröße.Höhe
-            ' Wir erzeugen einen zusätzlichen überlappenden Rand, um halb zerschnittene Zeilen zu kompensieren
-            aktuelleHöhe -= 20
-        End While
-
-        Return seiten
     End Function
 
     Private Shared Function ElementePaketieren(Of T)(maxElemente As Integer, format As Size,

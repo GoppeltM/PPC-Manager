@@ -3,12 +3,30 @@ Imports PPC_Manager
 
 Public Class RanglisteSeite
 
+    Public Function RowWidth() As Int32
+        Return 600
+    End Function
+
+    Private RangOffset As Int32
+
     Public Sub New(altersgruppe As String,
                    elemente As IEnumerable(Of Spieler),
                    spielRunden As IEnumerable(Of SpielRunde),
-                   spielstand As ISpielstand)
+                   spielstand As ISpielstand,
+                   seitenEinstellungen As SeitenEinstellung)
+
         ' This call is required by the designer.
         InitializeComponent()
+        Height = seitenEinstellungen.Höhe
+        Width = seitenEinstellungen.Breite
+        FixedPage.SetLeft(Me, seitenEinstellungen.AbstandX)
+        FixedPage.SetTop(Me, seitenEinstellungen.AbstandY)
+
+        Dim sz As New Size(seitenEinstellungen.Breite, seitenEinstellungen.Höhe)
+        Measure(sz)
+        Arrange(New Rect(New Point, sz))
+        UpdateLayout()
+
         KlassementName.Text = altersgruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         RundenNummer.Text = String.Format("Runde Nr. {0}", spielRunden.Count - 1)
