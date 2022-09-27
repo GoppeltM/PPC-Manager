@@ -38,7 +38,13 @@ Public Class Printer
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
         doc.PrintTicket = _PrintDialog.PrintTicket
         If doc.Pages.Any Then
-            _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+            Try
+                _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+            Catch ex As Exception
+                Dim Message = String.Format("Dokument '{0}' konnte nicht gedruckt oder gespeichert werden. Ist die Datei in einer anderen Anwendung geöffnet?", titel)
+                Dim Caption = "Fehler"
+                MessageBox.Show(Message, Caption, MessageBoxButton.OK, MessageBoxImage.Error)
+            End Try
         End If
     End Sub
 End Class
