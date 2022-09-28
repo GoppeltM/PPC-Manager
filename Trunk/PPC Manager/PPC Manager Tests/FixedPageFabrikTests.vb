@@ -34,12 +34,7 @@ Public Class FixedPageFabrikTests
     Private f As FixedPageFabrik
     Private _SpielerListe As IList(Of SpielerInfo)
     Private _Runden As SpielRunden
-
-    <Test>
-    Public Sub ErzeugeRanglisteSeiten_leer_enthält_eine_Seite()
-        Dim seiten = f.ErzeugeRanglisteSeiten(_SeitenEinstellungen)
-        Assert.That(seiten.Count, [Is].EqualTo(1))
-    End Sub
+  
 
     <Test>
     Public Sub ErzeugeRanglisteSeiten_mit_200_spielern_ergibt_mehrere_Seiten()

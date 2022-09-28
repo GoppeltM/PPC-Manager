@@ -9,7 +9,8 @@ Public Class RanglisteSeiteTests
                                         {s},
                                         New List(Of SpielRunde)({Mock.Of(Of SpielRunde), Mock.Of(Of SpielRunde)}),
                                         Mock.Of(Of ISpielstand),
-                                        Mock.Of(Of SeitenEinstellung))
+                                        Mock.Of(Of SeitenEinstellung),
+                                        0)
     End Sub
 
     Dim _RangListe As RanglisteSeite

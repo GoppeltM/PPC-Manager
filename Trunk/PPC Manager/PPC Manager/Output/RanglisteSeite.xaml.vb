@@ -7,16 +7,20 @@ Public Class RanglisteSeite
         Return 600
     End Function
 
-    Private RangOffset As Int32
 
     Public Sub New(altersgruppe As String,
                    elemente As IEnumerable(Of Spieler),
                    spielRunden As IEnumerable(Of SpielRunde),
                    spielstand As ISpielstand,
-                   seitenEinstellungen As SeitenEinstellung)
+                   seitenEinstellungen As SeitenEinstellung,
+                   RangOffset As Int32)
 
         ' This call is required by the designer.
         InitializeComponent()
+        Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
+        converter.Offset = RangOffset
+
+
         Height = seitenEinstellungen.Höhe
         Width = seitenEinstellungen.Breite
         FixedPage.SetLeft(Me, seitenEinstellungen.AbstandX)
@@ -43,8 +47,6 @@ Public Class RanglisteSeite
     Public Sub New(seite As RanglisteSeite)
         InitializeComponent()
         Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
-        Dim converterAlt = CType(seite.FindResource("GridIndexConverter"), GridIndexConverter)
-        converter.Offset = converterAlt.Offset
         KlassementName.Text = seite.KlassementName.Text
         AktuellesDatum.Text = seite.AktuellesDatum.Text
         Me.RundenNummer.Text = seite.RundenNummer.Text
