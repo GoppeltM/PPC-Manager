@@ -49,6 +49,10 @@ Class MainWindow
         Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+        With My.Application.Info.Version
+            versionNumber.Text = String.Format("Version: {0}.{1}", .Major, .Minor)
+            buildNumber.Text = String.Format("(Build: {0}.{1})", .Build, .Revision)
+        End With
     End Sub
 
     Private Sub MyWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles MyWindow.Loaded
@@ -222,74 +226,35 @@ Class MainWindow
 
     Private Sub AllesDrucken_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
 
+        Dim defaultPrintSettings = New PrintDialog
+
         Dim AktuellePartien = _Spielrunden.Peek.ToList
         Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(_Spielstand.IstAbgeschlossen(x))
 
-        If AlleAbgeschlossen Then
-            With _DruckEinstellungen
+        With _DruckEinstellungen
+            If AlleAbgeschlossen Then
                 .DruckeNeuePaarungen = False
-                .DruckeRangliste = True
                 .DruckeSchiedsrichterzettel = False
                 .DruckeSpielergebnisse = True
-            End With
-        Else
-            With _DruckEinstellungen
+                .DruckeRangliste = True
+            Else
                 .DruckeNeuePaarungen = True
-                .DruckeRangliste = False
                 .DruckeSchiedsrichterzettel = True
                 .DruckeSpielergebnisse = False
-            End With
-        End If
-        Dim dialog = New DruckEinstellungenDialog
-        dialog.DataContext = _DruckEinstellungen
-        If Not dialog.ShowDialog Then
-            Return
-        End If
-        With _DruckEinstellungen
-            If .DruckeNeuePaarungen Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenNeuePaarungen)
-                Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
-                p.Drucken(doc, "Neue Begegnungen - Aushang")
+                .DruckeRangliste = False
             End If
-            If .DruckeRangliste Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenRangliste)
-                Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
-                p.Drucken(doc, "Rangliste")
-            End If
-            If .DruckeSchiedsrichterzettel Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenSchiedsrichterzettel)
-                Dim doc = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
-                p.Drucken(doc, "Schiedsrichterzettel")
-            End If
-            If .DruckeSpielergebnisse Then
-                Dim p = _DruckerFabrik.Neu(.EinstellungenSpielergebnisse)
-                Dim doc = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
-                p.Drucken(doc, "Spielergebnisse")
-            End If
+
+            .EinstellungenNeuePaarungen = defaultPrintSettings
+            .EinstellungenRangliste = defaultPrintSettings
+            .EinstellungenSchiedsrichterzettel = defaultPrintSettings
+            .EinstellungenSpielergebnisse = defaultPrintSettings
         End With
-    End Sub
 
-    Private Sub Drucken_Executed(ByVal sender As System.Object, ByVal e As System.Windows.Input.ExecutedRoutedEventArgs)
-        Dim dialog = New PrintDialog
-        If dialog.ShowDialog Then
-            Dim p = _DruckerFabrik.Neu(dialog)
-            Dim doc = _Controller.DruckeNeuePaarungen(p.LeseKonfiguration)
-            Dim doc2 = _Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
-            p.Drucken(doc, "Neue Begegnungen - Aushang")
-            p.Drucken(doc2, "Schiedsrichterzettel")
-        End If
+        Dim dialog = New DruckEinstellungenDialog(_Controller, _DruckerFabrik) With {
+            .DataContext = _DruckEinstellungen
+        }
 
-    End Sub
-
-    Private Sub RanglisteDrucken_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        Dim dialog = New PrintDialog
-        If dialog.ShowDialog Then
-            Dim p = _DruckerFabrik.Neu(dialog)
-            Dim doc = _Controller.DruckeRangliste(p.LeseKonfiguration)
-            Dim doc2 = _Controller.DruckeSpielergebnisse(p.LeseKonfiguration)
-            p.Drucken(doc, "Rangliste")
-            p.Drucken(doc2, "Spielergebnisse")
-        End If
+        dialog.ShowDialog()
     End Sub
 
     Private Sub Exportieren_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
@@ -329,6 +294,5 @@ Class MainWindow
         Begegnungen.BegegnungenFiltern = filtern
         Begegnungen.Update()
     End Sub
-
 
 End Class

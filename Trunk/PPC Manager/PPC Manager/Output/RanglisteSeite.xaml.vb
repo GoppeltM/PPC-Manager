@@ -3,18 +3,39 @@ Imports PPC_Manager
 
 Public Class RanglisteSeite
 
+    Public Function RowWidth() As Int32
+        Return 600
+    End Function
+
+
     Public Sub New(altersgruppe As String,
-                   rundenNummer As Integer,
                    elemente As IEnumerable(Of Spieler),
-                   spielpartien As IEnumerable(Of SpielPartie),
-                   spielstand As ISpielstand)
+                   spielRunden As IEnumerable(Of SpielRunde),
+                   spielstand As ISpielstand,
+                   seitenEinstellungen As SeitenEinstellung,
+                   RangOffset As Int32)
+
         ' This call is required by the designer.
         InitializeComponent()
+        Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
+        converter.Offset = RangOffset
+
+
+        Height = seitenEinstellungen.Höhe
+        Width = seitenEinstellungen.Breite
+        FixedPage.SetLeft(Me, seitenEinstellungen.AbstandX)
+        FixedPage.SetTop(Me, seitenEinstellungen.AbstandY)
+
+        Dim sz As New Size(seitenEinstellungen.Breite, seitenEinstellungen.Höhe)
+        Measure(sz)
+        Arrange(New Rect(New Point, sz))
+        UpdateLayout()
+
         KlassementName.Text = altersgruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
-        Me.RundenNummer.Text = String.Format("Runde Nr. {0}", rundenNummer)
+        RundenNummer.Text = String.Format("Runde Nr. {0}", spielRunden.Count - 1)
 
-        Dim druckSpieler = From x In elemente Select New RangListeSpieler(x, spielpartien, spielstand)
+        Dim druckSpieler = From x In elemente Select New RangListeSpieler(x, spielRunden, spielstand)
 
         Dim res = CType(FindResource("Spieler"), RangListeSpielerListe)
         For Each s In druckSpieler
@@ -26,8 +47,6 @@ Public Class RanglisteSeite
     Public Sub New(seite As RanglisteSeite)
         InitializeComponent()
         Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
-        Dim converterAlt = CType(seite.FindResource("GridIndexConverter"), GridIndexConverter)
-        converter.Offset = converterAlt.Offset
         KlassementName.Text = seite.KlassementName.Text
         AktuellesDatum.Text = seite.AktuellesDatum.Text
         Me.RundenNummer.Text = seite.RundenNummer.Text
@@ -58,31 +77,33 @@ End Class
 Public Class RangListeSpieler
     Inherits Spieler
 
-    Private ReadOnly _Spielpartien As IEnumerable(Of SpielPartie)
+    Private ReadOnly _spielRunden As IEnumerable(Of SpielRunde)
     Private ReadOnly _Spielstand As ISpielstand
 
     Public Sub New(spieler As Spieler,
-                   spielPartien As IEnumerable(Of SpielPartie),
+                   spielRunden As IEnumerable(Of SpielRunde),
                    spielstand As ISpielstand)
         MyBase.New(spieler)
-        _Spielpartien = spielPartien
+        _spielRunden = spielRunden
         _Spielstand = spielstand
-
     End Sub
 
-    Public ReadOnly Property MeineSpieleDruck As IEnumerable(Of String)
+    Public ReadOnly Property GegnerProfil As IEnumerable(Of String)
         Get
             Dim l As New List(Of String)
-            Dim gespieltePartien = From x In _Spielpartien Where x.SpielerLinks = Me Or x.SpielerRechts = Me
-            For Each s In gespieltePartien
+            For Each runde In _spielRunden
+                Dim gespieltePartien = From x In runde Where x.SpielerLinks = Me Or x.SpielerRechts = Me
+                For Each partie In gespieltePartien
+                    If TypeOf partie Is FreiLosSpiel Then Continue For
 
-                Dim text = s.MeinGegner(Me).StartNummer.ToString
-                If _Spielstand.HatPartieGewonnen(s, Me) Then
-                    text &= "G"
-                Else
-                    text &= "V"
-                End If
-                l.Add(text)
+                    Dim text = partie.GegnerVon(Me).StartNummer.ToString
+                    If _Spielstand.HatPartieGewonnen(partie, Me) Then
+                        text &= "G"
+                    Else
+                        text &= "V"
+                    End If
+                    l.Add(text)
+                Next
             Next
             Return l
         End Get

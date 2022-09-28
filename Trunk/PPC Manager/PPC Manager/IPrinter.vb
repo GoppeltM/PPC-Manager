@@ -8,7 +8,6 @@ Public Interface IPrinter
 
 End Interface
 
-
 Public Class SeitenEinstellung
 
     Public Property AbstandX As Double
@@ -28,20 +27,24 @@ Public Class Printer
 
     Public Function LeseKonfiguration() As SeitenEinstellung Implements IPrinter.LeseKonfiguration
         Dim area = _PrintDialog.PrintQueue.GetPrintCapabilities.PageImageableArea
-        Dim einstellung = New SeitenEinstellung() With {
+        Return New SeitenEinstellung() With {
             .AbstandX = area.OriginWidth,
             .AbstandY = area.OriginHeight,
             .Breite = area.ExtentWidth,
-            .Höhe = area.ExtentHeight}
-
-        Return einstellung
+            .Höhe = area.ExtentHeight
+        }
     End Function
 
     Public Sub Drucken(doc As FixedDocument, titel As String) Implements IPrinter.Drucken
         doc.PrintTicket = _PrintDialog.PrintTicket
         If doc.Pages.Any Then
-            _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+            Try
+                _PrintDialog.PrintDocument(doc.DocumentPaginator, titel)
+            Catch ex As Exception
+                Dim Message = String.Format("Dokument '{0}' konnte nicht gedruckt oder gespeichert werden. Ist die Datei in einer anderen Anwendung geöffnet?", titel)
+                Dim Caption = "Fehler"
+                MessageBox.Show(Message, Caption, MessageBoxButton.OK, MessageBoxImage.Error)
+            End Try
         End If
-
     End Sub
 End Class

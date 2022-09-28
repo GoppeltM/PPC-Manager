@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:PPC_Manager"
              mc:Ignorable="d"             
              d:DataContext="{d:DesignInstance local:DesignSpielPartien, IsDesignTimeCreatable=True}"
+             d:DesignWidth="793"
              >
     <UserControl.Resources>
         <local:OpacityConverter x:Key="OpacityConverter"/>
@@ -13,13 +14,14 @@
     <UserControl.CommandBindings>
         <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
     </UserControl.CommandBindings>
-    <ListBox  Name="SpielPartienView"  FontSize="24"                  
+    <ListBox  Name="SpielPartienView"  FontSize="24"
                  ItemsSource="{Binding Mode=OneWay}" IsSynchronizedWithCurrentItem="True"
                  VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
         <ListBox.Resources>
             <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
-                    <StackPanel Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}">
+                    <StackPanel Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}"
+                          Opacity="{Binding Path=MySelf, Converter={StaticResource OpacityConverter}}">
                         <TextBlock Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" />
                         <TextBlock Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
                         <TextBlock Text="(Freilos)" Margin="30,0,0,0" FontStyle="Italic"/>

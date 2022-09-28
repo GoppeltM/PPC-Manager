@@ -10,14 +10,14 @@ Imports Moq
     Public Sub GeschlechtKonverter_0_w()
         Dim converter As New GeschlechtKonverter
         Dim result = converter.Convert(0, Nothing, Nothing, Nothing)
-        Assert.AreEqual("w", result)
+        Assert.AreEqual("W", result)
     End Sub
 
     <Test>
     Public Sub GeschlechtKonverter_1_m()
         Dim converter As New GeschlechtKonverter
         Dim result = converter.Convert(1, Nothing, Nothing, Nothing)
-        Assert.AreEqual("m", result)
+        Assert.AreEqual("M", result)
     End Sub
 
     <Test>

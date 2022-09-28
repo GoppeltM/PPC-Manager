@@ -13,12 +13,12 @@ Imports System.Runtime.CompilerServices
 ' Die Werte der Assemblyattribute überprüfen
 
 <Assembly: AssemblyTitle("PPC Manager")> 
-<Assembly: AssemblyDescription("Zum Verwalten und Durchführen des Ping Pong Café")> 
-<Assembly: AssemblyCompany("Marius Goppelt")> 
-<Assembly: AssemblyProduct("PPC Manager")> 
-<Assembly: AssemblyCopyright("Marius Goppelt 2010")> 
-<Assembly: AssemblyTrademark("")> 
-<Assembly: ComVisible(False)> 
+<Assembly: AssemblyDescription("Zum Verwalten und Durchführen des Ping Pong Café")>
+<Assembly: AssemblyCompany("Marius Goppelt, Nikolaj Kappler")>
+<Assembly: AssemblyProduct("PPC Manager")>
+<Assembly: AssemblyCopyright("Marius Goppelt, Nikolaj Kappler 2010 - 2022")>
+<Assembly: AssemblyTrademark("")>
+<Assembly: ComVisible(False)>
 
 'Um mit dem Erstellen lokalisierbarer Anwendungen zu beginnen, legen Sie 
 '<UICulture>ImCodeVerwendeteKultur</UICulture> in der VBPROJ-Datei
@@ -43,7 +43,7 @@ Imports System.Runtime.CompilerServices
 
 
 'Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-<Assembly: Guid("ab0ec590-3387-4cbe-8542-d63fedc5e375")> 
+<Assembly: Guid("ab0ec590-3387-4cbe-8542-d63fedc5e375")>
 
 ' Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 '
@@ -56,6 +56,6 @@ Imports System.Runtime.CompilerServices
 ' übernehmen, indem Sie "*" eingeben:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("1.3.*")>
+<Assembly: AssemblyFileVersion("1.3")>
 <Assembly: InternalsVisibleTo("PPC Manager Tests")> 

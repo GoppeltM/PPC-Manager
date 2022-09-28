@@ -13,7 +13,7 @@ Imports System.Collections.ObjectModel
 Public Class SpielPartie
     Inherits ObservableCollection(Of Satz)
 
-    Private ReadOnly Spieler As KeyValuePair(Of SpielerInfo, SpielerInfo)
+    Private ReadOnly Kontrahenten As Tuple(Of SpielerInfo, SpielerInfo)
     Private ReadOnly _RundenName As String
     Public ReadOnly Property RundenName As String
         Get
@@ -25,34 +25,33 @@ Public Class SpielPartie
     Public Sub New(rundenName As String, ByVal spielerLinks As SpielerInfo, ByVal spielerRechts As SpielerInfo)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException
         If spielerRechts Is Nothing Then Throw New ArgumentNullException
-
-        Spieler = New KeyValuePair(Of SpielerInfo, SpielerInfo)(spielerLinks, spielerRechts)
+        Kontrahenten = Tuple.Create(spielerLinks, spielerRechts)
         _RundenName = rundenName
-        AddHandler Me.CollectionChanged, Sub()
-                                             Me.OnPropertyChanged(New PropertyChangedEventArgs("MySelf"))
-                                         End Sub
+        AddHandler CollectionChanged, Sub()
+                                          OnPropertyChanged(New PropertyChangedEventArgs("MySelf"))
+                                      End Sub
     End Sub
 
     Public ReadOnly Property SpielerLinks As SpielerInfo
         Get
-            Return Spieler.Key
+            Return Kontrahenten.Item1
         End Get
     End Property
 
     Public ReadOnly Property SpielerRechts As SpielerInfo
         Get
-            Return Spieler.Value
+            Return Kontrahenten.Item2
         End Get
     End Property
 
     Public Property ZeitStempel As Date
 
-    Public ReadOnly Property MeinGegner(ByVal ich As SpielerInfo) As SpielerInfo
+    Public ReadOnly Property GegnerVon(ByVal Spieler As SpielerInfo) As SpielerInfo
         Get
-            If Spieler.Key = ich Then
-                Return Spieler.Value
+            If SpielerLinks = Spieler Then
+                Return SpielerRechts
             Else
-                Return Spieler.Key
+                Return SpielerLinks
             End If
         End Get
     End Property
@@ -60,9 +59,9 @@ Public Class SpielPartie
     Public Overrides Function Equals(obj As Object) As Boolean
         Dim other = TryCast(obj, SpielPartie)
         If other Is Nothing Then Return False
-        If Me.SpielerLinks <> other.SpielerLinks Then Return False
-        If Me.SpielerRechts <> other.SpielerRechts Then Return False
-        If Me.RundenName <> other.RundenName Then Return False
+        If SpielerLinks <> other.SpielerLinks Then Return False
+        If SpielerRechts <> other.SpielerRechts Then Return False
+        If RundenName <> other.RundenName Then Return False
         Return True
     End Function
 
@@ -79,7 +78,6 @@ Public Class SpielPartie
             Return Me
         End Get
     End Property
-
 
     Public Overrides Function GetHashCode() As Integer
         Return SpielerLinks.GetHashCode Xor SpielerRechts.GetHashCode Xor RundenName.GetHashCode

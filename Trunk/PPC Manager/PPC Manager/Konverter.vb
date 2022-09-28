@@ -6,8 +6,8 @@ Public Class GeschlechtKonverter
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         Dim geschlecht = DirectCast(value, Integer)
         Select Case geschlecht
-            Case 0 : Return "w"
-            Case 1 : Return "m"
+            Case 0 : Return "W"
+            Case 1 : Return "M"
         End Select
         Throw New ArgumentException("Unbekanntes geschlecht: " & geschlecht)
     End Function
@@ -134,7 +134,7 @@ Public Class OpacityConverter
 
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         Dim partie = CType(value, SpielPartie)
-        If IstAbgeschlossen(partie) Then
+        If IstAbgeschlossen(partie) Or TypeOf partie Is FreiLosSpiel Then
             Return 0.4
         Else
             Return 1.0
@@ -155,10 +155,16 @@ Public Class GewonneneSätzeConverter
         Dim partie = TryCast(value, SpielPartie)
         If partie Is Nothing Then Return Nothing
 
-        Dim gewonnenLinks = MeineGewonnenenSätze(partie, partie.SpielerLinks)
-        Dim gewonnenRechts = MeineGewonnenenSätze(partie, partie.SpielerRechts)
+        With partie
+            If .SpielerLinks Is .SpielerRechts Then
+                Return "Freilos"
+            End If
 
-        Return String.Format("{0}:{1}", gewonnenLinks, gewonnenRechts)
+            Dim gewonnenLinks = MeineGewonnenenSätze(partie, .SpielerLinks)
+            Dim gewonnenRechts = MeineGewonnenenSätze(partie, .SpielerRechts)
+
+            Return String.Format("{0}:{1}", gewonnenLinks, gewonnenRechts)
+        End With
     End Function
 
     Public Function ConvertBack(value As Object, targetType As Type, parameter As Object, culture As Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack

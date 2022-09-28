@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d"         
-    Height="448" Width="1035" Icon="/PPC%20Manager;component/Icon.ico"
+    Height="720" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
     >
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
@@ -33,9 +33,10 @@
         </Grid.ColumnDefinitions>
         <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="18" />
         <local:LiveListe Grid.Row="1" Grid.Column="0" x:Name="LiveListe" Margin="5,5,15,3" TextBlock.FontSize="20" />
-        <GridSplitter Grid.Row="1" Grid.Column ="0" Background="Blue" Width="5"
+        <GridSplitter Grid.Row="1" Grid.Column ="0" Background="#FFBDBDBD" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />
         <local:Begegnungen Grid.Row="1" Grid.Column="1"  x:Name="Begegnungen" Margin="0,28,5,3" />
-        <TextBlock x:Name="versionNumber" HorizontalAlignment="Left" Margin="5,0,5,2" Grid.Row="2" TextWrapping="Wrap" Text="Version 1.2" VerticalAlignment="Center" Opacity="0.8" Height="16"/>
+        <TextBlock x:Name="versionNumber" HorizontalAlignment="Left" Margin="5,0,5,2" Grid.Row="2" TextWrapping="Wrap" Text="Version MAJOR.MINOR" VerticalAlignment="Center" Opacity="0.8" Height="16"/>
+        <TextBlock x:Name="buildNumber" HorizontalAlignment="Right" Margin="5,0,5,2" Grid.Row="2" TextWrapping="Wrap" Text="(Build: BUILD.REVISION)" VerticalAlignment="Center" Opacity="0.8" Height="16" Foreground="#FF979797"/>
     </Grid>
 </Window>
