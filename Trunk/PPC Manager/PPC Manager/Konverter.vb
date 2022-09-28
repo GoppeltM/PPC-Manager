@@ -134,7 +134,7 @@ Public Class OpacityConverter
 
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         Dim partie = CType(value, SpielPartie)
-        If IstAbgeschlossen(partie) Then
+        If IstAbgeschlossen(partie) Or TypeOf partie Is FreiLosSpiel Then
             Return 0.4
         Else
             Return 1.0
