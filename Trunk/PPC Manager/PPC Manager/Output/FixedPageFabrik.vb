@@ -26,7 +26,7 @@ Public Class FixedPageFabrik
         Return rows
     End Function
 
-    Sub SeitenEinstellungenAnwenden(page As FixedPage, einstellungen As SeitenEinstellung)
+    Sub SeitenEinstellungenAnwenden(page As FrameworkElement, einstellungen As SeitenEinstellung)
         With einstellungen
             Dim sz As New Size(.Breite, .Höhe)
             page.Width = .Breite
@@ -37,6 +37,12 @@ Public Class FixedPageFabrik
             page.Arrange(New Rect(New Point(), sz))
             page.UpdateLayout()
         End With
+
+        'Diese Action erzwingt dass alle anstehen asynchronen Actions wie zB UpdateLayout ausgeführt werden, wodurch wir anschließend
+        'korrekte Messungen in der FixedPage vornehmen können
+        Threading.Dispatcher.CurrentDispatcher.Invoke(New Action(Function() As Boolean
+                                                                     Return True
+                                                                 End Function), Threading.DispatcherPriority.Background)
     End Sub
 
     Friend Function ErzeugeRanglisteSeiten(seitenEinstellungen As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeRanglisteSeiten
@@ -57,32 +63,28 @@ Public Class FixedPageFabrik
             Dim row = 0
 
             Dim seite = New RanglisteSeite(_KlassementName, ÜbrigeSpieler, _SpielRunden, _Spielstand, seitenEinstellungen, RangOffset)
-            Dim pageContent As New PageContent()
-            Dim fixedPage As New FixedPage()
-            'Dim sz As New Size(seitenEinstellungen.Breite, seitenEinstellungen.Höhe)
+            SeitenEinstellungenAnwenden(seite, seitenEinstellungen)
 
+            Dim fixedPage As New FixedPage()
             fixedPage.Children.Add(seite)
             SeitenEinstellungenAnwenden(fixedPage, seitenEinstellungen)
 
-            'Diese Action erzwingt dass alle anstehen asynchronen Actions wie zB UpdateLayout ausgeführt werden, wodurch wir anschließend
-            'korrekte Messungen in der FixedPage vornehmen können
-            Threading.Dispatcher.CurrentDispatcher.Invoke(New Action(Function() As Boolean
-                                                                         Return True
-                                                                     End Function), Threading.DispatcherPriority.ContextIdle)
-
             Dim liste = CType(seite.FindName("SpielerRangListe"), DataGrid)
+            Dim container = CType(seite.FindName("Container"), Grid)
             Dim rows = GetDataGridRows(liste)
             Dim spielerAktuellSeite = New List(Of Spieler)
-            Dim contentHeight = 100.0 'Höhe von Rand und Header und Puffer
-            While (row < rows.Count AndAlso rows.ElementAt(row).ActualHeight + contentHeight < seitenEinstellungen.Höhe)
+            Dim contentHeight = 75.0 'Title + Header Höhe
+            While (row < rows.Count AndAlso Not IsNothing(rows.ElementAt(row)) AndAlso rows.ElementAt(row).ActualHeight + contentHeight < container.ActualHeight)
                 contentHeight += rows.ElementAt(row).ActualHeight
                 spielerAktuellSeite.Add(ÜbrigeSpieler.ElementAt(row))
                 row += 1
             End While
             ÜbrigeSpieler.RemoveRange(0, row)
 
+            Dim rangliste = New RanglisteSeite(_KlassementName, spielerAktuellSeite, _SpielRunden, _Spielstand, seitenEinstellungen, RangOffset)
+            SeitenEinstellungenAnwenden(rangliste, seitenEinstellungen)
             Dim page = New FixedPage
-            page.Children.Add(New RanglisteSeite(_KlassementName, spielerAktuellSeite, _SpielRunden, _Spielstand, seitenEinstellungen, RangOffset))
+            page.Children.Add(rangliste)
             SeitenEinstellungenAnwenden(page, seitenEinstellungen)
             seiten.Add(page)
             RangOffset += row

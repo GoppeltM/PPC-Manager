@@ -20,17 +20,6 @@ Public Class RanglisteSeite
         Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
         converter.Offset = RangOffset
 
-
-        Height = seitenEinstellungen.Höhe
-        Width = seitenEinstellungen.Breite
-        FixedPage.SetLeft(Me, seitenEinstellungen.AbstandX)
-        FixedPage.SetTop(Me, seitenEinstellungen.AbstandY)
-
-        Dim sz As New Size(seitenEinstellungen.Breite, seitenEinstellungen.Höhe)
-        Measure(sz)
-        Arrange(New Rect(New Point, sz))
-        UpdateLayout()
-
         KlassementName.Text = altersgruppe
         AktuellesDatum.Text = Date.Now.ToString("dd.MM.yyyy")
         RundenNummer.Text = String.Format("Runde Nr. {0}", spielRunden.Count - 1)
@@ -49,7 +38,7 @@ Public Class RanglisteSeite
         Dim converter = CType(FindResource("GridIndexConverter"), GridIndexConverter)
         KlassementName.Text = seite.KlassementName.Text
         AktuellesDatum.Text = seite.AktuellesDatum.Text
-        Me.RundenNummer.Text = seite.RundenNummer.Text
+        RundenNummer.Text = seite.RundenNummer.Text
 
         Dim res = CType(FindResource("Spieler"), RangListeSpielerListe)
         Dim resAlt = CType(seite.FindResource("Spieler"), RangListeSpielerListe)
