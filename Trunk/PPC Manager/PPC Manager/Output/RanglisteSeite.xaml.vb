@@ -81,9 +81,16 @@ Public Class RangListeSpieler
         Get
             Dim l As New List(Of String)
             For Each runde In _spielRunden
+                If runde.Count = 0 Then Continue For
+
                 Dim gespieltePartien = From x In runde Where x.SpielerLinks = Me Or x.SpielerRechts = Me
+                If gespieltePartien.Count = 0 Then l.Add("--")
+
                 For Each partie In gespieltePartien
-                    If TypeOf partie Is FreiLosSpiel Then Continue For
+                    If TypeOf partie Is FreiLosSpiel Then
+                        l.Add("FL")
+                        Continue For
+                    End If
 
                     Dim text = partie.GegnerVon(Me).StartNummer.ToString
                     If _Spielstand.HatPartieGewonnen(partie, Me) Then
