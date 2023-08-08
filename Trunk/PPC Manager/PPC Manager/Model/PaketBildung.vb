@@ -161,7 +161,9 @@ Public Class PaketBildung(Of T)
             vorgänger = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
         End While
 
-        Throw New Exception("Es können keine Paarungen mehr gebildet werden. Dies war die letzte Runde")
+        MessageBox.Show("Es können keine Paarungen mehr gebildet werden. Dies war die letzte Runde." + vbNewLine +
+                        "Bitte die erzeugte Runde verwerfen und stattdessen die Playoffs starten.", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning)
+
     End Sub
 
     Private Shared Function alternierendeSchwimmer(ByVal oberePakete As List(Of Paket(Of T)),
