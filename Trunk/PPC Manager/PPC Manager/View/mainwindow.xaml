@@ -8,6 +8,9 @@
     Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d"         
     Height="720" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
     >
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
         <CommandBinding Command="ApplicationCommands.Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Execute" />
@@ -41,11 +44,23 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>
-        
-        <local:LiveListe Grid.Row="2" Grid.Column="0" x:Name="LiveListe" Margin="5,5,15,3" TextBlock.FontSize="20" />
-        <GridSplitter Grid.Row="2" Grid.Column ="0" Background="#FFBDBDBD" Width="5"
+
+        <Grid x:Name="VorrundenUI" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding VorrundenUIVisible, Converter={StaticResource BoolToVisConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600*" MinWidth="20" />
+                <ColumnDefinition Width="858*" />
+            </Grid.ColumnDefinitions>
+            
+            <local:LiveListe Grid.Column="0" x:Name="LiveListe" Margin="5,5,15,3" TextBlock.FontSize="20" />
+            <GridSplitter Grid.Column ="0" Background="#FFBDBDBD" Width="5"
                 HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,5,5,5" />
-        <local:Begegnungen Grid.Row="2" Grid.Column="1"  x:Name="Begegnungen" Margin="0,28,5,3" />
+            <local:Begegnungen x:Name="Begegnungen" Grid.Column ="1" Margin="0,28,5,3" />
+        </Grid>
+        
+
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding PlayOffUIVisible, Converter={StaticResource BoolToVisConverter}}">
+            <local:Playoff_Config />
+        </Grid>
         
         <TextBlock x:Name="versionNumber" HorizontalAlignment="Left" Margin="5,0,5,2" Grid.Row="3" TextWrapping="Wrap" Text="Version MAJOR.MINOR.PATCH" VerticalAlignment="Center" Opacity="0.8" Height="16"/>
         <TextBlock x:Name="buildNumber" HorizontalAlignment="Right" Margin="5,0,5,2" Grid.Row="3" TextWrapping="Wrap" Text="(Build: REVISION)" VerticalAlignment="Center" Opacity="0.8" Height="16" Foreground="#FF979797"/>

@@ -26,6 +26,9 @@ Class MainWindow
     Private ReadOnly _DruckerFabrik As IDruckerFabrik
     Private Property PlayoffIstAktiv As Boolean = False
 
+    Public Property VorrundenUIVisible As Boolean = False
+    Public Property PlayOffUIVisible As Boolean = False
+
     Private SkipDialog As Boolean = False
 
     Sub New(controller As IController,
@@ -37,6 +40,11 @@ Class MainWindow
             druckerFabrik As IDruckerFabrik,
             tabs As Collection(Of String))
         InitializeComponent()
+
+        DataContext = Me
+
+        VorrundenUIVisible = spielerliste.Count > 0
+        PlayOffUIVisible = spielerliste.Count = 0
 
         tabControl.ItemsSource = tabs
         tabControl.SelectedIndex = tabs.IndexOf(klassement)
