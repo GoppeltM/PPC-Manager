@@ -172,6 +172,9 @@
       <DependentUpon>DruckEinstellungenDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IDruckerFabrik.vb" />
+    <Compile Include="View\Playoff_Config.xaml.vb">
+      <DependentUpon>Playoff_Config.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PrintDialogZuStringConverter.vb" />
     <Compile Include="View\SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
@@ -233,6 +236,10 @@
     <Page Include="Output\SpielErgebnisse.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Playoff_Config.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SpielPartienListe.xaml">
       <SubType>Designer</SubType>
