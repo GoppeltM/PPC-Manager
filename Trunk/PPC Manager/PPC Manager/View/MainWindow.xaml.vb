@@ -1,4 +1,5 @@
-﻿Imports PPC_Manager
+﻿Imports System.Collections.ObjectModel
+Imports PPC_Manager
 
 Public Class PlayoffCommand
     Inherits RoutedCommand
@@ -25,20 +26,27 @@ Class MainWindow
     Private ReadOnly _DruckerFabrik As IDruckerFabrik
     Private Property PlayoffIstAktiv As Boolean = False
 
+    Private SkipDialog As Boolean = False
+
     Sub New(controller As IController,
             spielerliste As IEnumerable(Of Spieler),
             spielrunden As SpielRunden,
-            titel As String,
+            klassement As String,
             spielstand As ISpielstand,
             spielerVergleicher As IComparer,
-            druckerFabrik As IDruckerFabrik)
+            druckerFabrik As IDruckerFabrik,
+            tabs As Collection(Of String))
         InitializeComponent()
+
+        tabControl.ItemsSource = tabs
+        tabControl.SelectedIndex = tabs.IndexOf(klassement)
+
         _Controller = controller
         _Spielrunden = spielrunden
         _Spielstand = spielstand
         _DruckerFabrik = druckerFabrik
         _DruckEinstellungen = New DruckEinstellungen
-        Title = titel
+        Title = klassement
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
         Dim s = New SpielerListe
         For Each spieler In spielerliste.Where(AddressOf FilterSpieler)
@@ -270,6 +278,12 @@ Class MainWindow
     End Sub
 
     Private Sub MyWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles MyWindow.Closing
+        If SkipDialog Then
+            _Controller.SaveXML()
+            SkipDialog = False
+            Return
+        End If
+
         Select Case MessageBox.Show("Das Programm wird geschlossen. Sollen Änderungen gespeichert werden?" _
                           , "Speichern und schließen?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
             Case MessageBoxResult.Cancel : e.Cancel = True
@@ -293,6 +307,15 @@ Class MainWindow
         Dim filtern = CBool(e.Parameter)
         Begegnungen.BegegnungenFiltern = filtern
         Begegnungen.Update()
+    End Sub
+
+    Private Sub tabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If tabControl.ActualHeight = 0 Then Return 'initialisierung
+        If TypeOf tabControl.SelectedItem Is String Then
+            SkipDialog = True
+            Dim selectedTab As String = CType(tabControl.SelectedItem, String)
+            CType(Application.Current, Application).LadeCompetition(sender, selectedTab)
+        End If
     End Sub
 
 End Class
