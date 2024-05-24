@@ -2,6 +2,7 @@
 
 Public Class LadenNeu
 
+    Private suppressSave As Boolean = False
     Private doc As XDocument
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
@@ -64,10 +65,13 @@ Public Class LadenNeu
         If Not e.AddedItems.Count > 0 Then Return
         Dim Item = e.AddedItems(0).ToString
         Dim competition = (From x In doc.Root.<competition>
-                          Where x.Attribute("age-group").Value = Item Select x).Single
+                           Where x.Attribute("age-group").Value = Item Select x).Single
+
+        ' don't trigger save event while parsing XML and updating UI
+        suppressSave = True
 
         If competition.@ppc:gewinnsätze IsNot Nothing Then
-            GewinnsätzeAnzahl.Value = Double.Parse(competition.@ppc:gewinnsätze)        
+            GewinnsätzeAnzahl.Value = Double.Parse(competition.@ppc:gewinnsätze)
         End If
 
         If competition.@ppc:satzdifferenz IsNot Nothing Then
@@ -87,6 +91,37 @@ Public Class LadenNeu
             GewinnsätzeAnzahl.IsEnabled = True
             SonneBorn.IsEnabled = True
         End If
+
+        suppressSave = False
+    End Sub
+
+    Private Sub SaveRules()
+        If CompetitionCombo.SelectedItem Is Nothing Then Return
+        If suppressSave Then Return
+
+        Dim comp = CompetitionCombo.SelectedItem.ToString
+        If comp <> "" Then
+            Dim competition = (From x In doc.Root.<competition>
+                               Where x.Attribute("age-group").Value = comp Select x).Single
+            competition.@ppc:gewinnsätze = GewinnsätzeAnzahl.Value.ToString.ToLower
+            competition.@ppc:satzdifferenz = SatzDiffCheck.IsChecked.ToString.ToLower
+            competition.@ppc:sonnebornberger = SonneBorn.IsChecked.ToString.ToLower
+
+            doc.Save(XMLPathText.Text)
+        End If
+
+    End Sub
+
+    Private Sub SonneBorn_Checked(sender As Object, e As RoutedEventArgs) Handles SonneBorn.Click
+        SaveRules()
+    End Sub
+
+    Private Sub SatzDiffCheck_Checked(sender As Object, e As RoutedEventArgs) Handles SatzDiffCheck.Click
+        SaveRules()
+    End Sub
+
+    Private Sub GewinnsätzeAnzahl_ValueChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Double))
+        SaveRules()
     End Sub
 End Class
 
