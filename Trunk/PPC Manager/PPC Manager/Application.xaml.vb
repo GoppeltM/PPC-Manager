@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.IO
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Class Application
 
@@ -10,7 +11,6 @@ Class Application
         My.Settings.Save()
     End Sub
 
-    Public spielRegeln As SpielRegeln
     Public xmlPfad As String
 
     Public Sub CrashBehandeln(sender As Object, args As UnhandledExceptionEventArgs)
@@ -25,19 +25,44 @@ Class Application
         f.ShowDialog()
     End Sub
 
+    Private Function ParseSpielregeln(doc As XDocument, klassement As String) As SpielRegeln
+        Dim competition = (From x In doc.Root.<competition>
+                           Where x.Attribute("age-group").Value = klassement Select x).Single
+
+        Dim GewinnsätzeAnzahl As Double = 3
+        Dim SatzDiffCheck As Boolean = True
+        Dim SonneBorn As Boolean = True
+
+        If competition.@ppc:gewinnsätze IsNot Nothing Then
+            GewinnsätzeAnzahl = Double.Parse(competition.@ppc:gewinnsätze)
+        End If
+
+        If competition.@ppc:satzdifferenz IsNot Nothing Then
+            SatzDiffCheck = Boolean.Parse(competition.@ppc:satzdifferenz)
+        End If
+
+        If competition.@ppc:sonnebornberger IsNot Nothing Then
+            SonneBorn = Boolean.Parse(competition.@ppc:sonnebornberger)
+        End If
+
+
+        Return New SpielRegeln(GewinnsätzeAnzahl, SatzDiffCheck, SonneBorn)
+    End Function
+
     Public Sub LadeCompetition(sender As Object, klassement As String)
+        Dim doc = XDocument.Load(xmlPfad)
+        Dim AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
+        Dim spielRegeln = ParseSpielregeln(doc, klassement)
         Dim AktiveCompetition As Competition
         Dim spielRunden = New SpielRunden
         Dim spielpartien = spielRunden.SelectMany(Function(m) m)
         Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
         Dim spielstand = New Spielstand(SpielRegeln.Gewinnsätze)
         Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielstand)
-        Dim AlleCompetitions As Collection(Of String)
 
         Try
-            Dim doc = XDocument.Load(xmlPfad)
-            AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
             AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielRunden)
+
         Catch ex As SpielDatenUnvollständigException
             MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount),
             "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -114,7 +139,7 @@ Class Application
 
     Private Sub Application_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
         AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf CrashBehandeln
-        Me.ShutdownMode = ShutdownMode.OnExplicitShutdown
+        ShutdownMode = ShutdownMode.OnExplicitShutdown
         With New LadenNeu
 
             If Not .ShowDialog() Then
@@ -122,7 +147,6 @@ Class Application
                 Return
             End If
 
-            spielRegeln = New SpielRegeln(.GewinnsätzeAnzahl.Value, .SatzDiffCheck.IsChecked, .SonneBorn.IsChecked)
             xmlPfad = .XMLPathText.Text
 
             LadeCompetition(sender, .CompetitionCombo.SelectedItem.ToString)
