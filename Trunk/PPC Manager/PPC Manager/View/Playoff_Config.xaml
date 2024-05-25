@@ -20,7 +20,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="listView" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Spielerliste}" Grid.Row="1">
+        <ListView x:Name="linkeListe" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Spielerliste, Mode=OneWay}" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Vorname}" Header="Vorname" />
@@ -44,23 +44,23 @@
         </ComboBox>
         <StackPanel>
             <Label x:Name="label1" Content="Filter:" Margin="0,10,0,0" VerticalAlignment="Top" Width="NaN"/>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <TextBlock x:Name="label2" Text="Geschlecht:"/>
                 <RadioButton x:Name="m" Content="M" HorizontalAlignment="Left" Margin="10,0,0,0"/>
                 <RadioButton x:Name="w" Content="W" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             </StackPanel>
-            <TextBlock x:Name="label3" Text="Klassement:"/>
-            <ListBox Height="50" IsSynchronizedWithCurrentItem="False">
+            <TextBlock x:Name="label3" Text="Klassement:"  Margin="10,0,0,0"/>
+            <ListBox x:Name="Turnierfilter" SelectionMode="Multiple" Height="50" IsSynchronizedWithCurrentItem="False" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding KlassementListe}" Padding="0,0,-22,0" SelectionChanged="ListBox_SelectionChanged" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" Margin="0,0,0,0"  Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
+                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" Margin="0,0,0,0"  Width="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=ActualWidth}" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-                <CheckBox x:Name="a" Content="Aktive A" HorizontalAlignment="Left"/>
-                <CheckBox x:Name="b" Content="Aktive B" HorizontalAlignment="Left"/>
-                <CheckBox x:Name="c" Content="Aktive C" HorizontalAlignment="Left"/>
-                <CheckBox x:Name="d" Content="Aktive B" HorizontalAlignment="Left"/>
-                <CheckBox x:Name="e" Content="Aktive C" HorizontalAlignment="Left"/>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding}" HorizontalAlignment="Left" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
     </Grid>
