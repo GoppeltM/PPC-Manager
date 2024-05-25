@@ -9,7 +9,7 @@
     Height="720" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
     >
     <Window.Resources>
-        <local:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
@@ -37,7 +37,7 @@
         </Grid.ColumnDefinitions>
         <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="18" />
 
-        <TabControl SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,5,10,0" HorizontalAlignment="Left" Width="Auto" Height="30"  >
+        <TabControl d:ItemsSource="{d:SampleData}" SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,0" HorizontalAlignment="Left" Width="{Binding ElementName=MyWindow, Path=Width}" Height="24"  >
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" />
@@ -58,7 +58,7 @@
         </Grid>
         
 
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding PlayOffUIVisible, Converter={StaticResource BoolToVisConverter}}">
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding PlayOffUIVisible, Converter={StaticResource BoolToVisConverter}}" d:Visibility="Collapsed">
             <local:Playoff_Config x:Name="PlayoffConf"/>
         </Grid>
         
