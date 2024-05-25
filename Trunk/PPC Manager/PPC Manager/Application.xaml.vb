@@ -119,7 +119,8 @@ Class Application
                                     spielstand,
                                     vergleicher,
                                     New DruckerFabrik,
-                                    AlleCompetitions)
+                                    AlleCompetitions,
+                                    doc)
 
         MainWindow = window
 
@@ -132,9 +133,10 @@ Class Application
         End If
 
         window.Show()
-        If oldWindow IsNot Nothing Then
-            oldWindow.Close()
+        If oldWindow Is Nothing Then
+            Return
         End If
+        oldWindow.Close()
     End Sub
 
     Private Sub Application_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup

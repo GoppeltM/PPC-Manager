@@ -37,7 +37,7 @@
         </Grid.ColumnDefinitions>
         <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="18" />
 
-        <TabControl SelectionChanged="tabControl_SelectionChanged" x:Name="tabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,5,10,0" HorizontalAlignment="Left" Width="Auto" Height="30"  >
+        <TabControl SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,5,10,0" HorizontalAlignment="Left" Width="Auto" Height="30"  >
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" />
@@ -59,7 +59,7 @@
         
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding PlayOffUIVisible, Converter={StaticResource BoolToVisConverter}}">
-            <local:Playoff_Config />
+            <local:Playoff_Config x:Name="PlayoffConf"/>
         </Grid>
         
         <TextBlock x:Name="versionNumber" HorizontalAlignment="Left" Margin="5,0,5,2" Grid.Row="3" TextWrapping="Wrap" Text="Version MAJOR.MINOR.PATCH" VerticalAlignment="Center" Opacity="0.8" Height="16"/>

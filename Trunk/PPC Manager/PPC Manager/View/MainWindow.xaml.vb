@@ -38,7 +38,8 @@ Class MainWindow
             spielstand As ISpielstand,
             spielerVergleicher As IComparer,
             druckerFabrik As IDruckerFabrik,
-            tabs As Collection(Of String))
+            tabs As Collection(Of String),
+            doc As XDocument)
         InitializeComponent()
 
         DataContext = Me
@@ -56,6 +57,9 @@ Class MainWindow
         _DruckEinstellungen = New DruckEinstellungen
         Title = klassement
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
+
+        PlayoffConf.UpdateContext(doc)
+
         Dim s = New SpielerListe
         For Each spieler In spielerliste.Where(AddressOf FilterSpieler)
             s.Add(spieler)
@@ -63,8 +67,10 @@ Class MainWindow
         LiveListe.DataContext = s
         LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
         Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+
         Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
         Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
+
         With My.Application.Info.Version
             versionNumber.Text = String.Format("Version: {0}.{1}.{2}", .Major, .Minor, .Build)
             buildNumber.Text = String.Format("(Build: {0})", .Revision)
@@ -186,8 +192,9 @@ Class MainWindow
         Dim AktuelleRunde = _Spielrunden.Peek()
         Dim neueSpielPartie = New SpielPartie(rundenName,
                                               spielerA,
-                                              SpielerB)
-        neueSpielPartie.ZeitStempel = Date.Now
+                                              SpielerB) With {
+            .ZeitStempel = Date.Now
+                                              }
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
@@ -317,7 +324,7 @@ Class MainWindow
         Begegnungen.Update()
     End Sub
 
-    Private Sub tabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+    Private Sub TabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If tabControl.ActualHeight = 0 Then Return 'initialisierung
         If TypeOf tabControl.SelectedItem Is String Then
             SkipDialog = True

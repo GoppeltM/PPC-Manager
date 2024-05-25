@@ -58,7 +58,7 @@ Public Class SpielerInfo
 
     Public Overrides Function Equals(ByVal obj As Object) As Boolean
 
-        If Not TypeOf obj Is SpielerInfo Then Return False
+        If TypeOf obj IsNot SpielerInfo Then Return False
         Dim other = CType(obj, SpielerInfo)
         Return Me.Id = other.Id
     End Function
