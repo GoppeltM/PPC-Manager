@@ -25,43 +25,20 @@ Class Application
         f.ShowDialog()
     End Sub
 
-    Private Function ParseSpielregeln(doc As XDocument, klassement As String) As SpielRegeln
-        Dim competition = (From x In doc.Root.<competition>
-                           Where x.Attribute("age-group").Value = klassement Select x).Single
-
-        Dim GewinnsätzeAnzahl As Double = 3
-        Dim SatzDiffCheck As Boolean = True
-        Dim SonneBorn As Boolean = True
-
-        If competition.@ppc:gewinnsätze IsNot Nothing Then
-            GewinnsätzeAnzahl = Double.Parse(competition.@ppc:gewinnsätze)
-        End If
-
-        If competition.@ppc:satzdifferenz IsNot Nothing Then
-            SatzDiffCheck = Boolean.Parse(competition.@ppc:satzdifferenz)
-        End If
-
-        If competition.@ppc:sonnebornberger IsNot Nothing Then
-            SonneBorn = Boolean.Parse(competition.@ppc:sonnebornberger)
-        End If
-
-
-        Return New SpielRegeln(GewinnsätzeAnzahl, SatzDiffCheck, SonneBorn)
-    End Function
-
     Public Sub LadeCompetition(sender As Object, klassement As String)
         Dim doc = XDocument.Load(xmlPfad)
         Dim AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
-        Dim spielRegeln = ParseSpielregeln(doc, klassement)
+        Dim Regeln = SpielRegeln.Parse(doc, klassement)
         Dim AktiveCompetition As Competition
         Dim spielRunden = New SpielRunden
         Dim spielpartien = spielRunden.SelectMany(Function(m) m)
         Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
-        Dim spielstand = New Spielstand(SpielRegeln.Gewinnsätze)
+        Dim spielstand = New Spielstand(Regeln.Gewinnsätze)
         Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielstand)
 
         Try
-            AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, spielRegeln, spielRunden)
+            'befüllt spielRunden
+            AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, Regeln, spielRunden)
 
         Catch ex As SpielDatenUnvollständigException
             MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount),
@@ -71,12 +48,12 @@ Class Application
         End Try
 
         Resources("KlassementName") = AktiveCompetition.Altersgruppe
-        Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, SpielRegeln, klassement, AktiveCompetition.SpielRunden)
+        Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, Regeln, klassement, AktiveCompetition.SpielRunden)
         Dim excelVerlauf = New Spielverlauf(spielRunden.Skip(1).Reverse.SelectMany(Function(m) m),
                                         spielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
                                         spielstand)
         Dim excelFabrik = New ExcelFabrik(spielstand, excelVerlauf)
-        Dim vergleicher = New SpielerInfoComparer(spielverlauf, SpielRegeln.SatzDifferenz, SpielRegeln.SonneBornBerger)
+        Dim vergleicher = New SpielerInfoComparer(spielverlauf, Regeln.SatzDifferenz, Regeln.SonneBornBerger)
         Dim r = New ReportFactory(xmlPfad,
                                   klassement,
                                   AktiveCompetition.SpielerListe,
@@ -90,7 +67,7 @@ Class Application
                           Select x
         Dim OrganisierePakete = Function()
                                     Dim spielverlaufCache = New SpielverlaufCache(spielverlauf)
-                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache, SpielRegeln.SatzDifferenz, SpielRegeln.SonneBornBerger)
+                                    Dim comparer = New SpielerInfoComparer(spielverlaufCache, Regeln.SatzDifferenz, Regeln.SonneBornBerger)
                                     Dim paarungsSuche = New PaarungsSuche(Of SpielerInfo)(AddressOf comparer.Compare, AddressOf spielverlaufCache.Habengegeneinandergespielt)
                                     Dim begegnungen = New PaketBildung(Of SpielerInfo)(spielverlaufCache, AddressOf paarungsSuche.SuchePaarungen)
                                     Dim l = AktiveListe.ToList()
