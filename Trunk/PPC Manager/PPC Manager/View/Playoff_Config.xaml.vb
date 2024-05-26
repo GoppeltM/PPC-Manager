@@ -54,36 +54,14 @@ Public Class Playoff_Config
         Dim allespieler As New List(Of SpielerInfoTurnier)
         Dim klassements = Doc.Root.<competition>
         For Each klassement In klassements
-            Dim spieler As New List(Of SpielerInfoTurnier)
             Dim comp = klassement.Attribute("age-group").Value
 
-            Dim neuerSpieler = Function(id As String, fremd As Boolean, person As XElement) As SpielerInfoTurnier
-                                   Dim s = New SpielerInfoTurnier(New SpielerInfo(id) With {
-                                        .Geschlecht = Integer.Parse(person.@sex),
-                                        .Lizenznummer = person.Attribute("licence-nr").Value,
-                                        .Nachname = person.@lastname,
-                                        .Vorname = person.@firstname,
-                                        .Vereinsname = person.Attribute("club-name").Value
-                                    }, comp)
-                                   Integer.TryParse(person.@birthyear, s.Geburtsjahr)
-                                   Integer.TryParse(person.@ttr, s.TTRating)
-                                   Integer.TryParse(person.Attribute("ttr-match-count")?.Value, s.TTRMatchCount)
-                                   Return s
-                               End Function
-
-            For Each xmlSpieler In klassement.<players>.<player>
-                Dim id = xmlSpieler.@id
-                Dim person = xmlSpieler.<person>.Single
-                spieler.Add(neuerSpieler(id, False, person))
-            Next
-
-            allespieler.AddRange(SpielerNachRangliste(comp, spieler))
+            allespieler.AddRange(SpielerNachRangliste(comp))
         Next
         Return allespieler
     End Function
 
-    Private Function SpielerNachRangliste(comp As String, _spieler As IList(Of SpielerInfoTurnier)) As IList(Of SpielerInfoTurnier)
-        Dim spieler = _spieler.ToList
+    Private Function SpielerNachRangliste(comp As String) As IList(Of SpielerInfoTurnier)
         Dim Regeln = SpielRegeln.Parse(Doc, comp)
         Dim spielRunden = New SpielRunden
         Dim spielpartien = spielRunden.SelectMany(Function(m) m)
@@ -95,16 +73,20 @@ Public Class Playoff_Config
         Dim AktiveCompetition = AusXML.CompetitionFromXML("", Doc, comp, Regeln, spielRunden)
         Dim vergleicher = New SpielerInfoComparer(spielverlauf, Regeln.SatzDifferenz, Regeln.SonneBornBerger)
 
-        For Each s In spieler
+        Dim Spieler = New List(Of SpielerInfoTurnier)
+        For Each x In AktiveCompetition.SpielerListe
+            Spieler.Add(New SpielerInfoTurnier(x, comp))
+        Next
+
+        For Each s In Spieler
             s.Punkte = spielverlauf.BerechnePunkte(s)
         Next
 
-        spieler.Sort(vergleicher)
-        spieler.Reverse()
+        Spieler.Sort(vergleicher)
+        Spieler.Reverse()
 
         Dim platz = 1
-        For Each s In spieler
-            s.Punkte = spielverlauf.BerechnePunkte(s)
+        For Each s In Spieler
             s.Platz = platz
             platz += 1
         Next
