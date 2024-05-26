@@ -11,6 +11,7 @@ Public Class SpielerInfoTurnier
     Inherits SpielerInfo
     Public Property Klassement As String
     Public Property Punkte As Integer = 0
+    Public Property Platz As Integer = 99
 
     Sub New(spieler As SpielerInfo, comp As String)
         MyBase.New(spieler)
@@ -100,6 +101,14 @@ Public Class Playoff_Config
 
         spieler.Sort(vergleicher)
         spieler.Reverse()
+
+        Dim platz = 1
+        For Each s In spieler
+            s.Punkte = spielverlauf.BerechnePunkte(s)
+            s.Platz = platz
+            platz += 1
+        Next
+
         Return Spieler
     End Function
 

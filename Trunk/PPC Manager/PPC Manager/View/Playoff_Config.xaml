@@ -23,6 +23,8 @@
         <ListView x:Name="linkeListe" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Spielerliste, Mode=OneWay}" Grid.Row="1">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Klassement}" Header="Gruppe"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Platz}" Header="Pos."/>
                     <GridViewColumn DisplayMemberBinding="{Binding Vorname}" Header="Vorname" />
                     <GridViewColumn DisplayMemberBinding="{Binding Nachname}" Header="Nachname"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Punkte}" Header="Punkte"/>
