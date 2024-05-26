@@ -25,6 +25,7 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Vorname}" Header="Vorname" />
                     <GridViewColumn DisplayMemberBinding="{Binding Nachname}" Header="Nachname"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Punkte}" Header="Punkte"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -10,6 +10,7 @@ End Class
 Public Class SpielerInfoTurnier
     Inherits SpielerInfo
     Public Property Klassement As String
+    Public Property Punkte As Integer = 0
 
     Sub New(spieler As SpielerInfo, comp As String)
         MyBase.New(spieler)
@@ -47,13 +48,14 @@ Public Class Playoff_Config
     End Sub
 
     Public Function LeseSpieler() As IList(Of SpielerInfoTurnier)
+        'Todo: need to sort klassements
 
-        'Todo: need to recalculate player ordering based on match results
-
-        Dim l As New List(Of SpielerInfoTurnier)
+        Dim allespieler As New List(Of SpielerInfoTurnier)
         Dim klassements = Doc.Root.<competition>
         For Each klassement In klassements
+            Dim spieler As New List(Of SpielerInfoTurnier)
             Dim comp = klassement.Attribute("age-group").Value
+
             Dim neuerSpieler = Function(id As String, fremd As Boolean, person As XElement) As SpielerInfoTurnier
                                    Dim s = New SpielerInfoTurnier(New SpielerInfo(id) With {
                                         .Geschlecht = Integer.Parse(person.@sex),
@@ -71,12 +73,34 @@ Public Class Playoff_Config
             For Each xmlSpieler In klassement.<players>.<player>
                 Dim id = xmlSpieler.@id
                 Dim person = xmlSpieler.<person>.Single
-                l.Add(neuerSpieler(id, False, person))
+                spieler.Add(neuerSpieler(id, False, person))
             Next
 
-
+            allespieler.AddRange(SpielerNachRangliste(comp, spieler))
         Next
-        Return l
+        Return allespieler
+    End Function
+
+    Private Function SpielerNachRangliste(comp As String, _spieler As IList(Of SpielerInfoTurnier)) As IList(Of SpielerInfoTurnier)
+        Dim spieler = _spieler.ToList
+        Dim Regeln = SpielRegeln.Parse(Doc, comp)
+        Dim spielRunden = New SpielRunden
+        Dim spielpartien = spielRunden.SelectMany(Function(m) m)
+        Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
+        Dim spielstand = New Spielstand(Regeln.Gewinnsätze)
+        Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielstand)
+
+        'befüllt spielRunden
+        Dim AktiveCompetition = AusXML.CompetitionFromXML("", Doc, comp, Regeln, spielRunden)
+        Dim vergleicher = New SpielerInfoComparer(spielverlauf, Regeln.SatzDifferenz, Regeln.SonneBornBerger)
+
+        For Each s In spieler
+            s.Punkte = spielverlauf.BerechnePunkte(s)
+        Next
+
+        spieler.Sort(vergleicher)
+        spieler.Reverse()
+        Return Spieler
     End Function
 
     Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
