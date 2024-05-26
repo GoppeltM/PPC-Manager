@@ -19,9 +19,19 @@ Public Class SpielerInfoTurnier
     End Sub
 End Class
 
+Public Enum FinalMode
+    Viertelfinale
+    Halbfinale
+    Finalrunde
+    Sieger
+End Enum
+
+
 Public Class Playoff_Config
 
     Public Property Doc As XDocument = Nothing
+
+    Public Property mode As Integer = -1
 
     Public Sub New()
         UpdateContext(Nothing)
@@ -99,6 +109,7 @@ Public Class Playoff_Config
     End Sub
 
     Private Sub UpdateFilteredList()
+
         If Turnierfilter Is Nothing Then Return
 
         Dim filteredSpieler = LeseSpieler().ToList
@@ -122,6 +133,7 @@ Public Class Playoff_Config
         CType(DataContext, MainWindowContext).Spielerliste = filteredSpieler
         linkeListe.ItemsSource = filteredSpieler
 
+        UpdateRightList()
     End Sub
 
     Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, min.Checked, max.Checked, ttr.Click
@@ -141,4 +153,46 @@ Public Class Playoff_Config
         End If
 
     End Sub
+
+    'Modus Combobox Handler
+    Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles modus.SelectionChanged
+        'map selection to FinalMode Enum
+        mode = modus.SelectedIndex
+        UpdateRightList()
+    End Sub
+
+    Private Sub UpdateRightList()
+        warning.Text = ""
+        warning.Background = Brushes.Transparent
+
+        If mode = -1 Then Return
+
+        Select Case mode
+            Case FinalMode.Viertelfinale
+                TransferPlayers(8)
+            Case FinalMode.Halbfinale
+                TransferPlayers(4)
+            Case FinalMode.Finalrunde
+                TransferPlayers(Integer.MaxValue)
+            Case FinalMode.Sieger
+                TransferPlayers(Integer.MaxValue)
+        End Select
+    End Sub
+
+    Private Sub TransferPlayers(amount As Integer)
+
+        Dim left = linkeListe.Items
+        If left.Count = 0 Then Return
+        Dim leftList = CType(DataContext, MainWindowContext).Spielerliste
+        If amount > left.Count Then
+            amount = left.Count
+            If mode = FinalMode.Viertelfinale OrElse mode = FinalMode.Halbfinale Then
+                warning.Text = "Nicht genug Spieler für das gewählte Finale"
+                warning.Background = Brushes.LightCoral
+            End If
+        End If
+
+        rechteListe.ItemsSource = leftList.Take(amount)
+    End Sub
+
 End Class
