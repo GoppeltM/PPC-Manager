@@ -42,17 +42,16 @@ Public Class Playoff_Config
         End If
 
         DataContext = New MainWindowContext With {
-            .KlassementListe = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList),
+            .KlassementListe = New Collection(Of String)(doc.Root.<competition>.Where(Function(x) x.<players>.<player>.Any).Select(Function(x) x.Attribute("age-group").Value).ToList),
             .Spielerliste = LeseSpieler()
         }
 
     End Sub
 
     Public Function LeseSpieler() As IList(Of SpielerInfoTurnier)
-        'Todo: need to sort klassements
-
         Dim allespieler As New List(Of SpielerInfoTurnier)
-        Dim klassements = Doc.Root.<competition>
+        Dim klassements = Doc.Root.<competition>.OrderBy(Function(x) x.Attribute("ttr-from").Value).Reverse
+
         For Each klassement In klassements
             Dim comp = klassement.Attribute("age-group").Value
 
