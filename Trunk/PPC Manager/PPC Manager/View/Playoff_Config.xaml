@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PPC_Manager"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance {x:Type local:MainWindowContext}}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="120" />
+            <RowDefinition Height="150" />
             <RowDefinition />
             <RowDefinition Height="18" />
         </Grid.RowDefinitions>
@@ -28,6 +29,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Vorname}" Header="Vorname" />
                     <GridViewColumn DisplayMemberBinding="{Binding Nachname}" Header="Nachname"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Punkte}" Header="Punkte"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding TTRating}" Header="TTR"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -46,25 +48,46 @@
             <ComboBoxItem Content="Kein Finale" ToolTip="Gehe direkt zum Urkundendruck"/>
         </ComboBox>
         <StackPanel>
-            <Label x:Name="label1" Content="Filter:" Margin="0,10,0,0" VerticalAlignment="Top" Width="NaN"/>
-            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <TextBlock x:Name="label2" Text="Geschlecht:"/>
-                <RadioButton x:Name="m" Content="M" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                <RadioButton x:Name="w" Content="W" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-            </StackPanel>
-            <TextBlock x:Name="label3" Text="Klassement:"  Margin="10,0,0,0"/>
-            <ListBox x:Name="Turnierfilter" SelectionMode="Multiple" Height="50" IsSynchronizedWithCurrentItem="False" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding KlassementListe}" Padding="0,0,-22,0" SelectionChanged="ListBox_SelectionChanged" >
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" Margin="0,0,0,0"  Width="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=ActualWidth}" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Content="{Binding}" HorizontalAlignment="Left" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <TextBlock Text="Vorrundenergebnisse"  Margin="5,5,5,0" FontSize="14" FontWeight="Bold"/>
+            <DockPanel Margin="0,10,0,0">
+                <fa:ImageAwesome Icon="Filter" Width="15" Height="15" Margin="5,0,10,0" />
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="label2" Text="Geschlecht:"/>
+                        <RadioButton VerticalContentAlignment="Center" x:Name="m" Content="M" HorizontalAlignment="Left" Margin="10,0,0,0" IsChecked="True" GroupName="sex"/>
+                        <RadioButton VerticalContentAlignment="Center" x:Name="w" Content="W" HorizontalAlignment="Left" Margin="10,0,0,0" GroupName="sex"/>
+                    </StackPanel>
+                    <DockPanel>
+                        <TextBlock Text="TTR Limit:" />
+                        <TextBox
+                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
+                            x:Name="ttrwert" Width="50" Margin="10,0,0,0" Text="1000"/>
+                        <CheckBox VerticalContentAlignment="Center" x:Name="ttr" Content="aktiv" Margin="10,0,0,0" />
+                        <RadioButton
+                            VerticalContentAlignment="Center"
+                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
+                            x:Name="min" Content="min."  Margin="10,0,0,0" IsChecked="True" GroupName="ttr"/>
+                        <RadioButton
+                            VerticalContentAlignment="Center"
+                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
+                            x:Name="max" Content="max." Margin="10,0,0,0" GroupName="ttr"/>
+                    </DockPanel>
+                    <TextBlock x:Name="label3" Text="Klassement:"/>
+                    <ListBox Margin="0,0,0,0" x:Name="Turnierfilter" SelectionMode="Multiple" Height="50" IsSynchronizedWithCurrentItem="False" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding KlassementListe}" SelectionChanged="ListBox_SelectionChanged" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True" Margin="0,0,0,0"  Width="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=ActualWidth}" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding}" HorizontalAlignment="Left" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </DockPanel>
         </StackPanel>
+        <TextBlock x:Name="Finale" TextAlignment="Center" Text="Finale&#xD;&#xA;Konfigurieren" Width="NaN" Margin="5,5,5,0" Grid.Column="1" FontSize="16"/>
     </Grid>
 </UserControl>

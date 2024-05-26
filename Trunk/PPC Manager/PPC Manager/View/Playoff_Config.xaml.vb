@@ -1,6 +1,5 @@
 ﻿
 Imports System.Collections.ObjectModel
-Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class MainWindowContext
     Public Property Spielerliste As ICollection(Of SpielerInfoTurnier)
@@ -45,6 +44,8 @@ Public Class Playoff_Config
             .KlassementListe = New Collection(Of String)(doc.Root.<competition>.Where(Function(x) x.<players>.<player>.Any).Select(Function(x) x.Attribute("age-group").Value).ToList),
             .Spielerliste = LeseSpieler()
         }
+
+        UpdateFilteredList()
 
     End Sub
 
@@ -94,15 +95,50 @@ Public Class Playoff_Config
     End Function
 
     Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        Dim filter = Turnierfilter.SelectedItems
-        If filter.Count = 0 Then
-            CType(DataContext, MainWindowContext).Spielerliste = LeseSpieler()
-            linkeListe.ItemsSource = CType(DataContext, MainWindowContext).Spielerliste
-            Return
-        End If
-        Dim filteredSpieler = LeseSpieler().Where(Function(x) filter.Contains(x.Klassement)).ToList
-        CType(DataContext, MainWindowContext).Spielerliste = filteredSpieler
-        linkeListe.ItemsSource = filteredSpieler
+        UpdateFilteredList()
     End Sub
 
+    Private Sub UpdateFilteredList()
+        If Turnierfilter Is Nothing Then Return
+
+        Dim filteredSpieler = LeseSpieler().ToList
+
+        Dim filter = Turnierfilter.SelectedItems
+        If filter.Count > 0 Then
+            filteredSpieler = filteredSpieler.Where(Function(x) filter.Contains(x.Klassement)).ToList
+        End If
+
+        filteredSpieler = filteredSpieler.Where(Function(x) x.Geschlecht = If(m.IsChecked, 1, 0)).ToList
+
+        Dim ttrValue = -1
+        If ttr.IsChecked AndAlso Integer.TryParse(ttrwert.Text, ttrValue) Then
+            If min.IsChecked Then
+                filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating >= ttrValue).ToList
+            Else
+                filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating <= ttrValue).ToList
+            End If
+        End If
+
+        CType(DataContext, MainWindowContext).Spielerliste = filteredSpieler
+        linkeListe.ItemsSource = filteredSpieler
+
+    End Sub
+
+    Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, min.Checked, max.Checked, ttr.Click
+        UpdateFilteredList()
+    End Sub
+
+    Private Sub TTR_TextChanged(sender As Object, e As TextChangedEventArgs) Handles ttrwert.TextChanged
+        'validate text is a number
+        e.Handled = Not Integer.TryParse(ttrwert.Text, Nothing)
+
+        'background light red when invalid
+        If e.Handled Then
+            CType(sender, TextBox).Background = Brushes.LightCoral
+        Else
+            CType(sender, TextBox).Background = Brushes.White
+            UpdateFilteredList()
+        End If
+
+    End Sub
 End Class
