@@ -14,6 +14,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" CanExecute="NeuePartie_CanExecute" Executed="NeuePartie_Executed" />
         <CommandBinding Command="ApplicationCommands.Delete" CanExecute="Ausscheiden_CanExecute" Executed="Ausscheiden_Execute" />
+        <CommandBinding Command="local:MeineCommands.DeletePlayerUndo" CanExecute="Ausscheiden_Undo_CanExecute" Executed="Ausscheiden_Undo" />
         <CommandBinding Command="local:MeineCommands.Playoff" CanExecute="PlayoffAktiv" />
         <CommandBinding Command="Close" CanExecute="Ja" Executed="Close_Executed"/>
         <CommandBinding Command="Save" CanExecute="Ja" Executed="Save_Executed"/>
@@ -24,6 +25,9 @@
         <CommandBinding Command="Undo" CanExecute="RundeVerwerfen_CanExecute" Executed="RundeVerwerfen_Executed"/>
         <CommandBinding Command="NavigationCommands.NavigateJournal" Executed="Exportieren_Executed" />
     </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="local:MeineCommands.DeletePlayerUndo" Key="Delete" Modifiers="Alt"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="18" />

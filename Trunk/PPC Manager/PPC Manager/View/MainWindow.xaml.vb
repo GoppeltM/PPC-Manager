@@ -11,6 +11,10 @@ Public Class MeineCommands
                                                                                      "Playoff",
                                                                                      GetType(MeineCommands))
 
+    Public Shared ReadOnly Property DeletePlayerUndo As RoutedUICommand = New RoutedUICommand("Macht das ausscheiden eines Spielers rückgängig",
+                                                                                     "DeletePlayerUndo",
+                                                                                     GetType(MeineCommands))
+
     Public Shared ReadOnly Property BegegnungenFilter As RoutedUICommand = New RoutedUICommand("Wird gefeuert wenn der Begegnungenfilter sich ändert",
                                                                                              "BegegnungenFilter", GetType(MeineCommands))
 
@@ -135,17 +139,6 @@ Class MainWindow
         AktualisiereDaten()
     End Sub
 
-    Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
-        If LiveListe.LiveListe.SelectedIndex <> -1 Then
-            Dim Spieler = CType(LiveListe.LiveListe.SelectedItem, Spieler)
-            If Not Spieler.Ausgeschieden Then
-                e.CanExecute = True
-                Return
-            End If
-        End If
-        e.CanExecute = False
-    End Sub
-
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         If Not MeineCommands.Playoff.CanExecute(Nothing, Me) Then
             e.CanExecute = False
@@ -168,16 +161,41 @@ Class MainWindow
         End With
     End Sub
 
+    Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If LiveListe.LiveListe.SelectedIndex <> -1 Then
+            Dim Spieler = CType(LiveListe.LiveListe.SelectedItem, Spieler)
+            If Not Spieler.Ausgeschieden Then
+                e.CanExecute = True
+                Return
+            End If
+        End If
+        e.CanExecute = False
+    End Sub
+
     Private Sub Ausscheiden_Execute(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
         Dim spieler = CType(LiveListe.LiveListe.SelectedItem, SpielerInfo)
-        If Not MessageBox.Show(
-            String.Format("Sind Sie sicher dass sie Spieler {0} ausscheiden lassen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
-                          spieler.Nachname),
-                        "Spieler ausscheiden?", MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
-            Return
-        End If
         _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Add(spieler.Id)
         NavigationCommands.Refresh.Execute(Nothing, LiveListe)
+    End Sub
+
+    Private Sub Ausscheiden_Undo_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If LiveListe.LiveListe.SelectedIndex <> -1 Then
+            Dim Spieler = CType(LiveListe.LiveListe.SelectedItem, Spieler)
+            If _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Contains(Spieler.Id) Then
+                e.CanExecute = True
+                Return
+            End If
+        End If
+        e.CanExecute = False
+    End Sub
+
+    Private Sub Ausscheiden_Undo(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        Dim spieler = CType(LiveListe.LiveListe.SelectedItem, SpielerInfo)
+        'only if the player was removed in the current round
+        If _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Contains(spieler.Id) Then
+            _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Remove(spieler.Id)
+            NavigationCommands.Refresh.Execute(Nothing, LiveListe)
+        End If
     End Sub
 
     Private Sub NeuePartie_Executed(sender As Object, e As ExecutedRoutedEventArgs)

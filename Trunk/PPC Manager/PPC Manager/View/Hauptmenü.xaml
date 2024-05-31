@@ -27,6 +27,8 @@
             <MenuItem Header="Aktuelle Runde Verwerfen" Name="RundeVerwerfen" Command="ApplicationCommands.Undo" />
             <MenuItem Header="Spieler ausscheiden" 
                               Name="AusscheidenMenu" Command="ApplicationCommands.Delete"/>
+            <MenuItem Header="Spieler Rückkehr" 
+                              Name="AusscheidenUndo" Command="local:MeineCommands.DeletePlayerUndo" InputGestureText="Alt+Entf"/>
             <MenuItem Header="Spielpartie erstellen" 
                               Name="PartieErstellenMenu" Command="ApplicationCommands.New"/>
         </MenuItem>
