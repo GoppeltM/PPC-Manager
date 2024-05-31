@@ -162,6 +162,18 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If PlayOffUIVisible Then
+            If PlayoffConf.linkeListe.SelectedIndex <> -1 Then
+                Dim Spieler = CType(PlayoffConf.linkeListe.SelectedItem, SpielerInfoTurnier)
+                If Not Spieler.Ausgeschieden Then
+                    e.CanExecute = True
+                    Return
+                End If
+            End If
+            e.CanExecute = False
+            Return
+        End If
+
         If LiveListe.LiveListe.SelectedIndex <> -1 Then
             Dim Spieler = CType(LiveListe.LiveListe.SelectedItem, Spieler)
             If Not Spieler.Ausgeschieden Then
@@ -173,12 +185,29 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_Execute(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        If PlayOffUIVisible Then
+            PlayoffConf.RetireSelectedPlayers()
+            Return
+        End If
+
         Dim spieler = CType(LiveListe.LiveListe.SelectedItem, SpielerInfo)
         _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Add(spieler.Id)
         NavigationCommands.Refresh.Execute(Nothing, LiveListe)
     End Sub
 
     Private Sub Ausscheiden_Undo_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If PlayOffUIVisible Then
+            If PlayoffConf.linkeListe.SelectedIndex <> -1 Then
+                Dim Spieler = CType(PlayoffConf.linkeListe.SelectedItem, SpielerInfoTurnier)
+                If Spieler.Ausgeschieden AndAlso Spieler.CanRejoin Then
+                    e.CanExecute = True
+                    Return
+                End If
+            End If
+            e.CanExecute = False
+            Return
+        End If
+
         If LiveListe.LiveListe.SelectedIndex <> -1 Then
             Dim Spieler = CType(LiveListe.LiveListe.SelectedItem, Spieler)
             If _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Contains(Spieler.Id) Then
@@ -190,6 +219,11 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_Undo(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        If PlayOffUIVisible Then
+            PlayoffConf.UndoRetireSelectedPlayers()
+            Return
+        End If
+
         Dim spieler = CType(LiveListe.LiveListe.SelectedItem, SpielerInfo)
         'only if the player was removed in the current round
         If _Spielrunden.Peek.AusgeschiedeneSpielerIDs.Contains(spieler.Id) Then
@@ -312,7 +346,7 @@ Class MainWindow
 
     Private Sub MyWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs) Handles MyWindow.Closing
         If SkipDialog Then
-            _Controller.SaveXML()
+            '_Controller.SaveXML() <- already done in TabControl_SelectionChanged to avoid missing unsaved changes
             SkipDialog = False
             Return
         End If
@@ -344,6 +378,9 @@ Class MainWindow
 
     Private Sub TabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If tabControl.ActualHeight = 0 Then Return 'initialisierung
+        'save XML
+        _Controller.SaveXML()
+
         If TypeOf tabControl.SelectedItem Is String Then
             SkipDialog = True
             Dim selectedTab As String = CType(tabControl.SelectedItem, String)

@@ -12,6 +12,7 @@ Public Class SpielerInfoTurnier
     Public Property Punkte As Integer = 0
     Public Property Platz As Integer = 99
     Public Property Ausgeschieden As Boolean = False
+    Public Property CanRejoin As Boolean = False
 
     Sub New(spieler As SpielerInfo, comp As String)
         MyBase.New(spieler)
@@ -72,6 +73,58 @@ Public Class Playoff_Config
         Return allespieler
     End Function
 
+    Public Sub RetireSelectedPlayers()
+        Dim selected = linkeListe.SelectedItems.Cast(Of SpielerInfoTurnier).ToList
+        If selected.Count = 0 Then Return
+
+        For Each s In selected
+            Dim comp = s.Klassement
+            Dim Regeln = SpielRegeln.Parse(Doc, comp)
+            Dim spielRunden = New SpielRunden
+            Dim spielpartien = spielRunden.SelectMany(Function(m) m)
+            Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
+            Dim spielstand = New Spielstand(Regeln.Gewinnsätze)
+            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielstand)
+
+            'befüllt spielRunden
+            Dim AktiveCompetition = AusXML.CompetitionFromXML("", Doc, comp, Regeln, spielRunden)
+
+            spielRunden.Peek.AusgeschiedeneSpielerIDs.Add(s.Id)
+
+            ZuXML.SaveXML(CType(Application.Current, Application).xmlPfad, Regeln, comp, spielRunden)
+        Next
+
+        Doc = XDocument.Load(CType(Application.Current, Application).xmlPfad)
+        UpdateFilteredList()
+    End Sub
+
+    Public Sub UndoRetireSelectedPlayers()
+        Dim selected = linkeListe.SelectedItems.Cast(Of SpielerInfoTurnier).ToList
+        If selected.Count = 0 Then Return
+
+        For Each s In selected
+            If Not s.Ausgeschieden Then Continue For
+
+            Dim comp = s.Klassement
+            Dim Regeln = SpielRegeln.Parse(Doc, comp)
+            Dim spielRunden = New SpielRunden
+            Dim spielpartien = spielRunden.SelectMany(Function(m) m)
+            Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)
+            Dim spielstand = New Spielstand(Regeln.Gewinnsätze)
+            Dim spielverlauf = New Spielverlauf(spielpartien, ausgeschiedeneIds, spielstand)
+
+            'befüllt spielRunden
+            Dim AktiveCompetition = AusXML.CompetitionFromXML("", Doc, comp, Regeln, spielRunden)
+
+            spielRunden.Peek.AusgeschiedeneSpielerIDs.Remove(s.Id)
+
+            ZuXML.SaveXML(CType(Application.Current, Application).xmlPfad, Regeln, comp, spielRunden)
+        Next
+
+        Doc = XDocument.Load(CType(Application.Current, Application).xmlPfad)
+        UpdateFilteredList()
+    End Sub
+
     Private Function SpielerNachRangliste(comp As String) As IList(Of SpielerInfoTurnier)
         Dim Regeln = SpielRegeln.Parse(Doc, comp)
         Dim spielRunden = New SpielRunden
@@ -87,7 +140,8 @@ Public Class Playoff_Config
         Dim Spieler = New List(Of SpielerInfoTurnier)
         For Each x In AktiveCompetition.SpielerListe
             Spieler.Add(New SpielerInfoTurnier(x, comp) With {
-                .Ausgeschieden = spielRunden.Peek.AusgeschiedeneSpielerIDs.Contains(x.Id),
+                .Ausgeschieden = spielRunden.Any(Function(m) m.AusgeschiedeneSpielerIDs.Contains(x.Id)),
+                .CanRejoin = spielRunden.Peek.AusgeschiedeneSpielerIDs.Contains(x.Id),
                 .Punkte = spielverlauf.BerechnePunkte(x)
             })
         Next
