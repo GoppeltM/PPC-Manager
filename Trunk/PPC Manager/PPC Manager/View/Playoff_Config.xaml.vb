@@ -11,6 +11,7 @@ Public Class SpielerInfoTurnier
     Public Property Klassement As String
     Public Property Punkte As Integer = 0
     Public Property Platz As Integer = 99
+    Public Property Ausgeschieden As Boolean = False
 
     Sub New(spieler As SpielerInfo, comp As String)
         MyBase.New(spieler)
@@ -85,11 +86,10 @@ Public Class Playoff_Config
 
         Dim Spieler = New List(Of SpielerInfoTurnier)
         For Each x In AktiveCompetition.SpielerListe
-            Spieler.Add(New SpielerInfoTurnier(x, comp))
-        Next
-
-        For Each s In Spieler
-            s.Punkte = spielverlauf.BerechnePunkte(s)
+            Spieler.Add(New SpielerInfoTurnier(x, comp) With {
+                .Ausgeschieden = spielRunden.Peek.AusgeschiedeneSpielerIDs.Contains(x.Id),
+                .Punkte = spielverlauf.BerechnePunkte(x)
+            })
         Next
 
         Spieler.Sort(vergleicher)
@@ -180,12 +180,10 @@ Public Class Playoff_Config
     End Sub
 
     Private Sub TransferPlayers(amount As Integer)
-
-        Dim left = linkeListe.Items
-        If left.Count = 0 Then Return
-        Dim leftList = CType(DataContext, MainWindowContext).Spielerliste
-        If amount > left.Count Then
-            amount = left.Count
+        Dim leftList = CType(DataContext, MainWindowContext).Spielerliste.Where(Function(x) Not x.Ausgeschieden).ToList
+        If leftList.Count = 0 Then Return
+        If amount > leftList.Count Then
+            amount = leftList.Count
             If mode = FinalMode.Viertelfinale OrElse mode = FinalMode.Halbfinale Then
                 warning.Text = "Nicht genug Spieler für das gewählte Finale"
                 warning.Background = Brushes.LightCoral

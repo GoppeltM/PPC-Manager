@@ -31,6 +31,16 @@
                     <GridViewColumn DisplayMemberBinding="{Binding TTRating}" Header="TTR"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Ausgeschieden}" Value="True">
+                            <Setter Property="Background" Value="Bisque"/>
+                        </DataTrigger>
+                        <!-- Weitere Trigger hier für andere Bedingungen -->
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
         <ListView x:Name="rechteListe" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" >
             <ListView.View>
