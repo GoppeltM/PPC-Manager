@@ -33,7 +33,7 @@ Class MainWindow
     Public Property VorrundenUIVisible As Boolean = False
     Public Property PlayOffUIVisible As Boolean = False
 
-    Private SkipDialog As Boolean = False
+    Public SkipDialog As Boolean = False
 
     Sub New(controller As IController,
             spielerliste As IEnumerable(Of Spieler),

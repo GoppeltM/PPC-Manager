@@ -234,17 +234,78 @@ Public Class Playoff_Config
     End Sub
 
     Private Sub TransferPlayers(amount As Integer)
+        Start.IsEnabled = True
+
         Dim leftList = CType(DataContext, MainWindowContext).Spielerliste.Where(Function(x) Not x.Ausgeschieden).ToList
-        If leftList.Count = 0 Then Return
+        If leftList.Count = 0 Then
+            Start.IsEnabled = False
+            rechteListe.ItemsSource = New List(Of SpielerInfoTurnier)
+            Return
+        End If
+
         If amount > leftList.Count Then
             amount = leftList.Count
+            Start.IsEnabled = amount > 0
             If mode = FinalMode.Viertelfinale OrElse mode = FinalMode.Halbfinale Then
                 warning.Text = "Nicht genug Spieler für das gewählte Finale"
                 warning.Background = Brushes.LightCoral
+                Start.IsEnabled = False
             End If
         End If
 
         rechteListe.ItemsSource = leftList.Take(amount)
     End Sub
 
+    Private Sub Start_Playoff(sender As Object, e As RoutedEventArgs) Handles Start.Click
+        'show confirm popup with a summary of configuration, if confirmed, copy players from right list to competition and start playoff
+
+        Dim rightList = rechteListe.ItemsSource.Cast(Of SpielerInfoTurnier).ToList
+        If rightList.Count = 0 Then Return
+
+        If MessageBox.Show(GetRulesDescription, "Bestätigung", MessageBoxButton.OKCancel) = MessageBoxResult.OK Then
+            Dim app = CType(Application.Current, Application)
+
+            ZuXML.AddSpieler(Doc, rightList, app.competition, mode)
+
+            CType(app.MainWindow, MainWindow).SkipDialog = True
+            app.LadeCompetition(Nothing, app.competition)
+        End If
+
+    End Sub
+
+    Private Function GetRulesDescription() As String
+        Dim modeName As String = "Starte "
+        Select Case mode
+            Case FinalMode.Viertelfinale
+                modeName &= "Viertelfinale"
+            Case FinalMode.Halbfinale
+                modeName &= "Halbfinale"
+            Case FinalMode.Finalrunde
+                modeName &= "Finalrunde"
+            Case FinalMode.Sieger
+                modeName &= "Sieger"
+        End Select
+        modeName &= " mit folgender Konfiguration:" & vbCrLf & vbCrLf
+        'map selected Items to Names
+        Dim filter = Turnierfilter.SelectedItems
+
+        If filter.Count > 0 Then
+            modeName &= "Altersklasse: " & String.Join(", ", filter.Cast(Of String)) & vbCrLf
+        End If
+        If m.IsChecked Then
+            modeName &= "Geschlecht: männlich" & vbCrLf
+        ElseIf w.IsChecked Then
+            modeName &= "Geschlecht: weiblich" & vbCrLf
+        End If
+        If ttr.IsChecked Then
+            modeName &= "TTR-Wert: " & ttrwert.Text & " ("
+            If min.IsChecked Then
+                modeName &= "min)" & vbCrLf
+            ElseIf max.IsChecked Then
+                modeName &= "max)" & vbCrLf
+            End If
+        End If
+
+        Return modeName
+    End Function
 End Class

@@ -2,6 +2,44 @@
 
 Public Class ZuXML
 
+    Public Shared Sub AddSpieler(doc As XDocument, spieler As IEnumerable(Of SpielerInfo), altersgruppe As String, mode As Integer)
+
+        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = altersgruppe).Single
+        CompetitionNode.@ppc:finalsmode = mode.ToString
+        Dim SpielerListe = CompetitionNode.<players>.SingleOrDefault
+        If SpielerListe Is Nothing Then
+            SpielerListe = <players/>
+            CompetitionNode.Add(SpielerListe)
+        End If
+
+        For Each el In spieler
+            Dim person = <person
+                             licence-nr=<%= el.Lizenznummer %>
+                             club-name=<%= el.Vereinsname %>
+                             sex=<%= el.Geschlecht %>
+                             ttr-match-count=<%= el.TTRMatchCount %>
+                             lastname=<%= el.Nachname %>
+                             ttr=<%= el.TTRating %>
+                             firstname=<%= el.Vorname %>
+                             birthyear=<%= el.Geburtsjahr %>
+                             ppc:anwesend=<%= True %>
+                             ppc:bezahlt=<%= True %>
+                             ppc:abwesend=<%= False %>
+                         />
+
+
+            SpielerListe.Add(<player type="single" id=<%= el.Id %>>
+                                 <%= person %>
+                             </player>)
+        Next
+
+        Dim dateipfad = CType(Application.Current, Application).xmlPfad
+        doc.Save(dateipfad)
+        Dim BereinigtesDoc = New XDocument(doc)
+        BereinigeNamespaces(BereinigtesDoc)
+        Dim ClickTTPfad = IO.Path.Combine(IO.Path.GetDirectoryName(dateipfad), IO.Path.GetFileNameWithoutExtension(dateipfad) & "_ClickTT.xml")
+
+    End Sub
 
     Public Shared Sub SaveXML(dateipfad As String,
                               spielregeln As SpielRegeln,

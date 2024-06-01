@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition />
-            <RowDefinition Height="18" />
+            <RowDefinition Height="28" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"  />
@@ -112,5 +112,6 @@
             </DockPanel>
         </StackPanel>
         <TextBlock x:Name="Finale" TextAlignment="Center" Text="Finale&#xD;&#xA;Konfigurieren" Width="NaN" Margin="5,5,5,0" Grid.Column="1" FontSize="16"/>
+        <Button x:Name="Start" Content="Playoff Starten" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Margin="5" Padding="10,0" IsEnabled="False" />
     </Grid>
 </UserControl>
