@@ -21,6 +21,21 @@ Public Class DesignSpielRunden
 
 End Class
 
+Public Class DesignSpielPartie
+    Inherits SpielPartie
+
+    Public Sub New()
+        MyBase.New("Runde 2",
+                   New SpielerInfo("PLAYER01") With {.Vorname = "Marius", .Nachname = "Goppelt", .TTRating = 1, .Geschlecht = 1},
+                   New SpielerInfo("PLAYER02") With {.Vorname = "Flo", .Nachname = "Ewald", .TTRating = 2})
+        Me.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
+        Me.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
+        Me.Add(New Satz With {.PunkteLinks = 0, .PunkteRechts = 11})
+        Me.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 0})
+        Me.Add(New Satz With {.PunkteLinks = 11, .PunkteRechts = 5})
+    End Sub
+End Class
+
 Public Class DesignSpielPartienOhneFreilos
     Inherits SpielPartien
 

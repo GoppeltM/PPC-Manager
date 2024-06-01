@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="PartieKarte"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PPC_Manager"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
+             d:DesignHeight="122" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:OpacityConverter x:Key="OpacityConverter"/>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0"  >
+        <Grid 
+            Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" 
+           Opacity="{Binding Path=MySelf, Converter={StaticResource OpacityConverter}}" d:Opacity="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="122" />
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
+            </Grid.Resources>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=SpielerRechts.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" Margin="0,5,0,0" />
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=SpielerRechts.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
+            <ItemsControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Grid.Row="0" Grid.Column="1" Width="20" Height="20" Margin="2" 
+                              Visibility="{Binding Path=MySelf, ConverterParameter=L, Converter={StaticResource MeineGewonnenenSätze}, Mode=TwoWay, NotifyOnSourceUpdated=True}">
+                            <Ellipse.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="SpringGreen" Offset="0" />
+                                    <GradientStop Color="#FF23654C" Offset="1" />
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Grid.Row="0" Grid.Column="2" Width="20" Height="20" Margin="2" 
+                              Visibility="{Binding Path=MySelf, ConverterParameter=R, Converter={StaticResource MeineGewonnenenSätze}, Mode=TwoWay, NotifyOnSourceUpdated=True}">
+                            <Ellipse.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="SpringGreen" Offset="0" />
+                                    <GradientStop Color="#FF23654C" Offset="1" />
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</UserControl>

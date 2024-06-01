@@ -1,0 +1,36 @@
+﻿Imports System.Globalization
+
+Public Class Finaltabelle
+
+    Public WriteOnly Property IstAbgeschlossen As Predicate(Of SpielPartie)
+        Set(value As Predicate(Of SpielPartie))
+            Dim r = CType(Resources("OpacityConverter"), OpacityConverter)
+            r.IstAbgeschlossen = value
+        End Set
+    End Property
+
+    Private Sub SpielPartie_Löschen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        e.CanExecute = MeineCommands.Playoff.CanExecute(Nothing, Me) AndAlso Finaltabelle.SelectedItem IsNot Nothing
+    End Sub
+
+    Private Sub Refresh_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim ViewSource = CType(FindResource("SpielRundenView"), CollectionViewSource)
+
+        'Dim x = ViewSource.View.IsEmpty ' HACK: Diese Dummy Abfrage garantiert, 
+        ' dass die View aktualisiert wird bevor die Position verschoben wird.
+        ' Weiß die Hölle warum das so ist
+        ViewSource.View.Refresh()
+        ViewSource.View.MoveCurrentToFirst()
+    End Sub
+
+    Private Sub SpielPartie_Löschen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        Dim box As ListBox = DirectCast(sender, ListBox)
+        Dim list As ListCollectionView = CType(box.ItemsSource, ListCollectionView)
+        list.Remove(box.SelectedItem)
+    End Sub
+
+    Private Sub SpielPartienView_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles Finaltabelle.SelectionChanged
+        MeineCommands.PartieAusgewählt.Execute(Finaltabelle.SelectedItem, Me)
+    End Sub
+End Class
+
