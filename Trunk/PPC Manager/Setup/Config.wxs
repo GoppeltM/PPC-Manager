@@ -20,7 +20,8 @@
         <File Id="PPC_M_Executable" Name="$(var.PPCManager.TargetFileName)" Source="$(var.PPCManager.TargetPath)" />
         <File Id="PPC_M_Config" Name="$(var.PPCManager.TargetFileName).config" Source="$(var.PPCManager.TargetDir)\$(var.PPCManager.TargetFileName).config" />
         <File Id="PPC_M_Debug_Info" Name="$(var.PPCManager.ProjectName).pdb" Source="$(var.PPCManager.TargetDir)$(var.PPCManager.ProjectName).pdb" />
-        <File Id="PPC_M_DocumentFormat.OpenXml.dll" Name="DocumentFormat.OpenXml.dll" Source="$(var.PPCManager.TargetDir)\DocumentFormat.OpenXml.dll" />        
+        <File Id="PPC_M_DocumentFormat.OpenXml.dll" Name="DocumentFormat.OpenXml.dll" Source="$(var.PPCManager.TargetDir)\DocumentFormat.OpenXml.dll" />
+        <File Id="PPC_M_FontAwesome.WPF.dll" Name="FontAwesome.WPF.dll" Source="$(var.PPCManager.TargetDir)\FontAwesome.WPF.dll" />
       </Component>
       <Component Id="StartlistenEditor" Guid="{7D909842-9FDE-4248-9099-7BC02A6B0293}">
         <File Id="SL_Executable" Name="$(var.StartlistenEditor.TargetFileName)" Source="$(var.StartlistenEditor.TargetPath)" />
