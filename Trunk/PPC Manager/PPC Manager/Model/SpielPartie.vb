@@ -23,7 +23,10 @@ Public Class SpielPartie
 
     Public ReadOnly Property IstAbgeschlossen As Boolean
         Get
-            Return CType(Application.Current.MainWindow, MainWindow)._Spielstand.IstAbgeschlossen(Me)
+            If DesignerProperties.GetIsInDesignMode(New DependencyObject()) Then Return False
+            Dim App = TryCast(Application.Current?.MainWindow, MainWindow)
+            If App Is Nothing Or App._Spielstand Is Nothing Then Return False
+            Return App._Spielstand.IstAbgeschlossen(Me)
         End Get
     End Property
 
