@@ -21,6 +21,11 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public ReadOnly Property IstAbgeschlossen As Boolean
+        Get
+            Return CType(Application.Current.MainWindow, MainWindow)._Spielstand.IstAbgeschlossen(Me)
+        End Get
+    End Property
 
     Public Sub New(rundenName As String, ByVal spielerLinks As SpielerInfo, ByVal spielerRechts As SpielerInfo)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException

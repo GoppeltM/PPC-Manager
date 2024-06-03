@@ -2,13 +2,6 @@
 
 Public Class SpielPartienListe
 
-    Public WriteOnly Property IstAbgeschlossen As Predicate(Of SpielPartie)
-        Set(value As Predicate(Of SpielPartie))
-            Dim r = CType(Resources("OpacityConverter"), OpacityConverter)
-            r.IstAbgeschlossen = value
-        End Set
-    End Property
-
     Private Sub SpielPartie_Löschen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
         e.CanExecute = MeineCommands.Playoff.CanExecute(Nothing, Me) AndAlso SpielPartienView.SelectedItem IsNot Nothing
     End Sub

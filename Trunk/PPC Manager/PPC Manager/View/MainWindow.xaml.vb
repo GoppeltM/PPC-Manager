@@ -25,7 +25,7 @@ Class MainWindow
 
     Private ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
-    Private ReadOnly _Spielstand As ISpielstand
+    Public ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _DruckEinstellungen As DruckEinstellungen
     Private ReadOnly _DruckerFabrik As IDruckerFabrik
     Private Property PlayoffIstAktiv As Boolean = False
@@ -70,10 +70,6 @@ Class MainWindow
         Next
         LiveListe.DataContext = s
         LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
-        Begegnungen.SpielPartienListe.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
-
-        Begegnungen.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
-        Begegnungen.DetailGrid.IstAbgeschlossen = AddressOf _Spielstand.IstAbgeschlossen
 
         With My.Application.Info.Version
             versionNumber.Text = String.Format("Version: {0}.{1}.{2}", .Major, .Minor, .Build)
