@@ -5,49 +5,46 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PPC_Manager"
              mc:Ignorable="d"             
-             d:DataContext="{d:DesignInstance local:DesignSpielPartien, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
              d:DesignWidth="793"
+             d:Background="White"
              >
-    <UserControl.Resources>
-        <local:OpacityConverter x:Key="OpacityConverter" />
-    </UserControl.Resources>
-    <UserControl.CommandBindings>
-        <CommandBinding Command="Delete" CanExecute="SpielPartie_Löschen_CanExecute" Executed="SpielPartie_Löschen_Executed"/>
-    </UserControl.CommandBindings>
-    <ListBox  Name="Finaltabelle"  FontSize="24"
-                 ItemsSource="{Binding Mode=OneWay}" IsSynchronizedWithCurrentItem="True"
-                 VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
-        <ListBox.Resources>
-            <DataTemplate DataType="{x:Type local:SpielPartie}">
-                <local:PartieKarte  />
-             </DataTemplate>
-        </ListBox.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <ListBox.GroupStyle>
-            <GroupStyle>
-                <GroupStyle.ContainerStyle>
-                    <Style TargetType="{x:Type GroupItem}">
-                        <Setter Property="Margin" Value="0,0,0,5"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type GroupItem}">
-                                    <Expander IsExpanded="True" BorderBrush="#FFA4B97F" 
-                          BorderThickness="0,0,0,1">
-                                        <Expander.Header>
-                                            <DockPanel>
-                                                <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
-                                            </DockPanel>
-                                        </Expander.Header>
-                                        <Expander.Content>
-                                            <ItemsPresenter />
-                                        </Expander.Content>
-                                    </Expander>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </GroupStyle.ContainerStyle>
-            </GroupStyle>
-        </ListBox.GroupStyle>
-    </ListBox>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Viertelfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
+        <local:PartieKarte Grid.Row="1" Grid.Column="0" />
+        <local:PartieKarte Grid.Row="3" Grid.Column="0" />
+        <local:PartieKarte Grid.Row="5" Grid.Column="0" />
+        <local:PartieKarte Grid.Row="7" Grid.Column="0" />
+
+        
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Halbfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
+        <local:PartieKarte  Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" />
+        <local:PartieKarte  Grid.Row="5" Grid.Column="2"  Grid.RowSpan="3" VerticalAlignment="Center" />
+        <local:GridTreeConnector Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" />
+        <local:GridTreeConnector Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" />
+
+        
+        <TextBlock Grid.Row="0" Grid.Column="4" Text="Finale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
+        <local:PartieKarte  Grid.Row="3" Grid.Column="4" Grid.RowSpan="3"  VerticalAlignment="Center" />
+        <local:GridTreeConnector Grid.Row="1" Grid.Column="3" Grid.RowSpan="7" />
+
+    </Grid>
 </UserControl>

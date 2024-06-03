@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:PPC_Manager"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:core="clr-namespace:System;assembly=mscorlib"
+      d:Background="White"
       mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage"
       d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignSpielPartien}">
     <UserControl.CommandBindings>
