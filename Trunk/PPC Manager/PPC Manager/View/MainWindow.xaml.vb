@@ -1,5 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
+Imports DocumentFormat.OpenXml.EMMA
 Imports PPC_Manager
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class PlayoffCommand
     Inherits RoutedCommand
@@ -32,6 +34,7 @@ Class MainWindow
 
     Public Property VorrundenUIVisible As Boolean = False
     Public Property PlayOffUIVisible As Boolean = False
+    Public Property PlayOffConfigVisible As Boolean = False
 
     Public SkipDialog As Boolean = False
 
@@ -48,8 +51,13 @@ Class MainWindow
 
         DataContext = Me
 
-        VorrundenUIVisible = spielerliste.Count > 0
-        PlayOffUIVisible = spielerliste.Count = 0
+        Dim Competition = doc.Root.<competition>.First(Function(x) x.Attribute("age-group").Value = klassement)
+        Dim finalsmode = Competition.@ppc:finalsmode
+        Dim mode = If(finalsmode Is Nothing, -1, Integer.Parse(finalsmode))
+
+        VorrundenUIVisible = spielerliste.Count > 0 And (mode = -1 Or mode > 1)
+        PlayOffConfigVisible = spielerliste.Count = 0
+        PlayOffUIVisible = spielerliste.Count > 0 And (mode = 0 Or mode = 1)
 
         tabControl.ItemsSource = tabs
         tabControl.SelectedIndex = tabs.IndexOf(klassement)
@@ -70,6 +78,10 @@ Class MainWindow
         Next
         LiveListe.DataContext = s
         LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
+
+        If PlayOffUIVisible Then
+            PlayoffUI.Init(Competition, mode)
+        End If
 
         With My.Application.Info.Version
             versionNumber.Text = String.Format("Version: {0}.{1}.{2}", .Major, .Minor, .Build)

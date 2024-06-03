@@ -6,19 +6,21 @@
              xmlns:local="clr-namespace:PPC_Manager"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
-             d:DesignHeight="122" d:DesignWidth="300">
+             d:Background="White"
+             Height="90"
+             d:DesignHeight="90" d:DesignWidth="300">
     <UserControl.Resources>
         <local:OpacityConverter x:Key="OpacityConverter"/>
     </UserControl.Resources>
-    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0"  >
+    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="5,0,0,0" Margin="2" >
         <Grid 
             Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}" 
            Opacity="{Binding Path=MySelf, Converter={StaticResource OpacityConverter}}" d:Opacity="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -27,10 +29,10 @@
             <Grid.Resources>
                 <local:MeineGewonnenenSätze x:Key="MeineGewonnenenSätze" />
             </Grid.Resources>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" />
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=SpielerRechts.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" Margin="0,5,0,0" />
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=SpielerRechts.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" VerticalAlignment="Bottom" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=SpielerRechts.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" Margin="0,5,0,0" VerticalAlignment="Bottom" />
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=SpielerRechts.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
             <ItemsControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

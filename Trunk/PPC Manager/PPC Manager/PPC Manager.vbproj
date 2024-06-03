@@ -188,6 +188,7 @@
     <Compile Include="View\Finaltabelle.xaml.vb">
       <DependentUpon>Finaltabelle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Selectable.vb" />
     <Compile Include="View\SpielPartienListe.xaml.vb">
       <DependentUpon>SpielPartienListe.xaml</DependentUpon>
     </Compile>

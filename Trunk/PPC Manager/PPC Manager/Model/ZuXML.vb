@@ -2,7 +2,7 @@
 
 Public Class ZuXML
 
-    Public Shared Sub AddSpieler(doc As XDocument, spieler As IEnumerable(Of SpielerInfo), altersgruppe As String, mode As Integer)
+    Public Shared Sub AddSpieler(doc As XDocument, spieler As IEnumerable(Of SpielerInfoTurnier), altersgruppe As String, mode As Integer)
 
         Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = altersgruppe).Single
         CompetitionNode.@ppc:finalsmode = mode.ToString
@@ -26,6 +26,13 @@ Public Class ZuXML
                              ppc:bezahlt=<%= True %>
                              ppc:abwesend=<%= False %>
                          />
+
+            If mode = FinalMode.Viertelfinale Then
+                person.@ppc:vpos = el.Platz.ToString
+            End If
+            If mode = FinalMode.Halbfinale Then
+                person.@ppc:hpos = el.Platz.ToString
+            End If
 
 
             SpielerListe.Add(<player type="single" id=<%= el.Id %>>
