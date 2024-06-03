@@ -25,12 +25,15 @@ End Class
 
 Class MainWindow
 
-    Private ReadOnly _Controller As IController
+    Public ReadOnly _Controller As IController
     Private ReadOnly _Spielrunden As SpielRunden
     Public ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _DruckEinstellungen As DruckEinstellungen
     Private ReadOnly _DruckerFabrik As IDruckerFabrik
     Private Property PlayoffIstAktiv As Boolean = False
+
+    Private Property Competition As XElement
+    Private Property mode As Integer
 
     Public Property VorrundenUIVisible As Boolean = False
     Public Property PlayOffUIVisible As Boolean = False
@@ -51,9 +54,9 @@ Class MainWindow
 
         DataContext = Me
 
-        Dim Competition = doc.Root.<competition>.First(Function(x) x.Attribute("age-group").Value = klassement)
+        Competition = doc.Root.<competition>.First(Function(x) x.Attribute("age-group").Value = klassement)
         Dim finalsmode = Competition.@ppc:finalsmode
-        Dim mode = If(finalsmode Is Nothing, -1, Integer.Parse(finalsmode))
+        mode = If(finalsmode Is Nothing, -1, Integer.Parse(finalsmode))
 
         VorrundenUIVisible = spielerliste.Count > 0 And (mode = -1 Or mode > 1)
         PlayOffConfigVisible = spielerliste.Count = 0
@@ -80,7 +83,7 @@ Class MainWindow
         LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
 
         If PlayOffUIVisible Then
-            PlayoffUI.Init(Competition, mode)
+            PlayoffUI.Init(Competition, mode, _Spielrunden)
         End If
 
         With My.Application.Info.Version
@@ -144,6 +147,11 @@ Class MainWindow
         With _Spielrunden
             .Pop()
         End With
+
+        If PlayOffUIVisible Then
+            PlayoffUI.Init(Competition, mode, _Spielrunden)
+        End If
+
         AktualisiereDaten()
     End Sub
 
@@ -266,6 +274,11 @@ Class MainWindow
 
         If My.Settings.AutoSaveAn Then
             _Controller.SaveXML()
+        End If
+
+        If PlayOffUIVisible Then
+            PlayoffUI.NächsteRunde()
+            Return
         End If
 
         Try

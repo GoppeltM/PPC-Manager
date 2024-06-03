@@ -9,6 +9,14 @@ Public Class Selectable
     Dim backgroundBrush As SolidColorBrush = New SolidColorBrush(SystemColors.HighlightColor)
     Dim hoverBrush As SolidColorBrush = New SolidColorBrush(SystemColors.HighlightColor)
 
+    Public Shared Sub DeselectAll()
+        Dim selectables As List(Of Selectable) = VisualTreeHelperExtensions.FindVisualChildren(Of Selectable)(Application.Current.MainWindow)
+
+        For Each selectableInstance As Selectable In selectables
+            selectableInstance.IsSelected = False
+        Next
+    End Sub
+
     ' Dependency property to track selection state
     Public Shared ReadOnly IsSelectedProperty As DependencyProperty = DependencyProperty.Register(
         "IsSelected",
@@ -25,9 +33,39 @@ Public Class Selectable
         End Set
     End Property
 
+    ' Routed event for selection
+    Public Shared ReadOnly SelectedEvent As RoutedEvent = EventManager.RegisterRoutedEvent(
+        "Selected",
+        RoutingStrategy.Bubble,
+        GetType(RoutedEventHandler),
+        GetType(Selectable))
+
+    ' CLR event wrapper for Selected routed event
+    Public Custom Event Selected As RoutedEventHandler
+        AddHandler(value As RoutedEventHandler)
+            [AddHandler](SelectedEvent, value)
+        End AddHandler
+
+        RemoveHandler(value As RoutedEventHandler)
+            [RemoveHandler](SelectedEvent, value)
+        End RemoveHandler
+
+        RaiseEvent(sender As Object, e As RoutedEventArgs)
+            [RaiseEvent](e)
+        End RaiseEvent
+    End Event
+
     Private Shared Sub OnIsSelectedChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
         Dim border As Selectable = CType(d, Selectable)
         border.UpdateVisualState()
+        If border.IsSelected Then
+            border.OnSelected()
+        End If
+    End Sub
+
+    Protected Overridable Sub OnSelected()
+        Dim even = New RoutedEventArgs(Selectable.SelectedEvent)
+        RaiseEvent Selected(Me, even)
     End Sub
 
     Public Sub New()
@@ -43,12 +81,7 @@ Public Class Selectable
     Private Sub OnMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
         If Not IsEnabled Then Return
 
-        'find all instances of Selectable in the parent container and set IsSelected to false
-        Dim selectables As List(Of Selectable) = VisualTreeHelperExtensions.FindVisualChildren(Of Selectable)(Application.Current.MainWindow)
-
-        For Each selectableInstance As Selectable In selectables
-            selectableInstance.IsSelected = False
-        Next
+        DeselectAll()
 
         IsSelected = Not IsSelected
     End Sub

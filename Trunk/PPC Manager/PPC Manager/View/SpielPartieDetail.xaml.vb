@@ -44,6 +44,9 @@ Public Class SpielPartieDetail
         End If
         Dim s = New Satz With {.PunkteLinks = value, .PunkteRechts = oValue}
         partie.Add(s)
+
+        Dim finaltabelle = TryCast(Application.Current.MainWindow.FindName("PlayoffUI"), Finaltabelle)
+        If finaltabelle IsNot Nothing Then finaltabelle.Update()
     End Sub
 
     Private Function OtherValue(value As Integer) As Integer

@@ -17,7 +17,7 @@
             <RowDefinition Height="1"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <local:SpielPartieDetail Grid.Row="0" HorizontalAlignment="Center" Margin="5,0,5,5" 
               x:Name="DetailGrid" VerticalAlignment="Stretch" />
 
@@ -43,21 +43,35 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Viertelfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-            <local:Selectable Grid.Row="1" Grid.Column="0"><local:PartieKarte x:Name="V1" /></local:Selectable>
-            <local:Selectable Grid.Row="3" Grid.Column="0"><local:PartieKarte x:Name="V2" /></local:Selectable>
-            <local:Selectable Grid.Row="5" Grid.Column="0"><local:PartieKarte x:Name="V3" /></local:Selectable>
-            <local:Selectable Grid.Row="7" Grid.Column="0"><local:PartieKarte x:Name="V4" /></local:Selectable>
+            <local:Selectable Grid.Row="1" Grid.Column="0" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="V1" />
+            </local:Selectable>
+            <local:Selectable Grid.Row="3" Grid.Column="0" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="V2" />
+            </local:Selectable>
+            <local:Selectable Grid.Row="5" Grid.Column="0" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="V3" />
+            </local:Selectable>
+            <local:Selectable Grid.Row="7" Grid.Column="0" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="V4" />
+            </local:Selectable>
 
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Halbfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-            <local:Selectable Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center"  IsEnabled="False"><local:PartieKarte x:Name="H1"  /></local:Selectable>
-            <local:Selectable Grid.Row="5" Grid.Column="2"  Grid.RowSpan="3" VerticalAlignment="Center"  IsEnabled="False"><local:PartieKarte x:Name="H2"  /></local:Selectable>
+            <local:Selectable Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center"  IsEnabled="False" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="H1"  />
+            </local:Selectable>
+            <local:Selectable Grid.Row="5" Grid.Column="2"  Grid.RowSpan="3" VerticalAlignment="Center"  IsEnabled="False" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="H2"  />
+            </local:Selectable>
             <local:GridTreeConnector Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" />
             <local:GridTreeConnector Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" />
 
 
             <TextBlock Grid.Row="0" Grid.Column="4" Text="Finale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-            <local:Selectable  Grid.Row="3" Grid.Column="4" Grid.RowSpan="3"  VerticalAlignment="Center" IsEnabled="False"><local:PartieKarte x:Name="F1" /></local:Selectable>
+            <local:Selectable Grid.Row="3" Grid.Column="4" Grid.RowSpan="3"  VerticalAlignment="Center" IsEnabled="False" Selected="Selectable_Selected">
+                <local:PartieKarte x:Name="F1" />
+            </local:Selectable>
             <local:GridTreeConnector Grid.Row="1" Grid.Column="3" Grid.RowSpan="7" />
 
         </Grid>

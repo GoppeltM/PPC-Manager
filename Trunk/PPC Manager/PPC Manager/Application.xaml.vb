@@ -13,6 +13,7 @@ Class Application
 
     Public xmlPfad As String
     Public competition As String
+    Public AktiveCompetition As Competition
 
     Public Sub CrashBehandeln(sender As Object, args As UnhandledExceptionEventArgs)
         Dim nachricht = ""
@@ -31,7 +32,6 @@ Class Application
         Dim doc = XDocument.Load(xmlPfad)
         Dim AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
         Dim Regeln = SpielRegeln.Parse(doc, klassement)
-        Dim AktiveCompetition As Competition
         Dim spielRunden = New SpielRunden
         Dim spielpartien = spielRunden.SelectMany(Function(m) m)
         Dim ausgeschiedeneIds = spielRunden.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs)

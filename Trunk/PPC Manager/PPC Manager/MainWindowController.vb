@@ -2,14 +2,32 @@
 
 Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
 
+Public Class PlayOffControllter
+    Inherits MainWindowController
+
+    Private _Doc As XDocument
+
+    Public Sub New(speichern As Action,
+                   reportFactory As IReportFactory,
+                   organisierePakete As OrganisierePakete,
+                   pageFabrik As IFixedPageFabrik,
+                   doc As XDocument)
+        MyBase.New(speichern, reportFactory, organisierePakete, pageFabrik)
+        _Doc = doc
+    End Sub
+
+    Public Overrides Function NächsteRunde(rundenName As String) As SpielRunde
+        Throw New NotImplementedException
+    End Function
+End Class
+
 Public Class MainWindowController
     Implements IController
 
     Public Sub New(speichern As Action,
                    reportFactory As IReportFactory,
                    organisierePakete As OrganisierePakete,
-                   pageFabrik As IFixedPageFabrik
-                   )
+                   pageFabrik As IFixedPageFabrik)
         _Speichern = speichern
         _ReportFactory = reportFactory
         _OrganisierePakete = organisierePakete
@@ -28,7 +46,7 @@ Public Class MainWindowController
         End Get
     End Property
 
-    Public Function NächsteRunde(rundenName As String) As SpielRunde Implements IController.NächsteRunde
+    Public Overridable Function NächsteRunde(rundenName As String) As SpielRunde Implements IController.NächsteRunde
         _ReportFactory.IstBereit()
 
         Dim begegnungen = _OrganisierePakete()
