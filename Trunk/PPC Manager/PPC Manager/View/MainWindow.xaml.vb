@@ -178,7 +178,7 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
-        If PlayOffUIVisible Then
+        If PlayOffConfigVisible Then
             If PlayoffConf.linkeListe.SelectedIndex <> -1 Then
                 Dim Spieler = CType(PlayoffConf.linkeListe.SelectedItem, SpielerInfoTurnier)
                 If Not Spieler.Ausgeschieden Then
@@ -201,7 +201,7 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_Execute(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
-        If PlayOffUIVisible Then
+        If PlayOffConfigVisible Then
             PlayoffConf.RetireSelectedPlayers()
             Return
         End If
@@ -212,7 +212,7 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_Undo_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
-        If PlayOffUIVisible Then
+        If PlayOffConfigVisible Then
             If PlayoffConf.linkeListe.SelectedIndex <> -1 Then
                 Dim Spieler = CType(PlayoffConf.linkeListe.SelectedItem, SpielerInfoTurnier)
                 If Spieler.Ausgeschieden AndAlso Spieler.CanRejoin Then
@@ -235,7 +235,7 @@ Class MainWindow
     End Sub
 
     Private Sub Ausscheiden_Undo(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
-        If PlayOffUIVisible Then
+        If PlayOffConfigVisible Then
             PlayoffConf.UndoRetireSelectedPlayers()
             Return
         End If
