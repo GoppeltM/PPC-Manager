@@ -23,7 +23,7 @@ Public Class Finaltabelle
 
     End Function
 
-    Private Sub ResetUI()
+    Private Sub ResetUI(_mode As Integer)
         V1.DataContext = Nothing
         V2.DataContext = Nothing
         V3.DataContext = Nothing
@@ -45,10 +45,15 @@ Public Class Finaltabelle
 
         CType(F1.Parent, UIElement).IsEnabled = False
 
+        If (_mode = FinalMode.Halbfinale) Then
+            GlassBrush.Visibility = Visibility.Visible
+            HatchBrush.Visibility = Visibility.Visible
+        End If
+
     End Sub
 
     Public Sub Init(CompetitionXML As XElement, _mode As Integer, runden As SpielRunden)
-        ResetUI()
+        ResetUI(_mode)
 
         competition = CType(Application.Current, Application).AktiveCompetition
         mode = _mode
@@ -67,6 +72,20 @@ Public Class Finaltabelle
             SetHalbFinalDataContext(runde)
 
             runde = If(competition.SpielRunden.Count = 4, competition.SpielRunden.Reverse(3), Nothing)
+            SetFinalDataContext(runde)
+
+        End If
+
+        If mode = FinalMode.Halbfinale Then
+            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), Nothing)
+
+            If runde Is Nothing Then
+                runde = NächsteRunde()
+            End If
+
+            SetHalbFinalDataContext(runde)
+
+            runde = If(competition.SpielRunden.Count = 4, competition.SpielRunden.Reverse(2), Nothing)
             SetFinalDataContext(runde)
 
         End If
@@ -159,6 +178,36 @@ Public Class Finaltabelle
             End If
 
             If competition.SpielRunden.Count = 3 Then
+                Dim halbfinals = competition.SpielRunden.Peek()
+                Dim runde = New SpielRunde From {
+                    New SpielPartie("Finale 1", halbfinals(0).Gewinner, halbfinals(1).Gewinner)
+                }
+                SetFinalDataContext(runde)
+
+                competition.SpielRunden.Push(runde)
+                Return runde
+            End If
+
+        End If
+
+        If mode = FinalMode.Halbfinale Then
+            If competition.SpielRunden.Count = 1 Then
+                If players.Count <> 4 Then
+                    Throw New Exception("Falsche Anzahl an Spielern")
+                End If
+
+                Dim runde = New SpielRunde From {
+                    New SpielPartie("Halbfinale 1", players(0), players(3)),
+                    New SpielPartie("Halbfinale 1", players(1), players(2))
+                }
+
+                SetHalbFinalDataContext(runde)
+
+                competition.SpielRunden.Push(runde)
+                Return runde
+            End If
+
+            If competition.SpielRunden.Count = 2 Then
                 Dim halbfinals = competition.SpielRunden.Peek()
                 Dim runde = New SpielRunde From {
                     New SpielPartie("Finale 1", halbfinals(0).Gewinner, halbfinals(1).Gewinner)

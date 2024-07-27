@@ -24,6 +24,29 @@
         <Border Grid.Row="1" BorderThickness=".5" BorderBrush="LightGray" />
 
         <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0,10,0,0" x:Name="Tree">
+        <Grid.Resources>
+                <DrawingBrush x:Key="DiagonalHatchBrush">
+                    <DrawingBrush.Drawing>
+                    <GeometryDrawing>
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <LineGeometry StartPoint="0,0" EndPoint="10,10"/>
+                                <LineGeometry StartPoint="10,0" EndPoint="20,10"/>
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="1" Brush="Gray"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingBrush.Drawing>
+                <DrawingBrush.TileMode>Tile</DrawingBrush.TileMode>
+                <DrawingBrush.Viewport>0,0,10,10</DrawingBrush.Viewport>
+                <DrawingBrush.ViewportUnits>Absolute</DrawingBrush.ViewportUnits>
+                <DrawingBrush.Viewbox>0,0,10,10</DrawingBrush.Viewbox>
+                <DrawingBrush.ViewboxUnits>Absolute</DrawingBrush.ViewboxUnits>
+            </DrawingBrush>
+        </Grid.Resources>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="70" />
@@ -40,6 +63,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Viertelfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
@@ -55,7 +79,6 @@
             <local:Selectable Grid.Row="7" Grid.Column="0" Selected="Selectable_Selected">
                 <local:PartieKarte x:Name="V4" />
             </local:Selectable>
-
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Halbfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
             <local:Selectable Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center"  IsEnabled="False" Selected="Selectable_Selected">
@@ -73,6 +96,9 @@
                 <local:PartieKarte x:Name="F1" />
             </local:Selectable>
             <local:GridTreeConnector Grid.Row="1" Grid.Column="3" Grid.RowSpan="7" />
+
+            <Border Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="2" Background="#AAFFFFFF" x:Name="GlassBrush" Visibility="Hidden" />
+            <Border Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="2" Background="{StaticResource DiagonalHatchBrush}" x:Name="HatchBrush" Visibility="Hidden" />
 
         </Grid>
     </Grid>
