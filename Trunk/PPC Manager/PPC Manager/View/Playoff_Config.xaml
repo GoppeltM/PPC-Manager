@@ -84,7 +84,7 @@
                         <TextBlock Text="TTR Limit:" />
                         <TextBox
                             IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                            x:Name="ttrwert" Width="50" Margin="10,0,0,0" Text="1000"/>
+                            x:Name="ttrwert" Width="50" Margin="10,0,0,0" Text="1050"/>
                         <CheckBox VerticalContentAlignment="Center" x:Name="ttr" Content="aktiv" Margin="10,0,0,0" />
                         <RadioButton
                             VerticalContentAlignment="Center"

@@ -180,7 +180,7 @@ Public Class Playoff_Config
             If min.IsChecked Then
                 filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating >= ttrValue).ToList
             Else
-                filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating <= ttrValue).ToList
+                filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating < ttrValue).ToList
             End If
         End If
 
