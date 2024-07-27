@@ -244,13 +244,18 @@ Public Class Playoff_Config
         End If
 
         If amount > leftList.Count Then
-            amount = leftList.Count
-            Start.IsEnabled = amount > 0
             If mode = FinalMode.Viertelfinale OrElse mode = FinalMode.Halbfinale Then
-                warning.Text = "Nicht genug Spieler für das gewählte Finale"
-                warning.Background = Brushes.LightCoral
-                Start.IsEnabled = False
+                ' Mit Freilosen gehen zB. 5 Spieler fürs Viertelfinale. ab 4 Spielern muss dann Halbfinale gewählt werden.
+                If (amount / 2) + 1 > leftList.Count Then
+                    warning.Text = "Nicht genug Spieler für das gewählte Finale"
+                    warning.Background = Brushes.LightCoral
+                    Start.IsEnabled = False
+                Else
+                    warning.Text = "Freilose werden verwendet"
+                    warning.Background = Brushes.Yellow
+                End If
             End If
+            amount = leftList.Count
         End If
 
         rechteListe.ItemsSource = leftList.Take(amount)
@@ -305,6 +310,8 @@ Public Class Playoff_Config
                 modeName &= "max)" & vbCrLf
             End If
         End If
+
+        modeName &= "Anzahl Spieler: " & rechteListe.ItemsSource.Cast(Of SpielerInfoTurnier).ToList.Count
 
         Return modeName
     End Function

@@ -148,15 +148,17 @@ Public Class Finaltabelle
 
         If mode = FinalMode.Viertelfinale Then
             If competition.SpielRunden.Count = 1 Then
-                If players.Count <> 8 Then
-                    Throw New Exception("Falsche Anzahl an Spielern")
+                If players.Count > 8 OrElse players.Count < 5 Then
+                    Throw New Exception("Falsche Anzahl an Spielern, 5 - 8 Spieler für Viertelfinale benötigt")
                 End If
 
+                Dim rundenName = "Viertelfinale 1"
+
                 Dim runde = New SpielRunde From {
-                    New SpielPartie("Viertelfinale 1", players(0), players(7)),
-                    New SpielPartie("Viertelfinale 1", players(3), players(4)),
-                    New SpielPartie("Viertelfinale 1", players(2), players(5)),
-                    New SpielPartie("Viertelfinale 1", players(1), players(6))
+                    If(players.Count > 7, New SpielPartie(rundenName, players(0), players(7)), New FreiLosSpiel(rundenName, players(0))),
+                    New SpielPartie(rundenName, players(3), players(4)),
+                    If(players.Count > 5, New SpielPartie(rundenName, players(2), players(5)), New FreiLosSpiel(rundenName, players(2))),
+                    If(players.Count > 6, New SpielPartie(rundenName, players(1), players(6)), New FreiLosSpiel(rundenName, players(1)))
                 }
 
                 SetViertelFinalDataContext(runde)
@@ -192,12 +194,12 @@ Public Class Finaltabelle
 
         If mode = FinalMode.Halbfinale Then
             If competition.SpielRunden.Count = 1 Then
-                If players.Count <> 4 Then
-                    Throw New Exception("Falsche Anzahl an Spielern")
+                If players.Count > 4 OrElse players.Count < 3 Then
+                    Throw New Exception("Falsche Anzahl an Spielern, 3 oder 4 Spieler für Halbfinale benötigt.")
                 End If
 
                 Dim runde = New SpielRunde From {
-                    New SpielPartie("Halbfinale 1", players(0), players(3)),
+                    If(players.Count > 3, New SpielPartie("Halbfinale 1", players(0), players(3)), New FreiLosSpiel("Halbfinale 1", players(0))),
                     New SpielPartie("Halbfinale 1", players(1), players(2))
                 }
 

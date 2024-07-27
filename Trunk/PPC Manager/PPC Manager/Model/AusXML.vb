@@ -96,10 +96,11 @@ Public Class AusXML
         For Each xSpielPartie In From x In xSpiele Where x.Name.LocalName = "match"
             runde.Add(SpielPartieFromXML(spielerListe, xSpielPartie))
         Next
-        Dim xFreilos = (From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de") + "freematch").SingleOrDefault
-        If xFreilos IsNot Nothing Then
-            runde.Add(FreilosFromXML(spielerListe, xFreilos))
-        End If
+        Dim Freilose = (From x In xSpiele Where x.Name = XNamespace.Get("http://www.ttc-langensteinbach.de") + "freematch")
+
+        For Each freilos In Freilose
+            runde.Add(FreilosFromXML(spielerListe, freilos))
+        Next
 
         Return runde
     End Function
