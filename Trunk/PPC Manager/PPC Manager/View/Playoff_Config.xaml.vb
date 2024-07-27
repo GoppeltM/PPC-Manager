@@ -92,10 +92,11 @@ Public Class Playoff_Config
             spielRunden.Peek.AusgeschiedeneSpielerIDs.Add(s.Id)
 
             ZuXML.SaveXML(CType(Application.Current, Application).xmlPfad, Regeln, comp, spielRunden)
+            Doc = XDocument.Load(CType(Application.Current, Application).xmlPfad)
         Next
 
-        Doc = XDocument.Load(CType(Application.Current, Application).xmlPfad)
         UpdateFilteredList()
+        linkeListe.UnselectAll()
     End Sub
 
     Public Sub UndoRetireSelectedPlayers()
@@ -119,10 +120,11 @@ Public Class Playoff_Config
             spielRunden.Peek.AusgeschiedeneSpielerIDs.Remove(s.Id)
 
             ZuXML.SaveXML(CType(Application.Current, Application).xmlPfad, Regeln, comp, spielRunden)
+            Doc = XDocument.Load(CType(Application.Current, Application).xmlPfad)
         Next
 
-        Doc = XDocument.Load(CType(Application.Current, Application).xmlPfad)
         UpdateFilteredList()
+        linkeListe.UnselectAll()
     End Sub
 
     Private Function SpielerNachRangliste(comp As String) As IList(Of SpielerInfoTurnier)
