@@ -11,6 +11,8 @@ Class Application
         My.Settings.Save()
     End Sub
 
+
+    Public doc As XDocument
     Public xmlPfad As String
     Public competition As String
     Public AktiveCompetition As Competition
@@ -29,7 +31,7 @@ Class Application
 
     Public Sub LadeCompetition(sender As Object, klassement As String)
         competition = klassement
-        Dim doc = XDocument.Load(xmlPfad)
+        doc = XDocument.Load(xmlPfad)
         Dim AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
         Dim Regeln = SpielRegeln.Parse(doc, klassement)
         Dim spielRunden = New SpielRunden

@@ -141,6 +141,11 @@ Class MainWindow
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
+        If PlayOffUIVisible AndAlso _Spielrunden.Count = 2 Then
+            PlayoffVerwerfen(sender)
+            Return
+        End If
+
         If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
             Return
         End If
@@ -153,6 +158,22 @@ Class MainWindow
         End If
 
         AktualisiereDaten()
+    End Sub
+
+    Private Sub PlayoffVerwerfen(sender As Object)
+        If MessageBox.Show("Wollen Sie wirklich das aktuelle Playoff abbrechen? Diese Aktion kann nicht rückgängig gemacht werden!", "Playoff abbrechen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
+            Return
+        End If
+
+        Competition.<matches>.Remove()
+        Competition.<players>.Remove()
+
+        Dim app = CType(Application.Current, Application)
+        app.doc.Save(app.xmlPfad)
+
+        SkipDialog = True
+        app.LadeCompetition(sender, app.competition)
+
     End Sub
 
     Private Sub NeuePartie_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
