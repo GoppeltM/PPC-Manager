@@ -184,18 +184,18 @@ Class MainWindow
         e.CanExecute = LiveListe.LiveListe.SelectedItems.Count = 2
     End Sub
 
+    Public Function RundeAbgeschlossen() As Boolean
+        Dim AktuellePartien = _Spielrunden.Peek.ToList
+        Return Aggregate x In AktuellePartien Into All(_Spielstand.IstAbgeschlossen(x))
+    End Function
+
     Private Sub NächsteRunde_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
-        With _Spielrunden
-            If Not .Any Then
-                e.CanExecute = True
-                Return
-            End If
+        If Not _Spielrunden.Any Then
+            e.CanExecute = True
+            Return
+        End If
 
-            Dim AktuellePartien = .Peek.ToList
-            Dim AlleAbgeschlossen = Aggregate x In AktuellePartien Into All(_Spielstand.IstAbgeschlossen(x))
-
-            e.CanExecute = AlleAbgeschlossen
-        End With
+        e.CanExecute = RundeAbgeschlossen()
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
@@ -287,12 +287,7 @@ Class MainWindow
         AktuelleRunde.Add(neueSpielPartie)
     End Sub
 
-    Private Sub NächsteRunde_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.",
-                   "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
-            Return
-        End If
-
+    Public Sub NächsteRunde()
         If My.Settings.AutoSaveAn Then
             _Controller.SaveXML()
         End If
@@ -320,6 +315,16 @@ Class MainWindow
 
         PlayoffIstAktiv = False
         AktualisiereDaten()
+    End Sub
+
+    Private Sub NächsteRunde_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.",
+                   "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
+            Return
+        End If
+
+        NächsteRunde()
+
     End Sub
 
     Private Sub PlayOff_Executed(sender As Object, e As ExecutedRoutedEventArgs)

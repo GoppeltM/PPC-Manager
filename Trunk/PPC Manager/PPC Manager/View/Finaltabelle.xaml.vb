@@ -60,11 +60,7 @@ Public Class Finaltabelle
         players = GetPlayers(CompetitionXML, mode)
 
         If mode = FinalMode.Viertelfinale Then
-            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), Nothing)
-
-            If runde Is Nothing Then
-                runde = NächsteRunde()
-            End If
+            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), NächsteRunde())
 
             SetViertelFinalDataContext(runde)
 
@@ -73,21 +69,15 @@ Public Class Finaltabelle
 
             runde = If(competition.SpielRunden.Count = 4, competition.SpielRunden.Reverse(3), Nothing)
             SetFinalDataContext(runde)
-
         End If
 
         If mode = FinalMode.Halbfinale Then
-            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), Nothing)
-
-            If runde Is Nothing Then
-                runde = NächsteRunde()
-            End If
+            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), NächsteRunde())
 
             SetHalbFinalDataContext(runde)
 
-            runde = If(competition.SpielRunden.Count = 4, competition.SpielRunden.Reverse(2), Nothing)
+            runde = If(competition.SpielRunden.Count = 3, competition.SpielRunden.Reverse(2), Nothing)
             SetFinalDataContext(runde)
-
         End If
 
         initialisiert = True
@@ -134,7 +124,11 @@ Public Class Finaltabelle
     Friend Sub Update()
         If Not initialisiert Then Return
 
-        CType(Application.Current.MainWindow, MainWindow)._Controller.SaveXML()
+        Dim mainWindow = CType(Application.Current.MainWindow, MainWindow)
+
+        mainWindow._Controller.SaveXML()
+
+        If mainWindow.RundeAbgeschlossen() Then mainWindow.NächsteRunde()
     End Sub
 
     Private Sub Selectable_Selected(sender As Object, e As RoutedEventArgs)
