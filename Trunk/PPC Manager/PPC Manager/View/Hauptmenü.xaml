@@ -17,7 +17,7 @@
         </MenuItem>
         <MenuItem Header="Projekt" IsTabStop="False">
             <MenuItem Header="Nächste Runde..." Name="NächsteRunde" Command="NavigationCommands.NextPage" CommandTarget="{Binding ElementName=Begegnungen}" />
-            <MenuItem Header="Nächstes Playoff..." Name="NächstesPlayoff" Command="NavigationCommands.GoToPage" CommandTarget="{Binding ElementName=Begegnungen}" />
+            <MenuItem Header="Nächstes Playoff..." Name="NächstesPlayoff" Command="NavigationCommands.GoToPage" CommandTarget="{Binding ElementName=Begegnungen}" Visibility="Collapsed" />
             <MenuItem Header="Nur Offene Begegnungen" 
                       Name="OffeneBegegnungen" 
                       IsCheckable="True" 
