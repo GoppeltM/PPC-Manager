@@ -2,25 +2,6 @@
 
 Public Delegate Function OrganisierePakete() As PaarungsContainer(Of SpielerInfo)
 
-Public Class PlayOffControllter
-    Inherits MainWindowController
-
-    Private _Doc As XDocument
-
-    Public Sub New(speichern As Action,
-                   reportFactory As IReportFactory,
-                   organisierePakete As OrganisierePakete,
-                   pageFabrik As IFixedPageFabrik,
-                   doc As XDocument)
-        MyBase.New(speichern, reportFactory, organisierePakete, pageFabrik)
-        _Doc = doc
-    End Sub
-
-    Public Overrides Function NächsteRunde(rundenName As String) As SpielRunde
-        Throw New NotImplementedException
-    End Function
-End Class
-
 Public Class MainWindowController
     Implements IController
 
