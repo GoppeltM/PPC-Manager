@@ -1,5 +1,6 @@
 ﻿
 Imports System.Collections.ObjectModel
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class MainWindowContext
     Public Property Spielerliste As ICollection(Of SpielerInfoTurnier)
@@ -35,6 +36,9 @@ Public Class Playoff_Config
 
     Public Property mode As Integer = -1
 
+    'during loading of props we don't want to re-save them as both window instances might be present, leading to issues
+    Private Property SupressSaveProps As Boolean = False
+
     Public Sub New()
         UpdateContext(Nothing)
 
@@ -56,6 +60,8 @@ Public Class Playoff_Config
             .KlassementListe = New Collection(Of String)(doc.Root.<competition>.Where(Function(x) x.<players>.<player>.Any).Select(Function(x) x.Attribute("age-group").Value).ToList),
             .Spielerliste = LeseSpieler()
         }
+
+        LoadFilters()
 
         UpdateFilteredList()
 
@@ -164,6 +170,57 @@ Public Class Playoff_Config
         UpdateFilteredList()
     End Sub
 
+    Private Sub LoadFilters()
+        If Turnierfilter Is Nothing Then Return
+        Dim app = CType(Application.Current, Application)
+
+        Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
+        If CompetitionNode.<players> IsNot Nothing AndAlso CompetitionNode.<players>.Count > 0 Then Return
+
+        SupressSaveProps = True
+
+        With CompetitionNode
+            mode = Integer.Parse(.@ppc:finalsmodeSetting)
+            modus.SelectedIndex = mode
+            ttr.IsChecked = Boolean.Parse(.@ppc:ttrActive)
+            ttrwert.Text = .@ppc:ttrLimit
+            min.IsChecked = Boolean.Parse(.@ppc:ttrIsMin)
+            max.IsChecked = Boolean.Parse(.@ppc:ttrIsMin) = False
+            m.IsChecked = .@ppc:sex.Equals("m")
+            w.IsChecked = .@ppc:sex.Equals("w")
+        End With
+
+        Dim comps = CompetitionNode.@ppc:competitions.Split(";".ToCharArray()(0)).ToList
+        For Each comp In comps
+            Turnierfilter.SelectedItems.Add(comp)
+        Next
+
+        SupressSaveProps = False
+
+    End Sub
+
+    Private Sub SaveFilters()
+        If Turnierfilter Is Nothing Then Return
+        If SupressSaveProps Then Return
+
+        Dim app = CType(Application.Current, Application)
+        If Not CType(app.MainWindow, MainWindow).PlayOffConfigVisible Then Return
+
+        Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
+        If CompetitionNode.<players> IsNot Nothing AndAlso CompetitionNode.<players>.Count > 0 Then Return
+
+        With CompetitionNode
+            .@ppc:finalsmodeSetting = mode.ToString
+            .@ppc:ttrActive = ttr.IsChecked.ToString
+            .@ppc:ttrLimit = ttrwert.Text
+            .@ppc:ttrIsMin = min.IsChecked.ToString
+            .@ppc:sex = If(m.IsChecked, "m", "w")
+            .@ppc:competitions = String.Join(";", Turnierfilter.SelectedItems.Cast(Of String).ToList)
+        End With
+
+        Doc.Save(app.xmlPfad)
+    End Sub
+
     Private Sub UpdateFilteredList()
 
         If Turnierfilter Is Nothing Then Return
@@ -190,6 +247,7 @@ Public Class Playoff_Config
         linkeListe.ItemsSource = filteredSpieler
 
         UpdateRightList()
+        SaveFilters()
     End Sub
 
     Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, min.Checked, max.Checked, ttr.Click
@@ -214,7 +272,8 @@ Public Class Playoff_Config
     Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles modus.SelectionChanged
         'map selection to FinalMode Enum
         mode = modus.SelectedIndex
-        UpdateRightList()
+
+        UpdateFilteredList()
     End Sub
 
     Private Sub UpdateRightList()

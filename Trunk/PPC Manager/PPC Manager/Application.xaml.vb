@@ -109,13 +109,12 @@ Class Application
             window.Top = oldWindow.Top
             window.Width = oldWindow.Width
             window.Height = oldWindow.Height
+
+            oldWindow.Close()
         End If
 
         window.Show()
-        If oldWindow Is Nothing Then
-            Return
-        End If
-        oldWindow.Close()
+
     End Sub
 
     Private Sub Application_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
