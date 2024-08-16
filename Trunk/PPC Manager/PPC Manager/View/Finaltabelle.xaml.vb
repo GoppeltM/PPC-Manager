@@ -98,7 +98,7 @@ Public Class Finaltabelle
         'Beim starten im UI findet die Sortierung implizit in der Funktion NächsteRunde() statt, diese wird aber
         'beim Laden der Applikation nicht mehr gerufen, wenn Spielergebnisse vorhanden sind, wodurch die einzelnen Runden so sortiert sind wie im XML
 
-        'Bestimmt gibt es ein Möglichkeit, das generischer oder schöner zu lösen, aber wir kennen die exakte Reihenfolge der Runden:
+        'Bestimmt gibt es ein Möglichkeit (speichern der Matches bei Initialisierung, da aktuell nur die Player ins XML geschrieben werden), das generischer oder schöner zu lösen, aber wir kennen die exakte Reihenfolge der Runden:
         'Freilose am Ende, "Echte" Partien oben, beide jeweils korrekt sortiert. Da auch die Positionen der Gegner in Runde 1 immer konstant sind: 1-(8), 4-5, 3-(6), 2-(7),
         'Können wir ohne Sortierung anhand der Spieleranzahl bzw. der Freilosanzahl die Runde sortieren
 
