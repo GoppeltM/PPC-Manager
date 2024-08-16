@@ -60,7 +60,7 @@ Public Class Finaltabelle
         players = GetPlayers(CompetitionXML, mode)
 
         If mode = FinalMode.Viertelfinale Then
-            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), NächsteRunde())
+            Dim runde = If(competition.SpielRunden.Count >= 2, SortiereFreiloseInViertelFinale(competition.SpielRunden.Reverse(1)), NächsteRunde())
 
             SetViertelFinalDataContext(runde)
 
@@ -72,7 +72,7 @@ Public Class Finaltabelle
         End If
 
         If mode = FinalMode.Halbfinale Then
-            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), NächsteRunde())
+            Dim runde = If(competition.SpielRunden.Count >= 2, SortiereFreiloseInHalbFinale(competition.SpielRunden.Reverse(1)), NächsteRunde())
 
             SetHalbFinalDataContext(runde)
 
@@ -91,6 +91,54 @@ Public Class Finaltabelle
         V4.DataContext = runde(3)
         CType(V1.Parent, Selectable).IsSelected = True
     End Sub
+
+    Private Function SortiereFreiloseInViertelFinale(runde As SpielRunde) As SpielRunde
+        'Freilose werden als Spielpartie am Ende der Rundenliste angehängt.
+        'Das führt zu Sortierungsfehlern beim laden der Runden aus dem XML, wenn das Playoff gestartet wurde
+        'Beim starten im UI findet die Sortierung implizit in der Funktion NächsteRunde() statt, diese wird aber
+        'beim Laden der Applikation nicht mehr gerufen, wenn Spielergebnisse vorhanden sind, wodurch die einzelnen Runden so sortiert sind wie im XML
+
+        'Bestimmt gibt es ein Möglichkeit, das generischer oder schöner zu lösen, aber wir kennen die exakte Reihenfolge der Runden:
+        'Freilose am Ende, "Echte" Partien oben, beide jeweils korrekt sortiert. Da auch die Positionen der Gegner in Runde 1 immer konstant sind: 1-(8), 4-5, 3-(6), 2-(7),
+        'Können wir ohne Sortierung anhand der Spieleranzahl bzw. der Freilosanzahl die Runde sortieren
+
+        If players.Count = 8 Then Return runde
+
+        ' 1 Freilos
+        If players.Count = 7 Then Return New SpielRunde From {
+            runde(3),
+            runde(0),
+            runde(1),
+            runde(2)
+        }
+
+        ' 2 Freilose
+        If players.Count = 6 Then Return New SpielRunde From {
+            runde(2),
+            runde(0),
+            runde(1),
+            runde(3)
+        }
+
+        ' 3 Freilose
+        Return New SpielRunde From {
+           runde(1),
+           runde(0),
+           runde(3),
+           runde(2)
+        }
+
+    End Function
+
+    Private Function SortiereFreiloseInHalbFinale(runde As SpielRunde) As SpielRunde
+        If players.Count = 4 Then Return runde
+
+        ' 1 Freilos
+        Return New SpielRunde From {
+            runde(1),
+            runde(0)
+        }
+    End Function
 
     Private Sub SetHalbFinalDataContext(runde As SpielRunde)
         If runde Is Nothing Then Return
