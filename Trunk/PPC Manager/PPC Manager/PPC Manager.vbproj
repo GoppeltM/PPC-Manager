@@ -112,6 +112,9 @@
     <Compile Include="Output\IExcelDokument.vb" />
     <Compile Include="Output\IFixedPageFabrik.vb" />
     <Compile Include="Output\ITurnierReport.vb" />
+    <Compile Include="Output\Urkunde.xaml.vb">
+      <DependentUpon>Urkunde.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AnyMultiValueConverter.vb" />
     <Compile Include="View\Begegnungen.xaml.vb">
       <DependentUpon>Begegnungen.xaml</DependentUpon>
@@ -202,6 +205,10 @@
     <Compile Include="View\SpielPartieDetail.xaml.vb">
       <DependentUpon>SpielPartieDetail.xaml</DependentUpon>
     </Compile>
+    <Page Include="Output\Urkunde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Begegnungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -336,6 +343,7 @@
       <SubType>Designer</SubType>
     </None>
     <AppDesigner Include="My Project\" />
+    <Resource Include="Output\MATURASC_1.TTF" />
     <None Include="packages.config" />
     <None Include="SpeicherStandSchema.xsd" />
     <None Include="TournamentPortal.dtd">
@@ -366,6 +374,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Output\StBarbara.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Output\PingPong.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
