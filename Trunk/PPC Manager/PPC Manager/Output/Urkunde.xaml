@@ -6,8 +6,16 @@
              xmlns:local="clr-namespace:PPC_Manager"
              FontFamily="pack://application:,,,/Output/#Matura MT Script Capitals"
              mc:Ignorable="d" d:DesignHeight="1123" d:DesignWidth="793" d:Background="White">
-    <Grid>
-        
+    <Grid Margin="40">
+        <Border 
+            BorderBrush="Black"
+            BorderThickness="1"
+            />
+        <Border 
+            Margin="3"
+            BorderBrush="Black"
+            BorderThickness="1"
+            />
         <Grid Margin="20" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
