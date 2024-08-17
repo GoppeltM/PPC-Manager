@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.IO
+Imports DocumentFormat.OpenXml.EMMA
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Class Application
@@ -30,6 +31,7 @@ Class Application
     End Sub
 
     Public Sub LadeCompetition(sender As Object, klassement As String)
+        AktiveCompetition = Nothing
         competition = klassement
         doc = XDocument.Load(xmlPfad)
         Dim AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
@@ -45,10 +47,10 @@ Class Application
             AktiveCompetition = AusXML.CompetitionFromXML(xmlPfad, doc, klassement, Regeln, spielRunden)
 
         Catch ex As SpielDatenUnvollständigException
-            MessageBox.Show(String.Format("Es gibt noch {0} Spieler dessen Anwesenheitsstatus unbekannt ist. Bitte korrigieren bevor das Turnier beginnt.", ex.UnvollständigCount),
-            "Spieldaten unvollständig", MessageBoxButton.OK, MessageBoxImage.Error)
-            Shutdown()
-            Return
+            'Fehler wird in MainWindow behandelt, um UI Fehlermeldungen anzuzeigen, statt abzustürzen
+            Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = competition).Single
+            Dim spielerInfos = AusXML.SpielerListeFromXML(competitionXML.<players>)
+            If AktiveCompetition Is Nothing Then AktiveCompetition = New Competition(spielerInfos, competition)
         End Try
 
         Resources("KlassementName") = AktiveCompetition.Altersgruppe

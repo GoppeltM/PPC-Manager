@@ -51,6 +51,10 @@ Class MainWindow
             tabs As Collection(Of String),
             doc As XDocument)
         InitializeComponent()
+        With My.Application.Info.Version
+            versionNumber.Text = String.Format("Version: {0}.{1}.{2}", .Major, .Minor, .Build)
+            buildNumber.Text = String.Format("(Build: {0})", .Revision)
+        End With
 
         DataContext = Me
 
@@ -73,23 +77,49 @@ Class MainWindow
         Title = klassement
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
 
-        PlayoffConf.UpdateContext(doc)
+        If VorrundenUIVisible Then
+            Try
+                Dim app = CType(Application.Current, Application)
+                Dim Regeln = SpielRegeln.Parse(doc, klassement)
+                'befüllt spielRunden
+                AusXML.CompetitionFromXML(app.xmlPfad, doc, klassement, Regeln, spielrunden)
 
-        Dim s = New SpielerListe
-        For Each spieler In spielerliste.Where(AddressOf FilterSpieler)
-            s.Add(spieler)
-        Next
-        LiveListe.DataContext = s
-        LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
+
+                Dim s = New SpielerListe
+                For Each spieler In spielerliste.Where(AddressOf FilterSpieler)
+                    s.Add(spieler)
+                Next
+                LiveListe.DataContext = s
+                LiveListe.SpielerComparer = New InvertComparer(spielerVergleicher)
+
+            Catch ex As SpielDatenUnvollständigException
+                LiveListe.IsEnabled = False
+                LiveListe.Visibility = Visibility.Hidden
+
+                SpieldatenFehlerMeldungLiveListe.Visibility = Visibility.Visible
+                Return
+            End Try
+
+        End If
+
+
+        If PlayOffConfigVisible Then
+            Try
+                PlayoffConf.UpdateContext(doc)
+            Catch ex As Exception
+                If TypeOf ex IsNot SpielDatenUnvollständigException Then
+                    Throw ex
+                End If
+
+                SpieldatenFehlerMeldung.Visibility = Visibility.Visible
+                PlayoffConf.Visibility = Visibility.Hidden
+            End Try
+        End If
 
         If PlayOffUIVisible Then
             PlayoffUI.Init(Competition, mode, _Spielrunden)
         End If
 
-        With My.Application.Info.Version
-            versionNumber.Text = String.Format("Version: {0}.{1}.{2}", .Major, .Minor, .Build)
-            buildNumber.Text = String.Format("(Build: {0})", .Revision)
-        End With
     End Sub
 
     Private Sub MyWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles MyWindow.Loaded
@@ -190,6 +220,11 @@ Class MainWindow
     End Function
 
     Private Sub NächsteRunde_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If Not LiveListe.IsEnabled Then
+            e.CanExecute = False
+            Return
+        End If
+
         If Not _Spielrunden.Any Then
             e.CanExecute = True
             Return

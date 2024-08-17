@@ -49,6 +49,37 @@
             </TabControl.ItemTemplate>
         </TabControl>
 
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="2"
+            VerticalAlignment="Center"
+            TextAlignment="Center"
+            Margin="1   0"
+            x:Name="SpieldatenFehlerMeldung"
+            FontSize="20"
+            Background="Coral" TextWrapping="Wrap"
+            Visibility="Hidden"
+            >
+            Es konnten nicht alle Spieler aus allen Klassements gelesen werden, da nicht bei allen der Anwesenheitsstatus korrekt gepflegt ist.
+            Bevor das Playoff konfiguriert werden kann, muss das im Startlisteneditor behoben werden.
+        </TextBlock>
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            VerticalAlignment="Center"
+            TextAlignment="Center"
+            Margin="1   0"
+            x:Name="SpieldatenFehlerMeldungLiveListe"
+            FontSize="20"
+            Background="Coral" TextWrapping="Wrap"
+            Visibility="Hidden"
+            >
+            Es sind noch nicht alle Spieler als anwesend oder abwesend markiert.
+        </TextBlock>
+
         <Grid x:Name="VorrundenUI" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding VorrundenUIVisible, Converter={StaticResource BoolToVisConverter}}"  d:Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="600*" MinWidth="20" />
