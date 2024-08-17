@@ -42,6 +42,18 @@ Public Class SpielPartie
         End Get
     End Property
 
+    Public ReadOnly Property Verlierer As SpielerInfo
+        Get
+            If DesignerProperties.GetIsInDesignMode(New DependencyObject()) Then Return Nothing
+            Dim App = TryCast(Application.Current?.MainWindow, MainWindow)
+            If App Is Nothing Or App._Spielstand Is Nothing Then Return Nothing
+            If Not App._Spielstand.IstAbgeschlossen(Me) Then Return Nothing
+            If App._Spielstand.HatPartieGewonnen(Me, Me.SpielerLinks) Then Return Me.SpielerRechts
+            If App._Spielstand.HatPartieGewonnen(Me, Me.SpielerRechts) Then Return Me.SpielerLinks
+            Return Nothing
+        End Get
+    End Property
+
     Public Sub New(rundenName As String, ByVal spielerLinks As SpielerInfo, ByVal spielerRechts As SpielerInfo)
         If spielerLinks Is Nothing Then Throw New ArgumentNullException
         If spielerRechts Is Nothing Then Throw New ArgumentNullException

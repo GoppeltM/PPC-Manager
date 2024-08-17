@@ -45,6 +45,10 @@ Public Class Finaltabelle
 
         CType(F1.Parent, UIElement).IsEnabled = False
 
+        UrkundenPlatz5.IsEnabled = False
+        UrkundenPlatz3.IsEnabled = False
+        UrkundenFinalisten.IsEnabled = False
+
         If (_mode = FinalMode.Halbfinale) Then
             GlassBrush.Visibility = Visibility.Visible
             HatchBrush.Visibility = Visibility.Visible
@@ -157,6 +161,8 @@ Public Class Finaltabelle
         CType(V2.Parent, UIElement).IsEnabled = False
         CType(V3.Parent, UIElement).IsEnabled = False
         CType(V4.Parent, UIElement).IsEnabled = False
+
+        UrkundenPlatz5.IsEnabled = True
     End Sub
 
     Private Sub SetFinalDataContext(runde As SpielRunde)
@@ -169,6 +175,9 @@ Public Class Finaltabelle
 
         CType(H1.Parent, UIElement).IsEnabled = False
         CType(H2.Parent, UIElement).IsEnabled = False
+
+
+        UrkundenPlatz3.IsEnabled = True
     End Sub
 
     Friend Sub Update()
@@ -234,6 +243,9 @@ Public Class Finaltabelle
                 Return runde
             End If
 
+            If competition.SpielRunden.Count = 4 Then
+                UrkundenFinalisten.IsEnabled = True
+            End If
         End If
 
         If mode = FinalMode.Halbfinale Then
@@ -264,9 +276,90 @@ Public Class Finaltabelle
                 Return runde
             End If
 
+            If competition.SpielRunden.Count = 3 Then
+                UrkundenFinalisten.IsEnabled = True
+            End If
+
         End If
 
         Return Nothing
     End Function
+
+    Private Sub UrkundenPlatz5_Click(sender As Object, e As RoutedEventArgs) Handles UrkundenPlatz5.Click
+        Dim p = New PrintDialog
+
+        If p.ShowDialog Then
+
+            Dim viertelfinals = competition.SpielRunden.Reverse(1)
+
+            Dim playersP5 = New List(Of SpielerInfo) From {
+                If(TypeOf viertelfinals(0) Is FreiLosSpiel, Nothing, viertelfinals(0).Verlierer),
+                If(TypeOf viertelfinals(1) Is FreiLosSpiel, Nothing, viertelfinals(1).Verlierer),
+                If(TypeOf viertelfinals(2) Is FreiLosSpiel, Nothing, viertelfinals(2).Verlierer),
+                If(TypeOf viertelfinals(3) Is FreiLosSpiel, Nothing, viertelfinals(3).Verlierer)
+            }
+
+            PrintUrkunde(playersP5, 5, p)
+
+        End If
+    End Sub
+
+    Private Sub UrkundenPlatz3_Click(sender As Object, e As RoutedEventArgs) Handles UrkundenPlatz3.Click
+        Dim p = New PrintDialog
+
+        If p.ShowDialog Then
+
+            Dim index = If(mode = FinalMode.Viertelfinale, 2, 1)
+            Dim halbfinals = competition.SpielRunden.Reverse(index)
+
+            Dim playersP3 = New List(Of SpielerInfo) From {
+            If(TypeOf halbfinals(0) Is FreiLosSpiel, Nothing, halbfinals(0).Verlierer),
+            If(TypeOf halbfinals(1) Is FreiLosSpiel, Nothing, halbfinals(1).Verlierer)
+        }
+
+            PrintUrkunde(playersP3, 3, p)
+
+        End If
+    End Sub
+
+    Private Sub UrkundenFinalisten_Click(sender As Object, e As RoutedEventArgs) Handles UrkundenFinalisten.Click
+        Dim p = New PrintDialog
+
+        If p.ShowDialog Then
+
+            Dim index = If(mode = FinalMode.Viertelfinale, 3, 2)
+            Dim finale = competition.SpielRunden.Reverse(index)(0)
+
+            Dim playersP2 = New List(Of SpielerInfo) From {
+                finale.Verlierer
+            }
+
+            PrintUrkunde(playersP2, 2, p)
+
+            Dim playersP1 = New List(Of SpielerInfo) From {
+                finale.Gewinner
+            }
+
+            PrintUrkunde(playersP1, 1, p)
+
+        End If
+    End Sub
+
+    Private Sub PrintUrkunde(playerList As IEnumerable(Of SpielerInfo), platzierung As Integer, p As PrintDialog)
+        For Each player In playerList
+            If player Is Nothing Then Return
+
+            Dim Urkunde = New Urkunde
+            With Urkunde
+                .Datum1.Text = Date.Today.ToShortDateString() & " in"
+                .Datum2.Text = Date.Today.ToLongDateString()
+                .SpielerName.Text = player.Vorname & " " & player.Nachname
+                .Vereinsname.Text = player.Vereinsname
+                .WettbName.Text = "Im Wettbewerb " & CType(Application.Current, Application).competition
+                .Platzierung.Text = "zum " & platzierung & ". Platz"
+            End With
+            p.PrintVisual(Urkunde, "Urkunde Platz " & platzierung)
+        Next
+    End Sub
 End Class
 

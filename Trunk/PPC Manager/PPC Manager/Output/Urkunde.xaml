@@ -74,6 +74,7 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 TextAlignment="Right" FontSize="28" VerticalAlignment="Center"
+                x:Name="Datum1"
                 >Datum in</TextBlock>
             <TextBlock
                 Grid.Row="4"
@@ -117,24 +118,28 @@
                 Grid.Row="13"
                 Grid.ColumnSpan="3"
                 FontSize="48" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"
+                x:Name="SpielerName"
                 >Vorname Nachname</TextBlock>
 
             <TextBlock
                 Grid.Row="14"
                 Grid.ColumnSpan="3"
                 FontSize="36" VerticalAlignment="Center" TextAlignment="Center"
+                x:Name="Vereinsname"
                 >Vereinsname</TextBlock>
-        
+
             <TextBlock
                 Grid.Row="15"
                 Grid.ColumnSpan="3"
                 FontSize="48" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"
+                x:Name="Platzierung"
                 >zum X. Platz</TextBlock>
 
             <TextBlock
                 Grid.Row="16"
                 Grid.ColumnSpan="3"
                 FontSize="40" VerticalAlignment="Center" TextAlignment="Center"
+                x:Name="WettbName"
                 >im Wettbewerb WettbName</TextBlock>
 
             <TextBlock
@@ -148,6 +153,7 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 FontSize="24" VerticalAlignment="Center" TextAlignment="Right"
+                x:Name="Datum2"
                 >Datum</TextBlock>
 
 

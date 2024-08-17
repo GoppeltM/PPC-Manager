@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PPC_Manager"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d"             
              d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
              d:DesignWidth="893"
@@ -64,6 +65,7 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Viertelfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
@@ -79,6 +81,44 @@
             <local:Selectable Grid.Row="7" Grid.Column="0" Selected="Selectable_Selected">
                 <local:PartieKarte x:Name="V4" />
             </local:Selectable>
+            <Button
+                Grid.Row="9"
+                Margin="30 0"
+                IsEnabled="False"
+                x:Name="UrkundenPlatz5"
+                >
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="Gray" />
+                    <TextBlock>Urkunden Platz 5</TextBlock>
+                </StackPanel>
+
+            </Button>
+            <Button
+                Grid.Row="9"
+                Grid.Column="2"
+                Margin="30 0"
+                IsEnabled="False"
+                x:Name="UrkundenPlatz3"
+                >
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="Gray" />
+                    <TextBlock>Urkunden Platz 3</TextBlock>
+                </StackPanel>
+
+            </Button>
+            <Button
+                Grid.Row="9"
+                Grid.Column="4"
+                Margin="30 0"
+                IsEnabled="False"
+                x:Name="UrkundenFinalisten"
+                >
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="Gray" />
+                    <TextBlock>Urkunden Platz 1+2</TextBlock>
+                </StackPanel>
+
+            </Button>
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Halbfinale" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
             <local:Selectable Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center"  IsEnabled="False" Selected="Selectable_Selected">
@@ -97,8 +137,8 @@
             </local:Selectable>
             <local:GridTreeConnector Grid.Row="1" Grid.Column="3" Grid.RowSpan="7" />
 
-            <Border Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="2" Background="#AAFFFFFF" x:Name="GlassBrush" Visibility="Hidden" />
-            <Border Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="2" Background="{StaticResource DiagonalHatchBrush}" x:Name="HatchBrush" Visibility="Hidden" />
+            <Border Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="#AAFFFFFF" x:Name="GlassBrush" Visibility="Hidden" />
+            <Border Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="{StaticResource DiagonalHatchBrush}" x:Name="HatchBrush" Visibility="Hidden" />
 
         </Grid>
     </Grid>
