@@ -61,7 +61,14 @@ Public Class Playoff_Config
             .Spielerliste = LeseSpieler()
         }
 
-        LoadFilters()
+        Try
+            LoadFilters()
+        Catch ex As Exception
+            'Filters not yet initialized
+            SupressSaveProps = False
+            SaveFilters()
+            LoadFilters()
+        End Try
 
         UpdateFilteredList()
 

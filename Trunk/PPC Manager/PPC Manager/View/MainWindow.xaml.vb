@@ -81,8 +81,8 @@ Class MainWindow
             Try
                 Dim app = CType(Application.Current, Application)
                 Dim Regeln = SpielRegeln.Parse(doc, klassement)
-                'befüllt spielRunden
-                AusXML.CompetitionFromXML(app.xmlPfad, doc, klassement, Regeln, spielrunden)
+                'hier wollen wir nur schauen, ob ein Fehler geworfen wird, daher brauchen wir dummy instancen, um nicht den state kaputt zu machen
+                AusXML.CompetitionFromXML(app.xmlPfad, doc, klassement, Regeln, New SpielRunden)
 
 
                 Dim s = New SpielerListe

@@ -8,9 +8,9 @@ Public Class Competition
     ReadOnly Property SpielRegeln As SpielRegeln
 
     Public Sub New(spielerListe As IEnumerable(Of SpielerInfo), altersgruppe As String)
-        SpielRegeln = New SpielRegeln(3, True, True)
+        Me.SpielRegeln = New SpielRegeln(3, True, True)
         Me.SpielerListe = spielerListe
-        SpielRunden = New SpielRunden()
+        Me.SpielRunden = New SpielRunden()
         Me.Altersgruppe = altersgruppe
 
     End Sub
