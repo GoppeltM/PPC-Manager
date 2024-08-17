@@ -92,7 +92,7 @@ Public Class Finaltabelle
         CType(V1.Parent, Selectable).IsSelected = True
     End Sub
 
-    Private Function SortiereFreiloseInViertelFinale(runde As SpielRunde) As SpielRunde
+    Private Function SortiereFreiloseInViertelFinale(_runde As SpielRunde) As SpielRunde
         'Freilose werden als Spielpartie am Ende der Rundenliste angehängt.
         'Das führt zu Sortierungsfehlern beim laden der Runden aus dem XML, wenn das Playoff gestartet wurde
         'Beim starten im UI findet die Sortierung implizit in der Funktion NächsteRunde() statt, diese wird aber
@@ -101,6 +101,11 @@ Public Class Finaltabelle
         'Bestimmt gibt es ein Möglichkeit (speichern der Matches bei Initialisierung, da aktuell nur die Player ins XML geschrieben werden), das generischer oder schöner zu lösen, aber wir kennen die exakte Reihenfolge der Runden:
         'Freilose am Ende, "Echte" Partien oben, beide jeweils korrekt sortiert. Da auch die Positionen der Gegner in Runde 1 immer konstant sind: 1-(8), 4-5, 3-(6), 2-(7),
         'Können wir ohne Sortierung anhand der Spieleranzahl bzw. der Freilosanzahl die Runde sortieren
+
+        Dim matches = _runde.Where(Function(partie) TypeOf partie IsNot FreiLosSpiel) _
+                            .Concat(_runde.Where(Function(partie) TypeOf partie Is FreiLosSpiel))
+
+        Dim runde As New SpielRunde(matches)
 
         If players.Count = 8 Then Return runde
 
@@ -124,20 +129,17 @@ Public Class Finaltabelle
         Return New SpielRunde From {
            runde(1),
            runde(0),
-           runde(3),
-           runde(2)
+           runde(2),
+           runde(3)
         }
 
     End Function
 
-    Private Function SortiereFreiloseInHalbFinale(runde As SpielRunde) As SpielRunde
-        If players.Count = 4 Then Return runde
+    Private Function SortiereFreiloseInHalbFinale(_runde As SpielRunde) As SpielRunde
+        Dim matches = _runde.Where(Function(partie) TypeOf partie Is FreiLosSpiel) _
+                            .Concat(_runde.Where(Function(partie) TypeOf partie IsNot FreiLosSpiel))
 
-        ' 1 Freilos
-        Return New SpielRunde From {
-            runde(1),
-            runde(0)
-        }
+        Return New SpielRunde(matches)
     End Function
 
     Private Sub SetHalbFinalDataContext(runde As SpielRunde)

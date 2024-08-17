@@ -3,6 +3,14 @@
 Public Class SpielRunde
     Inherits ObservableCollection(Of SpielPartie)
 
+    Public Sub New()
+        MyBase.New()
+    End Sub
+
+    Public Sub New(partien As IEnumerable(Of SpielPartie))
+        MyBase.New(partien)
+    End Sub
+
     Sub Update()
         OnCollectionChanged(New Specialized.NotifyCollectionChangedEventArgs(Specialized.NotifyCollectionChangedAction.Reset, Items))
     End Sub

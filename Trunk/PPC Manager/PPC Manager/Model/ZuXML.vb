@@ -73,17 +73,20 @@ Public Class ZuXML
     End Sub
 
     Public Shared Function ToXML(runden As SpielRunden, spielstand As ISpielstand) As IEnumerable(Of XElement)
-
         Dim xSpielRunden As New List(Of XElement)
 
         For Each SpielRunde In runden.Reverse
             Dim matchNr = 0
-            For Each Match In From x In SpielRunde
+            Dim partienSortiert = SpielRunde.Where(Function(partie) TypeOf partie IsNot FreiLosSpiel) _
+                                        .Concat(SpielRunde.Where(Function(partie) TypeOf partie Is FreiLosSpiel))
+            Dim rundeSortiert As New SpielRunde(partienSortiert)
+
+            For Each match In From x In rundeSortiert
                               Let y = PartieZuXML(x, spielstand, Function() As Integer
                                                                      matchNr += 1
                                                                      Return matchNr
                                                                  End Function()) Select y
-                xSpielRunden.Add(Match)
+                xSpielRunden.Add(match)
             Next
         Next
 
