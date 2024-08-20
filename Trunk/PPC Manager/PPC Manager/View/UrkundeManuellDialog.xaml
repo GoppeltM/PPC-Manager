@@ -1,0 +1,113 @@
+﻿<Window x:Class="UrkundeManuellDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PPC_Manager"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        Title="Urkunde manuell drucken"
+        Height="900"
+        Width="1000"
+        >
+    <Grid
+        Margin="10"
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+  
+            <local:Urkunde 
+                x:Name="Vorschau"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="1000"
+                Height="1450">
+                <local:Urkunde.LayoutTransform>
+                    <ScaleTransform ScaleX="0.56" ScaleY="0.56"/>
+                </local:Urkunde.LayoutTransform>
+
+            </local:Urkunde>
+
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Grid.Column="0"
+            Orientation="Vertical">
+
+            <!-- Static text -->
+            <TextBlock Text="Wir gratulieren" FontSize="16" Margin="0,0,0,10"/>
+
+            <!-- First Input: Vorname Nachname -->
+            <TextBox
+                Name="txtName" 
+                Text="Vorname Nachname"
+                FontSize="16"
+                Margin="0,0,0,10"
+                VerticalContentAlignment="Center"
+                />
+
+            <!-- Second Input: Vereinsname -->
+            <TextBox
+                Text="Vereinsname"
+                Name="txtVereinsname"
+                FontSize="16"
+                Margin="0,0,0,10"
+                VerticalContentAlignment="Center"
+                />
+
+            <!-- Third Input: X (int) -->
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="zum " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           TextAlignment="Right"/>
+                <TextBox
+                    Name="txtPlatz"
+                    Width="50"
+                    FontSize="16" 
+                    Margin="0,0,2,0"
+                    VerticalContentAlignment="Center"
+                    Text="X"
+                    />
+                <TextBlock Text=". Platz" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <!-- Fourth Input: Wettbewerbname -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="im Wettbewerb " FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBox 
+                    Text="WettbName"
+                    Name="txtWettbewerbname" 
+                    FontSize="16"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Width="150"
+                    />
+            </StackPanel>
+
+        </StackPanel>
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="1"
+            Width="150"
+            HorizontalAlignment="Right"
+            Background="MidnightBlue"
+            Foreground="White"
+            FontSize="14"
+            FontWeight="DemiBold"
+            Margin="0 10 10 0" Click="Button_Click"
+            >
+            <StackPanel Orientation="Horizontal">
+                <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="White" />
+                <TextBlock>Drucken</TextBlock>
+            </StackPanel>
+            </Button>
+
+    </Grid>
+</Window>

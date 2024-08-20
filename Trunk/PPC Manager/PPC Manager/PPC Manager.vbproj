@@ -205,6 +205,9 @@
     <Compile Include="View\SpielPartieDetail.xaml.vb">
       <DependentUpon>SpielPartieDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UrkundeManuellDialog.xaml.vb">
+      <DependentUpon>UrkundeManuellDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="Output\Urkunde.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -286,6 +289,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SpielPartieDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UrkundeManuellDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

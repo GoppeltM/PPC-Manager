@@ -33,7 +33,8 @@
                               Name="PartieErstellenMenu" Command="ApplicationCommands.New"/>
         </MenuItem>
         <MenuItem Header="Drucken" IsTabStop="False">
-            <MenuItem Header="Drucken..." Command="ApplicationCommands.Print" />
+            <MenuItem Header="Vorrunde Laufzettel" Command="ApplicationCommands.Print" />
+            <MenuItem Header="Urkunde (manuell)" Click="MenuItem_Click"/>
         </MenuItem>
     </Menu>
 </UserControl>
