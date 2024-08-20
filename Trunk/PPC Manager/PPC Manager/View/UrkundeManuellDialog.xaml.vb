@@ -36,6 +36,8 @@ Public Class UrkundeManuellDialog
         Urkunde.Datum2.Text = Date.Today.ToLongDateString()
 
         Dim p = New PrintDialog
-        p.PrintVisual(Urkunde, "Urkunde")
+        If p.ShowDialog() Then
+            p.PrintVisual(Urkunde, "Urkunde")
+        End If
     End Sub
 End Class
