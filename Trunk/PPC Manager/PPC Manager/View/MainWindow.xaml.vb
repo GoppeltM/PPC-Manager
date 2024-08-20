@@ -97,6 +97,8 @@ Class MainWindow
                 LiveListe.Visibility = Visibility.Hidden
 
                 SpieldatenFehlerMeldungLiveListe.Visibility = Visibility.Visible
+
+                Begegnungen.VorrundeStarten.IsEnabled = False
                 Return
             End Try
 
@@ -179,9 +181,7 @@ Class MainWindow
         If MessageBox.Show("Wollen Sie wirklich die aktuelle Runde verwerfen? Diese Aktion kann nicht rückgängig gemacht werden!", "Runde löschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) = MessageBoxResult.No Then
             Return
         End If
-        With _Spielrunden
-            .Pop()
-        End With
+        _Spielrunden.Pop()
 
         If PlayOffUIVisible Then
             PlayoffUI.Init(Competition, mode, _Spielrunden)
@@ -225,8 +225,8 @@ Class MainWindow
             Return
         End If
 
-        If Not _Spielrunden.Any Then
-            e.CanExecute = True
+        If Not _Spielrunden.Any OrElse _Spielrunden.Count = 1 Then
+            e.CanExecute = False
             Return
         End If
 

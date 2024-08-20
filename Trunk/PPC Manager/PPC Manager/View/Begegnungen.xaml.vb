@@ -33,4 +33,28 @@ Class Begegnungen
         DetailGrid.DataContext = e.Parameter
         DetailGrid.SetFocus()
     End Sub
+
+    Private Sub SpielRegelnUI_DataContextChanged(sender As Object, e As DependencyPropertyChangedEventArgs)
+        Dim listView = CType(Regeln.DataContext, ListCollectionView)
+        If listView Is Nothing Then Return
+
+        Dim partie = CType(listView.CurrentItem, SpielPartie)
+        If partie Is Nothing Then
+            Regeln.Visibility = Visibility.Visible
+            Return
+        End If
+
+        Regeln.Visibility = If(partie.RundenName Is "Runde 0", Visibility.Visible, Visibility.Hidden)
+    End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        Dim App = CType(Application.Current, Application)
+
+        Dim mainWindow = CType(App.MainWindow, MainWindow)
+        mainWindow.NächsteRunde()
+        mainWindow._Controller.SaveXML()
+        mainWindow.SkipDialog = True
+
+        App.LadeCompetition(sender, App.competition)
+    End Sub
 End Class

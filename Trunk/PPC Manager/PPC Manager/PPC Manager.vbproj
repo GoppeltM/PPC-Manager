@@ -173,6 +173,9 @@
       <DependentUpon>SpielErgebnisse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Output\TurnierReport.vb" />
+    <Compile Include="View\Components\SpielRegelnUI.xaml.vb">
+      <DependentUpon>SpielRegelnUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DruckEinstellungen.vb" />
     <Compile Include="View\DruckEinstellungenDialog.xaml.vb">
       <DependentUpon>DruckEinstellungenDialog.xaml</DependentUpon>
@@ -221,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LadenNeu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Components\SpielRegelnUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

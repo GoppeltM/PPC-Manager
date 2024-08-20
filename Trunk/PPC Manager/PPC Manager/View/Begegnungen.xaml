@@ -6,8 +6,9 @@
       xmlns:local="clr-namespace:PPC_Manager"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:core="clr-namespace:System;assembly=mscorlib"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       d:Background="White"
-      mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1307" Name="BegegnungenPage"
+      mc:Ignorable="d" d:DesignHeight="561" d:DesignWidth="1107" Name="BegegnungenPage"
       d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:DesignSpielPartien}">
     <UserControl.CommandBindings>
         <CommandBinding Command="local:MeineCommands.PartieAusgewählt" Executed="PartieAusgewählt_Execute" />
@@ -31,5 +32,38 @@
               x:Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" />
         <local:SpielPartienListe x:Name="SpielPartienListe" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                  Grid.Row="1" DataContext="{Binding Source={StaticResource PartieView}}" />
+        <Grid
+            Grid.Row="1"
+            x:Name="Regeln"
+            DataContext="{Binding Source={StaticResource PartieView}}" 
+            DataContextChanged="SpielRegelnUI_DataContextChanged"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                FontSize="20"
+                Margin="30"
+                TextWrapping="Wrap">
+                Die Vorrunde wurde noch nicht gestartet.
+                Hier können vor Turnierbeginn noch Spieler ausgeschieden werden, die dann später nicht in der Liste auftauchen.
+                Außerdem können noch einmal die Spielregeln überprüft und anschließend
+                die Vorrunde gestartet werden.
+            </TextBlock>
+
+            <local:SpielRegelnUI Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" />
+
+            <Button Grid.Row="1" Grid.Column="1" Margin="0 10 10 10" Click="Button_Click" x:Name="VorrundeStarten">
+                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch">
+                    <TextBlock FontSize="20" FontWeight="DemiBold">Vorrunde Starten</TextBlock>
+                    <fa:ImageAwesome Icon="AngleRight" Width="15" Height="15" Margin="30 0 0 0" />
+                </StackPanel> 
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>
