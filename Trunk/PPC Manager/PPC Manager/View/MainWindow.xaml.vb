@@ -401,10 +401,10 @@ Class MainWindow
                 .DruckeRangliste = False
             End If
 
-            .EinstellungenNeuePaarungen = defaultPrintSettings
-            .EinstellungenRangliste = defaultPrintSettings
-            .EinstellungenSchiedsrichterzettel = defaultPrintSettings
-            .EinstellungenSpielergebnisse = defaultPrintSettings
+            .EinstellungenNeuePaarungen = If(.EinstellungenNeuePaarungen IsNot Nothing, .EinstellungenNeuePaarungen, defaultPrintSettings)
+            .EinstellungenRangliste = If(.EinstellungenRangliste IsNot Nothing, .EinstellungenRangliste, defaultPrintSettings)
+            .EinstellungenSchiedsrichterzettel = If(.EinstellungenSchiedsrichterzettel IsNot Nothing, .EinstellungenSchiedsrichterzettel, defaultPrintSettings)
+            .EinstellungenSpielergebnisse = If(.EinstellungenSpielergebnisse IsNot Nothing, .EinstellungenSpielergebnisse, defaultPrintSettings)
         End With
 
         Dim dialog = New DruckEinstellungenDialog(_Controller, _DruckerFabrik) With {
