@@ -66,7 +66,7 @@ Public Class Playoff_Config
         Catch ex As Exception
             'Filters not yet initialized
             SupressSaveProps = False
-            SaveFilters()
+            SaveFilters(True)
             LoadFilters()
         End Try
 
@@ -206,12 +206,12 @@ Public Class Playoff_Config
 
     End Sub
 
-    Private Sub SaveFilters()
+    Private Sub SaveFilters(Optional force As Boolean = False)
         If Turnierfilter Is Nothing Then Return
         If SupressSaveProps Then Return
 
         Dim app = CType(Application.Current, Application)
-        If Not CType(app.MainWindow, MainWindow).PlayOffConfigVisible Then Return
+        If Not force AndAlso Not CType(app.MainWindow, MainWindow).PlayOffConfigVisible Then Return
 
         Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
         If CompetitionNode.<players> IsNot Nothing AndAlso CompetitionNode.<players>.Count > 0 Then Return
