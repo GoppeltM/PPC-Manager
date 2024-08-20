@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d"         
-    Height="720" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
+    Height="750" Width="1400" Icon="/PPC%20Manager;component/Icon.ico"
     >
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
