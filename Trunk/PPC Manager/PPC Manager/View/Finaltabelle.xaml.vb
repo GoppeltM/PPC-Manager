@@ -176,8 +176,11 @@ Public Class Finaltabelle
         CType(H1.Parent, UIElement).IsEnabled = False
         CType(H2.Parent, UIElement).IsEnabled = False
 
-
         UrkundenPlatz3.IsEnabled = True
+
+        If runde(0).IstAbgeschlossen Then
+            UrkundenFinalisten.IsEnabled = True
+        End If
     End Sub
 
     Friend Sub Update()
