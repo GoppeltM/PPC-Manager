@@ -168,12 +168,16 @@ Class MainWindow
     End Sub
 
     Private Sub RundeVerwerfen_CanExecute(sender As Object, e As CanExecuteRoutedEventArgs)
+        If mode <> -1 Then
+            e.CanExecute = True
+            Return
+        End If
         Dim nullteRunde = 1
         e.CanExecute = _Spielrunden.Count > nullteRunde
     End Sub
 
     Private Sub RundeVerwerfen_Executed(sender As Object, e As ExecutedRoutedEventArgs)
-        If PlayOffUIVisible AndAlso _Spielrunden.Count = 2 Then
+        If mode >= 2 OrElse PlayOffUIVisible AndAlso _Spielrunden.Count = 2 Then
             PlayoffVerwerfen(sender)
             Return
         End If
