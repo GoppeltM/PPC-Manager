@@ -18,6 +18,16 @@
                  ItemsSource="{Binding Mode=OneWay}" IsSynchronizedWithCurrentItem="True"
                  VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextBlock.FontSize="15">
         <ListBox.Resources>
+            <DataTemplate DataType="{x:Type local:FreiLosSpiel}">
+                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+                    <StackPanel Width="{Binding Source={x:Static Member=local:MySettings.Default}, Path=PartieBreite}"
+                          Opacity="{Binding Path=MySelf, Converter={StaticResource OpacityConverter}}" d:Opacity="0.4">
+                        <TextBlock Text="{Binding Path=SpielerLinks.Nachname}" FontSize="18" TextBlock.TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="{Binding Path=SpielerLinks.Vorname}" TextBlock.TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="(Freilos)" Margin="30,0,0,0" FontStyle="Italic"/>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type local:SpielPartie}">
                 <local:PartieKarte  />
             </DataTemplate>
