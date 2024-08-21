@@ -182,7 +182,8 @@ Public Class Playoff_Config
         Dim app = CType(Application.Current, Application)
 
         Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
-        If CompetitionNode.<players> IsNot Nothing AndAlso CompetitionNode.<players>.Count > 0 Then Return
+        Dim players = CompetitionNode.<players>
+        If players IsNot Nothing AndAlso players.<player> IsNot Nothing AndAlso players.<player>.Count > 0 Then Return
 
         SupressSaveProps = True
 
@@ -214,7 +215,8 @@ Public Class Playoff_Config
         If Not force AndAlso Not CType(app.MainWindow, MainWindow).PlayOffConfigVisible Then Return
 
         Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
-        If CompetitionNode.<players> IsNot Nothing AndAlso CompetitionNode.<players>.Count > 0 Then Return
+        Dim players = CompetitionNode.<players>
+        If players IsNot Nothing AndAlso players.<player> IsNot Nothing AndAlso players.<player>.Count > 0 Then Return
 
         With CompetitionNode
             .@ppc:finalsmodeSetting = mode.ToString
