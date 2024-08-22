@@ -34,7 +34,7 @@ Public Class Spielverlauf
 
     Public Function BerechneBuchholzPunkte(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneBuchholzPunkte
         Dim spieleOhneFreilos = From x In _Spielpartien
-                                Where Not TypeOf x Is FreiLosSpiel
+                                Where x.IstAbgeschlossen AndAlso TypeOf x IsNot FreiLosSpiel
                                 Select x
         Dim gegner = From x In spieleOhneFreilos
                      Where x.SpielerLinks = t
@@ -47,7 +47,6 @@ Public Class Spielverlauf
         Return Aggregate x In gegner
                    Let punkte = BerechnePunkteOhneFreilos(x)
                        Into Sum(punkte)
-
     End Function
 
     Public Function BerechneSonnebornBergerPunkte(t As SpielerInfo) As Integer Implements ISpielverlauf(Of SpielerInfo).BerechneSonnebornBergerPunkte
