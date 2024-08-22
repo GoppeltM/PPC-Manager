@@ -114,6 +114,11 @@ Class Application
             window.Width = oldWindow.Width
             window.Height = oldWindow.Height
 
+            'Handle Fullscreen
+            window.WindowState = oldWindow.WindowState
+            window.WindowStyle = oldWindow.WindowStyle
+            window.ResizeMode = oldWindow.ResizeMode
+
             oldWindow.Close()
         End If
 
