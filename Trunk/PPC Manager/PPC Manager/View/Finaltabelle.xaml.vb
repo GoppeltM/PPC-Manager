@@ -1,5 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.Drawing.Printing
 Imports System.Globalization
+Imports System.Printing
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class Finaltabelle
@@ -363,6 +365,78 @@ Public Class Finaltabelle
             End With
             p.PrintVisual(Urkunde, "Urkunde Platz " & platzierung)
         Next
+    End Sub
+
+    Private Sub Screenshot_Click(sender As Object, e As RoutedEventArgs) Handles Screenshot.Click
+
+        Dim visualToPrint As Visual = Tree
+        Dim desiredWidth = 900
+        Dim desiredHeight = 630
+
+
+        ' Calculate the bounds of the visual
+        Dim bounds As Rect = VisualTreeHelper.GetDescendantBounds(visualToPrint)
+
+
+        ' Create a DrawingVisual to contain the visual
+        Dim drawingVisual As New DrawingVisual()
+        Using context As DrawingContext = drawingVisual.RenderOpen()
+            ' Draw the visual without any offset
+            context.DrawRectangle(New VisualBrush(visualToPrint), Nothing, New Rect(New Point(), bounds.Size))
+
+            context.DrawRectangle(Brushes.White, Nothing, New Rect(0, bounds.Height - 50, bounds.Width, bounds.Height))
+
+
+            ' Create the formatted text to draw
+            Dim formattedText As New FormattedText(
+                Date.Today.ToShortDateString & "        " & CType(Application.Current, Application).competition,
+                System.Globalization.CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                New Typeface("Arial"),
+                14,
+                Brushes.Black
+            )
+
+            ' Position the text (e.g., below the visual)
+            Dim textPosition As New Point(0, -100) ' Adjust the position as needed
+
+            ' Draw the text
+            context.DrawText(formattedText, textPosition)
+        End Using
+
+        ' Calculate the scale factors for desired size
+        Dim scaleX As Double = desiredWidth / bounds.Width
+        Dim scaleY As Double = desiredHeight / bounds.Height
+        Dim scale = Math.Min(scaleY, scaleX)
+
+        ' Create a TransformGroup to combine translate and scale transforms
+        Dim transformGroup As New TransformGroup()
+
+        ' Remove the offset by translating the visual to (20, 20)
+        Dim translateTransform As New TranslateTransform(-bounds.X + 100, -bounds.Y + 150)
+        transformGroup.Children.Add(translateTransform)
+
+        ' Scale the visual to the desired size
+        Dim scaleTransform As New ScaleTransform(scale, scale)
+        transformGroup.Children.Add(scaleTransform)
+
+        ' Apply the transformations
+        drawingVisual.Transform = transformGroup
+
+        Dim Druckeinstellung = New DruckEinstellungen
+        Dim p = Druckeinstellung.EinstellungenSchiedsrichterzettel
+
+        p.PrintTicket.PageOrientation = PageOrientation.Landscape
+        p.PrintVisual(drawingVisual, "Screenshot")
+
+    End Sub
+
+    Private Sub Schiedsrichter_Click(sender As Object, e As RoutedEventArgs) Handles Schiedsrichter.Click
+        Dim w = CType(Application.Current.MainWindow, MainWindow)
+        Dim Einstellung = New DruckEinstellungen
+        Dim p = w._DruckerFabrik.Neu(Einstellung.EinstellungenSchiedsrichterzettel)
+        Dim doc = w._Controller.DruckeSchiedsrichterzettel(p.LeseKonfiguration)
+        p.Drucken(doc, "Schiedsrichterzettel")
     End Sub
 End Class
 

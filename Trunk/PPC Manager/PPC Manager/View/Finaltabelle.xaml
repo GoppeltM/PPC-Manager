@@ -7,7 +7,7 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d"             
              d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
-             d:DesignWidth="893"
+             d:DesignWidth="1000"
              d:DesignHeight="693"
              d:Background="White"
              >
@@ -19,8 +19,37 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:SpielPartieDetail Grid.Row="0" HorizontalAlignment="Center" Margin="5,0,5,5" 
-              x:Name="DetailGrid" VerticalAlignment="Stretch" />
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,0,5,5">
+            <StackPanel Width="150" Margin="2 5 5 5" VerticalAlignment="Center">
+                <Button
+                    Margin="0 2 0 0"
+                x:Name="Schiedsrichter"
+                >
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="Gray" />
+                        <TextBlock>Schiedsrichterzettel</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <TextBlock FontSize="9" Foreground="Gray" >
+                Druckeinstellungen ändern: STRG+P
+                </TextBlock>
+                <Button
+                    Margin="0 5 0 0"
+                x:Name="Screenshot"
+                >
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="Gray" />
+                        <TextBlock HorizontalAlignment="Stretch">Screenshot</TextBlock>
+                    </StackPanel>
+                </Button>
+                <TextBlock FontSize="9" Foreground="Gray">
+                Verwendet Schiedsrichter Drucker
+                </TextBlock>
+
+            </StackPanel>
+            <local:SpielPartieDetail x:Name="DetailGrid" />
+        </StackPanel>
 
         <Border Grid.Row="1" BorderThickness=".5" BorderBrush="LightGray" />
 

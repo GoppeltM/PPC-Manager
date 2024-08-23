@@ -29,7 +29,7 @@ Class MainWindow
     Private ReadOnly _Spielrunden As SpielRunden
     Public ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _DruckEinstellungen As DruckEinstellungen
-    Private ReadOnly _DruckerFabrik As IDruckerFabrik
+    Friend ReadOnly _DruckerFabrik As IDruckerFabrik
     Private Property PlayoffIstAktiv As Boolean = False
 
     Private Property Competition As XElement
