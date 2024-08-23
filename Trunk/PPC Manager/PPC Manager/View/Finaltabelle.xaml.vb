@@ -192,6 +192,9 @@ Public Class Finaltabelle
 
         mainWindow._Controller.SaveXML()
 
+        Dim w = CType(Application.Current.MainWindow, MainWindow)
+        w._Controller.SaveExcel()
+
         If mainWindow.RundeAbgeschlossen() Then mainWindow.NächsteRunde()
     End Sub
 

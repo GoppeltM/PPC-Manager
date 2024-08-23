@@ -48,7 +48,7 @@ Public Class ReportFactory
             End Using
 
         Catch ex As IOException
-            Throw New Exception("Excel Datei konnte nicht geschrieben werden.", ex)
+            MessageBox.Show("Excel Protokoll konnte nicht geschrieben werden. Ist die Datei in einer anderen Anwendung geöffnet?", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning)
         End Try
     End Sub
 
