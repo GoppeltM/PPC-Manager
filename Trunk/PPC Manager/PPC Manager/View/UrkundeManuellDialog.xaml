@@ -21,25 +21,39 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-  
-            <local:Urkunde 
+
+        <local:Urkunde 
                 x:Name="Vorschau"
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Width="1000"
                 Height="1450">
-                <local:Urkunde.LayoutTransform>
-                    <ScaleTransform ScaleX="0.56" ScaleY="0.56"/>
-                </local:Urkunde.LayoutTransform>
+            <local:Urkunde.LayoutTransform>
+                <ScaleTransform ScaleX="0.56" ScaleY="0.56"/>
+            </local:Urkunde.LayoutTransform>
 
-            </local:Urkunde>
+        </local:Urkunde>
 
         <StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Grid.Column="0"
             Orientation="Vertical">
+
+            <ListView
+                MaxHeight="500"
+                Margin="0 0 0 25"
+                d:ItemsSource="{d:SampleData ItemCount=50}" x:Name="Spielerliste">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Vorname}" Header="Vorname" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Nachname}" Header="Nachname"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Vereinsname}" Header="Verein"/>
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
 
             <!-- Static text -->
             <TextBlock Text="Wir gratulieren" FontSize="16" Margin="0,0,0,10"/>
