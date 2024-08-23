@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d"         
-    Height="720" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
+    Height="750" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
     >
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
@@ -98,7 +98,9 @@
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding PlayOffUIVisible, Converter={StaticResource BoolToVisConverter}}" d:Visibility="Visible">
-            <local:Finaltabelle x:Name="PlayoffUI" HorizontalAlignment="Center"/>
+            <local:Finaltabelle x:Name="PlayoffUI" HorizontalAlignment="Center"
+             d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
+ />
         </Grid>
 
         <TextBlock x:Name="versionNumber" HorizontalAlignment="Left" Margin="5,0,5,2" Grid.Row="3" TextWrapping="Wrap" Text="Version MAJOR.MINOR.PATCH" VerticalAlignment="Center" Opacity="0.8" Height="16"/>
