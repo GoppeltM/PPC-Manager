@@ -8,7 +8,7 @@
              d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
              d:Background="White"
              Height="90"
-             d:DesignHeight="90" d:DesignWidth="300">
+             d:DesignHeight="90" d:DesignWidth="250">
     <UserControl.Resources>
         <local:OpacityConverter x:Key="OpacityConverter"/>
         <local:PartieIsFreilosVisibilityConverter x:Key="IsFreilos" />

@@ -62,7 +62,7 @@
 
             <DockPanel>
                 <fa:ImageAwesome Icon="Trophy" Width="18" Height="16" Margin="5,0,10,0" />
-                <TextBlock x:Name="Finale" Text="Finale konfigurieren:" Margin="5 3" FontSize="16" FontWeight="DemiBold"/>
+                <TextBlock x:Name="Finale" Text="Playoff konfigurieren:" Margin="5 3" FontSize="16" FontWeight="DemiBold"/>
             </DockPanel>
             <Grid>
                 <Grid.ColumnDefinitions>

@@ -23,10 +23,10 @@
     </UserControl.CommandBindings>
     <Grid d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="266" />
+            <ColumnDefinition Width="*" MinWidth="300" />
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" MinWidth="250" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -48,7 +48,7 @@
                 </Setter>
             </Style>
         </Grid.Resources>
-        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="26">
+        <TextBlock  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Height="26" Margin="5 0">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0} {1}">
                     <Binding Path="SpielerLinks.Vorname"/>
@@ -56,7 +56,7 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="27">
+        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Height="27" Margin="5 0">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0} {1}">
                     <Binding Path="SpielerRechts.Vorname"/>

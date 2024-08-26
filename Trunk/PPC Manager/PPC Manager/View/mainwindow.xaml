@@ -119,7 +119,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding PlayOffUIVisible, Converter={StaticResource BoolToVisConverter}}" d:Visibility="Visible">
-            <local:Finaltabelle x:Name="PlayoffUI" HorizontalAlignment="Center"
+            <local:Finaltabelle x:Name="PlayoffUI" HorizontalAlignment="Stretch"
                 d:DataContext="{d:DesignInstance local:DesignSpielPartie, IsDesignTimeCreatable=True}"
             />
         </Grid>
