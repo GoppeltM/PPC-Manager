@@ -74,7 +74,7 @@
                     <ComboBoxItem Content="Viertelfinale"/>
                     <ComboBoxItem Content="Halbfinale"/>
                     <ComboBoxItem Content="Finalrunde" ToolTip="Jeder gegen Jeden"/>
-                    <ComboBoxItem Content="Kein Finale" ToolTip="Gehe direkt zum Urkundendruck"/>
+                    <ComboBoxItem Content="Kein Finale" ToolTip="Gehe direkt zum Urkundendruck" Visibility="Collapsed"/>
                 </ComboBox>
             </Grid>
             <TextBlock x:Name="warning" Text="Warnung Warnung Warnung" VerticalAlignment="Bottom" />
