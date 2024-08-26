@@ -17,7 +17,7 @@ Public Class TurnierReport
     Private ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _Spielverlauf As ISpielverlauf(Of SpielerInfo)
 
-    Public Sub SchreibeRangliste(ByVal spieler As IEnumerable(Of SpielerInfo), rundeNr As Integer) Implements ITurnierReport.SchreibeRangliste
+    Public Sub SchreibeRangliste(ByVal _spieler As IEnumerable(Of SpielerInfo), rundeNr As Integer) Implements ITurnierReport.SchreibeRangliste
         Dim rundeString = rundeNr.ToString.PadLeft(2, "0"c)
         Dim sheetName = "sp_rd" & rundeString
         Dim Titles = {"Rang", "Vorname", "Nachname", "ID", "Geschlecht", "Geburtsjahr", "Verein", "TTRating", "Punkte", "Buchholzpunkte", "SonnebornBergerpunkte",
@@ -26,9 +26,11 @@ Public Class TurnierReport
         _SpreadSheet.LeereBlatt(sheetName)
         _SpreadSheet.NeueZeile(sheetName, Titles)
 
+        Dim spieler = If(_spieler.Count > 0, _spieler, CType(Application.Current, Application).AktiveCompetition.SpielerListe)
+
         Dim current = 1UI
 
-        For Each s In spieler
+        For Each s In Spieler
 
             Dim Geschlecht = Function() As String
                                  Select Case s.Geschlecht

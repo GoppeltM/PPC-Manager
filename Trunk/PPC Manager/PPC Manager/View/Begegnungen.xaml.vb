@@ -57,6 +57,7 @@ Class Begegnungen
         Dim App = CType(Application.Current, Application)
 
         Dim mainWindow = CType(App.MainWindow, MainWindow)
+        mainWindow._Controller.SaveExcel()
         mainWindow.NächsteRunde()
         mainWindow._Controller.SaveXML()
         mainWindow.SkipDialog = True

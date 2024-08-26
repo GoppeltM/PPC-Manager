@@ -191,9 +191,7 @@ Public Class Finaltabelle
         Dim mainWindow = CType(Application.Current.MainWindow, MainWindow)
 
         mainWindow._Controller.SaveXML()
-
-        Dim w = CType(Application.Current.MainWindow, MainWindow)
-        w._Controller.SaveExcel()
+        mainWindow._Controller.SaveExcel()
 
         If mainWindow.RundeAbgeschlossen() Then mainWindow.NächsteRunde()
     End Sub
@@ -206,9 +204,13 @@ Public Class Finaltabelle
     End Sub
 
     Friend Function NächsteRunde() As SpielRunde
+        Dim mainWindow = CType(Application.Current.MainWindow, MainWindow)
 
         If mode = FinalMode.Viertelfinale Then
             If competition.SpielRunden.Count = 1 Then
+
+                MainWindow._Controller.SaveExcel()
+
                 If players.Count > 8 OrElse players.Count < 5 Then
                     Throw New Exception("Falsche Anzahl an Spielern, 5 - 8 Spieler für Viertelfinale benötigt")
                 End If
@@ -258,6 +260,8 @@ Public Class Finaltabelle
 
         If mode = FinalMode.Halbfinale Then
             If competition.SpielRunden.Count = 1 Then
+                mainWindow._Controller.SaveExcel()
+
                 If players.Count > 4 OrElse players.Count < 3 Then
                     Throw New Exception("Falsche Anzahl an Spielern, 3 oder 4 Spieler für Halbfinale benötigt.")
                 End If

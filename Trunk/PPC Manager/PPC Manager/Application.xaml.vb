@@ -63,8 +63,8 @@ Class Application
 
         Resources("KlassementName") = AktiveCompetition.Altersgruppe
         Dim speichern = Sub() ZuXML.SaveXML(xmlPfad, Regeln, klassement, AktiveCompetition.SpielRunden)
-        Dim excelVerlauf = New Spielverlauf(spielRunden.Skip(1).Reverse.SelectMany(Function(m) m),
-                                        spielRunden.Skip(1).SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
+        Dim excelVerlauf = New Spielverlauf(spielRunden.Reverse.SelectMany(Function(m) m),
+                                        spielRunden.Reverse.SelectMany(Function(m) m.AusgeschiedeneSpielerIDs),
                                         spielstand)
         Dim excelFabrik = New ExcelFabrik(spielstand, excelVerlauf)
         Dim vergleicher = New SpielerInfoComparer(spielverlauf, Regeln.SatzDifferenz, Regeln.SonneBornBerger)
