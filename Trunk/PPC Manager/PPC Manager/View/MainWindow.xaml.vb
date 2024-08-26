@@ -33,7 +33,7 @@ Class MainWindow
     Private Property PlayoffIstAktiv As Boolean = False
 
     Private Property Competition As XElement
-    Private Property mode As Integer
+    Friend Property mode As Integer
 
     Public Property VorrundenUIVisible As Boolean = False
     Public Property PlayOffUIVisible As Boolean = False
@@ -48,7 +48,7 @@ Class MainWindow
             spielstand As ISpielstand,
             spielerVergleicher As IComparer,
             druckerFabrik As IDruckerFabrik,
-            tabs As Collection(Of String),
+            tabs As Collection(Of TabHeader),
             doc As XDocument)
         InitializeComponent()
         With My.Application.Info.Version
@@ -67,7 +67,7 @@ Class MainWindow
         PlayOffUIVisible = spielerliste.Count > 0 And (mode = 0 Or mode = 1)
 
         tabControl.ItemsSource = tabs
-        tabControl.SelectedIndex = tabs.IndexOf(klassement)
+        tabControl.SelectedIndex = tabs.ToList.FindIndex(Function(tab) tab.HeaderText = klassement)
 
         _Controller = controller
         _Spielrunden = spielrunden
@@ -467,10 +467,10 @@ Class MainWindow
         'save XML
         _Controller.SaveXML()
 
-        If TypeOf tabControl.SelectedItem Is String Then
+        If TypeOf tabControl.SelectedItem Is TabHeader Then
             SkipDialog = True
-            Dim selectedTab As String = CType(tabControl.SelectedItem, String)
-            CType(Application.Current, Application).LadeCompetition(sender, selectedTab)
+            Dim selectedTab = CType(tabControl.SelectedItem, TabHeader)
+            CType(Application.Current, Application).LadeCompetition(sender, selectedTab.HeaderText)
         End If
     End Sub
 

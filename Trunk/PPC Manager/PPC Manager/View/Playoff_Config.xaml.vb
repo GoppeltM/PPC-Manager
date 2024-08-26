@@ -4,7 +4,7 @@ Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Public Class MainWindowContext
     Public Property Spielerliste As ICollection(Of SpielerInfoTurnier)
-    Public Property KlassementListe As IEnumerable(Of String)
+    Public Property KlassementListe As IEnumerable(Of TabHeader)
 End Class
 
 Public Class SpielerInfoTurnier
@@ -51,13 +51,15 @@ Public Class Playoff_Config
         If Me.Doc Is Nothing Then
             DataContext = New MainWindowContext With {
                 .Spielerliste = New List(Of SpielerInfoTurnier),
-                .KlassementListe = New List(Of String)
+                .KlassementListe = New List(Of TabHeader)
             }
             Return
         End If
 
+        Dim app = CType(Application.Current, Application)
+
         DataContext = New MainWindowContext With {
-            .KlassementListe = New Collection(Of String)(doc.Root.<competition>.Where(Function(x) x.<players>.<player>.Any).Select(Function(x) x.Attribute("age-group").Value).ToList),
+            .KlassementListe = app.MakeTabHeaders("").Where(Function(tab) tab.PlayerCount > 0),
             .Spielerliste = LeseSpieler()
         }
 
@@ -198,9 +200,13 @@ Public Class Playoff_Config
             w.IsChecked = .@ppc:sex.Equals("w")
         End With
 
+        Dim compss = CompetitionNode.@ppc:competitions
+
         Dim comps = CompetitionNode.@ppc:competitions.Split(";".ToCharArray()(0)).ToList
         For Each comp In comps
-            Turnierfilter.SelectedItems.Add(comp)
+            If comp.Equals("") Then Continue For
+            Dim tab = Turnierfilter.Items.Cast(Of TabHeader).Single(Function(t) t.HeaderText = comp)
+            Turnierfilter.SelectedItems.Add(tab)
         Next
 
         SupressSaveProps = False
@@ -218,13 +224,15 @@ Public Class Playoff_Config
         Dim players = CompetitionNode.<players>
         If players IsNot Nothing AndAlso players.<player> IsNot Nothing AndAlso players.<player>.Count > 0 Then Return
 
+        Dim competitions = Turnierfilter.SelectedItems.Cast(Of TabHeader).Select(Function(tab) tab.HeaderText).ToList()
+
         With CompetitionNode
             .@ppc:finalsmodeSetting = mode.ToString
             .@ppc:ttrActive = ttr.IsChecked.ToString
             .@ppc:ttrLimit = ttrwert.Text
             .@ppc:ttrIsMin = min.IsChecked.ToString
             .@ppc:sex = If(m.IsChecked, "m", "w")
-            .@ppc:competitions = String.Join(";", Turnierfilter.SelectedItems.Cast(Of String).ToList)
+            .@ppc:competitions = String.Join(";", competitions)
         End With
 
         Doc.Save(app.xmlPfad)
@@ -236,7 +244,8 @@ Public Class Playoff_Config
 
         Dim filteredSpieler = LeseSpieler().ToList
 
-        Dim filter = Turnierfilter.SelectedItems
+        Dim filter = Turnierfilter.SelectedItems.Cast(Of TabHeader).Select(Function(tab) tab.HeaderText)
+
         If filter.Count > 0 Then
             filteredSpieler = filteredSpieler.Where(Function(x) filter.Contains(x.Klassement)).ToList
         End If
@@ -362,7 +371,7 @@ Public Class Playoff_Config
         End Select
         modeName &= " mit folgender Konfiguration:" & vbCrLf & vbCrLf
         'map selected Items to Names
-        Dim filter = Turnierfilter.SelectedItems
+        Dim filter = Turnierfilter.SelectedItems.Cast(Of TabHeader).Select(Function(tab) tab.HeaderText)
 
         If filter.Count > 0 Then
             modeName &= "Altersklasse: " & String.Join(", ", filter.Cast(Of String)) & vbCrLf

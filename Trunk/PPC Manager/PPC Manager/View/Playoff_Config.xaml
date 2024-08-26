@@ -1,26 +1,26 @@
 ﻿<UserControl x:Class="Playoff_Config"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PPC_Manager"
-             xmlns:fa="http://schemas.fontawesome.io/icons/"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance {x:Type local:MainWindowContext}}">
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:PPC_Manager"
+                xmlns:fa="http://schemas.fontawesome.io/icons/"
+                mc:Ignorable="d" 
+                d:DesignHeight="450" d:DesignWidth="1200" d:Background="White"
+                d:DataContext="{d:DesignInstance {x:Type local:MainWindowContext}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition />
-            <RowDefinition Height="28" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"  />
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="linkeListe" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Spielerliste, Mode=OneWay}" Grid.Row="1">
+        <ListView x:Name="linkeListe" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Spielerliste, Mode=OneWay}" Grid.Row="1" Margin="5 0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Klassement}" Header="Gruppe"/>
@@ -42,7 +42,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <ListView x:Name="rechteListe" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" >
+        <ListView x:Name="rechteListe" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="5 0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Klassement}" Header="Gruppe"/>
@@ -54,13 +54,22 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+        <StackPanel
+            Grid.Column="2" 
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch" 
+            Margin="5">
+
+            <DockPanel>
+                <fa:ImageAwesome Icon="Trophy" Width="18" Height="16" Margin="5,0,10,0" />
+                <TextBlock x:Name="Finale" Text="Finale konfigurieren:" Margin="5 3" FontSize="16" FontWeight="DemiBold"/>
+            </DockPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"  />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="label" Content="Finalmodus" Margin="0,10,0,0" VerticalAlignment="Top" Width="NaN"/>
+                <Label x:Name="label" Content="Finalmodus" Margin="-5,10,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="modus" Grid.Column="3" Margin="0,10,0,0" VerticalAlignment="Top" >
                     <ComboBoxItem Content="Viertelfinale"/>
                     <ComboBoxItem Content="Halbfinale"/>
@@ -68,35 +77,92 @@
                     <ComboBoxItem Content="Kein Finale" ToolTip="Gehe direkt zum Urkundendruck"/>
                 </ComboBox>
             </Grid>
-            <TextBlock x:Name="warning" Text="Warnung Warnung Warnung" VerticalAlignment="Bottom" Margin="5,0" />
+            <TextBlock x:Name="warning" Text="Warnung Warnung Warnung" VerticalAlignment="Bottom" />
+
         </StackPanel>
-        <StackPanel>
-            <TextBlock Text="Vorrundenergebnisse"  Margin="5,5,5,0" FontSize="14" FontWeight="Bold"/>
-            <DockPanel Margin="0,10,0,0">
-                <fa:ImageAwesome Icon="Filter" Width="15" Height="15" Margin="5,0,10,0" />
-                <StackPanel Margin="0,0,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="label2" Text="Geschlecht:"/>
-                        <RadioButton VerticalContentAlignment="Center" x:Name="m" Content="M" HorizontalAlignment="Left" Margin="10,0,0,0" IsChecked="True" GroupName="sex"/>
-                        <RadioButton VerticalContentAlignment="Center" x:Name="w" Content="W" HorizontalAlignment="Left" Margin="10,0,0,0" GroupName="sex"/>
-                    </StackPanel>
+        <TextBlock
+            Grid.Column="2"
+            Text="Finalteilnehmer:" 
+            Margin="5 3" FontSize="14" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        
+        
+        <StackPanel Margin="5">
+            <DockPanel>
+                <fa:ImageAwesome Icon="Filter" Width="12" Height="12" Margin="5,0,10,0" />
+                <TextBlock Text="Filter Spielerliste:"  Margin="5 3" FontSize="16" FontWeight="DemiBold" />
+            </DockPanel>
+            
+            <Grid Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Margin="0 0 5 0" Grid.Column="0">
                     <DockPanel>
-                        <TextBlock Text="TTR Limit:" />
-                        <TextBox
-                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                            x:Name="ttrwert" Width="50" Margin="10,0,0,0" Text="1050"/>
-                        <CheckBox VerticalContentAlignment="Center" x:Name="ttr" Content="aktiv" Margin="10,0,0,0" />
-                        <RadioButton
-                            VerticalContentAlignment="Center"
-                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                            x:Name="min" Content="min."  Margin="10,0,0,0" IsChecked="True" GroupName="ttr"/>
-                        <RadioButton
-                            VerticalContentAlignment="Center"
-                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                            x:Name="max" Content="max." Margin="10,0,0,0" GroupName="ttr"/>
+                        <fa:FontAwesome Icon="VenusMars" />
+                        <TextBlock x:Name="label2" Text="Geschlecht:" Margin="10 0"/>
                     </DockPanel>
-                    <TextBlock x:Name="label3" Text="Klassement:"/>
-                    <ListBox Margin="0,0,0,0" x:Name="Turnierfilter" SelectionMode="Multiple" Height="50" IsSynchronizedWithCurrentItem="False" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding KlassementListe}" SelectionChanged="ListBox_SelectionChanged" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+                    <RadioButton VerticalContentAlignment="Center" x:Name="w" HorizontalAlignment="Left" Margin="0 5" GroupName="sex">
+                        <DockPanel>
+                            <fa:FontAwesome Icon="Venus" Height="12" />
+                            <TextBlock Text="Damen" Margin="5 0" />
+                        </DockPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" x:Name="m" HorizontalAlignment="Left" Margin="0 5" IsChecked="True" GroupName="sex">
+                        <DockPanel>
+                            <fa:FontAwesome Icon="Mars" Height="12" />
+                            <TextBlock Text="Herren" Margin="5 0" />
+                        </DockPanel>
+                    </RadioButton>
+                </StackPanel>
+                
+                <StackPanel Margin="20 0" Grid.Column="1">
+                    <DockPanel>
+                        <fa:FontAwesome Icon="Signal" />
+                        <TextBlock Text="TTR Limit:" Margin="10 0" />
+                    </DockPanel>
+                    <TextBox
+                        Margin="0 0 0 3"
+                        VerticalAlignment="Stretch"
+                        IsEnabled="{Binding IsChecked, ElementName=ttr}"
+                        x:Name="ttrwert" Text="1050"/>
+                    <CheckBox Margin="0 0 0 3" VerticalContentAlignment="Center" x:Name="ttr" Content="aktiv"  />
+                    <RadioButton
+                            VerticalContentAlignment="Center"
+                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
+                            x:Name="min"  IsChecked="True" GroupName="ttr">
+                        <DockPanel>
+                            <TextBlock Text="&gt;= mindestens" Margin="5 0" />
+                        </DockPanel>
+                    </RadioButton>
+                    <RadioButton
+                            VerticalContentAlignment="Center"
+                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
+                            x:Name="max" GroupName="ttr">
+                        <DockPanel>
+                            <TextBlock Margin="5 0" Text="&lt; maximal" />
+                        </DockPanel>
+                    </RadioButton>
+                </StackPanel>
+
+                <StackPanel Margin="5 0 0 0" Grid.Column="2">
+                    <DockPanel>
+                        <fa:FontAwesome Icon="Group" />
+                        <TextBlock x:Name="label3" Margin="10 0" Text="Klassement:"/>
+                    </DockPanel>
+
+                    <ListBox 
+                            x:Name="Turnierfilter"
+                            SelectionMode="Multiple"
+                            d:ItemsSource="{d:SampleData ItemCount=5}"
+                            ItemsSource="{Binding KlassementListe}" 
+                            SelectionChanged="ListBox_SelectionChanged"
+                            MaxHeight="80"
+                            ScrollViewer.CanContentScroll="True"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" IsItemsHost="True" Margin="0,0,0,0"  Width="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=ActualWidth}" />
@@ -104,14 +170,27 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Content="{Binding}" HorizontalAlignment="Left" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" />
+                                <CheckBox HorizontalAlignment="Left" 
+                                          Tag="{Binding HeaderText}"
+                                          IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" >
+                                    <DockPanel>
+                                        <fa:FontAwesome Icon="{Binding Icon}" d:Icon="group" Height="12" />
+                                        <TextBlock Text="{Binding HeaderText}" Margin="5 0 10 0" />
+                                    </DockPanel>
+                                </CheckBox>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
-            </DockPanel>
+            </Grid>
+
         </StackPanel>
-        <TextBlock x:Name="Finale" TextAlignment="Center" Text="Finale&#xD;&#xA;Konfigurieren" Width="NaN" Margin="5,5,5,0" Grid.Column="1" FontSize="16"/>
-        <Button x:Name="Start" Content="Playoff Starten" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Margin="5" Padding="10,0" IsEnabled="False" />
+        <TextBlock Text="Vorrundenplatzierung:"  Margin="5 3" FontSize="14" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Button x:Name="Start" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Margin="5" Padding="10,0" IsEnabled="False">
+            <StackPanel Orientation="Horizontal">
+                <fa:FontAwesome Icon="Trophy" FontSize="16" VerticalAlignment="Center" Margin="5 0 10 0" />
+                <TextBlock>Playoff Starten</TextBlock>
+            </StackPanel>
+        </Button>
     </Grid>
 </UserControl>

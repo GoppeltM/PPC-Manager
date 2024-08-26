@@ -5,8 +5,9 @@
     xmlns:core="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
     Name="MyWindow" SnapsToDevicePixels="True" mc:Ignorable="d"         
-    Height="750" Width="1280" Icon="/PPC%20Manager;component/Icon.ico"
+    Height="760" Width="1300" Icon="/PPC%20Manager;component/Icon.ico"
     >
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
@@ -31,7 +32,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="18" />
-            <RowDefinition Height="28" />
+            <RowDefinition Height="43" />
             <RowDefinition />
             <RowDefinition Height="18" />
         </Grid.RowDefinitions>
@@ -41,10 +42,30 @@
         </Grid.ColumnDefinitions>
         <local:Hauptmenü x:Name="Hauptmenü" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="18" />
 
-        <TabControl d:ItemsSource="{d:SampleData}" SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,0" HorizontalAlignment="Left" Width="{Binding ElementName=MyWindow, Path=Width}" Height="24"  >
+        <TabControl 
+            d:ItemsSource="{d:SampleData}"
+            SelectionChanged="TabControl_SelectionChanged" 
+            x:Name="tabControl"
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+            Margin="0,0,0,0"
+            HorizontalAlignment="Stretch"
+            Height="43" SelectedIndex="1" IsSynchronizedWithCurrentItem="False"  >
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem">
+                    <Setter Property="Height" Value="40"/>
+                    <!-- Set the height of the tab -->
+                </Style>
+            </TabControl.ItemContainerStyle>
+
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" />
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Foreground="#555555" Icon="{Binding Icon}" d:Icon="Question" Width="20" Height="20" Margin="3 0 7 0" />
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding HeaderText}" FontWeight="{Binding FontWeight}" FontSize="14"/>
+                            <TextBlock Text="{Binding SubText}" FontSize="12" Foreground="Gray"/>
+                        </StackPanel>
+                    </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>

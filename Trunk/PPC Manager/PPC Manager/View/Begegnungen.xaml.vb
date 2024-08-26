@@ -1,4 +1,5 @@
 ﻿Imports System.Globalization
+Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
 Class Begegnungen
 
@@ -10,6 +11,11 @@ Class Begegnungen
         ' This call is required by the designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
+
+        Dim app = CType(Application.Current.MainWindow, MainWindow)
+        If app.mode > -1 Then
+            VorrundeStartenLabel.Text = "Finalrunde Starten"
+        End If
     End Sub
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)

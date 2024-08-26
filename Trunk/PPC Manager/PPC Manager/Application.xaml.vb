@@ -3,6 +3,14 @@ Imports System.IO
 Imports DocumentFormat.OpenXml.EMMA
 Imports <xmlns:ppc="http://www.ttc-langensteinbach.de">
 
+Public Class TabHeader
+    Public Property Icon As String
+    Public Property HeaderText As String
+    Public Property SubText As String
+    Public Property FontWeight As String
+    Public Property PlayerCount As Integer
+End Class
+
 Class Application
 
     ' Ereignisse auf Anwendungsebene wie Startup, Exit und DispatcherUnhandledException
@@ -34,7 +42,7 @@ Class Application
         AktiveCompetition = Nothing
         competition = klassement
         doc = XDocument.Load(xmlPfad)
-        Dim AlleCompetitions = New Collection(Of String)(doc.Root.<competition>.Select(Function(x) x.Attribute("age-group").Value).ToList)
+        Dim TabHeaders As Collection(Of TabHeader) = New Collection(Of TabHeader)(MakeTabHeaders(klassement))
         Dim Regeln = SpielRegeln.Parse(doc, klassement)
         Dim spielRunden = New SpielRunden
         Dim spielpartien = spielRunden.SelectMany(Function(m) m)
@@ -102,7 +110,7 @@ Class Application
                                     spielstand,
                                     vergleicher,
                                     New DruckerFabrik,
-                                    AlleCompetitions,
+                                    TabHeaders,
                                     doc)
 
         MainWindow = window
@@ -143,4 +151,52 @@ Class Application
             ShutdownMode = ShutdownMode.OnMainWindowClose
         End With
     End Sub
+
+    Friend Function MakeTabHeaders(klassement As String) As List(Of TabHeader)
+        Dim tabs As New List(Of TabHeader)()
+
+        ' Iterate over each competition node
+        For Each competition As XElement In doc.Root.<competition>
+            ' Retrieve the necessary attributes and elements
+            Dim ageGroup As String = competition.Attribute("age-group").Value
+            Dim icon As String = "defaultIcon.png" ' Set a default icon or choose one based on your logic
+            Dim fontWeight As String = ""
+
+            ' Determine the SubText based on the conditions
+            Dim subText As String
+            Dim hasPlayers As Boolean = competition.<players>.<player>.Any()
+            Dim playerCount As Integer = competition.<players>.<player>.Count()
+            Dim hasFinalsMode As Boolean = competition.@ppc:finalsmode IsNot Nothing
+
+            If Not hasPlayers Then
+                subText = "Playoff Config"
+                icon = "sliders"
+            ElseIf hasFinalsMode Then
+                subText = "Playoff"
+                icon = "Trophy"
+            Else
+                subText = "Vorrunde"
+                icon = "Group"
+            End If
+
+            If ageGroup = klassement Then
+                fontWeight = "DemiBold"
+            End If
+
+            ' Create a new TabHeader object and add it to the tabs list
+            Dim tabHeader As New TabHeader With {
+                .HeaderText = ageGroup,
+                .SubText = subText,
+                .Icon = icon,
+                .FontWeight = fontWeight,
+                .PlayerCount = playerCount
+            }
+
+            tabs.Add(tabHeader)
+        Next
+
+        tabs.Sort(Function(a, b) String.Compare(a.Icon, b.Icon))
+
+        Return tabs
+    End Function
 End Class

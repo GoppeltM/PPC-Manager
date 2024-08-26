@@ -60,7 +60,7 @@
 
             <Button Grid.Row="1" Grid.Column="1" Margin="0 10 10 10" Click="Button_Click" x:Name="VorrundeStarten">
                 <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch">
-                    <TextBlock FontSize="20" FontWeight="DemiBold">Vorrunde Starten</TextBlock>
+                    <TextBlock FontSize="20" FontWeight="DemiBold" x:Name="VorrundeStartenLabel">Vorrunde Starten</TextBlock>
                     <fa:ImageAwesome Icon="AngleRight" Width="15" Height="15" Margin="30 0 0 0" />
                 </StackPanel> 
             </Button>
