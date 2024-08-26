@@ -84,11 +84,21 @@ Public Class RangListeSpieler
                 If runde.Count = 0 Then Continue For
 
                 Dim gespieltePartien = From x In runde Where x.SpielerLinks = Me Or x.SpielerRechts = Me
-                If gespieltePartien.Count = 0 Then l.Add("--")
+
+                'Dependent on the length of IDs
+                Dim IDPlaceholder As String = String.Join("", runde(0).SpielerLinks.StartNummer.ToString.ToList().Concat("-".ToCharArray).Select(Function(c) "-"))
+
+                If gespieltePartien.Count = 0 Then l.Add(IDPlaceholder)
+
+
+                Dim FreilosPlaceholder = "FL"
+                For i As Integer = 3 To IDPlaceholder.Count
+                    FreilosPlaceholder = " " & FreilosPlaceholder
+                Next
 
                 For Each partie In gespieltePartien
                     If TypeOf partie Is FreiLosSpiel Then
-                        l.Add("FL")
+                        l.Add(FreilosPlaceholder)
                         Continue For
                     End If
 
