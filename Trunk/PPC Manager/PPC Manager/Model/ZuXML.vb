@@ -67,6 +67,7 @@ Public Class ZuXML
         doc.Save(dateipfad)
         Dim BereinigtesDoc = New XDocument(doc)
         BereinigeNamespaces(BereinigtesDoc)
+        FixXmlIssues(BereinigtesDoc)
         Dim ClickTTPfad = IO.Path.Combine(IO.Path.GetDirectoryName(dateipfad), IO.Path.GetFileNameWithoutExtension(dateipfad) & "_ClickTT.xml")
 
         BereinigtesDoc.Save(ClickTTPfad)
@@ -127,6 +128,81 @@ Public Class ZuXML
         Next
 
     End Sub
+
+    ' Function that fixes the XML issues
+    Public Shared Sub FixXmlIssues(xDoc As XDocument)
+        ' Dictionary to track existing player IDs and corresponding internal-nr
+        Dim playerIdDict As New Dictionary(Of String, String)()
+
+        ' Step 1: Collect all existing player IDs and their internal-nr
+        Dim players As IEnumerable(Of XElement) = xDoc.Descendants("player")
+        For Each player As XElement In players
+            Dim playerId As String = player.Attribute("id").Value
+            Dim person As XElement = player.Element("person")
+
+            If person IsNot Nothing AndAlso person.Attribute("internal-nr") IsNot Nothing Then
+                Dim internalNr As String = person.Attribute("internal-nr").Value
+
+                ' Store the internal-nr if not already in the dictionary
+                If Not playerIdDict.ContainsKey(playerId) Then
+                    playerIdDict(playerId) = internalNr
+                End If
+            End If
+        Next
+
+        ' Dictionary to track existing player IDs and corresponding internal-nr
+        Dim playerOccurenceDict As New Dictionary(Of String, Integer)()
+
+        Dim competitions As IEnumerable(Of XElement) = xDoc.Descendants("competition")
+        For Each competition As XElement In competitions
+
+            ' Step 2: Process players within the competition
+            Dim playersComp As IEnumerable(Of XElement) = competition.Descendants("player")
+
+            ' Step 2: Ensure unique IDs for all players and copy internal-nr where necessary
+            For Each player As XElement In playersComp
+                Dim playerId As String = player.Attribute("id").Value
+
+
+                ' If there are multiple players with the same ID, resolve duplicates
+                If playerOccurenceDict.ContainsKey(playerId) Then
+                    Dim newPlayerId As String = playerId & "_" & playerOccurenceDict(playerId).ToString()
+                    player.SetAttributeValue("id", newPlayerId)
+
+                    playerOccurenceDict(playerId) = playerOccurenceDict(playerId) + 1
+
+                    ' Step 3: Copy internal-nr from the dictionary if not present
+                    Dim person As XElement = player.Element("person")
+                    If person IsNot Nothing AndAlso person.Attribute("internal-nr") Is Nothing Then
+                        Dim internalNr As String = playerIdDict(playerId) ' Get the internal-nr from the dictionary
+                        person.SetAttributeValue("internal-nr", internalNr)
+                    End If
+                Else
+                    playerOccurenceDict(playerId) = 1
+                End If
+            Next
+
+
+            ' Step 3: Update player references in matches within the competition
+            Dim matches As IEnumerable(Of XElement) = competition.Descendants("match")
+            For Each match As XElement In matches
+                ' Update player-a reference if necessary
+                Dim playerA As String = match.Attribute("player-a").Value
+                If playerOccurenceDict.ContainsKey(playerA) AndAlso playerOccurenceDict(playerA) > 1 Then
+                    match.SetAttributeValue("player-a", playerA & "_" & playerOccurenceDict(playerA) - 1)
+                End If
+
+                ' Update player-b reference if necessary
+                Dim playerB As String = match.Attribute("player-b").Value
+                If playerOccurenceDict.ContainsKey(playerB) AndAlso playerOccurenceDict(playerB) > 1 Then
+                    match.SetAttributeValue("player-b", playerB & "_" & playerOccurenceDict(playerB) - 1)
+                End If
+            Next
+
+        Next
+
+    End Sub
+
 
 
     Shared Function PartieZuXML(partie As SpielPartie, spielstand As ISpielstand, matchNr As Integer) As XElement
