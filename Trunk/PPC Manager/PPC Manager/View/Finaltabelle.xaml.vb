@@ -67,7 +67,20 @@ Public Class Finaltabelle
 
         If mode = FinalMode.Viertelfinale Then
             Dim runde = If(competition.SpielRunden.Count >= 2, SortiereFreiloseInViertelFinale(competition.SpielRunden.Reverse(1)), NächsteRunde())
+            If (competition.SpielRunden.Count >= 2) Then
+                'Schreibe die korrekte Sortierung zurück ins Competition Objekt, da dieses auch in NächsteRunde() verwendet wird
+                'SpielRunden ist aus historischen Gründen ein Stack, das heißt wir müssen das zuerst in eine Liste umwandeln um ein bestimmtes Element zu ersetzen (Runde 1 an zweiter Position)
+                Dim RundenListe As List(Of SpielRunde) = competition.SpielRunden.ToList()
 
+                RundenListe(RundenListe.Count - 2) = runde
+
+                'Stack leeren und neu aufbauen
+                competition.SpielRunden.Clear()
+                RundenListe.Reverse()
+                For Each r In RundenListe
+                    competition.SpielRunden.Push(r)
+                Next
+            End If
             SetViertelFinalDataContext(runde)
 
             runde = If(competition.SpielRunden.Count >= 3, competition.SpielRunden.Reverse(2), Nothing)
