@@ -100,7 +100,7 @@
                 Grid.Row="8"
                 Grid.ColumnSpan="2"
                 FontSize="30" VerticalAlignment="Center"
-                >anlässlich des 24. Turniers</TextBlock>
+                >anlässlich des 25. Turniers</TextBlock>
             <TextBlock
                 Grid.Row="9"
                 Grid.ColumnSpan="2"
