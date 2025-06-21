@@ -14,7 +14,7 @@ Public Class LadenNeu
                 With CompetitionCombo
                     .Items.Clear()
                     For Each Entry In doc.Root.<competition>
-                        .Items.Add(Entry.Attribute("age-group").Value)
+                        .Items.Add(Entry.Attribute("ttr-remarks").Value)
                     Next
                     .IsEnabled = True
                 End With
@@ -65,7 +65,7 @@ Public Class LadenNeu
         If Not e.AddedItems.Count > 0 Then Return
         Dim Item = e.AddedItems(0).ToString
         Dim competition = (From x In doc.Root.<competition>
-                           Where x.Attribute("age-group").Value = Item Select x).Single
+                           Where x.Attribute("ttr-remarks").Value = Item Select x).Single
 
         ' don't trigger save event while parsing XML and updating UI
         suppressSave = True
@@ -102,7 +102,7 @@ Public Class LadenNeu
         Dim comp = CompetitionCombo.SelectedItem.ToString
         If comp <> "" Then
             Dim competition = (From x In doc.Root.<competition>
-                               Where x.Attribute("age-group").Value = comp Select x).Single
+                               Where x.Attribute("ttr-remarks").Value = comp Select x).Single
             competition.@ppc:gewinnsätze = GewinnsätzeAnzahl.Value.ToString.ToLower
             competition.@ppc:satzdifferenz = SatzDiffCheck.IsChecked.ToString.ToLower
             competition.@ppc:sonnebornberger = SonneBorn.IsChecked.ToString.ToLower

@@ -21,7 +21,7 @@ Public Class Speicher
     Public ReadOnly Property KlassementNamen As IEnumerable(Of String) Implements ISpeicher.KlassementNamen
         Get
             Dim doc = _Dateisystem.LadeXml()
-            Return (From x In doc.Root.<competition> Select x.Attribute("age-group").Value).ToList
+            Return (From x In doc.Root.<competition> Select x.Attribute("ttr-remarks").Value).ToList
         End Get
     End Property
 
@@ -44,7 +44,7 @@ Public Class Speicher
                                         .ID = id,
                                         .Fremd = fremd,
                                         .Geschlecht = Integer.Parse(person.@sex),
-                                        .Klassement = klassement.Attribute("age-group").Value,
+                                        .Klassement = klassement.Attribute("ttr-remarks").Value,
                                         .LizenzNr = person.Attribute("licence-nr").Value,
                                         .Nachname = person.@lastname,
                                         .Vorname = person.@firstname,

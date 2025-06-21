@@ -81,7 +81,7 @@ Public Class Playoff_Config
         Dim klassements = Doc.Root.<competition>.OrderBy(Function(x) x.Attribute("ttr-from").Value).Reverse
 
         For Each klassement In klassements
-            Dim comp = klassement.Attribute("age-group").Value
+            Dim comp = klassement.Attribute("ttr-remarks").Value
 
             allespieler.AddRange(SpielerNachRangliste(comp))
         Next
@@ -183,7 +183,7 @@ Public Class Playoff_Config
         If Turnierfilter Is Nothing Then Return
         Dim app = CType(Application.Current, Application)
 
-        Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
+        Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("ttr-remarks").Value = app.competition).Single
         Dim players = CompetitionNode.<players>
         If players IsNot Nothing AndAlso players.<player> IsNot Nothing AndAlso players.<player>.Count > 0 Then Return
 
@@ -220,7 +220,7 @@ Public Class Playoff_Config
         Dim app = CType(Application.Current, Application)
         If Not force AndAlso Not CType(app.MainWindow, MainWindow).PlayOffConfigVisible Then Return
 
-        Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("age-group").Value = app.competition).Single
+        Dim CompetitionNode = (From x In Doc.Root.<competition> Where x.Attribute("ttr-remarks").Value = app.competition).Single
         Dim players = CompetitionNode.<players>
         If players IsNot Nothing AndAlso players.<player> IsNot Nothing AndAlso players.<player>.Count > 0 Then Return
 

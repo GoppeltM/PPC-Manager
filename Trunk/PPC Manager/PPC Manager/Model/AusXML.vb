@@ -21,7 +21,7 @@ Public Class AusXML
             spielerliste.Add(s)
         Next
         SpielRundenFromXML(spielrunden, spielerliste, If(node.<matches>.SingleOrDefault, New XElement("matches")))
-        Dim altersgruppe = node.Attribute("age-group").Value
+        Dim altersgruppe = node.Attribute("ttr-remarks").Value
 
         Return New Competition(spielRegeln, spielrunden, spielerliste, altersgruppe)
     End Function
@@ -135,7 +135,7 @@ Public Class AusXML
                                               gruppe As String,
                                               spielRegeln As SpielRegeln,
                                               spielRunden As SpielRunden) As Competition
-        Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = gruppe).Single
+        Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("ttr-remarks").Value = gruppe).Single
         ' Syntax Checks
 
         Return CompetitionFromXML(dateiPfad, competitionXML, spielRegeln, spielRunden)

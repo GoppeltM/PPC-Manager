@@ -102,7 +102,7 @@ Public Class SpielerRepository
                 _Speicher.Speichere(Sub(klassements)
                                         For Each el In alte
                                             If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler löschbar")
-                                            Dim klassement = (From x In klassements Where x.Attribute("age-group").Value = el.Klassement).First
+                                            Dim klassement = (From x In klassements Where x.Attribute("ttr-remarks").Value = el.Klassement).First
                                             Dim zuLöschen = (From x In klassement.<players>.<ppc:player>
                                                              Where x.@id = el.ID)
                                             zuLöschen.Remove()

@@ -56,7 +56,7 @@ Class Application
 
         Catch ex As SpielDatenUnvollständigException
             'Fehler wird in MainWindow behandelt, um UI Fehlermeldungen anzuzeigen, statt abzustürzen
-            Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = competition).Single
+            Dim competitionXML = (From x In doc.Root.<competition> Where x.Attribute("ttr-remarks").Value = competition).Single
             Dim spielerInfos = AusXML.SpielerListeFromXML(competitionXML.<players>)
             If AktiveCompetition Is Nothing Then AktiveCompetition = New Competition(spielerInfos, competition)
         End Try
@@ -158,7 +158,7 @@ Class Application
         ' Iterate over each competition node
         For Each competition As XElement In doc.Root.<competition>
             ' Retrieve the necessary attributes and elements
-            Dim ageGroup As String = competition.Attribute("age-group").Value
+            Dim ageGroup As String = competition.Attribute("ttr-remarks").Value
             Dim icon As String = "defaultIcon.png" ' Set a default icon or choose one based on your logic
             Dim fontWeight As String = ""
 

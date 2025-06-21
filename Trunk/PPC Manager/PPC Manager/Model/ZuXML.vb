@@ -4,7 +4,7 @@ Public Class ZuXML
 
     Public Shared Sub AddSpieler(doc As XDocument, spieler As IEnumerable(Of SpielerInfoTurnier), altersgruppe As String, mode As Integer)
 
-        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = altersgruppe).Single
+        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("ttr-remarks").Value = altersgruppe).Single
         CompetitionNode.@ppc:finalsmode = mode.ToString
         Dim SpielerListe = CompetitionNode.<players>.SingleOrDefault
         If SpielerListe Is Nothing Then
@@ -53,7 +53,7 @@ Public Class ZuXML
                               altersgruppe As String,
                               spielrunden As SpielRunden)
         Dim doc = XDocument.Load(dateipfad)
-        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("age-group").Value = altersgruppe).Single
+        Dim CompetitionNode = (From x In doc.Root.<competition> Where x.Attribute("ttr-remarks").Value = altersgruppe).Single
         CompetitionNode.@ppc:satzdifferenz = spielregeln.SatzDifferenz.ToString.ToLower
         CompetitionNode.@ppc:gewinnsätze = spielregeln.Gewinnsätze.ToString
         CompetitionNode.@ppc:sonnebornberger = spielregeln.SonneBornBerger.ToString.ToLower

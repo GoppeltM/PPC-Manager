@@ -58,7 +58,7 @@ Class MainWindow
 
         DataContext = Me
 
-        Competition = doc.Root.<competition>.First(Function(x) x.Attribute("age-group").Value = klassement)
+        Competition = doc.Root.<competition>.First(Function(x) x.Attribute("ttr-remarks").Value = klassement)
         Dim finalsmode = Competition.@ppc:finalsmode
         mode = If(finalsmode Is Nothing, -1, Integer.Parse(finalsmode))
 

@@ -15,7 +15,7 @@ Public Class SpielRegelnUI
 
         If comp <> "" Then
             Dim competition = (From x In doc.Root.<competition>
-                               Where x.Attribute("age-group").Value = comp Select x).Single
+                               Where x.Attribute("ttr-remarks").Value = comp Select x).Single
             competition.@ppc:gewinnsätze = GewinnsätzeAnzahl.Value.ToString.ToLower
             competition.@ppc:satzdifferenz = SatzDiffCheck.IsChecked.ToString.ToLower
             competition.@ppc:sonnebornberger = SonneBorn.IsChecked.ToString.ToLower

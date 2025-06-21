@@ -31,7 +31,7 @@ Public Class SpielRegeln
 
     Public Shared Function Parse(doc As XDocument, klassement As String) As SpielRegeln
         Dim competition = (From x In doc.Root.<competition>
-                           Where x.Attribute("age-group").Value = klassement Select x).Single
+                           Where x.Attribute("ttr-remarks").Value = klassement Select x).Single
 
         Dim GewinnsätzeAnzahl As Double = 3
         Dim SatzDiffCheck As Boolean = True
