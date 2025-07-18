@@ -161,8 +161,8 @@ Public Class PaketBildung(Of T)
             vorgänger = SucheNächstesPaket(oberePakete, unterePakete, mittelPaket, True)
         End While
 
-        MessageBox.Show("Es können keine Paarungen mehr gebildet werden. Dies war die letzte Runde." + vbNewLine +
-                        "Bitte die erzeugte Runde verwerfen und stattdessen die Playoffs starten.", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning)
+        Throw New InvalidOperationException("Es können keine Paarungen mehr gebildet werden. Dies war die letzte Runde." + vbNewLine +
+                            "Bitte stattdessen in einem anderen Tab ein Playoff starten.")
 
     End Sub
 

@@ -338,7 +338,13 @@ Class MainWindow
 
         Try
             Dim rundenName = "Runde " & _Spielrunden.Count
-            Dim runde = _Controller.NächsteRunde(rundenName)
+            Dim runde As SpielRunde = Nothing
+            Try
+                runde = _Controller.NächsteRunde(rundenName)
+            Catch ex As InvalidOperationException
+                MessageBox.Show(ex.Message, "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning)
+                Return
+            End Try
             _Spielrunden.Push(runde)
         Catch ex As ExcelNichtBeschreibbarException
             MessageBox.Show(
@@ -357,10 +363,7 @@ Class MainWindow
     End Sub
 
     Private Sub NächsteRunde_Executed(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
-        If MessageBox.Show("Wollen Sie wirklich die nächste Runde starten? Sobald die nächste Runde beginnt, können die aktuellen Ergebnisse nicht mehr verändert werden.",
-                   "Nächste Runde?", MessageBoxButton.YesNo) <> MessageBoxResult.Yes Then
-            Return
-        End If
+
 
         NächsteRunde()
 
