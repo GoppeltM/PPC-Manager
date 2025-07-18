@@ -198,6 +198,7 @@ Public Class Playoff_Config
             max.IsChecked = Boolean.Parse(.@ppc:ttrIsMin) = False
             m.IsChecked = .@ppc:sex.Equals("m")
             w.IsChecked = .@ppc:sex.Equals("w")
+            u.IsChecked = .@ppc:sex.Equals("u")
         End With
 
         Dim compss = CompetitionNode.@ppc:competitions
@@ -231,7 +232,7 @@ Public Class Playoff_Config
             .@ppc:ttrActive = ttr.IsChecked.ToString
             .@ppc:ttrLimit = ttrwert.Text
             .@ppc:ttrIsMin = min.IsChecked.ToString
-            .@ppc:sex = If(m.IsChecked, "m", "w")
+            .@ppc:sex = If(m.IsChecked, "m", If(u.IsChecked, "u", "w"))
             .@ppc:competitions = String.Join(";", competitions)
         End With
 
@@ -250,7 +251,9 @@ Public Class Playoff_Config
             filteredSpieler = filteredSpieler.Where(Function(x) filter.Contains(x.Klassement)).ToList
         End If
 
-        filteredSpieler = filteredSpieler.Where(Function(x) x.Geschlecht = If(m.IsChecked, 1, 0)).ToList
+        If Not u.IsChecked Then
+            filteredSpieler = filteredSpieler.Where(Function(x) x.Geschlecht = If(m.IsChecked, 1, 0)).ToList
+        End If
 
         Dim ttrValue = -1
         If ttr.IsChecked AndAlso Integer.TryParse(ttrwert.Text, ttrValue) Then
@@ -268,7 +271,7 @@ Public Class Playoff_Config
         SaveFilters()
     End Sub
 
-    Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, min.Checked, max.Checked, ttr.Click
+    Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, u.Checked, min.Checked, max.Checked, ttr.Click
         UpdateFilteredList()
     End Sub
 

@@ -110,10 +110,16 @@
                             <TextBlock Text="Damen" Margin="5 0" />
                         </DockPanel>
                     </RadioButton>
-                    <RadioButton VerticalContentAlignment="Center" x:Name="m" HorizontalAlignment="Left" Margin="0 5" IsChecked="True" GroupName="sex">
+                    <RadioButton VerticalContentAlignment="Center" x:Name="m" HorizontalAlignment="Left" Margin="0 5" GroupName="sex">
                         <DockPanel>
                             <fa:FontAwesome Icon="Mars" Height="12" />
                             <TextBlock Text="Herren" Margin="5 0" />
+                        </DockPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" x:Name="u" HorizontalAlignment="Left" Margin="0 5" IsChecked="True" GroupName="sex">
+                        <DockPanel>
+                            <fa:FontAwesome Icon="VenusMars" Height="12" />
+                            <TextBlock Text="Offen" Margin="5 0" />
                         </DockPanel>
                     </RadioButton>
                 </StackPanel>
