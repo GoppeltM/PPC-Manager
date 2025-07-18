@@ -5,7 +5,12 @@ Public Class LadenNeu
     Private suppressSave As Boolean = False
     Private doc As XDocument
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
+    'Upon rendering the dialog, immediately call Datei_Laden
+    Private Sub LadenNeu_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+        Datei_Laden(sender, e)
+    End Sub
+
+    Private Sub Datei_Laden(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Button1.Click
         With LadenDialog()
             If .ShowDialog Then
                 XMLPathText.Text = .FileName
@@ -18,6 +23,11 @@ Public Class LadenNeu
                     Next
                     .IsEnabled = True
                 End With
+
+                If CompetitionCombo.Items.Count > 0 Then
+                    CompetitionCombo.SelectedIndex = 0
+                    Turnier_Laden(sender, e)
+                End If
 
             End If
         End With
@@ -56,7 +66,7 @@ Public Class LadenNeu
         Me.Close()
     End Sub
 
-    Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
+    Private Sub Turnier_Laden(sender As Object, e As RoutedEventArgs)
         Me.DialogResult = True
         Me.Close()
     End Sub
