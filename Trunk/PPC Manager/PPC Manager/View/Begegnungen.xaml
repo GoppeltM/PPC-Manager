@@ -28,8 +28,32 @@
             <RowDefinition Height="96" />
             <RowDefinition Height="378*" />
         </Grid.RowDefinitions>
-        <local:SpielPartieDetail Grid.Row="0" HorizontalAlignment="Left" Margin="5,0,0,5" 
-              x:Name="DetailGrid" VerticalAlignment="Stretch" DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" />
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="130" />
+            </Grid.ColumnDefinitions>
+            <local:SpielPartieDetail
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                Margin="5,0,0,5"
+                x:Name="DetailGrid"
+                VerticalAlignment="Stretch"
+                DataContext="{Binding Path=/, Source={StaticResource PartieView}, Mode=TwoWay}" />
+            <Button
+                Grid.Column="1"
+                x:Name="NächsteRunde"
+                Command="NavigationCommands.NextPage"
+                IsEnabled="{Binding Path=CanExecute, Source={x:Static NavigationCommands.NextPage}, Mode=OneWay}"
+                Content="Nächste Runde"
+                HorizontalAlignment="Center"
+                Margin="5,0,0,5"
+                VerticalAlignment="Top"
+                Width="120"
+                Height="30" />
+        </Grid>
+
         <local:SpielPartienListe x:Name="SpielPartienListe" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                  Grid.Row="1" DataContext="{Binding Source={StaticResource PartieView}}" />
         <Grid

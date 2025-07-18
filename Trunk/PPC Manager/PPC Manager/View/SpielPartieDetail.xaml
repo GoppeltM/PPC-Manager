@@ -23,10 +23,10 @@
     </UserControl.CommandBindings>
     <Grid d:DataContext="{x:Static local:DesignSpielPartien.DesignSpielPartie}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="300" />
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" MinWidth="180" />
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="*" MinWidth="250" />
+            <ColumnDefinition Width="Auto" MinWidth="120" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
