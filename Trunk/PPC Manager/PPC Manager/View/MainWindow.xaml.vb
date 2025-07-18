@@ -342,6 +342,9 @@ Class MainWindow
             Try
                 runde = _Controller.NächsteRunde(rundenName)
             Catch ex As InvalidOperationException
+                If My.Settings.AutoSaveAn Then
+                    _Controller.SaveExcel()
+                End If
                 MessageBox.Show(ex.Message, "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning)
                 Return
             End Try
