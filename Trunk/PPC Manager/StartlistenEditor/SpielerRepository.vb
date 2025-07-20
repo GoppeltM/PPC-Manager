@@ -65,7 +65,7 @@ Public Class SpielerRepository
             If Not el.Fremd Then Throw New InvalidOperationException("Nur Fremdspieler hinzufügbar")
 
             Dim klassementNode = (From x In klassements
-                                  Where x.Attribute("age-group").Value = el.Klassement).<players>.Single
+                                  Where x.Attribute("ttr-remarks").Value = el.Klassement).<players>.Single
             Dim person = <person
                              licence-nr=<%= el.LizenzNr %>
                              club-name=<%= el.Verein %>
