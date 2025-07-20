@@ -40,7 +40,7 @@
         <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource ControlStyle}" Click="Button_Click" Content="{Binding Dateiname}" />
         <DataGrid Grid.Row="4" Grid.ColumnSpan="2" Margin="0,5,0,0" ItemsSource="{Binding Klassements}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Klassement Name" Binding="{Binding KlassementName}" />
+                <DataGridTextColumn Header="Klassement Name" Binding="{Binding TTRHinweis}" />
                 <DataGridTemplateColumn Header="Startzeit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -53,7 +53,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="TTR Hinweis" Binding="{Binding TTRHinweis}" />
+                <DataGridTextColumn Header="TTR Hinweis" Binding="{Binding TTRHinweis}" Visibility="Collapsed"/>
                 <DataGridComboBoxColumn x:Name="KlassementTyp" Header="Typ" SelectedItemBinding="{Binding Typ}"/>
             </DataGrid.Columns>
         </DataGrid>
