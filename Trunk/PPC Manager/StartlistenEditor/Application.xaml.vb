@@ -59,7 +59,10 @@ Class Application
                                         <%= From x In .Klassements Select <competition start-date=<%= x.KlassementStart.ToString("yyyy-MM-dd H:mm") %>
                                                                               ttr-remarks=<%= x.TTRHinweis %>
                                                                               age-group=<%= x.KlassementName %>
-                                                                              type=<%= x.Typ %>>
+                                                                              type=<%= x.Typ %>
+                                                                              ttr-from="0"
+                                                                              ttr-to="3000"
+                                                                              >
                                                                               <players/>
                                                                           </competition> %>
                                     </tournament>)
