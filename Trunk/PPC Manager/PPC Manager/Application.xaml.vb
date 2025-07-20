@@ -164,8 +164,8 @@ Class Application
 
             ' Determine the SubText based on the conditions
             Dim subText As String
-            Dim hasPlayers As Boolean = competition.<players>.<player>.Any()
-            Dim playerCount As Integer = competition.<players>.<player>.Count()
+            Dim hasPlayers As Boolean = competition.<players>.<player>.Any() OR competition.<players>.<ppc:player>.Any()
+            Dim playerCount As Integer = competition.<players>.<player>.Count() OR competition.<players>.<ppc:player>.Count()
             Dim hasFinalsMode As Boolean = competition.@ppc:finalsmode IsNot Nothing
 
             If Not hasPlayers Then
