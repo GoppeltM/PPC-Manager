@@ -70,15 +70,15 @@ Public Class Selectable
 
     Public Sub New()
         MyBase.New()
-        AddHandler Me.MouseLeftButtonDown, AddressOf OnMouseLeftButtonDown
-        AddHandler Me.MouseEnter, AddressOf OnMouseEnter
-        AddHandler Me.MouseLeave, AddressOf OnMouseLeave
+        AddHandler Me.MouseLeftButtonDown, AddressOf UpdateSelection
+        AddHandler Me.MouseEnter, AddressOf AddHoverStyle
+        AddHandler Me.MouseLeave, AddressOf RemoveHoverStyle
         BorderBrush = SystemColors.HighlightBrush
         backgroundBrush.Opacity = 0.3
         hoverBrush.Opacity = 0.15
     End Sub
 
-    Private Sub OnMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
+    Private Sub UpdateSelection(sender As Object, e As MouseButtonEventArgs)
         If Not IsEnabled Then Return
 
         DeselectAll()
@@ -86,14 +86,14 @@ Public Class Selectable
         IsSelected = Not IsSelected
     End Sub
 
-    Private Sub OnMouseEnter(sender As Object, e As MouseEventArgs)
+    Private Sub AddHoverStyle(sender As Object, e As MouseEventArgs)
         If IsSelected Then Return
         BorderThickness = New Thickness(1)
         Margin = New Thickness(-1)
         Background = hoverBrush
     End Sub
 
-    Private Sub OnMouseLeave(sender As Object, e As MouseEventArgs)
+    Private Sub RemoveHoverStyle(sender As Object, e As MouseEventArgs)
         If IsSelected Or Not IsEnabled Then Return
         Background = Brushes.Transparent
         BorderThickness = New Thickness(0)
