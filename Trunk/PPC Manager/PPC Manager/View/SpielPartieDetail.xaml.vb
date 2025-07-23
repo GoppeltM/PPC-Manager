@@ -32,6 +32,8 @@ Public Class SpielPartieDetail
 
         SatzEintragen(value, inverted, partie)
 
+        NavigationCommands.Refresh.Execute(Nothing, CType(Application.Current.MainWindow, MainWindow).LiveListe)
+
         SetFocus()
     End Sub
 
@@ -72,6 +74,7 @@ Public Class SpielPartieDetail
 
     Private Sub CommandBinding_Executed_2(sender As Object, e As ExecutedRoutedEventArgs)
         DirectCast(DataContext, SpielPartie).Remove(CType(Sätze.SelectedItem, Satz))
+        NavigationCommands.Refresh.Execute(Nothing, CType(Application.Current.MainWindow, MainWindow).LiveListe)
     End Sub
 
     Private Sub Punkte_PreviewTextInput(sender As Object, e As TextCompositionEventArgs) Handles Punkte.PreviewTextInput
