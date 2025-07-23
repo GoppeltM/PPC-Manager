@@ -323,7 +323,7 @@ Public Class Playoff_Config
             Case FinalMode.Halbfinale
                 TransferPlayers(4)
             Case FinalMode.Finalrunde
-                TransferPlayers(Integer.MaxValue)
+                TransferPlayers(3)
             Case FinalMode.Sieger
                 TransferPlayers(Integer.MaxValue)
         End Select
@@ -350,6 +350,10 @@ Public Class Playoff_Config
                     warning.Text = "Freilose werden verwendet"
                     warning.Background = Brushes.Yellow
                 End If
+            ElseIf mode = FinalMode.Finalrunde And amount > leftList.Count Then
+                warning.Text = "Nicht genug Spieler für das gewählte Finale"
+                warning.Background = Brushes.LightCoral
+                Start.IsEnabled = False
             End If
             amount = leftList.Count
         End If
