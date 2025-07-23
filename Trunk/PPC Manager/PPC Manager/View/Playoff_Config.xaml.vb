@@ -199,6 +199,8 @@ Public Class Playoff_Config
             m.IsChecked = .@ppc:sex.Equals("m")
             w.IsChecked = .@ppc:sex.Equals("w")
             u.IsChecked = .@ppc:sex.Equals("u")
+            birthyearmin.Text = If(If(.@ppc:birthyearMin, .Attribute("age-to").Value), "1900")
+            birthyearmax.Text = If(If(.@ppc:birthyearMax, .Attribute("age-from").Value), "3000")
         End With
 
         Dim compss = CompetitionNode.@ppc:competitions
@@ -234,6 +236,8 @@ Public Class Playoff_Config
             .@ppc:ttrIsMin = min.IsChecked.ToString
             .@ppc:sex = If(m.IsChecked, "m", If(u.IsChecked, "u", "w"))
             .@ppc:competitions = String.Join(";", competitions)
+            .@ppc:birthyearMin = birthyearmin.Text
+            .@ppc:birthyearMax = birthyearmax.Text
         End With
 
         Doc.Save(app.xmlPfad)
@@ -245,16 +249,18 @@ Public Class Playoff_Config
 
         Dim filteredSpieler = LeseSpieler().ToList
 
+        'Klassement Filter
         Dim filter = Turnierfilter.SelectedItems.Cast(Of TabHeader).Select(Function(tab) tab.HeaderText)
-
         If filter.Count > 0 Then
             filteredSpieler = filteredSpieler.Where(Function(x) filter.Contains(x.Klassement)).ToList
         End If
 
+        'Geschlecht Filter
         If Not u.IsChecked Then
             filteredSpieler = filteredSpieler.Where(Function(x) x.Geschlecht = If(m.IsChecked, 1, 0)).ToList
         End If
 
+        'TTR Filter
         Dim ttrValue = -1
         If ttr.IsChecked AndAlso Integer.TryParse(ttrwert.Text, ttrValue) Then
             If min.IsChecked Then
@@ -262,6 +268,17 @@ Public Class Playoff_Config
             Else
                 filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating < ttrValue).ToList
             End If
+        End If
+
+        'Geburtsjahr Filter
+        Dim minyear As Integer = 0
+        If Integer.TryParse(birthyearmin.Text, minyear) Then
+            filteredSpieler = filteredSpieler.Where(Function(x) x.Geburtsjahr >= minyear).ToList
+        End If
+
+        Dim maxyear As Integer = Integer.MaxValue
+        If Integer.TryParse(birthyearmax.Text, maxyear) Then
+            filteredSpieler = filteredSpieler.Where(Function(x) x.Geburtsjahr <= maxyear).ToList
         End If
 
         CType(DataContext, MainWindowContext).Spielerliste = filteredSpieler
@@ -275,9 +292,9 @@ Public Class Playoff_Config
         UpdateFilteredList()
     End Sub
 
-    Private Sub TTR_TextChanged(sender As Object, e As TextChangedEventArgs) Handles ttrwert.TextChanged
+    Private Sub TTR_TextChanged(sender As Object, e As TextChangedEventArgs) Handles ttrwert.TextChanged, birthyearmax.TextChanged, birthyearmin.TextChanged
         'validate text is a number
-        e.Handled = Not Integer.TryParse(ttrwert.Text, Nothing)
+        e.Handled = Not Integer.TryParse(CType(sender, TextBox).Text, Nothing)
 
         'background light red when invalid
         If e.Handled Then
