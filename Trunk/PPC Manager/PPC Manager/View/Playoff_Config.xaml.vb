@@ -372,11 +372,29 @@ Public Class Playoff_Config
 
             ZuXML.AddSpieler(Doc, rightList, app.competition, mode)
 
+            If mode = FinalMode.Finalrunde Then
+                Dim begegnungen = ErzeugeFinalrundeBegegnungen(rightList)
+                app.AktiveCompetition.SpielRunden.Pop()
+                app.AktiveCompetition.SpielRunden.Push(New SpielRunde(begegnungen))
+                ZuXML.SaveXML(app.xmlPfad, app.AktiveCompetition.SpielRegeln, app.competition, app.AktiveCompetition.SpielRunden)
+            End If
+
             CType(app.MainWindow, MainWindow).SkipDialog = True
             app.LadeCompetition(Nothing, app.competition)
         End If
 
     End Sub
+
+    Private Function ErzeugeFinalrundeBegegnungen(spielerListe As List(Of SpielerInfoTurnier)) As List(Of SpielPartie)
+        Dim begegnungen As New List(Of SpielPartie)
+        For i As Integer = 0 To spielerListe.Count - 2
+            For j As Integer = i + 1 To spielerListe.Count - 1
+                Dim partie As New SpielPartie("Finalrunde", spielerListe(i), spielerListe(j))
+                begegnungen.Add(partie)
+            Next
+        Next
+        Return begegnungen
+    End Function
 
     Private Function GetRulesDescription() As String
         Dim modeName As String = "Starte "

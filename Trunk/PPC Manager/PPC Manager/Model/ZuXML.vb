@@ -96,7 +96,12 @@ Public Class ZuXML
             Dim rundenname = 0
             If runde.Count > 0 Then
                 Dim match = runde(0)
-                rundenname = Integer.Parse(match.RundenName.Substring(match.RundenName.IndexOf(" ")))
+                Try
+                    rundenname = Integer.Parse(match.RundenName.Substring(match.RundenName.IndexOf(" ")))
+                Catch ex As Exception
+                    'In der Finalrunde gibt es nur eine Runde und Spieler auszuscheiden macht keinen Sinn
+                    'Den Rundenindex kann man auch nicht herleiten, aber diesen Fehler können wir ignorieren
+                End Try
             End If
 
             For Each x In runde.AusgeschiedeneSpielerIDs
