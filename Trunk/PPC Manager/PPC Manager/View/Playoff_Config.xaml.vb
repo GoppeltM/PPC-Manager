@@ -192,10 +192,8 @@ Public Class Playoff_Config
         With CompetitionNode
             mode = Integer.Parse(.@ppc:finalsmodeSetting)
             modus.SelectedIndex = mode
-            ttr.IsChecked = Boolean.Parse(.@ppc:ttrActive)
-            ttrwert.Text = .@ppc:ttrLimit
-            min.IsChecked = Boolean.Parse(.@ppc:ttrIsMin)
-            max.IsChecked = Boolean.Parse(.@ppc:ttrIsMin) = False
+            ttrmin.Text = If(If(.@ppc:ttrMin, .Attribute("ttr-from").Value), "0")
+            ttrmax.Text = If(If(.@ppc:ttrMax, .Attribute("ttr-to").Value), "3000")
             m.IsChecked = .@ppc:sex.Equals("m")
             w.IsChecked = .@ppc:sex.Equals("w")
             u.IsChecked = .@ppc:sex.Equals("u")
@@ -231,9 +229,8 @@ Public Class Playoff_Config
 
         With CompetitionNode
             .@ppc:finalsmodeSetting = mode.ToString
-            .@ppc:ttrActive = ttr.IsChecked.ToString
-            .@ppc:ttrLimit = ttrwert.Text
-            .@ppc:ttrIsMin = min.IsChecked.ToString
+            .@ppc:ttrMin = ttrmin.Text
+            .@ppc:ttrMax = ttrmax.Text
             .@ppc:sex = If(m.IsChecked, "m", If(u.IsChecked, "u", "w"))
             .@ppc:competitions = String.Join(";", competitions)
             .@ppc:birthyearMin = birthyearmin.Text
@@ -261,13 +258,13 @@ Public Class Playoff_Config
         End If
 
         'TTR Filter
-        Dim ttrValue = -1
-        If ttr.IsChecked AndAlso Integer.TryParse(ttrwert.Text, ttrValue) Then
-            If min.IsChecked Then
-                filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating >= ttrValue).ToList
-            Else
-                filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating < ttrValue).ToList
-            End If
+        Dim ttrMinimum As Integer = 0
+        If Integer.TryParse(ttrmin.Text, ttrMinimum) Then
+            filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating >= ttrMinimum).ToList
+        End If
+        Dim ttrMaximum As Integer = Integer.MaxValue
+        If Integer.TryParse(ttrmax.Text, ttrMaximum) Then
+            filteredSpieler = filteredSpieler.Where(Function(x) x.TTRating <= ttrMaximum).ToList
         End If
 
         'Geburtsjahr Filter
@@ -288,11 +285,11 @@ Public Class Playoff_Config
         SaveFilters()
     End Sub
 
-    Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, u.Checked, min.Checked, max.Checked, ttr.Click
+    Private Sub RadioCheckBoxHandler(sender As Object, e As RoutedEventArgs) Handles m.Checked, w.Checked, u.Checked
         UpdateFilteredList()
     End Sub
 
-    Private Sub TTR_TextChanged(sender As Object, e As TextChangedEventArgs) Handles ttrwert.TextChanged, birthyearmax.TextChanged, birthyearmin.TextChanged
+    Private Sub TTR_TextChanged(sender As Object, e As TextChangedEventArgs) Handles ttrmin.TextChanged, ttrmax.TextChanged, birthyearmax.TextChanged, birthyearmin.TextChanged
         'validate text is a number
         e.Handled = Not Integer.TryParse(CType(sender, TextBox).Text, Nothing)
 
@@ -401,14 +398,10 @@ Public Class Playoff_Config
         ElseIf w.IsChecked Then
             modeName &= "Geschlecht: weiblich" & vbCrLf
         End If
-        If ttr.IsChecked Then
-            modeName &= "TTR-Wert: " & ttrwert.Text & " ("
-            If min.IsChecked Then
-                modeName &= "min)" & vbCrLf
-            ElseIf max.IsChecked Then
-                modeName &= "max)" & vbCrLf
-            End If
-        End If
+
+        modeName &= "TTR-Bereich: " & ttrmin.Text & " - " & ttrmax.Text & vbCrLf
+
+        modeName &= "Jahrgänge: " & birthyearmin.Text & " - " & birthyearmax.Text & vbCrLf
 
         modeName &= "Anzahl Spieler: " & rechteListe.ItemsSource.Cast(Of SpielerInfoTurnier).ToList.Count
 

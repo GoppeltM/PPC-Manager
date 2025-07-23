@@ -96,15 +96,15 @@
             
             <Grid Margin="0 5 0 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
                 
                 <StackPanel Margin="0 0 5 0" Grid.Column="0">
                     <DockPanel>
-                        <fa:FontAwesome Icon="VenusMars" />
+                        <fa:FontAwesome Icon="VenusMars" VerticalAlignment="Center" />
                         <TextBlock x:Name="label2" Text="Geschlecht:" Margin="10 0"/>
                     </DockPanel>
                     <RadioButton VerticalContentAlignment="Center" x:Name="w" HorizontalAlignment="Left" Margin="0 5" GroupName="sex">
@@ -127,38 +127,27 @@
                     </RadioButton>
                 </StackPanel>
                 
-                <StackPanel Margin="5 0" Grid.Column="1">
+                <StackPanel Margin="10 0" Grid.Column="1">
                     <DockPanel>
-                        <fa:FontAwesome Icon="Signal" />
+                        <fa:FontAwesome Icon="Signal" VerticalAlignment="Center" />
                         <TextBlock Text="TTR Limit:" Margin="10 0" />
                     </DockPanel>
-                    <TextBox
-                        Margin="0 0 0 3"
-                        VerticalAlignment="Stretch"
-                        IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                        x:Name="ttrwert" Text="1050"/>
-                    <CheckBox Margin="0 0 0 3" VerticalContentAlignment="Center" x:Name="ttr" Content="aktiv"  />
-                    <RadioButton
-                            VerticalContentAlignment="Center"
-                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                            x:Name="min"  IsChecked="True" GroupName="ttr">
-                        <DockPanel>
-                            <TextBlock Text="&gt;= mindestens" Margin="5 0" />
-                        </DockPanel>
-                    </RadioButton>
-                    <RadioButton
-                            VerticalContentAlignment="Center"
-                            IsEnabled="{Binding IsChecked, ElementName=ttr}"
-                            x:Name="max" GroupName="ttr">
-                        <DockPanel>
-                            <TextBlock Margin="5 0" Text="&lt; maximal" />
-                        </DockPanel>
-                    </RadioButton>
+
+                    <DockPanel Height="20" Margin="0 5 0 0">
+                        <TextBlock Width="30">Von</TextBlock>
+                        <TextBox x:Name="ttrmin" Text="0" VerticalAlignment="Top"/>
+                    </DockPanel>
+
+                    <DockPanel Height="20" Margin="0 5 0 0">
+                        <TextBlock Width="30">Bis</TextBlock>
+                        <TextBox x:Name="ttrmax" Text="3000" VerticalAlignment="Top"/>
+                    </DockPanel>
+
                 </StackPanel>
 
-                <StackPanel Margin="5 0" Grid.Column="2">
+                <StackPanel Margin="10 0" Grid.Column="2">
                     <DockPanel>
-                        <fa:FontAwesome Icon="Calendar" />
+                        <fa:FontAwesome Icon="Calendar" VerticalAlignment="Center" />
                         <TextBlock Text="Jahrgang:" Margin="10 0" />
                     </DockPanel>
 
@@ -174,8 +163,8 @@
 
                     </DockPanel>
 
-                    <DockPanel>
-                        <TextBlock Width="30">Bis</TextBlock>
+                    <DockPanel Height="20" Margin="0 5 0 0">
+                        <TextBlock Width="30" >Bis</TextBlock>
 
                         <DockPanel FlowDirection="RightToLeft">
                             <fa:FontAwesome Icon="InfoCircle" Margin="0 0 3 2" VerticalAlignment="Center" Opacity="0.7" ToolTip="Einschließlich: Personen die in diesem Jahr oder früher geboren sind" />
@@ -189,7 +178,7 @@
 
                 <StackPanel Margin="5 0 0 0" Grid.Column="3">
                     <DockPanel>
-                        <fa:FontAwesome Icon="Group" />
+                        <fa:FontAwesome Icon="Group" VerticalAlignment="Center" />
                         <TextBlock x:Name="label3" Margin="10 0" Text="Klassement:"/>
                     </DockPanel>
 
