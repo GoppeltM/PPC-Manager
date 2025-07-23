@@ -52,6 +52,15 @@
                 VerticalAlignment="Top"
                 Width="120"
                 Height="30" />
+            <Button
+                Grid.Column="1"
+                x:Name="UrkundenDrucken"
+                Content="Urkunden Drucken"
+                HorizontalAlignment="Center"
+                Margin="5,0,0,5"
+                VerticalAlignment="Bottom"
+                Width="120"
+                Height="30" />
         </Grid>
 
         <local:SpielPartienListe x:Name="SpielPartienListe" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 

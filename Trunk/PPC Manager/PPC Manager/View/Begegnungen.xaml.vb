@@ -12,7 +12,6 @@ Class Begegnungen
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
 
-        Dim app = CType(Application.Current.MainWindow, MainWindow)
     End Sub
 
     Private Sub BegegnungenListView_Filter(ByVal sender As System.Object, ByVal e As System.Windows.Data.FilterEventArgs)
@@ -61,4 +60,11 @@ Class Begegnungen
 
         App.LadeCompetition(sender, App.competition)
     End Sub
+
+    Private Sub UrkundenDrucken_Click(sender As Object, e As RoutedEventArgs) Handles UrkundenDrucken.Click
+        Dim dialog = New UrkundeManuellDialog()
+
+        dialog.ShowDialog()
+    End Sub
+
 End Class

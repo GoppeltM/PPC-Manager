@@ -10,7 +10,10 @@ Public Class UrkundeManuellDialog
 
         Try
             Dim app = CType(Application.Current, Application)
-            Spielerliste.ItemsSource = app.AktiveCompetition.SpielerListe
+            Dim liste = app.AktiveCompetition.SpielerListe.ToList
+            liste.Sort(CType(CType(app.MainWindow, MainWindow)._Comparer, IComparer(Of SpielerInfo)))
+            liste.Reverse()
+            Spielerliste.ItemsSource = liste
 
         Catch ex As SpielDatenUnvollständigException
         End Try

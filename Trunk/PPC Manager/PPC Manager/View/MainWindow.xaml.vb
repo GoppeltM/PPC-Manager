@@ -30,6 +30,7 @@ Class MainWindow
     Public ReadOnly _Spielstand As ISpielstand
     Private ReadOnly _DruckEinstellungen As DruckEinstellungen
     Friend ReadOnly _DruckerFabrik As IDruckerFabrik
+    Friend ReadOnly _Comparer As IComparer
     Private Property PlayoffIstAktiv As Boolean = False
 
     Private Property Competition As XElement
@@ -69,6 +70,7 @@ Class MainWindow
         tabControl.ItemsSource = tabs
         tabControl.SelectedIndex = tabs.ToList.FindIndex(Function(tab) tab.HeaderText = klassement)
 
+        _Comparer = spielerVergleicher
         _Controller = controller
         _Spielrunden = spielrunden
         _Spielstand = spielstand
@@ -76,6 +78,12 @@ Class MainWindow
         _DruckEinstellungen = New DruckEinstellungen
         Title = klassement
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
+
+        If mode = FinalMode.Finalrunde Then
+            Begegnungen.NächsteRunde.Visibility = Visibility.Collapsed
+        Else
+            Begegnungen.UrkundenDrucken.Visibility = Visibility.Collapsed
+        End If
 
         If VorrundenUIVisible Then
             Try
