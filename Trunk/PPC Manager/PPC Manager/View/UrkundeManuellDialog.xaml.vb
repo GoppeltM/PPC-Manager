@@ -7,10 +7,9 @@ Public Class UrkundeManuellDialog
     Public Sub New()
         InitializeComponent()
 
-        Vorschau.Datum1.Text = Date.Today.ToShortDateString()
-        Vorschau.Datum2.Text = Date.Today.ToLongDateString()
         txtAustragung.Text = (Date.Today.Year - My.Settings.AustragungOffset).ToString
         txtTurniertitel.Text = My.Settings.Turniertitel
+        DatePicker.SelectedDate = Date.Today
 
         SupressSave = False
 
@@ -114,5 +113,15 @@ Public Class UrkundeManuellDialog
 
         My.Settings.Turniertitel = txtTurniertitel.Text
         My.Settings.Save()
+    End Sub
+
+    Private Sub DateChanged(sender As Object, e As EventArgs) Handles DatePicker.SelectedDateChanged, DatePicker.TextInput
+        If Not DatePicker.SelectedDate.HasValue Then
+            Return
+        End If
+
+        Dim datum = DatePicker.SelectedDate.Value
+        Vorschau.Datum1.Text = datum.ToShortDateString()
+        Vorschau.Datum2.Text = datum.ToLongDateString()
     End Sub
 End Class

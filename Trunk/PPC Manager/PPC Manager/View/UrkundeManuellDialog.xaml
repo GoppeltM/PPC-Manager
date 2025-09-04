@@ -40,6 +40,7 @@
             VerticalAlignment="Center"
             Orientation="Vertical">
 
+            <!-- Turniertitel -->
             <TextBox 
                 Name="txtTurniertitel"
                 AcceptsReturn="True"
@@ -49,6 +50,21 @@
                 TextAlignment="Right"
                 Margin="0 0 0 10"
                 Text="Ping Pong Café&#x0a;Am&#x0a;Platzhalter" />
+
+            <!-- DatePicker -->
+            <StackPanel Orientation="Horizontal" >
+                <DatePicker Name="DatePicker" Margin="0 0 0 10" FontSize="16">
+                    <DatePicker.CalendarStyle>
+                        <Style TargetType="Calendar">
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.CalendarStyle>
+                </DatePicker>
+            </StackPanel>
 
             <!-- Austragung X-->
             <StackPanel Orientation="Horizontal" >
