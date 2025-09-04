@@ -38,12 +38,26 @@
         <StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Grid.Column="0"
             Orientation="Vertical">
+
+            <!-- Austragung X-->
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="anlässlich des " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           TextAlignment="Right"/>
+                <TextBox
+                    Name="txtAustragung"
+                    Width="50"
+                    FontSize="16" 
+                    Margin="0,0,2,0"
+                    VerticalContentAlignment="Center"
+                    Text="J"
+                    />
+                <TextBlock Text=". Turniers" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </StackPanel>
 
             <ListView
                 MaxHeight="500"
-                Margin="0 0 0 25"
+                Margin="0 25 0 25"
                 d:ItemsSource="{d:SampleData ItemCount=50}" x:Name="Spielerliste">
                 <ListView.View>
                     <GridView>
@@ -121,7 +135,7 @@
                 <fa:ImageAwesome Icon="Print" Width="15" Height="15" Margin="5,0,10,0" Foreground="White" />
                 <TextBlock>Drucken</TextBlock>
             </StackPanel>
-            </Button>
+        </Button>
 
     </Grid>
 </Window>

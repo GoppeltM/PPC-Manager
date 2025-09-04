@@ -7,6 +7,7 @@ Public Class UrkundeManuellDialog
 
         Vorschau.Datum1.Text = Date.Today.ToShortDateString()
         Vorschau.Datum2.Text = Date.Today.ToLongDateString()
+        txtAustragung.Text = (Date.Today.Year - My.Settings.AustragungOffset).ToString
 
         Try
             Dim app = CType(Application.Current, Application)
@@ -66,5 +67,30 @@ Public Class UrkundeManuellDialog
 
         End With
 
+    End Sub
+
+    Private Sub TTR_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtAustragung.TextChanged
+        'validate text is a number
+        e.Handled = Not Integer.TryParse(CType(sender, TextBox).Text, Nothing)
+
+        'background light red when invalid
+        If e.Handled Then
+            CType(sender, TextBox).Background = Brushes.LightCoral
+        Else
+            CType(sender, TextBox).Background = Brushes.White
+            UpdateAustragung()
+        End If
+
+    End Sub
+
+    Private Sub UpdateAustragung()
+        If Not Integer.TryParse(txtAustragung.Text, Nothing) Then
+            Return
+        End If
+
+        Dim jahr = Integer.Parse(txtAustragung.Text)
+        My.Settings.AustragungOffset = Date.Today.Year - jahr
+        My.Settings.Save()
+        Vorschau.Austragung.Text = "anlässlich des " & jahr.ToString & ". Turniers"
     End Sub
 End Class

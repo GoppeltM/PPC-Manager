@@ -100,7 +100,8 @@
                 Grid.Row="8"
                 Grid.ColumnSpan="2"
                 FontSize="30" VerticalAlignment="Center"
-                >anlässlich des 25. Turniers</TextBlock>
+                x:Name="Austragung"
+                >anlässlich des J. Turniers</TextBlock>
             <TextBlock
                 Grid.Row="9"
                 Grid.ColumnSpan="2"

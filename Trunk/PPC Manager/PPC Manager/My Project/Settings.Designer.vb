@@ -243,6 +243,18 @@ Option Explicit On
                 Me("CopyCount4") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2000")>  _
+        Public Property AustragungOffset() As Integer
+            Get
+                Return CType(Me("AustragungOffset"),Integer)
+            End Get
+            Set
+                Me("AustragungOffset") = value
+            End Set
+        End Property
     End Class
 
 
