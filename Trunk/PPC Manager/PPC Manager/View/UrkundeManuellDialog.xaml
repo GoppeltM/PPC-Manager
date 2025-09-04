@@ -40,6 +40,16 @@
             VerticalAlignment="Center"
             Orientation="Vertical">
 
+            <TextBox 
+                Name="txtTurniertitel"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                Height="90"
+                FontSize="20"
+                TextAlignment="Right"
+                Margin="0 0 0 10"
+                Text="Ping Pong Café&#x0a;Am&#x0a;Platzhalter" />
+
             <!-- Austragung X-->
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="anlässlich des " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -56,7 +66,8 @@
             </StackPanel>
 
             <ListView
-                MaxHeight="500"
+                MaxHeight="400"
+                MinHeight="100"
                 Margin="0 25 0 25"
                 d:ItemsSource="{d:SampleData ItemCount=50}" x:Name="Spielerliste">
                 <ListView.View>

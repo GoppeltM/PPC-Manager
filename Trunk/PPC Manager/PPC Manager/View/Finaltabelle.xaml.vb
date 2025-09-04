@@ -379,6 +379,7 @@ Public Class Finaltabelle
                 .Datum1.Text = Date.Today.ToShortDateString() & " in"
                 .Datum2.Text = Date.Today.ToLongDateString()
                 .Austragung.Text = "anlässlich des " & (Date.Today.Year - My.Settings.AustragungOffset).ToString & ". Turniers"
+                .Turniertitel.Text = My.Settings.Turniertitel
                 .SpielerName.Text = player.Vorname & " " & player.Nachname
                 .Vereinsname.Text = player.Vereinsname
                 .WettbName.Text = "Im Wettbewerb " & CType(Application.Current, Application).competition

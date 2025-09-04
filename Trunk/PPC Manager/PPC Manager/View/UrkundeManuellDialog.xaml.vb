@@ -2,16 +2,22 @@
 
 Public Class UrkundeManuellDialog
 
+    Private SupressSave As Boolean = True
+
     Public Sub New()
         InitializeComponent()
 
         Vorschau.Datum1.Text = Date.Today.ToShortDateString()
         Vorschau.Datum2.Text = Date.Today.ToLongDateString()
         txtAustragung.Text = (Date.Today.Year - My.Settings.AustragungOffset).ToString
+        txtTurniertitel.Text = My.Settings.Turniertitel
+
+        SupressSave = False
 
         Try
             Dim app = CType(Application.Current, Application)
             Dim liste = app.AktiveCompetition.SpielerListe.ToList
+
             liste.Sort(CType(CType(app.MainWindow, MainWindow)._Comparer, IComparer(Of SpielerInfo)))
             liste.Reverse()
             Spielerliste.ItemsSource = liste
@@ -89,8 +95,24 @@ Public Class UrkundeManuellDialog
         End If
 
         Dim jahr = Integer.Parse(txtAustragung.Text)
+        Vorschau.Austragung.Text = "anlässlich des " & jahr.ToString & ". Turniers"
+
+        If SupressSave Then
+            Return
+        End If
+
         My.Settings.AustragungOffset = Date.Today.Year - jahr
         My.Settings.Save()
-        Vorschau.Austragung.Text = "anlässlich des " & jahr.ToString & ". Turniers"
+    End Sub
+
+    Private Sub TextBox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtTurniertitel.TextChanged
+        Vorschau.Turniertitel.Text = txtTurniertitel.Text
+
+        If SupressSave Then
+            Return
+        End If
+
+        My.Settings.Turniertitel = txtTurniertitel.Text
+        My.Settings.Save()
     End Sub
 End Class

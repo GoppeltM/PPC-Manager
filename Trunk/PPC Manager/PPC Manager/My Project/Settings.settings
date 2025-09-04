@@ -53,5 +53,10 @@
     <Setting Name="AustragungOffset" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2000</Value>
     </Setting>
+    <Setting Name="Turniertitel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ping Pong Café
+Am
+Schelmenbusch</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

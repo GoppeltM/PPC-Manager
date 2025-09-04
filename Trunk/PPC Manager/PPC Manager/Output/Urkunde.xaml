@@ -51,22 +51,16 @@
                 Source="pack://application:,,,/Output/StBarbara.png" />
 
             <TextBlock
+                Name="Turniertitel"
+                TextWrapping="Wrap"
+                LineStackingStrategy="BlockLineHeight"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                TextAlignment="Right" FontSize="56" FontWeight="Bold"
-                >Ping Pong Café</TextBlock>
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                TextAlignment="Right" FontSize="56" FontWeight="Bold"
-                >Am</TextBlock>
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                TextAlignment="Right" FontSize="56" FontWeight="Bold"
-                >Schelmenbusch</TextBlock>
+                Grid.RowSpan="3"
+                TextAlignment="Right" FontSize="56" FontWeight="Bold" LineHeight="66"
+                Text="Ping Pong Café&#x0a;Am&#x0a;Platzhalter"
+                />
+
 
 
             <TextBlock

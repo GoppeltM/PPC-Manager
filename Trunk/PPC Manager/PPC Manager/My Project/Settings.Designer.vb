@@ -255,6 +255,18 @@ Option Explicit On
                 Me("AustragungOffset") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Ping Pong Café"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Am"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Schelmenbusch")>  _
+        Public Property Turniertitel() As String
+            Get
+                Return CType(Me("Turniertitel"),String)
+            End Get
+            Set
+                Me("Turniertitel") = value
+            End Set
+        End Property
     End Class
 
 
