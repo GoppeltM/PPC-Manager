@@ -21,6 +21,10 @@ Public Class Finaltabelle
             playersxml = playersxml.OrderBy(Function(x) x.@ppc:hpos)
         End If
 
+        If mode = FinalMode.Finale Then
+            playersxml = playersxml.OrderBy(Function(x) x.@ppc:fpos)
+        End If
+
         Return playersxml.Select(Function(x) AusXML.SpielerFromXML(x))
 
     End Function
@@ -51,9 +55,14 @@ Public Class Finaltabelle
         UrkundenPlatz3.IsEnabled = False
         UrkundenFinalisten.IsEnabled = False
 
-        If (_mode = FinalMode.Halbfinale) Then
-            GlassBrush.Visibility = Visibility.Visible
-            HatchBrush.Visibility = Visibility.Visible
+        If (_mode = FinalMode.Halbfinale Or _mode = FinalMode.Finale) Then
+            GlassBrushViertelFinale.Visibility = Visibility.Visible
+            HatchBrushViertelFinale.Visibility = Visibility.Visible
+        End If
+
+        If (_mode = FinalMode.Finale) Then
+            GlassBrushHalbFinale.Visibility = Visibility.Visible
+            HatchBrushHalbFinale.Visibility = Visibility.Visible
         End If
 
     End Sub
@@ -96,6 +105,11 @@ Public Class Finaltabelle
             SetHalbFinalDataContext(runde)
 
             runde = If(competition.SpielRunden.Count = 3, competition.SpielRunden.Reverse(2), Nothing)
+            SetFinalDataContext(runde)
+        End If
+
+        If mode = FinalMode.Finale Then
+            Dim runde = If(competition.SpielRunden.Count >= 2, competition.SpielRunden.Reverse(1), NächsteRunde())
             SetFinalDataContext(runde)
         End If
 
@@ -307,6 +321,30 @@ Public Class Finaltabelle
 
         End If
 
+        If mode = FinalMode.Finale Then
+            If competition.SpielRunden.Count = 1 Then
+                mainWindow._Controller.SaveExcel()
+
+                If players.Count <> 2 Then
+                    Throw New Exception("Falsche Anzahl an Spielern, 2 Spieler für Finale benötigt.")
+                End If
+
+                Dim runde = New SpielRunde From {
+                    New SpielPartie("Finale 1", players(0), players(1))
+                }
+
+                SetFinalDataContext(runde)
+
+                competition.SpielRunden.Push(runde)
+                Return runde
+            End If
+
+            If competition.SpielRunden.Count = 2 Then
+                UrkundenFinalisten.IsEnabled = True
+            End If
+
+        End If
+
         Return Nothing
     End Function
 
@@ -352,7 +390,8 @@ Public Class Finaltabelle
 
         If p.ShowDialog Then
 
-            Dim index = If(mode = FinalMode.Viertelfinale, 3, 2)
+            Dim index = If(mode = FinalMode.Viertelfinale, 3,
+                If(mode = FinalMode.Halbfinale, 2, 1))
             Dim finale = competition.SpielRunden.Reverse(index)(0)
 
             Dim playersP2 = New List(Of SpielerInfo) From {

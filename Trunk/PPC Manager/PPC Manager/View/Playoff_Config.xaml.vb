@@ -25,8 +25,8 @@ End Class
 Public Enum FinalMode
     Viertelfinale
     Halbfinale
-    Finalrunde
-    Sieger
+    GruppenEndrunde
+    Finale
 End Enum
 
 
@@ -322,10 +322,10 @@ Public Class Playoff_Config
                 TransferPlayers(8)
             Case FinalMode.Halbfinale
                 TransferPlayers(4)
-            Case FinalMode.Finalrunde
+            Case FinalMode.GruppenEndrunde
                 TransferPlayers(3)
-            Case FinalMode.Sieger
-                TransferPlayers(Integer.MaxValue)
+            Case FinalMode.Finale
+                TransferPlayers(2)
         End Select
     End Sub
 
@@ -350,7 +350,7 @@ Public Class Playoff_Config
                     warning.Text = "Freilose werden verwendet"
                     warning.Background = Brushes.Yellow
                 End If
-            ElseIf mode = FinalMode.Finalrunde And amount > leftList.Count Then
+            ElseIf amount > leftList.Count Then
                 warning.Text = "Nicht genug Spieler für das gewählte Finale"
                 warning.Background = Brushes.LightCoral
                 Start.IsEnabled = False
@@ -372,8 +372,8 @@ Public Class Playoff_Config
 
             ZuXML.AddSpieler(Doc, rightList, app.competition, mode)
 
-            If mode = FinalMode.Finalrunde Then
-                Dim begegnungen = ErzeugeFinalrundeBegegnungen(rightList)
+            If mode = FinalMode.GruppenEndrunde Then
+                Dim begegnungen = ErzeugeGruppenEndrundeBegegnungen(rightList)
                 app.AktiveCompetition.SpielRunden.Pop()
                 app.AktiveCompetition.SpielRunden.Push(New SpielRunde(begegnungen))
                 ZuXML.SaveXML(app.xmlPfad, app.AktiveCompetition.SpielRegeln, app.competition, app.AktiveCompetition.SpielRunden)
@@ -385,7 +385,7 @@ Public Class Playoff_Config
 
     End Sub
 
-    Private Function ErzeugeFinalrundeBegegnungen(spielerListe As List(Of SpielerInfoTurnier)) As List(Of SpielPartie)
+    Private Function ErzeugeGruppenEndrundeBegegnungen(spielerListe As List(Of SpielerInfoTurnier)) As List(Of SpielPartie)
         Dim begegnungen As New List(Of SpielPartie)
         For i As Integer = 0 To spielerListe.Count - 2
             For j As Integer = i + 1 To spielerListe.Count - 1
@@ -403,10 +403,10 @@ Public Class Playoff_Config
                 modeName &= "Viertelfinale"
             Case FinalMode.Halbfinale
                 modeName &= "Halbfinale"
-            Case FinalMode.Finalrunde
-                modeName &= "Finalrunde"
-            Case FinalMode.Sieger
-                modeName &= "Sieger"
+            Case FinalMode.Finale
+                modeName &= "Finale"
+            Case FinalMode.GruppenEndrunde
+                modeName &= "Jeder gegen Jeden"
         End Select
         modeName &= " mit folgender Konfiguration:" & vbCrLf & vbCrLf
         'map selected Items to Names

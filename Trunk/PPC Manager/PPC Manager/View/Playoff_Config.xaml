@@ -75,8 +75,8 @@
                 <ComboBox x:Name="modus" Grid.Column="3" Margin="0,10,0,0" VerticalAlignment="Top" >
                     <ComboBoxItem Content="Viertelfinale"/>
                     <ComboBoxItem Content="Halbfinale"/>
-                    <ComboBoxItem Content="Finalrunde" ToolTip="Jeder gegen Jeden"/>
-                    <ComboBoxItem Content="Kein Finale" ToolTip="Gehe direkt zum Urkundendruck" Visibility="Collapsed"/>
+                    <ComboBoxItem Content="Gruppen-Endrunde" ToolTip="Jeder gegen Jeden"/>
+                    <ComboBoxItem Content="Finale" />
                 </ComboBox>
             </Grid>
             <TextBlock x:Name="warning" Text="Warnung Warnung Warnung" VerticalAlignment="Bottom" />

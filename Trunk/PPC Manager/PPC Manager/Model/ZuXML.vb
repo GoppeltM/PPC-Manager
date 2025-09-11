@@ -33,6 +33,9 @@ Public Class ZuXML
             If mode = FinalMode.Halbfinale Then
                 person.@ppc:hpos = el.Platz.ToString
             End If
+            If mode = FinalMode.Finale Then
+                person.@ppc:fpos = el.Platz.ToString
+            End If
 
 
             SpielerListe.Add(<player type="single" id=<%= el.Id %>>

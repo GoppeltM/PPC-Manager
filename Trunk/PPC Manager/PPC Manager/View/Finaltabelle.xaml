@@ -166,8 +166,11 @@
             </local:Selectable>
             <local:GridTreeConnector Grid.Row="1" Grid.Column="3" Grid.RowSpan="7" />
 
-            <Border Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="#AAFFFFFF" x:Name="GlassBrush" Visibility="Hidden" />
-            <Border Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="{StaticResource DiagonalHatchBrush}" x:Name="HatchBrush" Visibility="Hidden" />
+            <Border Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="#AAFFFFFF" x:Name="GlassBrushViertelFinale" Visibility="Hidden" />
+            <Border Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="{StaticResource DiagonalHatchBrush}" x:Name="HatchBrushViertelFinale" Visibility="Hidden" />
+
+            <Border Grid.Column="2" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="#AAFFFFFF" x:Name="GlassBrushHalbFinale" Visibility="Hidden" />
+            <Border Grid.Column="2" Grid.RowSpan="10" Grid.ColumnSpan="2" Background="{StaticResource DiagonalHatchBrush}" x:Name="HatchBrushHalbFinale" Visibility="Hidden" />
 
         </Grid>
     </Grid>

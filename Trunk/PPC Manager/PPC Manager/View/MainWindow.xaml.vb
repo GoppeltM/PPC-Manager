@@ -63,9 +63,9 @@ Class MainWindow
         Dim finalsmode = Competition.@ppc:finalsmode
         mode = If(finalsmode Is Nothing, -1, Integer.Parse(finalsmode))
 
-        VorrundenUIVisible = spielerliste.Count > 0 And (mode = -1 Or mode > 1)
+        VorrundenUIVisible = spielerliste.Count > 0 And (mode = -1 Or mode = FinalMode.GruppenEndrunde)
         PlayOffConfigVisible = spielerliste.Count = 0
-        PlayOffUIVisible = spielerliste.Count > 0 And (mode = 0 Or mode = 1)
+        PlayOffUIVisible = spielerliste.Count > 0 And (mode = FinalMode.Viertelfinale Or mode = FinalMode.Halbfinale Or mode = FinalMode.Finale)
 
         tabControl.ItemsSource = tabs
         tabControl.SelectedIndex = tabs.ToList.FindIndex(Function(tab) tab.HeaderText = klassement)
@@ -79,7 +79,7 @@ Class MainWindow
         Title = klassement
         If controller Is Nothing Then Throw New ArgumentNullException("controller")
 
-        If mode = FinalMode.Finalrunde Then
+        If mode = FinalMode.GruppenEndrunde Then
             Begegnungen.NächsteRunde.Visibility = Visibility.Collapsed
         Else
             Begegnungen.UrkundenDrucken.Visibility = Visibility.Collapsed
