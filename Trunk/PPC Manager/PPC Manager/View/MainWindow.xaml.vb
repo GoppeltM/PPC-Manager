@@ -243,6 +243,17 @@ Class MainWindow
         End If
 
         e.CanExecute = RundeAbgeschlossen()
+        If e.CanExecute Then
+            Try
+                _Controller.SaveExcel()
+            Catch ex As ExcelNichtBeschreibbarException
+                MessageBox.Show(
+                String.Format("Kein Schreibzugriff auf Excel Datei möglich. Bitte Excel vor Beginn der nächsten Runde schließen!",
+                              _Controller.ExcelPfad),
+                            "Excel offen", MessageBoxButton.OK)
+                Return
+            End Try
+        End If
     End Sub
 
     Private Sub Ausscheiden_CanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
