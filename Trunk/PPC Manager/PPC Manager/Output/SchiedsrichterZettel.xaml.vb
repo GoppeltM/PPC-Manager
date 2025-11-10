@@ -31,7 +31,7 @@ Public Class SchiedsrichterZettel
         Dim height = PageContent.ActualHeight
 
         Dim ItemHeight = 151
-        Dim ItemWidth = 359.055118110236
+        Dim ItemWidth = 330
 
         Dim Columns = CInt(width) \ CInt(ItemWidth)
         Dim Rows = CInt(height) \ CInt(ItemHeight)

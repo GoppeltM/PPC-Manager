@@ -28,7 +28,7 @@ Public Class FixedPageFabrik
 
     Sub SeitenEinstellungenAnwenden(page As FrameworkElement, einstellungen As SeitenEinstellung)
         With einstellungen
-            Dim sz As New Size(.Breite, .Höhe)
+            Dim sz As New Size(.Breite - .AbstandX, .Höhe - .AbstandY)
             page.Width = .Breite
             page.Height = .Höhe
             FixedPage.SetLeft(page, .AbstandX)
@@ -94,10 +94,13 @@ Public Class FixedPageFabrik
     End Function
 
     Friend Function ErzeugeSchiedsrichterZettelSeiten(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSchiedsrichterZettelSeiten
-        Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
+        Dim format As Size
+        With seitenEinstellung
+            format = New Size(.Breite - .AbstandX, .Höhe - .AbstandY)
+        End With
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SchiedsrichterZettel(el, _KlassementName, _SpielRunden.Count - 1, seitenNr)
-        Dim leerControl = ErzeugeUserControl(1, 1, New List(Of SpielPartie))
+        Dim leerControl = ErzeugeUserControl(1, 1, _SpielRunden.Peek)
         Dim leerSeite = SeiteErstellen(leerControl, format)
         Dim elemente = _SpielRunden.Peek.ToList
         Dim maxElemente = leerControl.GetMaxItemCount
@@ -107,7 +110,10 @@ Public Class FixedPageFabrik
     End Function
 
     Friend Function ErzeugePaarungen(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugePaarungen
-        Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
+        Dim format As Size
+        With seitenEinstellung
+            Format = New Size(.Breite - .AbstandX, .Höhe - .AbstandY)
+        End With
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New NeuePaarungen(el,
                                                                                                _KlassementName,
@@ -127,7 +133,10 @@ Public Class FixedPageFabrik
     End Function
 
     Friend Function ErzeugeSpielErgebnisse(seitenEinstellung As SeitenEinstellung) As IEnumerable(Of FixedPage) Implements IFixedPageFabrik.ErzeugeSpielErgebnisse
-        Dim format = New Size(seitenEinstellung.Breite, seitenEinstellung.Höhe)
+        Dim format As Size
+        With seitenEinstellung
+            format = New Size(.Breite - .AbstandX, .Höhe - .AbstandY)
+        End With
         Dim ErzeugeUserControl = Function(seitenNr As Integer, eOffset As Integer,
                                           el As IEnumerable(Of SpielPartie)) New SpielErgebnisse(el,
                                                                                                  _KlassementName,

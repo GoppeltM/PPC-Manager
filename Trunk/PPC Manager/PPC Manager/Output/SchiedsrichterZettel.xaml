@@ -103,8 +103,8 @@
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate x:Name="xxPanel">
-                    <WrapPanel  Name="Test" ItemHeight="151" ItemWidth="359"/>
+                <ItemsPanelTemplate>
+                    <WrapPanel x:Name="SchiedsrichterPanel" ItemHeight="151" ItemWidth="330" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
