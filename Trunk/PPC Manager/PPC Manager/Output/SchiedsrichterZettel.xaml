@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PPC_Manager"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d" d:DesignHeight="1287.179" d:DesignWidth="792.507">
+             d:Background="White"
+             mc:Ignorable="d" d:DesignHeight="1120" d:DesignWidth="792">
     <Grid Name="PageContent" DataContext="{Binding Source=SpielPartien}" d:DataContext="{d:DesignInstance Type=local:DesignSpielPartien, IsDesignTimeCreatable=True}" Margin="20">
         <Grid.Resources>
             <local:SpielPartien x:Key="SpielPartien"/>
@@ -103,7 +104,7 @@
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate x:Name="xxPanel">
-                    <WrapPanel  Name="Test" ItemHeight="4cm" ItemWidth="9.5cm"/>
+                    <WrapPanel  Name="Test" ItemHeight="151" ItemWidth="359"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

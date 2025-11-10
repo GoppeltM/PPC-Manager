@@ -33,8 +33,8 @@ Public Class SchiedsrichterZettel
         Dim ItemHeight = 151
         Dim ItemWidth = 359.055118110236
 
-        Dim Rows = CInt(width) \ CInt(ItemWidth)
-        Dim Columns = CInt(height) \ CInt(ItemHeight)
+        Dim Columns = CInt(width) \ CInt(ItemWidth)
+        Dim Rows = CInt(height) \ CInt(ItemHeight)
 
         Dim total = Rows * Columns
         If total = 0 Then
