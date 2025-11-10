@@ -35,6 +35,9 @@ Public Class DruckEinstellungenDialog
                     Throw New ApplicationException("Nicht gefunden:" & b.Name)
             End Select
         End If
+
+        ' Bring Window to front again
+        Activate()
     End Sub
 
     Private Sub Drucken_Click(sender As Object, e As RoutedEventArgs) Handles Drucken.Click
