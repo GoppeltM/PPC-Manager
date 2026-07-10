@@ -14,9 +14,9 @@ Imports System.Runtime.CompilerServices
 
 <Assembly: AssemblyTitle("PPC Manager")> 
 <Assembly: AssemblyDescription("Zum Verwalten und Durchführen des Ping Pong Café")>
-<Assembly: AssemblyCompany("Marius Goppelt, Nikolaj Kappler")>
+<Assembly: AssemblyCompany("Nikolaj Kappler, Marius Goppelt")>
 <Assembly: AssemblyProduct("PPC Manager")>
-<Assembly: AssemblyCopyright("Marius Goppelt 2010-2022, Nikolaj Kappler 2022 - 2025")>
+<Assembly: AssemblyCopyright("Nikolaj Kappler 2022 - 2026, Marius Goppelt 2010-2022")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(False)>
 
@@ -56,6 +56,6 @@ Imports System.Runtime.CompilerServices
 ' übernehmen, indem Sie "*" eingeben:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.5.4.*")>
-<Assembly: AssemblyFileVersion("1.5.4")>
+<Assembly: AssemblyVersion("1.5.5.*")>
+<Assembly: AssemblyFileVersion("1.5.5")>
 <Assembly: InternalsVisibleTo("PPC Manager Tests")> 
