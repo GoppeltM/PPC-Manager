@@ -89,25 +89,42 @@ Public Class DruckEinstellungen
         Select Case index
             Case 1
                 If Not String.IsNullOrEmpty(My.Settings.PrinterName1) Then
-                    printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName1)
+                    Try
+                        printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName1)
+                    Catch ex As Exception
+                        ' Printer was not found, default printer is the automatic fallback, we don't need to handle this exception
+                    End Try
                     printDialog.PrintTicket.CopyCount = My.Settings.CopyCount1
                     ' Set other properties like PaperSize if needed
                 End If
             Case 2
                 If Not String.IsNullOrEmpty(My.Settings.PrinterName2) Then
-                    printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName2)
+                    Try
+                        printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName2)
+                    Catch ex As Exception
+                        ' Printer was not found, default printer is the automatic fallback, we don't need to handle this exception
+                    End Try
+
                     printDialog.PrintTicket.CopyCount = My.Settings.CopyCount2
                     ' Set other properties like PaperSize if needed
                 End If
             Case 3
                 If Not String.IsNullOrEmpty(My.Settings.PrinterName3) Then
-                    printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName3)
+                    Try
+                        printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName3)
+                    Catch ex As Exception
+                        ' Printer was not found, default printer is the automatic fallback, we don't need to handle this exception
+                    End Try
                     printDialog.PrintTicket.CopyCount = My.Settings.CopyCount3
                     ' Set other properties like PaperSize if needed
                 End If
             Case 4
                 If Not String.IsNullOrEmpty(My.Settings.PrinterName4) Then
-                    printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName4)
+                    Try
+                        printDialog.PrintQueue = New PrintQueue(New PrintServer(), My.Settings.PrinterName4)
+                    Catch ex As Exception
+                        ' Printer was not found, default printer is the automatic fallback, we don't need to handle this exception
+                    End Try
                     printDialog.PrintTicket.CopyCount = My.Settings.CopyCount4
                     ' Set other properties like PaperSize if needed
                 End If
